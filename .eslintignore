@@ -1,4 +1,6 @@
 node_modules/
 jest.config.js
+jest-unit.config.js
 tsconfig.json
 public
+webpack.config.js
