@@ -1,8 +1,8 @@
 const config = require('./jest.config')
-config.testMatch = ['!**/*.test.ts', '**/*.spec.ts']
+config.testMatch = ['<rootDir>/src/**/*.spec.{js,jsx,ts,tsx}']
 config.maxWorkers = 8
 config.displayName = {
   color: 'magenta',
-  name: 'UNIT',
+  name: 'UNIT'
 }
 module.exports = config
