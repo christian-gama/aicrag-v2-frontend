@@ -1,6 +1,7 @@
 {
   "*.{ts,tsx}": [
     "prettier --write",
-    "eslint --fix"
+    "eslint --fix",
+    "yarn test:commit"
   ]
 }
