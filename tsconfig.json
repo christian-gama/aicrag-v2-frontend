@@ -4,7 +4,7 @@
     "target": "ES2015",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "esModuleInterop": true,
-    "module": "ESNext",
+    "module": "CommonJS",
     "moduleResolution": "Node",
     "jsx": "react",
     "rootDirs": ["src", "tests"],
@@ -13,7 +13,9 @@
       "@/*": ["*"]
     },
     "allowJs": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "removeComments": true,
   },
   "include": ["src", "tests"]
 }

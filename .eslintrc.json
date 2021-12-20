@@ -9,15 +9,31 @@
     "es2021": true,
     "jest": true
   },
-  "extends": ["plugin:react/recommended", "standard"],
+  "extends": ["plugin:react/recommended", "standard-with-typescript"],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": ["react", "@typescript-eslint", "import-helpers"],
   "rules": {
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
-    "no-use-before-define": "off"
+    "no-use-before-define": "off",
+    "import-helpers/order-imports": [
+      "warn",
+      {
+        "newlinesBetween": "never",
+        "groups": [
+          "module",
+          "/^@/domain/",
+          "/^@/application/",
+          "/^@/infra/",
+          "/^@/presentation/",
+          "/^@/main/",
+          "/^@/tests/"
+        ],
+        "alphabetize": { "order": "asc", "ignoreCase": true }
+      }
+    ]
   }
 }
