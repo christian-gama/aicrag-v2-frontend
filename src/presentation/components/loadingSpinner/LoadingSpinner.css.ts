@@ -12,13 +12,18 @@ export const loadingSpinnerRecipe = recipe({
     display: 'inline-block',
     animationName: rotate,
     animationIterationCount: 'infinite',
-    animationTimingFunction: 'ease-in-out'
+    animationTimingFunction: 'linear'
   },
+
   variants: {
     size: {
       sm: {
         width: '2.6rem',
         height: '2.6rem'
+      },
+      md: {
+        width: '3.6rem',
+        height: '3.6rem'
       },
       lg: {
         width: '6.7rem',
@@ -35,9 +40,12 @@ export const loadingSpinnerRecipe = recipe({
     },
     speed: {
       slow: {
-        animationDuration: '2s'
+        animationDuration: '1.8s'
       },
       fast: {
+        animationDuration: '0.65s'
+      },
+      normal: {
         animationDuration: '1s'
       }
     },
@@ -57,7 +65,7 @@ export const loadingSpinnerRecipe = recipe({
   defaultVariants: {
     size: 'sm',
     color: 'main',
-    speed: 'fast',
+    speed: 'normal',
     space: 'md'
   }
 })
