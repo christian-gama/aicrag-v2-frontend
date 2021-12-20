@@ -2,6 +2,7 @@ const { resolve } = require('path')
 const { VanillaExtractPlugin } = require('@vanilla-extract/webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: './src/main/index.tsx',
@@ -17,21 +18,38 @@ module.exports = {
     }
   },
   plugins: [
+    new CopyPlugin({
+      patterns: [{ from: 'src/main/assets', to: 'assets' }]
+    }),
     new VanillaExtractPlugin(),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'main-bundle-[hash].css'
+      filename: 'main-bundle-[fullhash].css'
     })
   ],
   module: {
     rules: [
       {
+        test: /\.(jpe?g|gif|png|svg)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000
+            }
+          }
+        ]
+      },
+      {
         test: /\.ts(x?)$/,
-        use: 'ts-loader',
-        exclude: [/node_modules/]
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'swc-loader'
+        }
       },
       {
         test: /\.css$/i,
+        exclude: /(node_modules)/,
         use: [
           MiniCssExtractPlugin.loader,
           {
