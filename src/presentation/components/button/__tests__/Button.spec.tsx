@@ -1,4 +1,5 @@
 import { cleanup, render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
 import Button from '../Button'
 
@@ -13,10 +14,10 @@ describe('Button', () => {
     expect(screen.getByText('Click me')).toBeInTheDocument()
   })
 
-  it('should  have "Loading..." in the document when has loading prop as true', () => {
+  it('should have a svg icon in the document when has loading prop as true', () => {
     render(<Button loading>Click me</Button>)
 
-    expect(screen.getByText('Loading...')).toBeInTheDocument()
+    expect(screen.getByRole('spinbutton')).toBeInTheDocument()
   })
 
   it('should have disabled attribute when has disabled prop as true', () => {
@@ -33,7 +34,8 @@ describe('Button', () => {
       </Button>
     )
 
-    screen.getByText('Click me').click()
+    const button = screen.getByText('Click me')
+    userEvent.click(button)
 
     expect(onClick).not.toHaveBeenCalled()
   })
@@ -42,7 +44,8 @@ describe('Button', () => {
     const onClick = jest.fn()
     render(<Button onClick={onClick}>Click me</Button>)
 
-    screen.getByText('Click me').click()
+    const button = screen.getByText('Click me')
+    userEvent.click(button)
 
     expect(onClick).toHaveBeenCalled()
   })
@@ -55,7 +58,28 @@ describe('Button', () => {
       </Button>
     )
 
-    screen.getByText('Loading...').click()
+    const spinner = screen.getByRole('spinbutton')
+    userEvent.click(spinner)
+
+    expect(onClick).not.toHaveBeenCalled()
+  })
+
+  it('should not execute onClick if loading and has mode as outlined', () => {
+    const onClick = jest.fn()
+    render(
+      <Button
+        loading
+        onClick={onClick}
+        style={{
+          mode: 'outlined'
+        }}
+      >
+        Click me
+      </Button>
+    )
+
+    const spinner = screen.getByRole('spinbutton')
+    userEvent.click(spinner)
 
     expect(onClick).not.toHaveBeenCalled()
   })
@@ -64,7 +88,8 @@ describe('Button', () => {
     const onClick = jest.fn()
     render(<Button onClick={onClick}>Click me</Button>)
 
-    screen.getByText('Click me').click()
+    const button = screen.getByText('Click me')
+    userEvent.click(button)
 
     expect(onClick).toHaveBeenCalled()
   })

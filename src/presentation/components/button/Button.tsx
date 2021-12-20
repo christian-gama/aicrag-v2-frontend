@@ -1,4 +1,5 @@
 import React, { MouseEvent } from 'react'
+import LoadingSpinner from '../loadingSpinner/LoadingSpinner'
 import { buttonRecipe, ButtonVariants } from './Button.css'
 
 interface Props {
@@ -25,11 +26,28 @@ const Button: React.FC<Props> = ({ onClick, style, children, loading, disabled }
     disabled
   })
 
+  const renderChildren = (): React.ReactNode => {
+    if (loading) {
+      return (
+        <LoadingSpinner
+          style={{
+            color: getLoadingColor(style)
+          }}
+        />
+      )
+    }
+
+    return children
+  }
+
   return (
     <button disabled={disabled} onClick={clickHandler} className={className}>
-      {loading ? 'Loading...' : children}
+      {renderChildren()}
     </button>
   )
 }
 
 export default Button
+
+const getLoadingColor = (style: Props['style']): 'white' | 'main' =>
+  !style?.mode || style?.mode === 'contained' ? 'white' : 'main'
