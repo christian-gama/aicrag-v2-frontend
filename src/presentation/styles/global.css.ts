@@ -28,12 +28,13 @@ time, mark, audio, video`,
   }
 )
 
-globalStyle('article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section', {
-  display: 'block'
+globalStyle('html', {
+  fontSize: '10px',
+  lineHeight: '1.5'
 })
 
-globalStyle('body', {
-  lineHeight: '1'
+globalStyle('article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section', {
+  display: 'block'
 })
 
 globalStyle('ol, ul', {
