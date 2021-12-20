@@ -1,8 +1,8 @@
-const { resolve } = require('path')
 const { VanillaExtractPlugin } = require('@vanilla-extract/webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const { resolve } = require('path')
 
 module.exports = {
   entry: './src/main/index.tsx',
