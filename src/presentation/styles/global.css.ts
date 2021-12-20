@@ -30,7 +30,8 @@ time, mark, audio, video`,
 
 globalStyle('html', {
   fontSize: '10px',
-  lineHeight: '1.5'
+  lineHeight: '1.5',
+  fontFamily: 'Open Sans, sans-serif'
 })
 
 globalStyle('article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section', {

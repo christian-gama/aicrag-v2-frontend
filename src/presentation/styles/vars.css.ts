@@ -26,6 +26,10 @@ const font = {
     fontSize: '1.6rem',
     fontFamily: 'Open Sans, sans-serif',
     textTransform: 'uppercase'
+  },
+  hint: {
+    fontSize: '1.4rem',
+    fontFamily: 'Open Sans, sans-serif'
   }
 }
 
@@ -35,7 +39,8 @@ const colors = {
 
   text: {
     dark: '#262A2C',
-    normal: '#363A3C',
+    default: '#363A3C',
+    light: '#7A7D7F',
     placeholder: '#ADB1B5'
   },
 

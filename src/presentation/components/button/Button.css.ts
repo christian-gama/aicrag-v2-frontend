@@ -8,7 +8,10 @@ export const buttonRecipe = recipe({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    border: 'none'
+    border: 'none',
+    fontSize: vars.font.button.fontFamily,
+    fontStyle: vars.font.button.textTransform,
+    fontWeight: vars.font.button.fontSize
   },
 
   variants: {
