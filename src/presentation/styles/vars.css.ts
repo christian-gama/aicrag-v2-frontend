@@ -1,5 +1,10 @@
 import { createGlobalTheme } from '@vanilla-extract/css'
 
+const shadow = {
+  light: '1px 3px 5px rgba(0, 0, 0, 0.2)',
+  dark: '1px 3px 5px rgba(0, 0, 0, 0.4)'
+}
+
 const font = {
   h1: {
     fontSize: '4.8rem',
@@ -90,6 +95,7 @@ const colors = {
 }
 
 export const vars = createGlobalTheme(':root', {
+  colors,
   font,
-  colors
+  shadow
 })
