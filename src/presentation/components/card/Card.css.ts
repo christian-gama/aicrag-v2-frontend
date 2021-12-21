@@ -20,7 +20,25 @@ const cardRecipe = recipe({
         marginRight: 'auto',
         marginLeft: 'auto'
       }
+    },
+    roundness: {
+      sm: {
+        borderRadius: '3px'
+      },
+      md: {
+        borderRadius: '5px'
+      },
+      lg: {
+        borderRadius: '10px'
+      },
+      xl: {
+        borderRadius: '20px'
+      }
     }
+  },
+
+  defaultVariants: {
+    roundness: 'md'
   }
 })
 
