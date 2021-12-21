@@ -25,7 +25,7 @@ export const buttonRecipe = recipe({
       text: {
         backgroundColor: vars.colors.transparent,
         border: 0,
-        color: vars.colors.text.normal
+        color: vars.colors.text.default
       }
     },
     size: {
