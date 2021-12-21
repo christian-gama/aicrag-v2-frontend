@@ -13,7 +13,7 @@ module.exports = merge(common, {
       directory: './public'
     },
     historyApiFallback: true,
-    port: 8080
+    port: 3000
   },
   plugins: [
     new HtmlWebpackPlugin({
