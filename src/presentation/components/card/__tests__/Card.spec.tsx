@@ -1,9 +1,10 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import React from 'react'
 import Card from '../Card'
+import { CardVariants } from '../Card.css'
 
-const makeSut = (centered?: boolean): void => {
-  render(<Card centered={centered} />)
+const makeSut = (style?: { centered?: CardVariants['centered'], roundness?: CardVariants['roundness'] }): void => {
+  render(<Card centered={style?.centered} roundness={style?.roundness} />)
 }
 
 describe('Card', () => {
@@ -20,7 +21,7 @@ describe('Card', () => {
   })
 
   it('should be centered if centered prop is true', () => {
-    makeSut(true)
+    makeSut({ centered: true })
 
     const card = screen.queryByTestId('card')
 
@@ -28,10 +29,26 @@ describe('Card', () => {
   })
 
   it('should not be centered if centered prop is false', () => {
-    makeSut(false)
+    makeSut({ centered: false })
 
     const card = screen.queryByTestId('card')
 
     expect(card).not.toHaveStyle('margin-right: auto; margin-left: auto;')
+  })
+
+  it('should have roundness if roundness prop is set', () => {
+    makeSut({ roundness: 'sm' })
+
+    const card = screen.queryByTestId('card')
+
+    expect(card).toHaveStyle('border-radius: 3px;')
+  })
+
+  it('should have roundness set as md as default', () => {
+    makeSut()
+
+    const card = screen.queryByTestId('card')
+
+    expect(card).toHaveStyle('border-radius: 5px;')
   })
 })
