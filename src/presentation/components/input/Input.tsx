@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { forwardRef, useImperativeHandle, useReducer, useRef } from 'react'
-import IValidation from '@/domain/validation/validation-protocol'
+import IValidator from '@/domain/validators/validator-protocol'
 import EyeIcon from '@/presentation/components/icons/eyeIcon/EyeIcon'
 import { inputClasses, LabelRecipeVariants } from './Input.css'
 import { InputInitialState, InputReducer } from './InputReducer'
@@ -8,7 +8,7 @@ import { InputInitialState, InputReducer } from './InputReducer'
 type InputProps = {
   icon?: React.ReactElement
   label: string
-  validation?: IValidation['validate']
+  validation?: IValidator['validate']
   ref?: React.Ref<HTMLInputElement>
   type?: 'text' | 'email' | 'password' | 'number'
   onChange?: (event: React.InputHTMLAttributes<HTMLInputElement>) => void
