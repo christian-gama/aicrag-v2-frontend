@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { forwardRef, useImperativeHandle, useReducer, useRef } from 'react'
-import IValidator from '@/domain/validators/validator-protocol'
+import IValidator from '@/domain/validators/validator.model'
 import EyeIcon from '@/presentation/components/icons/eyeIcon/EyeIcon'
 import { inputClasses, LabelRecipeVariants } from './Input.css'
 import { InputInitialState, InputReducer } from './InputReducer'
@@ -8,14 +8,14 @@ import { InputInitialState, InputReducer } from './InputReducer'
 type InputProps = {
   icon?: React.ReactElement
   label: string
-  validation?: IValidator['validate']
+  validator?: (value: string) => IValidator
   ref?: React.Ref<HTMLInputElement>
   type?: 'text' | 'email' | 'password' | 'number'
   onChange?: (event: React.InputHTMLAttributes<HTMLInputElement>) => void
 }
 
 const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, onChange, type = 'text', icon, validation }, ref) => {
+  ({ label, onChange, type = 'text', icon, validator }, ref) => {
     const { boxStyle, containerStyle, contentStyle, iconStyle, inputRecipe, labelRecipe, errorStyle } = inputClasses
 
     // Hooks
@@ -32,11 +32,11 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
       dispatch({ type: 'SET_VALUE', payload: { value } })
       dispatch({
         type: 'SET_IS_VALID',
-        payload: { validation: validation?.(value) }
+        payload: { validator: validator?.(value) }
       })
 
       // render error message only if input was already touched to avoid displaying error message while typing
-      if (state.isTouched) dispatch({ type: 'SET_ERROR', payload: { validation: validation?.(value) } })
+      if (state.isTouched) dispatch({ type: 'SET_ERROR', payload: { validator: validator?.(value) } })
 
       onChange?.(event)
     }
@@ -44,7 +44,7 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
     const focusHandler = (event: React.FocusEvent<HTMLInputElement>): void => {
       const value = event.currentTarget.value
 
-      dispatch({ type: 'SET_IS_VALID', payload: { validation: validation?.(value) } })
+      dispatch({ type: 'SET_IS_VALID', payload: { validator: validator?.(value) } })
       dispatch({ type: 'SET_IS_FOCUSED', payload: { isFocused: true } })
     }
 
@@ -53,7 +53,7 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
 
       dispatch({ type: 'SET_IS_FOCUSED', payload: { isFocused: false } })
       dispatch({ type: 'SET_IS_TOUCHED', payload: { isTouched: true } })
-      dispatch({ type: 'SET_ERROR', payload: { validation: validation?.(value) } })
+      dispatch({ type: 'SET_ERROR', payload: { validator: validator?.(value) } })
     }
 
     const showPasswordHandler = (): void =>
@@ -62,7 +62,7 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
         : dispatch({ type: 'SET_TYPE', payload: { type: 'password' } })
 
     const getState = (): LabelRecipeVariants['state'] => {
-      if (validation) {
+      if (validator) {
         if (!state.isValid && state.isTouched) {
           return 'error'
         }

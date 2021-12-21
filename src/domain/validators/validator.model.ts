@@ -1,8 +1,5 @@
 interface IValidator {
-  validate: (value: string) => IValidatorResult
-}
-
-interface IValidatorResult {
+  field: string
   isValid: boolean
   error: string
 }

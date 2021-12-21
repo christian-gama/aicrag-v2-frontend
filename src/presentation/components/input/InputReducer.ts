@@ -2,7 +2,8 @@ type InputAction = {
   type: 'SET_TYPE' | 'SET_ERROR' | 'SET_IS_FOCUSED' | 'SET_IS_TOUCHED' | 'SET_IS_VALID' | 'SET_VALUE'
   payload: {
     type?: 'text' | 'email' | 'password' | 'number'
-    validation?: {
+    validator?: {
+      field?: string
       error?: string
       isValid?: boolean
     }
@@ -34,7 +35,7 @@ const InputReducer = (state: typeof InputInitialState, action: InputAction): typ
     case 'SET_ERROR':
       return {
         ...state,
-        error: payload.validation?.error
+        error: payload.validator?.error
       }
 
     case 'SET_IS_FOCUSED':
@@ -52,7 +53,7 @@ const InputReducer = (state: typeof InputInitialState, action: InputAction): typ
     case 'SET_IS_VALID':
       return {
         ...state,
-        isValid: payload.validation?.isValid
+        isValid: payload.validator?.isValid
       }
 
     case 'SET_VALUE':
