@@ -10,7 +10,7 @@ describe('validateCommentary', () => {
       expect(result).toStrictEqual({
         field: 'commentary',
         isValid: false,
-        error: 'A observação deve ter no máximo 400 caractéres.'
+        error: 'A observação deve ter no máximo 400 caracteres.'
       })
     })
   })
