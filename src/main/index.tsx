@@ -1,8 +1,22 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import '@/presentation/styles/global.css'
-import Button from '@/presentation/components/button/Button'
+import Input from '@/presentation/components/input/Input'
 
-const element = <Button loading>Click me</Button>
+const Element: React.FC = () => {
+  const validation = (value: string): { isValid: boolean, error: string } => {
+    const isValid = value.length > 5
+    return {
+      isValid: isValid,
+      error: isValid ? '' : 'Error'
+    }
+  }
 
-ReactDOM.render(element, document.getElementById('root'))
+  return (
+    <Input label="Teste" type="text" validation={validation}>
+      Click me
+    </Input>
+  )
+}
+
+ReactDOM.render(<Element />, document.getElementById('root'))
