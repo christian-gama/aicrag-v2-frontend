@@ -122,7 +122,19 @@ describe('Input', () => {
       expect(validation).toHaveBeenCalled()
     })
 
-    it('should render an error message onChange only if the input was already touched', () => {
+    it('should not render an error message onChange if the input was not touched', () => {
+      makeSut({ label: 'input', validation: validationMock(false) })
+
+      const input = screen.getByTestId('input-input')
+      userEvent.type(input, 'any_value')
+      fireEvent.change(input, { target: { value: 'any_value' } })
+
+      const error = screen.queryByTestId('input-error')
+
+      expect(error).toBeNull()
+    })
+
+    it('should render an error message onChange if the input was touched and validation fails', () => {
       makeSut({ label: 'input', validation: validationMock(false) })
 
       const input = screen.getByTestId('input-input')

@@ -1,8 +1,9 @@
 /* eslint-disable react/display-name */
-import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react'
+import React, { forwardRef, useImperativeHandle, useReducer, useRef } from 'react'
 import IValidation from '@/domain/validation/validation-protocol'
 import EyeIcon from '@/presentation/components/icons/eyeIcon/EyeIcon'
 import { inputClasses, LabelRecipeVariants } from './Input.css'
+import { InputInitialState, InputReducer } from './InputReducer'
 
 type InputProps = {
   icon?: React.ReactElement
@@ -18,51 +19,55 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
     const { boxStyle, containerStyle, contentStyle, iconStyle, inputRecipe, labelRecipe, errorStyle } = inputClasses
 
     // Hooks
-    const [currentType, setCurrentType] = useState(type)
-    const [error, setError] = useState('')
-    const [isFocused, setIsFocused] = useState(false)
-    const [isTouched, setIsTouched] = useState(false)
-    const [isValid, setIsValid] = useState(false)
-    const [value, setValue] = useState('')
+    const [state, dispatch] = useReducer(InputReducer, InputInitialState, (init) => ({ ...init, currentType: type }))
     const inputRef = useRef<HTMLInputElement>(null)
-    useImperativeHandle(ref, (): any => {
-      return {
-        value
-      }
-    })
+    useImperativeHandle(ref, (): any => ({
+      value: state.value
+    }))
 
     // Handlers
     function changeHandler (event: React.ChangeEvent<HTMLInputElement>): void {
       const value = event.target.value
 
-      setValue(value)
-      setIsValid(validation?.(value).isValid)
-      if (isTouched) setError(validation?.(value).error)
+      dispatch({ type: 'SET_VALUE', payload: { value } })
+      dispatch({
+        type: 'SET_IS_VALID',
+        payload: { validation: validation?.(value) }
+      })
+
+      // render error message only if input was already touched to avoid displaying error message while typing
+      if (state.isTouched) dispatch({ type: 'SET_ERROR', payload: { validation: validation?.(value) } })
 
       onChange?.(event)
     }
 
-    const focusHandler = (): void => {
-      setIsValid(validation?.(value).isValid)
-      setIsFocused(true)
+    const focusHandler = (event: React.FocusEvent<HTMLInputElement>): void => {
+      const value = event.currentTarget.value
+
+      dispatch({ type: 'SET_IS_VALID', payload: { validation: validation?.(value) } })
+      dispatch({ type: 'SET_IS_FOCUSED', payload: { isFocused: true } })
     }
 
-    const blurHandler = (): void => {
-      setIsFocused(false)
-      setIsTouched(true)
-      setError(validation?.(value).error)
+    const blurHandler = (event: React.FocusEvent<HTMLInputElement>): void => {
+      const value = event.currentTarget.value
+
+      dispatch({ type: 'SET_IS_FOCUSED', payload: { isFocused: false } })
+      dispatch({ type: 'SET_IS_TOUCHED', payload: { isTouched: true } })
+      dispatch({ type: 'SET_ERROR', payload: { validation: validation?.(value) } })
     }
 
     const showPasswordHandler = (): void =>
-      currentType === 'password' ? setCurrentType('text') : setCurrentType('password')
+      state.currentType === 'password'
+        ? dispatch({ type: 'SET_TYPE', payload: { type: 'text' } })
+        : dispatch({ type: 'SET_TYPE', payload: { type: 'password' } })
 
     const getState = (): LabelRecipeVariants['state'] => {
       if (validation) {
-        if (!isValid && isTouched) {
+        if (!state.isValid && state.isTouched) {
           return 'error'
         }
 
-        if (isValid) {
+        if (state.isValid) {
           return 'success'
         }
       }
@@ -72,7 +77,7 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
 
     // Styles
     const labelStyle = labelRecipe({
-      float: isFocused || value !== '',
+      float: state.isFocused || state.value !== '',
       state: getState()
     })
 
@@ -102,24 +107,24 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
               onChange={changeHandler}
               onFocus={focusHandler}
               ref={inputRef}
-              type={currentType}
-              value={value}
+              type={state.currentType}
+              value={state.value}
             />
 
             {shouldRenderIcon && (
               <div data-testid={`${label}-icon`} className={iconStyle}>
                 {type !== 'password' && icon}
                 {type === 'password' && (
-                  <EyeIcon showPassword={currentType !== 'password'} onClick={showPasswordHandler} />
+                  <EyeIcon showPassword={state.currentType !== 'password'} onClick={showPasswordHandler} />
                 )}
               </div>
             )}
           </div>
         </div>
 
-        {error && (
+        {state.error && (
           <div data-testid={`${label}-error`} className={errorStyle}>
-            {error}
+            {state.error}
           </div>
         )}
       </div>
