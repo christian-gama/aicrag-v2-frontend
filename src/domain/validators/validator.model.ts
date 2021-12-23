@@ -1,1 +1,3 @@
-export type IValidator = Error | undefined
+type IValidator = (value: string) => Error | undefined
+
+export default IValidator
