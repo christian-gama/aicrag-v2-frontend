@@ -1,5 +1,6 @@
 import faker from 'faker'
-import validateCommentary from '../validateCommentary'
+import { InvalidInputError } from '@/application/errors/InvalidInputError'
+import { validateCommentary } from '../validateCommentary'
 
 describe('validateCommentary', () => {
   describe('failure', () => {
@@ -7,11 +8,7 @@ describe('validateCommentary', () => {
       const commentary = faker.lorem.words(401)
       const result = validateCommentary(commentary)
 
-      expect(result).toStrictEqual({
-        field: 'commentary',
-        isValid: false,
-        error: 'A observação deve ter no máximo 400 caracteres.'
-      })
+      expect(result).toStrictEqual(new InvalidInputError('observação', 'deve ter no máximo 400 caracteres'))
     })
   })
 
@@ -20,11 +17,14 @@ describe('validateCommentary', () => {
       const commentary = faker.lorem.words(1)
       const result = validateCommentary(commentary)
 
-      expect(result).toStrictEqual({
-        field: 'commentary',
-        isValid: true,
-        error: ''
-      })
+      expect(result).toBeUndefined()
+    })
+
+    it('should return the correct result if commentary is empty', () => {
+      const commentary = ''
+      const result = validateCommentary(commentary)
+
+      expect(result).toBeUndefined()
     })
   })
 })

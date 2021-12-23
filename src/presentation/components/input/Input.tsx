@@ -1,11 +1,11 @@
 /* eslint-disable react/display-name */
 import React, { forwardRef, useImperativeHandle, useReducer, useRef } from 'react'
-import IValidator from '@/domain/validators/validator.model'
+import { IValidator } from '@/domain/validators/validator.model'
 import EyeIcon from '@/presentation/components/icons/eyeIcon/EyeIcon'
 import { inputClasses, LabelRecipeVariants } from './Input.css'
 import { InputInitialState, InputReducer } from './InputReducer'
 
-type InputProps = {
+export type InputProps = {
   icon?: React.ReactElement
   label: string
   validator?: (value: string) => IValidator
@@ -14,7 +14,7 @@ type InputProps = {
   onChange?: (event: React.InputHTMLAttributes<HTMLInputElement>) => void
 }
 
-const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
+export const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
   ({ label, onChange, type = 'text', icon, validator }, ref) => {
     const { boxStyle, containerStyle, contentStyle, iconStyle, inputRecipe, labelRecipe, errorStyle } = inputClasses
 
@@ -32,11 +32,11 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
       dispatch({ type: 'SET_VALUE', payload: { value } })
       dispatch({
         type: 'SET_IS_VALID',
-        payload: { validator: validator?.(value) }
+        payload: { error: validator?.(value) }
       })
 
       // render error message only if input was already touched to avoid displaying error message while typing
-      if (state.isTouched) dispatch({ type: 'SET_ERROR', payload: { validator: validator?.(value) } })
+      if (state.isTouched) dispatch({ type: 'SET_ERROR', payload: { error: validator?.(value) } })
 
       onChange?.(event)
     }
@@ -44,7 +44,7 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
     const focusHandler = (event: React.FocusEvent<HTMLInputElement>): void => {
       const value = event.currentTarget.value
 
-      dispatch({ type: 'SET_IS_VALID', payload: { validator: validator?.(value) } })
+      dispatch({ type: 'SET_IS_VALID', payload: { error: validator?.(value) } })
       dispatch({ type: 'SET_IS_FOCUSED', payload: { isFocused: true } })
     }
 
@@ -53,7 +53,7 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
 
       dispatch({ type: 'SET_IS_FOCUSED', payload: { isFocused: false } })
       dispatch({ type: 'SET_IS_TOUCHED', payload: { isTouched: true } })
-      dispatch({ type: 'SET_ERROR', payload: { validator: validator?.(value) } })
+      dispatch({ type: 'SET_ERROR', payload: { error: validator?.(value) } })
     }
 
     const showPasswordHandler = (): void =>
@@ -122,15 +122,12 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
           </div>
         </div>
 
-        {state.error && (
+        {state.errorMessage && (
           <div data-testid={`${label}-error`} className={errorStyle}>
-            {state.error}
+            {state.errorMessage}
           </div>
         )}
       </div>
     )
   }
 )
-
-export { InputProps }
-export default Input

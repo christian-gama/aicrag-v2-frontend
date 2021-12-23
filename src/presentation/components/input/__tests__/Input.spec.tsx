@@ -2,7 +2,7 @@ import validatorMock from '@/../tests/mocks/validator.mock'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import Input, { InputProps } from '../Input'
+import { Input, InputProps } from '../Input'
 
 const makeSut = ({ label, icon, onChange, ref, type, validator }: InputProps): void => {
   render(<Input label={label} icon={icon} onChange={onChange} ref={ref} type={type} validator={validator} />)
@@ -76,6 +76,19 @@ describe('Input', () => {
   })
 
   describe('error handling', () => {
+    it('should clear any error message onBlur if validator succeeds', () => {
+      const validator = jest.fn()
+
+      makeSut({ label: 'input', validator })
+
+      const input = screen.getByTestId('input-input')
+      fireEvent.blur(input)
+
+      const errorMessage = screen.queryByTestId('input-error')
+
+      expect(errorMessage).toBeNull()
+    })
+
     it('should display an error message if validator fails', () => {
       makeSut({ label: 'input', validator: validatorMock(false) })
 
@@ -84,7 +97,7 @@ describe('Input', () => {
 
       const error = screen.getByTestId('input-error')
 
-      expect(error).toHaveTextContent('Error')
+      expect(typeof error.textContent).toBe('string')
     })
 
     it('should not display an error if validator succeds', () => {
@@ -143,7 +156,7 @@ describe('Input', () => {
 
       const error = screen.getByTestId('input-error')
 
-      expect(error).toHaveTextContent('Error')
+      expect(typeof error.textContent).toBe('string')
     })
   })
 })
