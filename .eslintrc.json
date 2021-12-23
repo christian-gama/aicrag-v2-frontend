@@ -18,8 +18,6 @@
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
-    "no-use-before-define": "off",
-    "react/prop-types": "off",
     "import-helpers/order-imports": [
       "warn",
       {
