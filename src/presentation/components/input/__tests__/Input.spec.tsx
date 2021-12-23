@@ -2,7 +2,7 @@ import validatorMock from '@/../tests/mocks/validator.mock'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import { Input, InputProps } from '../Input'
+import Input, { InputProps } from '../Input'
 
 const makeSut = ({ label, icon, onChange, ref, type, validator }: InputProps): void => {
   render(<Input label={label} icon={icon} onChange={onChange} ref={ref} type={type} validator={validator} />)

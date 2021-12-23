@@ -5,7 +5,7 @@ import EyeIcon from '@/presentation/components/icons/eyeIcon/EyeIcon'
 import { inputClasses, LabelRecipeVariants } from './Input.css'
 import { InputInitialState, InputReducer } from './InputReducer'
 
-export type InputProps = {
+type InputProps = {
   icon?: React.ReactElement
   label: string
   validator?: (value: string) => IValidator
@@ -14,7 +14,7 @@ export type InputProps = {
   onChange?: (event: React.InputHTMLAttributes<HTMLInputElement>) => void
 }
 
-export const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
+const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
   ({ label, onChange, type = 'text', icon, validator }, ref) => {
     const { boxStyle, containerStyle, contentStyle, iconStyle, inputRecipe, labelRecipe, errorStyle } = inputClasses
 
@@ -131,3 +131,6 @@ export const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputPro
     )
   }
 )
+
+export default Input
+export { InputProps }

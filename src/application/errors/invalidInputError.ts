@@ -1,6 +1,6 @@
-import { capitalize } from '@/utils/capitalize'
+import capitalize from '@/utils/capitalize'
 
-export class InvalidInputError extends Error {
+class InvalidInputError extends Error {
   public readonly
 
   constructor (public readonly field: string, protected readonly reason: string) {
@@ -9,3 +9,5 @@ export class InvalidInputError extends Error {
     this.name = 'InvalidInputError'
   }
 }
+
+export default InvalidInputError

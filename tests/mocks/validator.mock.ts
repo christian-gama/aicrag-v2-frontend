@@ -1,5 +1,5 @@
 import { IValidator } from '@/domain/validators/validator.model'
-import { InvalidInputError } from '@/application/errors/InvalidInputError'
+import InvalidInputError from '@/application/errors/invalidInputError'
 
 const validatorMock = (isValid: boolean) => {
   return (value: string): IValidator => {

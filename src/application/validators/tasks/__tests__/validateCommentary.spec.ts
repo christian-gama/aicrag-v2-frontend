@@ -1,6 +1,6 @@
 import faker from 'faker'
-import { InvalidInputError } from '@/application/errors/InvalidInputError'
-import { validateCommentary } from '../validateCommentary'
+import InvalidInputError from '@/application/errors/invalidInputError'
+import validateCommentary from '../validateCommentary'
 
 describe('validateCommentary', () => {
   describe('failure', () => {
