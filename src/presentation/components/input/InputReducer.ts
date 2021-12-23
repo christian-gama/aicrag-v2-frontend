@@ -1,3 +1,5 @@
+import { Reducer } from 'react'
+
 type InputAction = {
   type: 'SET_TYPE' | 'SET_ERROR' | 'SET_IS_FOCUSED' | 'SET_IS_TOUCHED' | 'SET_IS_VALID' | 'SET_VALUE'
   payload: {
@@ -18,7 +20,7 @@ const InputInitialState = {
   value: ''
 }
 
-const InputReducer = (state: typeof InputInitialState, action: InputAction): typeof InputInitialState => {
+const InputReducer: Reducer<typeof InputInitialState, InputAction> = (state, action) => {
   const { type, payload } = action
 
   switch (type) {
