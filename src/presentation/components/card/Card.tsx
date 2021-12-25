@@ -4,12 +4,14 @@ import { cardRecipe, CardVariants } from './Card.css'
 type Props = {
   centered?: CardVariants['centered']
   roundness?: CardVariants['roundness']
+  transparent?: CardVariants['transparent']
 }
 
-const Card: React.FC<Props> = ({ children, centered, roundness }) => {
+const Card: React.FC<Props> = ({ children, centered, roundness, transparent }) => {
   const cardStyle = cardRecipe({
     centered,
-    roundness
+    roundness,
+    transparent
   })
 
   return (
