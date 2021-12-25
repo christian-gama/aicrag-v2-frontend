@@ -15,5 +15,5 @@ module.exports = {
     '@/(.*)$': '<rootDir>/src/$1'
   },
   resetMocks: true,
-  setupFilesAfterEnv: ['<rootDir>/src/main/config/jest/jest-dom.ts']
+  setupFilesAfterEnv: ['<rootDir>/tests/config/jest-dom.ts']
 }
