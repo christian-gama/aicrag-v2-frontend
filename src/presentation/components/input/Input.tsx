@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { forwardRef, useImperativeHandle, useReducer, useRef } from 'react'
-import { IValidator } from '@/domain/validators/validator.model'
+import IValidator from '@/application/validators/protocols/validator.model'
 import EyeIcon from '@/presentation/components/icons/eyeIcon/EyeIcon'
 import { inputClasses, LabelRecipeVariants } from './Input.css'
 import { InputInitialState, InputReducer } from './InputReducer'
@@ -8,7 +8,7 @@ import { InputInitialState, InputReducer } from './InputReducer'
 type InputProps = {
   icon?: React.ReactElement
   label: string
-  validator?: (value: string) => IValidator
+  validator?: IValidator
   ref?: React.Ref<HTMLInputElement>
   type?: 'text' | 'email' | 'password' | 'number'
   onChange?: (event: React.InputHTMLAttributes<HTMLInputElement>) => void
@@ -67,6 +67,7 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
           return 'error'
         }
 
+        console.log(state.isValid, state.isTouched)
         if (state.isValid) {
           return 'success'
         }
