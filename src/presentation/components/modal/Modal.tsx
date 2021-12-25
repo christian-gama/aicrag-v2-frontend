@@ -12,7 +12,9 @@ const Modal: React.FC<ModalProps> = ({ isOpen, children, toggleModal }) => {
   return (
     <Backdrop isOpen={isOpen} toggleModal={toggleModal}>
       <Card>
-        <div className={modalStyle}>{children}</div>
+        <div className={modalStyle} data-testid="modal">
+          {children}
+        </div>
       </Card>
     </Backdrop>
   )
@@ -41,7 +43,7 @@ const Backdrop: React.FC<ModalProps> = ({ isOpen, children, toggleModal }) => {
   }, [])
 
   const element = isOpen && (
-    <div className={backdropStyle} onClick={dismissHandler} data-testid="modal">
+    <div className={backdropStyle} onClick={dismissHandler} data-testid="backdrop">
       {children}
     </div>
   )

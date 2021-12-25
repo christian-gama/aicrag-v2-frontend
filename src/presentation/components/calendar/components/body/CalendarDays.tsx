@@ -37,15 +37,16 @@ const CalendarDays: React.FC = () => {
         continue
       }
 
+      const isSelected =
+        date.year === DateTime.fromMillis(selectedDate).year &&
+        date.month === DateTime.fromMillis(selectedDate).month &&
+        date.day === DateTime.fromMillis(selectedDate).day
+
       daysFromCalendar.push(
         <CalendarDayNumber
           testid={`day-${date.toISODate()}`}
           key={date.toISO()}
-          selected={
-            date.year === DateTime.fromMillis(selectedDate).year &&
-            date.month === DateTime.fromMillis(selectedDate).month &&
-            date.day === DateTime.fromMillis(selectedDate).day
-          }
+          selected={isSelected}
           onClick={pickDate}
         >
           {date.day}

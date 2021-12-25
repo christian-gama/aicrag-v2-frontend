@@ -21,7 +21,7 @@ const CalendarDayNumber: React.FC<CalendarDayProps> = ({ testid, onClick, dimmed
   }
 
   return (
-    <span data-testid={testid ?? ''} className={calendarDayStyle} onClick={handleClick}>
+    <span data-testid={testid ?? ''} className={calendarDayStyle} onClick={handleClick} data-selected={selected}>
       {children}
     </span>
   )
