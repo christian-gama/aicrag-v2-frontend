@@ -8,10 +8,10 @@ const chevronIconHitbox = style({
   alignItems: 'center',
   borderRadius: '50%',
   padding: '0.8rem',
-  transition: 'background-color 0.1s ease-in-out',
-  ':hover': {
-    cursor: 'pointer',
-    backgroundColor: vars.colors['gray-100']
+  selectors: {
+    ':hover &': {
+      cursor: 'pointer'
+    }
   }
 })
 
@@ -39,8 +39,8 @@ const chevronIconRecipe = recipe({
       white: {
         fill: vars.colors.white,
         selectors: {
-          '&:hover': {
-            fill: vars.colors['secondary-300']
+          [`${chevronIconHitbox}:hover &`]: {
+            fill: vars.colors['gray-500']
           }
         }
       },
