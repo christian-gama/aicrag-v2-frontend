@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import calendarReducer from './calendarReducer'
+import calendar from './calendar'
 
 const store = configureStore({
   reducer: {
-    calendar: calendarReducer
+    calendar
   }
 })
 

@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { AppDispatch, RootState } from '@/infra/store'
-import { setSelectedDate } from '../../../../../infra/store/calendarReducer'
+import { setSelectedDate } from '../../../../../infra/store/calendar'
 import CalendarDayNumber from './CalendarDayNumber'
 
 const CalendarDays: React.FC = () => {

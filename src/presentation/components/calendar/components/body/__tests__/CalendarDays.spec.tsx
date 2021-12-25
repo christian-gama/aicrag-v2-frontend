@@ -1,21 +1,11 @@
 import render from '@/../tests/config/renderWithProvider'
+import calendarStoreMock from '@/../tests/mocks/calendarStore.mock'
 import { screen, cleanup, fireEvent } from '@testing-library/react'
-import { DateTime } from 'luxon'
 import React from 'react'
-import { RootState } from '@/infra/store'
-import calendarReducer from '@/infra/store/calendarReducer'
 import CalendarDays from '../CalendarDays'
 
 const makeSut = (): void => {
-  const reducer = calendarReducer
-  const preloadedState: RootState = {
-    calendar: {
-      calendarDate: DateTime.local(2022, 1, 1, 0, 0).toMillis(),
-      selectedDate: DateTime.local(2022, 1, 1, 0, 0).toMillis()
-    }
-  }
-
-  render(<CalendarDays />, { preloadedState, reducer })
+  render(<CalendarDays />, { ...calendarStoreMock })
 }
 
 describe('CalendarDays', () => {

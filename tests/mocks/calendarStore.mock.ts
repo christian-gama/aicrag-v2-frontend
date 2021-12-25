@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import { Reducer } from 'react'
 import { RootState } from '@/infra/store'
-import calendarReducer from '@/infra/store/calendarReducer'
+import calendar from '@/infra/store/calendar'
 
 type Store = {
   reducer: Reducer<any, any>
@@ -9,7 +9,7 @@ type Store = {
 }
 
 const calendarStoreMock: Store = {
-  reducer: calendarReducer,
+  reducer: calendar,
   preloadedState: {
     calendar: {
       calendarDate: DateTime.local(2022, 1, 1, 0, 0).toMillis(),
