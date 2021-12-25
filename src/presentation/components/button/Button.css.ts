@@ -9,9 +9,9 @@ export const buttonRecipe = recipe({
     alignItems: 'center',
     justifyContent: 'center',
     border: 'none',
-    fontSize: vars.font.button.fontFamily,
-    fontStyle: vars.font.button.textTransform,
-    fontWeight: vars.font.button.fontSize
+    fontSize: vars.font.button.fontSize,
+    textTransform: vars.font.button.textTransform,
+    fontFamily: vars.font.button.fontFamily
   },
 
   variants: {
@@ -126,6 +126,16 @@ export const buttonRecipe = recipe({
           border: `1px solid ${vars.colors['gray-600']}`,
           color: vars.colors['gray-600'],
           cursor: 'not-allowed'
+        }
+      }
+    },
+    {
+      variants: {
+        mode: 'text'
+      },
+      style: {
+        ':hover': {
+          textDecoration: 'underline'
         }
       }
     }
