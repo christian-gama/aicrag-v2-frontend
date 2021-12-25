@@ -7,7 +7,7 @@ const cardStyle = style({
   borderRadius: '5px',
   maxWidth: 'max-content',
   minWidth: 'min-content',
-  height: '100%'
+  height: 'max-content'
 })
 
 const cardRecipe = recipe({
