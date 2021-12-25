@@ -1,23 +1,21 @@
 import { DateTime } from 'luxon'
-import React, { useState } from 'react'
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { AppDispatch, RootState } from '@/infra/store'
+import { setSelectedDate } from '../../../../../infra/store/calendarReducer'
 import CalendarDayNumber from './CalendarDayNumber'
 
-type CalendarDaysProps = {
-  calendarDate: DateTime
-}
-
-const CalendarDays: React.FC<CalendarDaysProps> = ({ calendarDate }) => {
-  const dateBrazil = DateTime.now()
-  const startDate = calendarDate.startOf('month')
-
-  // Hooks
-  const [selectedDate, setSelectedDate] = useState(dateBrazil)
+const CalendarDays: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>()
+  const calendarDate = useSelector<RootState, number>((state) => state.calendar.calendarDate)
+  const selectedDate = useSelector<RootState, number>((state) => state.calendar.selectedDate)
+  const startDate = DateTime.fromMillis(calendarDate).startOf('month')
 
   // Methods
   const pickDate = (day: number): void => {
-    const pickedDate = calendarDate.set({ day })
+    const pickedDate = DateTime.fromMillis(calendarDate).set({ day }).toMillis()
 
-    setSelectedDate(pickedDate)
+    dispatch(setSelectedDate(pickedDate))
   }
 
   const daysFromCalendar: JSX.Element[] = []
@@ -26,7 +24,7 @@ const CalendarDays: React.FC<CalendarDaysProps> = ({ calendarDate }) => {
       const date = startDate.plus({ days: (week - 1) * 7 + day - startDate.weekday - 1 })
 
       const isDayFromPreviousMonth = week === 1 && day <= startDate.weekday
-      const isDayFromNextMonth = date.month !== calendarDate.month
+      const isDayFromNextMonth = date.month !== DateTime.fromMillis(calendarDate).month
       const shouldBeDimmed = isDayFromPreviousMonth || isDayFromNextMonth
 
       if (shouldBeDimmed) {
@@ -44,7 +42,9 @@ const CalendarDays: React.FC<CalendarDaysProps> = ({ calendarDate }) => {
           testid={`day-${date.toISODate()}`}
           key={date.toISO()}
           selected={
-            date.year === selectedDate.year && date.month === selectedDate.month && date.day === selectedDate.day
+            date.year === DateTime.fromMillis(selectedDate).year &&
+            date.month === DateTime.fromMillis(selectedDate).month &&
+            date.day === DateTime.fromMillis(selectedDate).day
           }
           onClick={pickDate}
         >

@@ -1,22 +1,23 @@
 import writeMonthYear from '@/utils/writeMonthYear'
 import { DateTime } from 'luxon'
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { AppDispatch, RootState } from '@/infra/store'
+import { setCalendarDate } from '../../../../../infra/store/calendarReducer'
 import ChevronIcon from '../../../icons/chevron/ChevronIcon'
 import { CalendarHeaderClasses } from './CalendarHeader.css'
 
-interface CalendarHeaderProps {
-  calendarDate: DateTime
-  setCalendarDate: React.Dispatch<React.SetStateAction<DateTime>>
-}
+const CalendarHeader: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>()
+  const calendarDate = useSelector<RootState, number>((state) => state.calendar.calendarDate)
 
-const CalendarHeader: React.FC<CalendarHeaderProps> = ({ calendarDate, setCalendarDate }) => {
   // Methods
   const handleNextMonth = (): void => {
-    setCalendarDate(calendarDate.plus({ months: 1 }))
+    dispatch(setCalendarDate(DateTime.fromMillis(calendarDate).plus({ months: 1 }).toMillis()))
   }
 
   const handlePreviousMonth = (): void => {
-    setCalendarDate(calendarDate.minus({ months: 1 }))
+    dispatch(setCalendarDate(DateTime.fromMillis(calendarDate).minus({ months: 1 }).toMillis()))
   }
 
   return (
@@ -24,7 +25,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({ calendarDate, setCalend
       <ChevronIcon color="white" direction="left" onClick={handlePreviousMonth} />
 
       <span className={CalendarHeaderClasses.headerDateStyle} data-testid="calendar-header-date">
-        {writeMonthYear(calendarDate.monthLong, calendarDate.year)}
+        {writeMonthYear(DateTime.fromMillis(calendarDate).monthLong, DateTime.fromMillis(calendarDate).year)}
       </span>
 
       <ChevronIcon color="white" direction="right" onClick={handleNextMonth} />

@@ -1,5 +1,5 @@
-import IValidator from '@/domain/validators/validator.model'
 import InvalidInputError from '@/application/errors/invalidInputError'
+import IValidator from '../protocols/validator.model'
 
 const validateCommentary: IValidator = (value) => {
   if (value.length > 400) {
