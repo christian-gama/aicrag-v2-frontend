@@ -8,16 +8,15 @@ const chevronIconHitbox = style({
   alignItems: 'center',
   borderRadius: '50%',
   padding: '0.8rem',
-  selectors: {
-    ':hover &': {
-      cursor: 'pointer'
-    }
+  transition: 'background-color 0.1s ease-in-out',
+  ':hover': {
+    cursor: 'pointer'
   }
 })
 
 const chevronIconRecipe = recipe({
   base: {
-    transition: 'background-color 0.1s ease-in-out'
+    transition: 'fill 0.1s ease-in-out, background-color 0.1s ease-in-out'
   },
 
   variants: {
@@ -40,7 +39,7 @@ const chevronIconRecipe = recipe({
         fill: vars.colors.white,
         selectors: {
           [`${chevronIconHitbox}:hover &`]: {
-            fill: vars.colors['gray-500']
+            fill: vars.colors['gray-400']
           }
         }
       },
@@ -48,7 +47,7 @@ const chevronIconRecipe = recipe({
         fill: vars.colors['secondary-300'],
         selectors: {
           [`${chevronIconHitbox}:hover &`]: {
-            fill: vars.colors['secondary-700']
+            fill: vars.colors['secondary-300']
           }
         }
       }
