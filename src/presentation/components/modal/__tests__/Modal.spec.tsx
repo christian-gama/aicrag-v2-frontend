@@ -22,7 +22,7 @@ describe('Modal', () => {
   it('should render the backdrop', () => {
     makeSut(true, () => {})
 
-    const backdrop = screen.getByTestId('modal')
+    const backdrop = screen.getByTestId('backdrop')
 
     expect(backdrop).toBeInTheDocument()
   })
@@ -37,11 +37,11 @@ describe('Modal', () => {
     expect(toggleModal).toHaveBeenCalled()
   })
 
-  it('should dismiss modal when click backdrop', () => {
+  it('should dismiss modal when click on backdrop', () => {
     const toggleModal = jest.fn()
     makeSut(true, toggleModal)
 
-    const backdrop = screen.getByTestId('modal')
+    const backdrop = screen.getByTestId('backdrop')
     backdrop.dispatchEvent(new MouseEvent('click', { bubbles: true }))
 
     expect(toggleModal).toHaveBeenCalled()
@@ -50,8 +50,37 @@ describe('Modal', () => {
   it('should not render the backdrop when isOpen is false', () => {
     makeSut(false, () => {})
 
-    const modal = screen.queryByTestId('modal')
+    const modal = screen.queryByTestId('backdrop')
 
     expect(modal).not.toBeInTheDocument()
+  })
+
+  it('should keep the modal on the screen if press any other key but escape', () => {
+    const toggleModal = jest.fn()
+    makeSut(true, toggleModal)
+
+    const event = new KeyboardEvent('keydown', { key: 'Enter' })
+    document.dispatchEvent(event)
+
+    expect(toggleModal).not.toHaveBeenCalled()
+  })
+
+  it('should keep the modal on the screen if click on the modal', () => {
+    const toggleModal = jest.fn()
+    makeSut(true, toggleModal)
+
+    const modal = screen.getByTestId('modal')
+    modal.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+
+    expect(toggleModal).not.toHaveBeenCalled()
+  })
+
+  it('should return null if overlay-root does not exist', () => {
+    const container = document.getElementById('overlay-root')
+    container.remove()
+
+    const modal = render(<Modal isOpen={true} toggleModal={() => {}} />)
+
+    expect(modal.container.firstChild).toBeNull()
   })
 })

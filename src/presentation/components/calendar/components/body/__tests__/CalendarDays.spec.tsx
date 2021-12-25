@@ -1,5 +1,5 @@
 import render from '@/../tests/config/renderWithProvider'
-import { screen, cleanup } from '@testing-library/react'
+import { screen, cleanup, fireEvent } from '@testing-library/react'
 import { DateTime } from 'luxon'
 import React from 'react'
 import { RootState } from '@/infra/store'
@@ -71,5 +71,23 @@ describe('CalendarDays', () => {
     allDays.forEach((day) => {
       expect(screen.getByTestId(day)).toBeInTheDocument()
     })
+  })
+
+  it('should select a date when clicking on a day', () => {
+    makeSut()
+
+    fireEvent.click(screen.getByTestId('day-2022-01-01'))
+    const day = screen.getByTestId('day-2022-01-01')
+
+    expect(day).toHaveAttribute('data-selected', 'true')
+  })
+
+  it('should happen nothing when clicking on a dimmed day', () => {
+    makeSut()
+
+    fireEvent.click(screen.getByTestId('day-2021-12-28'))
+    const day = screen.getByTestId('day-2021-12-28')
+
+    expect(day).not.toHaveAttribute('data-selected', 'false')
   })
 })

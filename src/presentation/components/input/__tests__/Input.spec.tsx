@@ -76,6 +76,17 @@ describe('Input', () => {
   })
 
   describe('error handling', () => {
+    it('should return a valid state if has a validator, is valid and is touched', () => {
+      const validator = jest.fn(validatorMock()) as any
+
+      makeSut({ label: 'input', validator })
+
+      const input = screen.getByTestId('input-input')
+      userEvent.type(input, 'any_value')
+
+      expect(validator).toHaveBeenCalledWith('any_value')
+    })
+
     it('should clear any error message onBlur if validator succeeds', () => {
       const validator = jest.fn()
 
