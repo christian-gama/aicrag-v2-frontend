@@ -3,6 +3,7 @@ module.exports = {
     '<rootDir>/src/**/*.{ts,tsx}',
     '!**/node_modules/**',
     '!<rootDir>/src/main/**/*',
+    '!<rootDir>/src/**/store/*',
     '!<rootDir>/src/**/*.css.{ts,tsx}'
   ],
   coverageDirectory: 'coverage',
@@ -15,5 +16,5 @@ module.exports = {
     '@/(.*)$': '<rootDir>/src/$1'
   },
   resetMocks: true,
-  setupFilesAfterEnv: ['<rootDir>/tests/config/jest-dom.ts']
+  setupFilesAfterEnv: ['<rootDir>/tests/config/jestDom.ts']
 }
