@@ -3,7 +3,6 @@ import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { vars } from '@/presentation/styles/vars.css'
 
 const cardStyle = style({
-  backgroundColor: vars.colors.white,
   boxShadow: vars.shadow.light,
   borderRadius: '5px',
   maxWidth: 'max-content',
@@ -34,11 +33,20 @@ const cardRecipe = recipe({
       xl: {
         borderRadius: '20px'
       }
+    },
+    transparent: {
+      true: {
+        backgroundColor: vars.colors.transparent
+      },
+      false: {
+        backgroundColor: vars.colors.white
+      }
     }
   },
 
   defaultVariants: {
-    roundness: 'md'
+    roundness: 'md',
+    transparent: false
   }
 })
 
