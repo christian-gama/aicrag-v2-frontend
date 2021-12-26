@@ -14,10 +14,6 @@ describe('validateHour', () => {
     it('should return an InvalidInputError if the minute is lesser than 0', () => {
       expect(validateHour('-1')).toBeInstanceOf(InvalidInputError)
     })
-
-    it('should return an InvalidInputError if the value is missing', () => {
-      expect(validateHour('')).toBeInstanceOf(InvalidInputError)
-    })
   })
 
   describe('success', () => {
