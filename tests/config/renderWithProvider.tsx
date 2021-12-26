@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { queries, render as rtlRender, RenderOptions } from '@testing-library/react'
+import { queries, render as rtlRender, RenderOptions, RenderResult } from '@testing-library/react'
 import React, { Reducer } from 'react'
 import { Provider } from 'react-redux'
 
@@ -11,7 +11,7 @@ interface Options<T extends Record<string, string>> extends RenderOptions<typeof
 const render = <PreloadedState extends Record<string, any>>(
   ui: JSX.Element,
   options: Options<PreloadedState>
-): void => {
+): RenderResult<typeof queries, HTMLElement> => {
   const { preloadedState, reducer, ...renderOptions } = options
 
   const testStore = configureStore({
@@ -19,7 +19,7 @@ const render = <PreloadedState extends Record<string, any>>(
     reducer
   })
 
-  rtlRender(<Provider store={testStore}>{ui}</Provider>, renderOptions)
+  return rtlRender(<Provider store={testStore}>{ui}</Provider>, renderOptions)
 }
 
 export default render

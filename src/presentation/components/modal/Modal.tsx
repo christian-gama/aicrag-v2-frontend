@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '@/infra/store'
+import { closeModal } from '@/infra/store/modal'
 import Card from '../card/Card'
 import { backdropStyle, modalStyle } from './Modal.css'
 
-interface ModalProps {
-  isOpen: boolean
-  toggleModal: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-const Modal: React.FC<ModalProps> = ({ isOpen, children, toggleModal }) => {
+const Modal: React.FC = ({ children }) => {
   return (
-    <Backdrop isOpen={isOpen} toggleModal={toggleModal}>
+    <Backdrop>
       <Card>
         <div className={modalStyle} data-testid="modal">
           {children}
@@ -20,7 +18,10 @@ const Modal: React.FC<ModalProps> = ({ isOpen, children, toggleModal }) => {
   )
 }
 
-const Backdrop: React.FC<ModalProps> = ({ isOpen, children, toggleModal }) => {
+const Backdrop: React.FC = ({ children }) => {
+  const dispatch = useDispatch<AppDispatch>()
+  const isOpen = useSelector<RootState, boolean>((state) => state.modal.isOpen)
+
   const overlayRoot = document.getElementById('overlay-root')
   if (!overlayRoot) {
     return null
@@ -28,13 +29,13 @@ const Backdrop: React.FC<ModalProps> = ({ isOpen, children, toggleModal }) => {
 
   const dismissHandler = (event: React.MouseEvent): void => {
     if (event.target === event.currentTarget) {
-      toggleModal(false)
+      dispatch(closeModal())
     }
   }
 
   const dismissOnEscape = (event: React.KeyboardEvent<Element> | any): void => {
     if (event.key === 'Escape') {
-      toggleModal(false)
+      dispatch(closeModal())
     }
   }
 
