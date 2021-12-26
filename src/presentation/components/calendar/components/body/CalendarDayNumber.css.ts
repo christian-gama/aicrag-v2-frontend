@@ -9,7 +9,7 @@ const calendarDayRecipe = recipe({
     fontSize: vars.font.hint.fontSize,
     justifyContent: 'center',
     color: vars.colors.text.default,
-    borderRadius: '20px'
+    borderRadius: '16px'
   },
 
   variants: {
@@ -28,11 +28,11 @@ const calendarDayRecipe = recipe({
     },
     selected: {
       true: {
-        backgroundColor: vars.colors['secondary-300'],
-        color: vars.colors.white,
+        border: `2px solid ${vars.colors['secondary-300']}`,
         ':hover': {
           cursor: 'default',
-          backgroundColor: vars.colors['secondary-300']
+          backgroundColor: vars.colors.white,
+          border: `2px solid ${vars.colors['secondary-100']}`
         }
       }
     }
@@ -43,4 +43,4 @@ export const calendarDayClasses = {
   calendarDayRecipe
 }
 
-export type CalendarDayVariants = RecipeVariants<typeof calendarDayRecipe>
+export type CalendarDayVariants = NonNullable<RecipeVariants<typeof calendarDayRecipe>>
