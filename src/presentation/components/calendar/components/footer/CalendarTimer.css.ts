@@ -25,7 +25,7 @@ const calendarTimerHourStyle = style({
   borderRadius: '5px',
   border: `1px solid ${vars.colors['secondary-300']}`,
   textAlign: 'center',
-  transition: 'transform 0.1s ease-in-out, border 0.1s ease-in-out',
+  transition: 'transform 0.1s linear, border 0.1s linear',
   ':active': {
     border: `2px solid ${vars.colors['secondary-300']}`,
     transform: 'scale(1.2)',
