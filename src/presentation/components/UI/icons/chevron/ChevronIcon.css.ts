@@ -80,4 +80,4 @@ export const chevronIconClasses = {
   chevronIconHitbox
 }
 
-export type ChevronIconVariants = RecipeVariants<typeof chevronIconRecipe>
+export type ChevronIconVariants = NonNullable<RecipeVariants<typeof chevronIconRecipe>>

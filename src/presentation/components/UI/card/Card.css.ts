@@ -50,6 +50,6 @@ const cardRecipe = recipe({
   }
 })
 
-export type CardVariants = RecipeVariants<typeof cardRecipe>
+export type CardVariants = NonNullable<RecipeVariants<typeof cardRecipe>>
 
 export { cardRecipe }

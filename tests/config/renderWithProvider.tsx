@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 
 interface Options<T extends Record<string, string>> extends RenderOptions<typeof queries, HTMLElement> {
   preloadedState?: T
-  reducer?: Reducer<any, any>
+  reducer: Reducer<any, any>
 }
 
 const render = <PreloadedState extends Record<string, any>>(

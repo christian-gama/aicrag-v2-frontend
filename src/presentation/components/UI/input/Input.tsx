@@ -67,7 +67,6 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
           return 'error'
         }
 
-        console.log(state.isValid, state.isTouched)
         if (state.isValid) {
           return 'success'
         }

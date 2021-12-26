@@ -152,5 +152,5 @@ export const inputClasses = {
   labelRecipe
 }
 
-export type InputRecipeVariants = RecipeVariants<typeof inputRecipe>
-export type LabelRecipeVariants = RecipeVariants<typeof labelRecipe>
+export type InputRecipeVariants = NonNullable<RecipeVariants<typeof inputRecipe>>
+export type LabelRecipeVariants = NonNullable<RecipeVariants<typeof labelRecipe>>

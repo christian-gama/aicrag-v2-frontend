@@ -1,20 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import '@/presentation/styles/global.css'
-import { Provider } from 'react-redux'
-import store from '@/infra/store'
-import Button from '@/presentation/components/button/Button'
+import { Provider, useDispatch } from 'react-redux'
+import store, { AppDispatch } from '@/infra/store'
+import { openModal } from '@/infra/store/modal'
 import Calendar from '@/presentation/components/calendar/Calendar'
-import Modal from '@/presentation/components/modal/Modal'
+import Button from '@/presentation/components/UI/button/Button'
+import Modal from '@/presentation/components/UI/modal/Modal'
 
 const Element: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const dispatch = useDispatch<AppDispatch>()
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>Abrir modal</Button>
+      <Button onClick={() => dispatch(openModal())}>Abrir modal</Button>
 
-      <Modal isOpen={isOpen} toggleModal={setIsOpen}>
+      <Modal>
         <Calendar />
       </Modal>
     </>

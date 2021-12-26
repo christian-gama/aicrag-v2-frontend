@@ -39,4 +39,4 @@ export const eyeIconClasses = {
   eyeIconRecipe
 }
 
-export type EyeIconVariants = RecipeVariants<typeof eyeIconRecipe>
+export type EyeIconVariants = NonNullable<RecipeVariants<typeof eyeIconRecipe>>

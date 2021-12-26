@@ -149,4 +149,4 @@ export const buttonRecipe = recipe({
   }
 })
 
-export type ButtonVariants = RecipeVariants<typeof buttonRecipe>
+export type ButtonVariants = NonNullable<RecipeVariants<typeof buttonRecipe>>
