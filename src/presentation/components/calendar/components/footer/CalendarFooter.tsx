@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../../../button/Button'
+import Button from '../../../UI/button/Button'
 import { calendarFooterClasses } from './CalendarFooter.css'
 import CalendarTimer from './CalendarTimer'
 

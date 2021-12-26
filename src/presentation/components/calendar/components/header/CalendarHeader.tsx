@@ -4,7 +4,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { AppDispatch, RootState } from '@/infra/store'
 import { setCalendarDate } from '../../../../../infra/store/calendar'
-import ChevronIcon from '../../../icons/chevron/ChevronIcon'
+import ChevronIcon from '../../../UI/icons/chevron/ChevronIcon'
 import { CalendarHeaderClasses } from './CalendarHeader.css'
 
 const CalendarHeader: React.FC = () => {

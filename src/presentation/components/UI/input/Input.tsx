@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import React, { forwardRef, useImperativeHandle, useReducer, useRef } from 'react'
 import IValidator from '@/application/validators/protocols/validator.model'
-import EyeIcon from '@/presentation/components/icons/eyeIcon/EyeIcon'
+import EyeIcon from '@/presentation/components/UI/icons/eyeIcon/EyeIcon'
 import { inputClasses, LabelRecipeVariants } from './Input.css'
 import { InputInitialState, InputReducer } from './InputReducer'
 

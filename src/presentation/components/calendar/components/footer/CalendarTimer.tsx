@@ -1,5 +1,5 @@
 import React from 'react'
-import ClockIcon from '../../../icons/clockIcon/ClockIcon'
+import ClockIcon from '../../../UI/icons/clockIcon/ClockIcon'
 import { calendarTimerClasses } from './CalendarTimer.css'
 
 const CalendarTimer: React.FC = () => {
