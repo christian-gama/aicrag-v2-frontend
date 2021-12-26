@@ -5,7 +5,7 @@ import calendar from '@/infra/store/calendar'
 
 type Store = {
   reducer: Reducer<any, any>
-  preloadedState: RootState
+  preloadedState: Partial<RootState>
 }
 
 const calendarStoreMock: Store = {
