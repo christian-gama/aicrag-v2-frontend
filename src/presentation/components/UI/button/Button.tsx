@@ -12,11 +12,12 @@ interface Props {
   disabled?: ButtonVariants['disabled']
   loading?: boolean
   onClick?: (event?: MouseEvent) => void
+  testid?: string
 }
 
-const Button: React.FC<Props> = ({ onClick, style, children, loading, disabled }: Props) => {
+const Button: React.FC<Props> = ({ onClick, style, children, loading, disabled, testid }: Props) => {
   const clickHandler = (event: MouseEvent): void => {
-    if (disabled || loading) return
+    if (disabled ?? loading) return
 
     onClick?.(event)
   }
@@ -41,7 +42,7 @@ const Button: React.FC<Props> = ({ onClick, style, children, loading, disabled }
   }
 
   return (
-    <button disabled={disabled} onClick={clickHandler} className={className}>
+    <button data-testid={testid} disabled={disabled} onClick={clickHandler} className={className}>
       {renderChildren()}
     </button>
   )
