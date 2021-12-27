@@ -15,7 +15,8 @@
     "test:commit": "yarn test:silent --bail --findRelatedTests",
     "test:silent": "jest --passWithNoTests --silent --noStackTrace --no-cache",
     "test:unit": "yarn test:silent -c jest-unit.config.js",
-    "test:verbose": "jest --passWithNoTests --detectOpenHandles --verbose --no-cache"
+    "test:verbose": "jest --passWithNoTests --detectOpenHandles --verbose --no-cache",
+    "cypress:open": "cypress open"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
@@ -51,6 +52,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^10.2.0",
     "css-loader": "^6.5.1",
+    "cypress": "^9.2.0",
     "eslint": "^7.12.1",
     "eslint-config-standard": "^16.0.3",
     "eslint-config-standard-with-typescript": "^21.0.1",
