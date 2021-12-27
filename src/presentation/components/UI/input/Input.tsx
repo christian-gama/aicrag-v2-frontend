@@ -85,7 +85,7 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
 
     // Styles
     const labelStyle = labelRecipe({
-      float: state.isFocused ?? state.value !== '',
+      float: !!state.isFocused || state.value !== '',
       state: getState()
     })
 
