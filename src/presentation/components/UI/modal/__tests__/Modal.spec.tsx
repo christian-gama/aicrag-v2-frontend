@@ -1,17 +1,20 @@
 import render from '@/../tests/config/renderWithProvider'
 import modalStoreMock from '@/../tests/mocks/modalStore.mock'
+import Maybe from '@/utils/typescript/maybe.model'
 import { cleanup, screen } from '@testing-library/react'
 import React from 'react'
 import Modal from '../Modal'
 
-const makeSut = (isOpen?: boolean): void => {
-  const preloadedState = isOpen !== undefined && { preloadedState: { modal: { isOpen } } }
+const makeSut = (config?: { isOpen?: boolean, onDismiss?: VoidFunction }): void => {
+  const preloadedState = config?.isOpen !== undefined && { preloadedState: { modal: { isOpen: config.isOpen } } }
 
-  render(<Modal />, { ...modalStoreMock, ...preloadedState })
+  render(<Modal onDismiss={config?.onDismiss} />, { ...modalStoreMock, ...preloadedState })
 }
 
 describe('Modal', () => {
-  beforeAll(() => {
+  const overlay = (): Maybe<HTMLElement> => document.getElementById('overlay-root')
+
+  beforeEach(() => {
     const container = document.createElement('div')
     container.setAttribute('id', 'overlay-root')
     document.body.appendChild(container)
@@ -19,6 +22,7 @@ describe('Modal', () => {
 
   afterEach(() => {
     cleanup()
+    overlay()?.remove()
   })
 
   it('should render the backdrop', () => {
@@ -49,7 +53,7 @@ describe('Modal', () => {
   })
 
   it('should not render the backdrop when isOpen is false', () => {
-    makeSut(false)
+    makeSut({ isOpen: false })
 
     const modal = screen.queryByTestId('backdrop')
 
@@ -76,9 +80,28 @@ describe('Modal', () => {
     expect(backdrop).toBeInTheDocument()
   })
 
+  it('should execute onDismiss in onClick event if passed through props', () => {
+    const onDismiss = jest.fn()
+    makeSut({ onDismiss })
+
+    const backdrop = screen.getByTestId('backdrop')
+    backdrop.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+
+    expect(onDismiss).toHaveBeenCalledTimes(1)
+  })
+
+  it('should execute onDismiss when pressing escape if passed through props', () => {
+    const onDismiss = jest.fn()
+    makeSut({ onDismiss })
+
+    const event = new KeyboardEvent('keydown', { key: 'Escape' })
+    document.dispatchEvent(event)
+
+    expect(onDismiss).toHaveBeenCalledTimes(1)
+  })
+
   it('should return null if overlay-root does not exist', () => {
-    const container = document.getElementById('overlay-root')
-    container.remove()
+    overlay()?.remove()
 
     const modal = render(<Modal />, { ...modalStoreMock })
 
