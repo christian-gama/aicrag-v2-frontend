@@ -1,3 +1,3 @@
-type Maybe<T> = T | null | undefined
+type Maybe<T> = T | undefined
 
 export default Maybe
