@@ -11,11 +11,13 @@ type InputProps = {
   validator?: IValidator
   ref?: React.Ref<HTMLInputElement>
   type?: 'text' | 'email' | 'password' | 'number'
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void
   onChange?: (event: React.InputHTMLAttributes<HTMLInputElement>) => void
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void
 }
 
 const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, onChange, type = 'text', icon, validator }, ref) => {
+  ({ label, onChange, type = 'text', icon, validator, onBlur, onFocus }, ref) => {
     const { boxStyle, containerStyle, contentStyle, iconStyle, inputRecipe, labelRecipe, errorStyle } = inputClasses
 
     // Hooks
@@ -38,7 +40,7 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
       // render error message only if input was already touched to avoid displaying error message while typing
       if (state.isTouched) dispatch({ type: 'SET_ERROR', payload: { error: validator?.(value) } })
 
-      onChange?.(event)
+      if (onChange) onChange(event)
     }
 
     const focusHandler = (event: React.FocusEvent<HTMLInputElement>): void => {
@@ -46,6 +48,8 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
 
       dispatch({ type: 'SET_IS_VALID', payload: { error: validator?.(value) } })
       dispatch({ type: 'SET_IS_FOCUSED', payload: { isFocused: true } })
+
+      if (onFocus) onFocus(event)
     }
 
     const blurHandler = (event: React.FocusEvent<HTMLInputElement>): void => {
@@ -54,6 +58,8 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
       dispatch({ type: 'SET_IS_FOCUSED', payload: { isFocused: false } })
       dispatch({ type: 'SET_IS_TOUCHED', payload: { isTouched: true } })
       dispatch({ type: 'SET_ERROR', payload: { error: validator?.(value) } })
+
+      if (onBlur) onBlur(event)
     }
 
     const showPasswordHandler = (): void =>
