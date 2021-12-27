@@ -1,14 +1,14 @@
-import render from '@/../tests/config/renderWithProvider'
-import modalStoreMock from '@/../tests/mocks/modalStore.mock'
 import Maybe from '@/utils/typescript/maybe.model'
-import { cleanup, screen } from '@testing-library/react'
+import { cleanup, render, screen } from '@testing-library/react'
 import React from 'react'
 import Modal from '../Modal'
 
 const makeSut = (config?: { isOpen?: boolean, onDismiss?: VoidFunction }): void => {
-  const preloadedState = config?.isOpen !== undefined && { preloadedState: { modal: { isOpen: config.isOpen } } }
+  if (config?.isOpen === undefined) {
+    config = { ...config, isOpen: true }
+  }
 
-  render(<Modal onDismiss={config?.onDismiss} />, { ...modalStoreMock, ...preloadedState })
+  render(<Modal {...config} />)
 }
 
 describe('Modal', () => {
@@ -36,11 +36,11 @@ describe('Modal', () => {
   it('should dismiss modal when press escape', () => {
     makeSut()
 
+    const backdrop = screen.queryByTestId('backdrop')
     const event = new KeyboardEvent('keydown', { key: 'Escape' })
     document.dispatchEvent(event)
-    const backdrop = screen.queryByTestId('backdrop')
 
-    expect(backdrop).toBeInTheDocument()
+    expect(backdrop).not.toBeInTheDocument()
   })
 
   it('should dismiss modal when click on backdrop', () => {
@@ -49,7 +49,7 @@ describe('Modal', () => {
     const backdrop = screen.getByTestId('backdrop')
     backdrop.dispatchEvent(new MouseEvent('click', { bubbles: true }))
 
-    expect(backdrop).toBeInTheDocument()
+    expect(backdrop).not.toBeInTheDocument()
   })
 
   it('should not render the backdrop when isOpen is false', () => {
@@ -103,7 +103,7 @@ describe('Modal', () => {
   it('should return null if overlay-root does not exist', () => {
     overlay()?.remove()
 
-    const modal = render(<Modal />, { ...modalStoreMock })
+    const modal = render(<Modal />)
 
     expect(modal.container.firstChild).toBeNull()
   })

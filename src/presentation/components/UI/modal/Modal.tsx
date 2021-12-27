@@ -1,41 +1,30 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from '@/infra/store'
-import { closeModal } from '@/infra/store/modal'
 import Card from '../card/Card'
 import { backdropStyle, modalStyle } from './Modal.css'
 
 type ModalProps = {
   onDismiss?: VoidFunction
+  isOpen?: boolean
 }
 
-const Modal: React.FC<ModalProps> = ({ children, onDismiss }) => {
-  return (
-    <Backdrop onDismiss={onDismiss}>
-      <Card>
-        <div className={modalStyle} data-testid="modal">
-          {children}
-        </div>
-      </Card>
-    </Backdrop>
-  )
-}
+const Modal: React.FC<ModalProps> = ({ children, onDismiss, isOpen }) => {
+  const [isOpenState, setIsOpenState] = useState(false)
 
-const Backdrop: React.FC<ModalProps> = ({ children, onDismiss }) => {
-  const dispatch = useDispatch<AppDispatch>()
-  const isOpen = useSelector<RootState, boolean>((state) => state.modal.isOpen)
+  useEffect(() => {
+    setIsOpenState(!!isOpen)
+  }, [isOpen])
 
   const overlayRoot = document.getElementById('overlay-root')
   if (!overlayRoot) {
     return null
   }
 
-  const dismissHandler = (event: React.MouseEvent): void => {
+  const dismissOnClick = (event: React.MouseEvent): void => {
     if (event.target === event.currentTarget) {
       if (onDismiss) onDismiss()
 
-      dispatch(closeModal())
+      setIsOpenState(false)
     }
   }
 
@@ -43,7 +32,7 @@ const Backdrop: React.FC<ModalProps> = ({ children, onDismiss }) => {
     if (event.key === 'Escape') {
       if (onDismiss) onDismiss()
 
-      dispatch(closeModal())
+      setIsOpenState(false)
     }
   }
 
@@ -51,9 +40,13 @@ const Backdrop: React.FC<ModalProps> = ({ children, onDismiss }) => {
     document.addEventListener('keydown', dismissOnEscape)
   }, [])
 
-  const element = isOpen && (
-    <div className={backdropStyle} onClick={dismissHandler} data-testid="backdrop">
-      {children}
+  const element = isOpenState && (
+    <div className={backdropStyle} onClick={dismissOnClick} data-testid="backdrop">
+      <Card>
+        <div className={modalStyle} data-testid="modal">
+          {children}
+        </div>
+      </Card>
     </div>
   )
 

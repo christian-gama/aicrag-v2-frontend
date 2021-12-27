@@ -2,10 +2,16 @@ import { style } from '@vanilla-extract/css'
 
 export const backdropStyle = style({
   position: 'fixed',
-  backgroundColor: 'rgba(0, 0, 0, 0.6)',
   zIndex: '10',
   width: '100vw',
-  height: '100vh'
+  height: '100vh',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  '@supports': {
+    '(webkitBackdropFilter: none) or (backdrop-filter: none)': {
+      WebkitBackdropFilter: 'blur(2px)',
+      backdropFilter: 'blur(2px)'
+    }
+  }
 })
 
 export const modalStyle = style({
