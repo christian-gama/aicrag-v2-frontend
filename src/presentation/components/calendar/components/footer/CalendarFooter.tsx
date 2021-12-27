@@ -1,20 +1,23 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from '@/infra/store'
-import { closeModal } from '@/infra/store/modal'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '@/infra/store'
+import { resetCalendar, saveCalendar, closeCalendar } from '@/infra/store/calendar'
 import Button from '../../../UI/button/Button'
 import { calendarFooterClasses } from './CalendarFooter.css'
 import CalendarTimer from './CalendarTimer'
 
 export const CalendarFooter: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
+  const selectedDate = useSelector<RootState, number>((state) => state.calendar.selectedDate)
 
   const cancelHandler = (): void => {
-    dispatch(closeModal())
+    dispatch(resetCalendar())
+    dispatch(closeCalendar())
   }
 
   const confirmHandler = (): void => {
-    dispatch(closeModal())
+    dispatch(saveCalendar(selectedDate))
+    dispatch(closeCalendar())
   }
 
   return (

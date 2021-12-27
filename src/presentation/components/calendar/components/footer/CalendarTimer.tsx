@@ -1,16 +1,30 @@
 import getFormattedTime from '@/utils/getFormattedTime'
 import timerIncreaser from '@/utils/timerIncreaser'
-import React, { useState } from 'react'
+import { DateTime } from 'luxon'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import validateHour from '@/application/validators/tasks/validateHour'
 import validateMinute from '@/application/validators/tasks/validateMinute'
+import { AppDispatch, RootState } from '@/infra/store'
+import { setSelectedDate } from '@/infra/store/calendar'
 import ClockIcon from '../../../UI/icons/clockIcon/ClockIcon'
 import { calendarTimerClasses } from './CalendarTimer.css'
 
 const CalendarTimer: React.FC = () => {
-  const now = new Date()
+  const dispatch = useDispatch<AppDispatch>()
+  const selectedDate = useSelector<RootState, number>((state) => state.calendar.selectedDate)
 
-  const [hours, setHours] = useState(getFormattedTime(now.getHours()))
-  const [minutes, setMinutes] = useState(getFormattedTime(now.getMinutes()))
+  const [hours, setHours] = useState(getFormattedTime(DateTime.fromMillis(selectedDate).hour))
+  const [minutes, setMinutes] = useState(getFormattedTime(DateTime.fromMillis(selectedDate).minute))
+
+  useEffect(() => {
+    const transformedTime = DateTime.fromMillis(selectedDate)
+      .set({ hour: +hours })
+      .set({ minute: +minutes })
+      .toMillis()
+
+    dispatch(setSelectedDate(transformedTime))
+  }, [hours, minutes, selectedDate])
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target

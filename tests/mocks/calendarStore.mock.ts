@@ -13,7 +13,9 @@ const calendarStoreMock: Store = {
   preloadedState: {
     calendar: {
       calendarDate: DateTime.local(2022, 1, 1, 0, 0).toMillis(),
-      selectedDate: DateTime.local(2022, 1, 1, 0, 0).toMillis()
+      selectedDate: DateTime.local(2022, 1, 1, 0, 0).toMillis(),
+      previousDate: DateTime.local(2022, 1, 1, 0, 0).toMillis(),
+      isCalendarOpen: true
     }
   }
 }
