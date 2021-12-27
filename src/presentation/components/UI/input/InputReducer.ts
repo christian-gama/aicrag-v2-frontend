@@ -1,10 +1,11 @@
 import { Reducer } from 'react'
+import Optional from '@/application/utils/typescript/optional.model'
 
 type InputAction = {
   type: 'SET_TYPE' | 'SET_ERROR' | 'SET_IS_FOCUSED' | 'SET_IS_TOUCHED' | 'SET_IS_VALID' | 'SET_VALUE'
   payload: {
     type?: 'text' | 'email' | 'password' | 'number'
-    error?: Error
+    error?: string
     value?: string
     isFocused?: boolean
     isTouched?: boolean
@@ -12,15 +13,15 @@ type InputAction = {
 }
 
 const InputInitialState = {
-  currentType: 'text',
-  errorMessage: undefined,
+  currentType: 'text' as InputAction['payload']['type'],
+  error: undefined as InputAction['payload']['error'],
   isFocused: false,
   isTouched: false,
   isValid: false,
   value: ''
 }
 
-const InputReducer: Reducer<typeof InputInitialState, InputAction> = (state, action) => {
+const InputReducer: Reducer<Optional<typeof InputInitialState>, InputAction> = (state, action) => {
   const { type, payload } = action
 
   switch (type) {
@@ -33,7 +34,7 @@ const InputReducer: Reducer<typeof InputInitialState, InputAction> = (state, act
     case 'SET_ERROR':
       return {
         ...state,
-        errorMessage: payload.error?.message
+        error: payload.error
       }
 
     case 'SET_IS_FOCUSED':

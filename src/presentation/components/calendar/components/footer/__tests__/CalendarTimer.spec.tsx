@@ -3,10 +3,11 @@ import calendarStoreMock from '@/../tests/mocks/calendarStore.mock'
 import { cleanup, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
+import makeTimerValidator from '@/main/factories/validation/makeTimerValidator'
 import CalendarTimer from '../CalendarTimer'
 
 const makeSut = (): void => {
-  render(<CalendarTimer />, { ...calendarStoreMock })
+  render(<CalendarTimer validation={makeTimerValidator()} />, { ...calendarStoreMock })
 }
 
 describe('CalendarTime', () => {
@@ -27,7 +28,7 @@ describe('CalendarTime', () => {
       const hourInput = screen.getByTestId('calendar-hour')
       userEvent.type(hourInput, '{backspace}{backspace}a1')
 
-      expect(hourInput).toHaveValue('1')
+      expect(hourInput).toHaveValue('01')
     })
 
     it('should update the minute input value if onChange value is valid', () => {
@@ -36,7 +37,7 @@ describe('CalendarTime', () => {
       const minuteInput = screen.getByTestId('calendar-minute')
       userEvent.type(minuteInput, '{backspace}{backspace}a1')
 
-      expect(minuteInput).toHaveValue('1')
+      expect(minuteInput).toHaveValue('01')
     })
   })
 

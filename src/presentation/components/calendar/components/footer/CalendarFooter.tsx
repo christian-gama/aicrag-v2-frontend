@@ -1,12 +1,17 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import IValidation from '@/domain/validation/validation.model'
 import { AppDispatch, RootState } from '@/infra/store'
 import { resetCalendar, saveCalendar, closeCalendar } from '@/infra/store/calendar'
 import Button from '../../../UI/button/Button'
 import { calendarFooterClasses } from './CalendarFooter.css'
 import CalendarTimer from './CalendarTimer'
 
-export const CalendarFooter: React.FC = () => {
+type CalendarFooterProps = {
+  validation: IValidation
+}
+
+export const CalendarFooter: React.FC<CalendarFooterProps> = ({ validation }) => {
   const dispatch = useDispatch<AppDispatch>()
   const selectedDate = useSelector<RootState, number>((state) => state.calendar.selectedDate)
 
@@ -22,7 +27,7 @@ export const CalendarFooter: React.FC = () => {
 
   return (
     <div className={calendarFooterClasses.calendarFooterStyle} data-testid="calendar-footer">
-      <CalendarTimer />
+      <CalendarTimer validation={validation} />
 
       <div className={calendarFooterClasses.calendarButtonContainer}>
         <Button testid="cancel-button" style={{ mode: 'text', size: 'sm' }} onClick={cancelHandler}>

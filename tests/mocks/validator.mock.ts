@@ -1,20 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-boolean-literal-compare */
-import InvalidInputError from '@/application/errors/invalidInputError'
-import IValidator from '@/application/validators/protocols/validator.model'
+import IValidation from '@/domain/validation/validation.model'
+import Maybe from '@/application/utils/typescript/maybe.model'
 
-const validatorMock = (isValid?: boolean): IValidator => {
-  return (value: string) => {
-    if (isValid === false) {
-      return new InvalidInputError('any_field', 'any_reason')
-    }
-
-    if (isValid === true) {
-      return undefined
-    }
-
-    if (value !== 'any_value') {
-      return new InvalidInputError('any_field', 'any_reason')
+const makeValidationMock = (isValid: boolean): IValidation => {
+  class ValidatorMock implements IValidation {
+    validate (field: string, input: Record<string, any>): Maybe<string> {
+      return isValid ? undefined : 'Error'
     }
   }
+
+  return new ValidatorMock()
 }
-export default validatorMock
+
+export default makeValidationMock

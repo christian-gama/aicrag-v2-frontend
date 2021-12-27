@@ -1,16 +1,19 @@
-import getFormattedTime from '@/utils/getFormattedTime'
-import timerIncreaser from '@/utils/timerIncreaser'
 import { DateTime } from 'luxon'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import validateHour from '@/application/validators/tasks/validateHour'
-import validateMinute from '@/application/validators/tasks/validateMinute'
+import IValidation from '@/domain/validation/validation.model'
+import getFormattedTime from '@/application/utils/getFormattedTime'
+import timerIncreaser from '@/application/utils/timerIncreaser'
 import { AppDispatch, RootState } from '@/infra/store'
 import { setSelectedDate } from '@/infra/store/calendar'
 import ClockIcon from '../../../UI/icons/clockIcon/ClockIcon'
 import { calendarTimerClasses } from './CalendarTimer.css'
 
-const CalendarTimer: React.FC = () => {
+type CalendarTimerProps = {
+  validation: IValidation
+}
+
+const CalendarTimer: React.FC<CalendarTimerProps> = ({ validation }) => {
   const dispatch = useDispatch<AppDispatch>()
   const selectedDate = useSelector<RootState, number>((state) => state.calendar.selectedDate)
 
@@ -31,10 +34,11 @@ const CalendarTimer: React.FC = () => {
 
     switch (name) {
       case 'calendar-hour':
-        return !validateHour(value) ? setHours(value) : undefined
+        console.log(validation.validate('hora', { hora: value }))
+        return !validation.validate('hora', { hora: value }) ? setHours(value) : undefined
 
       case 'calendar-minute':
-        return !validateMinute(value) ? setMinutes(value) : undefined
+        return !validation.validate('minuto', { minuto: value }) ? setMinutes(value) : undefined
     }
   }
 

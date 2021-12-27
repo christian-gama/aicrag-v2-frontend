@@ -1,6 +1,6 @@
-import capitalize from '@/utils/capitalize'
+import capitalize from '@/application/utils/capitalize'
 
-class InvalidInputError extends Error {
+class InvalidFieldError extends Error {
   constructor (public readonly field: string, protected readonly reason: string) {
     super(`${capitalize(field)} inválido: ${reason}.`)
 
@@ -8,4 +8,4 @@ class InvalidInputError extends Error {
   }
 }
 
-export default InvalidInputError
+export default InvalidFieldError

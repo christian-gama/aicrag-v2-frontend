@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { forwardRef, useImperativeHandle, useReducer, useRef } from 'react'
-import IValidator from '@/application/validators/protocols/validator.model'
+import IValidation from '@/domain/validation/validation.model'
 import EyeIcon from '@/presentation/components/UI/icons/eyeIcon/EyeIcon'
 import { inputClasses, LabelRecipeVariants } from './Input.css'
 import { InputInitialState, InputReducer } from './InputReducer'
@@ -8,7 +8,7 @@ import { InputInitialState, InputReducer } from './InputReducer'
 type InputProps = {
   icon?: React.ReactElement
   label: string
-  validator?: IValidator
+  validation?: IValidation
   ref?: React.Ref<HTMLInputElement>
   type?: 'text' | 'email' | 'password' | 'number'
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void
@@ -17,7 +17,7 @@ type InputProps = {
 }
 
 const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, onChange, type = 'text', icon, validator, onBlur, onFocus }, ref) => {
+  ({ label, onChange, type = 'text', icon, validation, onBlur, onFocus }, ref) => {
     const { boxStyle, containerStyle, contentStyle, iconStyle, inputRecipe, labelRecipe, errorStyle } = inputClasses
 
     // Hooks
@@ -34,11 +34,13 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
       dispatch({ type: 'SET_VALUE', payload: { value } })
       dispatch({
         type: 'SET_IS_VALID',
-        payload: { error: validator?.(value) }
+        payload: { error: validation?.validate(label, { [label]: value }) }
       })
 
       // render error message only if input was already touched to avoid displaying error message while typing
-      if (state.isTouched) dispatch({ type: 'SET_ERROR', payload: { error: validator?.(value) } })
+      if (state.isTouched) {
+        dispatch({ type: 'SET_ERROR', payload: { error: validation?.validate(label, { [label]: value }) } })
+      }
 
       if (onChange) onChange(event)
     }
@@ -46,7 +48,7 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
     const focusHandler = (event: React.FocusEvent<HTMLInputElement>): void => {
       const value = event.currentTarget.value
 
-      dispatch({ type: 'SET_IS_VALID', payload: { error: validator?.(value) } })
+      dispatch({ type: 'SET_IS_VALID', payload: { error: validation?.validate(label, { [label]: value }) } })
       dispatch({ type: 'SET_IS_FOCUSED', payload: { isFocused: true } })
 
       if (onFocus) onFocus(event)
@@ -57,7 +59,7 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
 
       dispatch({ type: 'SET_IS_FOCUSED', payload: { isFocused: false } })
       dispatch({ type: 'SET_IS_TOUCHED', payload: { isTouched: true } })
-      dispatch({ type: 'SET_ERROR', payload: { error: validator?.(value) } })
+      dispatch({ type: 'SET_ERROR', payload: { error: validation?.validate(label, { [label]: value }) } })
 
       if (onBlur) onBlur(event)
     }
@@ -68,7 +70,7 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
         : dispatch({ type: 'SET_TYPE', payload: { type: 'password' } })
 
     const getState = (): LabelRecipeVariants['state'] => {
-      if (validator) {
+      if (validation) {
         if (!state.isValid && state.isTouched) {
           return 'error'
         }
@@ -83,7 +85,7 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
 
     // Styles
     const labelStyle = labelRecipe({
-      float: state.isFocused || state.value !== '',
+      float: state.isFocused ?? state.value !== '',
       state: getState()
     })
 
@@ -128,9 +130,9 @@ const Input: React.FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
           </div>
         </div>
 
-        {state.errorMessage && (
+        {state.error && (
           <div data-testid={`${label}-error`} className={errorStyle}>
-            {state.errorMessage}
+            {state.error}
           </div>
         )}
       </div>

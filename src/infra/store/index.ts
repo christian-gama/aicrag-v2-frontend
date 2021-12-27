@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import calendar from './calendar'
+import form from './form'
 
 const store = configureStore({
   reducer: {
-    calendar
+    calendar,
+    form
   }
 })
 

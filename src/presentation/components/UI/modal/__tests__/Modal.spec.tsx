@@ -1,6 +1,6 @@
-import Maybe from '@/utils/typescript/maybe.model'
 import { cleanup, render, screen } from '@testing-library/react'
 import React from 'react'
+import Maybe from '@/application/utils/typescript/maybe.model'
 import Modal from '../Modal'
 
 const makeSut = (config?: { isOpen?: boolean, onDismiss?: VoidFunction }): void => {

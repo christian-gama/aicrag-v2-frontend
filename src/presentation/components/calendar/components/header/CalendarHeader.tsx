@@ -1,7 +1,7 @@
-import writeMonthYear from '@/utils/writeMonthYear'
 import { DateTime } from 'luxon'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import writeMonthYear from '@/application/utils/writeMonthYear'
 import { AppDispatch, RootState } from '@/infra/store'
 import { setCalendarDate } from '../../../../../infra/store/calendar'
 import ChevronIcon from '../../../UI/icons/chevron/ChevronIcon'

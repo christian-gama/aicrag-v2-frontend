@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import IValidation from '@/domain/validation/validation.model'
 import { AppDispatch, RootState } from '@/infra/store'
 import { closeCalendar, resetCalendar, setPreviousDate } from '@/infra/store/calendar'
 import Modal from '../UI/modal/Modal'
@@ -8,7 +9,11 @@ import { CalendarBody } from './components/body/CalendarBody'
 import { CalendarFooter } from './components/footer/CalendarFooter'
 import CalendarHeader from './components/header/CalendarHeader'
 
-const Calendar: React.FC = () => {
+type CalendarProps = {
+  validation: IValidation
+}
+
+const Calendar: React.FC<CalendarProps> = ({ validation }) => {
   const dispatch = useDispatch<AppDispatch>()
   const selectedDate = useSelector<RootState, number>((state) => state.calendar.selectedDate)
   const isCalendarOpen = useSelector<RootState, boolean>((state) => state.calendar.isCalendarOpen)
@@ -31,7 +36,7 @@ const Calendar: React.FC = () => {
 
         <CalendarBody />
 
-        <CalendarFooter />
+        <CalendarFooter validation={validation} />
       </div>
     </Modal>
   )
