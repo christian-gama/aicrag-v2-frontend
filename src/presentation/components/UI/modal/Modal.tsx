@@ -6,9 +6,13 @@ import { closeModal } from '@/infra/store/modal'
 import Card from '../card/Card'
 import { backdropStyle, modalStyle } from './Modal.css'
 
-const Modal: React.FC = ({ children }) => {
+type ModalProps = {
+  onDismiss?: VoidFunction
+}
+
+const Modal: React.FC<ModalProps> = ({ children, onDismiss }) => {
   return (
-    <Backdrop>
+    <Backdrop onDismiss={onDismiss}>
       <Card>
         <div className={modalStyle} data-testid="modal">
           {children}
@@ -18,7 +22,7 @@ const Modal: React.FC = ({ children }) => {
   )
 }
 
-const Backdrop: React.FC = ({ children }) => {
+const Backdrop: React.FC<ModalProps> = ({ children, onDismiss }) => {
   const dispatch = useDispatch<AppDispatch>()
   const isOpen = useSelector<RootState, boolean>((state) => state.modal.isOpen)
 
@@ -29,12 +33,16 @@ const Backdrop: React.FC = ({ children }) => {
 
   const dismissHandler = (event: React.MouseEvent): void => {
     if (event.target === event.currentTarget) {
+      if (onDismiss) onDismiss()
+
       dispatch(closeModal())
     }
   }
 
   const dismissOnEscape = (event: React.KeyboardEvent<Element> | any): void => {
     if (event.key === 'Escape') {
+      if (onDismiss) onDismiss()
+
       dispatch(closeModal())
     }
   }
