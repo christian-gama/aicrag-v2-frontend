@@ -29,6 +29,7 @@
           "/^@/infra/",
           "/^@/presentation/",
           "/^@/main/",
+          "/^@/utils/",
           "/^@/tests/"
         ],
         "alphabetize": { "order": "asc", "ignoreCase": true }
