@@ -4,8 +4,8 @@ import userEvent from '@testing-library/user-event'
 import React from 'react'
 import Input, { InputProps } from '../Input'
 
-const makeSut = ({ label, icon, onChange, ref, type, validator }: InputProps): void => {
-  render(<Input label={label} icon={icon} onChange={onChange} ref={ref} type={type} validator={validator} />)
+const makeSut = (props: InputProps): void => {
+  render(<Input {...props} />)
 }
 
 describe('Input', () => {
@@ -21,7 +21,7 @@ describe('Input', () => {
     const input = screen.getByTestId('input-input')
     fireEvent.change(input, { target: { value: 'any_value' } })
 
-    expect(ref.current.value).toBe('any_value')
+    expect(ref.current?.value).toBe('any_value')
   })
 
   describe('icon interaction', () => {
@@ -168,6 +168,39 @@ describe('Input', () => {
       const error = screen.getByTestId('input-error')
 
       expect(typeof error.textContent).toBe('string')
+    })
+
+    it('should call onBlur if passed through props', () => {
+      const onBlur = jest.fn()
+
+      makeSut({ label: 'input', onBlur })
+
+      const input = screen.getByTestId('input-input')
+      fireEvent.blur(input)
+
+      expect(onBlur).toHaveBeenCalled()
+    })
+
+    it('should call onChange if passed through props', () => {
+      const onChange = jest.fn()
+
+      makeSut({ label: 'input', onChange })
+
+      const input = screen.getByTestId('input-input')
+      fireEvent.change(input, { target: { value: 'any_value' } })
+
+      expect(onChange).toHaveBeenCalled()
+    })
+
+    it('should call onFocus if passed through props', () => {
+      const onFocus = jest.fn()
+
+      makeSut({ label: 'input', onFocus })
+
+      const input = screen.getByTestId('input-input')
+      fireEvent.focus(input)
+
+      expect(onFocus).toHaveBeenCalled()
     })
   })
 })
