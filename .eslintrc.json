@@ -32,7 +32,8 @@
           "/^@/presentation/",
           "/^@/main/",
           "/^@/utils/",
-          "/^@/tests/"
+          "/^@/tests/",
+          ["parent", "sibling", "index"]
         ],
         "alphabetize": { "order": "asc", "ignoreCase": true }
       }

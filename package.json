@@ -7,7 +7,6 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "dev": "webpack-dev-server --config webpack.dev.js --open",
-    "lint": "prettier ./src --write && eslint ./src --fix && yarn tsc --noEmit",
     "prepare": "husky install",
     "reinstall": "rimraf node_modules && yarn",
     "start": "node index",
@@ -16,7 +15,11 @@
     "test:silent": "jest --passWithNoTests --silent --noStackTrace --no-cache",
     "test:unit": "yarn test:silent -c jest-unit.config.js",
     "test:verbose": "jest --passWithNoTests --detectOpenHandles --verbose --no-cache",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "lint": "yarn format:prettier && yarn format:lint && yarn typecheck",
+    "format:lint": "eslint ./src --fix",
+    "format:prettier": "prettier ./src --write",
+    "typecheck": "tsc -p ./tsconfig.json"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
