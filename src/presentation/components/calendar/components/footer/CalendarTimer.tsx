@@ -5,17 +5,19 @@ import IValidation from '@/domain/validation/validation.model'
 import getFormattedTime from '@/application/utils/getFormattedTime'
 import timerIncreaser from '@/application/utils/timerIncreaser'
 import { AppDispatch, RootState } from '@/infra/store'
-import { setSelectedDate } from '@/infra/store/calendar'
+import { ICalendar, makeCalendarSlice } from '@/infra/store/calendar'
 import ClockIcon from '../../../UI/icons/clockIcon/ClockIcon'
 import { calendarTimerClasses } from './CalendarTimer.css'
 
 type CalendarTimerProps = {
+  name: ICalendar['name']
   validation: IValidation
 }
 
-const CalendarTimer: React.FC<CalendarTimerProps> = ({ validation }) => {
+const CalendarTimer: React.FC<CalendarTimerProps> = ({ validation, name }) => {
   const dispatch = useDispatch<AppDispatch>()
-  const selectedDate = useSelector<RootState, number>((state) => state.calendar.selectedDate)
+  const selectedDate = useSelector<RootState, number>((state) => state[name].selectedDate)
+  const { setSelectedDate } = makeCalendarSlice(name).actions
 
   const [hours, setHours] = useState(getFormattedTime(DateTime.fromMillis(selectedDate).hour))
   const [minutes, setMinutes] = useState(getFormattedTime(DateTime.fromMillis(selectedDate).minute))
@@ -34,7 +36,6 @@ const CalendarTimer: React.FC<CalendarTimerProps> = ({ validation }) => {
 
     switch (name) {
       case 'calendar-hour':
-        console.log(validation.validate('hora', { hora: value }))
         return !validation.validate('hora', { hora: value }) ? setHours(value) : undefined
 
       case 'calendar-minute':

@@ -1,11 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
-import calendar from './calendar'
-import form from './form'
+import { createTaskCalendarSlice, updateTaskCalendarSlice } from '@/main/factories/slices/makeCalendar'
+import { createTaskFormSlice, updateTaskFormSlice } from '@/main/factories/slices/makeForm'
 
 const store = configureStore({
   reducer: {
-    calendar,
-    form
+    // Calendar
+    [createTaskCalendarSlice.name]: createTaskCalendarSlice.reducer,
+    [updateTaskCalendarSlice.name]: updateTaskCalendarSlice.reducer,
+
+    // Forms
+    [createTaskFormSlice.name]: createTaskFormSlice.reducer,
+    [updateTaskFormSlice.name]: updateTaskFormSlice.reducer
   }
 })
 

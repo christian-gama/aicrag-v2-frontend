@@ -3,10 +3,11 @@ import calendarStoreMock from '@/../tests/mocks/calendarStore.mock'
 import { cleanup, fireEvent, screen } from '@testing-library/react'
 import React from 'react'
 import * as Redux from 'react-redux'
+import makeTimerValidator from '@/main/factories/validation/makeTimerValidator'
 import { CalendarFooter } from '../CalendarFooter'
 
 const makeSut = (): void => {
-  render(<CalendarFooter />, { ...calendarStoreMock })
+  render(<CalendarFooter name="createTaskCalendar" validation={makeTimerValidator()} />, { ...calendarStoreMock })
 }
 
 describe('CalendarFooter', () => {

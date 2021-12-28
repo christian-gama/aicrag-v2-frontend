@@ -8,19 +8,17 @@ interface Props {
     mode?: ButtonVariants['mode']
     size?: ButtonVariants['size']
   }
-  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type']
   children?: React.ReactNode
   disabled?: ButtonVariants['disabled']
   loading?: boolean
-  onClick?: (event?: MouseEvent) => void
   testid?: string
+  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type']
+  onClick?: (event?: MouseEvent) => void
 }
 
 const Button: React.FC<Props> = ({ onClick, style, children, loading, disabled, testid, type }: Props) => {
   const clickHandler = (event: MouseEvent): void => {
-    if (disabled ?? loading) return
-
-    onClick?.(event)
+    if (onClick) onClick(event)
   }
 
   const className = buttonRecipe({
@@ -46,7 +44,7 @@ const Button: React.FC<Props> = ({ onClick, style, children, loading, disabled, 
     <button
       className={className}
       data-testid={testid}
-      disabled={disabled}
+      disabled={disabled ?? loading}
       onClick={clickHandler}
       type={type ?? 'button'}
     >

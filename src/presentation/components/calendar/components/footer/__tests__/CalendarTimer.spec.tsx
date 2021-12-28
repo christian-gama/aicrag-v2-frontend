@@ -7,7 +7,7 @@ import makeTimerValidator from '@/main/factories/validation/makeTimerValidator'
 import CalendarTimer from '../CalendarTimer'
 
 const makeSut = (): void => {
-  render(<CalendarTimer validation={makeTimerValidator()} />, { ...calendarStoreMock })
+  render(<CalendarTimer name="createTaskCalendar" validation={makeTimerValidator()} />, { ...calendarStoreMock })
 }
 
 describe('CalendarTime', () => {

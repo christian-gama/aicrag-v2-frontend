@@ -1,13 +1,18 @@
 import React from 'react'
+import { ICalendar } from '@/infra/store/calendar'
 import { calendarBodyClasses } from './CalendarBody.css'
 import CalendarDays from './CalendarDays'
 import CalendarWeekDay from './CalendarWeekDay'
 
-export const CalendarBody: React.FC = () => {
+type CalendarBodyProps = {
+  name: ICalendar['name']
+}
+
+export const CalendarBody: React.FC<CalendarBodyProps> = ({ name }) => {
   return (
     <div className={calendarBodyClasses.calendarBodyStyle} data-testid="calendar-body">
       <CalendarWeekDay />
-      <CalendarDays />
+      <CalendarDays name={name} />
     </div>
   )
 }

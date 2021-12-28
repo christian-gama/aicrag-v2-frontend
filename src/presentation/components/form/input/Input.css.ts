@@ -16,7 +16,8 @@ const font = style({
 const containerStyle = style([
   center,
   {
-    width: '100%'
+    width: '100%',
+    marginTop: '1rem'
   }
 ])
 
@@ -37,7 +38,7 @@ const labelRecipe = recipe({
       lineHeight: '1',
       position: 'absolute',
       transform: 'translateY(-50%)',
-      transition: 'top 0.2s ease 0s, font-weight 0s linear 0.1s, padding 0.2s ease',
+      transition: 'top 0.2s ease 0s, font-weight 0s linear 0.1s, padding 0.2s ease-in-out 0.2s, font-size 0.2s ease',
       zIndex: 1,
       ':hover': {
         cursor: 'text'
@@ -59,8 +60,9 @@ const labelRecipe = recipe({
     },
     float: {
       true: {
+        fontSize: '1.2rem',
         fontWeight: 'bold',
-        padding: '0px 3px',
+        padding: '0px 4px',
         top: '0'
       },
       false: {
@@ -80,15 +82,16 @@ const inputRecipe = recipe({
   base: [
     font,
     {
-      color: vars.colors.text.default,
-      borderRadius: 5,
       border: 'none',
+      borderRadius: 5,
       boxShadow: `0 0 0 1px ${vars.colors['secondary-300']}`,
+      color: vars.colors.text.default,
       height: '4.8rem',
-      padding: '1rem',
       maxWidth: '100%',
-      width: '100%',
       minWidth: '100%',
+      padding: '1rem',
+      width: '100%',
+      backgroundColor: vars.colors.white,
       selectors: {
         '&:focus': {
           outline: 'none'
@@ -127,7 +130,7 @@ const inputRecipe = recipe({
 })
 
 const iconStyle = style({
-  backgroundColor: vars.colors['tertiary-100'],
+  backgroundColor: vars.colors.white,
   position: 'absolute',
   right: '0',
   top: '50%',

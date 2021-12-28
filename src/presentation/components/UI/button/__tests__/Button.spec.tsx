@@ -29,12 +29,12 @@ describe('Button', () => {
   it('should not execute onClick if disabled', () => {
     const onClick = jest.fn()
     render(
-      <Button disabled onClick={onClick}>
+      <Button disabled onClick={onClick} testid="button">
         Click me
       </Button>
     )
 
-    const button = screen.getByText('Click me')
+    const button = screen.getByTestId('button')
     userEvent.click(button)
 
     expect(onClick).not.toHaveBeenCalled()
@@ -52,14 +52,15 @@ describe('Button', () => {
 
   it('should not execute onClick if loading', () => {
     const onClick = jest.fn()
+
     render(
-      <Button loading onClick={onClick}>
+      <Button loading onClick={onClick} testid="button">
         Click me
       </Button>
     )
 
-    const spinner = screen.getByRole('spinbutton')
-    userEvent.click(spinner)
+    const button = screen.getByTestId('button')
+    userEvent.click(button)
 
     expect(onClick).not.toHaveBeenCalled()
   })
@@ -92,5 +93,15 @@ describe('Button', () => {
     userEvent.click(button)
 
     expect(onClick).toHaveBeenCalled()
+  })
+
+  it('should not execute onClick if not passed through props', () => {
+    const onClick = jest.fn()
+    render(<Button>Click me</Button>)
+
+    const button = screen.getByText('Click me')
+    userEvent.click(button)
+
+    expect(onClick).not.toHaveBeenCalled()
   })
 })

@@ -2,18 +2,20 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import IValidation from '@/domain/validation/validation.model'
 import { AppDispatch, RootState } from '@/infra/store'
-import { resetCalendar, saveCalendar, closeCalendar } from '@/infra/store/calendar'
+import { ICalendar, makeCalendarSlice } from '@/infra/store/calendar'
 import Button from '../../../UI/button/Button'
 import { calendarFooterClasses } from './CalendarFooter.css'
 import CalendarTimer from './CalendarTimer'
 
 type CalendarFooterProps = {
+  name: ICalendar['name']
   validation: IValidation
 }
 
-export const CalendarFooter: React.FC<CalendarFooterProps> = ({ validation }) => {
+export const CalendarFooter: React.FC<CalendarFooterProps> = ({ validation, name }) => {
   const dispatch = useDispatch<AppDispatch>()
-  const selectedDate = useSelector<RootState, number>((state) => state.calendar.selectedDate)
+  const selectedDate = useSelector<RootState, number>((state) => state[name].selectedDate)
+  const { resetCalendar, closeCalendar, saveCalendar } = makeCalendarSlice(name).actions
 
   const cancelHandler = (): void => {
     dispatch(resetCalendar())
@@ -27,7 +29,7 @@ export const CalendarFooter: React.FC<CalendarFooterProps> = ({ validation }) =>
 
   return (
     <div className={calendarFooterClasses.calendarFooterStyle} data-testid="calendar-footer">
-      <CalendarTimer validation={validation} />
+      <CalendarTimer name={name} validation={validation} />
 
       <div className={calendarFooterClasses.calendarButtonContainer}>
         <Button testid="cancel-button" style={{ mode: 'text', size: 'sm' }} onClick={cancelHandler}>

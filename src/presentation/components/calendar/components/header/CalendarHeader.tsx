@@ -3,13 +3,18 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import writeMonthYear from '@/application/utils/writeMonthYear'
 import { AppDispatch, RootState } from '@/infra/store'
-import { setCalendarDate } from '../../../../../infra/store/calendar'
+import { ICalendar, makeCalendarSlice } from '@/infra/store/calendar'
 import ChevronIcon from '../../../UI/icons/chevron/ChevronIcon'
 import { CalendarHeaderClasses } from './CalendarHeader.css'
 
-const CalendarHeader: React.FC = () => {
+type CalendarHeaderProps = {
+  name: ICalendar['name']
+}
+
+const CalendarHeader: React.FC<CalendarHeaderProps> = ({ name }) => {
   const dispatch = useDispatch<AppDispatch>()
-  const calendarDate = useSelector<RootState, number>((state) => state.calendar.calendarDate)
+  const calendarDate = useSelector<RootState, number>((state) => state[name].calendarDate)
+  const { setCalendarDate } = makeCalendarSlice(name).actions
 
   // Methods
   const handleNextMonth = (): void => {
