@@ -3,7 +3,7 @@ module.exports = {
     '<rootDir>/src/**/*.{ts,tsx}',
     '!**/node_modules/**',
     '!<rootDir>/src/main/**/*',
-    '!<rootDir>/src/**/store/*',
+    '!<rootDir>/src/**/store/**/*',
     '!<rootDir>/src/**/*.css.{ts,tsx}'
   ],
   coverageDirectory: 'coverage',
