@@ -7,7 +7,7 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "dev": "webpack-dev-server --config webpack.dev.js --open",
-    "lint": "prettier ./src/**/* --write && eslint ./src/**/* --fix",
+    "lint": "prettier ./src --write && eslint ./src --fix && yarn tsc --noEmit",
     "prepare": "husky install",
     "reinstall": "rimraf node_modules && yarn",
     "start": "node index",

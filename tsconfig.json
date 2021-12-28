@@ -9,14 +9,17 @@
     "jsx": "react",
     "rootDirs": ["src", "tests"],
     "baseUrl": "src",
+    "outDir": "dist",
     "paths": {
       "@/*": ["*"]
     },
-    "allowJs": true,
     "resolveJsonModule": true,
     "strict": true,
     "sourceMap": true,
-    "removeComments": true
+    "removeComments": true,
+    "skipLibCheck": true,
+    "noEmit": true
   },
-  "include": ["src", "tests"]
+  "include": ["src", "tests"],
+  "exclude": ["node_modules", "dist"],
 }
