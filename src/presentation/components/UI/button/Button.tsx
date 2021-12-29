@@ -1,5 +1,5 @@
 import React from 'react'
-import LoadingSpinner from '../loadingSpinner/LoadingSpinner'
+import LoadingSpinnerIcon from '../icons/loadingSpinnerIcon/LoadingSpinnerIcon'
 import { buttonRecipe } from './Button.css'
 import ButtonProps from './Button.model'
 
@@ -12,7 +12,7 @@ const Button: React.FC<ButtonProps> = ({ onClick, style, children, loading, disa
   const renderChildren = (): React.ReactNode => {
     if (loading) {
       return (
-        <LoadingSpinner
+        <LoadingSpinnerIcon
           style={{
             color: getLoadingColor(style)
           }}

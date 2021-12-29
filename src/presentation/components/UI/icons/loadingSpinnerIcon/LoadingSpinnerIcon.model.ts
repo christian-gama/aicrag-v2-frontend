@@ -1,6 +1,6 @@
-import { LoadingSpinnerVariants } from './LoadingSpinner.css'
+import { LoadingSpinnerVariants } from './LoadingSpinnerIcon.css'
 
-type LoadingSpinnerProps = {
+type LoadingSpinnerIconProps = {
   style?: {
     color?: LoadingSpinnerVariants['color']
     size?: LoadingSpinnerVariants['size']
@@ -8,4 +8,4 @@ type LoadingSpinnerProps = {
   }
 }
 
-export default LoadingSpinnerProps
+export default LoadingSpinnerIconProps
