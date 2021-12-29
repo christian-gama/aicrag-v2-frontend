@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import Card from '../card/Card'
-import { modalClasses, ModalRecipeVariants } from './Modal.css'
-
-type ModalProps = {
-  onDismiss?: VoidFunction
-  isOpen?: boolean
-  direction?: ModalRecipeVariants['direction']
-}
+import dismissOnClickHandler from './handlers/dismissOnClickHandler'
+import dismissOnEscapeHandler from './handlers/dismissOnEscapeHandler'
+import { modalClasses } from './Modal.css'
+import ModalProps from './Modal.model'
 
 const Modal: React.FC<ModalProps> = ({ children, onDismiss, isOpen, direction }) => {
   const [isOpenState, setIsOpenState] = useState(false)
@@ -16,29 +13,8 @@ const Modal: React.FC<ModalProps> = ({ children, onDismiss, isOpen, direction })
     setIsOpenState(!!isOpen)
   }, [isOpen])
 
-  const overlayRoot = document.getElementById('overlay-root')
-  if (!overlayRoot) {
-    return null
-  }
-
-  const dismissOnClick = (event: React.MouseEvent): void => {
-    if (event.target === event.currentTarget) {
-      if (onDismiss) onDismiss()
-
-      setIsOpenState(false)
-    }
-  }
-
-  const dismissOnEscape = (event: React.KeyboardEvent<Element> | any): void => {
-    if (event.key === 'Escape') {
-      if (onDismiss) onDismiss()
-
-      setIsOpenState(false)
-    }
-  }
-
   useEffect(() => {
-    document.addEventListener('keydown', dismissOnEscape)
+    document.addEventListener('keydown', (event) => dismissOnEscapeHandler({ onDismiss }, { event, setIsOpenState }))
   }, [])
 
   const modalStyle = modalClasses.modalRecipe({
@@ -46,7 +22,11 @@ const Modal: React.FC<ModalProps> = ({ children, onDismiss, isOpen, direction })
   })
 
   const element = isOpenState && (
-    <div className={modalClasses.backdropStyle} onClick={dismissOnClick} data-testid="backdrop">
+    <div
+      className={modalClasses.backdropStyle}
+      onClick={(event) => dismissOnClickHandler({ onDismiss }, { event, setIsOpenState })}
+      data-testid="backdrop"
+    >
       <Card>
         <div className={modalStyle} data-testid="modal">
           {children}
@@ -55,7 +35,7 @@ const Modal: React.FC<ModalProps> = ({ children, onDismiss, isOpen, direction })
     </div>
   )
 
-  return ReactDOM.createPortal(element, overlayRoot)
+  return ReactDOM.createPortal(element, document.getElementById('overlay-root') as HTMLElement)
 }
 
 export default Modal

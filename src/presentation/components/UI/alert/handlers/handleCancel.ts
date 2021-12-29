@@ -1,7 +1,11 @@
 import IHandler from '@/domain/handler/handler.model'
 import AlertProps from '../Alert.model'
 
-const handleCancel: IHandler<AlertProps> = (props, states) => {
+type States = {
+  setIsOpenState: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const handleCancel: IHandler<AlertProps, States> = (props, states) => {
   if (props.onCancel) props.onCancel()
 
   states.setIsOpenState(false)

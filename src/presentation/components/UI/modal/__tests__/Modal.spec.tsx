@@ -1,7 +1,7 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import React from 'react'
 import Maybe from '@/application/utils/typescript/maybe.model'
-import Modal from '../Modal'
+import Modal from '../'
 
 const makeSut = (config?: { isOpen?: boolean, onDismiss?: VoidFunction }): void => {
   if (config?.isOpen === undefined) {
@@ -33,7 +33,7 @@ describe('Modal', () => {
     expect(backdrop).toBeInTheDocument()
   })
 
-  it('should dismiss modal when press escape', () => {
+  it('should dismiss modal when press "Escape"', () => {
     makeSut()
 
     const backdrop = screen.queryByTestId('backdrop')
@@ -60,7 +60,7 @@ describe('Modal', () => {
     expect(modal).not.toBeInTheDocument()
   })
 
-  it('should keep the modal on the screen if press any other key but escape', () => {
+  it('should keep the modal on the screen if press any other key but "Escape"', () => {
     makeSut()
 
     const backdrop = screen.queryByTestId('backdrop')
@@ -78,33 +78,5 @@ describe('Modal', () => {
     modal.dispatchEvent(new MouseEvent('click', { bubbles: true }))
 
     expect(backdrop).toBeInTheDocument()
-  })
-
-  it('should execute onDismiss in onClick event if passed through props', () => {
-    const onDismiss = jest.fn()
-    makeSut({ onDismiss })
-
-    const backdrop = screen.getByTestId('backdrop')
-    backdrop.dispatchEvent(new MouseEvent('click', { bubbles: true }))
-
-    expect(onDismiss).toHaveBeenCalledTimes(1)
-  })
-
-  it('should execute onDismiss when pressing escape if passed through props', () => {
-    const onDismiss = jest.fn()
-    makeSut({ onDismiss })
-
-    const event = new KeyboardEvent('keydown', { key: 'Escape' })
-    document.dispatchEvent(event)
-
-    expect(onDismiss).toHaveBeenCalledTimes(1)
-  })
-
-  it('should return null if overlay-root does not exist', () => {
-    overlay()?.remove()
-
-    const modal = render(<Modal />)
-
-    expect(modal.container.firstChild).toBeNull()
   })
 })
