@@ -10,7 +10,7 @@
     "prepare": "husky install",
     "reinstall": "rimraf node_modules && yarn",
     "start": "node index",
-    "test:ci": "yarn test --coverage",
+    "test:ci": "yarn test:silent -c jest-ci.config.js --coverage",
     "test:commit": "yarn test:silent --bail --findRelatedTests",
     "test:silent": "jest --passWithNoTests --silent --noStackTrace --no-cache",
     "test:unit": "yarn test:silent -c jest-unit.config.js",
