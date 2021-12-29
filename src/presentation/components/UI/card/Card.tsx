@@ -1,13 +1,8 @@
 import React from 'react'
-import { cardRecipe, CardVariants } from './Card.css'
+import { cardRecipe } from './Card.css'
+import CardProps from './Card.model'
 
-type Props = {
-  centered?: CardVariants['centered']
-  roundness?: CardVariants['roundness']
-  transparent?: CardVariants['transparent']
-}
-
-const Card: React.FC<Props> = ({ children, centered, roundness, transparent }) => {
+const Card: React.FC<CardProps> = ({ children, centered, roundness, transparent }) => {
   const cardStyle = cardRecipe({
     centered,
     roundness,
