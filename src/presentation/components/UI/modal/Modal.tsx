@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import Card from '../card/Card'
-import { backdropStyle, modalStyle } from './Modal.css'
+import { modalClasses, ModalRecipeVariants } from './Modal.css'
 
 type ModalProps = {
   onDismiss?: VoidFunction
   isOpen?: boolean
+  direction?: ModalRecipeVariants['direction']
 }
 
-const Modal: React.FC<ModalProps> = ({ children, onDismiss, isOpen }) => {
+const Modal: React.FC<ModalProps> = ({ children, onDismiss, isOpen, direction }) => {
   const [isOpenState, setIsOpenState] = useState(false)
 
   useEffect(() => {
@@ -40,8 +41,12 @@ const Modal: React.FC<ModalProps> = ({ children, onDismiss, isOpen }) => {
     document.addEventListener('keydown', dismissOnEscape)
   }, [])
 
+  const modalStyle = modalClasses.modalRecipe({
+    direction
+  })
+
   const element = isOpenState && (
-    <div className={backdropStyle} onClick={dismissOnClick} data-testid="backdrop">
+    <div className={modalClasses.backdropStyle} onClick={dismissOnClick} data-testid="backdrop">
       <Card>
         <div className={modalStyle} data-testid="modal">
           {children}

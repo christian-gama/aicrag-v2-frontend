@@ -12,7 +12,7 @@ const makeSut = (config?: { isOpen?: boolean, onDismiss?: VoidFunction }): void 
 }
 
 describe('Modal', () => {
-  const overlay = (): Maybe<HTMLElement> => document.getElementById('overlay-root')
+  const overlay = (): Maybe<HTMLElement> => document.getElementById('overlay-root') as HTMLElement
 
   beforeEach(() => {
     const container = document.createElement('div')
