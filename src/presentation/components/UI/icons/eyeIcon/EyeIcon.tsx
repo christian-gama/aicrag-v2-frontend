@@ -1,16 +1,8 @@
 import React from 'react'
-import { eyeIconClasses, EyeIconVariants } from './EyeIcon.css'
+import { eyeIconClasses } from './EyeIcon.css'
+import EyeIconProps from './EyeIcon.model'
 
-interface Props {
-  style?: {
-    size?: EyeIconVariants['size']
-    color?: EyeIconVariants['color']
-  }
-  onClick?: () => void
-  showPassword: boolean
-}
-
-const EyeIcon: React.FC<Props> = ({ style, onClick, showPassword }) => {
+const EyeIcon: React.FC<EyeIconProps> = ({ style, onClick, showPassword }) => {
   const eyeIconStyle = eyeIconClasses.eyeIconRecipe({
     color: style?.color,
     size: style?.size

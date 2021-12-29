@@ -1,15 +1,8 @@
 import React from 'react'
-import { loadingSpinnerRecipe, LoadingSpinnerVariants } from './LoadingSpinner.css'
+import { loadingSpinnerRecipe } from './LoadingSpinner.css'
+import LoadingSpinnerProps from './LoadingSpinner.model'
 
-interface Props {
-  style?: {
-    color?: LoadingSpinnerVariants['color']
-    size?: LoadingSpinnerVariants['size']
-    speed?: LoadingSpinnerVariants['speed']
-  }
-}
-
-const LoadingSpinner: React.FC<Props> = ({ style }: Props) => {
+const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ style }) => {
   const className = loadingSpinnerRecipe({
     ...style
   })

@@ -1,12 +1,6 @@
 import React from 'react'
-import { chevronIconClasses, ChevronIconVariants } from './ChevronIcon.css'
-
-type ChevronIconProps = {
-  color?: ChevronIconVariants['color']
-  direction: NonNullable<ChevronIconVariants['direction']>
-  size?: ChevronIconVariants['size']
-  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
-}
+import { chevronIconClasses } from './ChevronIcon.css'
+import ChevronIconProps from './ChevronIcon.model'
 
 const ChevronIcon: React.FC<ChevronIconProps> = ({ color, direction, size, onClick }) => {
   const chevronStyle = chevronIconClasses.chevronIconRecipe({
