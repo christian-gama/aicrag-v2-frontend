@@ -17,43 +17,7 @@ describe('Alert', () => {
     cleanup()
   })
 
-  it('should render', () => {
-    makeSut({
-      message: 'message',
-      title: 'title',
-      type: 'danger',
-      isOpen: true,
-      mode: 'cancelOnly'
-    })
-
-    const alert = screen.getByTestId('alert')
-
-    expect(alert).toBeInTheDocument()
-  })
-
-  it('should call onAction when clicking on onAction', () => {
-    const onAction = jest.fn()
-
-    makeSut({
-      actionName: 'action',
-      isOpen: true,
-      message: 'message',
-      mode: 'actionAndCancel',
-      title: 'title',
-      type: 'danger',
-      onAction
-    })
-
-    const actionButton = screen.getByTestId('alert-action-button')
-
-    actionButton.click()
-
-    expect(onAction).toHaveBeenCalled()
-  })
-
-  it('should call onCancel when clicking on cancel button', () => {
-    const onCancel = jest.fn()
-
+  it('should render both cancel and action buttons if mode is equal to "actionAndCancel"', () => {
     makeSut({
       actionName: 'action',
       isOpen: true,
@@ -61,50 +25,67 @@ describe('Alert', () => {
       mode: 'actionAndCancel',
       onAction: jest.fn(),
       title: 'title',
-      type: 'danger',
-      onCancel
+      type: 'danger'
     })
 
-    const cancelButton = screen.getByTestId('alert-cancel-button')
-
-    cancelButton.click()
-
-    expect(onCancel).toHaveBeenCalled()
+    expect(screen.getByTestId('alert-action-button')).toBeTruthy()
+    expect(screen.getByTestId('alert-cancel-button')).toBeTruthy()
   })
 
-  it('should not call onCancel when clicking on onCancel', () => {
-    const onCancel = jest.fn()
-
+  it('should render only cancel button if mode is equal to "cancelOnly"', () => {
     makeSut({
-      message: 'message',
-      title: 'title',
-      type: 'danger',
       isOpen: true,
-      mode: 'cancelOnly'
+      message: 'message',
+      mode: 'cancelOnly',
+      onCancel: jest.fn(),
+      title: 'title',
+      type: 'danger'
     })
 
-    const cancelButton = screen.getByTestId('alert-cancel-button')
-
-    cancelButton.click()
-
-    expect(onCancel).not.toHaveBeenCalled()
+    expect(screen.getByTestId('alert-cancel-button')).toBeTruthy()
+    expect(screen.queryByTestId('alert-action-button')).toBeNull()
   })
 
-  it('should change the action button to the name passed through props', () => {
+  it('should dismiss the alert if click on action button', () => {
     const onAction = jest.fn()
-
     makeSut({
       actionName: 'action',
       isOpen: true,
       message: 'message',
       mode: 'actionAndCancel',
+      onAction,
       title: 'title',
-      type: 'danger',
-      onAction
+      type: 'danger'
     })
 
     const actionButton = screen.getByTestId('alert-action-button')
+    actionButton.click()
 
-    expect(actionButton.textContent).toBe('action')
+    const alert = screen.getByTestId('alert')
+
+    setTimeout(() => {
+      expect(alert).toBeNull()
+    })
+  })
+
+  it('should dismiss the alert if click on cancel button', () => {
+    const onCancel = jest.fn()
+    makeSut({
+      isOpen: true,
+      message: 'message',
+      mode: 'cancelOnly',
+      onCancel,
+      title: 'title',
+      type: 'danger'
+    })
+
+    const cancelButton = screen.getByTestId('alert-cancel-button')
+    cancelButton.click()
+
+    const alert = screen.getByTestId('alert')
+
+    setTimeout(() => {
+      expect(alert).toBeNull()
+    })
   })
 })

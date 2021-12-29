@@ -2,14 +2,14 @@ import { style } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { vars } from '@/presentation/styles/vars.css'
 
-const alertContainerStyle = style({
+const containerStyle = style({
   display: 'flex',
   flexDirection: 'column',
   width: '42rem',
   minHeight: '25rem'
 })
 
-const alertHeaderRecipe = recipe({
+const headerRecipe = recipe({
   base: {
     display: 'flex',
     alignItems: 'center',
@@ -30,7 +30,7 @@ const alertHeaderRecipe = recipe({
   }
 })
 
-const alertBodyStyle = style({
+const bodyStyle = style({
   textAlign: 'justify',
   hyphens: 'auto',
   padding: '2rem 3.5rem',
@@ -38,7 +38,7 @@ const alertBodyStyle = style({
   width: '100%'
 })
 
-const alertFooterStyle = style({
+const footerStyle = style({
   display: 'flex',
   justifyContent: 'flex-end',
   alignItems: 'flex-end',
@@ -47,10 +47,10 @@ const alertFooterStyle = style({
 })
 
 export const alertClasses = {
-  alertContainerStyle,
-  alertHeaderRecipe,
-  alertBodyStyle,
-  alertFooterStyle
+  containerStyle,
+  headerRecipe,
+  bodyStyle,
+  footerStyle
 }
 
-export type AlertVariants = NonNullable<RecipeVariants<typeof alertHeaderRecipe>>
+export type AlertVariants = NonNullable<RecipeVariants<typeof headerRecipe>>
