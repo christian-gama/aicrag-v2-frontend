@@ -19,7 +19,7 @@ module.exports = {
   },
   plugins: [
     new CopyPlugin({
-      patterns: [{ from: 'src/main/assets', to: 'assets' }]
+      patterns: [{ from: 'public/assets', to: 'assets' }]
     }),
     new VanillaExtractPlugin(),
     new CleanWebpackPlugin(),
