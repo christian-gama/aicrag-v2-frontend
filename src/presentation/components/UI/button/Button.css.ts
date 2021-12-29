@@ -11,7 +11,8 @@ export const buttonRecipe = recipe({
     border: 'none',
     fontSize: vars.font.button.fontSize,
     textTransform: vars.font.button.textTransform,
-    fontFamily: vars.font.button.fontFamily
+    fontFamily: vars.font.button.fontFamily,
+    transition: 'background-color 0.15s ease-in-out'
   },
 
   variants: {
@@ -63,7 +64,7 @@ export const buttonRecipe = recipe({
         backgroundColor: vars.colors['danger-300'],
         color: vars.colors.white,
         ':hover': {
-          backgroundColor: vars.colors['danger-200']
+          backgroundColor: vars.colors['danger-400']
         }
       }
     },
@@ -93,7 +94,7 @@ export const buttonRecipe = recipe({
         color: vars.colors['danger-300'],
         border: `1px solid ${vars.colors['danger-300']}`,
         ':hover': {
-          border: `1px solid ${vars.colors['danger-200']}`,
+          border: `1px solid ${vars.colors['danger-400']}`,
           color: vars.colors['danger-200']
         }
       }
