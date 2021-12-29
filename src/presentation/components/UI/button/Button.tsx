@@ -1,27 +1,10 @@
-import React, { MouseEvent } from 'react'
+import React from 'react'
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner'
-import { buttonRecipe, ButtonVariants } from './Button.css'
+import { buttonRecipe } from './Button.css'
+import ButtonProps from './Button.model'
 
-interface Props {
-  style?: {
-    color?: ButtonVariants['color']
-    mode?: ButtonVariants['mode']
-    size?: ButtonVariants['size']
-  }
-  children?: React.ReactNode
-  disabled?: ButtonVariants['disabled']
-  loading?: boolean
-  testid?: string
-  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type']
-  onClick?: (event?: MouseEvent) => void
-}
-
-const Button: React.FC<Props> = ({ onClick, style, children, loading, disabled, testid, type }: Props) => {
-  const clickHandler = (event: MouseEvent): void => {
-    if (onClick) onClick(event)
-  }
-
-  const className = buttonRecipe({
+const Button: React.FC<ButtonProps> = ({ onClick, style, children, loading, disabled, testid, type }) => {
+  const buttonStyle = buttonRecipe({
     ...style,
     disabled
   })
@@ -42,10 +25,10 @@ const Button: React.FC<Props> = ({ onClick, style, children, loading, disabled, 
 
   return (
     <button
-      className={className}
+      className={buttonStyle}
       data-testid={testid}
       disabled={disabled ?? loading}
-      onClick={clickHandler}
+      onClick={onClick}
       type={type ?? 'button'}
     >
       {renderChildren()}
@@ -55,5 +38,5 @@ const Button: React.FC<Props> = ({ onClick, style, children, loading, disabled, 
 
 export default Button
 
-const getLoadingColor = (style: Props['style']): 'white' | 'main' =>
+const getLoadingColor = (style: ButtonProps['style']): 'white' | 'main' =>
   !style?.mode || style?.mode === 'contained' ? 'white' : 'main'
