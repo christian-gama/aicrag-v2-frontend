@@ -38,7 +38,8 @@ const labelRecipe = recipe({
       lineHeight: '1',
       position: 'absolute',
       transform: 'translateY(-50%)',
-      transition: 'top 0.2s ease 0s, font-weight 0s linear 0.1s, padding 0.2s ease-in-out 0.2s, font-size 0.2s ease',
+      padding: '0',
+      transition: 'top 0.2s ease 0s, font-weight 0s linear 0.1s, padding 0.2s ease-in-out, font-size 0.2s ease',
       zIndex: 1,
       ':hover': {
         cursor: 'text'

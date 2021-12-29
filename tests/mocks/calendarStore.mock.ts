@@ -1,15 +1,15 @@
 import { DateTime } from 'luxon'
 import { Reducer } from 'react'
 import { RootState } from '@/infra/store'
-import { createTaskCalendarSlice } from '@/main/factories/slices/makeCalendar'
+import { makeReducers } from '@/infra/store/utils/makeReducers'
 
 type Store = {
-  reducer: Reducer<any, any>
+  reducer: { [key: string]: Reducer<any, any> }
   preloadedState: Partial<RootState>
 }
 
 const calendarStoreMock: Store = {
-  reducer: createTaskCalendarSlice.reducer,
+  reducer: { createTaskCalendar: makeReducers('createTaskCalendar') },
   preloadedState: {
     createTaskCalendar: {
       calendarDate: DateTime.local(2022, 1, 1, 0, 0).toMillis(),

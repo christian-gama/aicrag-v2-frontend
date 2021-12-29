@@ -1,17 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { createTaskCalendarSlice, updateTaskCalendarSlice } from '@/main/factories/slices/makeCalendar'
-import { createTaskFormSlice, updateTaskFormSlice } from '@/main/factories/slices/makeForm'
+import { makeReducers } from './utils/makeReducers'
 
 const store = configureStore({
-  reducer: {
-    // Calendar
-    [createTaskCalendarSlice.name]: createTaskCalendarSlice.reducer,
-    [updateTaskCalendarSlice.name]: updateTaskCalendarSlice.reducer,
-
-    // Forms
-    [createTaskFormSlice.name]: createTaskFormSlice.reducer,
-    [updateTaskFormSlice.name]: updateTaskFormSlice.reducer
-  }
+  reducer: makeReducers('all')
 })
 
 export type RootState = ReturnType<typeof store.getState>

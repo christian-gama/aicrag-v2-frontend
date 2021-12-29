@@ -13,15 +13,20 @@ type InputProps = {
    * @protected
    */
   form?: {
-    name: IForm['name']
     data: IForm['states']['formData']
     setData: IForm['actions']['setFormData']
   }
+
   icon?: React.ReactElement
   name: string
-  ref?: React.Ref<HTMLInputElement>
   type?: 'text' | 'email' | 'password' | 'number'
+
+  /**
+   * @description Passed automatically by the parent Form component
+   * @protected
+   */
   validation?: IValidation
+
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void
   onChange?: (event: React.InputHTMLAttributes<HTMLInputElement>) => void
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void

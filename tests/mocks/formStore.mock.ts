@@ -1,14 +1,14 @@
 import { Reducer } from 'react'
 import { RootState } from '@/infra/store'
-import { createTaskFormSlice } from '@/main/factories/slices/makeForm'
+import { makeReducers } from '@/infra/store/utils/makeReducers'
 
 type Store = {
-  reducer: Reducer<any, any>
+  reducer: { [key: string]: Reducer<any, any> }
   preloadedState: Partial<RootState>
 }
 
 const formStoreMock: Store = {
-  reducer: createTaskFormSlice.reducer,
+  reducer: { createTaskForm: makeReducers('createTaskForm') },
   preloadedState: {
     createTaskForm: {
       errorMessage: '',

@@ -4,13 +4,20 @@ import makeValidationMock from '@/../tests/mocks/validator.mock'
 import { cleanup, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import Form from '../../Form'
+import Form from '../../../Form'
 import Input, { InputProps } from '../Input'
 
 const makeSut = (props: InputProps): void => {
   render(
-    <Form name="createTaskForm" submitHandler={jest.fn()}>
-      <Input {...props} />
+    <Form name="createTaskForm" submitHandler={jest.fn()} validation={props.validation}>
+      <Input
+        name={props.name}
+        type={props.type}
+        icon={props.icon}
+        onBlur={props.onBlur}
+        onChange={props.onChange}
+        onFocus={props.onFocus}
+      />
     </Form>,
     { ...formStoreMock }
   )
