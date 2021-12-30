@@ -1,4 +1,4 @@
-import { vars } from '@/presentation/styles/vars.css'
+import { vars } from './vars.css'
 
 export const color = {
   primaryDarker: {

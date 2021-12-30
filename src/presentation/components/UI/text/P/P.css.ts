@@ -1,6 +1,6 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { vars } from '@/presentation/styles/vars.css'
-import { color } from '../../../../styles/colorVariants.css'
+import { color } from '@/application/common/stylesheet/colorVariants.css'
+import { vars } from '@/application/common/stylesheet/vars.css'
 import { baseStyle } from '../commonStyle/base.css'
 
 const pRecipe = recipe({

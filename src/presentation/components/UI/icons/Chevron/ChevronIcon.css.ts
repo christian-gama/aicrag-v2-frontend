@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { vars } from '@/presentation/styles/vars.css'
+import { vars } from '@/application/common/stylesheet/vars.css'
 
 const chevronIconHitbox = style({
   display: 'flex',

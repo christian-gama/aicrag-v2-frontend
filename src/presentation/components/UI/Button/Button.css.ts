@@ -1,5 +1,5 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { vars } from '@/presentation/styles/vars.css'
+import { vars } from '@/application/common/stylesheet/vars.css'
 
 export const buttonRecipe = recipe({
   base: {

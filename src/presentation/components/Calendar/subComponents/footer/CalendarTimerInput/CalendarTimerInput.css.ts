@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { vars } from '@/presentation/styles/vars.css'
+import { vars } from '@/application/common/stylesheet/vars.css'
 
 const inputStyle = style({
   alignItems: 'center',

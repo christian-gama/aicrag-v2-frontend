@@ -1,5 +1,5 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { color } from '@/presentation/styles/colorVariants.css'
+import { color } from '@/application/common/stylesheet/colorVariants.css'
 
 const infoCircleIconRecipe = recipe({
   variants: {
