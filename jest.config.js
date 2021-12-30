@@ -4,7 +4,8 @@ module.exports = {
     '!<rootDir>/node_modules/**',
     '!<rootDir>/src/main/**/*',
     '!<rootDir>/src/**/store/**/*',
-    '!<rootDir>/src/**/*.css.{ts,tsx}'
+    '!<rootDir>/src/**/*.css.{ts,tsx}',
+    '!<rootDir>/src/**/*.model.ts'
   ],
   coverageDirectory: 'coverage',
   roots: ['<rootDir>/src'],
