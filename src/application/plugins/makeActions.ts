@@ -1,4 +1,4 @@
-import { slices, Slices } from '../slices'
+import { slices, Slices } from '../store/slices'
 
 export const makeActions = <T extends Slices | 'all'>(slice: T): ActionsReturn<T> => {
   const mappedSlices: Partial<Actions> = {}

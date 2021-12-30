@@ -1,5 +1,5 @@
 import IValidation from '@/domain/validation/validation.model'
-import { ICalendar } from '@/infra/store/calendar'
+import { ICalendar } from '@/application/models/calendar'
 
 type CalendarProps = {
   name: ICalendar['name']

@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import { Dispatch } from 'redux'
 import IHandler from '@/domain/handler/handler.model'
-import { ICalendar } from '@/infra/store/calendar'
+import { ICalendar } from '@/application/models/calendar'
 import CalendarDaysProps from '../CalendarDays.model'
 
 type States = {

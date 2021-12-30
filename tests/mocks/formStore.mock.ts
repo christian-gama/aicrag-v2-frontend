@@ -1,6 +1,6 @@
 import { Reducer } from 'react'
-import { RootState } from '@/infra/store'
-import { makeReducers } from '@/infra/store/utils/makeReducers'
+import { makeReducers } from '@/application/plugins/makeReducers'
+import { RootState } from '@/application/store'
 
 type Store = {
   reducer: { [key: string]: Reducer<any, any> }

@@ -1,4 +1,4 @@
-import { ICalendar } from '@/infra/store/calendar'
+import { ICalendar } from '@/application/models/calendar'
 
 type CalendarBodyProps = {
   name: ICalendar['name']

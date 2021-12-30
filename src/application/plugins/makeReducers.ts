@@ -1,4 +1,4 @@
-import { slices, Slices } from '../slices'
+import { slices, Slices } from '../store/slices'
 
 type ReducersReturn<T extends Slices | 'all'> = T extends Slices ? Reducers[T] : Reducers
 type Reducers = { [K in Slices]: typeof slices[K]['reducer'] }

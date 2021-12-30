@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { makeReducers } from './utils/makeReducers'
+import { makeReducers } from '../plugins/makeReducers'
 
 const store = configureStore({
   reducer: makeReducers('all')

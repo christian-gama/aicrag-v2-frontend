@@ -1,5 +1,5 @@
 import IHandler from '@/domain/handler/handler.model'
-import { ICalendar } from '@/infra/store/calendar'
+import { ICalendar } from '@/application/models/calendar'
 import CalendarFooterProps from '../CalendarFooter.model'
 
 type States = {

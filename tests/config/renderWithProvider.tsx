@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { queries, render as rtlRender, RenderOptions, RenderResult } from '@testing-library/react'
 import React, { Reducer } from 'react'
 import { Provider } from 'react-redux'
-import { RootState } from '@/infra/store'
+import { RootState } from '@/application/store'
 
 interface Options extends RenderOptions<typeof queries, HTMLElement> {
   preloadedState?: Partial<RootState>

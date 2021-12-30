@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from '@/infra/store'
-import { makeActions } from '@/infra/store/utils/makeActions'
+import { makeActions } from '@/application/plugins/makeActions'
+import { AppDispatch, RootState } from '@/application/store'
 import Modal from '../UI/Modal'
 import { calendarClasses } from './Calendar.css'
 import CalendarProps from './Calendar.model'
 import CalendarBody from './subComponents/body/CalendarBody'
-import CalendarFooter from './subComponents/footer/CalendarFooter/CalendarFooter'
+import CalendarFooter from './subComponents/footer/CalendarFooter'
 import CalendarHeader from './subComponents/header/CalendarHeader/CalendarHeader'
 
 const Calendar: React.FC<CalendarProps> = (props) => {

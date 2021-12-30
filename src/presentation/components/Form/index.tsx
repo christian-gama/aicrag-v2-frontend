@@ -1,10 +1,10 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import IValidation from '@/domain/validation/validation.model'
+import { IForm } from '@/application/models/form'
+import { makeActions } from '@/application/plugins/makeActions'
+import { AppDispatch, RootState } from '@/application/store'
 import Maybe from '@/application/utils/typescript/maybe.model'
-import { AppDispatch, RootState } from '@/infra/store'
-import { IForm } from '@/infra/store/form/protocols/form.model'
-import { makeActions } from '@/infra/store/utils/makeActions'
 import Alert from '../UI/Alert'
 import Input from '../UI/Input'
 

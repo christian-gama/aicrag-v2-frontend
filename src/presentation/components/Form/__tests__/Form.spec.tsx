@@ -4,7 +4,7 @@ import makeValidationMock from '@/../tests/mocks/validator.mock'
 import { fireEvent, screen } from '@testing-library/dom'
 import React from 'react'
 import IValidation from '@/domain/validation/validation.model'
-import { RootState } from '@/infra/store'
+import { RootState } from '@/application/store'
 import Input from '../../UI/Input'
 import Form from '..'
 

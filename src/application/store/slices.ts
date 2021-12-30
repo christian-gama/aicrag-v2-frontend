@@ -1,5 +1,5 @@
-import { makeCalendarSlice } from './calendar'
-import { makeFormSlice } from './form'
+import { makeCalendarSlice } from '../models/calendar'
+import { makeFormSlice } from '../models/form'
 
 // New slices are added here
 export const slices = {
