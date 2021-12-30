@@ -2,12 +2,15 @@ import { DateTime } from 'luxon'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import getFormattedTime from '@/application/utils/getFormattedTime'
-import timerIncreaser from '@/application/utils/timerIncreaser'
 import { AppDispatch, RootState } from '@/infra/store'
 import { makeActions } from '@/infra/store/utils/makeActions'
 import ClockIcon from '../../../../UI/icons/ClockIcon'
+import CalendarTimerInput from '../CalendarTimerInput'
 import { calendarTimerClasses } from './CalendarTimer.css'
 import CalendarTimerProps from './CalendarTimer.model'
+import onBlurHandler from './handlers/onBlurHandler'
+import onChangeHandler from './handlers/onChangeHandler'
+import onKeyDownHandler from './handlers/onKeyDownHandler'
 
 const CalendarTimer: React.FC<CalendarTimerProps> = (props) => {
   const { setSelectedDate } = makeActions(props.name)
@@ -27,46 +30,6 @@ const CalendarTimer: React.FC<CalendarTimerProps> = (props) => {
     dispatch(setSelectedDate(transformedTime))
   }, [hours, minutes, selectedDate])
 
-  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = event.target
-
-    switch (name) {
-      case 'calendar-hour':
-        return !props.validation.validate('hora', { hora: value }) ? setHours(value) : undefined
-
-      case 'calendar-minute':
-        return !props.validation.validate('minuto', { minuto: value }) ? setMinutes(value) : undefined
-    }
-  }
-
-  const blurHandler = (event: React.FocusEvent<HTMLInputElement>): void => {
-    const { value, name } = event.target
-
-    switch (name) {
-      case 'calendar-hour':
-        return setHours(getFormattedTime(+value))
-
-      case 'calendar-minute':
-        return setMinutes(getFormattedTime(+value))
-    }
-  }
-
-  const keyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>): void => {
-    const { name } = event.currentTarget
-
-    switch (event.key) {
-      case 'ArrowUp':
-        return name === 'calendar-hour'
-          ? setHours((prevHours) => timerIncreaser({ increase: true, prevTime: prevHours, type: 'hour' }))
-          : setMinutes((prevMinutes) => timerIncreaser({ increase: true, prevTime: prevMinutes, type: 'minute' }))
-
-      case 'ArrowDown':
-        return name === 'calendar-hour'
-          ? setHours((prevHours) => timerIncreaser({ increase: false, prevTime: prevHours, type: 'hour' }))
-          : setMinutes((prevMinutes) => timerIncreaser({ increase: false, prevTime: prevMinutes, type: 'minute' }))
-    }
-  }
-
   return (
     <div className={calendarTimerClasses.calendarTimerContainerStyle} data-testid="calendar-timer">
       <label htmlFor="calendar-hour" className={calendarTimerClasses.calendarTimerLabel}>
@@ -74,26 +37,19 @@ const CalendarTimer: React.FC<CalendarTimerProps> = (props) => {
       </label>
 
       <div className={calendarTimerClasses.calendarTimerContentStyle}>
-        <input
-          className={calendarTimerClasses.calendarTimerHourStyle}
-          data-testid="calendar-hour"
-          id="calendar-hour"
-          name="calendar-hour"
-          onBlur={blurHandler}
-          onChange={changeHandler}
-          onKeyDown={keyDownHandler}
-          type="text"
+        <CalendarTimerInput
+          name="hour"
+          onBlur={(event) => onBlurHandler(props, { event, setHours, setMinutes })}
+          onChange={(event) => onChangeHandler(props, { event, setHours, setMinutes })}
+          onKeyDown={(event) => onKeyDownHandler(props, { event, setHours, setMinutes })}
           value={hours}
         />
-        <input
-          className={calendarTimerClasses.calendarTimerHourStyle}
-          data-testid="calendar-minute"
-          id="calendar-minute"
-          name="calendar-minute"
-          onBlur={blurHandler}
-          onChange={changeHandler}
-          onKeyDown={keyDownHandler}
-          type="text"
+
+        <CalendarTimerInput
+          name="minute"
+          onBlur={(event) => onBlurHandler(props, { event, setHours, setMinutes })}
+          onChange={(event) => onChangeHandler(props, { event, setHours, setMinutes })}
+          onKeyDown={(event) => onKeyDownHandler(props, { event, setHours, setMinutes })}
           value={minutes}
         />
       </div>

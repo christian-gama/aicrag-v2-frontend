@@ -15,12 +15,6 @@ describe('CalendarTime', () => {
     cleanup()
   })
 
-  it('should render correctly', () => {
-    makeSut()
-
-    expect(screen.getByTestId('calendar-timer')).toBeTruthy()
-  })
-
   describe('onChange', () => {
     it('should update the hour input value if onChange value is valid', () => {
       makeSut()

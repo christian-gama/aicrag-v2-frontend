@@ -1,10 +1,14 @@
 import render from '@/../tests/config/renderWithProvider'
 import calendarStoreMock from '@/../tests/mocks/calendarStore.mock'
-import { cleanup, fireEvent, screen } from '@testing-library/react'
+import { cleanup, screen, fireEvent } from '@testing-library/react'
 import React from 'react'
-import * as Redux from 'react-redux'
 import makeTimerValidator from '@/main/factories/validation/makeTimerValidator'
 import CalendarFooter from '../CalendarFooter'
+import onCancelHandler from '../handlers/onCancelHandler'
+import onConfirmHandler from '../handlers/onConfirmHandler'
+
+jest.mock('../handlers/onConfirmHandler')
+jest.mock('../handlers/onCancelHandler')
 
 const makeSut = (): void => {
   render(<CalendarFooter name="createTaskCalendar" validation={makeTimerValidator()} />, { ...calendarStoreMock })
@@ -15,31 +19,25 @@ describe('CalendarFooter', () => {
     cleanup()
   })
 
-  describe('cancel button', () => {
-    it('should call closeModal action when clicking on cancel button', () => {
-      const dispatchSpy = jest.spyOn(Redux, 'useDispatch')
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
 
-      makeSut()
+  it('should call onConfirmHandler when clicking on "Salvar"', () => {
+    makeSut()
 
-      const cancelButton = screen.getByTestId('cancel-button')
-      fireEvent.click(cancelButton)
+    const confirmButton = screen.getByTestId('confirm-button')
+    fireEvent.click(confirmButton)
 
-      expect(dispatchSpy).toHaveBeenCalled()
+    expect(onConfirmHandler).toHaveBeenCalled()
+  })
 
-      dispatchSpy.mockRestore()
-    })
+  it('should call onCancelHandler when clicking on "Cancelar"', () => {
+    makeSut()
 
-    it('should call closeModal action when clicking on confirm button', () => {
-      const dispatchSpy = jest.spyOn(Redux, 'useDispatch')
+    const cancelButton = screen.getByTestId('cancel-button')
+    fireEvent.click(cancelButton)
 
-      makeSut()
-
-      const confirmButton = screen.getByTestId('confirm-button')
-      fireEvent.click(confirmButton)
-
-      expect(dispatchSpy).toHaveBeenCalled()
-
-      dispatchSpy.mockRestore()
-    })
+    expect(onCancelHandler).toHaveBeenCalled()
   })
 })
