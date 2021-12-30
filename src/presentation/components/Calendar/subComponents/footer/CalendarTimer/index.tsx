@@ -8,9 +8,9 @@ import getFormattedTime from '@/application/utils/getFormattedTime'
 import ClockIcon from '../../../../UI/icons/ClockIcon'
 import CalendarTimerInput from '../CalendarTimerInput'
 import { calendarTimerClasses } from './CalendarTimer.css'
-import onBlurHandler from './handlers/onBlurHandler'
-import onChangeHandler from './handlers/onChangeHandler'
-import onKeyDownHandler from './handlers/onKeyDownHandler'
+import onBlurHandler from './methods/onBlurHandler'
+import onChangeHandler from './methods/onChangeHandler'
+import onKeyDownHandler from './methods/onKeyDownHandler'
 
 const CalendarTimer: React.FC = () => {
   const { setSelectedDate } = calendarActions

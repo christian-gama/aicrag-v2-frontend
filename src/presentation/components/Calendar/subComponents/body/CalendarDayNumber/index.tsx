@@ -1,7 +1,7 @@
 import React from 'react'
 import { calendarDayClasses } from './CalendarDayNumber.css'
 import CalendarDayNumberProps from './CalendarDayNumber.model'
-import onClickHandler from './handlers/onClickHandler'
+import onClickHandler from './methods/onClickHandler'
 
 const CalendarDayNumber: React.FC<CalendarDayNumberProps> = (props) => {
   const calendarDayStyle = calendarDayClasses.calendarDayRecipe({

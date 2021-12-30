@@ -8,8 +8,8 @@ import H4 from '../text/H4'
 import P from '../text/P'
 import { alertClasses } from './Alert.css'
 import AlertProps from './Alert.model'
-import handleAction from './handlers/actionHandler'
-import cancelHandler from './handlers/cancelHandler'
+import handleAction from './methods/actionHandler'
+import cancelHandler from './methods/cancelHandler'
 
 const Alert: React.FC<AlertProps> = (props) => {
   // Hooks

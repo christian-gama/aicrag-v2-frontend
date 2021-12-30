@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import Card from '../Card'
-import dismissOnClickHandler from './handlers/dismissOnClickHandler'
-import dismissOnEscapeHandler from './handlers/dismissOnEscapeHandler'
+import dismissOnClickHandler from './methods/dismissOnClickHandler'
+import dismissOnEscapeHandler from './methods/dismissOnEscapeHandler'
 import { modalClasses } from './Modal.css'
 import ModalProps from './Modal.model'
 

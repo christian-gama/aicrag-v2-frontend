@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { calendarActions } from '@/application/models/calendar'
 import { RootState, AppDispatch } from '@/application/store'
 import CalendarDayNumber from '../CalendarDayNumber'
-import pickDateHandler from './handlers/pickDateHandler'
+import pickDateHandler from './methods/pickDateHandler'
 import isDaySelected from './utils/isDaySelected'
 import shouldDayBeDimmed from './utils/shouldDayBeDimmed'
 

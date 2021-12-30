@@ -3,11 +3,11 @@ import calendarStoreMock from '@/../tests/mocks/calendarStore.mock'
 import { cleanup, screen, fireEvent } from '@testing-library/react'
 import React from 'react'
 import CalendarFooter from '..'
-import onCancelHandler from '../handlers/onCancelHandler'
-import onConfirmHandler from '../handlers/onConfirmHandler'
+import onCancelHandler from '../methods/onCancelHandler'
+import onConfirmHandler from '../methods/onConfirmHandler'
 
-jest.mock('../handlers/onConfirmHandler')
-jest.mock('../handlers/onCancelHandler')
+jest.mock('../methods/onConfirmHandler')
+jest.mock('../methods/onCancelHandler')
 
 const makeSut = (): void => {
   render(<CalendarFooter />, { ...calendarStoreMock })

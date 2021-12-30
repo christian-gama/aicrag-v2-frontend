@@ -6,8 +6,8 @@ import { AppDispatch, RootState } from '@/application/store'
 import Button from '../../../../UI/Button'
 import CalendarTimer from '../CalendarTimer'
 import { calendarFooterClasses } from './CalendarFooter.css'
-import onCancelHandler from './handlers/onCancelHandler'
-import onConfirmHandler from './handlers/onConfirmHandler'
+import onCancelHandler from './methods/onCancelHandler'
+import onConfirmHandler from './methods/onConfirmHandler'
 
 const CalendarFooter: React.FC = () => {
   const { resetCalendar, closeCalendar, saveCalendar } = calendarActions
