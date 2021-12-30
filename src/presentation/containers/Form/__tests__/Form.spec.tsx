@@ -46,15 +46,15 @@ describe('Form', () => {
     expect(screen.getByTestId('form')).toContainElement(inputElement)
   })
 
-  it('should call submitHandler when form is submitted', async () => {
-    const submitHandler = jest.fn().mockReturnValue(Promise.resolve())
+  it('should call onSubmitHandler when form is submitted', async () => {
+    const submitHandlerMock = jest.fn().mockReturnValue(Promise.resolve())
     const children = <Input name="title" />
 
-    makeSut({ children, submitHandler })
+    makeSut({ children, submitHandler: submitHandlerMock })
 
     fireEvent.submit(screen.getByTestId('form'))
 
-    expect(submitHandler).toHaveBeenCalled()
+    expect(submitHandlerMock).toHaveBeenCalled()
   })
 
   it('should execute validation function if pass it through props', () => {
