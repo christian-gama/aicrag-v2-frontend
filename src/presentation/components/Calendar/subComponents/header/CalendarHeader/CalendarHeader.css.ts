@@ -12,13 +12,6 @@ const calendarHeaderStyle = style({
   borderRadius: '5px 5px 0 0'
 })
 
-const headerDateStyle = style({
-  fontSize: vars.font.p.fontSize,
-  fontFamily: vars.font.p.fontFamily,
-  color: vars.colors.white
-})
-
 export const CalendarHeaderClasses = {
-  calendarHeaderStyle,
-  headerDateStyle
+  calendarHeaderStyle
 }

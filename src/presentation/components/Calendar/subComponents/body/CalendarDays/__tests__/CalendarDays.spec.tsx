@@ -2,7 +2,7 @@ import render from '@/../tests/config/renderWithProvider'
 import calendarStoreMock from '@/../tests/mocks/calendarStore.mock'
 import { screen, cleanup, fireEvent } from '@testing-library/react'
 import React from 'react'
-import CalendarDays from '../CalendarDays'
+import CalendarDays from '..'
 
 const makeSut = (): void => {
   render(<CalendarDays name="createTaskCalendar" />, { ...calendarStoreMock })

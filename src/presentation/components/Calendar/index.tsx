@@ -1,24 +1,20 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import IValidation from '@/domain/validation/validation.model'
 import { AppDispatch, RootState } from '@/infra/store'
-import { ICalendar, makeCalendarSlice } from '@/infra/store/calendar'
+import { makeActions } from '@/infra/store/utils/makeActions'
 import Modal from '../UI/Modal'
 import { calendarClasses } from './Calendar.css'
-import { CalendarBody } from './subComponents/body/CalendarBody'
-import { CalendarFooter } from './subComponents/footer/CalendarFooter'
-import CalendarHeader from './subComponents/header/CalendarHeader'
+import CalendarProps from './Calendar.model'
+import CalendarBody from './subComponents/body/CalendarBody'
+import CalendarFooter from './subComponents/footer/CalendarFooter/CalendarFooter'
+import CalendarHeader from './subComponents/header/CalendarHeader/CalendarHeader'
 
-type CalendarProps = {
-  name: ICalendar['name']
-  validation: IValidation
-}
+const Calendar: React.FC<CalendarProps> = (props) => {
+  const { setPreviousDate, resetCalendar, closeCalendar } = makeActions(props.name)
 
-const Calendar: React.FC<CalendarProps> = ({ validation, name }) => {
   const dispatch = useDispatch<AppDispatch>()
-  const selectedDate = useSelector<RootState, number>((state) => state[name].selectedDate)
-  const isCalendarOpen = useSelector<RootState, boolean>((state) => state[name].isCalendarOpen)
-  const { setPreviousDate, resetCalendar, closeCalendar } = makeCalendarSlice(name).actions
+  const isCalendarOpen = useSelector<RootState, boolean>((state) => state[props.name].isCalendarOpen)
+  const selectedDate = useSelector<RootState, number>((state) => state[props.name].selectedDate)
 
   useEffect(() => {
     // TODO: Probably should set the previous state using the value from input
@@ -34,11 +30,11 @@ const Calendar: React.FC<CalendarProps> = ({ validation, name }) => {
       isOpen={isCalendarOpen}
     >
       <div className={calendarClasses.calendarContainerStyle} data-testid="calendar-container">
-        <CalendarHeader name={name} />
+        <CalendarHeader name={props.name} />
 
-        <CalendarBody name={name} />
+        <CalendarBody name={props.name} />
 
-        <CalendarFooter name={name} validation={validation} />
+        <CalendarFooter name={props.name} validation={props.validation} />
       </div>
     </Modal>
   )

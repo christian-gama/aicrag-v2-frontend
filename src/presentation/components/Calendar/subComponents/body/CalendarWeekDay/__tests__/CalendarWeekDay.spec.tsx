@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import React from 'react'
-import CalendarWeekDay from '../CalendarWeekDay'
+import CalendarWeekDay from '..'
 
 const makeSut = (): void => {
   render(<CalendarWeekDay />)

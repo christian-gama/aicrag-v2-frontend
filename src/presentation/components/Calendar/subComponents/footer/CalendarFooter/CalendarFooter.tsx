@@ -1,21 +1,17 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import IValidation from '@/domain/validation/validation.model'
 import { AppDispatch, RootState } from '@/infra/store'
-import { ICalendar, makeCalendarSlice } from '@/infra/store/calendar'
-import Button from '../../../UI/Button'
+import { makeActions } from '@/infra/store/utils/makeActions'
+import Button from '../../../../UI/Button'
+import CalendarTimer from '../CalendarTimer'
 import { calendarFooterClasses } from './CalendarFooter.css'
-import CalendarTimer from './CalendarTimer'
+import CalendarFooterProps from './CalendarFooter.model'
 
-type CalendarFooterProps = {
-  name: ICalendar['name']
-  validation: IValidation
-}
+const CalendarFooter: React.FC<CalendarFooterProps> = (props) => {
+  const { resetCalendar, closeCalendar, saveCalendar } = makeActions(props.name)
 
-export const CalendarFooter: React.FC<CalendarFooterProps> = ({ validation, name }) => {
   const dispatch = useDispatch<AppDispatch>()
-  const selectedDate = useSelector<RootState, number>((state) => state[name].selectedDate)
-  const { resetCalendar, closeCalendar, saveCalendar } = makeCalendarSlice(name).actions
+  const selectedDate = useSelector<RootState, number>((state) => state[props.name].selectedDate)
 
   const cancelHandler = (): void => {
     dispatch(resetCalendar())
@@ -29,7 +25,7 @@ export const CalendarFooter: React.FC<CalendarFooterProps> = ({ validation, name
 
   return (
     <div className={calendarFooterClasses.calendarFooterStyle} data-testid="calendar-footer">
-      <CalendarTimer name={name} validation={validation} />
+      <CalendarTimer name={props.name} validation={props.validation} />
 
       <div className={calendarFooterClasses.calendarButtonContainer}>
         <Button testid="cancel-button" style={{ mode: 'text', size: 'sm' }} onClick={cancelHandler}>
@@ -45,3 +41,5 @@ export const CalendarFooter: React.FC<CalendarFooterProps> = ({ validation, name
     </div>
   )
 }
+
+export default CalendarFooter

@@ -1,23 +1,19 @@
 import { DateTime } from 'luxon'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import IValidation from '@/domain/validation/validation.model'
 import getFormattedTime from '@/application/utils/getFormattedTime'
 import timerIncreaser from '@/application/utils/timerIncreaser'
 import { AppDispatch, RootState } from '@/infra/store'
-import { ICalendar, makeCalendarSlice } from '@/infra/store/calendar'
-import ClockIcon from '../../../UI/icons/ClockIcon'
+import { makeActions } from '@/infra/store/utils/makeActions'
+import ClockIcon from '../../../../UI/icons/ClockIcon'
 import { calendarTimerClasses } from './CalendarTimer.css'
+import CalendarTimerProps from './CalendarTimer.model'
 
-type CalendarTimerProps = {
-  name: ICalendar['name']
-  validation: IValidation
-}
+const CalendarTimer: React.FC<CalendarTimerProps> = (props) => {
+  const { setSelectedDate } = makeActions(props.name)
 
-const CalendarTimer: React.FC<CalendarTimerProps> = ({ validation, name }) => {
   const dispatch = useDispatch<AppDispatch>()
-  const selectedDate = useSelector<RootState, number>((state) => state[name].selectedDate)
-  const { setSelectedDate } = makeCalendarSlice(name).actions
+  const selectedDate = useSelector<RootState, number>((state) => state[props.name].selectedDate)
 
   const [hours, setHours] = useState(getFormattedTime(DateTime.fromMillis(selectedDate).hour))
   const [minutes, setMinutes] = useState(getFormattedTime(DateTime.fromMillis(selectedDate).minute))
@@ -36,10 +32,10 @@ const CalendarTimer: React.FC<CalendarTimerProps> = ({ validation, name }) => {
 
     switch (name) {
       case 'calendar-hour':
-        return !validation.validate('hora', { hora: value }) ? setHours(value) : undefined
+        return !props.validation.validate('hora', { hora: value }) ? setHours(value) : undefined
 
       case 'calendar-minute':
-        return !validation.validate('minuto', { minuto: value }) ? setMinutes(value) : undefined
+        return !props.validation.validate('minuto', { minuto: value }) ? setMinutes(value) : undefined
     }
   }
 

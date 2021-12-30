@@ -2,19 +2,17 @@ import { DateTime } from 'luxon'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { AppDispatch, RootState } from '@/infra/store'
-import { ICalendar, makeCalendarSlice } from '@/infra/store/calendar'
-import CalendarDayNumber from './CalendarDayNumber'
+import { makeActions } from '@/infra/store/utils/makeActions'
+import CalendarDayNumber from '../CalendarDayNumber'
+import CalendarDaysProps from './CalendarDays.model'
 
-type CalendarDaysProps = {
-  name: ICalendar['name']
-}
+const CalendarDays: React.FC<CalendarDaysProps> = (props) => {
+  const { setSelectedDate } = makeActions(props.name)
 
-const CalendarDays: React.FC<CalendarDaysProps> = ({ name }) => {
+  const calendarDate = useSelector<RootState, number>((state) => state[props.name].calendarDate)
   const dispatch = useDispatch<AppDispatch>()
-  const calendarDate = useSelector<RootState, number>((state) => state[name].calendarDate)
-  const selectedDate = useSelector<RootState, number>((state) => state[name].selectedDate)
+  const selectedDate = useSelector<RootState, number>((state) => state[props.name].selectedDate)
   const startDate = DateTime.fromMillis(calendarDate).startOf('month')
-  const { setSelectedDate } = makeCalendarSlice(name).actions
 
   // Methods
   const pickDate = (day: number): void => {

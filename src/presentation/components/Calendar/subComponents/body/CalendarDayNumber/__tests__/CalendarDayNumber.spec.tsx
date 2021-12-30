@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import React from 'react'
-import CalendarDayNumber from '../CalendarDayNumber'
+import CalendarDayNumber from '..'
 
 const makeSut = (children: string): void => {
   render(<CalendarDayNumber>{children}</CalendarDayNumber>)
