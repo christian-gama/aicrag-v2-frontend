@@ -2,53 +2,44 @@ import dismissOnClickHandler from '../dismissOnClickHandler'
 
 describe('dismissOnClickHandler', () => {
   it('should call onDismiss function if event target is equal to event current target', () => {
-    const props = {
+    const event = { target: 'any_target', currentTarget: 'any_target' } as any
+
+    const params = {
+      event,
+      setIsOpenState: jest.fn(),
       onDismiss: jest.fn()
     }
-    const states: any = {
-      event: {
-        target: 'any_target',
-        currentTarget: 'any_target'
-      },
-      setIsOpenState: jest.fn()
-    }
 
-    dismissOnClickHandler(props, states)
+    dismissOnClickHandler(params)
 
-    expect(props.onDismiss).toHaveBeenCalled()
+    expect(params.onDismiss).toHaveBeenCalled()
   })
 
   it('should call setIsOpenState with false value if event target is equal to event current target', () => {
-    const props = {
-      onDismiss: undefined
-    }
-    const states: any = {
-      event: {
-        target: 'any_target',
-        currentTarget: 'any_target'
-      },
+    const event = { target: 'any_target', currentTarget: 'any_target' } as any
+
+    const params: any = {
+      event,
+      onDismiss: jest.fn(),
       setIsOpenState: jest.fn()
     }
 
-    dismissOnClickHandler(props, states)
+    dismissOnClickHandler(params)
 
-    expect(states.setIsOpenState).toHaveBeenCalledWith(false)
+    expect(params.setIsOpenState).toHaveBeenCalledWith(false)
   })
 
   it('should not call setIsOpenState if event target is different of event current target', () => {
-    const props = {
-      onDismiss: undefined
-    }
-    const states: any = {
-      event: {
-        target: 'any_target',
-        currentTarget: 'diffeernt_target'
-      },
+    const event = { target: 'any_target', currentTarget: 'diffeernt_target' } as any
+
+    const params: any = {
+      event,
+      onDismiss: jest.fn(),
       setIsOpenState: jest.fn()
     }
 
-    dismissOnClickHandler(props, states)
+    dismissOnClickHandler(params)
 
-    expect(states.setIsOpenState).not.toHaveBeenCalled()
+    expect(params.setIsOpenState).not.toHaveBeenCalled()
   })
 })

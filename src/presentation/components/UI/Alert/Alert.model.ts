@@ -1,12 +1,12 @@
 import { AlertVariants } from '@/presentation/components/UI/Alert/Alert.css'
 
-type AlertWithAction = {
+export type AlertWithAction = {
   onAction: () => void
   actionName: string
   mode: 'actionAndCancel'
 }
 
-type AlertWithoutAction = { mode: 'cancelOnly' }
+export type AlertWithoutAction = { mode: 'cancelOnly' }
 
 type AlertProps = {
   isOpen?: boolean

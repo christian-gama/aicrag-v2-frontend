@@ -1,20 +1,19 @@
 import { DateTime } from 'luxon'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { makeActions } from '@/application/plugins/makeActions'
+import { calendarActions } from '@/application/models/calendar'
 import { RootState, AppDispatch } from '@/application/store'
 import CalendarDayNumber from '../CalendarDayNumber'
-import CalendarDaysProps from './CalendarDays.model'
 import pickDateHandler from './handlers/pickDateHandler'
 import isDaySelected from './utils/isDaySelected'
 import shouldDayBeDimmed from './utils/shouldDayBeDimmed'
 
-const CalendarDays: React.FC<CalendarDaysProps> = (props) => {
-  const { setSelectedDate } = makeActions(props.name)
+const CalendarDays: React.FC = (props) => {
+  const { setSelectedDate } = calendarActions
 
-  const calendarDate = useSelector<RootState, number>((state) => state[props.name].calendarDate)
+  const calendarDate = useSelector<RootState, number>((state) => state.calendar.calendarDate)
   const dispatch = useDispatch<AppDispatch>()
-  const selectedDate = useSelector<RootState, number>((state) => state[props.name].selectedDate)
+  const selectedDate = useSelector<RootState, number>((state) => state.calendar.selectedDate)
   const startDate = DateTime.fromMillis(calendarDate).startOf('month')
 
   const daysFromCalendar: JSX.Element[] = []
@@ -35,7 +34,7 @@ const CalendarDays: React.FC<CalendarDaysProps> = (props) => {
       daysFromCalendar.push(
         <CalendarDayNumber
           key={date.toISO()}
-          onClick={() => pickDateHandler(props, { calendarDate, day: date.day, dispatch, setSelectedDate })}
+          onClick={() => pickDateHandler({ calendarDate, day: date.day, dispatch, setSelectedDate })}
           selected={isDaySelected(date, selectedDate)}
           testid={`day-${date.toISODate()}`}
         >

@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from 'react'
 import { useDispatch } from 'react-redux'
 import IValidation from '@/domain/validation/validation.model'
-import { IForm } from '@/application/models/form'
+import { FormActions, FormStates } from '@/application/models/form/protocols/form.model'
 import { AppDispatch } from '@/application/store'
 import EyeIcon from '@/presentation/components/UI/icons/EyeIcon'
 import { inputClasses, LabelRecipeVariants } from './Input.css'
@@ -13,8 +13,8 @@ type InputProps = {
    * @protected
    */
   form?: {
-    data: IForm['states']['formData']
-    setData: IForm['actions']['setFormData']
+    data: FormStates['formData']
+    setData: FormActions['setFormData']
   }
 
   icon?: React.ReactElement

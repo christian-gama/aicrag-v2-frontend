@@ -1,16 +1,17 @@
 import IHandler from '@/domain/handler/handler.model'
 import ModalProps from '../Modal.model'
 
-type States = {
+type Params = {
   event: React.MouseEvent
   setIsOpenState: React.Dispatch<React.SetStateAction<boolean>>
+  onDismiss: ModalProps['onDismiss']
 }
 
-const dismissOnClickHandler: IHandler<ModalProps, States> = (props, states) => {
-  if (states.event.target === states.event.currentTarget) {
-    if (props.onDismiss) props.onDismiss()
+const dismissOnClickHandler: IHandler<Params> = ({ event, onDismiss, setIsOpenState }) => {
+  if (event.target === event.currentTarget) {
+    if (onDismiss) onDismiss()
 
-    states.setIsOpenState(false)
+    setIsOpenState(false)
   }
 }
 

@@ -5,10 +5,11 @@ describe('onChangeHandle', () => {
     const setHours = jest.fn()
     const setMinutes = jest.fn()
     const validation = { validate: jest.fn().mockReturnValueOnce(undefined) }
+    const event = { target: { name: 'calendar-hour', value: '12' } } as any
 
-    const states = { setHours, setMinutes, event: { target: { name: 'calendar-hour', value: '12' } } } as any
+    const params = { setHours, setMinutes, validation, event }
 
-    onChangeHandler({ validation }, states)
+    onChangeHandler(params)
 
     expect(setHours).toHaveBeenCalledWith('12')
   })
@@ -17,10 +18,11 @@ describe('onChangeHandle', () => {
     const setHours = jest.fn()
     const setMinutes = jest.fn()
     const validation = { validate: jest.fn().mockReturnValueOnce('error') }
+    const event = { target: { name: 'calendar-hour', value: '12' } }
 
-    const states = { setHours, setMinutes, event: { target: { name: 'calendar-hour', value: '12' } } } as any
+    const params = { setHours, setMinutes, validation, event } as any
 
-    const result = onChangeHandler({ validation }, states)
+    const result = onChangeHandler(params)
 
     expect(result).toBeUndefined()
   })
@@ -29,10 +31,11 @@ describe('onChangeHandle', () => {
     const setHours = jest.fn()
     const setMinutes = jest.fn()
     const validation = { validate: jest.fn().mockReturnValueOnce(undefined) }
+    const event = { target: { name: 'calendar-minute', value: '12' } } as any
 
-    const states = { setHours, setMinutes, event: { target: { name: 'calendar-minute', value: '12' } } } as any
+    const params = { setHours, setMinutes, validation, event }
 
-    onChangeHandler({ validation }, states)
+    onChangeHandler(params)
 
     expect(setMinutes).toHaveBeenCalledWith('12')
   })
@@ -41,10 +44,11 @@ describe('onChangeHandle', () => {
     const setHours = jest.fn()
     const setMinutes = jest.fn()
     const validation = { validate: jest.fn().mockReturnValueOnce('error') }
+    const event = { event: { target: { name: 'calendar-minute', value: '12' } } } as any
 
-    const states = { setHours, setMinutes, event: { target: { name: 'calendar-minute', value: '12' } } } as any
+    const params = { setHours, setMinutes, validation, ...event }
 
-    const result = onChangeHandler({ validation }, states)
+    const result = onChangeHandler(params)
 
     expect(result).toBeUndefined()
   })
@@ -53,10 +57,11 @@ describe('onChangeHandle', () => {
     const setHours = jest.fn()
     const setMinutes = jest.fn()
     const validation = { validate: jest.fn() }
+    const event = { target: { name: 'other', value: '12' } } as any
 
-    const states = { setHours, setMinutes, event: { target: { name: 'any_value', value: '12' } } } as any
+    const params = { setHours, setMinutes, validation, event }
 
-    onChangeHandler({ validation }, states)
+    onChangeHandler(params)
 
     expect(validation.validate).not.toHaveBeenCalled()
   })

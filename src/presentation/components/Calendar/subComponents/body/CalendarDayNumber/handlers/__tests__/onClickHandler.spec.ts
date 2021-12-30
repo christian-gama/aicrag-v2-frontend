@@ -4,12 +4,12 @@ describe('onClickHandler', () => {
   it('should call onClick if onClick function is defined and it is not dimmed', () => {
     const onClick = jest.fn()
     const dayNumber = 1
-    const props = {
+    const params = {
       onClick,
       dimmed: false
     } as any
 
-    onClickHandler(props, { dayNumber })
+    onClickHandler({ dayNumber, ...params })
 
     expect(onClick).toHaveBeenCalledTimes(1)
   })
@@ -17,12 +17,12 @@ describe('onClickHandler', () => {
   it('should not call onClick if is dimmed', () => {
     const onClick = jest.fn()
     const dayNumber = 1
-    const props = {
+    const params = {
       onClick,
       dimmed: true
     } as any
 
-    onClickHandler(props, { dayNumber })
+    onClickHandler({ dayNumber, ...params })
 
     expect(onClick).not.toHaveBeenCalled()
   })

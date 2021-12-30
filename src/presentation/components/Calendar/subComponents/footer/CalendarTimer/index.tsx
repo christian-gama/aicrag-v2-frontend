@@ -1,22 +1,23 @@
 import { DateTime } from 'luxon'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { makeActions } from '@/application/plugins/makeActions'
+import { calendarActions } from '@/application/models/calendar'
+import { CalendarStates } from '@/application/models/calendar/protocols/calendar.model'
 import { AppDispatch, RootState } from '@/application/store'
 import getFormattedTime from '@/application/utils/getFormattedTime'
 import ClockIcon from '../../../../UI/icons/ClockIcon'
 import CalendarTimerInput from '../CalendarTimerInput'
 import { calendarTimerClasses } from './CalendarTimer.css'
-import CalendarTimerProps from './CalendarTimer.model'
 import onBlurHandler from './handlers/onBlurHandler'
 import onChangeHandler from './handlers/onChangeHandler'
 import onKeyDownHandler from './handlers/onKeyDownHandler'
 
-const CalendarTimer: React.FC<CalendarTimerProps> = (props) => {
-  const { setSelectedDate } = makeActions(props.name)
+const CalendarTimer: React.FC = () => {
+  const { setSelectedDate } = calendarActions
 
   const dispatch = useDispatch<AppDispatch>()
-  const selectedDate = useSelector<RootState, number>((state) => state[props.name].selectedDate)
+  const selectedDate = useSelector<RootState, CalendarStates['selectedDate']>((state) => state.calendar.selectedDate)
+  const validation = useSelector<RootState, CalendarStates['validation']>((state) => state.calendar.validation)
 
   const [hours, setHours] = useState(getFormattedTime(DateTime.fromMillis(selectedDate).hour))
   const [minutes, setMinutes] = useState(getFormattedTime(DateTime.fromMillis(selectedDate).minute))
@@ -39,17 +40,17 @@ const CalendarTimer: React.FC<CalendarTimerProps> = (props) => {
       <div className={calendarTimerClasses.calendarTimerContentStyle}>
         <CalendarTimerInput
           name="hour"
-          onBlur={(event) => onBlurHandler(props, { event, setHours, setMinutes })}
-          onChange={(event) => onChangeHandler(props, { event, setHours, setMinutes })}
-          onKeyDown={(event) => onKeyDownHandler(props, { event, setHours, setMinutes })}
+          onBlur={(event) => onBlurHandler({ event, setHours, setMinutes })}
+          onChange={(event) => onChangeHandler({ event, setHours, setMinutes, validation })}
+          onKeyDown={(event) => onKeyDownHandler({ event, setHours, setMinutes })}
           value={hours}
         />
 
         <CalendarTimerInput
           name="minute"
-          onBlur={(event) => onBlurHandler(props, { event, setHours, setMinutes })}
-          onChange={(event) => onChangeHandler(props, { event, setHours, setMinutes })}
-          onKeyDown={(event) => onKeyDownHandler(props, { event, setHours, setMinutes })}
+          onBlur={(event) => onBlurHandler({ event, setHours, setMinutes })}
+          onChange={(event) => onChangeHandler({ event, setHours, setMinutes, validation })}
+          onKeyDown={(event) => onKeyDownHandler({ event, setHours, setMinutes })}
           value={minutes}
         />
       </div>

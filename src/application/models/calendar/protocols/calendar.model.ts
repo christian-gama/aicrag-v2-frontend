@@ -1,26 +1,16 @@
-import { makeCalendarSlice } from '../calendar'
+import IValidation from '@/domain/validation/validation.model'
+import { calendarActions } from '..'
 
-type CalendarStates = {
+export type CalendarStates = {
   calendarDate: number
   isCalendarOpen: boolean
   previousDate: number
   selectedDate: number
+  validation: IValidation
 }
 
-type CalendarNames = 'createTaskCalendar' | 'updateTaskCalendar'
+export type CalendarActions = typeof calendarActions
 
-type CalendarMillisPayload = {
+export type CalendarPayloads = {
   payload: number
-}
-
-type CalendarActions = ReturnType<typeof makeCalendarSlice>['actions']
-
-export type ICalendar = {
-  actions: CalendarActions
-  name: CalendarNames
-  reducer: ReturnType<typeof makeCalendarSlice>['reducer']
-  states: CalendarStates
-  payloads: {
-    millis: CalendarMillisPayload
-  }
 }

@@ -20,17 +20,17 @@ type sutConfig = {
   | undefined
   validation?: IValidation
   submitHandler?: () => Promise<void>
-  createTaskForm?: Partial<RootState['createTaskForm']>
+  form?: Partial<RootState['form']>
 }
 
 const makeSut = (config: sutConfig) => {
   const fn = config.submitHandler ?? jest.fn()
-  const createTaskForm = { ...formStoreMock.preloadedState.createTaskForm, ...config.createTaskForm }
+  const form = { ...formStoreMock.preloadedState.form, ...config.form }
 
-  formStoreMock.preloadedState.createTaskForm = createTaskForm as any
+  formStoreMock.preloadedState.form = form as any
 
   render(
-    <Form name="createTaskForm" submitHandler={fn} validation={config.validation}>
+    <Form submitHandler={fn} validation={config.validation}>
       {config.children}
     </Form>,
     { ...formStoreMock }
@@ -43,7 +43,7 @@ describe('Form', () => {
     makeSut({ children })
     const inputElement = screen.getByTestId('title-input')
 
-    expect(screen.getByTestId('createTaskForm')).toContainElement(inputElement)
+    expect(screen.getByTestId('form')).toContainElement(inputElement)
   })
 
   it('should call submitHandler when form is submitted', async () => {
@@ -52,7 +52,7 @@ describe('Form', () => {
 
     makeSut({ children, submitHandler })
 
-    fireEvent.submit(screen.getByTestId('createTaskForm'))
+    fireEvent.submit(screen.getByTestId('form'))
 
     expect(submitHandler).toHaveBeenCalled()
   })
@@ -60,7 +60,7 @@ describe('Form', () => {
   it('should execute validation function if pass it through props', () => {
     const validation = makeValidationMock(true)
     const validationSpy = jest.spyOn(validation, 'validate')
-    const createTaskForm = {
+    const form = {
       formData: {
         title: 'any_title'
       }
@@ -68,9 +68,9 @@ describe('Form', () => {
 
     const children = <Input name="title" />
 
-    makeSut({ children, validation, createTaskForm })
+    makeSut({ children, validation, form })
 
-    fireEvent.submit(screen.getByTestId('createTaskForm'))
+    fireEvent.submit(screen.getByTestId('form'))
 
     expect(validationSpy).toHaveBeenCalled()
   })
@@ -78,7 +78,7 @@ describe('Form', () => {
   it('should execute validation function if pass it through props', () => {
     const validation = makeValidationMock(true)
     const validationSpy = jest.spyOn(validation, 'validate')
-    const createTaskForm = {
+    const form = {
       formData: {
         title: 'any_title'
       }
@@ -86,9 +86,9 @@ describe('Form', () => {
 
     const children = <Input name="title" />
 
-    makeSut({ children, validation, createTaskForm })
+    makeSut({ children, validation, form })
 
-    fireEvent.submit(screen.getByTestId('createTaskForm'))
+    fireEvent.submit(screen.getByTestId('form'))
 
     expect(validationSpy).toHaveBeenCalled()
   })
@@ -97,15 +97,15 @@ describe('Form', () => {
     const submitHandler = jest.fn().mockReturnValue(Promise.resolve())
     const validation = makeValidationMock(false)
     const children = <Input name="title" />
-    const createTaskForm = {
+    const form = {
       formData: {
         title: 'any_title'
       }
     }
 
-    makeSut({ children, submitHandler, validation, createTaskForm })
+    makeSut({ children, submitHandler, validation, form })
 
-    fireEvent.submit(screen.getByTestId('createTaskForm'))
+    fireEvent.submit(screen.getByTestId('form'))
 
     expect(submitHandler).not.toHaveBeenCalled()
   })
@@ -113,13 +113,13 @@ describe('Form', () => {
   it('should not pass props to child if children is an invalid component', () => {
     const children = 'a'
     const validation = makeValidationMock(false)
-    const createTaskForm = {
+    const form = {
       formData: {
         title: 'any_title'
       }
     }
 
-    makeSut({ children, validation, createTaskForm })
+    makeSut({ children, validation, form })
 
     expect(screen.queryByTestId('title-input')).toBeNull()
   })
@@ -137,7 +137,7 @@ describe('Form', () => {
 
     makeSut({ children, submitHandler, validation: makeValidationMock(true) })
 
-    fireEvent.submit(screen.getByTestId('createTaskForm'))
+    fireEvent.submit(screen.getByTestId('form'))
 
     const alert = await screen.findByTestId('alert')
 

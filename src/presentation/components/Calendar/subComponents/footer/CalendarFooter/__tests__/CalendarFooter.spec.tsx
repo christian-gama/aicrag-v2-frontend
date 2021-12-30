@@ -2,7 +2,6 @@ import render from '@/../tests/config/renderWithProvider'
 import calendarStoreMock from '@/../tests/mocks/calendarStore.mock'
 import { cleanup, screen, fireEvent } from '@testing-library/react'
 import React from 'react'
-import makeTimerValidator from '@/main/factories/validation/makeTimerValidator'
 import CalendarFooter from '..'
 import onCancelHandler from '../handlers/onCancelHandler'
 import onConfirmHandler from '../handlers/onConfirmHandler'
@@ -11,7 +10,7 @@ jest.mock('../handlers/onConfirmHandler')
 jest.mock('../handlers/onCancelHandler')
 
 const makeSut = (): void => {
-  render(<CalendarFooter name="createTaskCalendar" validation={makeTimerValidator()} />, { ...calendarStoreMock })
+  render(<CalendarFooter />, { ...calendarStoreMock })
 }
 
 describe('CalendarFooter', () => {

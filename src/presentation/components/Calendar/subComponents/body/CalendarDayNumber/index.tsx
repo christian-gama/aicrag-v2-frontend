@@ -13,7 +13,9 @@ const CalendarDayNumber: React.FC<CalendarDayNumberProps> = (props) => {
     <span
       data-testid={props.testid ?? ''}
       className={calendarDayStyle}
-      onClick={() => onClickHandler(props, { dayNumber: props.children as number })}
+      onClick={() =>
+        onClickHandler({ dayNumber: props.children as number, dimmed: props.dimmed, onClick: props.onClick })
+      }
       data-selected={props.selected}
     >
       {props.children}

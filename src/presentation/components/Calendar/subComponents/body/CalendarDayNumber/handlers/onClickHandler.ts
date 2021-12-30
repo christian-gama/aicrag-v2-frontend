@@ -1,13 +1,15 @@
 import IHandler from '@/domain/handler/handler.model'
 import CalendarDayNumberProps from '../CalendarDayNumber.model'
 
-type States = {
+type Params = {
   dayNumber: number
+  onClick: CalendarDayNumberProps['onClick']
+  dimmed: CalendarDayNumberProps['dimmed']
 }
 
-const onClickHandler: IHandler<CalendarDayNumberProps, States> = (props, states): void => {
-  if (props.onClick && !props.dimmed) {
-    props.onClick(Number(states.dayNumber))
+const onClickHandler: IHandler<Params> = ({ dayNumber, dimmed, onClick }): void => {
+  if (onClick && !dimmed) {
+    onClick(Number(dayNumber))
   }
 }
 

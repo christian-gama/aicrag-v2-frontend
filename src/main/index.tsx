@@ -11,7 +11,6 @@ import makeTimerValidator from './factories/validation/makeTimerValidator'
 const Element: React.FC = () => {
   return (
     <Form
-      name="createTaskForm"
       submitHandler={async () => {
         throw new Error('oe')
       }}

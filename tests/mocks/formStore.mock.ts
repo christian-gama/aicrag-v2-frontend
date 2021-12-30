@@ -1,5 +1,5 @@
 import { Reducer } from 'react'
-import { makeReducers } from '@/application/plugins/makeReducers'
+import { formReducer } from '@/application/models/form'
 import { RootState } from '@/application/store'
 
 type Store = {
@@ -8,9 +8,9 @@ type Store = {
 }
 
 const formStoreMock: Store = {
-  reducer: { createTaskForm: makeReducers('createTaskForm') },
+  reducer: { form: formReducer },
   preloadedState: {
-    createTaskForm: {
+    form: {
       errorMessage: '',
       formData: {},
       isDirty: false,

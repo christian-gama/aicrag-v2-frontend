@@ -7,14 +7,14 @@ describe('onConfirmHandler', () => {
     const dispatch = jest.fn() as any
     const selectedDate = new Date().getTime()
 
-    const states = {
+    const params = {
       dispatch,
       saveCalendar,
       closeCalendar,
       selectedDate
     }
 
-    onConfirmHandler({}, states)
+    onConfirmHandler(params)
 
     expect(dispatch).toHaveBeenCalledWith(saveCalendar())
     expect(dispatch).toHaveBeenCalledWith(closeCalendar())

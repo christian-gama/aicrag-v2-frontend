@@ -1,29 +1,29 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { makeActions } from '@/application/plugins/makeActions'
+import { calendarActions } from '@/application/models/calendar'
+import { CalendarStates } from '@/application/models/calendar/protocols/calendar.model'
 import { AppDispatch, RootState } from '@/application/store'
 import Button from '../../../../UI/Button'
 import CalendarTimer from '../CalendarTimer'
 import { calendarFooterClasses } from './CalendarFooter.css'
-import CalendarFooterProps from './CalendarFooter.model'
 import onCancelHandler from './handlers/onCancelHandler'
 import onConfirmHandler from './handlers/onConfirmHandler'
 
-const CalendarFooter: React.FC<CalendarFooterProps> = (props) => {
-  const { resetCalendar, closeCalendar, saveCalendar } = makeActions(props.name)
+const CalendarFooter: React.FC = () => {
+  const { resetCalendar, closeCalendar, saveCalendar } = calendarActions
 
   const dispatch = useDispatch<AppDispatch>()
-  const selectedDate = useSelector<RootState, number>((state) => state[props.name].selectedDate)
+  const selectedDate = useSelector<RootState, CalendarStates['selectedDate']>((state) => state.calendar.selectedDate)
 
   return (
     <div className={calendarFooterClasses.calendarFooterStyle} data-testid="calendar-footer">
-      <CalendarTimer name={props.name} validation={props.validation} />
+      <CalendarTimer />
 
       <div className={calendarFooterClasses.calendarButtonContainer}>
         <Button
           testid="cancel-button"
           style={{ mode: 'text', size: 'sm' }}
-          onClick={() => onCancelHandler(props, { closeCalendar, dispatch, resetCalendar })}
+          onClick={() => onCancelHandler({ closeCalendar, dispatch, resetCalendar })}
         >
           Cancelar
         </Button>
@@ -33,7 +33,7 @@ const CalendarFooter: React.FC<CalendarFooterProps> = (props) => {
         <Button
           testid="confirm-button"
           style={{ mode: 'contained', size: 'sm' }}
-          onClick={() => onConfirmHandler(props, { closeCalendar, dispatch, saveCalendar, selectedDate })}
+          onClick={() => onConfirmHandler({ closeCalendar, dispatch, saveCalendar, selectedDate })}
         >
           Salvar
         </Button>

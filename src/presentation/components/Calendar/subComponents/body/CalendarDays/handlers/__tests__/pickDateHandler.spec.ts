@@ -11,15 +11,12 @@ describe('pickDateHandler', () => {
     const pickedDate = DateTime.fromMillis(dateNow).set({ day }).toMillis()
     const calendarDate = dateNow
 
-    pickDateHandler(
-      {},
-      {
-        calendarDate,
-        dispatch,
-        day,
-        setSelectedDate
-      }
-    )
+    pickDateHandler({
+      calendarDate,
+      dispatch,
+      day,
+      setSelectedDate
+    })
 
     expect(setSelectedDate).toHaveBeenCalledWith(pickedDate)
   })

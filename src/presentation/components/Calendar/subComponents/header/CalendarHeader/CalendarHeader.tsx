@@ -1,17 +1,17 @@
 import { DateTime } from 'luxon'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { makeActions } from '@/application/plugins/makeActions'
+import { calendarActions } from '@/application/models/calendar'
+import { CalendarStates } from '@/application/models/calendar/protocols/calendar.model'
 import { RootState, AppDispatch } from '@/application/store'
 import ChevronIcon from '../../../../UI/icons/Chevron'
 import CalendarHeaderDate from '../CalendarHeaderDate'
 import { CalendarHeaderClasses } from './CalendarHeader.css'
-import CalendarHeaderProps from './CalendarHeader.model'
 
-const CalendarHeader: React.FC<CalendarHeaderProps> = (props) => {
-  const { setCalendarDate } = makeActions(props.name)
+const CalendarHeader: React.FC = () => {
+  const { setCalendarDate } = calendarActions
 
-  const calendarDate = useSelector<RootState, number>((state) => state[props.name].calendarDate)
+  const calendarDate = useSelector<RootState, CalendarStates['calendarDate']>((state) => state.calendar.calendarDate)
   const dispatch = useDispatch<AppDispatch>()
 
   // Methods
@@ -27,7 +27,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = (props) => {
     <div className={CalendarHeaderClasses.calendarHeaderStyle} data-testid="calendar-header">
       <ChevronIcon color="white" direction="left" onClick={handlePreviousMonth} />
 
-      <CalendarHeaderDate calendarDate={calendarDate} />
+      <CalendarHeaderDate />
 
       <ChevronIcon color="white" direction="right" onClick={handleNextMonth} />
     </div>

@@ -1,30 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import IValidation from '@/domain/validation/validation.model'
-import { IForm } from '@/application/models/form'
-import { makeActions } from '@/application/plugins/makeActions'
+import { formActions } from '@/application/models/form'
+import { FormStates } from '@/application/models/form/protocols/form.model'
 import { AppDispatch, RootState } from '@/application/store'
 import Maybe from '@/application/utils/typescript/maybe.model'
 import Alert from '../UI/Alert'
 import Input from '../UI/Input'
-
-type FormProps = {
-  name: IForm['name']
-  validation?: IValidation
-  submitHandler: () => Promise<void>
-}
+import FormProps from './form.model'
 
 const Form: React.FC<FormProps> = (props) => {
   const dispatch = useDispatch<AppDispatch>()
 
-  const isValid = useSelector<RootState, boolean>((state) => state[props.name].isValid)
-  const formData = useSelector<RootState, { [key: string]: any }>((state) => state[props.name].formData)
-  const errorMessage = useSelector<RootState, Maybe<string>>((state) => state[props.name].errorMessage)
-  const isSubmitted = useSelector<RootState, boolean>((state) => state[props.name].isSubmitted)
+  const isValid = useSelector<RootState, FormStates['isValid']>((state) => state.form.isValid)
+  const formData = useSelector<RootState, FormStates['formData']>((state) => state.form.formData)
+  const errorMessage = useSelector<RootState, FormStates['errorMessage']>((state) => state.form.errorMessage)
+  const isSubmitted = useSelector<RootState, FormStates['isSubmitted']>((state) => state.form.isSubmitted)
 
-  const { setErrorMessage, setFormData, setIsSubmitted, setIsSubmitting, setIsValid, setIsValidating } = makeActions(
-    props.name
-  )
+  const { setErrorMessage, setFormData, setIsSubmitted, setIsSubmitting, setIsValid, setIsValidating, resetForm } =
+    formActions
+
+  useEffect(() => {
+    resetForm()
+  }, [])
 
   // Handlers
   const handleValidators = (): Maybe<string> => {
@@ -74,7 +71,7 @@ const Form: React.FC<FormProps> = (props) => {
 
   return (
     <>
-      <form onSubmit={onSubmit} data-testid={props.name}>
+      <form onSubmit={onSubmit} data-testid="form">
         {React.Children.map(props.children, (child) => {
           if (React.isValidElement(child)) {
             // eslint-disable-next-line @typescript-eslint/consistent-type-assertions

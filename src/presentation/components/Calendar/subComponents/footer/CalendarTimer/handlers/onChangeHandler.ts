@@ -1,21 +1,22 @@
 import IHandler from '@/domain/handler/handler.model'
-import CalendarTimerProps from '../CalendarTimer.model'
+import { CalendarStates } from '@/application/models/calendar/protocols/calendar.model'
 
-type States = {
+type Params = {
   event: React.ChangeEvent<HTMLInputElement>
   setHours: React.Dispatch<React.SetStateAction<string>>
   setMinutes: React.Dispatch<React.SetStateAction<string>>
+  validation: CalendarStates['validation']
 }
 
-const onChangeHandler: IHandler<CalendarTimerProps, States> = (props, states) => {
-  const { name, value } = states.event.target
+const onChangeHandler: IHandler<Params> = ({ event, setHours, setMinutes, validation }) => {
+  const { name, value } = event.target
 
   switch (name) {
     case 'calendar-hour':
-      return !props.validation!.validate('hora', { hora: value }) ? states.setHours(value) : undefined
+      return !validation.validate('hora', { hora: value }) ? setHours(value) : undefined
 
     case 'calendar-minute':
-      return !props.validation!.validate('minuto', { minuto: value }) ? states.setMinutes(value) : undefined
+      return !validation.validate('minuto', { minuto: value }) ? setMinutes(value) : undefined
   }
 }
 

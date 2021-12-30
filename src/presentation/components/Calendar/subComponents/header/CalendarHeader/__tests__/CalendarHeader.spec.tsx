@@ -6,7 +6,7 @@ import * as Redux from 'react-redux'
 import CalendarHeader from '../CalendarHeader'
 
 const makeSut = (): void => {
-  render(<CalendarHeader name="createTaskCalendar" />, { ...calendarStoreMock })
+  render(<CalendarHeader />, { ...calendarStoreMock })
 }
 
 describe('CalendarHeader', () => {

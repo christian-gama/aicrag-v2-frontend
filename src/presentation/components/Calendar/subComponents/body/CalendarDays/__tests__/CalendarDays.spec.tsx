@@ -5,7 +5,7 @@ import React from 'react'
 import CalendarDays from '..'
 
 const makeSut = (): void => {
-  render(<CalendarDays name="createTaskCalendar" />, { ...calendarStoreMock })
+  render(<CalendarDays />, { ...calendarStoreMock })
 }
 
 describe('CalendarDays', () => {

@@ -1,20 +1,19 @@
 import { DateTime } from 'luxon'
 import { Dispatch } from 'redux'
 import IHandler from '@/domain/handler/handler.model'
-import { ICalendar } from '@/application/models/calendar'
-import CalendarDaysProps from '../CalendarDays.model'
+import { CalendarActions, CalendarStates } from '@/application/models/calendar/protocols/calendar.model'
 
-type States = {
-  calendarDate: ICalendar['states']['calendarDate']
+type Params = {
+  calendarDate: CalendarStates['calendarDate']
   dispatch: Dispatch<any>
   day: number
-  setSelectedDate: ICalendar['actions']['setSelectedDate']
+  setSelectedDate: CalendarActions['setSelectedDate']
 }
 
-const pickDateHandler: IHandler<CalendarDaysProps, States> = (_, states) => {
-  const pickedDate = DateTime.fromMillis(states.calendarDate).set({ day: states.day }).toMillis()
+const pickDateHandler: IHandler<Params> = ({ calendarDate, day, dispatch, setSelectedDate }) => {
+  const pickedDate = DateTime.fromMillis(calendarDate).set({ day: day }).toMillis()
 
-  states.dispatch(states.setSelectedDate(pickedDate))
+  dispatch(setSelectedDate(pickedDate))
 }
 
 export default pickDateHandler

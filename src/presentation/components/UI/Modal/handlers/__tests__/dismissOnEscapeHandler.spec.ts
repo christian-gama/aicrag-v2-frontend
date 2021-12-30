@@ -2,50 +2,39 @@ import dismissOnEscapeHandler from '../dismissOnEscapeHandler'
 
 describe('dismissOnEscapeHandler', () => {
   it('should call onDismiss function if event key is equal to "Escape"', () => {
-    const props = {
+    const event = { key: 'Escape' } as any
+
+    const params = {
+      event,
+      setIsOpenState: jest.fn(),
       onDismiss: jest.fn()
     }
-    const states: any = {
-      event: {
-        key: 'Escape'
-      },
-      setIsOpenState: jest.fn()
-    }
 
-    dismissOnEscapeHandler(props, states)
+    dismissOnEscapeHandler(params)
 
-    expect(props.onDismiss).toHaveBeenCalled()
+    expect(params.onDismiss).toHaveBeenCalled()
   })
 
   it('should call setIsOpenState with false value if event key is equal to "Escape"', () => {
-    const props = {
-      onDismiss: undefined
-    }
-    const states: any = {
-      event: {
-        key: 'Escape'
-      },
-      setIsOpenState: jest.fn()
-    }
+    const event = { key: 'Escape' } as any
+    const params = { event, setIsOpenState: jest.fn(), onDismiss: jest.fn() }
 
-    dismissOnEscapeHandler(props, states)
+    dismissOnEscapeHandler(params)
 
-    expect(states.setIsOpenState).toHaveBeenCalledWith(false)
+    expect(params.setIsOpenState).toHaveBeenCalledWith(false)
   })
 
   it('should not call setIsOpenState if event key is different of "Escape"', () => {
-    const props = {
-      onDismiss: undefined
-    }
-    const states: any = {
-      event: {
-        key: 'Enter'
-      },
-      setIsOpenState: jest.fn()
+    const event = { key: 'Enter' } as any
+
+    const params = {
+      event,
+      setIsOpenState: jest.fn(),
+      onDismiss: jest.fn()
     }
 
-    dismissOnEscapeHandler(props, states)
+    dismissOnEscapeHandler(params)
 
-    expect(states.setIsOpenState).not.toHaveBeenCalled()
+    expect(params.setIsOpenState).not.toHaveBeenCalled()
   })
 })

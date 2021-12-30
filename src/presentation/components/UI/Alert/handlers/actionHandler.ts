@@ -1,15 +1,17 @@
 import IHandler from '@/domain/handler/handler.model'
-import AlertProps from '../Alert.model'
+import AlertProps, { AlertWithAction } from '../Alert.model'
 
-type States = {
+type Params = {
   setIsOpenState: React.Dispatch<React.SetStateAction<boolean>>
+  mode: AlertProps['mode']
+  onAction: AlertWithAction['onAction']
 }
 
-const handleAction: IHandler<AlertProps, States> = (props, states) => {
-  if (props.mode === 'actionAndCancel') {
-    props.onAction!()
+const handleAction: IHandler<Params> = ({ setIsOpenState, mode, onAction }) => {
+  if (mode === 'actionAndCancel') {
+    onAction()
 
-    states.setIsOpenState(false)
+    setIsOpenState(false)
   }
 }
 

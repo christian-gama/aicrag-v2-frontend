@@ -1,16 +1,15 @@
 import IHandler from '@/domain/handler/handler.model'
-import { ICalendar } from '@/application/models/calendar'
-import CalendarFooterProps from '../CalendarFooter.model'
+import { CalendarActions } from '@/application/models/calendar/protocols/calendar.model'
 
-type States = {
+type Params = {
   dispatch: React.Dispatch<React.SetStateAction<any>>
-  resetCalendar: ICalendar['actions']['resetCalendar']
-  closeCalendar: ICalendar['actions']['closeCalendar']
+  resetCalendar: CalendarActions['resetCalendar']
+  closeCalendar: CalendarActions['closeCalendar']
 }
 
-const onCancelHandler: IHandler<CalendarFooterProps, States> = (_, states): void => {
-  states.dispatch(states.resetCalendar())
-  states.dispatch(states.closeCalendar())
+const onCancelHandler: IHandler<Params> = ({ closeCalendar, dispatch, resetCalendar }): void => {
+  dispatch(resetCalendar())
+  dispatch(closeCalendar())
 }
 
 export default onCancelHandler

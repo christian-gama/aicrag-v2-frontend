@@ -38,7 +38,7 @@ const Alert: React.FC<AlertProps> = (props) => {
 
           <div className={alertClasses.footerStyle} data-testid="alert-footer">
             <Button
-              onClick={() => cancelHandler(props, { setIsOpenState })}
+              onClick={() => cancelHandler({ setIsOpenState, onCancel: props.onCancel })}
               style={{ mode: 'text', size: 'sm' }}
               testid="alert-cancel-button"
             >
@@ -47,7 +47,7 @@ const Alert: React.FC<AlertProps> = (props) => {
 
             {props.mode === 'actionAndCancel' && (
               <Button
-                onClick={() => handleAction(props, { setIsOpenState })}
+                onClick={() => handleAction({ setIsOpenState, onAction: props.onAction, mode: props.mode })}
                 style={{ color: props.type, size: 'sm' }}
                 testid="alert-action-button"
               >

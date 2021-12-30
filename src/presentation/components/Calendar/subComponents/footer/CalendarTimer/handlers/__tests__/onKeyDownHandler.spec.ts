@@ -5,13 +5,14 @@ describe('onKeyDownHandler', () => {
     it('should call setHours if event current target name is equal to calendar-hour', () => {
       const setHours = jest.fn()
       const setMinutes = jest.fn()
-      const states = {
+      const event = { currentTarget: { name: 'calendar-hour', value: '12' }, key: 'ArrowUp' }
+      const params = {
         setHours,
         setMinutes,
-        event: { currentTarget: { name: 'calendar-hour', value: '12' }, key: 'ArrowUp' }
+        event
       } as any
 
-      onKeyDownHandler({}, states)
+      onKeyDownHandler(params)
 
       expect(setHours).toHaveBeenCalledTimes(1)
     })
@@ -19,13 +20,14 @@ describe('onKeyDownHandler', () => {
     it('should call setMinutes if event current target name is equal to calendar-minute', () => {
       const setHours = jest.fn()
       const setMinutes = jest.fn()
-      const states = {
+      const event = { currentTarget: { name: 'calendar-minute', value: '12' }, key: 'ArrowUp' }
+      const params = {
         setHours,
         setMinutes,
-        event: { currentTarget: { name: 'calendar-minute', value: '12' }, key: 'ArrowUp' }
+        event
       } as any
 
-      onKeyDownHandler({}, states)
+      onKeyDownHandler(params)
 
       expect(setMinutes).toHaveBeenCalledTimes(1)
     })
@@ -35,13 +37,14 @@ describe('onKeyDownHandler', () => {
     it('should call setHours if event current target name is equal to calendar-hour', () => {
       const setHours = jest.fn()
       const setMinutes = jest.fn()
-      const states = {
+      const event = { currentTarget: { name: 'calendar-hour', value: '12' }, key: 'ArrowDown' }
+      const params = {
         setHours,
         setMinutes,
-        event: { currentTarget: { name: 'calendar-hour', value: '12' }, key: 'ArrowDown' }
+        event
       } as any
 
-      onKeyDownHandler({}, states)
+      onKeyDownHandler(params)
 
       expect(setHours).toHaveBeenCalledTimes(1)
     })
@@ -49,13 +52,14 @@ describe('onKeyDownHandler', () => {
     it('should call setMinutes if event current target name is equal to calendar-minute', () => {
       const setHours = jest.fn()
       const setMinutes = jest.fn()
-      const states = {
+      const event = { currentTarget: { name: 'calendar-minute', value: '12' }, key: 'ArrowDown' }
+      const params = {
         setHours,
         setMinutes,
-        event: { currentTarget: { name: 'calendar-minute', value: '12' }, key: 'ArrowDown' }
+        event
       } as any
 
-      onKeyDownHandler({}, states)
+      onKeyDownHandler(params)
 
       expect(setMinutes).toHaveBeenCalledTimes(1)
     })
@@ -65,13 +69,14 @@ describe('onKeyDownHandler', () => {
     it('should not call setHours or setMinutes', () => {
       const setHours = jest.fn()
       const setMinutes = jest.fn()
-      const states = {
+      const event = { currentTarget: { name: 'calendar-hour', value: '12' }, key: 'Enter' }
+      const params = {
         setHours,
         setMinutes,
-        event: { currentTarget: { name: 'calendar-hour', value: '12' }, key: 'Enter' }
+        event
       } as any
 
-      onKeyDownHandler({}, states)
+      onKeyDownHandler(params)
 
       expect(setHours).not.toHaveBeenCalled()
       expect(setMinutes).not.toHaveBeenCalled()

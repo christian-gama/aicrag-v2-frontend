@@ -6,13 +6,13 @@ describe('onCancelHandler', () => {
     const closeCalendar = jest.fn() as any
     const dispatch = jest.fn() as any
 
-    const states = {
+    const params = {
       dispatch,
       resetCalendar,
       closeCalendar
     }
 
-    onCancelHandler({}, states)
+    onCancelHandler(params)
 
     expect(dispatch).toHaveBeenCalledWith(resetCalendar())
     expect(dispatch).toHaveBeenCalledWith(closeCalendar())

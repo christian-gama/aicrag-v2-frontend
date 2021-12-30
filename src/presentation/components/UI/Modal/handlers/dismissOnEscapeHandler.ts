@@ -1,16 +1,17 @@
 import IHandler from '@/domain/handler/handler.model'
 import ModalProps from '../Modal.model'
 
-type States = {
+type Params = {
   event: KeyboardEvent
   setIsOpenState: React.Dispatch<React.SetStateAction<boolean>>
+  onDismiss: ModalProps['onDismiss']
 }
 
-const dismissOnEscapeHandler: IHandler<ModalProps, States> = (props, states): void => {
-  if (states.event.key === 'Escape') {
-    if (props.onDismiss) props.onDismiss()
+const dismissOnEscapeHandler: IHandler<Params> = ({ event, onDismiss, setIsOpenState }): void => {
+  if (event.key === 'Escape') {
+    if (onDismiss) onDismiss()
 
-    states.setIsOpenState(false)
+    setIsOpenState(false)
   }
 }
 

@@ -1,17 +1,16 @@
 import IHandler from '@/domain/handler/handler.model'
-import { ICalendar } from '@/application/models/calendar'
-import CalendarFooterProps from '../CalendarFooter.model'
+import { CalendarActions, CalendarStates } from '@/application/models/calendar/protocols/calendar.model'
 
-type States = {
+type Params = {
   dispatch: React.Dispatch<React.SetStateAction<any>>
-  saveCalendar: ICalendar['actions']['saveCalendar']
-  closeCalendar: ICalendar['actions']['closeCalendar']
-  selectedDate: ICalendar['states']['selectedDate']
+  saveCalendar: CalendarActions['saveCalendar']
+  closeCalendar: CalendarActions['closeCalendar']
+  selectedDate: CalendarStates['selectedDate']
 }
 
-const onConfirmHandler: IHandler<CalendarFooterProps, States> = (_, states) => {
-  states.dispatch(states.saveCalendar(states.selectedDate))
-  states.dispatch(states.closeCalendar())
+const onConfirmHandler: IHandler<Params> = ({ closeCalendar, dispatch, saveCalendar, selectedDate }) => {
+  dispatch(saveCalendar(selectedDate))
+  dispatch(closeCalendar())
 }
 
 export default onConfirmHandler

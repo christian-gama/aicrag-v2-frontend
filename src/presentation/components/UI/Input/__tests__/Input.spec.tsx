@@ -9,7 +9,7 @@ import Input, { InputProps } from '..'
 
 const makeSut = (props: InputProps): void => {
   render(
-    <Form name="createTaskForm" submitHandler={jest.fn()} validation={props.validation}>
+    <Form submitHandler={jest.fn()} validation={props.validation}>
       <Input
         name={props.name}
         type={props.type}

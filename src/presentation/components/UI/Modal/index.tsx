@@ -15,7 +15,7 @@ const Modal: React.FC<ModalProps> = (props) => {
 
   useEffect(() => {
     document.addEventListener('keydown', (event) =>
-      dismissOnEscapeHandler({ onDismiss: props.onDismiss }, { event, setIsOpenState })
+      dismissOnEscapeHandler({ event, setIsOpenState, onDismiss: props.onDismiss })
     )
   }, [])
 
@@ -26,8 +26,8 @@ const Modal: React.FC<ModalProps> = (props) => {
   const element = isOpenState && (
     <div
       className={modalClasses.backdropStyle}
-      onClick={(event) => dismissOnClickHandler({ onDismiss: props.onDismiss }, { event, setIsOpenState })}
       data-testid="backdrop"
+      onClick={(event) => dismissOnClickHandler({ event, setIsOpenState, onDismiss: props.onDismiss })}
     >
       <Card>
         <div className={modalStyle} data-testid="modal">

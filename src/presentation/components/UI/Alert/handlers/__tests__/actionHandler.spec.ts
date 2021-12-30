@@ -2,29 +2,26 @@ import handleAction from '../actionHandler'
 
 describe('actionHandler', () => {
   it('should call setIsOpenState if props.mode is equal to "actionAndCancel" and has props.onAction function', () => {
-    const props = {
+    const params = {
+      setIsOpenState: jest.fn(),
       onAction: () => {},
       mode: 'actionAndCancel' as 'actionAndCancel'
     }
-    const states = {
-      setIsOpenState: jest.fn()
-    }
 
-    handleAction(props, states)
+    handleAction(params)
 
-    expect(states.setIsOpenState).toHaveBeenCalledWith(false)
+    expect(params.setIsOpenState).toHaveBeenCalledWith(false)
   })
 
   it('should not call setIsOpen if props.mode is different of "actionAndCancel"', () => {
-    const props = {
-      mode: 'cancelOnly' as 'cancelOnly'
-    }
-    const states = {
-      setIsOpenState: jest.fn()
+    const params = {
+      setIsOpenState: jest.fn(),
+      mode: 'cancelOnly' as 'cancelOnly',
+      onAction: jest.fn()
     }
 
-    handleAction(props, states)
+    handleAction(params)
 
-    expect(states.setIsOpenState).not.toHaveBeenCalled()
+    expect(params.setIsOpenState).not.toHaveBeenCalled()
   })
 })
