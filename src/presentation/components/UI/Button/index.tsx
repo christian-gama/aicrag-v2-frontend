@@ -3,33 +3,33 @@ import LoadingSpinnerIcon from '../icons/LoadingSpinnerIcon'
 import { buttonRecipe } from './Button.css'
 import ButtonProps from './Button.model'
 
-const Button: React.FC<ButtonProps> = ({ onClick, style, children, loading, disabled, testid, type }) => {
+const Button: React.FC<ButtonProps> = (props) => {
   const buttonStyle = buttonRecipe({
-    ...style,
-    disabled
+    ...props.style,
+    disabled: props.disabled
   })
 
   const renderChildren = (): React.ReactNode => {
-    if (loading) {
+    if (props.loading) {
       return (
         <LoadingSpinnerIcon
           style={{
-            color: getLoadingColor(style)
+            color: getLoadingColor(props.style)
           }}
         />
       )
     }
 
-    return children
+    return props.children
   }
 
   return (
     <button
       className={buttonStyle}
-      data-testid={testid}
-      disabled={disabled ?? loading}
-      onClick={onClick}
-      type={type ?? 'button'}
+      data-testid={props.testid}
+      disabled={props.disabled ?? props.loading}
+      onClick={props.onClick}
+      type={props.type ?? 'button'}
     >
       {renderChildren()}
     </button>

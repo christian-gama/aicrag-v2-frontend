@@ -5,12 +5,12 @@ type PProps = {
   color?: PRecipeVariants['color']
 }
 
-const P: React.FC<PProps> = ({ children, color }) => {
+const P: React.FC<PProps> = (props) => {
   const pStyle = pClasses.pRecipe({
-    color
+    color: props.color
   })
 
-  return <p className={pStyle}>{children}</p>
+  return <p className={pStyle}>{props.children}</p>
 }
 
 export default P

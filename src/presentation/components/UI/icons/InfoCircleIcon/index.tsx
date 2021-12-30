@@ -2,10 +2,10 @@ import React from 'react'
 import { infoCircleClasses } from './InfoCircleIcon.css'
 import InfoCircleIconProps from './InfoCircleIcon.model'
 
-const InfoCircleIcon: React.FC<InfoCircleIconProps> = ({ color, size }) => {
+const InfoCircleIcon: React.FC<InfoCircleIconProps> = (props) => {
   const infoCircleStyle = infoCircleClasses.infoCircleIconRecipe({
-    color,
-    size
+    color: props.color,
+    size: props.size
   })
 
   return (

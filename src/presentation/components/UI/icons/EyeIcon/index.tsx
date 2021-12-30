@@ -2,17 +2,17 @@ import React from 'react'
 import { eyeIconClasses } from './EyeIcon.css'
 import EyeIconProps from './EyeIcon.model'
 
-const EyeIcon: React.FC<EyeIconProps> = ({ style, onClick, showPassword }) => {
+const EyeIcon: React.FC<EyeIconProps> = (props) => {
   const eyeIconStyle = eyeIconClasses.eyeIconRecipe({
-    color: style?.color,
-    size: style?.size
+    color: props.style?.color,
+    size: props.style?.size
   })
 
   const eyeOpenIcon = (
     <svg
       className={eyeIconStyle}
       data-testid={'eyeOpenIcon'}
-      onClick={onClick}
+      onClick={props.onClick}
       viewBox="0 0 60 48"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -28,7 +28,7 @@ const EyeIcon: React.FC<EyeIconProps> = ({ style, onClick, showPassword }) => {
     <svg
       className={eyeIconStyle}
       data-testid={'eyeClosedIcon'}
-      onClick={onClick}
+      onClick={props.onClick}
       viewBox="0 0 60 48"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -40,7 +40,7 @@ const EyeIcon: React.FC<EyeIconProps> = ({ style, onClick, showPassword }) => {
     </svg>
   )
 
-  return showPassword ? eyeClosedIcon : eyeOpenIcon
+  return props.showPassword ? eyeClosedIcon : eyeOpenIcon
 }
 
 export default EyeIcon

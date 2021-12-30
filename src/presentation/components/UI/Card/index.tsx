@@ -2,16 +2,16 @@ import React from 'react'
 import { cardRecipe } from './Card.css'
 import CardProps from './Card.model'
 
-const Card: React.FC<CardProps> = ({ children, centered, roundness, transparent }) => {
+const Card: React.FC<CardProps> = (props) => {
   const cardStyle = cardRecipe({
-    centered,
-    roundness,
-    transparent
+    centered: props.centered,
+    roundness: props.roundness,
+    transparent: props.transparent
   })
 
   return (
     <div data-testid="card" className={cardStyle}>
-      {children}
+      {props.children}
     </div>
   )
 }

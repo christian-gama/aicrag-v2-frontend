@@ -35,17 +35,17 @@ type InputProps = {
 /**
  * @description Must be used inside a Form component
  */
-const Input: React.FC<InputProps> = ({ name, onChange, type = 'text', icon, validation, onBlur, onFocus, form }) => {
+const Input: React.FC<InputProps> = (props) => {
   const reduxDispatch = useDispatch<AppDispatch>()
 
   // Hooks
   const [state, reducerDispatch] = useReducer(InputReducer, InputInitialState, (init) => ({
     ...init,
-    currentType: type
+    currentType: props.type ?? 'text'
   }))
 
   useEffect(() => {
-    reduxDispatch(form!.setData({ [name]: state.value }))
+    reduxDispatch(props.form!.setData({ [props.name]: state.value }))
   }, [])
 
   // Handlers
@@ -55,18 +55,18 @@ const Input: React.FC<InputProps> = ({ name, onChange, type = 'text', icon, vali
     reducerDispatch({ type: 'SET_VALUE', payload: { value } })
     reducerDispatch({
       type: 'SET_IS_VALID',
-      payload: { error: validation?.validate(name, { ...form!.data, [name]: value }) }
+      payload: { error: props.validation?.validate(props.name, { ...props.form!.data, [props.name]: value }) }
     })
 
     // render error message only if input was already touched to avoid displaying error message while typing
     if (state.isTouched) {
       reducerDispatch({
         type: 'SET_ERROR',
-        payload: { error: validation?.validate(name, { ...form!.data, [name]: value }) }
+        payload: { error: props.validation?.validate(props.name, { ...props.form!.data, [props.name]: value }) }
       })
     }
 
-    if (onChange) onChange(event)
+    if (props.onChange) props.onChange(event)
   }
 
   const focusHandler = (event: React.FocusEvent<HTMLInputElement>): void => {
@@ -74,13 +74,13 @@ const Input: React.FC<InputProps> = ({ name, onChange, type = 'text', icon, vali
 
     reducerDispatch({
       type: 'SET_IS_VALID',
-      payload: { error: validation?.validate(name, { ...form!.data, [name]: value }) }
+      payload: { error: props.validation?.validate(props.name, { ...props.form!.data, [props.name]: value }) }
     })
     reducerDispatch({ type: 'SET_IS_FOCUSED', payload: { isFocused: true } })
 
-    if (onFocus) onFocus(event)
+    if (props.onFocus) props.onFocus(event)
 
-    reduxDispatch(form!.setData({ [name]: state.value }))
+    reduxDispatch(props.form!.setData({ [props.name]: state.value }))
   }
 
   const blurHandler = (event: React.FocusEvent<HTMLInputElement>): void => {
@@ -90,12 +90,12 @@ const Input: React.FC<InputProps> = ({ name, onChange, type = 'text', icon, vali
     reducerDispatch({ type: 'SET_IS_TOUCHED', payload: { isTouched: true } })
     reducerDispatch({
       type: 'SET_ERROR',
-      payload: { error: validation?.validate(name, { ...form!.data, [name]: value }) }
+      payload: { error: props.validation?.validate(props.name, { ...props.form!.data, [props.name]: value }) }
     })
 
-    if (onBlur) onBlur(event)
+    if (props.onBlur) props.onBlur(event)
 
-    reduxDispatch(form!.setData({ [name]: state.value }))
+    reduxDispatch(props.form!.setData({ [props.name]: state.value }))
   }
 
   const showPasswordHandler = (): void =>
@@ -104,7 +104,7 @@ const Input: React.FC<InputProps> = ({ name, onChange, type = 'text', icon, vali
       : reducerDispatch({ type: 'SET_TYPE', payload: { type: 'password' } })
 
   const getState = (): LabelRecipeVariants['state'] => {
-    if (validation) {
+    if (props.validation) {
       if (!state.isValid && state.isTouched) {
         return 'error'
       }
@@ -126,26 +126,26 @@ const Input: React.FC<InputProps> = ({ name, onChange, type = 'text', icon, vali
   })
 
   const inputStyle = inputRecipe({
-    hasIcon: !!icon || type === 'password',
+    hasIcon: !!props.icon || props.type === 'password',
     state: getState()
   })
 
-  const uniqueId = `input-${name.toLowerCase()}-${Math.floor(Math.random() * 1000)}`
-  const shouldRenderIcon = type === 'password' || icon
+  const uniqueId = `input-${props.name.toLowerCase()}-${Math.floor(Math.random() * 1000)}`
+  const shouldRenderIcon = props.type === 'password' || props.icon
 
   return (
-    <div className={containerStyle} data-testid={`${name}-container`}>
+    <div className={containerStyle} data-testid={`${props.name}-container`}>
       <div className={contentStyle}>
-        <label data-testid={`${name}-label`} htmlFor={uniqueId} className={labelStyle}>
-          {name}
+        <label data-testid={`${props.name}-label`} htmlFor={uniqueId} className={labelStyle}>
+          {props.name}
         </label>
 
         <div className={boxStyle}>
           <input
             className={inputStyle}
-            data-testid={`${name}-input`}
+            data-testid={`${props.name}-input`}
             id={uniqueId}
-            name={name}
+            name={props.name}
             onBlur={blurHandler}
             onChange={changeHandler}
             onFocus={focusHandler}
@@ -154,9 +154,9 @@ const Input: React.FC<InputProps> = ({ name, onChange, type = 'text', icon, vali
           />
 
           {shouldRenderIcon && (
-            <div data-testid={`${name}-icon`} className={iconStyle}>
-              {type !== 'password' && icon}
-              {type === 'password' && (
+            <div data-testid={`${props.name}-icon`} className={iconStyle}>
+              {props.type !== 'password' && props.icon}
+              {props.type === 'password' && (
                 <EyeIcon showPassword={state.currentType !== 'password'} onClick={showPasswordHandler} />
               )}
             </div>
@@ -165,7 +165,7 @@ const Input: React.FC<InputProps> = ({ name, onChange, type = 'text', icon, vali
       </div>
 
       {state.error && (
-        <div data-testid={`${name}-error`} className={errorStyle}>
+        <div data-testid={`${props.name}-error`} className={errorStyle}>
           {state.error}
         </div>
       )}

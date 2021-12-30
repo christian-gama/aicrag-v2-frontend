@@ -14,24 +14,25 @@ type FormProps = {
   submitHandler: () => Promise<void>
 }
 
-const Form: React.FC<FormProps> = ({ children, submitHandler, validation, name }) => {
+const Form: React.FC<FormProps> = (props) => {
   const dispatch = useDispatch<AppDispatch>()
 
-  const isValid = useSelector<RootState, boolean>((state) => state[name].isValid)
-  const formData = useSelector<RootState, { [key: string]: any }>((state) => state[name].formData)
-  const errorMessage = useSelector<RootState, Maybe<string>>((state) => state[name].errorMessage)
-  const isSubmitted = useSelector<RootState, boolean>((state) => state[name].isSubmitted)
+  const isValid = useSelector<RootState, boolean>((state) => state[props.name].isValid)
+  const formData = useSelector<RootState, { [key: string]: any }>((state) => state[props.name].formData)
+  const errorMessage = useSelector<RootState, Maybe<string>>((state) => state[props.name].errorMessage)
+  const isSubmitted = useSelector<RootState, boolean>((state) => state[props.name].isSubmitted)
 
-  const { setErrorMessage, setFormData, setIsSubmitted, setIsSubmitting, setIsValid, setIsValidating } =
-    makeActions(name)
+  const { setErrorMessage, setFormData, setIsSubmitted, setIsSubmitting, setIsValid, setIsValidating } = makeActions(
+    props.name
+  )
 
   // Handlers
   const handleValidators = (): Maybe<string> => {
     dispatch(setIsValidating(true))
 
-    if (validation) {
+    if (props.validation) {
       for (const key in formData) {
-        const error = validation.validate(key, formData)
+        const error = props.validation.validate(key, formData)
 
         if (error) {
           dispatch(setErrorMessage(error))
@@ -49,7 +50,7 @@ const Form: React.FC<FormProps> = ({ children, submitHandler, validation, name }
 
   const tryToSubmit = async (): Promise<void> => {
     try {
-      await submitHandler()
+      await props.submitHandler()
     } catch (error: any) {
       dispatch(setErrorMessage(error.message))
       dispatch(setIsValid(false))
@@ -64,7 +65,7 @@ const Form: React.FC<FormProps> = ({ children, submitHandler, validation, name }
 
     const error = handleValidators()
 
-    if (!validation || !error) {
+    if (!props.validation || !error) {
       await tryToSubmit()
     }
 
@@ -73,12 +74,12 @@ const Form: React.FC<FormProps> = ({ children, submitHandler, validation, name }
 
   return (
     <>
-      <form onSubmit={onSubmit} data-testid={name}>
-        {React.Children.map(children, (child) => {
+      <form onSubmit={onSubmit} data-testid={props.name}>
+        {React.Children.map(props.children, (child) => {
           if (React.isValidElement(child)) {
             // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
             return React.cloneElement(child, {
-              validation,
+              validation: props.validation,
               form: {
                 data: formData,
                 setData: setFormData

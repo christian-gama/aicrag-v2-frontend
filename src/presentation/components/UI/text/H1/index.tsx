@@ -5,12 +5,12 @@ type H1Props = {
   color?: H1RecipeVariants['color']
 }
 
-const H1: React.FC<H1Props> = ({ children, color }) => {
+const H1: React.FC<H1Props> = (props) => {
   const h1Style = h1Classes.h1Recipe({
-    color
+    color: props.color
   })
 
-  return <h1 className={h1Style}>{children}</h1>
+  return <h1 className={h1Style}>{props.children}</h1>
 }
 
 export default H1

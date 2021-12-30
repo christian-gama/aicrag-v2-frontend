@@ -4,11 +4,11 @@ import Optional from '@/application/utils/typescript/optional.model'
 type InputAction = {
   type: 'SET_TYPE' | 'SET_ERROR' | 'SET_IS_FOCUSED' | 'SET_IS_TOUCHED' | 'SET_IS_VALID' | 'SET_VALUE'
   payload: {
-    type?: 'text' | 'email' | 'password' | 'number'
     error?: string
-    value?: string
     isFocused?: boolean
     isTouched?: boolean
+    type?: 'text' | 'email' | 'password' | 'number'
+    value?: string
   }
 }
 

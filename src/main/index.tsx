@@ -19,6 +19,7 @@ const Element: React.FC = () => {
     >
       <Input name="title" />
       <Input name="title" />
+
       <Button type="submit">Submit</Button>
     </Form>
   )
