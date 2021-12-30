@@ -4,8 +4,8 @@ import { formActions } from '@/application/models/form'
 import { FormStates } from '@/application/models/form/protocols/form.model'
 import { AppDispatch, RootState } from '@/application/store'
 import Maybe from '@/application/utils/typescript/maybe.model'
-import Alert from '../UI/Alert'
-import Input from '../UI/Input'
+import Alert from '../../components/UI/Alert'
+import Input from '../../components/UI/Input'
 import FormProps from './form.model'
 
 const Form: React.FC<FormProps> = (props) => {

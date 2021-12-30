@@ -5,7 +5,7 @@ import { fireEvent, screen } from '@testing-library/dom'
 import React from 'react'
 import IValidation from '@/domain/validation/validation.model'
 import { RootState } from '@/application/store'
-import Input from '../../UI/Input'
+import Input from '../../../components/UI/Input'
 import Form from '..'
 
 type sutConfig = {

@@ -4,7 +4,7 @@ import makeValidationMock from '@/../tests/mocks/validator.mock'
 import { cleanup, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import Form from '../../../Form'
+import Form from '../../../../containers/Form'
 import Input, { InputProps } from '..'
 
 const makeSut = (props: InputProps): void => {
