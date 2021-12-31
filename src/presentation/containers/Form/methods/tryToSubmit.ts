@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux'
-import { FormActions } from '@/domain/form/form.model'
+import { FormActions } from '@/application/models/form/protocols/form.model'
 import FormProps from '../form.model'
 
 type Params = {

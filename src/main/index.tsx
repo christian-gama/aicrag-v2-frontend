@@ -2,17 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import '@/application/common/stylesheet/global.css'
 import { Provider } from 'react-redux'
-import { calendarActions } from '@/application/models/calendar'
 import store from '@/application/store'
-import Button from '@/presentation/components/UI/Button'
-import Calendar from '@/presentation/containers/Calendar'
+import ControlledInput from '@/presentation/containers/ControlledInput'
+import Form from '@/presentation/containers/Form'
 
 const Element: React.FC = () => {
   return (
-    <>
-      <Button onClick={() => store.dispatch(calendarActions.openCalendar())}>Open Calendar</Button>
-      <Calendar previousDate={Date.now()} />
-    </>
+    <Form submitHandler={async () => console.log('oie')}>
+      <ControlledInput name="hora" type="password" />
+    </Form>
   )
 }
 

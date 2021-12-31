@@ -5,7 +5,7 @@ import { fireEvent, screen } from '@testing-library/dom'
 import React from 'react'
 import IValidation from '@/domain/validation/validation.model'
 import { RootState } from '@/application/store'
-import Input from '../../../components/UI/Input'
+import ControlledInput from '../../ControlledInput'
 import Form from '..'
 
 type sutConfig = {
@@ -39,7 +39,7 @@ const makeSut = (config: sutConfig) => {
 
 describe('Form', () => {
   it('should render children', () => {
-    const children = <Input name="title" />
+    const children = <ControlledInput name="title" />
     makeSut({ children })
     const inputElement = screen.getByTestId('title-input')
 
@@ -48,7 +48,7 @@ describe('Form', () => {
 
   it('should call onSubmitHandler when form is submitted', async () => {
     const submitHandlerMock = jest.fn().mockReturnValue(Promise.resolve())
-    const children = <Input name="title" />
+    const children = <ControlledInput name="title" />
 
     makeSut({ children, submitHandler: submitHandlerMock })
 
@@ -66,7 +66,7 @@ describe('Form', () => {
       }
     }
 
-    const children = <Input name="title" />
+    const children = <ControlledInput name="title" />
 
     makeSut({ children, validation, form })
 
@@ -84,7 +84,7 @@ describe('Form', () => {
       }
     }
 
-    const children = <Input name="title" />
+    const children = <ControlledInput name="title" />
 
     makeSut({ children, validation, form })
 
@@ -96,7 +96,7 @@ describe('Form', () => {
   it('should not call submitHandler if form is invalid', () => {
     const submitHandler = jest.fn().mockReturnValue(Promise.resolve())
     const validation = makeValidationMock(false)
-    const children = <Input name="title" />
+    const children = <ControlledInput name="title" />
     const form = {
       formData: {
         title: 'any_title'
@@ -133,7 +133,7 @@ describe('Form', () => {
       throw new Error('any_error')
     })
 
-    const children = <Input name="title" />
+    const children = <ControlledInput name="title" />
 
     makeSut({ children, submitHandler, validation: makeValidationMock(true) })
 

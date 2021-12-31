@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
-import { FormActions, FormStates } from '@/domain/form/form.model'
 import IValidation from '@/domain/validation/validation.model'
+import { FormStates, FormActions } from '@/application/models/form/protocols/form.model'
 
 type Params = {
   dispatch: Dispatch

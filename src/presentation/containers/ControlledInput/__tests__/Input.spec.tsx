@@ -4,13 +4,13 @@ import makeValidationMock from '@/../tests/mocks/validator.mock'
 import { cleanup, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import Form from '../../../../containers/Form'
-import Input, { InputProps } from '..'
+import Form from '../../Form'
+import ControlledInput, { InputProps } from '..'
 
 const makeSut = (props: InputProps): void => {
   render(
     <Form submitHandler={jest.fn()} validation={props.validation}>
-      <Input
+      <ControlledInput
         name={props.name}
         type={props.type}
         icon={props.icon}
