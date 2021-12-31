@@ -13,7 +13,7 @@ const font = style({
   fontSize: vars.font.p.fontSize
 })
 
-const containerStyle = style([
+const wrapperStyle = style([
   center,
   {
     width: '100%',
@@ -153,7 +153,7 @@ const errorStyle = style({
 
 export const inputClasses = {
   boxStyle,
-  containerStyle,
+  wrapperStyle,
   contentStyle,
   errorStyle,
   iconStyle,

@@ -7,12 +7,12 @@ const CalendarTimerWrapper: React.FC<CalendarTimerWrapperProps> = (props) => {
   const { render } = props
 
   return (
-    <div className={calendarTimerClasses.calendarTimerContainerStyle} data-testid="calendar-timer">
-      <label htmlFor="calendar-hour" className={calendarTimerClasses.calendarTimerLabel}>
+    <div className={calendarTimerClasses.wrapperStyle} data-testid="calendar-timer">
+      <label htmlFor="calendar-hour" className={calendarTimerClasses.timerLabel}>
         <ClockIcon />
       </label>
 
-      <div className={calendarTimerClasses.calendarTimerContentStyle}>{render()}</div>
+      <div className={calendarTimerClasses.contentStyle}>{render()}</div>
     </div>
   )
 }

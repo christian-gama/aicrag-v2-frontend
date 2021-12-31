@@ -1,7 +1,7 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { vars } from '@/application/common/stylesheet/vars.css'
 
-const eyeIconRecipe = recipe({
+const iconRecipe = recipe({
   base: {
     ':hover': {
       cursor: 'pointer'
@@ -36,7 +36,7 @@ const eyeIconRecipe = recipe({
 })
 
 export const eyeIconClasses = {
-  eyeIconRecipe
+  iconRecipe
 }
 
-export type EyeIconVariants = NonNullable<RecipeVariants<typeof eyeIconRecipe>>
+export type EyeIconVariants = NonNullable<RecipeVariants<typeof iconRecipe>>

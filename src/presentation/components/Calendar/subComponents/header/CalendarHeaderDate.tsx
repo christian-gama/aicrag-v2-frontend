@@ -6,7 +6,7 @@ const CalendarHeaderDate: React.FC<CalendarHeaderDateProps> = (props) => {
   const { monthAndYear } = props
 
   return (
-    <span className={calendarHeaderDateClasses.headerDateStyle} data-testid="calendar-header-date">
+    <span className={calendarHeaderDateClasses.dateStyle} data-testid="calendar-header-date">
       {monthAndYear}
     </span>
   )

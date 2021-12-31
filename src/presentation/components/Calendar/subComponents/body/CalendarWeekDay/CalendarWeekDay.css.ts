@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css'
 import { vars } from '@/application/common/stylesheet/vars.css'
 
-const calendarWeekDayStyle = style({
+const weekDayStyle = style({
   fontSize: vars.font.hint.fontSize,
   fontFamily: vars.font.hint.fontFamily,
   display: 'flex',
@@ -10,4 +10,6 @@ const calendarWeekDayStyle = style({
   marginBottom: '0.8rem'
 })
 
-export default calendarWeekDayStyle
+export const calendarWeekDayClasses = {
+  weekDayStyle
+}

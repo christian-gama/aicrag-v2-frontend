@@ -5,7 +5,7 @@ import CalendarDayNumberProps from './CalendarDayNumber.model'
 const CalendarDayNumber: React.FC<CalendarDayNumberProps> = (props) => {
   const { dimmed, onClick, selected, testid, dayNumber } = props
 
-  const calendarDayStyle = calendarDayClasses.calendarDayRecipe({
+  const calendarDayStyle = calendarDayClasses.dayRecipe({
     selected: !!selected,
     dimmed: !!dimmed
   })

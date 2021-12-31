@@ -7,7 +7,7 @@ const rotate = keyframes({
   '100%': { transform: 'rotate(360deg)' }
 })
 
-export const loadingSpinnerRecipe = recipe({
+const iconRecipe = recipe({
   base: {
     display: 'inline-block',
     animationName: rotate,
@@ -70,4 +70,8 @@ export const loadingSpinnerRecipe = recipe({
   }
 })
 
-export type LoadingSpinnerVariants = NonNullable<RecipeVariants<typeof loadingSpinnerRecipe>>
+export const loadingSpinnerIconClasses = {
+  iconRecipe
+}
+
+export type LoadingSpinnerVariants = NonNullable<RecipeVariants<typeof iconRecipe>>

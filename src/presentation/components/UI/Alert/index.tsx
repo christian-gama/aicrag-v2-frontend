@@ -12,7 +12,6 @@ import handleAction from './methods/actionHandler'
 import cancelHandler from './methods/cancelHandler'
 
 const Alert: React.FC<AlertProps> = (props) => {
-  // Hooks
   const [isOpenState, setIsOpenState] = useState(false)
 
   useEffect(() => {
@@ -26,7 +25,7 @@ const Alert: React.FC<AlertProps> = (props) => {
   return (
     <Modal isOpen={isOpenState} onDismiss={props.onCancel}>
       <Card centered>
-        <div className={alertClasses.containerStyle} data-testid="alert">
+        <div className={alertClasses.wrapperStyle} data-testid="alert">
           <div className={alertHeaderStyle} data-testid="alert-header">
             <InfoCircleIcon color="danger" />
             <H4 color={props.type}>{capitalize(props.title)}</H4>

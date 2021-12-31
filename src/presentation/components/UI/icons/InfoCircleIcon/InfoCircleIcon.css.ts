@@ -1,7 +1,7 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { color } from '@/application/common/stylesheet/colorVariants.css'
 
-const infoCircleIconRecipe = recipe({
+const iconRecipe = recipe({
   variants: {
     color,
     size: {
@@ -26,7 +26,7 @@ const infoCircleIconRecipe = recipe({
 })
 
 export const infoCircleClasses = {
-  infoCircleIconRecipe
+  iconRecipe
 }
 
-export type InfoCircleIconRecipeVariants = NonNullable<RecipeVariants<typeof infoCircleIconRecipe>>
+export type InfoCircleIconRecipeVariants = NonNullable<RecipeVariants<typeof iconRecipe>>

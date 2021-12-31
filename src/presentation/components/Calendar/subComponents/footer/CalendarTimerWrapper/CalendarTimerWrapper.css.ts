@@ -1,11 +1,11 @@
 import { style } from '@vanilla-extract/css'
 
-const calendarTimerContainerStyle = style({
+const wrapperStyle = style({
   display: 'flex',
   alignItems: 'center'
 })
 
-const calendarTimerContentStyle = style({
+const contentStyle = style({
   display: 'flex',
   alignItems: 'center',
   width: '13rem',
@@ -14,14 +14,14 @@ const calendarTimerContentStyle = style({
   borderRadius: '5px'
 })
 
-const calendarTimerLabel = style({
+const timerLabel = style({
   ':hover': {
     cursor: 'pointer'
   }
 })
 
 export const calendarTimerClasses = {
-  calendarTimerContentStyle,
-  calendarTimerContainerStyle,
-  calendarTimerLabel
+  contentStyle,
+  timerLabel,
+  wrapperStyle
 }

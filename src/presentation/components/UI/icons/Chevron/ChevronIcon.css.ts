@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { vars } from '@/application/common/stylesheet/vars.css'
 
-const chevronIconHitbox = style({
+const hitboxStyle = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -14,7 +14,7 @@ const chevronIconHitbox = style({
   }
 })
 
-const chevronIconRecipe = recipe({
+const iconRecipe = recipe({
   base: {
     transition: 'fill 0.1s ease-in-out, background-color 0.1s ease-in-out'
   },
@@ -38,7 +38,7 @@ const chevronIconRecipe = recipe({
       white: {
         fill: vars.colors.white,
         selectors: {
-          [`${chevronIconHitbox}:hover &`]: {
+          [`${hitboxStyle}:hover &`]: {
             fill: vars.colors['gray-400']
           }
         }
@@ -46,7 +46,7 @@ const chevronIconRecipe = recipe({
       main: {
         fill: vars.colors['secondary-300'],
         selectors: {
-          [`${chevronIconHitbox}:hover &`]: {
+          [`${hitboxStyle}:hover &`]: {
             fill: vars.colors['secondary-300']
           }
         }
@@ -76,8 +76,8 @@ const chevronIconRecipe = recipe({
 })
 
 export const chevronIconClasses = {
-  chevronIconRecipe,
-  chevronIconHitbox
+  iconRecipe,
+  hitboxStyle
 }
 
-export type ChevronIconVariants = NonNullable<RecipeVariants<typeof chevronIconRecipe>>
+export type ChevronIconVariants = NonNullable<RecipeVariants<typeof iconRecipe>>

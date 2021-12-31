@@ -3,7 +3,7 @@ import { chevronIconClasses } from './ChevronIcon.css'
 import ChevronIconProps from './ChevronIcon.model'
 
 const ChevronIcon: React.FC<ChevronIconProps> = (props) => {
-  const chevronStyle = chevronIconClasses.chevronIconRecipe({
+  const chevronStyle = chevronIconClasses.iconRecipe({
     color: props.color,
     direction: props.direction,
     size: props.size
@@ -11,7 +11,7 @@ const ChevronIcon: React.FC<ChevronIconProps> = (props) => {
 
   return (
     <div
-      className={chevronIconClasses.chevronIconHitbox}
+      className={chevronIconClasses.hitboxStyle}
       onClick={props.onClick}
       data-testid={`chevron-${props.direction}-icon`}
     >

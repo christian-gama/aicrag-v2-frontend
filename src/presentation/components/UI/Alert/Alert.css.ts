@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { vars } from '@/application/common/stylesheet/vars.css'
 
-const containerStyle = style({
+const wrapperStyle = style({
   display: 'flex',
   flexDirection: 'column',
   width: '42rem',
@@ -47,7 +47,7 @@ const footerStyle = style({
 })
 
 export const alertClasses = {
-  containerStyle,
+  wrapperStyle,
   headerRecipe,
   bodyStyle,
   footerStyle

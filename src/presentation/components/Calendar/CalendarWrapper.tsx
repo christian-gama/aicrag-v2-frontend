@@ -8,7 +8,7 @@ const CalendarWrapper: React.FC<CalendarWrapperProps> = (props) => {
 
   return (
     <Modal onDismiss={onDismiss} isOpen={isCalendarOpen}>
-      <div className={calendarClasses.calendarContainerStyle} data-testid="calendar-container">
+      <div className={calendarClasses.wrapperStyle} data-testid="calendar-container">
         {children}
       </div>
     </Modal>

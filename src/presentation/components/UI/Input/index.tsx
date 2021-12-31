@@ -118,7 +118,7 @@ const Input: React.FC<InputProps> = (props) => {
   }
 
   // Styles
-  const { boxStyle, containerStyle, contentStyle, iconStyle, inputRecipe, labelRecipe, errorStyle } = inputClasses
+  const { boxStyle, wrapperStyle, contentStyle, iconStyle, inputRecipe, labelRecipe, errorStyle } = inputClasses
 
   const labelStyle = labelRecipe({
     float: !!state.isFocused || state.value !== '',
@@ -134,7 +134,7 @@ const Input: React.FC<InputProps> = (props) => {
   const shouldRenderIcon = props.type === 'password' || props.icon
 
   return (
-    <div className={containerStyle} data-testid={`${props.name}-container`}>
+    <div className={wrapperStyle} data-testid={`${props.name}-container`}>
       <div className={contentStyle}>
         <label data-testid={`${props.name}-label`} htmlFor={uniqueId} className={labelStyle}>
           {props.name}

@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { vars } from '@/application/common/stylesheet/vars.css'
 
-const cardStyle = style({
+const baseCardStyle = style({
   boxShadow: vars.shadow.light,
   borderRadius: '5px',
   maxWidth: 'max-content',
@@ -11,7 +11,7 @@ const cardStyle = style({
 })
 
 const cardRecipe = recipe({
-  base: [cardStyle],
+  base: [baseCardStyle],
 
   variants: {
     centered: {

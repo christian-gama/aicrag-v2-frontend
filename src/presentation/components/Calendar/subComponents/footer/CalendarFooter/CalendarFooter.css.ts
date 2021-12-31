@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css'
 import { vars } from '@/application/common/stylesheet/vars.css'
 
-const calendarFooterStyle = style({
+const footerStyle = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -12,5 +12,5 @@ const calendarFooterStyle = style({
 })
 
 export const calendarFooterClasses = {
-  calendarFooterStyle
+  footerStyle
 }

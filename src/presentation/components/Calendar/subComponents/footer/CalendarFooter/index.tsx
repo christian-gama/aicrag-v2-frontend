@@ -5,7 +5,7 @@ const CalendarFooter: React.FC = (props) => {
   const { children } = props
 
   return (
-    <div className={calendarFooterClasses.calendarFooterStyle} data-testid="calendar-footer">
+    <div className={calendarFooterClasses.footerStyle} data-testid="calendar-footer">
       {children}
     </div>
   )
