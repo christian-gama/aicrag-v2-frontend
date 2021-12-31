@@ -1,23 +1,6 @@
 import { style } from '@vanilla-extract/css'
-import { vars } from '@/application/common/stylesheet/vars.css'
 
-const calendarWeekDayStyle = style({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  width: '100%',
-  gap: '1.2rem'
-})
-
-const calendarDaySpanStyle = style({
-  fontSize: vars.font.hint.fontSize,
-  fontFamily: vars.font.hint.fontFamily,
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center'
-})
-
-const calendarBodyStyle = style({
+const bodyStyle = style({
   display: 'grid',
   gridAutoRows: '50px',
   gridTemplateColumns: 'repeat(7, 1fr)',
@@ -28,7 +11,5 @@ const calendarBodyStyle = style({
 })
 
 export const calendarBodyClasses = {
-  calendarWeekDayStyle,
-  calendarDaySpanStyle,
-  calendarBodyStyle
+  bodyStyle
 }

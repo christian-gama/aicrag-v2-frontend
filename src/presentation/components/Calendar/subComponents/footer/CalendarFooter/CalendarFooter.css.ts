@@ -11,14 +11,6 @@ const calendarFooterStyle = style({
   backgroundColor: vars.colors['gray-50']
 })
 
-const calendarButtonContainer = style({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: '100%'
-})
-
 export const calendarFooterClasses = {
-  calendarFooterStyle,
-  calendarButtonContainer
+  calendarFooterStyle
 }

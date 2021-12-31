@@ -1,24 +1,27 @@
 import React from 'react'
 import { calendarDayClasses } from './CalendarDayNumber.css'
 import CalendarDayNumberProps from './CalendarDayNumber.model'
-import onClickHandler from './methods/onClickHandler'
 
 const CalendarDayNumber: React.FC<CalendarDayNumberProps> = (props) => {
+  const { dimmed, onClick, selected, testid, dayNumber } = props
+
   const calendarDayStyle = calendarDayClasses.calendarDayRecipe({
-    selected: !!props.selected,
-    dimmed: !!props.dimmed
+    selected: !!selected,
+    dimmed: !!dimmed
   })
 
   return (
     <span
-      data-testid={props.testid ?? ''}
+      data-testid={testid ?? ''}
       className={calendarDayStyle}
-      onClick={() =>
-        onClickHandler({ dayNumber: props.children as number, dimmed: props.dimmed, onClick: props.onClick })
-      }
-      data-selected={props.selected}
+      data-selected={selected}
+      onClick={() => {
+        if (onClick && !dimmed) {
+          onClick(dayNumber)
+        }
+      }}
     >
-      {props.children}
+      {dayNumber}
     </span>
   )
 }

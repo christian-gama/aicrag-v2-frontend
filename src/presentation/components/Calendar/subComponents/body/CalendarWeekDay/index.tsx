@@ -1,18 +1,11 @@
 import React from 'react'
 import calendarWeekDayStyle from './CalendarWeekDay.css'
+import CalendarWeekDayProps from './CalendarWeekDayProps.model'
 
-const CalendarWeekDay: React.FC = () => {
-  const weekDays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']
+const CalendarWeekDay: React.FC<CalendarWeekDayProps> = (props) => {
+  const { weekDay } = props
 
-  return (
-    <>
-      {weekDays.map((weekDay) => (
-        <span key={weekDay} className={calendarWeekDayStyle}>
-          {weekDay}
-        </span>
-      ))}
-    </>
-  )
+  return <span className={calendarWeekDayStyle}>{weekDay}</span>
 }
 
 export default CalendarWeekDay

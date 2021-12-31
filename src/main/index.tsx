@@ -1,26 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import '@/presentation/styles/global.css'
+import '@/application/common/stylesheet/global.css'
 import { Provider } from 'react-redux'
+import { calendarActions } from '@/application/models/calendar'
 import store from '@/application/store'
 import Button from '@/presentation/components/UI/Button'
-import Input from '@/presentation/components/UI/Input'
-import Form from '@/presentation/containers/Form'
-import makeTimerValidator from './factories/validation/makeTimerValidator'
+import Calendar from '@/presentation/containers/Calendar'
 
 const Element: React.FC = () => {
   return (
-    <Form
-      submitHandler={async () => {
-        throw new Error('oe')
-      }}
-      validation={makeTimerValidator()}
-    >
-      <Input name="title" />
-      <Input name="title" />
-
-      <Button type="submit">Submit</Button>
-    </Form>
+    <>
+      <Button onClick={() => store.dispatch(calendarActions.openCalendar())}>Open Calendar</Button>
+      <Calendar previousDate={Date.now()} />
+    </>
   )
 }
 
