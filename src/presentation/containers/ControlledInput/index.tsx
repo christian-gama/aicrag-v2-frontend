@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import IValidation from '@/domain/validation/validation.model'
 import { formActions } from '@/application/models/form'
@@ -7,14 +7,13 @@ import { AppDispatch, RootState } from '@/application/store'
 import Maybe from '@/application/utils/typescript/maybe.model'
 import EyeIcon from '../../components/UI/icons/EyeIcon'
 import Input from '../../components/UI/Input'
-import { InputInitialState, InputReducer } from './InputReducer'
 
 type InputProps = {
   /**
    * @description Passed automatically by the parent Form component
    * @protected
    */
-  form?: string
+  uniqueFormName?: string
 
   /**
    * @description Passed automatically by the parent Form component
@@ -35,94 +34,103 @@ type InputProps = {
  * @description Must be used inside a Form component
  */
 const ControlledInput: React.FC<InputProps> = (props) => {
+  const { uniqueFormName, validation, icon, name, type, onBlur, onChange, onFocus } = props
   const { setFormData } = formActions
 
-  const reduxDispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>()
   const formData = useSelector<RootState, Maybe<FormProperties['formData']>>(
-    (state) => state.form.forms.find((form) => form.name === props.form)?.formData
+    (state) => state.form.forms.find((form) => form.name === uniqueFormName)?.formData
   )
 
-  // Hooks
-  const [state, reducerDispatch] = useReducer(InputReducer, InputInitialState, (init) => ({
-    ...init,
-    currentType: props.type ?? 'text'
-  }))
+  const [states, setStates] = useState({
+    currentType: 'text' as NonNullable<InputProps['type']>,
+    error: undefined as Maybe<string>,
+    isFocused: false,
+    isTouched: false,
+    isValid: false,
+    value: ''
+  })
 
   useEffect(() => {
-    reduxDispatch(setFormData({ [props.name]: state.value, name: props.form! }))
+    dispatch(setFormData({ [name]: states.value, name: uniqueFormName! }))
   }, [])
 
   useEffect(() => {
-    reducerDispatch({ type: 'SET_VALUE', payload: { value: formData?.[props.name] ?? '' } })
+    setStates((prev) => ({ ...prev, value: formData?.[name] ?? '', currentType: type ?? 'text' }))
   }, [formData])
 
   // Handlers
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value
+    const error = validation?.validate(name, { ...formData, [name]: value })
 
-    reducerDispatch({ type: 'SET_VALUE', payload: { value } })
-    reducerDispatch({
-      type: 'SET_IS_VALID',
-      payload: { error: props.validation?.validate(props.name, { ...formData, [props.name]: value }) }
-    })
+    setStates((prev) => ({
+      ...prev,
+      value,
+      isValid: !!error
+    }))
 
     // render error message only if input was already touched to avoid displaying error message while typing
-    if (state.isTouched) {
-      reducerDispatch({
-        type: 'SET_ERROR',
-        payload: { error: props.validation?.validate(props.name, { ...formData, [props.name]: value }) }
-      })
+    if (states.isTouched) {
+      setStates((prev) => ({
+        ...prev,
+        error: error
+      }))
     }
 
-    if (props.onChange) props.onChange(event)
+    if (onChange) onChange(event)
   }
 
   const onFocusHandler = (event: React.FocusEvent<HTMLInputElement>): void => {
     const value = event.currentTarget.value
+    const error = validation?.validate(name, { ...formData, [name]: value })
 
-    reducerDispatch({
-      type: 'SET_IS_VALID',
-      payload: { error: props.validation?.validate(props.name, { ...formData, [props.name]: value }) }
-    })
-    reducerDispatch({ type: 'SET_IS_FOCUSED', payload: { isFocused: true } })
+    setStates((prev) => ({
+      ...prev,
+      value,
+      isValid: !!error,
+      isFocused: true
+    }))
 
-    if (props.onFocus) props.onFocus(event)
+    if (onFocus) onFocus(event)
 
-    reduxDispatch(setFormData({ [props.name]: state.value, name: props.form! }))
+    dispatch(setFormData({ [name]: states.value, name: uniqueFormName! }))
   }
 
   const onBlurHandler = (event: React.FocusEvent<HTMLInputElement>): void => {
     const value = event.currentTarget.value
+    const error = validation?.validate(name, { ...formData, [name]: value })
 
-    reducerDispatch({ type: 'SET_IS_FOCUSED', payload: { isFocused: false } })
-    reducerDispatch({ type: 'SET_IS_TOUCHED', payload: { isTouched: true } })
-    reducerDispatch({
-      type: 'SET_ERROR',
-      payload: { error: props.validation?.validate(props.name, { ...formData, [props.name]: value }) }
-    })
+    setStates((prev) => ({
+      ...prev,
+      value,
+      isTouched: true,
+      isFocused: false,
+      error
+    }))
 
-    if (props.onBlur) props.onBlur(event)
+    if (onBlur) onBlur(event)
 
-    reduxDispatch(setFormData({ [props.name]: state.value, name: props.form! }))
+    dispatch(setFormData({ [name]: states.value, name: uniqueFormName! }))
   }
 
   const showPasswordHandler = (): void =>
-    state.currentType === 'password'
-      ? reducerDispatch({ type: 'SET_TYPE', payload: { type: 'text' } })
-      : reducerDispatch({ type: 'SET_TYPE', payload: { type: 'password' } })
+    states.currentType === 'password'
+      ? setStates((prev) => ({ ...prev, currentType: 'text' }))
+      : setStates((prev) => ({ ...prev, currentType: 'password' }))
 
-  const shouldRenderIcon = props.type === 'password' || props.icon
+  const shouldRenderIcon = type === 'password' || icon
 
   return (
     <Input
-      name={props.name}
-      error={state.error}
-      isFocused={state.isFocused!}
-      isTouched={state.isTouched!}
-      isValid={state.isValid!}
-      type={state.currentType!}
-      validation={props.validation}
-      value={state.value!}
+      name={name}
+      error={states.error}
+      isFocused={states.isFocused}
+      isTouched={states.isTouched}
+      isValid={states.isValid}
+      type={states.currentType}
+      validation={validation}
+      value={states.value}
       onBlur={onBlurHandler}
       onChange={onChangeHandler}
       onFocus={onFocusHandler}
@@ -130,9 +138,9 @@ const ControlledInput: React.FC<InputProps> = (props) => {
         shouldRenderIcon
           ? () => (
               <>
-                {props.type !== 'password' && props.icon}
-                {props.type === 'password' && (
-                  <EyeIcon showPassword={state.currentType !== 'password'} onClick={showPasswordHandler} />
+                {type !== 'password' && icon}
+                {type === 'password' && (
+                  <EyeIcon showPassword={states.currentType !== 'password'} onClick={showPasswordHandler} />
                 )}
               </>
             )

@@ -15,23 +15,23 @@ const Form: React.FC<FormProps> = (props) => {
   const dispatch = useDispatch<AppDispatch>()
 
   const isValid = useSelector<RootState, Maybe<FormProperties['isValid']>>(
-    (state) => state.form.forms.find((form) => form.name === props.name)?.isValid
+    (state) => state.form.forms.find((form) => form.name === name)?.isValid
   )
   const formData = useSelector<RootState, Maybe<FormProperties['formData']>>(
-    (state) => state.form.forms.find((form) => form.name === props.name)?.formData
+    (state) => state.form.forms.find((form) => form.name === name)?.formData
   )
   const errorMessage = useSelector<RootState, Maybe<FormProperties['errorMessage']>>(
-    (state) => state.form.forms.find((form) => form.name === props.name)?.errorMessage
+    (state) => state.form.forms.find((form) => form.name === name)?.errorMessage
   )
   const isSubmitted = useSelector<RootState, Maybe<FormProperties['isSubmitted']>>(
-    (state) => state.form.forms.find((form) => form.name === props.name)?.isSubmitted
+    (state) => state.form.forms.find((form) => form.name === name)?.isSubmitted
   )
 
   const { resetForm, init } = formActions
 
   useEffect(() => {
-    dispatch(init(props.name))
-    dispatch(resetForm(props.name))
+    dispatch(init(name))
+    dispatch(resetForm(name))
   }, [])
 
   return (
@@ -55,7 +55,7 @@ const Form: React.FC<FormProps> = (props) => {
             // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
             return React.cloneElement(child, {
               validation,
-              form: props.name
+              uniqueFormName: name
             } as React.ComponentProps<typeof ControlledInput>)
           }
 
