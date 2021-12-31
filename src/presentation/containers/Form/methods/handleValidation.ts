@@ -4,7 +4,7 @@ import { FormActions, FormProperties } from '@/application/models/form/protocols
 
 type Params = {
   dispatch: Dispatch
-  formData: FormProperties['formData']
+  formData?: FormProperties['formData']
   setErrorMessage: FormActions['setErrorMessage']
   setIsValid: FormActions['setIsValid']
   setIsValidating: FormActions['setIsValidating']

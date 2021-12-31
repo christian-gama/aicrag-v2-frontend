@@ -8,7 +8,7 @@ import tryToSubmit from './tryToSubmit'
 type Params = {
   dispatch: Dispatch
   event: React.FormEvent<HTMLFormElement>
-  formData: FormProperties['formData']
+  formData?: FormProperties['formData']
   setErrorMessage: FormActions['setErrorMessage']
   setIsSubmitted: FormActions['setIsSubmitted']
   setIsSubmitting: FormActions['setIsSubmitting']

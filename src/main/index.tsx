@@ -7,13 +7,14 @@ import store from '@/application/store'
 import Button from '@/presentation/components/UI/Button'
 import ControlledInput from '@/presentation/containers/ControlledInput'
 import Form from '@/presentation/containers/Form'
+import makeTimerValidator from './factories/validation/makeTimerValidator'
 
 const Element: React.FC = () => {
   const dispatch = useDispatch()
   const { resetForm } = formActions
   return (
     <>
-      <Form name="teste" submitHandler={async () => console.log('oie')}>
+      <Form name="teste" submitHandler={async () => console.log('oie')} validation={makeTimerValidator()}>
         <ControlledInput name="hora" type="password" />
 
         <Button onClick={() => dispatch(resetForm('teste'))}>Reset</Button>

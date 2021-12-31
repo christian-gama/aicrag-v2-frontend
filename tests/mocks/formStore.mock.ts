@@ -20,7 +20,10 @@ const formStoreMock: Store = {
           isSubmitted: false,
           isSubmitting: false,
           isValid: false,
-          isValidating: false
+          isValidating: false,
+          isChanging: false,
+          isFocused: false,
+          isResetting: false
         }
       ]
     }

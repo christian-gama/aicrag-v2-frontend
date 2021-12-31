@@ -10,6 +10,9 @@ export type FormProperties = {
   isValidating: boolean
   errorMessage: Maybe<Error['message']>
   formData: { [key: string]: any }
+  isResetting?: boolean
+  isFocused: boolean
+  isChanging: boolean
 }
 
 export type FormStates = {

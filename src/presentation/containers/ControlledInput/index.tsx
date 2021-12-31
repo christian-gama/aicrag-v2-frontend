@@ -1,146 +1,96 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import IValidation from '@/domain/validation/validation.model'
 import { formActions } from '@/application/models/form'
 import { FormProperties } from '@/application/models/form/protocols/form.model'
+import findForm from '@/application/models/form/utils/findForm'
 import { AppDispatch, RootState } from '@/application/store'
 import Maybe from '@/application/utils/typescript/maybe.model'
 import EyeIcon from '../../components/UI/icons/EyeIcon'
 import Input from '../../components/UI/Input'
-
-type InputProps = {
-  /**
-   * @description Passed automatically by the parent Form component
-   * @protected
-   */
-  uniqueFormName?: string
-
-  /**
-   * @description Passed automatically by the parent Form component
-   * @protected
-   */
-  validation?: IValidation
-
-  icon?: React.ReactElement
-  name: string
-  type?: 'text' | 'email' | 'password' | 'number'
-
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
-  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void
-}
+import ControlledInputProps from './ControlledInput.model'
+import onBlurHandler from './methods/onBlurHandler'
+import onChangeHandler from './methods/onChangeHandler'
+import onFocusHandler from './methods/onFocusHandler'
+import useInput from './useInput'
 
 /**
  * @description Must be used inside a Form component
  */
-const ControlledInput: React.FC<InputProps> = (props) => {
-  const { uniqueFormName, validation, icon, name, type, onBlur, onChange, onFocus } = props
-  const { setFormData } = formActions
+const ControlledInput: React.FC<Omit<ControlledInputProps, 'uniqueFormName' | 'validation'>> = (
+  props: ControlledInputProps
+) => {
+  const { uniqueFormName, validation, icon, name, type } = props
+  const { setFormData, setIsChanging } = formActions
 
   const dispatch = useDispatch<AppDispatch>()
   const formData = useSelector<RootState, Maybe<FormProperties['formData']>>(
-    (state) => state.form.forms.find((form) => form.name === uniqueFormName)?.formData
+    (state) => findForm(state.form.forms, uniqueFormName!)?.formData
+  )
+  const isResetting = useSelector<RootState, Maybe<FormProperties['isResetting']>>(
+    (state) => findForm(state.form.forms, uniqueFormName!)?.isResetting
   )
 
-  const [states, setStates] = useState({
-    currentType: 'text' as NonNullable<InputProps['type']>,
-    error: undefined as Maybe<string>,
-    isFocused: false,
-    isTouched: false,
-    isValid: false,
-    value: ''
-  })
+  const inputState = useInput({ currentType: type ?? 'text' })
 
   useEffect(() => {
-    dispatch(setFormData({ [name]: states.value, name: uniqueFormName! }))
+    dispatch(setFormData({ [name]: inputState.value, name: uniqueFormName! }))
   }, [])
 
   useEffect(() => {
-    setStates((prev) => ({ ...prev, value: formData?.[name] ?? '', currentType: type ?? 'text' }))
+    inputState.setValue(formData?.[name] ?? '')
   }, [formData])
 
-  // Handlers
-  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = event.target.value
-    const error = validation?.validate(name, { ...formData, [name]: value })
+  useEffect(() => {
+    if (isResetting) inputState.reset()
+  }, [isResetting])
 
-    setStates((prev) => ({
-      ...prev,
-      value,
-      isValid: !!error
-    }))
-
-    // render error message only if input was already touched to avoid displaying error message while typing
-    if (states.isTouched) {
-      setStates((prev) => ({
-        ...prev,
-        error: error
-      }))
-    }
-
-    if (onChange) onChange(event)
-  }
-
-  const onFocusHandler = (event: React.FocusEvent<HTMLInputElement>): void => {
-    const value = event.currentTarget.value
-    const error = validation?.validate(name, { ...formData, [name]: value })
-
-    setStates((prev) => ({
-      ...prev,
-      value,
-      isValid: !!error,
-      isFocused: true
-    }))
-
-    if (onFocus) onFocus(event)
-
-    dispatch(setFormData({ [name]: states.value, name: uniqueFormName! }))
-  }
-
-  const onBlurHandler = (event: React.FocusEvent<HTMLInputElement>): void => {
-    const value = event.currentTarget.value
-    const error = validation?.validate(name, { ...formData, [name]: value })
-
-    setStates((prev) => ({
-      ...prev,
-      value,
-      isTouched: true,
-      isFocused: false,
-      error
-    }))
-
-    if (onBlur) onBlur(event)
-
-    dispatch(setFormData({ [name]: states.value, name: uniqueFormName! }))
-  }
+  useEffect(() => {
+    inputState.setCurrentType(type ?? 'text')
+  }, [])
 
   const showPasswordHandler = (): void =>
-    states.currentType === 'password'
-      ? setStates((prev) => ({ ...prev, currentType: 'text' }))
-      : setStates((prev) => ({ ...prev, currentType: 'password' }))
+    inputState.currentType === 'password' ? inputState.setCurrentType('text') : inputState.setCurrentType('password')
 
   const shouldRenderIcon = type === 'password' || icon
 
   return (
     <Input
       name={name}
-      error={states.error}
-      isFocused={states.isFocused}
-      isTouched={states.isTouched}
-      isValid={states.isValid}
-      type={states.currentType}
+      error={inputState.error}
+      isFocused={inputState.isFocused}
+      isTouched={inputState.isTouched}
+      isValid={inputState.isValid}
+      type={inputState.currentType}
       validation={validation}
-      value={states.value}
-      onBlur={onBlurHandler}
-      onChange={onChangeHandler}
-      onFocus={onFocusHandler}
+      value={inputState.value}
+      onBlur={(event) =>
+        onBlurHandler({
+          dispatch,
+          event,
+          formData,
+          inputState,
+          ...props,
+          ...formActions
+        })
+      }
+      onChange={(event) =>
+        onChangeHandler({
+          dispatch,
+          event,
+          inputState,
+          setIsChanging,
+          formData,
+          ...props
+        })
+      }
+      onFocus={(event) => onFocusHandler({ event, dispatch, inputState, ...props, formData, ...formActions })}
       icon={
         shouldRenderIcon
           ? () => (
               <>
                 {type !== 'password' && icon}
                 {type === 'password' && (
-                  <EyeIcon showPassword={states.currentType !== 'password'} onClick={showPasswordHandler} />
+                  <EyeIcon showPassword={inputState.currentType !== 'password'} onClick={showPasswordHandler} />
                 )}
               </>
             )
@@ -151,4 +101,3 @@ const ControlledInput: React.FC<InputProps> = (props) => {
 }
 
 export default ControlledInput
-export { InputProps }

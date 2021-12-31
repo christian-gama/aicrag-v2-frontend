@@ -5,18 +5,19 @@ import { cleanup, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import Form from '../../Form'
-import ControlledInput, { InputProps } from '..'
+import ControlledInput from '..'
+import ControlledInputProps from '../ControlledInput.model'
 
-const makeSut = (props: InputProps): void => {
+const makeSut = (props: ControlledInputProps): void => {
   render(
     <Form name="form" submitHandler={jest.fn()} validation={props.validation}>
       <ControlledInput
-        name={props.name}
-        type={props.type}
         icon={props.icon}
+        name={props.name}
         onBlur={props.onBlur}
         onChange={props.onChange}
         onFocus={props.onFocus}
+        type={props.type}
       />
     </Form>,
     { ...formStoreMock }

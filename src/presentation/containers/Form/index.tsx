@@ -5,7 +5,7 @@ import { FormProperties } from '@/application/models/form/protocols/form.model'
 import { AppDispatch, RootState } from '@/application/store'
 import Maybe from '@/application/utils/typescript/maybe.model'
 import Alert from '../../components/UI/Alert'
-import ControlledInput from '../ControlledInput'
+import ControlledInputProps from '../ControlledInput/ControlledInput.model'
 import FormProps from './form.model'
 import onSubmitHandler from './methods/onSubmitHandler'
 
@@ -44,7 +44,7 @@ const Form: React.FC<FormProps> = (props) => {
             name,
             submitHandler,
             validation,
-            formData: formData ?? {},
+            formData,
             ...formActions
           })
         }
@@ -56,7 +56,7 @@ const Form: React.FC<FormProps> = (props) => {
             return React.cloneElement(child, {
               validation,
               uniqueFormName: name
-            } as React.ComponentProps<typeof ControlledInput>)
+            } as ControlledInputProps)
           }
 
           return child

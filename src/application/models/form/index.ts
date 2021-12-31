@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { FormPayloads, FormStates } from './protocols/form.model'
+import findForm from './utils/findForm'
 
 const initialFormState: FormStates = {
   forms: [{}] as FormStates['forms']
@@ -20,7 +21,9 @@ const formSlice = createSlice({
         formData: {},
         isSubmitting: false,
         isValid: false,
-        isValidating: false
+        isValidating: false,
+        isFocused: false,
+        isChanging: false
       })
 
       return state
@@ -31,12 +34,15 @@ const formSlice = createSlice({
         const form = state.forms.find((form) => form.name === action.payload)
 
         if (form) {
+          form.isResetting = true
           form.isDirty = false
           form.isSubmitted = false
           form.errorMessage = undefined
           form.isSubmitting = false
           form.isValid = false
           form.isValidating = false
+          form.isFocused = false
+          form.isChanging = false
 
           for (const data in form.formData) {
             if (form.formData[data]) {
@@ -51,7 +57,7 @@ const formSlice = createSlice({
 
     setErrorMessage: (state, action: FormPayloads['errorPayload']) => {
       if (state.forms.length > 0) {
-        const form = state.forms.find((form) => form.name === action.payload.name)
+        const form = findForm(state.forms, action.payload.name)
 
         if (form) {
           form.errorMessage = action.payload.errorMessage
@@ -63,7 +69,7 @@ const formSlice = createSlice({
 
     setIsValid: (state, action: { payload: Pick<FormPayloads['utilityPayload']['payload'], 'isValid' | 'name'> }) => {
       if (state.forms.length > 0) {
-        const form = state.forms.find((form) => form.name === action.payload.name)
+        const form = findForm(state.forms, action.payload.name)
 
         if (form) {
           form.isValid = action.payload.isValid
@@ -75,10 +81,41 @@ const formSlice = createSlice({
 
     setIsDirty: (state, action: { payload: Pick<FormPayloads['utilityPayload']['payload'], 'isDirty' | 'name'> }) => {
       if (state.forms.length > 0) {
-        const form = state.forms.find((form) => form.name === action.payload.name)
+        const form = findForm(state.forms, action.payload.name)
 
         if (form) {
           form.isDirty = action.payload.isDirty
+
+          return state
+        }
+      }
+    },
+
+    setIsChanging: (
+      state,
+      action: { payload: Pick<FormPayloads['utilityPayload']['payload'], 'isChanging' | 'name'> }
+    ) => {
+      if (state.forms.length > 0) {
+        const form = findForm(state.forms, action.payload.name)
+
+        if (form) {
+          form.isResetting = false
+          form.isChanging = action.payload.isChanging
+
+          return state
+        }
+      }
+    },
+
+    setIsFocused: (
+      state,
+      action: { payload: Pick<FormPayloads['utilityPayload']['payload'], 'isFocused' | 'name'> }
+    ) => {
+      if (state.forms.length > 0) {
+        const form = findForm(state.forms, action.payload.name)
+
+        if (form) {
+          form.isChanging = action.payload.isFocused
 
           return state
         }
@@ -90,7 +127,7 @@ const formSlice = createSlice({
       action: { payload: Pick<FormPayloads['utilityPayload']['payload'], 'isSubmitting' | 'name'> }
     ) => {
       if (state.forms.length > 0) {
-        const form = state.forms.find((form) => form.name === action.payload.name)
+        const form = findForm(state.forms, action.payload.name)
 
         if (form) {
           form.isSubmitting = action.payload.isSubmitting
@@ -105,7 +142,7 @@ const formSlice = createSlice({
       action: { payload: Pick<FormPayloads['utilityPayload']['payload'], 'isSubmitted' | 'name'> }
     ) => {
       if (state.forms.length > 0) {
-        const form = state.forms.find((form) => form.name === action.payload.name)
+        const form = findForm(state.forms, action.payload.name)
 
         if (form) {
           form.isSubmitted = action.payload.isSubmitted
@@ -120,7 +157,7 @@ const formSlice = createSlice({
       action: { payload: Pick<FormPayloads['utilityPayload']['payload'], 'isValidating' | 'name'> }
     ) => {
       if (state.forms.length > 0) {
-        const form = state.forms.find((form) => form.name === action.payload.name)
+        const form = findForm(state.forms, action.payload.name)
 
         if (form) {
           form.isValidating = action.payload.isValidating
@@ -132,7 +169,7 @@ const formSlice = createSlice({
 
     setFormData: (state, action: FormPayloads['inputPayload']) => {
       if (state.forms.length > 0) {
-        const form = state.forms.find((form) => form.name === action.payload.name)
+        const form = findForm(state.forms, action.payload.name)
 
         if (form) {
           form.formData = {
