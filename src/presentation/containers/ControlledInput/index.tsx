@@ -2,22 +2,29 @@ import React, { useEffect, useReducer } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import IValidation from '@/domain/validation/validation.model'
 import { formActions } from '@/application/models/form'
-import { FormStates } from '@/application/models/form/protocols/form.model'
+import { FormProperties } from '@/application/models/form/protocols/form.model'
 import { AppDispatch, RootState } from '@/application/store'
+import Maybe from '@/application/utils/typescript/maybe.model'
 import EyeIcon from '../../components/UI/icons/EyeIcon'
 import Input from '../../components/UI/Input'
 import { InputInitialState, InputReducer } from './InputReducer'
 
 type InputProps = {
-  icon?: React.ReactElement
-  name: string
-  type?: 'text' | 'email' | 'password' | 'number'
+  /**
+   * @description Passed automatically by the parent Form component
+   * @protected
+   */
+  form?: string
 
   /**
    * @description Passed automatically by the parent Form component
    * @protected
    */
   validation?: IValidation
+
+  icon?: React.ReactElement
+  name: string
+  type?: 'text' | 'email' | 'password' | 'number'
 
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -31,7 +38,9 @@ const ControlledInput: React.FC<InputProps> = (props) => {
   const { setFormData } = formActions
 
   const reduxDispatch = useDispatch<AppDispatch>()
-  const formData = useSelector<RootState, FormStates['formData']>((state) => state.form.formData)
+  const formData = useSelector<RootState, Maybe<FormProperties['formData']>>(
+    (state) => state.form.forms.find((form) => form.name === props.form)?.formData
+  )
 
   // Hooks
   const [state, reducerDispatch] = useReducer(InputReducer, InputInitialState, (init) => ({
@@ -40,8 +49,12 @@ const ControlledInput: React.FC<InputProps> = (props) => {
   }))
 
   useEffect(() => {
-    reduxDispatch(setFormData({ [props.name]: state.value }))
+    reduxDispatch(setFormData({ [props.name]: state.value, name: props.form! }))
   }, [])
+
+  useEffect(() => {
+    reducerDispatch({ type: 'SET_VALUE', payload: { value: formData?.[props.name] ?? '' } })
+  }, [formData])
 
   // Handlers
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -75,7 +88,7 @@ const ControlledInput: React.FC<InputProps> = (props) => {
 
     if (props.onFocus) props.onFocus(event)
 
-    reduxDispatch(setFormData({ [props.name]: state.value }))
+    reduxDispatch(setFormData({ [props.name]: state.value, name: props.form! }))
   }
 
   const onBlurHandler = (event: React.FocusEvent<HTMLInputElement>): void => {
@@ -90,7 +103,7 @@ const ControlledInput: React.FC<InputProps> = (props) => {
 
     if (props.onBlur) props.onBlur(event)
 
-    reduxDispatch(setFormData({ [props.name]: state.value }))
+    reduxDispatch(setFormData({ [props.name]: state.value, name: props.form! }))
   }
 
   const showPasswordHandler = (): void =>

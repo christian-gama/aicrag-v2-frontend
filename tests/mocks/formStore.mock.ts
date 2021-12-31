@@ -11,13 +11,18 @@ const formStoreMock: Store = {
   reducer: { form: formReducer },
   preloadedState: {
     form: {
-      errorMessage: '',
-      formData: {},
-      isDirty: false,
-      isSubmitted: false,
-      isSubmitting: false,
-      isValid: false,
-      isValidating: false
+      forms: [
+        {
+          name: 'form',
+          errorMessage: undefined,
+          formData: {},
+          isDirty: false,
+          isSubmitted: false,
+          isSubmitting: false,
+          isValid: false,
+          isValidating: false
+        }
+      ]
     }
   }
 }

@@ -16,6 +16,7 @@ describe('onSubmitHandler', () => {
   const submitHandler = jest.fn()
   const tryToSubmitMock = tryToSubmit as jest.Mock
   const event = { preventDefault: jest.fn() } as any
+  const name = 'form'
   const validation = {
     validate: jest.fn()
   }
@@ -41,7 +42,8 @@ describe('onSubmitHandler', () => {
       setIsValid,
       setIsValidating,
       submitHandler,
-      validation
+      validation,
+      name
     })
 
     expect(tryToSubmitMock).toHaveBeenCalled()
@@ -60,7 +62,8 @@ describe('onSubmitHandler', () => {
       setIsValid,
       setIsValidating,
       submitHandler,
-      validation
+      validation,
+      name
     })
 
     expect(tryToSubmit).not.toHaveBeenCalled()

@@ -20,17 +20,19 @@ type sutConfig = {
   | undefined
   validation?: IValidation
   submitHandler?: () => Promise<void>
-  form?: Partial<RootState['form']>
+  formData?: Partial<RootState['form']['forms'][0]>
 }
 
 const makeSut = (config: sutConfig) => {
   const fn = config.submitHandler ?? jest.fn()
-  const form = { ...formStoreMock.preloadedState.form, ...config.form }
 
-  formStoreMock.preloadedState.form = form as any
+  if (config.formData) {
+    const form = { ...formStoreMock.preloadedState.form?.forms[0], ...config.formData }
+    formStoreMock.preloadedState.form!.forms[0] = form as any
+  }
 
   render(
-    <Form submitHandler={fn} validation={config.validation}>
+    <Form name="form" submitHandler={fn} validation={config.validation}>
       {config.children}
     </Form>,
     { ...formStoreMock }
@@ -60,7 +62,7 @@ describe('Form', () => {
   it('should execute validation function if pass it through props', () => {
     const validation = makeValidationMock(true)
     const validationSpy = jest.spyOn(validation, 'validate')
-    const form = {
+    const formData = {
       formData: {
         title: 'any_title'
       }
@@ -68,7 +70,7 @@ describe('Form', () => {
 
     const children = <ControlledInput name="title" />
 
-    makeSut({ children, validation, form })
+    makeSut({ children, validation, formData })
 
     fireEvent.submit(screen.getByTestId('form'))
 
@@ -78,7 +80,7 @@ describe('Form', () => {
   it('should execute validation function if pass it through props', () => {
     const validation = makeValidationMock(true)
     const validationSpy = jest.spyOn(validation, 'validate')
-    const form = {
+    const formData = {
       formData: {
         title: 'any_title'
       }
@@ -86,7 +88,7 @@ describe('Form', () => {
 
     const children = <ControlledInput name="title" />
 
-    makeSut({ children, validation, form })
+    makeSut({ children, validation, formData })
 
     fireEvent.submit(screen.getByTestId('form'))
 
@@ -97,13 +99,13 @@ describe('Form', () => {
     const submitHandler = jest.fn().mockReturnValue(Promise.resolve())
     const validation = makeValidationMock(false)
     const children = <ControlledInput name="title" />
-    const form = {
+    const formData = {
       formData: {
         title: 'any_title'
       }
     }
 
-    makeSut({ children, submitHandler, validation, form })
+    makeSut({ children, submitHandler, validation, formData })
 
     fireEvent.submit(screen.getByTestId('form'))
 
@@ -113,13 +115,13 @@ describe('Form', () => {
   it('should not pass props to child if children is an invalid component', () => {
     const children = 'a'
     const validation = makeValidationMock(false)
-    const form = {
+    const formData = {
       formData: {
         title: 'any_title'
       }
     }
 
-    makeSut({ children, validation, form })
+    makeSut({ children, validation, formData })
 
     expect(screen.queryByTestId('title-input')).toBeNull()
   })

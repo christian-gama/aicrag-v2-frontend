@@ -5,6 +5,7 @@ describe('handleValidation', () => {
   const setErrorMessage = jest.fn() as any
   const setIsValid = jest.fn() as any
   const setIsValidating = jest.fn() as any
+  const name = 'form'
   const formData = {
     name: '',
     email: '',
@@ -19,15 +20,16 @@ describe('handleValidation', () => {
   it('should not run validation if validation is undefined', () => {
     handleValidation({
       dispatch,
-      setErrorMessage,
       formData,
+      name,
+      setErrorMessage,
       setIsValid,
       setIsValidating
     })
 
-    expect(setIsValidating).toHaveBeenNthCalledWith(1, true)
-    expect(setIsValid).toHaveBeenCalledWith(true)
-    expect(setIsValidating).toHaveBeenNthCalledWith(2, false)
+    expect(setIsValidating).toHaveBeenNthCalledWith(1, { isValidating: true, name })
+    expect(setIsValid).toHaveBeenCalledWith({ isValid: true, name })
+    expect(setIsValidating).toHaveBeenNthCalledWith(2, { isValidating: false, name })
   })
 
   it('should call setErrorMessage with the error message, setIsValid to false and setIsValidating to false if validation fails', () => {
@@ -36,17 +38,18 @@ describe('handleValidation', () => {
     }
 
     handleValidation({
-      validation,
       dispatch,
-      setErrorMessage,
       formData,
+      name,
+      setErrorMessage,
       setIsValid,
-      setIsValidating
+      setIsValidating,
+      validation
     })
 
-    expect(setErrorMessage).toHaveBeenCalledWith('error message')
-    expect(setIsValid).toHaveBeenNthCalledWith(1, false)
-    expect(setIsValidating).toHaveBeenNthCalledWith(2, false)
+    expect(setErrorMessage).toHaveBeenCalledWith({ errorMessage: 'error message', name })
+    expect(setIsValid).toHaveBeenNthCalledWith(1, { isValid: false, name })
+    expect(setIsValidating).toHaveBeenNthCalledWith(2, { isValidating: false, name })
   })
 
   it('should return undefined if validation succeeds', () => {
@@ -55,12 +58,13 @@ describe('handleValidation', () => {
     }
 
     const error = handleValidation({
-      validation,
       dispatch,
-      setErrorMessage,
       formData,
+      name,
+      setErrorMessage,
       setIsValid,
-      setIsValidating
+      setIsValidating,
+      validation
     })
 
     expect(error).toBeUndefined()

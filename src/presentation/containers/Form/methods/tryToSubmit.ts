@@ -8,19 +8,20 @@ type Params = {
   setIsSubmitted: FormActions['setIsSubmitted']
   setIsValid: FormActions['setIsValid']
   submitHandler: FormProps['submitHandler']
+  name: string
 }
 
 const tryToSubmit = async (params: Params): Promise<void> => {
-  const { dispatch, setErrorMessage, setIsSubmitted, setIsValid, submitHandler } = params
+  const { dispatch, setErrorMessage, setIsSubmitted, setIsValid, submitHandler, name } = params
 
   try {
     await submitHandler()
   } catch (error: any) {
-    dispatch(setErrorMessage(error.message))
-    dispatch(setIsValid(false))
+    dispatch(setErrorMessage({ errorMessage: error.message, name }))
+    dispatch(setIsValid({ isValid: false, name }))
   }
 
-  dispatch(setIsSubmitted(true))
+  dispatch(setIsSubmitted({ isSubmitted: true, name }))
 }
 
 export default tryToSubmit

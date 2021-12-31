@@ -6,6 +6,7 @@ describe('tryToSubmit', () => {
   const setIsSubmitted = jest.fn() as any
   const setIsValid = jest.fn() as any
   const submitHandler = jest.fn() as any
+  const name = 'form'
 
   afterEach(() => {
     jest.clearAllMocks()
@@ -17,10 +18,11 @@ describe('tryToSubmit', () => {
       setErrorMessage,
       setIsSubmitted,
       setIsValid,
-      submitHandler
+      submitHandler,
+      name
     })
 
-    expect(setIsSubmitted).toHaveBeenCalledWith(true)
+    expect(setIsSubmitted).toHaveBeenCalledWith({ isSubmitted: true, name })
   })
 
   it('should catch error if submitHandler throws an error', async () => {
@@ -33,10 +35,11 @@ describe('tryToSubmit', () => {
       setErrorMessage,
       setIsSubmitted,
       setIsValid,
-      submitHandler
+      submitHandler,
+      name
     })
 
-    expect(setErrorMessage).toHaveBeenCalledWith('error message')
-    expect(setIsValid).toHaveBeenCalledWith(false)
+    expect(setErrorMessage).toHaveBeenCalledWith({ errorMessage: 'error message', name })
+    expect(setIsValid).toHaveBeenCalledWith({ isValid: false, name })
   })
 })

@@ -9,7 +9,7 @@ import ControlledInput, { InputProps } from '..'
 
 const makeSut = (props: InputProps): void => {
   render(
-    <Form submitHandler={jest.fn()} validation={props.validation}>
+    <Form name="form" submitHandler={jest.fn()} validation={props.validation}>
       <ControlledInput
         name={props.name}
         type={props.type}
@@ -89,7 +89,7 @@ describe('Input', () => {
       const input = screen.getByTestId('input-input')
       userEvent.type(input, 'any_value')
 
-      expect(validatorSpy).toHaveBeenLastCalledWith('input', { input: 'any_value' })
+      expect(validatorSpy).toHaveBeenLastCalledWith('input', { input: 'any_value', name: 'form' })
     })
 
     it('should clear any error message onBlur if validator succeeds', () => {
