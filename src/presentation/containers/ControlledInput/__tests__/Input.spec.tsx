@@ -40,7 +40,7 @@ describe('Input', () => {
       expect(iconElement).toBeInTheDocument()
     })
 
-    it('should have hide password if click on eyeClosedIcon', () => {
+    it('should hide password if click on eyeClosedIcon', () => {
       makeSut({ name: 'input', type: 'password' })
 
       const eyeOpenIcon = screen.getByTestId('eyeOpenIcon')
