@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { formActions } from '@/application/models/form'
 import { FormProperties } from '@/application/models/form/protocols/form.model'
+import findForm from '@/application/models/form/utils/findForm'
 import { AppDispatch, RootState } from '@/application/store'
 import Maybe from '@/application/utils/typescript/maybe.model'
 import Alert from '../../components/UI/Alert'
@@ -15,16 +16,16 @@ const Form: React.FC<FormProps> = (props) => {
   const dispatch = useDispatch<AppDispatch>()
 
   const isValid = useSelector<RootState, Maybe<FormProperties['isValid']>>(
-    (state) => state.form.forms.find((form) => form.name === name)?.isValid
+    (state) => findForm(state.form.forms, name)?.isValid
   )
   const formData = useSelector<RootState, Maybe<FormProperties['formData']>>(
-    (state) => state.form.forms.find((form) => form.name === name)?.formData
+    (state) => findForm(state.form.forms, name)?.formData
   )
   const errorMessage = useSelector<RootState, Maybe<FormProperties['errorMessage']>>(
-    (state) => state.form.forms.find((form) => form.name === name)?.errorMessage
+    (state) => findForm(state.form.forms, name)?.errorMessage
   )
   const isSubmitted = useSelector<RootState, Maybe<FormProperties['isSubmitted']>>(
-    (state) => state.form.forms.find((form) => form.name === name)?.isSubmitted
+    (state) => findForm(state.form.forms, name)?.isSubmitted
   )
 
   const { resetForm, init } = formActions

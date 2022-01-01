@@ -11,7 +11,7 @@ const formSlice = createSlice({
   initialState: initialFormState,
   reducers: {
     init: (state, action: FormPayloads['namePayload']) => {
-      if (state.forms.find((form) => form.name === action.payload)) return
+      if (findForm(state.forms, action.payload)) return
 
       state.forms.push({
         name: action.payload,
@@ -31,7 +31,7 @@ const formSlice = createSlice({
 
     resetForm: (state, action: FormPayloads['namePayload']) => {
       if (state.forms.length > 0) {
-        const form = state.forms.find((form) => form.name === action.payload)
+        const form = findForm(state.forms, action.payload)
 
         if (form) {
           form.isResetting = true
