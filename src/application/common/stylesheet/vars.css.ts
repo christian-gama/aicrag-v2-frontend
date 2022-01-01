@@ -53,15 +53,18 @@ const colors = {
   'primary-600': '#0B2D55',
   'primary-900': '#062340',
 
-  'secondary-100': '#22A2AB',
-  'secondary-300': '#008891',
-  'secondary-700': '#046066',
+  'secondary-50': '#d8f6f8',
+  'secondary-100': '#c0eff2',
+  'secondary-400': '#22A2AB',
+  'secondary-600': '#008891',
+  'secondary-700': '#006b73',
+  'secondary-900': '#046066',
 
   'tertiary-100': '#FAFAF5',
   'tertiary-200': '#F7F7F2',
   'tertiary-300': '#F5F5EF',
 
-  'gray-50': '#F7F8FA',
+  'gray-50': '#f8f9fa;',
   'gray-100': '#F0F1F5',
   'gray-200': '#E8E8ED',
   'gray-300': '#DFE1E6',

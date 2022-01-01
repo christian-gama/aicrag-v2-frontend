@@ -38,7 +38,7 @@ const labelRecipe = recipe({
     font,
     {
       backgroundColor: vars.colors.white,
-      color: vars.colors['secondary-300'],
+      color: vars.colors['secondary-600'],
       left: '1rem',
       lineHeight: '1',
       position: 'absolute',
@@ -61,7 +61,7 @@ const labelRecipe = recipe({
         color: vars.colors['success-400']
       },
       default: {
-        color: vars.colors['secondary-300']
+        color: vars.colors['secondary-600']
       }
     },
     float: {
@@ -90,7 +90,7 @@ const inputRecipe = recipe({
     {
       border: 'none',
       borderRadius: 5,
-      boxShadow: `0 0 0 1px ${vars.colors['secondary-300']}`,
+      boxShadow: `0 0 0 1px ${vars.colors['secondary-600']}`,
       color: vars.colors.text.default,
       height: '4.8rem',
       maxWidth: '100%',
@@ -121,9 +121,9 @@ const inputRecipe = recipe({
         }
       },
       default: {
-        boxShadow: `0 0 0 1px ${vars.colors['secondary-300']}`,
+        boxShadow: `0 0 0 1px ${vars.colors['secondary-600']}`,
         ':focus': {
-          boxShadow: `inset 0 0 0 3px ${vars.colors['secondary-300']}`
+          boxShadow: `inset 0 0 0 3px ${vars.colors['secondary-600']}`
         }
       }
     },

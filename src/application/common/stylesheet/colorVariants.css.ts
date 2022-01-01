@@ -15,16 +15,16 @@ export const color = {
   },
 
   secondaryDarker: {
-    color: vars.colors['secondary-700'],
-    fill: vars.colors['secondary-700']
+    color: vars.colors['secondary-900'],
+    fill: vars.colors['secondary-900']
   },
   secondary: {
-    color: vars.colors['secondary-300'],
-    fill: vars.colors['secondary-300']
+    color: vars.colors['secondary-600'],
+    fill: vars.colors['secondary-600']
   },
   secondaryLighter: {
-    color: vars.colors['secondary-100'],
-    fill: vars.colors['secondary-100']
+    color: vars.colors['secondary-400'],
+    fill: vars.colors['secondary-400']
   },
 
   successDarker: {
@@ -51,6 +51,19 @@ export const color = {
   dangerLighter: {
     color: vars.colors['danger-300'],
     fill: vars.colors['danger-300']
+  },
+
+  infoDarker: {
+    color: vars.colors['info-500'],
+    fill: vars.colors['info-500']
+  },
+  info: {
+    color: vars.colors['info-400'],
+    fill: vars.colors['info-400']
+  },
+  infoLighter: {
+    color: vars.colors['info-300'],
+    fill: vars.colors['info-300']
   },
 
   textDarker: {

@@ -12,7 +12,7 @@ export const buttonRecipe = recipe({
     fontSize: vars.font.button.fontSize,
     textTransform: vars.font.button.textTransform,
     fontFamily: vars.font.button.fontFamily,
-    transition: 'background-color 0.15s ease-in-out'
+    transition: 'background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out'
   },
 
   variants: {
@@ -22,12 +22,7 @@ export const buttonRecipe = recipe({
     },
     mode: {
       contained: 'contained',
-      outlined: 'outlined',
-      text: {
-        backgroundColor: vars.colors.transparent,
-        border: 0,
-        color: vars.colors.text.default
-      }
+      outlined: 'outlined'
     },
     size: {
       sm: { width: '13rem', height: '4.4rem' },
@@ -37,24 +32,31 @@ export const buttonRecipe = recipe({
     },
     color: {
       main: 'main',
-      danger: 'danger'
+      danger: 'danger',
+      light: 'light',
+      info: 'info'
     }
   },
 
   compoundVariants: [
+    // CONTAINED
     {
       variants: {
         mode: 'contained',
         color: 'main'
       },
       style: {
-        backgroundColor: vars.colors['secondary-300'],
+        backgroundColor: vars.colors['secondary-600'],
         color: vars.colors.white,
         ':hover': {
-          backgroundColor: vars.colors['secondary-100']
+          backgroundColor: vars.colors['secondary-700']
+        },
+        ':focus': {
+          boxShadow: `0 0 1px 4px ${vars.colors['secondary-100']}`
         }
       }
     },
+
     {
       variants: {
         mode: 'contained',
@@ -65,40 +67,47 @@ export const buttonRecipe = recipe({
         color: vars.colors.white,
         ':hover': {
           backgroundColor: vars.colors['danger-400']
+        },
+        ':focus': {
+          boxShadow: `0 0 1px 4px ${vars.colors['danger-100']}`
         }
       }
     },
+
     {
       variants: {
-        mode: 'outlined',
-        color: 'main'
+        mode: 'contained',
+        color: 'info'
       },
       style: {
-        backgroundColor: vars.colors.transparent,
-        color: vars.colors['secondary-300'],
-        border: `1px solid ${vars.colors['secondary-300']}`,
+        backgroundColor: vars.colors['info-300'],
+        color: vars.colors.white,
         ':hover': {
-          border: `1px solid ${vars.colors['secondary-100']}`,
-          backgroundColor: vars.colors['tertiary-100'],
-          color: vars.colors['secondary-100']
+          backgroundColor: vars.colors['info-400']
+        },
+        ':focus': {
+          boxShadow: `0 0 1px 4px ${vars.colors['info-100']}`
         }
       }
     },
+
     {
       variants: {
-        mode: 'outlined',
-        color: 'danger'
+        mode: 'contained',
+        color: 'light'
       },
       style: {
-        backgroundColor: vars.colors.transparent,
-        color: vars.colors['danger-300'],
-        border: `1px solid ${vars.colors['danger-300']}`,
+        backgroundColor: vars.colors['gray-50'],
+        color: vars.colors.text.default,
         ':hover': {
-          border: `1px solid ${vars.colors['danger-400']}`,
-          color: vars.colors['danger-200']
+          backgroundColor: vars.colors['gray-100']
+        },
+        ':focus': {
+          boxShadow: `0 0 1px 4px ${vars.colors['gray-200']}`
         }
       }
     },
+
     {
       variants: {
         mode: 'contained',
@@ -113,6 +122,88 @@ export const buttonRecipe = recipe({
         }
       }
     },
+
+    // OUTLINED
+    {
+      variants: {
+        mode: 'outlined',
+        color: 'main'
+      },
+      style: {
+        backgroundColor: vars.colors.transparent,
+        color: vars.colors['secondary-600'],
+        border: `1px solid ${vars.colors['secondary-600']}`,
+        ':hover': {
+          backgroundColor: vars.colors['secondary-600'],
+          color: vars.colors.white,
+          border: 'none'
+        },
+        ':focus': {
+          boxShadow: `0 0 1px 4px ${vars.colors['secondary-100']}`
+        }
+      }
+    },
+
+    {
+      variants: {
+        mode: 'outlined',
+        color: 'danger'
+      },
+      style: {
+        backgroundColor: vars.colors.transparent,
+        color: vars.colors['danger-300'],
+        border: `1px solid ${vars.colors['danger-300']}`,
+        ':hover': {
+          backgroundColor: vars.colors['danger-300'],
+          color: vars.colors.white,
+          border: 'none'
+        },
+        ':focus': {
+          boxShadow: `0 0 1px 4px ${vars.colors['danger-100']}`
+        }
+      }
+    },
+
+    {
+      variants: {
+        mode: 'outlined',
+        color: 'info'
+      },
+      style: {
+        backgroundColor: vars.colors.transparent,
+        color: vars.colors['info-300'],
+        border: `1px solid ${vars.colors['info-300']}`,
+        ':hover': {
+          backgroundColor: vars.colors['info-300'],
+          color: vars.colors.white,
+          border: 'none'
+        },
+        ':focus': {
+          boxShadow: `0 0 1px 4px ${vars.colors['info-100']}`
+        }
+      }
+    },
+
+    {
+      variants: {
+        mode: 'outlined',
+        color: 'light'
+      },
+      style: {
+        backgroundColor: vars.colors.transparent,
+        color: vars.colors['gray-800'],
+        border: `1px solid ${vars.colors['gray-400']}`,
+        ':hover': {
+          backgroundColor: vars.colors['gray-50'],
+          color: vars.colors.text.default,
+          border: 'none'
+        },
+        ':focus': {
+          boxShadow: `0 0 1px 4px ${vars.colors['gray-200']}`
+        }
+      }
+    },
+
     {
       variants: {
         mode: 'outlined',
@@ -127,16 +218,6 @@ export const buttonRecipe = recipe({
           border: `1px solid ${vars.colors['gray-600']}`,
           color: vars.colors['gray-600'],
           cursor: 'not-allowed'
-        }
-      }
-    },
-    {
-      variants: {
-        mode: 'text'
-      },
-      style: {
-        ':hover': {
-          textDecoration: 'underline'
         }
       }
     }

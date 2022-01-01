@@ -21,7 +21,7 @@ const iconRecipe = recipe({
     },
     color: {
       main: {
-        fill: vars.colors['secondary-300']
+        fill: vars.colors['secondary-600']
       },
       disabled: {
         fill: vars.colors['gray-400']

@@ -44,10 +44,10 @@ const iconRecipe = recipe({
         }
       },
       main: {
-        fill: vars.colors['secondary-300'],
+        fill: vars.colors['secondary-600'],
         selectors: {
           [`${hitboxStyle}:hover &`]: {
-            fill: vars.colors['secondary-300']
+            fill: vars.colors['secondary-600']
           }
         }
       }

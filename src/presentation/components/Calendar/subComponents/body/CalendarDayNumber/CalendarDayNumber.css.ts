@@ -28,11 +28,11 @@ const dayRecipe = recipe({
     },
     selected: {
       true: {
-        border: `2px solid ${vars.colors['secondary-300']}`,
+        border: `2px solid ${vars.colors['secondary-600']}`,
         ':hover': {
           cursor: 'default',
           backgroundColor: vars.colors.white,
-          border: `2px solid ${vars.colors['secondary-100']}`
+          border: `2px solid ${vars.colors['secondary-400']}`
         }
       }
     }

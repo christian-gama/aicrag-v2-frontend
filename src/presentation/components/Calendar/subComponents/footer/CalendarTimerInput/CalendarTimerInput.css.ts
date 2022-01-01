@@ -4,7 +4,7 @@ import { vars } from '@/application/common/stylesheet/vars.css'
 const inputStyle = style({
   alignItems: 'center',
   backgroundColor: vars.colors.white,
-  border: `1px solid ${vars.colors['secondary-300']}`,
+  border: `1px solid ${vars.colors['secondary-600']}`,
   borderRadius: '5px',
   display: 'flex',
   height: '100%',
@@ -13,12 +13,12 @@ const inputStyle = style({
   transition: 'transform 0.1s linear, border 0.1s linear',
   width: '50%',
   ':active': {
-    border: `2px solid ${vars.colors['secondary-300']}`,
+    border: `2px solid ${vars.colors['secondary-600']}`,
     outline: 'none',
     transform: 'scale(1.2)'
   },
   ':focus': {
-    border: `2px solid ${vars.colors['secondary-300']}`,
+    border: `2px solid ${vars.colors['secondary-600']}`,
     outline: 'none',
     transform: 'scale(1.2)'
   }

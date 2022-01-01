@@ -27,7 +27,7 @@ const Alert: React.FC<AlertProps> = (props) => {
       <Card centered>
         <div className={alertClasses.wrapperStyle} data-testid="alert">
           <div className={alertHeaderStyle} data-testid="alert-header">
-            <InfoCircleIcon color="danger" />
+            <InfoCircleIcon color={props.type} />
             <H4 color={props.type}>{capitalize(props.title)}</H4>
           </div>
 
@@ -38,7 +38,7 @@ const Alert: React.FC<AlertProps> = (props) => {
           <div className={alertClasses.footerStyle} data-testid="alert-footer">
             <Button
               onClick={() => cancelHandler({ setIsOpenState, onCancel: props.onCancel })}
-              style={{ mode: 'text', size: 'sm' }}
+              style={{ mode: 'outlined', size: 'sm', color: props.type }}
               testid="alert-cancel-button"
             >
               {props.mode === 'cancelOnly' ? 'Voltar' : 'Cancelar'}

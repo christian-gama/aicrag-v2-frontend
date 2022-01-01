@@ -25,6 +25,9 @@ const headerRecipe = recipe({
     color: {
       danger: {
         backgroundColor: vars.colors['danger-50']
+      },
+      info: {
+        backgroundColor: vars.colors['info-50']
       }
     }
   }
