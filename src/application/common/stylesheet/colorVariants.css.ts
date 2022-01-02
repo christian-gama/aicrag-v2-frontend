@@ -73,6 +73,11 @@ export const color = {
   textLighter: {
     color: vars.colors.text.light,
     fill: vars.colors.text.light
+  },
+
+  white: {
+    color: vars.colors.white,
+    fill: vars.colors.white
   }
 }
 
