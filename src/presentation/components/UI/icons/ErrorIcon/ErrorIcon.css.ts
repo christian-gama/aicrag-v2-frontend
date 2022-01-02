@@ -31,8 +31,8 @@ const iconRecipe = recipe({
   }
 })
 
-export const infoCircleClasses = {
+export const errorIconClasses = {
   iconRecipe
 }
 
-export type InfoCircleIconRecipeVariants = NonNullable<RecipeVariants<typeof iconRecipe>>
+export type ErrorIconVariants = NonNullable<RecipeVariants<typeof iconRecipe>>

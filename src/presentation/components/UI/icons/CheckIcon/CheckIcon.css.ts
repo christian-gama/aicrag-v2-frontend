@@ -1,9 +1,20 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { color } from '@/application/common/stylesheet/colorVariants.css'
+import { vars } from '@/application/common/stylesheet/vars.css'
 
 const iconRecipe = recipe({
+  base: {
+    fill: vars.colors.transparent
+  },
+
   variants: {
-    color,
+    color: {
+      white: {
+        fill: vars.colors.white
+      },
+      dark: {
+        fill: vars.colors['gray-900']
+      }
+    },
     size: {
       sm: {
         width: '1.6rem',
@@ -31,8 +42,8 @@ const iconRecipe = recipe({
   }
 })
 
-export const infoCircleClasses = {
+export const checkIconClasses = {
   iconRecipe
 }
 
-export type InfoCircleIconRecipeVariants = NonNullable<RecipeVariants<typeof iconRecipe>>
+export type CheckIconVariants = NonNullable<RecipeVariants<typeof iconRecipe>>
