@@ -1,10 +1,5 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { formActions } from '@/application/models/form'
-import { FormProperties } from '@/application/models/form/protocols/form.model'
-import findForm from '@/application/models/form/utils/findForm'
-import { AppDispatch, RootState } from '@/application/store'
-import Maybe from '@/application/utils/typescript/maybe.model'
+import React, { useContext, useEffect } from 'react'
+import FormContext from '@/application/models/context/form/FormContext'
 import EyeIcon from '../../components/UI/icons/EyeIcon'
 import Input from '../../components/UI/Input'
 import ControlledInputProps from './ControlledInput.model'
@@ -14,31 +9,18 @@ import onFocusHandler from './methods/onFocusHandler'
 import useInput from './useInput'
 
 /**
- * @description Must be used inside a Form component
+ * @description Must be used inside a Form component with FormProvider
  */
 const ControlledInput: React.FC<Omit<ControlledInputProps, 'uniqueFormName' | 'validation'>> = (
   props: ControlledInputProps
 ) => {
-  const { uniqueFormName, validation, icon, name, type } = props
-  const { setFormData, setIsChanging } = formActions
+  const { icon, name, type } = props
 
-  const dispatch = useDispatch<AppDispatch>()
-  const formData = useSelector<RootState, Maybe<FormProperties['formData']>>(
-    (state) => findForm(state.form.forms, uniqueFormName!)?.formData
-  )
-  const isResetting = useSelector<RootState, Maybe<FormProperties['isResetting']>>(
-    (state) => findForm(state.form.forms, uniqueFormName!)?.isResetting
-  )
+  const { dispatch, state } = useContext(FormContext)
+
+  const { formData, isResetting, validator } = state
 
   const inputState = useInput({ currentType: type ?? 'text' })
-
-  useEffect(() => {
-    dispatch(setFormData({ [name]: inputState.value, name: uniqueFormName! }))
-  }, [])
-
-  useEffect(() => {
-    inputState.setValue(formData?.[name] ?? '')
-  }, [formData])
 
   useEffect(() => {
     if (isResetting) inputState.reset()
@@ -61,7 +43,7 @@ const ControlledInput: React.FC<Omit<ControlledInputProps, 'uniqueFormName' | 'v
       isTouched={inputState.isTouched}
       isValid={inputState.isValid}
       type={inputState.currentType}
-      validation={validation}
+      validator={validator}
       value={inputState.value}
       onBlur={(event) =>
         onBlurHandler({
@@ -69,8 +51,8 @@ const ControlledInput: React.FC<Omit<ControlledInputProps, 'uniqueFormName' | 'v
           event,
           formData,
           inputState,
-          ...props,
-          ...formActions
+          validator,
+          ...props
         })
       }
       onChange={(event) =>
@@ -78,12 +60,12 @@ const ControlledInput: React.FC<Omit<ControlledInputProps, 'uniqueFormName' | 'v
           dispatch,
           event,
           inputState,
-          setIsChanging,
           formData,
+          validator,
           ...props
         })
       }
-      onFocus={(event) => onFocusHandler({ event, dispatch, inputState, ...props, formData, ...formActions })}
+      onFocus={(event) => onFocusHandler({ event, dispatch, inputState, validator, ...props, formData })}
       icon={
         shouldRenderIcon
           ? () => (

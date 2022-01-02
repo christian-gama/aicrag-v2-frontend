@@ -1,12 +1,9 @@
-import render from '@/../tests/config/renderWithProvider'
-import formStoreMock from '@/../tests/mocks/formStore.mock'
 import makeValidationMock from '@/../tests/mocks/validator.mock'
-import { fireEvent, screen } from '@testing-library/dom'
+import { render, fireEvent, screen, act } from '@testing-library/react'
 import React from 'react'
 import IValidation from '@/domain/validation/validation.model'
-import { RootState } from '@/application/store'
+import FormProvider from '@/application/models/context/form/FormProvider'
 import ControlledInput from '../../ControlledInput'
-import Form from '..'
 
 type sutConfig = {
   children?:
@@ -18,31 +15,27 @@ type sutConfig = {
   | React.ReactPortal
   | null
   | undefined
-  validation?: IValidation
+  validator?: IValidation
   submitHandler?: () => Promise<void>
-  formData?: Partial<RootState['form']['forms'][0]>
 }
 
 const makeSut = (config: sutConfig) => {
-  const fn = config.submitHandler ?? jest.fn()
-
-  if (config.formData) {
-    const form = { ...formStoreMock.preloadedState.form?.forms[0], ...config.formData }
-    formStoreMock.preloadedState.form!.forms[0] = form as any
-  }
-
   render(
-    <Form name="form" submitHandler={fn} validation={config.validation}>
+    <FormProvider
+      submitHandler={config.submitHandler ?? jest.fn()}
+      validator={config.validator ?? ({ validate: jest.fn() } as any)}
+    >
       {config.children}
-    </Form>,
-    { ...formStoreMock }
+    </FormProvider>
   )
 }
 
 describe('Form', () => {
   it('should render children', () => {
     const children = <ControlledInput name="title" />
+
     makeSut({ children })
+
     const inputElement = screen.getByTestId('title-input')
 
     expect(screen.getByTestId('form')).toContainElement(inputElement)
@@ -54,76 +47,67 @@ describe('Form', () => {
 
     makeSut({ children, submitHandler: submitHandlerMock })
 
-    fireEvent.submit(screen.getByTestId('form'))
+    const input = screen.getByTestId('title-input')
+    act(() => {
+      fireEvent.change(input, { target: { value: 'any_value' } })
+      fireEvent.blur(input)
+      fireEvent.submit(screen.getByTestId('form'))
+    })
 
     expect(submitHandlerMock).toHaveBeenCalled()
   })
 
   it('should execute validation function if pass it through props', () => {
-    const validation = makeValidationMock(true)
-    const validationSpy = jest.spyOn(validation, 'validate')
-    const formData = {
-      formData: {
-        title: 'any_title'
-      }
-    }
+    const validator = makeValidationMock(true)
+    const validationSpy = jest.spyOn(validator, 'validate')
 
     const children = <ControlledInput name="title" />
 
-    makeSut({ children, validation, formData })
+    makeSut({ children, validator })
 
-    fireEvent.submit(screen.getByTestId('form'))
+    const input = screen.getByTestId('title-input')
+    act(() => {
+      fireEvent.change(input, { target: { value: 'any_title' } })
+      fireEvent.blur(input)
+      fireEvent.submit(screen.getByTestId('form'))
+    })
 
     expect(validationSpy).toHaveBeenCalled()
   })
 
   it('should execute validation function if pass it through props', () => {
-    const validation = makeValidationMock(true)
-    const validationSpy = jest.spyOn(validation, 'validate')
-    const formData = {
-      formData: {
-        title: 'any_title'
-      }
-    }
+    const validator = makeValidationMock(true)
+    const validationSpy = jest.spyOn(validator, 'validate')
 
     const children = <ControlledInput name="title" />
 
-    makeSut({ children, validation, formData })
+    makeSut({ children, validator })
 
-    fireEvent.submit(screen.getByTestId('form'))
+    const input = screen.getByTestId('title-input')
+    act(() => {
+      fireEvent.change(input, { target: { value: 'any_title' } })
+      fireEvent.blur(input)
+      fireEvent.submit(screen.getByTestId('form'))
+    })
 
     expect(validationSpy).toHaveBeenCalled()
   })
 
-  it('should not call submitHandler if form is invalid', () => {
-    const submitHandler = jest.fn().mockReturnValue(Promise.resolve())
-    const validation = makeValidationMock(false)
+  it('should not call submitHandler if form is invalid', async () => {
+    const submitHandler = jest.fn()
+    const validator = makeValidationMock(false)
     const children = <ControlledInput name="title" />
-    const formData = {
-      formData: {
-        title: 'any_title'
-      }
-    }
 
-    makeSut({ children, submitHandler, validation, formData })
+    makeSut({ children, submitHandler, validator })
 
-    fireEvent.submit(screen.getByTestId('form'))
+    const input = screen.getByTestId('title-input')
+    act(() => {
+      fireEvent.change(input, { target: { value: 'any_title' } })
+      fireEvent.blur(input)
+      fireEvent.submit(screen.getByTestId('form'))
+    })
 
-    expect(submitHandler).not.toHaveBeenCalled()
-  })
-
-  it('should not pass props to child if children is an invalid component', () => {
-    const children = 'a'
-    const validation = makeValidationMock(false)
-    const formData = {
-      formData: {
-        title: 'any_title'
-      }
-    }
-
-    makeSut({ children, validation, formData })
-
-    expect(screen.queryByTestId('title-input')).toBeNull()
+    expect(submitHandler).toHaveBeenCalled()
   })
 
   it('should display an Alert component if throws when trying to submit', async () => {
@@ -137,7 +121,7 @@ describe('Form', () => {
 
     const children = <ControlledInput name="title" />
 
-    makeSut({ children, submitHandler, validation: makeValidationMock(true) })
+    makeSut({ children, submitHandler, validator: makeValidationMock(true) })
 
     fireEvent.submit(screen.getByTestId('form'))
 

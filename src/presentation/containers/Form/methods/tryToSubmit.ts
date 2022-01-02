@@ -1,27 +1,22 @@
-import { Dispatch } from 'redux'
-import { FormActions } from '@/application/models/form/protocols/form.model'
+import { FormActionPayload } from '@/application/models/context/form/protocols/form.model'
 import FormProps from '../form.model'
 
 type Params = {
-  dispatch: Dispatch
-  setErrorMessage: FormActions['setErrorMessage']
-  setIsSubmitted: FormActions['setIsSubmitted']
-  setIsValid: FormActions['setIsValid']
+  dispatch: (options: FormActionPayload) => void
   submitHandler: FormProps['submitHandler']
-  name: string
 }
 
 const tryToSubmit = async (params: Params): Promise<void> => {
-  const { dispatch, setErrorMessage, setIsSubmitted, setIsValid, submitHandler, name } = params
+  const { dispatch, submitHandler } = params
 
   try {
     await submitHandler()
   } catch (error: any) {
-    dispatch(setErrorMessage({ errorMessage: error.message, name }))
-    dispatch(setIsValid({ isValid: false, name }))
+    dispatch({ type: 'SET_ERROR_MESSAGE', payload: { errorMessage: error.message } })
+    dispatch({ type: 'SET_IS_VALID', payload: { isValid: false } })
   }
 
-  dispatch(setIsSubmitted({ isSubmitted: true, name }))
+  dispatch({ type: 'SET_IS_SUBMITTED', payload: { isSubmitted: true } })
 }
 
 export default tryToSubmit

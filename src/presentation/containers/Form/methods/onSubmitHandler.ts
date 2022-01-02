@@ -1,39 +1,33 @@
-import { Dispatch } from 'redux'
 import IValidation from '@/domain/validation/validation.model'
-import { FormActions, FormProperties } from '@/application/models/form/protocols/form.model'
+import { FormActionPayload, FormStates } from '@/application/models/context/form/protocols/form.model'
 import FormProps from '../form.model'
 import handleValidation from './handleValidation'
 import tryToSubmit from './tryToSubmit'
 
 type Params = {
-  dispatch: Dispatch
+  dispatch: (options: FormActionPayload) => void
   event: React.FormEvent<HTMLFormElement>
-  formData?: FormProperties['formData']
-  setErrorMessage: FormActions['setErrorMessage']
-  setIsSubmitted: FormActions['setIsSubmitted']
-  setIsSubmitting: FormActions['setIsSubmitting']
-  setIsValid: FormActions['setIsValid']
-  setIsValidating: FormActions['setIsValidating']
+  formData?: FormStates['formData']
   submitHandler: FormProps['submitHandler']
-  validation?: IValidation
-  name: string
+  validator?: IValidation
 }
 
 const onSubmitHandler = async (params: Params): Promise<void> => {
-  const { dispatch, setIsSubmitting, validation, name, event } = params
+  const { dispatch, validator, event } = params
 
-  dispatch(setIsSubmitting({ isSubmitting: true, name }))
+  dispatch({ type: 'SET_IS_SUBMITTING', payload: { isSubmitting: true } })
+
   event.preventDefault()
 
   const error = handleValidation({
     ...params
   })
 
-  if (!validation || !error) {
+  if (!validator || !error) {
     await tryToSubmit({ ...params })
   }
 
-  dispatch(setIsSubmitting({ isSubmitting: false, name }))
+  dispatch({ type: 'SET_IS_SUBMITTING', payload: { isSubmitting: false } })
 }
 
 export default onSubmitHandler

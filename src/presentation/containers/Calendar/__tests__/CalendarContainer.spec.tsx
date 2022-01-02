@@ -2,13 +2,13 @@ import render from '@/../tests/config/renderWithProvider'
 import calendarStoreMock from '@/../tests/mocks/calendarStore.mock'
 import { screen } from '@testing-library/react'
 import React from 'react'
-import Calendar from '..'
+import CalendarContainer from '..'
 
 const makeSut = (): void => {
-  render(<Calendar previousDate={Date.now()} />, { ...calendarStoreMock })
+  render(<CalendarContainer previousDate={Date.now()} />, { ...calendarStoreMock })
 }
 
-describe('Calendar', () => {
+describe('CalendarContainer', () => {
   beforeAll(() => {
     const container = document.createElement('div')
     container.setAttribute('id', 'overlay-root')

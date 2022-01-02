@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { calendarActions } from '@/application/models/calendar'
+import { calendarActions } from '@/application/models/redux/calendar'
 import { AppDispatch, RootState } from '@/application/store'
-import CalendarWrapper from '@/presentation/components/Calendar/CalendarWrapper'
+import Calendar from '@/presentation/components/Calendar'
 import CalendarBody from '@/presentation/components/Calendar/subComponents/body/CalendarBody/CalendarBody'
+import CalendarContainerProps from './CalendarContainerProps'
 import CalendarDaysContainer from './CalendarDaysContainer'
 import CalendarFooterContainer from './CalendarFooterContainer'
 import CalendarHeaderContainer from './CalendarHeaderContainer'
-import CalendarProps from './CalendarProps'
 import CalendarWeekDayContainer from './CalendarWeekDayContainer'
 
-const Calendar: React.FC<CalendarProps> = (props) => {
+const CalendarContainer: React.FC<CalendarContainerProps> = (props) => {
   const { resetCalendar, closeCalendar } = calendarActions
   const { previousDate } = props
 
@@ -22,7 +22,7 @@ const Calendar: React.FC<CalendarProps> = (props) => {
   }, [])
 
   return (
-    <CalendarWrapper
+    <Calendar
       isCalendarOpen={isCalendarOpen}
       onDismiss={() => {
         dispatch(resetCalendar(previousDate))
@@ -38,8 +38,8 @@ const Calendar: React.FC<CalendarProps> = (props) => {
       </CalendarBody>
 
       <CalendarFooterContainer />
-    </CalendarWrapper>
+    </Calendar>
   )
 }
 
-export default Calendar
+export default CalendarContainer

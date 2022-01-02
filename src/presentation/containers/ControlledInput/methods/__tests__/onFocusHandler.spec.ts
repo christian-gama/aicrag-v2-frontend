@@ -8,10 +8,7 @@ describe('onFocusHandler', () => {
     setOnFocus: jest.fn()
   } as any
   const name = 'test'
-  const setFormData = jest.fn() as any
-  const setIsFocused = jest.fn() as any
-  const uniqueFormName = 'test'
-  const validation = { validate: jest.fn() }
+  const validator = { validate: jest.fn() }
 
   it('should call onFocus if it is defined', () => {
     const onFocus = jest.fn()
@@ -22,10 +19,7 @@ describe('onFocusHandler', () => {
       inputState,
       name,
       onFocus,
-      setFormData,
-      setIsFocused,
-      uniqueFormName,
-      validation
+      validator
     }
 
     onFocusHandler(params)
@@ -43,10 +37,7 @@ describe('onFocusHandler', () => {
       inputState,
       name,
       onFocus,
-      setFormData,
-      setIsFocused,
-      uniqueFormName,
-      validation
+      validator
     }
 
     onFocusHandler(params)
@@ -64,15 +55,15 @@ describe('onFocusHandler', () => {
       inputState,
       name,
       onFocus,
-      setFormData,
-      setIsFocused,
-      uniqueFormName,
-      validation
+      validator
     }
 
     onFocusHandler(params)
 
-    expect(dispatch).toHaveBeenCalledWith(setFormData({ [name]: inputState.value, name: uniqueFormName }))
-    expect(dispatch).toHaveBeenCalledWith(setIsFocused({ name: uniqueFormName, isFocused: true }))
+    expect(dispatch).toHaveBeenCalledWith({
+      type: 'SET_FORM_DATA',
+      payload: { formData: { ...formData, [name]: event.currentTarget.value } }
+    })
+    expect(dispatch).toHaveBeenCalledWith({ type: 'SET_IS_FOCUSED', payload: { isFocused: true } })
   })
 })

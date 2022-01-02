@@ -8,10 +8,7 @@ describe('onChangeHandler', () => {
     setOnChange: jest.fn()
   } as any
   const name = 'test'
-  const setFormData = jest.fn() as any
-  const setIsChanging = jest.fn() as any
-  const validation = { validate: jest.fn() }
-  const uniqueFormName = 'test'
+  const validator = { validate: jest.fn() }
 
   it('should call onChange if it is defined', () => {
     const onChange = jest.fn()
@@ -22,10 +19,7 @@ describe('onChangeHandler', () => {
       inputState,
       name,
       onChange,
-      setFormData,
-      setIsChanging,
-      uniqueFormName,
-      validation
+      validator
     }
 
     onChangeHandler(params)
@@ -43,10 +37,7 @@ describe('onChangeHandler', () => {
       inputState,
       name,
       onChange,
-      setFormData,
-      setIsChanging,
-      uniqueFormName,
-      validation
+      validator
     }
 
     onChangeHandler(params)
@@ -61,19 +52,11 @@ describe('onChangeHandler', () => {
       formData,
       inputState,
       name,
-      setFormData,
-      setIsChanging,
-      uniqueFormName,
-      validation
+      validator
     }
 
     onChangeHandler(params)
 
-    expect(dispatch).toHaveBeenCalledWith(
-      setIsChanging({
-        name: uniqueFormName,
-        value: event.target.value
-      })
-    )
+    expect(dispatch).toHaveBeenCalledWith({ type: 'SET_IS_CHANGING', payload: { isChanging: true } })
   })
 })

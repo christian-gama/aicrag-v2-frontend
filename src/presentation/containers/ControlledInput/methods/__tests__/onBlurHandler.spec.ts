@@ -8,12 +8,7 @@ describe('onBlurHandler', () => {
     setOnBlur: jest.fn()
   } as any
   const name = 'test'
-  const setFormData = jest.fn() as any
-  const setIsChanging = jest.fn() as any
-  const setIsDirty = jest.fn() as any
-  const setIsFocused = jest.fn() as any
-  const validation = { validate: jest.fn() }
-  const uniqueFormName = 'test'
+  const validator = { validate: jest.fn() }
 
   it('should call onBlur if it is defined', () => {
     const onBlur = jest.fn()
@@ -24,12 +19,7 @@ describe('onBlurHandler', () => {
       inputState,
       name,
       onBlur,
-      setFormData,
-      setIsChanging,
-      setIsDirty,
-      setIsFocused,
-      uniqueFormName,
-      validation
+      validator
     }
 
     onBlurHandler(params)
@@ -47,12 +37,7 @@ describe('onBlurHandler', () => {
       inputState,
       name,
       onBlur,
-      setFormData,
-      setIsChanging,
-      setIsDirty,
-      setIsFocused,
-      uniqueFormName,
-      validation
+      validator
     }
 
     onBlurHandler(params)
@@ -67,20 +52,18 @@ describe('onBlurHandler', () => {
       formData,
       inputState,
       name,
-      setFormData,
-      setIsChanging,
-      setIsDirty,
-      setIsFocused,
-      uniqueFormName,
-      validation
+      validator
     }
 
     onBlurHandler(params)
 
-    expect(dispatch).toHaveBeenCalledWith(setFormData({ [name]: inputState.value, name: uniqueFormName }))
-    expect(dispatch).toHaveBeenCalledWith(setIsDirty({ name: uniqueFormName, isDirty: true }))
-    expect(dispatch).toHaveBeenCalledWith(setIsFocused({ name: uniqueFormName, isFocused: false }))
-    expect(dispatch).toHaveBeenCalledWith(setIsChanging({ name: uniqueFormName, isChanging: false }))
+    expect(dispatch).toHaveBeenCalledWith({
+      type: 'SET_FORM_DATA',
+      payload: { formData: { ...formData, [name]: event.currentTarget.value } }
+    })
+    expect(dispatch).toHaveBeenCalledWith({ type: 'SET_IS_FOCUSED', payload: { isFocused: false } })
+    expect(dispatch).toHaveBeenCalledWith({ type: 'SET_IS_DIRTY', payload: { isDirty: true } })
+    expect(dispatch).toHaveBeenCalledWith({ type: 'SET_IS_CHANGING', payload: { isChanging: false } })
   })
 
   it('should call validate with the correct values', () => {
@@ -90,17 +73,12 @@ describe('onBlurHandler', () => {
       formData,
       inputState,
       name,
-      setFormData,
-      setIsChanging,
-      setIsDirty,
-      setIsFocused,
-      uniqueFormName,
-      validation
+      validator
     }
 
     onBlurHandler(params)
 
-    expect(validation.validate).toHaveBeenCalledWith(name, { ...formData, [name]: event.currentTarget.value })
+    expect(validator.validate).toHaveBeenCalledWith(name, { ...formData, [name]: event.currentTarget.value })
   })
 
   it('should call setOnBlur with the correct error', () => {
@@ -110,18 +88,14 @@ describe('onBlurHandler', () => {
       formData,
       inputState,
       name,
-      setFormData,
-      setIsChanging,
-      setIsDirty,
-      setIsFocused,
-      uniqueFormName,
-      validation
+
+      validator
     }
 
     onBlurHandler(params)
 
     expect(inputState.setOnBlur).toHaveBeenCalledWith(
-      validation.validate(name, { ...formData, [name]: event.currentTarget.value })
+      validator.validate(name, { ...formData, [name]: event.currentTarget.value })
     )
   })
 })

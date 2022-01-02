@@ -1,38 +1,33 @@
-import { Dispatch } from 'redux'
 import IValidation from '@/domain/validation/validation.model'
-import { FormActions, FormProperties } from '@/application/models/form/protocols/form.model'
+import { FormActionPayload, FormStates } from '@/application/models/context/form/protocols/form.model'
 
 type Params = {
-  dispatch: Dispatch
-  formData?: FormProperties['formData']
-  setErrorMessage: FormActions['setErrorMessage']
-  setIsValid: FormActions['setIsValid']
-  setIsValidating: FormActions['setIsValidating']
-  validation?: IValidation
-  name: string
+  dispatch: (options: FormActionPayload) => void
+  formData?: FormStates['formData']
+  validator?: IValidation
 }
 
 const handleValidation = (params: Params) => {
-  const { validation, dispatch, setErrorMessage, formData, setIsValid, setIsValidating, name } = params
+  const { validator, dispatch, formData } = params
 
-  dispatch(setIsValidating({ isValidating: true, name }))
+  dispatch({ type: 'SET_IS_VALIDATING', payload: { isValidating: true } })
 
-  if (validation) {
+  if (validator) {
     for (const key in formData) {
-      const error = validation.validate(key, formData)
+      const error = validator.validate(key, formData)
 
       if (error) {
-        dispatch(setErrorMessage({ errorMessage: error, name }))
-        dispatch(setIsValid({ isValid: false, name }))
-        dispatch(setIsValidating({ isValidating: false, name }))
+        dispatch({ type: 'SET_ERROR_MESSAGE', payload: { errorMessage: error } })
+        dispatch({ type: 'SET_IS_VALID', payload: { isValid: false } })
+        dispatch({ type: 'SET_IS_VALIDATING', payload: { isValidating: false } })
 
         return error
       }
     }
   }
 
-  dispatch(setIsValid({ isValid: true, name }))
-  dispatch(setIsValidating({ isValidating: false, name }))
+  dispatch({ type: 'SET_IS_VALIDATING', payload: { isValidating: false } })
+  dispatch({ type: 'SET_IS_VALID', payload: { isValid: true } })
 }
 
 export default handleValidation

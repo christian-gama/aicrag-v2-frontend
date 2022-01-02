@@ -1,7 +1,5 @@
-import { calendarReducer } from '../models/calendar'
-import { formReducer } from '../models/form'
+import { calendarReducer } from '../models/redux/calendar'
 
 export const reducers = {
-  form: formReducer,
   calendar: calendarReducer
 }

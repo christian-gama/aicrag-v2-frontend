@@ -1,52 +1,33 @@
-import { Dispatch } from 'redux'
 import IHandler from '@/domain/handler/handler.model'
 import IValidation from '@/domain/validation/validation.model'
-import { FormProperties, FormActions } from '@/application/models/form/protocols/form.model'
+import { FormActionPayload, FormStates } from '@/application/models/context/form/protocols/form.model'
 import ControlledInputProps from '../ControlledInput.model'
 import useInput from '../useInput'
 
 type Params = {
-  dispatch: Dispatch
+  dispatch: (options: FormActionPayload) => void
   event: React.FocusEvent<HTMLInputElement>
-  formData?: FormProperties['formData']
+  formData?: FormStates['formData']
   inputState: ReturnType<typeof useInput>
   name: ControlledInputProps['name']
   onBlur?: ControlledInputProps['onBlur']
-  setFormData: FormActions['setFormData']
-  setIsChanging: FormActions['setIsChanging']
-  setIsDirty: FormActions['setIsDirty']
-  setIsFocused: FormActions['setIsFocused']
-  uniqueFormName?: ControlledInputProps['uniqueFormName']
-  validation?: IValidation
+  validator?: IValidation
 }
 
 const onBlurHandler: IHandler<Params> = (params): void => {
-  const {
-    dispatch,
-    event,
-    formData,
-    inputState,
-    name,
-    onBlur,
-    setFormData,
-    setIsChanging,
-    setIsDirty,
-    setIsFocused,
-    uniqueFormName,
-    validation
-  } = params
+  const { dispatch, event, formData, inputState, name, onBlur, validator } = params
 
   const value = event.currentTarget.value
-  const error = validation?.validate(name, { ...formData, [name]: value })
+  const error = validator?.validate(name, { ...formData, [name]: value })
 
   inputState.setOnBlur(error)
 
   if (onBlur) onBlur(event)
 
-  dispatch(setFormData({ [name]: inputState.value, name: uniqueFormName! }))
-  dispatch(setIsDirty({ name: uniqueFormName!, isDirty: true }))
-  dispatch(setIsFocused({ name: uniqueFormName!, isFocused: false }))
-  dispatch(setIsChanging({ name: uniqueFormName!, isChanging: false }))
+  dispatch({ type: 'SET_FORM_DATA', payload: { formData: { ...formData, [name]: value } } })
+  dispatch({ type: 'SET_IS_DIRTY', payload: { isDirty: true } })
+  dispatch({ type: 'SET_IS_FOCUSED', payload: { isFocused: false } })
+  dispatch({ type: 'SET_IS_CHANGING', payload: { isChanging: false } })
 }
 
 export default onBlurHandler

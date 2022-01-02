@@ -1,46 +1,31 @@
-import { Dispatch } from 'redux'
 import IHandler from '@/domain/handler/handler.model'
 import IValidation from '@/domain/validation/validation.model'
-import { FormActions, FormProperties } from '@/application/models/form/protocols/form.model'
+import { FormActionPayload, FormStates } from '@/application/models/context/form/protocols/form.model'
 import ControlledInputProps from '../ControlledInput.model'
 import useInput from '../useInput'
 
 type Params = {
-  dispatch: Dispatch
+  dispatch: (options: FormActionPayload) => void
   event: React.FocusEvent<HTMLInputElement>
-  formData?: FormProperties['formData']
+  formData?: FormStates['formData']
   inputState: ReturnType<typeof useInput>
   name: ControlledInputProps['name']
   onFocus?: ControlledInputProps['onFocus']
-  setFormData: FormActions['setFormData']
-  setIsFocused: FormActions['setIsFocused']
-  uniqueFormName?: ControlledInputProps['uniqueFormName']
-  validation?: IValidation
+  validator?: IValidation
 }
 
 const onFocusHandler: IHandler<Params> = (params): void => {
-  const {
-    dispatch,
-    event,
-    formData,
-    inputState,
-    name,
-    onFocus,
-    setFormData,
-    setIsFocused,
-    uniqueFormName,
-    validation
-  } = params
+  const { dispatch, event, formData, inputState, name, onFocus, validator } = params
 
   const value = event.currentTarget.value
-  const error = validation?.validate(name, { ...formData, [name]: value })
+  const error = validator?.validate(name, { ...formData, [name]: value })
 
   inputState.setOnFocus(error)
 
   if (onFocus) onFocus(event)
 
-  dispatch(setFormData({ [name]: inputState.value, name: uniqueFormName! }))
-  dispatch(setIsFocused({ name: uniqueFormName!, isFocused: true }))
+  dispatch({ type: 'SET_FORM_DATA', payload: { formData: { ...formData, [name]: value } } })
+  dispatch({ type: 'SET_IS_FOCUSED', payload: { isFocused: true } })
 }
 
 export default onFocusHandler

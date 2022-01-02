@@ -1,5 +1,5 @@
 import IHandler from '@/domain/handler/handler.model'
-import { CalendarActions, CalendarStates } from '@/application/models/calendar/protocols/calendar.model'
+import { CalendarActions, CalendarStates } from '@/application/models/redux/calendar/protocols/calendar.model'
 
 type Params = {
   dispatch: React.Dispatch<React.SetStateAction<any>>

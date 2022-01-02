@@ -1,9 +1,9 @@
 import React from 'react'
 import Modal from '../UI/Modal'
-import { calendarClasses } from './CalendarWrapper.css'
-import CalendarWrapperProps from './CalendarWrapper.model'
+import { calendarClasses } from './Calendar.css'
+import CalendarProps from './Calendar.model'
 
-const CalendarWrapper: React.FC<CalendarWrapperProps> = (props) => {
+const Calendar: React.FC<CalendarProps> = (props) => {
   const { onDismiss, isCalendarOpen, children } = props
 
   return (
@@ -15,4 +15,4 @@ const CalendarWrapper: React.FC<CalendarWrapperProps> = (props) => {
   )
 }
 
-export default CalendarWrapper
+export default Calendar

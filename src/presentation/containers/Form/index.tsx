@@ -1,38 +1,21 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { formActions } from '@/application/models/form'
-import { FormProperties } from '@/application/models/form/protocols/form.model'
-import findForm from '@/application/models/form/utils/findForm'
-import { AppDispatch, RootState } from '@/application/store'
-import Maybe from '@/application/utils/typescript/maybe.model'
+import React, { useContext, useEffect } from 'react'
+import FormContext from '@/application/models/context/form/FormContext'
 import Alert from '../../components/UI/Alert'
-import ControlledInputProps from '../ControlledInput/ControlledInput.model'
 import FormProps from './form.model'
 import onSubmitHandler from './methods/onSubmitHandler'
 
-const Form: React.FC<FormProps> = (props) => {
-  const { validation, children, name, submitHandler } = props
+const FormContainer: React.FC<FormProps> = (props) => {
+  const { validator, children, submitHandler } = props
+  const { dispatch, state } = useContext(FormContext)
 
-  const dispatch = useDispatch<AppDispatch>()
-
-  const isValid = useSelector<RootState, Maybe<FormProperties['isValid']>>(
-    (state) => findForm(state.form.forms, name)?.isValid
-  )
-  const formData = useSelector<RootState, Maybe<FormProperties['formData']>>(
-    (state) => findForm(state.form.forms, name)?.formData
-  )
-  const errorMessage = useSelector<RootState, Maybe<FormProperties['errorMessage']>>(
-    (state) => findForm(state.form.forms, name)?.errorMessage
-  )
-  const isSubmitted = useSelector<RootState, Maybe<FormProperties['isSubmitted']>>(
-    (state) => findForm(state.form.forms, name)?.isSubmitted
-  )
-
-  const { resetForm, init } = formActions
+  const { formData, isValid, errorMessage, isSubmitted } = state
 
   useEffect(() => {
-    dispatch(init(name))
-    dispatch(resetForm(name))
+    dispatch({ type: 'RESET_FORM', payload: {} })
+  }, [])
+
+  useEffect(() => {
+    dispatch({ type: 'SET_VALIDATOR', payload: { validator } })
   }, [])
 
   return (
@@ -42,26 +25,14 @@ const Form: React.FC<FormProps> = (props) => {
           await onSubmitHandler({
             dispatch,
             event,
-            name,
             submitHandler,
-            validation,
-            formData,
-            ...formActions
+            validator,
+            formData
           })
         }
         data-testid="form"
       >
-        {React.Children.map(children, (child) => {
-          if (React.isValidElement(child)) {
-            // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-            return React.cloneElement(child, {
-              validation,
-              uniqueFormName: name
-            } as ControlledInputProps)
-          }
-
-          return child
-        })}
+        {children}
       </form>
 
       {!isValid && errorMessage && isSubmitted && (
@@ -71,4 +42,4 @@ const Form: React.FC<FormProps> = (props) => {
   )
 }
 
-export default Form
+export default FormContainer

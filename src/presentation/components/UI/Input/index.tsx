@@ -7,7 +7,7 @@ type InputProps = {
   name: string
   type: 'text' | 'email' | 'password' | 'number'
   error: Maybe<Error['message']>
-  validation?: IValidation
+  validator?: IValidation
   value: string
   isValid: boolean
   isTouched: boolean
@@ -21,11 +21,11 @@ type InputProps = {
 }
 
 const Input: React.FC<InputProps> = (props) => {
-  const { name, onBlur, onChange, onFocus, type, value, icon, isValid, isTouched, validation, error, isFocused } = props
+  const { name, onBlur, onChange, onFocus, type, value, icon, isValid, isTouched, validator, error, isFocused } = props
   const { boxStyle, wrapperStyle, contentStyle, inputRecipe, labelRecipe, errorStyle, iconStyle } = inputClasses
 
   const getState = (): LabelRecipeVariants['state'] => {
-    if (validation) {
+    if (validator) {
       if (!isValid && isTouched) {
         return 'error'
       }

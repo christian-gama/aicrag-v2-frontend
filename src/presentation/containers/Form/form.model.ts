@@ -1,8 +1,7 @@
 import IValidation from '@/domain/validation/validation.model'
 
 type FormProps = {
-  name: string
-  validation?: IValidation
+  validator?: IValidation
   submitHandler: () => Promise<void>
 }
 

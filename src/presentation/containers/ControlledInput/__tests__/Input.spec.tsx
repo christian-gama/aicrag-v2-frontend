@@ -1,16 +1,15 @@
-import render from '@/../tests/config/renderWithProvider'
-import formStoreMock from '@/../tests/mocks/formStore.mock'
 import makeValidationMock from '@/../tests/mocks/validator.mock'
-import { cleanup, fireEvent, screen } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import Form from '../../Form'
+import IValidation from '@/domain/validation/validation.model'
+import FormProvider from '@/application/models/context/form/FormProvider'
 import ControlledInput from '..'
 import ControlledInputProps from '../ControlledInput.model'
 
-const makeSut = (props: ControlledInputProps): void => {
+const makeSut = (props: ControlledInputProps & { validator?: IValidation }): void => {
   render(
-    <Form name="form" submitHandler={jest.fn()} validation={props.validation}>
+    <FormProvider submitHandler={jest.fn()} validator={props.validator}>
       <ControlledInput
         icon={props.icon}
         name={props.name}
@@ -19,8 +18,7 @@ const makeSut = (props: ControlledInputProps): void => {
         onFocus={props.onFocus}
         type={props.type}
       />
-    </Form>,
-    { ...formStoreMock }
+    </FormProvider>
   )
 }
 
@@ -85,18 +83,18 @@ describe('Input', () => {
       const validator = makeValidationMock(true)
       const validatorSpy = jest.spyOn(validator, 'validate')
 
-      makeSut({ name: 'input', validation: validator })
+      makeSut({ name: 'input', validator })
 
       const input = screen.getByTestId('input-input')
       userEvent.type(input, 'any_value')
 
-      expect(validatorSpy).toHaveBeenLastCalledWith('input', { input: 'any_value', name: 'form' })
+      expect(validatorSpy).toHaveBeenLastCalledWith('input', { input: 'any_value' })
     })
 
     it('should clear any error message onBlur if validator succeeds', () => {
       const validator = makeValidationMock(true)
 
-      makeSut({ name: 'input', validation: validator })
+      makeSut({ name: 'input', validator })
 
       const input = screen.getByTestId('input-input')
       fireEvent.blur(input)
@@ -109,7 +107,7 @@ describe('Input', () => {
     it('should display an error message if validator fails', () => {
       const validator = makeValidationMock(false)
 
-      makeSut({ name: 'input', validation: validator })
+      makeSut({ name: 'input', validator })
 
       const input = screen.getByTestId('input-input')
       fireEvent.blur(input)
@@ -122,7 +120,7 @@ describe('Input', () => {
     it('should not display an error if validator succeds', () => {
       const validator = makeValidationMock(true)
 
-      makeSut({ name: 'input', validation: validator })
+      makeSut({ name: 'input', validator })
 
       const input = screen.getByTestId('input-input')
       fireEvent.blur(input)
@@ -133,7 +131,7 @@ describe('Input', () => {
     it('should not display an error if the input was not touched', () => {
       const validator = makeValidationMock(true)
 
-      makeSut({ name: 'input', validation: validator })
+      makeSut({ name: 'input', validator })
 
       expect(screen.queryByTestId('input-error')).toBeNull()
     })
@@ -141,7 +139,7 @@ describe('Input', () => {
     it('should remove any error message if input is valid', () => {
       const validator = makeValidationMock(true)
 
-      makeSut({ name: 'input', validation: validator })
+      makeSut({ name: 'input', validator })
 
       const input = screen.getByTestId('input-input')
       fireEvent.blur(input)
@@ -153,7 +151,7 @@ describe('Input', () => {
       const validator = makeValidationMock(true)
       const validatorSpy = jest.spyOn(validator, 'validate')
 
-      makeSut({ name: 'input', validation: validator })
+      makeSut({ name: 'input', validator })
 
       const input = screen.getByTestId('input-input')
       fireEvent.focus(input)
@@ -164,7 +162,7 @@ describe('Input', () => {
     it('should not render an error message onChange if the input was not touched', () => {
       const validator = makeValidationMock(false)
 
-      makeSut({ name: 'input', validation: validator })
+      makeSut({ name: 'input', validator })
 
       const input = screen.getByTestId('input-input')
       userEvent.type(input, 'any_value')
@@ -178,7 +176,7 @@ describe('Input', () => {
     it('should render an error message onChange if the input was touched and validator fails', () => {
       const validator = makeValidationMock(false)
 
-      makeSut({ name: 'input', validation: validator })
+      makeSut({ name: 'input', validator })
 
       const input = screen.getByTestId('input-input')
       fireEvent.blur(input)

@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { calendarActions } from '@/application/models/calendar'
+import { calendarActions } from '@/application/models/redux/calendar'
 import { RootState, AppDispatch } from '@/application/store'
 import CalendarDayNumber from '@/presentation/components/Calendar/subComponents/body/CalendarDayNumber'
 import isDaySelected from './methods/isDaySelected'

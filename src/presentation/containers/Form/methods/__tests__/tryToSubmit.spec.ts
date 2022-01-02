@@ -2,11 +2,7 @@ import tryToSubmit from '../tryToSubmit'
 
 describe('tryToSubmit', () => {
   const dispatch = jest.fn()
-  const setErrorMessage = jest.fn() as any
-  const setIsSubmitted = jest.fn() as any
-  const setIsValid = jest.fn() as any
   const submitHandler = jest.fn() as any
-  const name = 'form'
 
   afterEach(() => {
     jest.clearAllMocks()
@@ -15,14 +11,10 @@ describe('tryToSubmit', () => {
   it('should call setIsSubmitted with true regardless of the output', async () => {
     await tryToSubmit({
       dispatch,
-      setErrorMessage,
-      setIsSubmitted,
-      setIsValid,
-      submitHandler,
-      name
+      submitHandler
     })
 
-    expect(setIsSubmitted).toHaveBeenCalledWith({ isSubmitted: true, name })
+    expect(dispatch).toHaveBeenCalledWith({ type: 'SET_IS_SUBMITTED', payload: { isSubmitted: true } })
   })
 
   it('should catch error if submitHandler throws an error', async () => {
@@ -32,14 +24,10 @@ describe('tryToSubmit', () => {
 
     await tryToSubmit({
       dispatch,
-      setErrorMessage,
-      setIsSubmitted,
-      setIsValid,
-      submitHandler,
-      name
+      submitHandler
     })
 
-    expect(setErrorMessage).toHaveBeenCalledWith({ errorMessage: 'error message', name })
-    expect(setIsValid).toHaveBeenCalledWith({ isValid: false, name })
+    expect(dispatch).toHaveBeenCalledWith({ type: 'SET_ERROR_MESSAGE', payload: { errorMessage: 'error message' } })
+    expect(dispatch).toHaveBeenCalledWith({ type: 'SET_IS_VALID', payload: { isValid: false } })
   })
 })
