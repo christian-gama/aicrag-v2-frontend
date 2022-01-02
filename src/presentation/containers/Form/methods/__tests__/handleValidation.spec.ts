@@ -2,7 +2,7 @@ import handleValidation from '../handleValidation'
 
 describe('handleValidation', () => {
   const dispatch = jest.fn()
-  const setIsAlertOpen = jest.fn()
+  const setIsPopoverOpen = jest.fn()
   const formData = {
     name: '',
     email: '',
@@ -18,7 +18,7 @@ describe('handleValidation', () => {
     handleValidation({
       dispatch,
       formData,
-      setIsAlertOpen
+      setIsPopoverOpen
     })
 
     expect(dispatch).toHaveBeenNthCalledWith(1, { type: 'SET_IS_VALIDATING', payload: { isValidating: true } })
@@ -34,7 +34,7 @@ describe('handleValidation', () => {
     handleValidation({
       dispatch,
       formData,
-      setIsAlertOpen,
+      setIsPopoverOpen,
       validator
     })
 
@@ -54,7 +54,7 @@ describe('handleValidation', () => {
     const error = handleValidation({
       dispatch,
       formData,
-      setIsAlertOpen,
+      setIsPopoverOpen,
       validator
     })
 

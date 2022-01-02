@@ -6,11 +6,11 @@ type Params = {
   dispatch: (options: FormActionPayload) => void
   formData?: FormStates['formData']
   validator?: IValidation
-  setIsAlertOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setIsPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const handleValidation = (params: Params) => {
-  const { validator, dispatch, formData, setIsAlertOpen } = params
+  const { validator, dispatch, formData, setIsPopoverOpen } = params
 
   dispatch({ type: 'SET_IS_VALIDATING', payload: { isValidating: true } })
 
@@ -22,7 +22,7 @@ const handleValidation = (params: Params) => {
         dispatch({ type: 'SET_ERROR_MESSAGE', payload: { errorMessage: error } })
         dispatch({ type: 'SET_IS_VALID', payload: { isValid: false } })
         dispatch({ type: 'SET_IS_VALIDATING', payload: { isValidating: false } })
-        setIsAlertOpen(true)
+        setIsPopoverOpen(true)
 
         return error
       }
@@ -31,7 +31,7 @@ const handleValidation = (params: Params) => {
 
   dispatch({ type: 'SET_IS_VALIDATING', payload: { isValidating: false } })
   dispatch({ type: 'SET_IS_VALID', payload: { isValid: true } })
-  setIsAlertOpen(false)
+  setIsPopoverOpen(false)
 }
 
 export default handleValidation

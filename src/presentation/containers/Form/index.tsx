@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import FormContext from '@/application/models/context/form/FormContext'
-import Alert from '../../components/UI/Alert'
+import Popover from '@/presentation/components/UI/Popover'
 import FormProps from './form.model'
 import onSubmitHandler from './methods/onSubmitHandler'
 
@@ -10,7 +10,7 @@ const FormContainer: React.FC<FormProps> = (props) => {
 
   const { formData, isValid, errorMessage } = state
 
-  const [isAlertOpen, setIsAlertOpen] = useState(false)
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
   useEffect(() => {
     dispatch({ type: 'RESET_FORM', payload: {} })
@@ -19,8 +19,6 @@ const FormContainer: React.FC<FormProps> = (props) => {
   useEffect(() => {
     dispatch({ type: 'SET_VALIDATOR', payload: { validator } })
   }, [])
-
-  console.log('formData', formData)
 
   return (
     <>
@@ -31,7 +29,7 @@ const FormContainer: React.FC<FormProps> = (props) => {
             event,
             submitHandler,
             validator,
-            setIsAlertOpen,
+            setIsPopoverOpen,
             formData
           })
         }
@@ -40,16 +38,7 @@ const FormContainer: React.FC<FormProps> = (props) => {
         {children}
       </form>
 
-      {!isValid && errorMessage && (
-        <Alert
-          isOpen={isAlertOpen}
-          mode="cancelOnly"
-          message={errorMessage}
-          title="Algo deu errado..."
-          type="danger"
-          onCancel={() => setIsAlertOpen(false)}
-        />
-      )}
+      {!isValid && errorMessage && <Popover isOpen={isPopoverOpen} message={errorMessage} type="error" />}
     </>
   )
 }
