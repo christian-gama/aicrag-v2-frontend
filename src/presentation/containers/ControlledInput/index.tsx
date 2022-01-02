@@ -18,7 +18,7 @@ const ControlledInput: React.FC<Omit<ControlledInputProps, 'uniqueFormName' | 'v
 
   const { dispatch, state } = useContext(FormContext)
 
-  const { formData, isResetting, validator } = state
+  const { data, isResetting, validator } = state.form
 
   const inputState = useInput({ currentType: type ?? 'text', defaultValue })
 
@@ -27,8 +27,8 @@ const ControlledInput: React.FC<Omit<ControlledInputProps, 'uniqueFormName' | 'v
       inputState.reset()
 
       dispatch({
-        type: 'SET_FORM_DATA',
-        payload: { formData: { [name]: defaultValue } }
+        type: 'FORM/SET_FORM_DATA',
+        payload: { data: { [name]: defaultValue } }
       })
     }
   }, [isResetting])
@@ -56,7 +56,7 @@ const ControlledInput: React.FC<Omit<ControlledInputProps, 'uniqueFormName' | 'v
         onBlurHandler({
           dispatch,
           event,
-          formData,
+          data,
           inputState,
           validator,
           ...props
@@ -67,12 +67,12 @@ const ControlledInput: React.FC<Omit<ControlledInputProps, 'uniqueFormName' | 'v
           dispatch,
           event,
           inputState,
-          formData,
+          data,
           validator,
           ...props
         })
       }
-      onFocus={(event) => onFocusHandler({ event, dispatch, inputState, validator, ...props, formData })}
+      onFocus={(event) => onFocusHandler({ event, dispatch, inputState, validator, ...props, data })}
       icon={
         shouldRenderIcon
           ? () => (

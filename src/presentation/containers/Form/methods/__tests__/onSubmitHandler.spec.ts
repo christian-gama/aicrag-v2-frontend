@@ -15,7 +15,7 @@ describe('onSubmitHandler', () => {
   const validator = {
     validate: jest.fn()
   }
-  const formData = {
+  const data = {
     name: '',
     email: '',
     password: '',
@@ -30,7 +30,7 @@ describe('onSubmitHandler', () => {
     await onSubmitHandler({
       dispatch,
       event,
-      formData,
+      data,
       submitHandler,
       setIsPopoverOpen,
       validator
@@ -45,7 +45,7 @@ describe('onSubmitHandler', () => {
     await onSubmitHandler({
       dispatch,
       event,
-      formData,
+      data,
       submitHandler,
       setIsPopoverOpen,
       validator

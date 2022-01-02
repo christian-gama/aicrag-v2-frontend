@@ -3,7 +3,7 @@ import onChangeHandler from '../onChangeHandler'
 describe('onChangeHandler', () => {
   const dispatch = jest.fn()
   const event = { target: { value: 'test' } } as any
-  const formData = {}
+  const data = {}
   const inputState = {
     setOnChange: jest.fn()
   } as any
@@ -15,7 +15,7 @@ describe('onChangeHandler', () => {
     const params = {
       dispatch,
       event,
-      formData,
+      data,
       inputState,
       name,
       onChange,
@@ -33,7 +33,7 @@ describe('onChangeHandler', () => {
     const params = {
       dispatch,
       event,
-      formData,
+      data,
       inputState,
       name,
       onChange,
@@ -49,7 +49,7 @@ describe('onChangeHandler', () => {
     const params = {
       dispatch,
       event,
-      formData,
+      data,
       inputState,
       name,
       validator
@@ -57,6 +57,6 @@ describe('onChangeHandler', () => {
 
     onChangeHandler(params)
 
-    expect(dispatch).toHaveBeenCalledWith({ type: 'SET_IS_CHANGING', payload: { isChanging: true } })
+    expect(dispatch).toHaveBeenCalledWith({ type: 'FORM/SET_IS_CHANGING', payload: { isChanging: true } })
   })
 })

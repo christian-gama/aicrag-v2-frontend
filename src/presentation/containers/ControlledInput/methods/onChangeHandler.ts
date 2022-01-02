@@ -7,7 +7,7 @@ import useInput from '../useInput'
 type Params = {
   dispatch: (options: FormActionPayload) => void
   event: React.ChangeEvent<HTMLInputElement>
-  formData?: FormStates['formData']
+  data?: FormStates['form']['data']
   inputState: ReturnType<typeof useInput>
   name: ControlledInputProps['name']
   onChange?: ControlledInputProps['onChange']
@@ -15,17 +15,17 @@ type Params = {
 }
 
 const onChangeHandler: IHandler<Params> = (params): void => {
-  const { dispatch, event, inputState, onChange, name, validator } = params
+  const { dispatch, event, inputState, data, onChange, name, validator } = params
 
   const value = event.target.value
-  const error = validator?.validate(name, { [name]: value })
+  const error = validator?.validate(name, { ...data, [name]: value })
 
   inputState.setOnChange(error, value)
 
   if (onChange) onChange(event)
 
-  dispatch({ type: 'SET_IS_CHANGING', payload: { isChanging: true } })
-  dispatch({ type: 'SET_FORM_DATA', payload: { formData: { [name]: value } } })
+  dispatch({ type: 'FORM/SET_IS_CHANGING', payload: { isChanging: true } })
+  dispatch({ type: 'FORM/SET_FORM_DATA', payload: { data: { [name]: value } } })
 }
 
 export default onChangeHandler

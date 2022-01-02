@@ -8,16 +8,16 @@ const FormContainer: React.FC<FormProps> = (props) => {
   const { validator, children, submitHandler } = props
   const { dispatch, state } = useContext(FormContext)
 
-  const { formData, isValid, errorMessage } = state
+  const { error, isValid, data } = state.form
 
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
   useEffect(() => {
-    dispatch({ type: 'RESET_FORM', payload: {} })
+    dispatch({ type: 'FORM/RESET_FORM', payload: {} })
   }, [])
 
   useEffect(() => {
-    dispatch({ type: 'SET_VALIDATOR', payload: { validator } })
+    dispatch({ type: 'FORM/SET_VALIDATOR', payload: { validator } })
   }, [])
 
   return (
@@ -30,7 +30,7 @@ const FormContainer: React.FC<FormProps> = (props) => {
             submitHandler,
             validator,
             setIsPopoverOpen,
-            formData
+            data
           })
         }
         data-testid="form"
@@ -38,7 +38,13 @@ const FormContainer: React.FC<FormProps> = (props) => {
         {children}
       </form>
 
-      {!isValid && errorMessage && <Popover isOpen={isPopoverOpen} message={errorMessage} type="error" />}
+      {!isValid && error && (
+        <Popover
+          isOpen={isPopoverOpen}
+          message="Não foi possível continuar, pois há erros que precisam ser corrigidos."
+          type="error"
+        />
+      )}
     </>
   )
 }

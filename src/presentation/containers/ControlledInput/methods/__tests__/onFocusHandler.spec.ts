@@ -3,7 +3,7 @@ import onFocusHandler from '../onFocusHandler'
 describe('onFocusHandler', () => {
   const dispatch = jest.fn()
   const event = { currentTarget: { value: 'test' } } as any
-  const formData = {}
+  const data = {}
   const inputState = {
     setOnFocus: jest.fn()
   } as any
@@ -15,7 +15,7 @@ describe('onFocusHandler', () => {
     const params = {
       dispatch,
       event,
-      formData,
+      data,
       inputState,
       name,
       onFocus,
@@ -33,7 +33,7 @@ describe('onFocusHandler', () => {
     const params = {
       dispatch,
       event,
-      formData,
+      data,
       inputState,
       name,
       onFocus,
@@ -51,7 +51,7 @@ describe('onFocusHandler', () => {
     const params = {
       dispatch,
       event,
-      formData,
+      data,
       inputState,
       name,
       onFocus,
@@ -61,9 +61,9 @@ describe('onFocusHandler', () => {
     onFocusHandler(params)
 
     expect(dispatch).toHaveBeenCalledWith({
-      type: 'SET_FORM_DATA',
-      payload: { formData: { ...formData, [name]: event.currentTarget.value } }
+      type: 'FORM/SET_FORM_DATA',
+      payload: { data: { ...data, [name]: event.currentTarget.value } }
     })
-    expect(dispatch).toHaveBeenCalledWith({ type: 'SET_IS_FOCUSED', payload: { isFocused: true } })
+    expect(dispatch).toHaveBeenCalledWith({ type: 'FORM/SET_IS_FOCUSED', payload: { isFocused: true } })
   })
 })

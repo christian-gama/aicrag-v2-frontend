@@ -1,19 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import '@/application/common/stylesheet/global.css'
 import { Provider } from 'react-redux'
+import FormProvider from '@/application/models/context/form/FormProvider'
 import store from '@/application/store'
 import Button from '@/presentation/components/UI/Button'
-import Popover from '@/presentation/components/UI/Popover'
+import ControlledInput from '@/presentation/containers/ControlledInput'
+import makeTimerValidator from './factories/validation/makeTimerValidator'
 
 const Element: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false)
-
   return (
-    <div>
-      <Button onClick={() => setIsOpen((prev) => !prev)}>Open Popover</Button>
-      <Popover type="info" message={'Campo email inválido: o email deve conter um @'} isOpen={isOpen} />
-    </div>
+    <FormProvider submitHandler={async () => {}} validator={makeTimerValidator()}>
+      <ControlledInput name="hora" />
+      <ControlledInput name="minuto" />
+
+      <Button type="submit">Enviar</Button>
+    </FormProvider>
   )
 }
 

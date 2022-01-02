@@ -1,108 +1,78 @@
-import { FormActionPayload, FormStates } from './protocols/form.model'
+import {
+  resetForm,
+  setFormError,
+  setFormIsValid,
+  setFormIsDirty,
+  setFormIsChanging,
+  setIsFocused,
+  setFormIsSubmitting,
+  setFormIsSubmitted,
+  setFormIsValidating,
+  setFormData,
+  setFormValidator
+} from './formActions'
+import {
+  setInputCurrentType,
+  setInputError,
+  setInputIsFocused,
+  setInputIsTouched,
+  setInputIsValid,
+  setInputValue
+} from './inputActions'
+import { FormActionPayload, FormInputActionPayload, FormStates } from './protocols/form.model'
 
-const formReducer = (state: FormStates, action: FormActionPayload): FormStates => {
+const formReducer = (state: FormStates, action: FormActionPayload | FormInputActionPayload): FormStates => {
   switch (action.type) {
-    case 'RESET_FORM':
+    case 'FORM/RESET_FORM':
       return resetForm(state)
 
-    case 'SET_ERROR_MESSAGE':
-      return setErrorMessage(state, action)
+    case 'FORM/SET_ERROR':
+      return setFormError(state, action)
 
-    case 'SET_IS_VALID':
-      return setIsValid(state, action)
+    case 'FORM/SET_IS_VALID':
+      return setFormIsValid(state, action)
 
-    case 'SET_IS_DIRTY':
-      return setIsDirty(state, action)
+    case 'FORM/SET_IS_DIRTY':
+      return setFormIsDirty(state, action)
 
-    case 'SET_IS_CHANGING':
-      return setIsChanging(state, action)
+    case 'FORM/SET_IS_CHANGING':
+      return setFormIsChanging(state, action)
 
-    case 'SET_IS_FOCUSED':
+    case 'FORM/SET_IS_FOCUSED':
       return setIsFocused(state, action)
 
-    case 'SET_IS_SUBMITTING':
-      return setIsSubmitting(state, action)
+    case 'FORM/SET_IS_SUBMITTING':
+      return setFormIsSubmitting(state, action)
 
-    case 'SET_IS_SUBMITTED':
-      return setIsSubmitted(state, action)
+    case 'FORM/SET_IS_SUBMITTED':
+      return setFormIsSubmitted(state, action)
 
-    case 'SET_IS_VALIDATING':
-      return setIsValidating(state, action)
+    case 'FORM/SET_IS_VALIDATING':
+      return setFormIsValidating(state, action)
 
-    case 'SET_FORM_DATA':
+    case 'FORM/SET_FORM_DATA':
       return setFormData(state, action)
 
-    case 'SET_VALIDATOR':
-      return setValidator(state, action)
-  }
-}
+    case 'FORM/SET_VALIDATOR':
+      return setFormValidator(state, action)
 
-const setValidator = (state: FormStates, action: FormActionPayload) => {
-  return {
-    ...state,
-    validator: action.payload.validator!
-  }
-}
+    case 'INPUT/SET_CURRENT_TYPE':
+      return setInputCurrentType(state, action)
 
-const resetForm = (state: FormStates): FormStates => {
-  return {
-    ...state,
-    isResetting: true,
-    isDirty: false,
-    isSubmitted: false,
-    errorMessage: undefined,
-    isSubmitting: false,
-    isValid: false,
-    isValidating: false,
-    isFocused: false,
-    isChanging: false,
-    formData: {},
-    validator: undefined
-  }
-}
+    case 'INPUT/SET_ERROR':
+      return setInputError(state, action)
 
-export const setErrorMessage = (state: FormStates, action: FormActionPayload): FormStates => {
-  return {
-    ...state,
-    errorMessage: action.payload.errorMessage!
-  }
-}
+    case 'INPUT/SET_IS_TOUCHED':
+      return setInputIsTouched(state, action)
 
-export const setIsValid = (state: FormStates, action: FormActionPayload): FormStates => {
-  return { ...state, isValid: action.payload.isValid! }
-}
+    case 'INPUT/SET_IS_FOCUSED':
+      return setInputIsFocused(state, action)
 
-export const setIsDirty = (state: FormStates, action: FormActionPayload): FormStates => {
-  return { ...state, isDirty: action.payload.isDirty! }
-}
+    case 'INPUT/SET_IS_VALID':
+      return setInputIsValid(state, action)
 
-export const setIsChanging = (state: FormStates, action: FormActionPayload): FormStates => {
-  return { ...state, isChanging: action.payload.isChanging!, isResetting: false }
-}
-
-export const setIsFocused = (state: FormStates, action: FormActionPayload): FormStates => {
-  return { ...state, isFocused: action.payload.isFocused! }
-}
-
-export const setIsSubmitting = (state: FormStates, action: FormActionPayload): FormStates => {
-  return { ...state, isSubmitting: action.payload.isSubmitting! }
-}
-
-export const setIsSubmitted = (state: FormStates, action: FormActionPayload): FormStates => {
-  return { ...state, isSubmitted: action.payload.isSubmitted! }
-}
-
-export const setIsValidating = (state: FormStates, action: FormActionPayload): FormStates => {
-  return { ...state, isValidating: action.payload.isValidating! }
-}
-
-export const setFormData = (state: FormStates, action: FormActionPayload): FormStates => {
-  return {
-    ...state,
-    formData: {
-      ...state.formData,
-      ...action.payload.formData!
-    }
+    case 'INPUT/SET_VALUE':
+      return setInputValue(state, action)
   }
 }
 

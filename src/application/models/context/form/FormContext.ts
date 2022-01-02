@@ -3,16 +3,26 @@ import React from 'react'
 import { FormActionPayload, FormStates } from './protocols/form.model'
 
 export const initialFormState: FormStates = {
-  isDirty: false,
-  isSubmitted: false,
-  errorMessage: undefined,
-  formData: {},
-  isSubmitting: false,
-  isValid: false,
-  isValidating: false,
-  isFocused: false,
-  isChanging: false,
-  isResetting: false
+  form: {
+    isDirty: false,
+    isSubmitted: false,
+    error: undefined,
+    data: {},
+    isSubmitting: false,
+    isValid: false,
+    isValidating: false,
+    isFocused: false,
+    isChanging: false,
+    isResetting: false
+  },
+  input: {
+    currentType: {},
+    error: {},
+    isFocused: {},
+    isTouched: {},
+    isValid: {},
+    value: {}
+  }
 }
 
 const FormContext = React.createContext<{ state: FormStates, dispatch: (options: FormActionPayload) => void }>({

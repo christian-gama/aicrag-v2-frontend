@@ -7,7 +7,7 @@ import tryToSubmit from './tryToSubmit'
 type Params = {
   dispatch: (options: FormActionPayload) => void
   event: React.FormEvent<HTMLFormElement>
-  formData?: FormStates['formData']
+  data?: FormStates['form']['data']
   submitHandler: FormProps['submitHandler']
   validator?: IValidation
   setIsPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -16,7 +16,7 @@ type Params = {
 const onSubmitHandler = async (params: Params): Promise<void> => {
   const { dispatch, validator, event } = params
 
-  dispatch({ type: 'SET_IS_SUBMITTING', payload: { isSubmitting: true } })
+  dispatch({ type: 'FORM/SET_IS_SUBMITTING', payload: { isSubmitting: true } })
 
   event.preventDefault()
 
@@ -28,7 +28,7 @@ const onSubmitHandler = async (params: Params): Promise<void> => {
     await tryToSubmit({ ...params })
   }
 
-  dispatch({ type: 'SET_IS_SUBMITTING', payload: { isSubmitting: false } })
+  dispatch({ type: 'FORM/SET_IS_SUBMITTING', payload: { isSubmitting: false } })
 }
 
 export default onSubmitHandler

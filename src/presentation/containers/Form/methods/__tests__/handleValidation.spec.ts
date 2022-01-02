@@ -3,11 +3,11 @@ import handleValidation from '../handleValidation'
 describe('handleValidation', () => {
   const dispatch = jest.fn()
   const setIsPopoverOpen = jest.fn()
-  const formData = {
-    name: '',
-    email: '',
-    password: '',
-    passwordConfirmation: ''
+  const data = {
+    name: 'FORM/',
+    email: 'FORM/',
+    password: 'FORM/',
+    passwordConfirmation: 'FORM/'
   }
 
   afterEach(() => {
@@ -17,13 +17,13 @@ describe('handleValidation', () => {
   it('should not run validation if validation is undefined', () => {
     handleValidation({
       dispatch,
-      formData,
+      data,
       setIsPopoverOpen
     })
 
-    expect(dispatch).toHaveBeenNthCalledWith(1, { type: 'SET_IS_VALIDATING', payload: { isValidating: true } })
-    expect(dispatch).toHaveBeenNthCalledWith(2, { type: 'SET_IS_VALIDATING', payload: { isValidating: false } })
-    expect(dispatch).toHaveBeenNthCalledWith(3, { type: 'SET_IS_VALID', payload: { isValid: true } })
+    expect(dispatch).toHaveBeenNthCalledWith(1, { type: 'FORM/SET_IS_VALIDATING', payload: { isValidating: true } })
+    expect(dispatch).toHaveBeenNthCalledWith(2, { type: 'FORM/SET_IS_VALIDATING', payload: { isValidating: false } })
+    expect(dispatch).toHaveBeenNthCalledWith(3, { type: 'FORM/SET_IS_VALID', payload: { isValid: true } })
   })
 
   it('should call setErrorMessage with the error message, setIsValid to false and setIsValidating to false if validation fails', () => {
@@ -33,17 +33,17 @@ describe('handleValidation', () => {
 
     handleValidation({
       dispatch,
-      formData,
+      data,
       setIsPopoverOpen,
       validator
     })
 
     expect(dispatch).toHaveBeenNthCalledWith(2, {
-      type: 'SET_ERROR_MESSAGE',
-      payload: { errorMessage: 'error message' }
+      type: 'FORM/SET_ERROR',
+      payload: { error: 'error message' }
     })
-    expect(dispatch).toHaveBeenNthCalledWith(3, { type: 'SET_IS_VALID', payload: { isValid: false } })
-    expect(dispatch).toHaveBeenNthCalledWith(4, { type: 'SET_IS_VALIDATING', payload: { isValidating: false } })
+    expect(dispatch).toHaveBeenNthCalledWith(3, { type: 'FORM/SET_IS_VALID', payload: { isValid: false } })
+    expect(dispatch).toHaveBeenNthCalledWith(4, { type: 'FORM/SET_IS_VALIDATING', payload: { isValidating: false } })
   })
 
   it('should return undefined if validation succeeds', () => {
@@ -53,7 +53,7 @@ describe('handleValidation', () => {
 
     const error = handleValidation({
       dispatch,
-      formData,
+      data,
       setIsPopoverOpen,
       validator
     })

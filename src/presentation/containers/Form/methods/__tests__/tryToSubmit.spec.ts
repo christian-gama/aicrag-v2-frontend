@@ -16,7 +16,7 @@ describe('tryToSubmit', () => {
       setIsPopoverOpen
     })
 
-    expect(dispatch).toHaveBeenCalledWith({ type: 'SET_IS_SUBMITTED', payload: { isSubmitted: true } })
+    expect(dispatch).toHaveBeenCalledWith({ type: 'FORM/SET_IS_SUBMITTED', payload: { isSubmitted: true } })
   })
 
   it('should catch error if submitHandler throws an error', async () => {
@@ -30,8 +30,8 @@ describe('tryToSubmit', () => {
       setIsPopoverOpen
     })
 
-    expect(dispatch).toHaveBeenCalledWith({ type: 'SET_ERROR_MESSAGE', payload: { errorMessage: 'error message' } })
-    expect(dispatch).toHaveBeenCalledWith({ type: 'SET_IS_VALID', payload: { isValid: false } })
+    expect(dispatch).toHaveBeenCalledWith({ type: 'FORM/SET_ERROR', payload: { error: 'error message' } })
+    expect(dispatch).toHaveBeenCalledWith({ type: 'FORM/SET_IS_VALID', payload: { isValid: false } })
     expect(setIsPopoverOpen).toHaveBeenCalledWith(true)
   })
 })

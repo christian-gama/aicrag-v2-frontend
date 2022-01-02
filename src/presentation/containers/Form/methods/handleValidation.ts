@@ -4,24 +4,24 @@ import { FormActionPayload, FormStates } from '@/application/models/context/form
 
 type Params = {
   dispatch: (options: FormActionPayload) => void
-  formData?: FormStates['formData']
+  data?: FormStates['form']['data']
   validator?: IValidation
   setIsPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const handleValidation = (params: Params) => {
-  const { validator, dispatch, formData, setIsPopoverOpen } = params
+  const { validator, dispatch, data, setIsPopoverOpen } = params
 
-  dispatch({ type: 'SET_IS_VALIDATING', payload: { isValidating: true } })
+  dispatch({ type: 'FORM/SET_IS_VALIDATING', payload: { isValidating: true } })
 
   if (validator) {
-    for (const key in formData) {
-      const error = validator.validate(key, formData)
+    for (const key in data) {
+      const error = validator.validate(key, data)
 
       if (error) {
-        dispatch({ type: 'SET_ERROR_MESSAGE', payload: { errorMessage: error } })
-        dispatch({ type: 'SET_IS_VALID', payload: { isValid: false } })
-        dispatch({ type: 'SET_IS_VALIDATING', payload: { isValidating: false } })
+        dispatch({ type: 'FORM/SET_ERROR', payload: { error } })
+        dispatch({ type: 'FORM/SET_IS_VALID', payload: { isValid: false } })
+        dispatch({ type: 'FORM/SET_IS_VALIDATING', payload: { isValidating: false } })
         setIsPopoverOpen(true)
 
         return error
@@ -29,8 +29,8 @@ const handleValidation = (params: Params) => {
     }
   }
 
-  dispatch({ type: 'SET_IS_VALIDATING', payload: { isValidating: false } })
-  dispatch({ type: 'SET_IS_VALID', payload: { isValid: true } })
+  dispatch({ type: 'FORM/SET_IS_VALIDATING', payload: { isValidating: false } })
+  dispatch({ type: 'FORM/SET_IS_VALID', payload: { isValid: true } })
   setIsPopoverOpen(false)
 }
 

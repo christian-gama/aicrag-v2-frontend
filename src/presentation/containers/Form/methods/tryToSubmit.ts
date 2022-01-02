@@ -14,12 +14,12 @@ const tryToSubmit = async (params: Params): Promise<void> => {
     await submitHandler()
     setIsPopoverOpen(false)
   } catch (error: any) {
-    dispatch({ type: 'SET_ERROR_MESSAGE', payload: { errorMessage: error.message } })
-    dispatch({ type: 'SET_IS_VALID', payload: { isValid: false } })
+    dispatch({ type: 'FORM/SET_ERROR', payload: { error: error.message } })
+    dispatch({ type: 'FORM/SET_IS_VALID', payload: { isValid: false } })
     setIsPopoverOpen(true)
   }
 
-  dispatch({ type: 'SET_IS_SUBMITTED', payload: { isSubmitted: true } })
+  dispatch({ type: 'FORM/SET_IS_SUBMITTED', payload: { isSubmitted: true } })
 }
 
 export default tryToSubmit

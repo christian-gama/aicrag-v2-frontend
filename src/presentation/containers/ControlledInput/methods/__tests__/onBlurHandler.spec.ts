@@ -3,7 +3,7 @@ import onBlurHandler from '../onBlurHandler'
 describe('onBlurHandler', () => {
   const dispatch = jest.fn()
   const event = { currentTarget: { value: 'test' } } as any
-  const formData = {}
+  const data = {}
   const inputState = {
     setOnBlur: jest.fn()
   } as any
@@ -15,7 +15,7 @@ describe('onBlurHandler', () => {
     const params = {
       dispatch,
       event,
-      formData,
+      data,
       inputState,
       name,
       onBlur,
@@ -33,7 +33,7 @@ describe('onBlurHandler', () => {
     const params = {
       dispatch,
       event,
-      formData,
+      data,
       inputState,
       name,
       onBlur,
@@ -49,7 +49,7 @@ describe('onBlurHandler', () => {
     const params = {
       dispatch,
       event,
-      formData,
+      data,
       inputState,
       name,
       validator
@@ -58,19 +58,19 @@ describe('onBlurHandler', () => {
     onBlurHandler(params)
 
     expect(dispatch).toHaveBeenCalledWith({
-      type: 'SET_FORM_DATA',
-      payload: { formData: { ...formData, [name]: event.currentTarget.value } }
+      type: 'FORM/SET_FORM_DATA',
+      payload: { data: { ...data, [name]: event.currentTarget.value } }
     })
-    expect(dispatch).toHaveBeenCalledWith({ type: 'SET_IS_FOCUSED', payload: { isFocused: false } })
-    expect(dispatch).toHaveBeenCalledWith({ type: 'SET_IS_DIRTY', payload: { isDirty: true } })
-    expect(dispatch).toHaveBeenCalledWith({ type: 'SET_IS_CHANGING', payload: { isChanging: false } })
+    expect(dispatch).toHaveBeenCalledWith({ type: 'FORM/SET_IS_FOCUSED', payload: { isFocused: false } })
+    expect(dispatch).toHaveBeenCalledWith({ type: 'FORM/SET_IS_DIRTY', payload: { isDirty: true } })
+    expect(dispatch).toHaveBeenCalledWith({ type: 'FORM/SET_IS_CHANGING', payload: { isChanging: false } })
   })
 
   it('should call validate with the correct values', () => {
     const params = {
       dispatch,
       event,
-      formData,
+      data,
       inputState,
       name,
       validator
@@ -78,14 +78,14 @@ describe('onBlurHandler', () => {
 
     onBlurHandler(params)
 
-    expect(validator.validate).toHaveBeenCalledWith(name, { ...formData, [name]: event.currentTarget.value })
+    expect(validator.validate).toHaveBeenCalledWith(name, { ...data, [name]: event.currentTarget.value })
   })
 
   it('should call setOnBlur with the correct error', () => {
     const params = {
       dispatch,
       event,
-      formData,
+      data,
       inputState,
       name,
 
@@ -95,7 +95,7 @@ describe('onBlurHandler', () => {
     onBlurHandler(params)
 
     expect(inputState.setOnBlur).toHaveBeenCalledWith(
-      validator.validate(name, { ...formData, [name]: event.currentTarget.value })
+      validator.validate(name, { ...data, [name]: event.currentTarget.value })
     )
   })
 })
