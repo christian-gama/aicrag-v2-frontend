@@ -3,6 +3,7 @@ import tryToSubmit from '../tryToSubmit'
 describe('tryToSubmit', () => {
   const dispatch = jest.fn()
   const submitHandler = jest.fn() as any
+  const setIsAlertOpen = jest.fn()
 
   afterEach(() => {
     jest.clearAllMocks()
@@ -11,7 +12,8 @@ describe('tryToSubmit', () => {
   it('should call setIsSubmitted with true regardless of the output', async () => {
     await tryToSubmit({
       dispatch,
-      submitHandler
+      submitHandler,
+      setIsAlertOpen
     })
 
     expect(dispatch).toHaveBeenCalledWith({ type: 'SET_IS_SUBMITTED', payload: { isSubmitted: true } })
@@ -24,10 +26,12 @@ describe('tryToSubmit', () => {
 
     await tryToSubmit({
       dispatch,
-      submitHandler
+      submitHandler,
+      setIsAlertOpen
     })
 
     expect(dispatch).toHaveBeenCalledWith({ type: 'SET_ERROR_MESSAGE', payload: { errorMessage: 'error message' } })
     expect(dispatch).toHaveBeenCalledWith({ type: 'SET_IS_VALID', payload: { isValid: false } })
+    expect(setIsAlertOpen).toHaveBeenCalledWith(true)
   })
 })

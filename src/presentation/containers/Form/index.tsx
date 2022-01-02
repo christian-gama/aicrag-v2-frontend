@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import FormContext from '@/application/models/context/form/FormContext'
 import Alert from '../../components/UI/Alert'
 import FormProps from './form.model'
@@ -8,7 +8,9 @@ const FormContainer: React.FC<FormProps> = (props) => {
   const { validator, children, submitHandler } = props
   const { dispatch, state } = useContext(FormContext)
 
-  const { formData, isValid, errorMessage, isSubmitted } = state
+  const { formData, isValid, errorMessage } = state
+
+  const [isAlertOpen, setIsAlertOpen] = useState(false)
 
   useEffect(() => {
     dispatch({ type: 'RESET_FORM', payload: {} })
@@ -17,6 +19,8 @@ const FormContainer: React.FC<FormProps> = (props) => {
   useEffect(() => {
     dispatch({ type: 'SET_VALIDATOR', payload: { validator } })
   }, [])
+
+  console.log('formData', formData)
 
   return (
     <>
@@ -27,6 +31,7 @@ const FormContainer: React.FC<FormProps> = (props) => {
             event,
             submitHandler,
             validator,
+            setIsAlertOpen,
             formData
           })
         }
@@ -35,8 +40,15 @@ const FormContainer: React.FC<FormProps> = (props) => {
         {children}
       </form>
 
-      {!isValid && errorMessage && isSubmitted && (
-        <Alert isOpen mode="cancelOnly" message={errorMessage} title="Algo deu errado..." type="danger" />
+      {!isValid && errorMessage && (
+        <Alert
+          isOpen={isAlertOpen}
+          mode="cancelOnly"
+          message={errorMessage}
+          title="Algo deu errado..."
+          type="danger"
+          onCancel={() => setIsAlertOpen(false)}
+        />
       )}
     </>
   )

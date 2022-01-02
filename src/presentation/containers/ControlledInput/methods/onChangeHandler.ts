@@ -15,16 +15,17 @@ type Params = {
 }
 
 const onChangeHandler: IHandler<Params> = (params): void => {
-  const { dispatch, event, formData, inputState, onChange, name, validator } = params
+  const { dispatch, event, inputState, onChange, name, validator } = params
 
   const value = event.target.value
-  const error = validator?.validate(name, { ...formData, [name]: value })
+  const error = validator?.validate(name, { [name]: value })
 
   inputState.setOnChange(error, value)
 
   if (onChange) onChange(event)
 
   dispatch({ type: 'SET_IS_CHANGING', payload: { isChanging: true } })
+  dispatch({ type: 'SET_FORM_DATA', payload: { formData: { [name]: value } } })
 }
 
 export default onChangeHandler

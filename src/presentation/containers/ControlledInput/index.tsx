@@ -14,16 +14,23 @@ import useInput from './useInput'
 const ControlledInput: React.FC<Omit<ControlledInputProps, 'uniqueFormName' | 'validation'>> = (
   props: ControlledInputProps
 ) => {
-  const { icon, name, type } = props
+  const { icon, name, type, defaultValue } = props
 
   const { dispatch, state } = useContext(FormContext)
 
   const { formData, isResetting, validator } = state
 
-  const inputState = useInput({ currentType: type ?? 'text' })
+  const inputState = useInput({ currentType: type ?? 'text', defaultValue })
 
   useEffect(() => {
-    if (isResetting) inputState.reset()
+    if (isResetting) {
+      inputState.reset()
+
+      dispatch({
+        type: 'SET_FORM_DATA',
+        payload: { formData: { [name]: defaultValue } }
+      })
+    }
   }, [isResetting])
 
   useEffect(() => {

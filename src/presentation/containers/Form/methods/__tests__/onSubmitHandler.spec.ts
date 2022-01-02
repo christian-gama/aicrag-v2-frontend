@@ -11,6 +11,7 @@ describe('onSubmitHandler', () => {
   const submitHandler = jest.fn()
   const tryToSubmitMock = tryToSubmit as jest.Mock
   const event = { preventDefault: jest.fn() } as any
+  const setIsAlertOpen = jest.fn()
   const validator = {
     validate: jest.fn()
   }
@@ -31,6 +32,7 @@ describe('onSubmitHandler', () => {
       event,
       formData,
       submitHandler,
+      setIsAlertOpen,
       validator
     })
 
@@ -45,6 +47,7 @@ describe('onSubmitHandler', () => {
       event,
       formData,
       submitHandler,
+      setIsAlertOpen,
       validator
     })
 

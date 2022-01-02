@@ -24,7 +24,7 @@ const onFocusHandler: IHandler<Params> = (params): void => {
 
   if (onFocus) onFocus(event)
 
-  dispatch({ type: 'SET_FORM_DATA', payload: { formData: { ...formData, [name]: value } } })
+  dispatch({ type: 'SET_FORM_DATA', payload: { formData: { [name]: value } } })
   dispatch({ type: 'SET_IS_FOCUSED', payload: { isFocused: true } })
 }
 

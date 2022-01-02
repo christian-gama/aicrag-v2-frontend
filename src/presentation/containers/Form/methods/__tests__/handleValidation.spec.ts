@@ -2,6 +2,7 @@ import handleValidation from '../handleValidation'
 
 describe('handleValidation', () => {
   const dispatch = jest.fn()
+  const setIsAlertOpen = jest.fn()
   const formData = {
     name: '',
     email: '',
@@ -16,7 +17,8 @@ describe('handleValidation', () => {
   it('should not run validation if validation is undefined', () => {
     handleValidation({
       dispatch,
-      formData
+      formData,
+      setIsAlertOpen
     })
 
     expect(dispatch).toHaveBeenNthCalledWith(1, { type: 'SET_IS_VALIDATING', payload: { isValidating: true } })
@@ -32,6 +34,7 @@ describe('handleValidation', () => {
     handleValidation({
       dispatch,
       formData,
+      setIsAlertOpen,
       validator
     })
 
@@ -51,6 +54,7 @@ describe('handleValidation', () => {
     const error = handleValidation({
       dispatch,
       formData,
+      setIsAlertOpen,
       validator
     })
 

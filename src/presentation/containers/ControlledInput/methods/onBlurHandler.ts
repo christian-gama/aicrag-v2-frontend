@@ -24,7 +24,7 @@ const onBlurHandler: IHandler<Params> = (params): void => {
 
   if (onBlur) onBlur(event)
 
-  dispatch({ type: 'SET_FORM_DATA', payload: { formData: { ...formData, [name]: value } } })
+  dispatch({ type: 'SET_FORM_DATA', payload: { formData: { [name]: value } } })
   dispatch({ type: 'SET_IS_DIRTY', payload: { isDirty: true } })
   dispatch({ type: 'SET_IS_FOCUSED', payload: { isFocused: false } })
   dispatch({ type: 'SET_IS_CHANGING', payload: { isChanging: false } })

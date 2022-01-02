@@ -2,7 +2,7 @@ type ControlledInputProps = {
   icon?: React.ReactElement
   name: string
   type?: 'text' | 'email' | 'password' | 'number'
-
+  defaultValue?: string
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void

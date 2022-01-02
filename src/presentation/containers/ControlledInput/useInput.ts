@@ -8,10 +8,11 @@ const initialValue = {
   isFocused: false,
   isTouched: false,
   isValid: false,
-  value: ''
+  value: '',
+  defaultValue: undefined as Maybe<string>
 }
 
-const useInput = (init: Pick<typeof initialValue, 'currentType'>) => {
+const useInput = (init: Pick<typeof initialValue, 'currentType' | 'defaultValue'>) => {
   const [currentType, setCurrentType] = useState(init.currentType)
 
   const [error, setError] = useState(initialValue.error)
@@ -22,7 +23,7 @@ const useInput = (init: Pick<typeof initialValue, 'currentType'>) => {
 
   const [isValid, setIsValid] = useState(initialValue.isValid)
 
-  const [value, setValue] = useState(initialValue.value)
+  const [value, setValue] = useState(init.defaultValue ?? initialValue.value)
 
   const setOnBlur = (error: Maybe<string>) => {
     setIsFocused(false)
@@ -48,7 +49,7 @@ const useInput = (init: Pick<typeof initialValue, 'currentType'>) => {
     setIsFocused(initialValue.isFocused)
     setIsTouched(initialValue.isTouched)
     setIsValid(initialValue.isValid)
-    setValue(initialValue.value)
+    setValue(init.defaultValue ?? initialValue.value)
   }
 
   return {

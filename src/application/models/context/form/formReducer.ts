@@ -34,9 +34,6 @@ const formReducer = (state: FormStates, action: FormActionPayload): FormStates =
 
     case 'SET_VALIDATOR':
       return setValidator(state, action)
-
-    default:
-      return state
   }
 }
 

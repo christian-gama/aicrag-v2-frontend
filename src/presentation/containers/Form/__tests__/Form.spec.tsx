@@ -1,5 +1,5 @@
 import makeValidationMock from '@/../tests/mocks/validator.mock'
-import { render, fireEvent, screen, act } from '@testing-library/react'
+import { render, fireEvent, screen, act, cleanup, waitFor } from '@testing-library/react'
 import React from 'react'
 import IValidation from '@/domain/validation/validation.model'
 import FormProvider from '@/application/models/context/form/FormProvider'
@@ -31,6 +31,17 @@ const makeSut = (config: sutConfig) => {
 }
 
 describe('Form', () => {
+  afterEach(() => {
+    cleanup()
+    document.querySelector('#overlay-root')?.remove()
+  })
+
+  beforeEach(() => {
+    const container = document.createElement('div')
+    container.setAttribute('id', 'overlay-root')
+    document.body.appendChild(container)
+  })
+
   it('should render children', () => {
     const children = <ControlledInput name="title" />
 
@@ -107,14 +118,10 @@ describe('Form', () => {
       fireEvent.submit(screen.getByTestId('form'))
     })
 
-    expect(submitHandler).toHaveBeenCalled()
+    expect(submitHandler).not.toHaveBeenCalled()
   })
 
   it('should display an Alert component if throws when trying to submit', async () => {
-    const container = document.createElement('div')
-    container.setAttribute('id', 'overlay-root')
-    document.body.appendChild(container)
-
     const submitHandler = jest.fn().mockImplementation(async () => {
       throw new Error('any_error')
     })
@@ -123,10 +130,36 @@ describe('Form', () => {
 
     makeSut({ children, submitHandler, validator: makeValidationMock(true) })
 
-    fireEvent.submit(screen.getByTestId('form'))
+    act(() => {
+      fireEvent.submit(screen.getByTestId('form'))
+    })
 
     const alert = await screen.findByTestId('alert')
 
     expect(alert).toBeTruthy()
+  })
+
+  it('should dismiss the Alert component if click on backdrop', async () => {
+    const submitHandler = jest.fn().mockImplementation(async () => {
+      throw new Error('any_error')
+    })
+
+    const children = <ControlledInput name="title" />
+
+    makeSut({ children, submitHandler, validator: makeValidationMock(true) })
+
+    act(() => {
+      fireEvent.submit(screen.getByTestId('form'))
+    })
+
+    await waitFor(() => {
+      const backdrop = screen.getByTestId('backdrop')
+
+      act(() => {
+        fireEvent.click(backdrop)
+      })
+    })
+
+    await waitFor(() => expect(screen.queryByTestId('alert')).not.toBeTruthy())
   })
 })
