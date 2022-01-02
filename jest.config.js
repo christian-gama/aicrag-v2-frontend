@@ -3,8 +3,9 @@ module.exports = {
     '<rootDir>/src/**/*.{ts,tsx}',
     '!<rootDir>/node_modules/**',
     '!<rootDir>/src/main/**/*',
-    '!<rootDir>/src/**/store/**/*',
-    '!<rootDir>/src/**/*.css.{ts,tsx}',
+    '!<rootDir>/src/**/(*)Context.ts',
+    '!<rootDir>/src/**/*.css.ts',
+    '!<rootDir>/src/**/store/*.ts',
     '!<rootDir>/src/**/*.model.ts'
   ],
   coverageDirectory: 'coverage',
