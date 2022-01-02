@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import capitalize from '@/application/utils/capitalize'
 import Button from '../Button'
 import Card from '../Card'
@@ -12,18 +12,12 @@ import handleAction from './methods/actionHandler'
 import cancelHandler from './methods/cancelHandler'
 
 const Alert: React.FC<AlertProps> = (props) => {
-  const [isOpenState, setIsOpenState] = useState(false)
-
-  useEffect(() => {
-    setIsOpenState(!!props.isOpen)
-  }, [props.isOpen])
-
   const alertHeaderStyle = alertClasses.headerRecipe({
     color: props.type
   })
 
   return (
-    <Modal isOpen={isOpenState} onDismiss={props.onCancel}>
+    <Modal isOpen={props.isOpen} onDismiss={props.onCancel}>
       <Card centered>
         <div className={alertClasses.wrapperStyle} data-testid="alert">
           <div className={alertHeaderStyle} data-testid="alert-header">
@@ -37,7 +31,7 @@ const Alert: React.FC<AlertProps> = (props) => {
 
           <div className={alertClasses.footerStyle} data-testid="alert-footer">
             <Button
-              onClick={() => cancelHandler({ setIsOpenState, onCancel: props.onCancel })}
+              onClick={() => cancelHandler({ onCancel: props.onCancel })}
               style={{ mode: 'outlined', size: 'sm', color: props.type }}
               testid="alert-cancel-button"
             >
@@ -46,7 +40,7 @@ const Alert: React.FC<AlertProps> = (props) => {
 
             {props.mode === 'actionAndCancel' && (
               <Button
-                onClick={() => handleAction({ setIsOpenState, onAction: props.onAction, mode: props.mode })}
+                onClick={() => handleAction({ onAction: props.onAction, mode: props.mode })}
                 style={{ color: props.type, size: 'sm' }}
                 testid="alert-action-button"
               >
