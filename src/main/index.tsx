@@ -1,33 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import '@/application/common/stylesheet/global.css'
 import { Provider } from 'react-redux'
-import FormProvider from '@/application/models/context/form/FormProvider'
 import store from '@/application/store'
 import Button from '@/presentation/components/UI/Button'
-import ControlledInput from '@/presentation/containers/ControlledInput'
-import makeTimerValidator from './factories/validation/makeTimerValidator'
+import Popover from '@/presentation/components/UI/Popover'
 
 const Element: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
     <div>
-      <FormProvider submitHandler={async () => console.log('oie')} validator={makeTimerValidator()}>
-        <Button onClick={() => {}} style={{ mode: 'contained', color: 'info' }} type="submit">
-          Info
-        </Button>
-
-        <ControlledInput name="hora" defaultValue="teste" />
-
-        <ControlledInput name="minuto" defaultValue="teste" />
-      </FormProvider>
-
-      <FormProvider submitHandler={async () => console.log('opa')} validator={makeTimerValidator()}>
-        <Button onClick={() => {}} style={{ mode: 'contained', color: 'info' }} type="submit">
-          Info
-        </Button>
-
-        <ControlledInput name="minuto" defaultValue="testando" />
-      </FormProvider>
+      <Button onClick={() => setIsOpen((prev) => !prev)}>Open Popover</Button>
+      <Popover type="info" message={'Campo email inválido: o email deve conter um @'} isOpen={isOpen} />
     </div>
   )
 }
