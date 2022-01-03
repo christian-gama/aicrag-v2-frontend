@@ -4,7 +4,7 @@ import { transparent, roundness, centered } from './variants'
 
 export const cardRecipe = recipe({
   base: {
-    boxShadow: vars.shadow.light,
+    boxShadow: vars.shadow.sm,
     height: 'max-content',
     maxWidth: 'max-content',
     minWidth: 'min-content'

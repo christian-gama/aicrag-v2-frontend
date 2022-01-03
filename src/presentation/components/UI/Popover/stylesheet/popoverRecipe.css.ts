@@ -6,7 +6,7 @@ export const popoverRecipe = recipe({
     alignItems: 'center',
     borderRadius: '5px',
     bottom: '1.6rem',
-    boxShadow: vars.shadow.light,
+    boxShadow: vars.shadow.sm,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',

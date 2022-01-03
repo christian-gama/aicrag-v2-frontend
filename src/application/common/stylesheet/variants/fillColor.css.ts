@@ -1,6 +1,7 @@
-import { vars } from './vars.css'
+import { styleVariants } from '@vanilla-extract/css'
+import { vars } from '../vars.css'
 
-export const color = {
+export const fillColor = styleVariants({
   primaryDarker: {
     color: vars.colors['primary-900'],
     fill: vars.colors['primary-900']
@@ -94,6 +95,6 @@ export const color = {
     color: vars.colors['gray-900'],
     fill: vars.colors['gray-900']
   }
-}
+})
 
-export type ColorVariants = NonNullable<typeof color>
+export type FillColorVariants = NonNullable<typeof fillColor>

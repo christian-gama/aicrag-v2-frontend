@@ -1,5 +1,5 @@
 import React from 'react'
-import { ColorVariants } from '@/application/common/stylesheet/colorVariants.css'
+import { FillColorVariants } from '@/application/common/stylesheet/variants/fillColor.css'
 import capitalize from '@/application/utils/capitalize'
 import Button from '../Button/Button'
 import { ButtonVariants } from '../Button/stylesheet'
@@ -18,7 +18,7 @@ const Alert: React.FC<AlertProps> = (props) => {
     color: props.type
   })
 
-  const getIconColor = (): keyof ColorVariants => {
+  const getIconColor = (): keyof FillColorVariants => {
     switch (props.type) {
       case 'info':
         return 'info'

@@ -1,8 +1,9 @@
 import { createGlobalTheme } from '@vanilla-extract/css'
 
 const shadow = {
-  light: '1px 3px 5px rgba(0, 0, 0, 0.2)',
-  dark: '1px 3px 5px rgba(0, 0, 0, 0.4)'
+  sm: '0px 5px 10px rgba(0, 0, 0, 0.15)',
+  md: '0px 12px 25px rgba(0, 0, 0, 0.075)',
+  lg: '0px 10px 30px rgba(0, 0, 0, 0.175)'
 }
 
 const font = {
