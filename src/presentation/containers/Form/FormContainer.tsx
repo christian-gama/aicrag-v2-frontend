@@ -12,8 +12,6 @@ const FormContainer: React.FC<FormContainerProps> = (props) => {
 
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
-  useEffect(() => {}, [])
-
   useEffect(() => {
     dispatch({ type: 'FORM/SET_VALIDATOR', payload: { validator } })
   }, [])
