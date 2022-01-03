@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import '@/application/common/stylesheet/global.css'
-import { Provider } from 'react-redux'
-import store from '@/application/store'
+import { Provider, useDispatch } from 'react-redux'
+import { calendarActions } from '@/application/models/redux/calendar'
+import store, { AppDispatch } from '@/application/store'
 import Alert from '@/presentation/components/UI/Alert'
 import Button from '@/presentation/components/UI/Button'
 import Popover from '@/presentation/components/UI/Popover'
@@ -10,6 +11,7 @@ import CalendarContainer from '@/presentation/containers/Calendar/CalendarContai
 
 const Element: React.FC = () => {
   const [triggerAllComponents, setTriggerAllComponents] = React.useState(false)
+  const dispatch = useDispatch<AppDispatch>()
 
   if (triggerAllComponents) {
     return (
@@ -24,9 +26,9 @@ const Element: React.FC = () => {
         <Button style={{ color: 'light', mode: 'outlined' }}>light</Button>
         <Button>disabled</Button>
 
-        <Alert isOpen mode="cancelOnly" type="danger" message="danger" title="danger" />
-
         <CalendarContainer previousDate={Date.now()} />
+
+        <Alert isOpen mode="cancelOnly" type="danger" message="danger" title="danger" />
 
         <Popover message="Popover" isOpen type="success" />
       </>
@@ -36,7 +38,14 @@ const Element: React.FC = () => {
   return (
     <>
       {!triggerAllComponents && (
-        <Button onClick={() => setTriggerAllComponents((prev) => !prev)}>Trigger All Components</Button>
+        <Button
+          onClick={() => {
+            setTriggerAllComponents((prev) => !prev)
+            dispatch(calendarActions.openCalendar())
+          }}
+        >
+          Trigger All Components
+        </Button>
       )}
     </>
   )
