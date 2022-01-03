@@ -1,11 +1,17 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { vars } from '@/application/common/stylesheet/vars.css'
+import { showUpAnimation } from './keyframes'
 
 export const popoverRecipe = recipe({
   base: {
     alignItems: 'center',
+    animationDuration: '0.3s',
+    animationFillMode: 'forwards',
+    animationName: showUpAnimation,
+    animationTimingFunction: 'ease-in-out',
+    WebkitAnimationName: showUpAnimation,
+    WebkitAnimationFillMode: 'forwards',
     borderRadius: '5px',
-    bottom: '1.6rem',
     boxShadow: vars.shadow.sm,
     display: 'flex',
     flexDirection: 'column',
@@ -14,7 +20,8 @@ export const popoverRecipe = recipe({
     minWidth: '40rem',
     overflow: 'hidden',
     position: 'fixed',
-    right: '1.6rem'
+    right: '1.6rem',
+    zIndex: '5'
   },
 
   variants: {
