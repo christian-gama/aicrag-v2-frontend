@@ -3,38 +3,38 @@ import { vars } from '../vars.css'
 
 export const fillColor = styleVariants({
   primaryDarker: {
-    color: vars.colors['primary-900'],
-    fill: vars.colors['primary-900']
+    color: vars.colors['navy-700'],
+    fill: vars.colors['navy-700']
   },
   primary: {
-    color: vars.colors.white,
-    fill: vars.colors.white
+    color: vars.colors['navy-500'],
+    fill: vars.colors['navy-500']
   },
   primaryLighter: {
-    color: vars.colors['primary-400'],
-    fill: vars.colors['primary-400']
+    color: vars.colors['navy-300'],
+    fill: vars.colors['navy-300']
   },
 
   secondaryDarker: {
-    color: vars.colors['secondary-900'],
-    fill: vars.colors['secondary-900']
+    color: vars.colors['cyan-700'],
+    fill: vars.colors['cyan-700']
   },
   secondary: {
-    color: vars.colors['secondary-600'],
-    fill: vars.colors['secondary-600']
+    color: vars.colors['cyan-500'],
+    fill: vars.colors['cyan-500']
   },
   secondaryLighter: {
-    color: vars.colors['secondary-400'],
-    fill: vars.colors['secondary-400']
+    color: vars.colors['cyan-300'],
+    fill: vars.colors['cyan-300']
   },
 
   successDarker: {
-    color: vars.colors['success-500'],
-    fill: vars.colors['success-500']
+    color: vars.colors['success-700'],
+    fill: vars.colors['success-700']
   },
   success: {
-    color: vars.colors['success-400'],
-    fill: vars.colors['success-400']
+    color: vars.colors['success-500'],
+    fill: vars.colors['success-500']
   },
   successLighter: {
     color: vars.colors['success-300'],
@@ -42,12 +42,12 @@ export const fillColor = styleVariants({
   },
 
   dangerDarker: {
-    color: vars.colors['danger-500'],
-    fill: vars.colors['danger-500']
+    color: vars.colors['danger-700'],
+    fill: vars.colors['danger-700']
   },
   danger: {
-    color: vars.colors['danger-400'],
-    fill: vars.colors['danger-400']
+    color: vars.colors['danger-500'],
+    fill: vars.colors['danger-500']
   },
   dangerLighter: {
     color: vars.colors['danger-300'],
@@ -55,12 +55,12 @@ export const fillColor = styleVariants({
   },
 
   infoDarker: {
-    color: vars.colors['info-500'],
-    fill: vars.colors['info-500']
+    color: vars.colors['info-700'],
+    fill: vars.colors['info-700']
   },
   info: {
-    color: vars.colors['info-400'],
-    fill: vars.colors['info-400']
+    color: vars.colors['info-500'],
+    fill: vars.colors['info-500']
   },
   infoLighter: {
     color: vars.colors['info-300'],
@@ -71,14 +71,18 @@ export const fillColor = styleVariants({
     color: vars.colors.text.dark,
     fill: vars.colors.text.dark
   },
+  text: {
+    color: vars.colors.text.default,
+    fill: vars.colors.text.default
+  },
   textLighter: {
     color: vars.colors.text.light,
     fill: vars.colors.text.light
   },
 
   disabled: {
-    color: vars.colors['gray-400'],
-    fill: vars.colors['gray-400']
+    color: vars.colors['gray-500'],
+    fill: vars.colors['gray-500']
   },
 
   white: {
@@ -92,8 +96,8 @@ export const fillColor = styleVariants({
   },
 
   dark: {
-    color: vars.colors['gray-900'],
-    fill: vars.colors['gray-900']
+    color: vars.colors['gray-700'],
+    fill: vars.colors['gray-700']
   }
 })
 

@@ -14,11 +14,11 @@ export const color = styleVariants({
   },
 
   main: {
-    fill: vars.colors['secondary-600'],
+    fill: vars.colors['cyan-600'],
 
     selectors: {
       [`${hitboxStyle}:hover &`]: {
-        fill: vars.colors['secondary-600']
+        fill: vars.colors['cyan-600']
       }
     }
   }

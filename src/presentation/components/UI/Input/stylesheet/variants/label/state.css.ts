@@ -11,6 +11,6 @@ export const state = styleVariants({
   },
 
   default: {
-    color: vars.colors['secondary-600']
+    color: vars.colors['cyan-600']
   }
 })

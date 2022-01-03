@@ -36,11 +36,11 @@ const Alert: React.FC<AlertProps> = (props) => {
       case 'info':
         return 'info'
 
-      case 'default':
-        return 'main'
-
       case 'danger':
         return 'danger'
+
+      default:
+        return 'cyan'
     }
   }
 

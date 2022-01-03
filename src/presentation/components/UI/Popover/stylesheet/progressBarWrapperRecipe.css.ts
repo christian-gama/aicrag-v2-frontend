@@ -4,8 +4,7 @@ import { type } from './variants/progressBarWrapper'
 export const progressBarWrapperRecipe = recipe({
   base: {
     height: '0.4rem',
-    width: '100%',
-    filter: 'grayscale(40%)'
+    width: '100%'
   },
 
   variants: {

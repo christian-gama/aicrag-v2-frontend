@@ -1,7 +1,7 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { fillColor } from '@/application/common/stylesheet/variants/fillColor.css'
 import { vars } from '@/application/common/stylesheet/vars.css'
-import { baseStyle } from '../../commonStyle/base.css'
+import { baseStyle } from '../../common/base.css'
 
 export const h1Recipe = recipe({
   base: [
@@ -12,7 +12,11 @@ export const h1Recipe = recipe({
     }
   ],
 
-  variants: { color: fillColor }
+  variants: { color: fillColor },
+
+  defaultVariants: {
+    color: 'text'
+  }
 })
 
 export type H1RecipeVariants = NonNullable<RecipeVariants<typeof h1Recipe>>

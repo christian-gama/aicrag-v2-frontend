@@ -2,12 +2,12 @@ import { style } from '@vanilla-extract/css'
 import { vars } from '@/application/common/stylesheet/vars.css'
 
 export const containedDisabledStyle = style({
-  backgroundColor: vars.colors['gray-500'],
+  backgroundColor: vars.colors['gray-600'],
   color: vars.colors.white,
   border: 'none',
 
   ':hover': {
-    backgroundColor: vars.colors['gray-500'],
+    backgroundColor: vars.colors['gray-600'],
     cursor: 'not-allowed'
   }
 })

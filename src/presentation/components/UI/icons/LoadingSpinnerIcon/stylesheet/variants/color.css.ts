@@ -3,7 +3,7 @@ import { vars } from '@/application/common/stylesheet/vars.css'
 
 export const color = styleVariants({
   main: {
-    fill: vars.colors['primary-600']
+    fill: vars.colors['navy-600']
   },
 
   white: {

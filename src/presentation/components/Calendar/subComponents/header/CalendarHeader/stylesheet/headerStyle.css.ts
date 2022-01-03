@@ -8,6 +8,6 @@ export const headerStyle = style({
   width: '100%',
   height: '6rem',
   padding: '1.8rem',
-  backgroundColor: vars.colors['primary-600'],
+  backgroundColor: vars.colors['navy-600'],
   borderRadius: '5px 5px 0 0'
 })

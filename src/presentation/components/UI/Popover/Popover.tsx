@@ -76,7 +76,7 @@ const Popover: React.FC<PopoverProps> = (props) => {
         </div>
 
         <div className={closeButtonWrapperStyle} onClick={() => setIsOpen(false)} data-testid="popover-close-wrapper">
-          <CloseIcon color="light" size="sm" />
+          <CloseIcon color="white" size="sm" />
         </div>
       </div>
 

@@ -1,12 +1,12 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { vars } from '@/application/common/stylesheet/vars.css'
 import {
-  containedMainStyle,
+  containedCyanStyle,
   containedDangerStyle,
   containedInfoStyle,
   containedLightStyle,
   containedDisabledStyle,
-  outlinedMainStyle,
+  outlinedCyanStyle,
   outlinedDangerStyle,
   outlinedInfoStyle,
   outlinedLightStyle,
@@ -38,11 +38,11 @@ export const buttonRecipe = recipe({
     {
       variants: {
         mode: 'contained',
-        color: 'main',
+        color: 'cyan',
         disabled: false
       },
 
-      style: containedMainStyle
+      style: containedCyanStyle
     },
 
     {
@@ -85,11 +85,11 @@ export const buttonRecipe = recipe({
     {
       variants: {
         mode: 'outlined',
-        color: 'main',
+        color: 'cyan',
         disabled: false
       },
 
-      style: outlinedMainStyle
+      style: outlinedCyanStyle
     },
 
     {
@@ -134,7 +134,7 @@ export const buttonRecipe = recipe({
 
   defaultVariants: {
     mode: 'contained',
-    color: 'main',
+    color: 'cyan',
     size: 'md',
     disabled: false
   }
