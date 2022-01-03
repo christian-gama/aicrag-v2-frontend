@@ -1,6 +1,8 @@
 import React from 'react'
+import { ColorVariants } from '@/application/common/stylesheet/colorVariants.css'
 import capitalize from '@/application/utils/capitalize'
 import Button from '../Button'
+import { ButtonVariants } from '../Button/stylesheet'
 import Card from '../Card'
 import InfoCircleIcon from '../icons/InfoCircleIcon'
 import Modal from '../Modal'
@@ -9,30 +11,56 @@ import P from '../text/P'
 import AlertProps from './Alert.model'
 import handleAction from './methods/actionHandler'
 import cancelHandler from './methods/cancelHandler'
-import { alertClasses } from './stylesheet/Alert.css'
+import { headerRecipe, wrapperStyle, bodyStyle, footerStyle } from './stylesheet'
 
 const Alert: React.FC<AlertProps> = (props) => {
-  const alertHeaderStyle = alertClasses.headerRecipe({
+  const alertHeaderStyle = headerRecipe({
     color: props.type
   })
+
+  const getIconColor = (): keyof ColorVariants => {
+    switch (props.type) {
+      case 'info':
+        return 'info'
+
+      case 'danger':
+        return 'danger'
+
+      default:
+        return 'dark'
+    }
+  }
+
+  const getButtonColor = (): ButtonVariants['color'] => {
+    switch (props.type) {
+      case 'info':
+        return 'info'
+
+      case 'default':
+        return 'main'
+
+      case 'danger':
+        return 'danger'
+    }
+  }
 
   return (
     <Modal isOpen={props.isOpen} onDismiss={props.onCancel}>
       <Card centered>
-        <div className={alertClasses.wrapperStyle} data-testid="alert">
+        <div className={wrapperStyle} data-testid="alert">
           <div className={alertHeaderStyle} data-testid="alert-header">
-            <InfoCircleIcon color={props.type} />
-            <H4 color={props.type}>{capitalize(props.title)}</H4>
+            <InfoCircleIcon color={getIconColor()} />
+            <H4 color={getIconColor()}>{capitalize(props.title)}</H4>
           </div>
 
-          <div className={alertClasses.bodyStyle} data-testid="alert-body">
+          <div className={bodyStyle} data-testid="alert-body">
             <P>{capitalize(props.message)}</P>
           </div>
 
-          <div className={alertClasses.footerStyle} data-testid="alert-footer">
+          <div className={footerStyle} data-testid="alert-footer">
             <Button
               onClick={() => cancelHandler({ onCancel: props.onCancel })}
-              style={{ mode: 'outlined', size: 'sm', color: props.type }}
+              style={{ mode: 'outlined', size: 'sm', color: getButtonColor() }}
               testid="alert-cancel-button"
             >
               {props.mode === 'cancelOnly' ? 'Voltar' : 'Cancelar'}
@@ -41,7 +69,7 @@ const Alert: React.FC<AlertProps> = (props) => {
             {props.mode === 'actionAndCancel' && (
               <Button
                 onClick={() => handleAction({ onAction: props.onAction, mode: props.mode })}
-                style={{ color: props.type, size: 'sm' }}
+                style={{ color: getButtonColor(), size: 'sm' }}
                 testid="alert-action-button"
               >
                 {props.actionName}

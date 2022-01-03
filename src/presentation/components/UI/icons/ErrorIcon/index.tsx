@@ -1,9 +1,9 @@
 import React from 'react'
 import ErrorIconProps from './ErrorIcon.model'
-import { errorIconClasses } from './stylesheet/ErrorIcon.css'
+import { iconRecipe } from './stylesheet'
 
 const ErrorIcon: React.FC<ErrorIconProps> = (props) => {
-  const errorIconStyle = errorIconClasses.iconRecipe({
+  const errorIconStyle = iconRecipe({
     color: props.color,
     size: props.size
   })

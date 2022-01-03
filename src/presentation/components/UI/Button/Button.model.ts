@@ -1,4 +1,4 @@
-import { ButtonVariants } from './stylesheet/Button.css'
+import { ButtonVariants } from './stylesheet/buttonRecipe.css'
 
 type ButtonProps = {
   style?: {

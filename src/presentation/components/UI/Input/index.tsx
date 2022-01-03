@@ -1,10 +1,18 @@
 import React from 'react'
 import InputProps from './Input.model'
-import { inputClasses, LabelRecipeVariants } from './stylesheet/Input.css'
+import {
+  boxStyle,
+  contentStyle,
+  errorStyle,
+  iconStyle,
+  inputRecipe,
+  labelRecipe,
+  LabelRecipeVariants,
+  wrapperStyle
+} from './stylesheet'
 
 const Input: React.FC<InputProps> = (props) => {
   const { name, onBlur, onChange, onFocus, type, value, icon, isValid, isTouched, validator, error, isFocused } = props
-  const { boxStyle, wrapperStyle, contentStyle, inputRecipe, labelRecipe, errorStyle, iconStyle } = inputClasses
 
   const getState = (): LabelRecipeVariants['state'] => {
     if (validator) {

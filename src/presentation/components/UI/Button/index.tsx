@@ -1,12 +1,13 @@
 import React from 'react'
 import LoadingSpinnerIcon from '../icons/LoadingSpinnerIcon'
 import ButtonProps from './Button.model'
-import { buttonRecipe } from './stylesheet/Button.css'
+import { getLoadingColor } from './methods/getLoadingColor'
+import { buttonRecipe } from './stylesheet'
 
 const Button: React.FC<ButtonProps> = (props) => {
   const buttonStyle = buttonRecipe({
     ...props.style,
-    disabled: props.disabled
+    disabled: !!props.disabled
   })
 
   const renderChildren = (): React.ReactNode => {
@@ -37,6 +38,3 @@ const Button: React.FC<ButtonProps> = (props) => {
 }
 
 export default Button
-
-const getLoadingColor = (style: ButtonProps['style']): 'white' | 'main' =>
-  !style?.mode || style?.mode === 'contained' ? 'white' : 'main'

@@ -1,9 +1,9 @@
 import React from 'react'
 import CheckIconProps from './CheckIcon.model'
-import { checkIconClasses } from './stylesheet/CheckIcon.css'
+import { iconRecipe } from './stylesheet'
 
 const CheckIcon: React.FC<CheckIconProps> = (props) => {
-  const checkIconStyle = checkIconClasses.iconRecipe({
+  const checkIconStyle = iconRecipe({
     color: props.color,
     size: props.size
   })

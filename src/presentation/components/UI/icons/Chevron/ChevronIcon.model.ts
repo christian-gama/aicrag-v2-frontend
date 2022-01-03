@@ -1,4 +1,4 @@
-import { ChevronIconVariants } from './stylesheet/ChevronIcon.css'
+import { ChevronIconVariants } from './stylesheet/iconRecipe.css'
 
 type ChevronIconProps = {
   color?: ChevronIconVariants['color']

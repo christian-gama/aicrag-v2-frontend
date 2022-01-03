@@ -8,10 +8,12 @@ const getDuration = (message: string | string[]) => {
       duration += item.length * multiplier
     })
 
-    return duration
+    return duration < 3 ? 3 : duration
   }
 
-  return message.length * multiplier
+  const duration = message.length * multiplier
+
+  return duration < 3 ? 3 : duration
 }
 
 export default getDuration

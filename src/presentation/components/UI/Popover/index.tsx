@@ -7,7 +7,15 @@ import InfoCircleIcon from '../icons/InfoCircleIcon'
 import P from '../text/P'
 import getDuration from './methods/getDuration'
 import PopoverProps from './Popover.model'
-import { popoverClasses, popoverVars } from './stylesheet/Popover.css'
+import {
+  closeButtonWrapperStyle,
+  contentWrapperStyle,
+  popoverRecipe,
+  popoverVars,
+  progressBarRecipe,
+  progressBarWrapperRecipe,
+  textWrapperStyle
+} from './stylesheet'
 import PopoverMessageList from './subComponents/PopoverMessageList'
 
 const Popover: React.FC<PopoverProps> = (props) => {
@@ -41,15 +49,15 @@ const Popover: React.FC<PopoverProps> = (props) => {
     }
   }
 
-  const popoverStyle = popoverClasses.popoverRecipe({
+  const popoverStyle = popoverRecipe({
     type
   })
 
-  const progressBarStyle = popoverClasses.progressBarRecipe({
+  const progressBarStyle = progressBarRecipe({
     type
   })
 
-  const progressBarWrapperStyle = popoverClasses.progressBarWrapperRecipe({
+  const progressBarWrapperStyle = progressBarWrapperRecipe({
     type
   })
 
@@ -61,17 +69,13 @@ const Popover: React.FC<PopoverProps> = (props) => {
       style={assignInlineVars(popoverVars, { duration: `${duration}s` })}
       data-testid="popover"
     >
-      <div className={popoverClasses.contentWrapperStyle}>
-        <div className={popoverClasses.textWrapperStyle}>
+      <div className={contentWrapperStyle}>
+        <div className={textWrapperStyle}>
           {renderIcon()}
           {Array.isArray(message) ? <PopoverMessageList messages={message} /> : <P color="white">{message}</P>}
         </div>
 
-        <div
-          className={popoverClasses.closeButtonWrapperStyle}
-          onClick={() => setIsOpen(false)}
-          data-testid="popover-close-wrapper"
-        >
+        <div className={closeButtonWrapperStyle} onClick={() => setIsOpen(false)} data-testid="popover-close-wrapper">
           <CloseIcon color="light" size="sm" />
         </div>
       </div>

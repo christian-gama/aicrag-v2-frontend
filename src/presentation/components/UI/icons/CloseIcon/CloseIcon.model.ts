@@ -1,4 +1,4 @@
-import { CheckIconVariants } from './stylesheet/CloseIcon.css'
+import { CheckIconVariants } from './stylesheet/iconRecipe.css'
 
 type CloseIconProps = {
   color?: CheckIconVariants['color']

@@ -1,6 +1,6 @@
 import React from 'react'
 import CardProps from './Card.model'
-import { cardRecipe } from './stylesheet/Card.css'
+import { cardRecipe } from './stylesheet'
 
 const Card: React.FC<CardProps> = (props) => {
   const cardStyle = cardRecipe({

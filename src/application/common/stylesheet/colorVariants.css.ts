@@ -75,9 +75,24 @@ export const color = {
     fill: vars.colors.text.light
   },
 
+  disabled: {
+    color: vars.colors['gray-400'],
+    fill: vars.colors['gray-400']
+  },
+
   white: {
     color: vars.colors.white,
     fill: vars.colors.white
+  },
+
+  light: {
+    color: vars.colors['gray-100'],
+    fill: vars.colors['gray-100']
+  },
+
+  dark: {
+    color: vars.colors['gray-900'],
+    fill: vars.colors['gray-900']
   }
 }
 

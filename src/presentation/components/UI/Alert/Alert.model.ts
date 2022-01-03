@@ -1,4 +1,4 @@
-import { AlertVariants } from './stylesheet/Alert.css'
+import { HeaderVariants } from './stylesheet'
 
 export type AlertWithAction = {
   onAction: () => void
@@ -12,7 +12,7 @@ type AlertProps = {
   isOpen?: boolean
   message: string
   title: string
-  type: AlertVariants['color']
+  type: HeaderVariants['color']
   onCancel?: () => void
 } & (AlertWithAction | AlertWithoutAction)
 

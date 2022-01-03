@@ -1,4 +1,4 @@
-import { ErrorIconVariants } from './stylesheet/ErrorIcon.css'
+import { ErrorIconVariants } from './stylesheet/iconRecipe.css'
 
 type ErrorIconProps = {
   color?: ErrorIconVariants['color']
