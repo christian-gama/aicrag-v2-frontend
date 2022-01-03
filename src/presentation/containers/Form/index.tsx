@@ -12,9 +12,7 @@ const FormContainer: React.FC<FormProps> = (props) => {
 
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
-  useEffect(() => {
-    dispatch({ type: 'FORM/RESET_FORM', payload: {} })
-  }, [])
+  useEffect(() => {}, [])
 
   useEffect(() => {
     dispatch({ type: 'FORM/SET_VALIDATOR', payload: { validator } })

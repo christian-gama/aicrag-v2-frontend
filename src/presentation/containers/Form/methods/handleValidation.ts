@@ -19,6 +19,7 @@ const handleValidation = (params: Params) => {
       const error = validator.validate(key, data)
 
       if (error) {
+        console.log(error)
         dispatch({ type: 'FORM/SET_ERROR', payload: { error } })
         dispatch({ type: 'FORM/SET_IS_VALID', payload: { isValid: false } })
         dispatch({ type: 'FORM/SET_IS_VALIDATING', payload: { isValidating: false } })

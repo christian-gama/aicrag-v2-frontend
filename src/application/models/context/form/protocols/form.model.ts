@@ -18,8 +18,8 @@ export type FormStates = {
     data: Object<any>
   }
   input: {
-    currentType: Object<string>
-    error: Object<string>
+    currentType: Object<'text' | 'email' | 'password' | 'number'>
+    error: Object<Maybe<string>>
     isFocused: Object<boolean>
     isTouched: Object<boolean>
     isValid: Object<boolean>

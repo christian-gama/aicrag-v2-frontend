@@ -4,9 +4,6 @@ describe('onFocusHandler', () => {
   const dispatch = jest.fn()
   const event = { currentTarget: { value: 'test' } } as any
   const data = {}
-  const inputState = {
-    setOnFocus: jest.fn()
-  } as any
   const name = 'test'
   const validator = { validate: jest.fn() }
 
@@ -16,7 +13,6 @@ describe('onFocusHandler', () => {
       dispatch,
       event,
       data,
-      inputState,
       name,
       onFocus,
       validator
@@ -34,7 +30,6 @@ describe('onFocusHandler', () => {
       dispatch,
       event,
       data,
-      inputState,
       name,
       onFocus,
       validator
@@ -52,7 +47,6 @@ describe('onFocusHandler', () => {
       dispatch,
       event,
       data,
-      inputState,
       name,
       onFocus,
       validator

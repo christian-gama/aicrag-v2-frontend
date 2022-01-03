@@ -4,9 +4,6 @@ describe('onBlurHandler', () => {
   const dispatch = jest.fn()
   const event = { currentTarget: { value: 'test' } } as any
   const data = {}
-  const inputState = {
-    setOnBlur: jest.fn()
-  } as any
   const name = 'test'
   const validator = { validate: jest.fn() }
 
@@ -16,7 +13,6 @@ describe('onBlurHandler', () => {
       dispatch,
       event,
       data,
-      inputState,
       name,
       onBlur,
       validator
@@ -34,7 +30,6 @@ describe('onBlurHandler', () => {
       dispatch,
       event,
       data,
-      inputState,
       name,
       onBlur,
       validator
@@ -50,7 +45,6 @@ describe('onBlurHandler', () => {
       dispatch,
       event,
       data,
-      inputState,
       name,
       validator
     }
@@ -71,7 +65,6 @@ describe('onBlurHandler', () => {
       dispatch,
       event,
       data,
-      inputState,
       name,
       validator
     }
@@ -86,7 +79,6 @@ describe('onBlurHandler', () => {
       dispatch,
       event,
       data,
-      inputState,
       name,
 
       validator
@@ -94,8 +86,7 @@ describe('onBlurHandler', () => {
 
     onBlurHandler(params)
 
-    expect(inputState.setOnBlur).toHaveBeenCalledWith(
-      validator.validate(name, { ...data, [name]: event.currentTarget.value })
-    )
+    const error = validator.validate(name, { ...data, [name]: event.currentTarget.value })
+    expect(dispatch).toHaveBeenCalledWith({ type: 'INPUT/SET_ERROR', payload: { error: { [name]: error } } })
   })
 })

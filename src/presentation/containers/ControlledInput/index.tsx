@@ -6,7 +6,6 @@ import ControlledInputProps from './ControlledInput.model'
 import onBlurHandler from './methods/onBlurHandler'
 import onChangeHandler from './methods/onChangeHandler'
 import onFocusHandler from './methods/onFocusHandler'
-import useInput from './useInput'
 
 /**
  * @description Must be used inside a Form component with FormProvider
@@ -14,50 +13,48 @@ import useInput from './useInput'
 const ControlledInput: React.FC<Omit<ControlledInputProps, 'uniqueFormName' | 'validation'>> = (
   props: ControlledInputProps
 ) => {
-  const { icon, name, type, defaultValue } = props
+  const { icon, name, type } = props
 
   const { dispatch, state } = useContext(FormContext)
 
-  const { data, isResetting, validator } = state.form
-
-  const inputState = useInput({ currentType: type ?? 'text', defaultValue })
-
-  useEffect(() => {
-    if (isResetting) {
-      inputState.reset()
-
-      dispatch({
-        type: 'FORM/SET_FORM_DATA',
-        payload: { data: { [name]: defaultValue } }
-      })
-    }
-  }, [isResetting])
+  const { data, validator } = state.form
+  const { isTouched, currentType, error, isFocused, isValid, value } = state.input
 
   useEffect(() => {
-    inputState.setCurrentType(type ?? 'text')
+    dispatch({ type: 'INPUT/SET_CURRENT_TYPE', payload: { currentType: { [name]: type ?? 'text' } } })
+    dispatch({ type: 'INPUT/SET_IS_TOUCHED', payload: { isTouched: { [name]: false } } })
+    dispatch({ type: 'INPUT/SET_ERROR', payload: { error: { [name]: undefined } } })
+    dispatch({ type: 'INPUT/SET_IS_FOCUSED', payload: { isFocused: { [name]: false } } })
+    dispatch({ type: 'INPUT/SET_IS_VALID', payload: { isValid: { [name]: false } } })
+    dispatch({ type: 'INPUT/SET_VALUE', payload: { value: { [name]: '' } } })
+  }, [])
+
+  useEffect(() => {
+    dispatch({ type: 'FORM/SET_FORM_DATA', payload: { data: { [name]: value } } })
   }, [])
 
   const showPasswordHandler = (): void =>
-    inputState.currentType === 'password' ? inputState.setCurrentType('text') : inputState.setCurrentType('password')
+    currentType[name] === 'password'
+      ? dispatch({ type: 'INPUT/SET_CURRENT_TYPE', payload: { currentType: { [name]: 'text' } } })
+      : dispatch({ type: 'INPUT/SET_CURRENT_TYPE', payload: { currentType: { [name]: 'password' } } })
 
   const shouldRenderIcon = type === 'password' || icon
 
   return (
     <Input
       name={name}
-      error={inputState.error}
-      isFocused={inputState.isFocused}
-      isTouched={inputState.isTouched}
-      isValid={inputState.isValid}
-      type={inputState.currentType}
+      error={error[name]}
+      isFocused={isFocused[name]}
+      isTouched={isTouched[name]}
+      isValid={isValid[name]}
+      type={currentType[name]}
       validator={validator}
-      value={inputState.value}
+      value={value[name] ?? ''}
       onBlur={(event) =>
         onBlurHandler({
           dispatch,
           event,
           data,
-          inputState,
           validator,
           ...props
         })
@@ -66,20 +63,20 @@ const ControlledInput: React.FC<Omit<ControlledInputProps, 'uniqueFormName' | 'v
         onChangeHandler({
           dispatch,
           event,
-          inputState,
           data,
+          isTouched: isTouched[name],
           validator,
           ...props
         })
       }
-      onFocus={(event) => onFocusHandler({ event, dispatch, inputState, validator, ...props, data })}
+      onFocus={(event) => onFocusHandler({ event, dispatch, validator, ...props, data })}
       icon={
         shouldRenderIcon
           ? () => (
               <>
                 {type !== 'password' && icon}
                 {type === 'password' && (
-                  <EyeIcon showPassword={inputState.currentType !== 'password'} onClick={showPasswordHandler} />
+                  <EyeIcon showPassword={currentType[name] !== 'password'} onClick={showPasswordHandler} />
                 )}
               </>
             )

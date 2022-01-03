@@ -1,26 +1,32 @@
 import IHandler from '@/domain/handler/handler.model'
 import IValidation from '@/domain/validation/validation.model'
-import { FormActionPayload, FormStates } from '@/application/models/context/form/protocols/form.model'
+import {
+  FormActionPayload,
+  FormInputActionPayload,
+  FormStates
+} from '@/application/models/context/form/protocols/form.model'
 import ControlledInputProps from '../ControlledInput.model'
-import useInput from '../useInput'
 
 type Params = {
-  dispatch: (options: FormActionPayload) => void
+  dispatch: (options: FormActionPayload | FormInputActionPayload) => void
   event: React.ChangeEvent<HTMLInputElement>
   data?: FormStates['form']['data']
-  inputState: ReturnType<typeof useInput>
   name: ControlledInputProps['name']
   onChange?: ControlledInputProps['onChange']
   validator?: IValidation
+  isTouched: boolean
 }
 
 const onChangeHandler: IHandler<Params> = (params): void => {
-  const { dispatch, event, inputState, data, onChange, name, validator } = params
+  const { dispatch, event, data, onChange, name, validator, isTouched } = params
 
   const value = event.target.value
   const error = validator?.validate(name, { ...data, [name]: value })
 
-  inputState.setOnChange(error, value)
+  dispatch({ type: 'INPUT/SET_VALUE', payload: { value: { [name]: value } } })
+  dispatch({ type: 'INPUT/SET_IS_VALID', payload: { isValid: { [name]: !error } } })
+
+  if (isTouched) dispatch({ type: 'INPUT/SET_ERROR', payload: { error: { [name]: error } } })
 
   if (onChange) onChange(event)
 

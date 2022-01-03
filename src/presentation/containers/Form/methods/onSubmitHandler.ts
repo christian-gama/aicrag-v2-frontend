@@ -19,7 +19,7 @@ const onSubmitHandler = async (params: Params): Promise<void> => {
   dispatch({ type: 'FORM/SET_IS_SUBMITTING', payload: { isSubmitting: true } })
 
   event.preventDefault()
-
+  console.log('submithandler')
   const error = handleValidation({
     ...params
   })

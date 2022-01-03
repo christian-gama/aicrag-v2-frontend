@@ -4,10 +4,8 @@ describe('onChangeHandler', () => {
   const dispatch = jest.fn()
   const event = { target: { value: 'test' } } as any
   const data = {}
-  const inputState = {
-    setOnChange: jest.fn()
-  } as any
   const name = 'test'
+  const isTouched = true
   const validator = { validate: jest.fn() }
 
   it('should call onChange if it is defined', () => {
@@ -16,8 +14,8 @@ describe('onChangeHandler', () => {
       dispatch,
       event,
       data,
-      inputState,
       name,
+      isTouched,
       onChange,
       validator
     }
@@ -34,8 +32,8 @@ describe('onChangeHandler', () => {
       dispatch,
       event,
       data,
-      inputState,
       name,
+      isTouched,
       onChange,
       validator
     }
@@ -50,8 +48,8 @@ describe('onChangeHandler', () => {
       dispatch,
       event,
       data,
-      inputState,
       name,
+      isTouched,
       validator
     }
 
