@@ -138,4 +138,19 @@ describe('Form', () => {
 
     expect(popover).toBeTruthy()
   })
+
+  it('should display the error message below the input if validation fails when trying to submit right away', () => {
+    const validator = makeValidationMock(false)
+    const children = <ControlledInput name="title" />
+
+    makeSut({ children, validator })
+
+    act(() => {
+      fireEvent.submit(screen.getByTestId('form'))
+    })
+
+    const errorElement = screen.getByTestId('title-error')
+
+    expect(errorElement).toBeTruthy()
+  })
 })

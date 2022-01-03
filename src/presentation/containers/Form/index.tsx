@@ -36,13 +36,7 @@ const FormContainer: React.FC<FormProps> = (props) => {
         {children}
       </form>
 
-      {!isValid && error && (
-        <Popover
-          isOpen={isPopoverOpen}
-          message="Não foi possível continuar, pois há erros que precisam ser corrigidos."
-          type="error"
-        />
-      )}
+      {!isValid && error && <Popover isOpen={isPopoverOpen} message={error} type="error" />}
     </>
   )
 }

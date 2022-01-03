@@ -1,11 +1,15 @@
 import IValidation from '@/domain/validation/validation.model'
-import { FormActionPayload, FormStates } from '@/application/models/context/form/protocols/form.model'
+import {
+  FormActionPayload,
+  FormInputActionPayload,
+  FormStates
+} from '@/application/models/context/form/protocols/form.model'
 import FormProps from '../form.model'
 import handleValidation from './handleValidation'
 import tryToSubmit from './tryToSubmit'
 
 type Params = {
-  dispatch: (options: FormActionPayload) => void
+  dispatch: (options: FormActionPayload | FormInputActionPayload) => void
   event: React.FormEvent<HTMLFormElement>
   data?: FormStates['form']['data']
   submitHandler: FormProps['submitHandler']

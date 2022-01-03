@@ -1,5 +1,5 @@
 const getDuration = (message: string | string[]) => {
-  const multiplier = 0.12
+  const multiplier = 0.1
 
   if (Array.isArray(message)) {
     let duration = 0

@@ -10,11 +10,18 @@ import makeTimerValidator from './factories/validation/makeTimerValidator'
 
 const Element: React.FC = () => {
   return (
-    <FormProvider submitHandler={async () => {}} validator={makeTimerValidator()}>
+    <FormProvider
+      submitHandler={async () => {
+        console.log('oie')
+      }}
+      validator={makeTimerValidator()}
+    >
       <ControlledInput name="hora" />
       <ControlledInput name="minuto" />
 
-      <Button type="submit">Enviar</Button>
+      <Button type="submit" onClick={() => {}}>
+        Click me
+      </Button>
     </FormProvider>
   )
 }
