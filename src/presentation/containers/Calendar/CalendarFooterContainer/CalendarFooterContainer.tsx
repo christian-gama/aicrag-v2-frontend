@@ -5,7 +5,7 @@ import { CalendarStates } from '@/application/models/redux/calendar/protocols/ca
 import { AppDispatch, RootState } from '@/application/store'
 import CalendarButtonWrapper from '@/presentation/components/Calendar/subComponents/footer/CalendarButtonWrapper'
 import CalendarFooter from '@/presentation/components/Calendar/subComponents/footer/CalendarFooter'
-import CalendarTimerWrapperContainer from '../CalendarTimerWrapperContainer'
+import CalendarTimerWrapperContainer from '../CalendarTimerWrapperContainer/CalendarTimerWrapperContainer'
 import onCancelHandler from './methods/onCancelHandler'
 import onConfirmHandler from './methods/onConfirmHandler'
 

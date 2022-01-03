@@ -1,8 +1,8 @@
 import IValidation from '@/domain/validation/validation.model'
 
-type FormProps = {
+type FormContainerProps = {
   validator?: IValidation
   submitHandler: () => Promise<void>
 }
 
-export default FormProps
+export default FormContainerProps

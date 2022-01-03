@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import FormContext from '@/application/models/context/form/FormContext'
 import Popover from '@/presentation/components/UI/Popover'
-import FormProps from './form.model'
+import FormContainerProps from './FormContainer.model'
 import onSubmitHandler from './methods/onSubmitHandler'
 
-const FormContainer: React.FC<FormProps> = (props) => {
+const FormContainer: React.FC<FormContainerProps> = (props) => {
   const { validator, children, submitHandler } = props
   const { dispatch, state } = useContext(FormContext)
 

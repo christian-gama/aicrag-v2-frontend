@@ -1,10 +1,10 @@
 import React, { useReducer } from 'react'
 import FormContainer from '@/presentation/containers/Form'
-import FormProps from '@/presentation/containers/Form/form.model'
+import FormContainerProps from '@/presentation/containers/Form/FormContainer.model'
 import FormContext, { initialFormState } from './FormContext'
 import formReducer from './formReducer'
 
-const FormProvider: React.FC<FormProps> = (props) => {
+const FormProvider: React.FC<FormContainerProps> = (props) => {
   const [state, dispatch] = useReducer(formReducer, initialFormState)
 
   return (

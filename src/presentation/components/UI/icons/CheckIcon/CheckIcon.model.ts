@@ -1,8 +1,8 @@
 import { CheckIconVariants } from './stylesheet/iconRecipe.css'
 
-type CheckIconProps = {
+type CheckCircleIconProps = {
   color?: CheckIconVariants['color']
   size?: CheckIconVariants['size']
 }
 
-export default CheckIconProps
+export default CheckCircleIconProps

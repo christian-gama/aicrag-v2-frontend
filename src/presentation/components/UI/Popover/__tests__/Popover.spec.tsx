@@ -1,6 +1,6 @@
-import Popover from '..'
-import React from 'react'
 import { cleanup, render, screen, waitForElementToBeRemoved } from '@testing-library/react'
+import React from 'react'
+import Popover from '../Popover'
 import PopoverProps from '../Popover.model'
 
 const makeSut = (props: PopoverProps) => {

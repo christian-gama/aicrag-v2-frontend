@@ -1,9 +1,9 @@
 import { FormActionPayload, FormInputActionPayload } from '@/application/models/context/form/protocols/form.model'
-import FormProps from '../form.model'
+import FormContainerProps from '../FormContainer.model'
 
 type Params = {
   dispatch: (options: FormActionPayload | FormInputActionPayload) => void
-  submitHandler: FormProps['submitHandler']
+  submitHandler: FormContainerProps['submitHandler']
   setIsPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 

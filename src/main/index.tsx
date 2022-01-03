@@ -6,7 +6,7 @@ import store from '@/application/store'
 import Alert from '@/presentation/components/UI/Alert'
 import Button from '@/presentation/components/UI/Button'
 import Popover from '@/presentation/components/UI/Popover'
-import CalendarContainer from '@/presentation/containers/Calendar'
+import CalendarContainer from '@/presentation/containers/Calendar/CalendarContainer'
 
 const Element: React.FC = () => {
   const [triggerAllComponents, setTriggerAllComponents] = React.useState(false)

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import FormContext from '@/application/models/context/form/FormContext'
 import EyeIcon from '../../components/UI/icons/EyeIcon'
-import Input from '../../components/UI/Input'
+import Input from '../../components/UI/Input/Input'
 import ControlledInputProps from './ControlledInput.model'
 import onBlurHandler from './methods/onBlurHandler'
 import onChangeHandler from './methods/onChangeHandler'

@@ -1,8 +1,8 @@
 import React from 'react'
-import CheckIconProps from './CheckIcon.model'
+import CheckCircleIconProps from './CheckIcon.model'
 import { iconRecipe } from './stylesheet'
 
-const CheckIcon: React.FC<CheckIconProps> = (props) => {
+const CheckCircleIcon: React.FC<CheckCircleIconProps> = (props) => {
   const checkIconStyle = iconRecipe({
     color: props.color,
     size: props.size
@@ -18,4 +18,4 @@ const CheckIcon: React.FC<CheckIconProps> = (props) => {
   )
 }
 
-export default CheckIcon
+export default CheckCircleIcon

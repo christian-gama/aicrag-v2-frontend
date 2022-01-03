@@ -1,6 +1,6 @@
 import React from 'react'
 import Button from '@/presentation/components/UI/Button'
-import CalendarButtonWrapperProps from './CalendarButtonWrapperProps.model'
+import CalendarButtonWrapperProps from './CalendarButtonWrapper.model'
 import { wrapperStyle } from './stylesheet'
 
 const CalendarButtonWrapper: React.FC<CalendarButtonWrapperProps> = (props) => {

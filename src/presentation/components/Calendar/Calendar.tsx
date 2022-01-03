@@ -1,5 +1,5 @@
 import React from 'react'
-import Modal from '../UI/Modal'
+import Modal from '../UI/Modal/Modal'
 import CalendarProps from './Calendar.model'
 import { wrapperStyle } from './subComponents/footer/CalendarButtonWrapper/stylesheet'
 
