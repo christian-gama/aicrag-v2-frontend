@@ -1,5 +1,5 @@
 import React from 'react'
-import { h4Classes, H4RecipeVariants } from './H4.css'
+import { h4Classes, H4RecipeVariants } from './stylesheet/H4.css'
 
 type H4Props = {
   color?: H4RecipeVariants['color']

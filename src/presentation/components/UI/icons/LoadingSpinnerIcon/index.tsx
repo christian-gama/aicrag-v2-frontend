@@ -1,6 +1,6 @@
 import React from 'react'
-import { loadingSpinnerIconClasses } from './LoadingSpinnerIcon.css'
 import LoadingSpinnerIconProps from './LoadingSpinnerIcon.model'
+import { loadingSpinnerIconClasses } from './stylesheet/LoadingSpinnerIcon.css'
 
 const LoadingSpinnerIcon: React.FC<LoadingSpinnerIconProps> = (props) => {
   const loadingSpinnerStyle = loadingSpinnerIconClasses.iconRecipe({

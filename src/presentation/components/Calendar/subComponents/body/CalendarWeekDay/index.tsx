@@ -1,6 +1,6 @@
 import React from 'react'
-import { calendarWeekDayClasses } from './CalendarWeekDay.css'
 import CalendarWeekDayProps from './CalendarWeekDayProps.model'
+import { calendarWeekDayClasses } from './stylesheet/CalendarWeekDay.css'
 
 const CalendarWeekDay: React.FC<CalendarWeekDayProps> = (props) => {
   const { weekDay } = props

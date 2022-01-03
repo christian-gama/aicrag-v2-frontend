@@ -1,4 +1,4 @@
-import { ModalRecipeVariants } from './Modal.css'
+import { ModalRecipeVariants } from './stylesheet/Modal.css'
 
 type ModalProps = {
   direction?: ModalRecipeVariants['direction']

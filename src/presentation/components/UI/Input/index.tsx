@@ -1,6 +1,6 @@
 import React from 'react'
-import { inputClasses, LabelRecipeVariants } from './Input.css'
 import InputProps from './Input.model'
+import { inputClasses, LabelRecipeVariants } from './stylesheet/Input.css'
 
 const Input: React.FC<InputProps> = (props) => {
   const { name, onBlur, onChange, onFocus, type, value, icon, isValid, isTouched, validator, error, isFocused } = props

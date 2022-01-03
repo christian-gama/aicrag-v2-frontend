@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import Card from '../Card'
 import dismissOnClickHandler from './methods/dismissOnClickHandler'
 import dismissOnEscapeHandler from './methods/dismissOnEscapeHandler'
-import { modalClasses } from './Modal.css'
 import ModalProps from './Modal.model'
+import { modalClasses } from './stylesheet/Modal.css'
 
 const Modal: React.FC<ModalProps> = (props) => {
   const [isOpenState, setIsOpenState] = useState(false)

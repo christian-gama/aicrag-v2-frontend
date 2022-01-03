@@ -1,7 +1,7 @@
 import React from 'react'
 import LoadingSpinnerIcon from '../icons/LoadingSpinnerIcon'
-import { buttonRecipe } from './Button.css'
 import ButtonProps from './Button.model'
+import { buttonRecipe } from './stylesheet/Button.css'
 
 const Button: React.FC<ButtonProps> = (props) => {
   const buttonStyle = buttonRecipe({

@@ -1,4 +1,4 @@
-import { ButtonVariants } from './Button.css'
+import { ButtonVariants } from './stylesheet/Button.css'
 
 type ButtonProps = {
   style?: {

@@ -1,7 +1,7 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { color } from '@/application/common/stylesheet/colorVariants.css'
 import { vars } from '@/application/common/stylesheet/vars.css'
-import { baseStyle } from '../commonStyle/base.css'
+import { baseStyle } from '../../commonStyle/base.css'
 
 const h4Recipe = recipe({
   base: [

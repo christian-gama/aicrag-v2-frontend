@@ -1,6 +1,6 @@
 import React from 'react'
-import { calendarDayClasses } from './CalendarDayNumber.css'
 import CalendarDayNumberProps from './CalendarDayNumber.model'
+import { calendarDayClasses } from './stylesheet/CalendarDayNumber.css'
 
 const CalendarDayNumber: React.FC<CalendarDayNumberProps> = (props) => {
   const { dimmed, onClick, selected, testid, dayNumber } = props

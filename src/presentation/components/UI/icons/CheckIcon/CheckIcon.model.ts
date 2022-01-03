@@ -1,4 +1,4 @@
-import { CheckIconVariants } from './CheckIcon.css'
+import { CheckIconVariants } from './stylesheet/CheckIcon.css'
 
 type CheckIconProps = {
   color?: CheckIconVariants['color']

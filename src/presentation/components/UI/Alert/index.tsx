@@ -6,10 +6,10 @@ import InfoCircleIcon from '../icons/InfoCircleIcon'
 import Modal from '../Modal'
 import H4 from '../text/H4'
 import P from '../text/P'
-import { alertClasses } from './Alert.css'
 import AlertProps from './Alert.model'
 import handleAction from './methods/actionHandler'
 import cancelHandler from './methods/cancelHandler'
+import { alertClasses } from './stylesheet/Alert.css'
 
 const Alert: React.FC<AlertProps> = (props) => {
   const alertHeaderStyle = alertClasses.headerRecipe({

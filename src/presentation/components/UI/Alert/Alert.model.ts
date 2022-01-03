@@ -1,4 +1,4 @@
-import { AlertVariants } from '@/presentation/components/UI/Alert/Alert.css'
+import { AlertVariants } from './stylesheet/Alert.css'
 
 export type AlertWithAction = {
   onAction: () => void

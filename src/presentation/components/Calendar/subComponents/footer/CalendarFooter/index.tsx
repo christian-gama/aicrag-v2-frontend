@@ -1,5 +1,5 @@
 import React from 'react'
-import { calendarFooterClasses } from './CalendarFooter.css'
+import { calendarFooterClasses } from './stylesheet/CalendarFooter.css'
 
 const CalendarFooter: React.FC = (props) => {
   const { children } = props

@@ -6,8 +6,8 @@ import ErrorIcon from '../icons/ErrorIcon'
 import InfoCircleIcon from '../icons/InfoCircleIcon'
 import P from '../text/P'
 import getDuration from './methods/getDuration'
-import { popoverClasses, popoverVars } from './Popover.css'
 import PopoverProps from './Popover.model'
+import { popoverClasses, popoverVars } from './stylesheet/Popover.css'
 import PopoverMessageList from './subComponents/PopoverMessageList'
 
 const Popover: React.FC<PopoverProps> = (props) => {

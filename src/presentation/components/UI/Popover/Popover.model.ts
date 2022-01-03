@@ -1,4 +1,4 @@
-import { PopoverVariants } from './Popover.css'
+import { PopoverVariants } from './stylesheet/Popover.css'
 
 type PopoverProps = {
   isOpen?: boolean

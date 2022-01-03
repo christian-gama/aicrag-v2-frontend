@@ -1,4 +1,4 @@
-import { EyeIconVariants } from './EyeIcon.css'
+import { EyeIconVariants } from './stylesheet/EyeIcon.css'
 
 type EyeIconProps = {
   style?: {

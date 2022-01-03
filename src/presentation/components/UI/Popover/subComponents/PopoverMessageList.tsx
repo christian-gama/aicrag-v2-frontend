@@ -1,7 +1,7 @@
 import React from 'react'
 import P from '../../text/P'
-import { popoverMessageListClasses } from './PopoverMessageList.css'
 import PopoverMessageListProps from './PopoverMessageList.model'
+import { popoverMessageListClasses } from './stylesheet/PopoverMessageList.css'
 
 const PopoverMessageList: React.FC<PopoverMessageListProps> = (props) => {
   const { messages } = props

@@ -1,4 +1,4 @@
-import { InfoCircleIconRecipeVariants } from './InfoCircleIcon.css'
+import { InfoCircleIconRecipeVariants } from './stylesheet/InfoCircleIcon.css'
 
 type InfoCircleIconProps = {
   color?: InfoCircleIconRecipeVariants['color']
