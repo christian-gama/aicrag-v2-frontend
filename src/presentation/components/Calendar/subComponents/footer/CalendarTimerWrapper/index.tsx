@@ -1,18 +1,18 @@
 import React from 'react'
 import ClockIcon from '@/presentation/components/UI/icons/ClockIcon'
 import CalendarTimerWrapperProps from './CalendarTimerWrapper.model'
-import { calendarTimerClasses } from './stylesheet/CalendarTimerWrapper.css'
+import { wrapperStyle, timerLabelStyle, contentStyle } from './stylesheet'
 
 const CalendarTimerWrapper: React.FC<CalendarTimerWrapperProps> = (props) => {
   const { render } = props
 
   return (
-    <div className={calendarTimerClasses.wrapperStyle} data-testid="calendar-timer">
-      <label htmlFor="calendar-hour" className={calendarTimerClasses.timerLabel}>
+    <div className={wrapperStyle} data-testid="calendar-timer">
+      <label htmlFor="calendar-hour" className={timerLabelStyle}>
         <ClockIcon />
       </label>
 
-      <div className={calendarTimerClasses.contentStyle}>{render()}</div>
+      <div className={contentStyle}>{render()}</div>
     </div>
   )
 }

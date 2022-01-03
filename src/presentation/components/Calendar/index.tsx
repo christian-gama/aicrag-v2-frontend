@@ -1,14 +1,14 @@
 import React from 'react'
 import Modal from '../UI/Modal'
 import CalendarProps from './Calendar.model'
-import { calendarClasses } from './stylesheet/Calendar.css'
+import { wrapperStyle } from './subComponents/footer/CalendarButtonWrapper/stylesheet'
 
 const Calendar: React.FC<CalendarProps> = (props) => {
   const { onDismiss, isCalendarOpen, children } = props
 
   return (
     <Modal onDismiss={onDismiss} isOpen={isCalendarOpen}>
-      <div className={calendarClasses.wrapperStyle} data-testid="calendar-container">
+      <div className={wrapperStyle} data-testid="calendar-wrapper">
         {children}
       </div>
     </Modal>

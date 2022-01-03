@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css'
 import { vars } from '@/application/common/stylesheet/vars.css'
 
-const inputStyle = style({
+export const inputStyle = style({
   alignItems: 'center',
   backgroundColor: vars.colors.white,
   border: `1px solid ${vars.colors['secondary-600']}`,
@@ -23,7 +23,3 @@ const inputStyle = style({
     transform: 'scale(1.2)'
   }
 })
-
-export const calendarTimerInputClasses = {
-  inputStyle
-}

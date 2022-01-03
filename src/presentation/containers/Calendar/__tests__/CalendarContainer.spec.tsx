@@ -18,7 +18,7 @@ describe('CalendarContainer', () => {
   it('should render the calendar', () => {
     makeSut()
 
-    const calendarContainer = screen.getByTestId('calendar-container')
+    const calendarContainer = screen.getByTestId('calendar-wrapper')
 
     expect(calendarContainer).toBeInTheDocument()
   })

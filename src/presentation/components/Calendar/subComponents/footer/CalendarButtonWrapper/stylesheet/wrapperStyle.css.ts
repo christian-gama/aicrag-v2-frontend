@@ -1,12 +1,8 @@
 import { style } from '@vanilla-extract/css'
 
-const wrapper = style({
+export const wrapperStyle = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   height: '100%'
 })
-
-export const calendarButtonClasses = {
-  wrapper
-}
