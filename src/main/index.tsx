@@ -9,6 +9,7 @@ import Alert from '@/presentation/components/UI/Alert'
 import Button from '@/presentation/components/UI/Button'
 import Card from '@/presentation/components/UI/Card'
 import Popover from '@/presentation/components/UI/Popover'
+import ProgressBar from '@/presentation/components/UI/ProgressBar'
 import CalendarContainer from '@/presentation/containers/Calendar/CalendarContainer'
 import ControlledInput from '@/presentation/containers/ControlledInput'
 import makeTimerValidator from './factories/validation/makeTimerValidator'
@@ -50,7 +51,7 @@ const Element: React.FC = () => {
 
   return (
     <>
-      {!triggerAllComponents && (
+      {false && !triggerAllComponents && (
         <Button
           onClick={() => {
             setTriggerAllComponents((prev) => !prev)
@@ -60,6 +61,8 @@ const Element: React.FC = () => {
           Trigger All Components
         </Button>
       )}
+
+      <ProgressBar />
     </>
   )
 }
