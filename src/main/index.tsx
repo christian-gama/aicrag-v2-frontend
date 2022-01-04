@@ -62,7 +62,7 @@ const Element: React.FC = () => {
         </Button>
       )}
 
-      <ProgressBar />
+      <ProgressBar loading />
     </>
   )
 }

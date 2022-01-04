@@ -7,6 +7,6 @@ export const progressStyle = style({
   animationDuration: '2.5s',
   animationTimingFunction: 'cubic-bezier(.18,.32,1,-0.22)',
   animationFillMode: 'forwards',
-  backgroundColor: vars.colors['cyan-400'],
+  backgroundImage: `linear-gradient(to right, ${vars.colors['cyan-700']} 0%, ${vars.colors['cyan-300']} 100%)`,
   height: '100%'
 })
