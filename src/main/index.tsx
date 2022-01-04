@@ -17,6 +17,7 @@ import makeTimerValidator from './factories/validation/makeTimerValidator'
 const Element: React.FC = () => {
   const [triggerAllComponents, setTriggerAllComponents] = React.useState(false)
   const dispatch = useDispatch<AppDispatch>()
+  const [isLoading, setIsLoading] = React.useState(false)
 
   if (triggerAllComponents) {
     return (
@@ -62,7 +63,9 @@ const Element: React.FC = () => {
         </Button>
       )}
 
-      <ProgressBar loading />
+      <Button onClick={() => setIsLoading((prev) => !prev)}>loading</Button>
+
+      <ProgressBar loading={isLoading} />
     </>
   )
 }
