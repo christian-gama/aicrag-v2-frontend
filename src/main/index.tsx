@@ -57,7 +57,7 @@ const Element: React.FC = () => {
 
   return (
     <>
-      {false && !triggerAllComponents && (
+      {true && !triggerAllComponents && (
         <Button
           onClick={() => {
             setTriggerAllComponents((prev) => !prev)
