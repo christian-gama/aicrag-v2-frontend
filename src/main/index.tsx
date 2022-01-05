@@ -5,6 +5,8 @@ import { Provider, useDispatch } from 'react-redux'
 import FormProvider from '@/application/models/context/form/FormProvider'
 import { calendarActions } from '@/application/models/redux/calendar'
 import store, { AppDispatch } from '@/application/store'
+import Table from '@/presentation/components/Table'
+import DateData from '@/presentation/components/Table/subComponents/DateData'
 import Alert from '@/presentation/components/UI/Alert'
 import Button from '@/presentation/components/UI/Button'
 import Card from '@/presentation/components/UI/Card'
@@ -32,6 +34,7 @@ const Element: React.FC = () => {
         <Button style={{ color: 'light', mode: 'outlined' }}>light</Button>
         <Button disabled>disabled</Button>
         <Button loading>loading</Button>
+        <Button onClick={() => setIsLoading((prev) => !prev)}>loading</Button>
 
         <CalendarContainer previousDate={Date.now()} />
 
@@ -46,6 +49,8 @@ const Element: React.FC = () => {
         <FormProvider submitHandler={async () => {}} validator={makeTimerValidator()}>
           <ControlledInput name="hora" />
         </FormProvider>
+
+        <ProgressBar loading={isLoading} />
       </>
     )
   }
@@ -63,9 +68,35 @@ const Element: React.FC = () => {
         </Button>
       )}
 
-      <Button onClick={() => setIsLoading((prev) => !prev)}>loading</Button>
+      <Table.Main>
+        <Table.Thead>
+          <Table.Th>Header 1</Table.Th>
+          <Table.Th>Header 2</Table.Th>
+          <Table.Th>Header 3</Table.Th>
+          <Table.Th>Header 4</Table.Th>
+          <Table.Th>Header 5</Table.Th>
+        </Table.Thead>
 
-      <ProgressBar loading={isLoading} />
+        <Table.Tbody>
+          <Table.Tr>
+            <Table.Td>
+              <DateData primaryDate="Ago" secondaryDate="2021" />
+            </Table.Td>
+            <Table.Td>Data 2</Table.Td>
+            <Table.Td>Data 3</Table.Td>
+            <Table.Td>Data 4</Table.Td>
+            <Table.Td>Data 5</Table.Td>
+          </Table.Tr>
+
+          <Table.Tr>
+            <Table.Td>Data 1</Table.Td>
+            <Table.Td>Data 2</Table.Td>
+            <Table.Td>Data 3</Table.Td>
+            <Table.Td>Data 4</Table.Td>
+            <Table.Td>Data 5</Table.Td>
+          </Table.Tr>
+        </Table.Tbody>
+      </Table.Main>
     </>
   )
 }
