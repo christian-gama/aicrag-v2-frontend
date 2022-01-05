@@ -3,7 +3,7 @@ import { calc } from '@vanilla-extract/css-utils'
 import { vars } from '@/application/common/stylesheet/vars.css'
 import { tableVars } from '../../Tr/stylesheet'
 
-export const dateWrapperStyle = style({
+export const dateWrapper = style({
   alignItems: 'center',
   backgroundColor: vars.colors['snow-600'],
   borderRadius: `${tableVars.roundness} 0 0 ${tableVars.roundness}`,

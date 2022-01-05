@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css'
 
-export const tbodyStyle = style({
+export const tableBody = style({
   display: 'flex',
   flexDirection: 'column'
 })

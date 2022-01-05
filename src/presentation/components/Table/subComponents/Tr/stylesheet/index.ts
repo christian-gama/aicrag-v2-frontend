@@ -1,1 +1,1 @@
-export * from './trStyle.css'
+export * from './tableRow.css'

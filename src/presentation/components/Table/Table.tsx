@@ -1,5 +1,5 @@
 import React from 'react'
-import { showingUpStyle, tableStyle } from './stylesheet'
+import * as style from './stylesheet'
 import TableProps from './Table.model'
 
 const Table: React.FC<TableProps> = (props) => {
@@ -7,11 +7,11 @@ const Table: React.FC<TableProps> = (props) => {
     <>
       {props.showingUp && (
         <span
-          className={showingUpStyle}
+          className={style.tableSpanShowingup}
           data-testid="table-showing-up"
         >{`Mostrando ${props.showingUp?.current} de ${props.showingUp.total}`}</span>
       )}
-      <table className={tableStyle} data-testid="table">
+      <table className={style.tableStyle} data-testid="table">
         {props.children}
       </table>
     </>

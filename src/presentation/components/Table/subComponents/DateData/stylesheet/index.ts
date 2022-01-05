@@ -1,2 +1,2 @@
-export * from './dateWrapperStyle.css'
-export * from './primaryDateStyle.css'
+export * from './dateWrapper.css'
+export * from './dateTextPrimary.css'

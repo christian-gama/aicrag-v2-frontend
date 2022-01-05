@@ -16,7 +16,7 @@ export const tableVars = createGlobalTheme(':root', {
   row
 })
 
-export const trStyle = style({
+export const tableRow = style({
   alignItems: 'center',
   borderRadius: tableVars.roundness,
   boxShadow: vars.shadow.xsm,

@@ -1,3 +1,3 @@
-export * from './baseCellStyle.css'
-export * from './showingUpStyle.css'
-export * from './tableStyle.css'
+export * from './tableCell.css'
+export * from './tableTextShowingup.css'
+export * from './table.css'

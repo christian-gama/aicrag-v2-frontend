@@ -1,1 +1,1 @@
-export * from './tbodyStyle.css'
+export * from './tableBody.css'

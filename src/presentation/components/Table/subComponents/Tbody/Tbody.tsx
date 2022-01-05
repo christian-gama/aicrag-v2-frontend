@@ -1,9 +1,9 @@
 import React from 'react'
-import { tbodyStyle } from './stylesheet'
+import { tableBody } from './stylesheet'
 
 const Tbody: React.FC = (props) => {
   return (
-    <tbody className={tbodyStyle} data-testid="table-tbody">
+    <tbody className={tableBody} data-testid="table-tbody">
       {props.children}
     </tbody>
   )
