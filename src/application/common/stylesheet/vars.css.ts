@@ -1,7 +1,7 @@
 import { createGlobalTheme } from '@vanilla-extract/css'
 
 const shadow = {
-  xsm: '0px 3px 4px rgba(0, 0, 0, 0.2)',
+  xsm: '0px 2px 4px rgba(0, 0, 0, 0.15)',
   sm: '0px 5px 10px rgba(0, 0, 0, 0.15)',
   md: '0px 12px 25px rgba(0, 0, 0, 0.075)',
   lg: '0px 10px 30px rgba(0, 0, 0, 0.175)'
