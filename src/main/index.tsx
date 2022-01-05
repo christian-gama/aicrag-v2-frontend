@@ -70,11 +70,13 @@ const Element: React.FC = () => {
 
       <Table.Main>
         <Table.Thead>
-          <Table.Th>Header 1</Table.Th>
-          <Table.Th>Header 2</Table.Th>
-          <Table.Th>Header 3</Table.Th>
-          <Table.Th>Header 4</Table.Th>
-          <Table.Th>Header 5</Table.Th>
+          <Table.Tr>
+            <Table.Th>Header 1</Table.Th>
+            <Table.Th>Header 2</Table.Th>
+            <Table.Th>Header 3</Table.Th>
+            <Table.Th>Header 4</Table.Th>
+            <Table.Th>Header 5</Table.Th>
+          </Table.Tr>
         </Table.Thead>
 
         <Table.Tbody>

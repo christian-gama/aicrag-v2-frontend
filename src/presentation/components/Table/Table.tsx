@@ -6,9 +6,14 @@ const Table: React.FC<TableProps> = (props) => {
   return (
     <>
       {props.showingUp && (
-        <span className={showingUpStyle}>{`Mostrando ${props.showingUp?.current} de ${props.showingUp.total}`}</span>
+        <span
+          className={showingUpStyle}
+          data-testid="table-showing-up"
+        >{`Mostrando ${props.showingUp?.current} de ${props.showingUp.total}`}</span>
       )}
-      <table className={tableStyle}>{props.children}</table>
+      <table className={tableStyle} data-testid="table">
+        {props.children}
+      </table>
     </>
   )
 }

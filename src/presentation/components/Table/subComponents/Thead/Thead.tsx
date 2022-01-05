@@ -1,12 +1,7 @@
 import React from 'react'
-import { theadStyle } from './stylesheet'
 
 const Thead: React.FC = (props) => {
-  return (
-    <thead>
-      <tr className={theadStyle}>{props.children}</tr>
-    </thead>
-  )
+  return <thead data-testid="table-thead">{props.children}</thead>
 }
 
 export default Thead

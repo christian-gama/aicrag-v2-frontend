@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css'
 import { calc } from '@vanilla-extract/css-utils'
 import { vars } from '@/application/common/stylesheet/vars.css'
-import { tableVars } from '../../../stylesheet'
+import { tableVars } from '../../Tr/stylesheet'
 
 export const dateWrapperStyle = style({
   alignItems: 'center',

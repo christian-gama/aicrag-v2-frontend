@@ -1,19 +1,40 @@
-import { style } from '@vanilla-extract/css'
+import { createGlobalTheme, style } from '@vanilla-extract/css'
 import { calc } from '@vanilla-extract/css-utils'
-import { baseWrapperStyle, tableVars } from '../../../stylesheet'
+import { vars } from '@/application/common/stylesheet/vars.css'
 
-export const trStyle = style([
-  baseWrapperStyle,
-  {
-    marginTop: calc.divide(tableVars.row.height, 5),
-    transition: 'transform 0.2s ease-in-out',
+const roundness = '5px'
 
-    ':last-of-type': {
-      marginBottom: calc.divide(tableVars.row.height, 5)
-    },
+const row = {
+  height: '7.6rem',
+  width: '90rem',
+  horizontalPadding: '3.2rem',
+  gap: '2.4rem'
+}
 
-    ':hover': {
-      transform: 'scale(1.02)'
+export const tableVars = createGlobalTheme(':root', {
+  roundness,
+  row
+})
+
+export const trStyle = style({
+  alignItems: 'center',
+  borderRadius: tableVars.roundness,
+  boxShadow: vars.shadow.xsm,
+  display: 'grid',
+  gap: tableVars.row.gap,
+  gridTemplateColumns: 'repeat(auto-fill, minmax(16%, 1fr))',
+  height: tableVars.row.height,
+  marginTop: calc.divide(tableVars.row.height, 6),
+  maxHeight: tableVars.row.height,
+  maxWidth: tableVars.row.width,
+  padding: `0 ${tableVars.row.horizontalPadding}`,
+  transition: 'transform 0.2s ease-in-out',
+  width: tableVars.row.width,
+
+  selectors: {
+    'thead > &': {
+      backgroundColor: vars.colors['navy-500'],
+      color: vars.colors.white
     }
   }
-])
+})
