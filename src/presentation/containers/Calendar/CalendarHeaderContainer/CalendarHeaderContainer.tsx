@@ -5,8 +5,8 @@ import { calendarActions } from '@/application/models/redux/calendar'
 import { CalendarStates } from '@/application/models/redux/calendar/protocols/calendar.model'
 import { RootState, AppDispatch } from '@/application/store'
 import writeMonthYear from '@/application/utils/writeMonthYear'
-import CalendarHeader from '@/presentation/components/Calendar/subComponents/header/CalendarHeader'
-import CalendarHeaderDate from '@/presentation/components/Calendar/subComponents/header/CalendarHeaderDate'
+import CalendarHeader from '@/presentation/components/Calendar/subComponents/CalendarHeader'
+import CalendarHeaderDate from '@/presentation/components/Calendar/subComponents/CalendarHeaderDate'
 import ChevronIcon from '../../../components/UI/icons/Chevron'
 
 const CalendarHeaderContainer: React.FC = () => {

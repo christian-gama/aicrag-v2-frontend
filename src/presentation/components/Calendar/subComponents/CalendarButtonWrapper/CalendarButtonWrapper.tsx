@@ -7,7 +7,7 @@ const CalendarButtonWrapper: React.FC<CalendarButtonWrapperProps> = (props) => {
   const { onCancelHandler, onConfirmHandler } = props
 
   return (
-    <div className={style.footerButtonWrapper}>
+    <div className={style.buttonWrapper}>
       <Button testid="cancel-button" style={{ mode: 'outlined', size: 'sm', color: 'light' }} onClick={onCancelHandler}>
         Cancelar
       </Button>

@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css'
 
-export const footerButtonWrapper = style({
+export const buttonWrapper = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

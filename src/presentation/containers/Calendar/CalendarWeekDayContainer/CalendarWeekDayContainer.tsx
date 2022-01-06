@@ -1,5 +1,5 @@
 import React from 'react'
-import CalendarWeekDay from '@/presentation/components/Calendar/subComponents/body/CalendarWeekDay'
+import CalendarWeekDay from '@/presentation/components/Calendar/subComponents/CalendarWeekday'
 
 const CalendarWeekDayContainer: React.FC = () => {
   const weekDays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']

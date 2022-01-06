@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css'
 
-export const timerWrapper = style({
+export const timer = style({
   display: 'flex',
   alignItems: 'center'
 })
