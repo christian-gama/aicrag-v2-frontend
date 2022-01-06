@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FillColorVariants } from '@/application/common/stylesheet/variants/fillColor.css'
 import capitalize from '@/application/utils/capitalize'
 import Button from '../Button/Button'
@@ -11,10 +11,16 @@ import P from '../text/P'
 import AlertProps from './Alert.model'
 import handleAction from './methods/actionHandler'
 import cancelHandler from './methods/cancelHandler'
-import { headerRecipe, wrapperStyle, bodyStyle, footerStyle } from './stylesheet'
+import * as style from './stylesheet'
 
 const Alert: React.FC<AlertProps> = (props) => {
-  const alertHeaderStyle = headerRecipe({
+  const [isOpen, setIsOpen] = useState(!!props.isOpen)
+
+  useEffect(() => {
+    setIsOpen(!!props.isOpen)
+  }, [props.isOpen])
+
+  const alertHeaderStyle = style.alertHeaderRecipe({
     color: props.type
   })
 
@@ -45,21 +51,21 @@ const Alert: React.FC<AlertProps> = (props) => {
   }
 
   return (
-    <Modal isOpen={props.isOpen} onDismiss={props.onCancel}>
+    <Modal isOpen={isOpen} onDismiss={props.onCancel}>
       <Card centered>
-        <div className={wrapperStyle} data-testid="alert">
+        <div className={style.alert} data-testid="alert">
           <div className={alertHeaderStyle} data-testid="alert-header">
             <InfoCircleIcon color={getIconColor()} />
             <H4 color={getIconColor()}>{capitalize(props.title)}</H4>
           </div>
 
-          <div className={bodyStyle} data-testid="alert-body">
+          <div className={style.alertBody} data-testid="alert-body">
             <P>{capitalize(props.message)}</P>
           </div>
 
-          <div className={footerStyle} data-testid="alert-footer">
+          <div className={style.alertFooter} data-testid="alert-footer">
             <Button
-              onClick={() => cancelHandler({ onCancel: props.onCancel })}
+              onClick={() => cancelHandler({ onCancel: props.onCancel, setIsOpen })}
               style={{ mode: 'outlined', size: 'sm', color: getButtonColor() }}
               testid="alert-cancel-button"
             >

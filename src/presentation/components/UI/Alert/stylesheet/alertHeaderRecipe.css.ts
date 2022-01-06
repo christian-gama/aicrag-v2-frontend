@@ -1,7 +1,7 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { color } from './variants'
+import { colors } from './variants'
 
-export const headerRecipe = recipe({
+export const alertHeaderRecipe = recipe({
   base: {
     alignItems: 'center',
     borderRadius: '5px 5px 0 0',
@@ -13,7 +13,7 @@ export const headerRecipe = recipe({
   },
 
   variants: {
-    color
+    color: colors
   },
 
   defaultVariants: {
@@ -21,4 +21,4 @@ export const headerRecipe = recipe({
   }
 })
 
-export type HeaderVariants = NonNullable<RecipeVariants<typeof headerRecipe>>
+export type HeaderVariants = NonNullable<RecipeVariants<typeof alertHeaderRecipe>>

@@ -1,7 +1,7 @@
 import { styleVariants } from '@vanilla-extract/css'
 import { vars } from '@/application/common/stylesheet/vars.css'
 
-export const color = styleVariants({
+export const colors = styleVariants({
   danger: {
     backgroundColor: vars.colors['danger-50']
   },

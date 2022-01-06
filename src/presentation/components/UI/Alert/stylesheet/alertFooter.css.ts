@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css'
 
-export const footerStyle = style({
+export const alertFooter = style({
   display: 'flex',
   justifyContent: 'flex-end',
   alignItems: 'flex-end',

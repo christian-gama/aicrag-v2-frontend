@@ -3,7 +3,8 @@ import cancelHandler from '../cancelHandler'
 describe('cancelHandler', () => {
   it('should call function onCancel if it exists on props', () => {
     const params = {
-      onCancel: jest.fn()
+      onCancel: jest.fn(),
+      setIsOpen: jest.fn()
     }
 
     cancelHandler(params)
@@ -13,11 +14,12 @@ describe('cancelHandler', () => {
 
   it('should execute not execute onCancel if its undefined', () => {
     const params = {
-      onCancel: undefined
+      onCancel: undefined,
+      setIsOpen: jest.fn()
     }
 
     cancelHandler(params)
 
-    expect(params.onCancel).toBeUndefined()
+    expect(params.setIsOpen).toHaveBeenCalled()
   })
 })

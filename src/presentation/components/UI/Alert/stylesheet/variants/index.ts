@@ -1,1 +1,1 @@
-export * from './color.css'
+export * from './colors.css'
