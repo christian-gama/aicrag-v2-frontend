@@ -1,11 +1,11 @@
 import { style } from '@vanilla-extract/css'
 
-export const contentWrapperStyle = style({
+export const popoverContent = style({
   alignItems: 'center',
-  justifyContent: 'space-between',
   display: 'flex',
+  height: '100%',
+  justifyContent: 'space-between',
   paddingLeft: '2.4rem',
   position: 'relative',
-  width: '100%',
-  height: '100%'
+  width: '100%'
 })

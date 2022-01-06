@@ -1,6 +1,6 @@
 import { keyframes } from '@vanilla-extract/css'
 
-export const progressAnimation = keyframes({
+export const progress = keyframes({
   '0%': {
     width: '100%'
   },

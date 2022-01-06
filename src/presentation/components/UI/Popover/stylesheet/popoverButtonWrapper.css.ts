@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css'
 import { vars } from '@/application/common/stylesheet/vars.css'
 
-export const closeButtonWrapperStyle = style({
+export const popoverButtonWrapper = style({
   alignItems: 'center',
   display: 'flex',
   justifyContent: 'center',

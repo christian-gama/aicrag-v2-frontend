@@ -1,15 +1,15 @@
 import React from 'react'
 import P from '../../text/P'
 import PopoverMessageListProps from './PopoverMessageList.model'
-import { listStyle, unorderedListStyle } from './stylesheet'
+import * as style from './stylesheet'
 
 const PopoverMessageList: React.FC<PopoverMessageListProps> = (props) => {
   const { messages } = props
 
   return (
-    <ul className={unorderedListStyle} data-testid="popover-list">
+    <ul className={style.list} data-testid="popover-list">
       {messages.map((message, index) => (
-        <li key={index} className={listStyle}>
+        <li key={index} className={style.listItem}>
           <P color="white">{message}</P>
         </li>
       ))}

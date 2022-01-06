@@ -1,4 +1,4 @@
-import { PopoverVariants } from './stylesheet'
+import { PopoverVariants } from './stylesheet/recipes'
 
 type PopoverProps = {
   isOpen?: boolean

@@ -1,2 +1,2 @@
-export * from './progressAnimation.css'
-export * from './showUpAnimation.css'
+export * from './progress.css'
+export * from './showUp.css'

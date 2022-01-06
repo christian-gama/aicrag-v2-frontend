@@ -1,6 +1,6 @@
 import { keyframes } from '@vanilla-extract/css'
 
-export const showUpAnimation = keyframes({
+export const showUp = keyframes({
   '0%': {
     bottom: '-50%'
   },

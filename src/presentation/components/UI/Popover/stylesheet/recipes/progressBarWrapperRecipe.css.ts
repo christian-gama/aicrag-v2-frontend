@@ -1,5 +1,5 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { type } from './variants/progressBarWrapper'
+import { type } from '../variants/progressBarWrapper'
 
 export const progressBarWrapperRecipe = recipe({
   base: {
