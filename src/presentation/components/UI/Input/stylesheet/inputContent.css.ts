@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css'
 
-export const contentStyle = style({
+export const inputContent = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',

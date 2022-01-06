@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
 
-export const boxStyle = style({
+export const inputBox = style({
   position: 'relative'
 })

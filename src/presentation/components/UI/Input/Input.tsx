@@ -1,15 +1,7 @@
 import React from 'react'
 import InputProps from './Input.model'
-import {
-  boxStyle,
-  contentStyle,
-  errorStyle,
-  iconStyle,
-  inputRecipe,
-  labelRecipe,
-  LabelRecipeVariants,
-  wrapperStyle
-} from './stylesheet'
+import * as style from './stylesheet'
+import { inputRecipe, labelRecipe, LabelRecipeVariants } from './stylesheet/recipes'
 
 const Input: React.FC<InputProps> = (props) => {
   const { name, onBlur, onChange, onFocus, type, value, icon, isValid, isTouched, validator, error, isFocused } = props
@@ -41,13 +33,13 @@ const Input: React.FC<InputProps> = (props) => {
   const uniqueId = `input-${name.toLowerCase()}-${Math.floor(Math.random() * 1000)}`
 
   return (
-    <div className={wrapperStyle} data-testid={`${name}-container`}>
-      <div className={contentStyle}>
+    <div className={style.input} data-testid={`${name}-container`}>
+      <div className={style.inputContent}>
         <label data-testid={`${name}-label`} htmlFor={uniqueId} className={labelStyle}>
           {name}
         </label>
 
-        <div className={boxStyle}>
+        <div className={style.inputBox}>
           <input
             className={inputStyle}
             data-testid={`${name}-input`}
@@ -61,7 +53,7 @@ const Input: React.FC<InputProps> = (props) => {
           />
 
           {icon && (
-            <div data-testid={`${props.name}-icon`} className={iconStyle}>
+            <div data-testid={`${props.name}-icon`} className={style.inputIcon}>
               {icon()}
             </div>
           )}
@@ -69,7 +61,7 @@ const Input: React.FC<InputProps> = (props) => {
       </div>
 
       {error && (
-        <div data-testid={`${name}-error`} className={errorStyle}>
+        <div data-testid={`${name}-error`} className={style.inputError}>
           {error}
         </div>
       )}

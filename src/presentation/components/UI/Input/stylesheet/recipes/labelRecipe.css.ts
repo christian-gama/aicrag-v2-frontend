@@ -1,6 +1,6 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { vars } from '@/application/common/stylesheet/vars.css'
-import { float, state } from './variants/label'
+import { float, state } from '../variants/label'
 
 export const labelRecipe = recipe({
   base: {

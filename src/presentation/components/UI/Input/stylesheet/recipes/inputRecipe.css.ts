@@ -1,6 +1,6 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { vars } from '@/application/common/stylesheet/vars.css'
-import { state, hasIcon } from './variants/input'
+import { state, hasIcon } from '../variants/input'
 
 export const inputRecipe = recipe({
   base: {

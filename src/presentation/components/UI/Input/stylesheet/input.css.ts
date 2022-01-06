@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css'
 
-export const wrapperStyle = style({
+export const input = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
