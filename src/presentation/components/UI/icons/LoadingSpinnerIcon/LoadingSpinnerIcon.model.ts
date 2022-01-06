@@ -1,4 +1,4 @@
-import { LoadingSpinnerVariants } from './stylesheet/iconRecipe.css'
+import { LoadingSpinnerVariants } from './stylesheet/recipes/iconRecipe.css'
 
 type LoadingSpinnerIconProps = {
   style?: {

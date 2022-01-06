@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css'
 
-export const hitboxStyle = style({
+export const iconHitbox = style({
   alignItems: 'center',
   borderRadius: '50%',
   display: 'flex',

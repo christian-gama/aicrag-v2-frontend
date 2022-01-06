@@ -1,13 +1,13 @@
 import { styleVariants } from '@vanilla-extract/css'
 import { vars } from '@/application/common/stylesheet/vars.css'
-import { hitboxStyle } from '..'
+import { iconHitbox } from '..'
 
 export const color = styleVariants({
   white: {
     fill: vars.colors.white,
 
     selectors: {
-      [`${hitboxStyle}:hover &`]: {
+      [`${iconHitbox}:hover &`]: {
         fill: vars.colors['gray-400']
       }
     }
@@ -17,7 +17,7 @@ export const color = styleVariants({
     fill: vars.colors['cyan-600'],
 
     selectors: {
-      [`${hitboxStyle}:hover &`]: {
+      [`${iconHitbox}:hover &`]: {
         fill: vars.colors['cyan-600']
       }
     }

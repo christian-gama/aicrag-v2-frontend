@@ -1,12 +1,13 @@
 import { style } from '@vanilla-extract/css'
 
-export const hitboxStyle = style({
-  display: 'flex',
-  justifyContent: 'center',
+export const iconHitbox = style({
   alignItems: 'center',
   borderRadius: '50%',
-  padding: '0.8rem',
+  display: 'flex',
+  justifyContent: 'center',
   maxWidth: 'min-content',
+  padding: '0.8rem',
+
   ':hover': {
     cursor: 'pointer'
   }

@@ -7,7 +7,7 @@ import { RootState, AppDispatch } from '@/application/store'
 import writeMonthYear from '@/application/utils/writeMonthYear'
 import CalendarHeader from '@/presentation/components/Calendar/subComponents/CalendarHeader'
 import CalendarHeaderDate from '@/presentation/components/Calendar/subComponents/CalendarHeaderDate'
-import ChevronIcon from '../../../components/UI/icons/Chevron'
+import ChevronIcon from '../../../components/UI/icons/ChevronIcon'
 
 const CalendarHeaderContainer: React.FC = () => {
   const { setCalendarDate } = calendarActions

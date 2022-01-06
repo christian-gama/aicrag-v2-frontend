@@ -1,7 +1,7 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { size } from '../../common/variants/size.css'
-import { color } from './variants/color.css'
-import { direction } from './variants/direction.css'
+import { size } from '../../../common/variants/size.css'
+import { color } from '../variants/color.css'
+import { direction } from '../variants/direction.css'
 
 export const iconRecipe = recipe({
   base: {

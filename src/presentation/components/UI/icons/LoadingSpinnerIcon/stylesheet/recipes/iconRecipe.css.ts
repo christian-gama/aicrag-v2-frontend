@@ -1,6 +1,6 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { rotate } from './keyframes'
-import { size, color, speed, space } from './variants'
+import { rotate } from '../keyframes'
+import { size, color, speed, space } from '../variants'
 
 export const iconRecipe = recipe({
   base: {
