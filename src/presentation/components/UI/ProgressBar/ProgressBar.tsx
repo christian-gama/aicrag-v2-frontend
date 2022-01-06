@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ProgressBarProps from './ProgressBar.model'
-import { backgroundStyle, progressBarStyle, progressStyle } from './stylesheet'
+import * as style from './stylesheet'
 
 const ProgressBar: React.FC<ProgressBarProps> = (props) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -30,9 +30,9 @@ const ProgressBar: React.FC<ProgressBarProps> = (props) => {
   if (!isOpen) return null
 
   return (
-    <div className={progressBarStyle} data-testid="progress-bar">
-      <div className={backgroundStyle}>
-        <div className={progressStyle} data-testid="progress" />
+    <div className={style.progressBar} data-testid="progress-bar">
+      <div className={style.progressBarBackground}>
+        <div className={style.progressBarProgress} data-testid="progress" />
       </div>
     </div>
   )
