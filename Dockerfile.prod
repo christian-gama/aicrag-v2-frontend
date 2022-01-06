@@ -1,0 +1,15 @@
+FROM node:17-alpine as builder
+
+WORKDIR /usr/aicrag
+
+COPY ./package.json .
+COPY ./yarn.lock .
+RUN yarn install
+
+COPY ./ ./
+
+RUN yarn build
+
+FROM nginx
+COPY --from=builder /usr/aicrag/build /usr/share/nginx/html
+
