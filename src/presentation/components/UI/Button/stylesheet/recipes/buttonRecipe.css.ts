@@ -11,8 +11,8 @@ import {
   outlinedInfoStyle,
   outlinedLightStyle,
   outlinedDisabledStyle
-} from './compoundVariants'
-import { color, disabled, size, mode } from './variants'
+} from '../compoundVariants'
+import { color, disabled, size, mode } from '../variants'
 
 export const buttonRecipe = recipe({
   base: {

@@ -2,7 +2,7 @@ import React from 'react'
 import LoadingSpinnerIcon from '../icons/LoadingSpinnerIcon'
 import ButtonProps from './Button.model'
 import { getLoadingColor } from './methods/getLoadingColor'
-import { buttonRecipe } from './stylesheet'
+import { buttonRecipe } from './stylesheet/recipes'
 
 const Button: React.FC<ButtonProps> = (props) => {
   const buttonStyle = buttonRecipe({
