@@ -1,6 +1,6 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { vars } from '@/application/common/stylesheet/vars.css'
-import { transparent, roundness, centered } from './variants'
+import { transparent, roundness, centered } from '../variants'
 
 export const cardRecipe = recipe({
   base: {

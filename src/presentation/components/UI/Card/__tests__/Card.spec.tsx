@@ -1,7 +1,7 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import React from 'react'
 import Card from '..'
-import { CardVariants } from '../stylesheet/cardRecipe.css'
+import { CardVariants } from '../stylesheet/recipes/cardRecipe.css'
 
 const makeSut = (style?: { centered?: CardVariants['centered'], roundness?: CardVariants['roundness'] }): void => {
   render(<Card centered={style?.centered} roundness={style?.roundness} />)
