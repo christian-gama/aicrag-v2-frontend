@@ -1,6 +1,6 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { vars } from '@/application/common/stylesheet/vars.css'
-import { dimmed, selected } from './variants'
+import { dimmed, selected } from '../variants'
 
 export const dayRecipe = recipe({
   base: {

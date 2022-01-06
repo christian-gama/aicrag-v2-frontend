@@ -1,9 +1,9 @@
 import React from 'react'
-import { headerStyle } from './stylesheet'
+import * as style from './stylesheet'
 
 const CalendarHeader: React.FC = (props) => {
   return (
-    <div className={headerStyle} data-testid="calendar-header">
+    <div className={style.calendarHeader} data-testid="calendar-header">
       {props.children}
     </div>
   )

@@ -1,4 +1,4 @@
-import { CalendarDayVariants } from './stylesheet/dayRecipe.css'
+import { CalendarDayVariants } from './stylesheet/recipes/dayRecipe.css'
 
 type CalendarDayNumberProps = {
   onClick?: (dayNumber: number) => void

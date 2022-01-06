@@ -1,1 +1,1 @@
-export * from './weekDayStyle.css'
+export * from './bodyWeekday.css'

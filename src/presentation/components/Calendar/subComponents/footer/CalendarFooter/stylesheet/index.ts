@@ -1,1 +1,1 @@
-export * from './footerStyle.css'
+export * from './calendarFooter.css'

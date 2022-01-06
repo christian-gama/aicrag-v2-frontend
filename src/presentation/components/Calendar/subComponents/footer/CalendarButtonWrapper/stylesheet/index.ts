@@ -1,1 +1,1 @@
-export * from './wrapperStyle.css'
+export * from './footerButtonWrapper.css'

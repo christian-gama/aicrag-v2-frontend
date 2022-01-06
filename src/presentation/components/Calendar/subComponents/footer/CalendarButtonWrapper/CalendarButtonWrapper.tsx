@@ -1,13 +1,13 @@
 import React from 'react'
 import Button from '@/presentation/components/UI/Button'
 import CalendarButtonWrapperProps from './CalendarButtonWrapper.model'
-import { wrapperStyle } from './stylesheet'
+import * as style from './stylesheet'
 
 const CalendarButtonWrapper: React.FC<CalendarButtonWrapperProps> = (props) => {
   const { onCancelHandler, onConfirmHandler } = props
 
   return (
-    <div className={wrapperStyle}>
+    <div className={style.footerButtonWrapper}>
       <Button testid="cancel-button" style={{ mode: 'outlined', size: 'sm', color: 'light' }} onClick={onCancelHandler}>
         Cancelar
       </Button>

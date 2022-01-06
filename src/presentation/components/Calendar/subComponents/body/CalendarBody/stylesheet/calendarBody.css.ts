@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css'
 
-export const bodyStyle = style({
+export const calendarBody = style({
   display: 'grid',
   gridAutoRows: '50px',
   gridTemplateColumns: 'repeat(7, 1fr)',

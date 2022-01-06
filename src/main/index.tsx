@@ -74,8 +74,6 @@ const Element: React.FC = () => {
             <Table.Th>Header 1</Table.Th>
             <Table.Th>Header 2</Table.Th>
             <Table.Th>Header 3</Table.Th>
-            <Table.Th>Header 4</Table.Th>
-            <Table.Th>Header 5</Table.Th>
           </Table.Tr>
         </Table.Thead>
 
@@ -85,17 +83,13 @@ const Element: React.FC = () => {
               <DateData primaryDate="Ago" secondaryDate="2021" />
             </Table.Td>
             <Table.Td>Data 2</Table.Td>
-            <Table.Td>Data 3</Table.Td>
-            <Table.Td>Data 4</Table.Td>
-            <Table.Td>Data 5</Table.Td>
           </Table.Tr>
 
           <Table.Tr>
-            <Table.Td>Data 1</Table.Td>
+            <Table.Td>
+              <DateData primaryDate="Dez" secondaryDate="2021" />
+            </Table.Td>
             <Table.Td>Data 2</Table.Td>
-            <Table.Td>Data 3</Table.Td>
-            <Table.Td>Data 4</Table.Td>
-            <Table.Td>Data 5</Table.Td>
           </Table.Tr>
         </Table.Tbody>
       </Table.Main>

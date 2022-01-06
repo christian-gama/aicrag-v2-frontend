@@ -1,1 +1,1 @@
-export * from './inputStyle.css'
+export * from './timerInput.css'

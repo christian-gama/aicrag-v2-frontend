@@ -1,3 +1,3 @@
-export * from './wrapperStyle.css'
-export * from './contentStyle.css'
-export * from './timerLabelStyle.css'
+export * from './timerWrapper.css'
+export * from './timerContent.css'
+export * from './timerLabel.css'

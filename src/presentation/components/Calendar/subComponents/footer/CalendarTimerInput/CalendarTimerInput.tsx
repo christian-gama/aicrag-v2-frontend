@@ -1,11 +1,11 @@
 import React from 'react'
 import CalendarTimerInputProps from './CalendarTimerInput.model'
-import { inputStyle } from './stylesheet'
+import * as style from './stylesheet'
 
 export const CalendarTimerInput: React.FC<CalendarTimerInputProps> = (props) => {
   return (
     <input
-      className={inputStyle}
+      className={style.timerInput}
       data-testid={`calendar-${props.name}`}
       id={`calendar-${props.name}`}
       name={`calendar-${props.name}`}

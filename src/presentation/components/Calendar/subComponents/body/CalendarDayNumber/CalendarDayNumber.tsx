@@ -1,19 +1,21 @@
 import React from 'react'
 import CalendarDayNumberProps from './CalendarDayNumber.model'
-import { dayRecipe } from './stylesheet'
+import { dayRecipe } from './stylesheet/recipes'
 
 const CalendarDayNumber: React.FC<CalendarDayNumberProps> = (props) => {
   const { dimmed, onClick, selected, testid, dayNumber } = props
 
-  const calendarDayStyle = dayRecipe({
-    selected: !!selected,
-    dimmed: !!dimmed
-  })
+  const style = {
+    bodyDay: dayRecipe({
+      selected: !!selected,
+      dimmed: !!dimmed
+    })
+  }
 
   return (
     <span
       data-testid={testid}
-      className={calendarDayStyle}
+      className={style.bodyDay}
       data-selected={selected}
       onClick={() => {
         if (onClick && !dimmed) {

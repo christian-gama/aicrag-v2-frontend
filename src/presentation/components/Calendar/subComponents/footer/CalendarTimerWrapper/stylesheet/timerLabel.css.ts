@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css'
 
-export const timerLabelStyle = style({
+export const timerLabel = style({
   ':hover': {
     cursor: 'pointer'
   }

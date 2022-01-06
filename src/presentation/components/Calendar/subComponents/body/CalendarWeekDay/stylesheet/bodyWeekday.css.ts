@@ -1,11 +1,11 @@
 import { style } from '@vanilla-extract/css'
 import { vars } from '@/application/common/stylesheet/vars.css'
 
-export const weekDayStyle = style({
-  fontSize: vars.font.hint.fontSize,
-  fontFamily: vars.font.hint.fontFamily,
-  display: 'flex',
-  justifyContent: 'center',
+export const bodyWeekday = style({
   alignItems: 'center',
+  display: 'flex',
+  fontFamily: vars.font.hint.fontFamily,
+  fontSize: vars.font.hint.fontSize,
+  justifyContent: 'center',
   marginBottom: '0.8rem'
 })
