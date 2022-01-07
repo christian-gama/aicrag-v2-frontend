@@ -5,19 +5,22 @@ import React from 'react'
 import IValidation from '@/domain/validation/validation.model'
 import FormProvider from '@/application/models/context/form/FormProvider'
 import ControlledInput from '..'
+import FormContainer from '../../FormContainer'
 import ControlledInputProps from '../ControlledInput.model'
 
 const makeSut = (props: ControlledInputProps & { validator?: IValidation }): void => {
   render(
-    <FormProvider submitHandler={jest.fn()} validator={props.validator}>
-      <ControlledInput
-        icon={props.icon}
-        name={props.name}
-        onBlur={props.onBlur}
-        onChange={props.onChange}
-        onFocus={props.onFocus}
-        type={props.type}
-      />
+    <FormProvider>
+      <FormContainer submitHandler={jest.fn()} validator={props.validator}>
+        <ControlledInput
+          icon={props.icon}
+          name={props.name}
+          onBlur={props.onBlur}
+          onChange={props.onChange}
+          onFocus={props.onFocus}
+          type={props.type}
+        />
+      </FormContainer>
     </FormProvider>
   )
 }

@@ -1,10 +1,8 @@
 import React, { useReducer } from 'react'
-import FormContainer from '@/presentation/containers/Form'
-import FormContainerProps from '@/presentation/containers/Form/FormContainer.model'
 import FormContext, { initialFormState } from './FormContext'
 import formReducer from './formReducer'
 
-const FormProvider: React.FC<FormContainerProps> = (props) => {
+const FormProvider: React.FC = (props) => {
   const [state, dispatch] = useReducer(formReducer, initialFormState)
 
   return (
@@ -14,9 +12,7 @@ const FormProvider: React.FC<FormContainerProps> = (props) => {
         dispatch
       }}
     >
-      <FormContainer submitHandler={props.submitHandler} validator={props.validator}>
-        {props.children}
-      </FormContainer>
+      {props.children}
     </FormContext.Provider>
   )
 }

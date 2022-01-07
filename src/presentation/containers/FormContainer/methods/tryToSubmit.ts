@@ -1,4 +1,5 @@
 import { FormActionPayload, FormInputActionPayload } from '@/application/models/context/form/protocols/form.model'
+import getErrorMessage from '@/application/utils/getErrorMessage'
 import FormContainerProps from '../FormContainer.model'
 
 type Params = {
@@ -14,7 +15,7 @@ const tryToSubmit = async (params: Params): Promise<void> => {
     await submitHandler()
     setIsPopoverOpen(false)
   } catch (error: any) {
-    dispatch({ type: 'FORM/SET_ERROR', payload: { error: error.message } })
+    dispatch({ type: 'FORM/SET_ERROR', payload: { error: getErrorMessage(error) } })
     dispatch({ type: 'FORM/SET_IS_VALID', payload: { isValid: false } })
     setIsPopoverOpen(true)
   }

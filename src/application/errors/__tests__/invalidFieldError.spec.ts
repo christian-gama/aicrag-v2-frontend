@@ -14,7 +14,7 @@ describe('InvalidInputError', () => {
   })
 
   it('should have a message', () => {
-    expect(new InvalidFieldError('field', 'reason').message).toBe('Field inválido: reason.')
+    expect(new InvalidFieldError('field', 'reason').message).toBe('Field inválido: reason')
   })
 
   it('should have a field', () => {
