@@ -1,0 +1,50 @@
+mutation UpdateTask(
+  $commentary: String
+  $date: DateString
+  $duration: Float
+  $id: UUID!
+  $status: TaskStatus
+  $taskId: String
+  $type: TaskType
+) {
+  updateTask(
+    param: { id: $id }
+    input: { commentary: $commentary, date: $date, duration: $duration, status: $status, taskId: $taskId, type: $type }
+  ) {
+    ... on UpdateTaskHasChanges {
+      task {
+        commentary
+        date {
+          day
+          full
+          hours
+          month
+          year
+        }
+        duration
+        id
+        logs {
+          createdAt
+          updatedAt
+        }
+        status
+        taskId
+        type
+        usd
+        user {
+          personal {
+            email
+            id
+            name
+          }
+          settings {
+            currency
+          }
+        }
+      }
+    }
+    ... on UpdateTaskNoChanges {
+      message
+    }
+  }
+}

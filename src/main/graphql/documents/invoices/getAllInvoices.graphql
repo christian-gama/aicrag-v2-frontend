@@ -1,0 +1,15 @@
+query GetAllInvoices($limit: String, $page: String, $sort: String, $type: GetAllInvoicesType!) {
+  getAllInvoices(query: { limit: $limit, page: $page, sort: $sort, type: $type }) {
+    count
+    displaying
+    page
+    documents {
+      date {
+        month
+        year
+      }
+      tasks
+      totalUsd
+    }
+  }
+}

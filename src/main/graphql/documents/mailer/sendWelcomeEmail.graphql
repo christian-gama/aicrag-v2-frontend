@@ -1,0 +1,5 @@
+mutation SendWelcomeEmail($email: EmailAddress!) {
+  sendWelcomeEmail(input: { email: $email }) {
+    message
+  }
+}

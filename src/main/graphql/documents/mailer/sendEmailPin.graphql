@@ -1,0 +1,5 @@
+mutation SendEmailPin($email: EmailAddress!) {
+  sendEmailPin(input: { email: $email }) {
+    message
+  }
+}

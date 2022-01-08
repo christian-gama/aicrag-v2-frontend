@@ -1,0 +1,5 @@
+mutation DeleteTask($id: UUID!) {
+  deleteTask(param: { id: $id }) {
+    message
+  }
+}

@@ -1,0 +1,43 @@
+mutation CreateTask(
+  $commentary: String
+  $date: DateString!
+  $duration: Float!
+  $status: TaskStatus!
+  $taskId: String
+  $type: TaskType!
+) {
+  createTask(
+    input: { commentary: $commentary, date: $date, duration: $duration, status: $status, taskId: $taskId, type: $type }
+  ) {
+    task {
+      commentary
+      date {
+        full
+        day
+        hours
+        month
+        year
+      }
+      duration
+      id
+      logs {
+        createdAt
+        updatedAt
+      }
+      status
+      taskId
+      type
+      usd
+      user {
+        personal {
+          name
+          email
+          id
+        }
+        settings {
+          currency
+        }
+      }
+    }
+  }
+}

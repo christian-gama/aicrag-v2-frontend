@@ -1,0 +1,57 @@
+mutation UpdateUser(
+  $accountStatus: String
+  $email: String
+  $handicap: Float
+  $name: String
+  $role: String
+  $tokenVersion: Int
+  $id: UUID!
+) {
+  updateUser(
+    input: {
+      accountStatus: $accountStatus
+      email: $email
+      handicap: $handicap
+      name: $name
+      role: $role
+      tokenVersion: $tokenVersion
+    },
+    param: {
+      id: $id
+    }
+  ) {
+    ... on UpdateUserHasChanges {
+      user {
+        logs {
+          createdAt
+          lastLoginAt
+          lastSeenAt
+          updatedAt
+        }
+        personal {
+          email
+          id
+          name
+        }
+        settings {
+          accountActivated
+          currency
+          handicap
+          role
+        }
+        temporary {
+          activationPin
+          activationPinExpiration
+          resetPasswordToken
+          tempEmail
+          tempEmailPin
+          tempEmailPinExpiration
+        }
+        tokenVersion
+      }
+    }
+    ... on UpdateUserNoChanges {
+      message
+    }
+  }
+}

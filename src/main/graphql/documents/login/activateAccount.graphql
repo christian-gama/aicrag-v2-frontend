@@ -1,0 +1,16 @@
+mutation ActivateAccount($activationPin: String!, $email: EmailAddress!) {
+  activateAccount(input: { email: $email, activationPin: $activationPin }) {
+    accessToken
+    refreshToken
+    user {
+      personal {
+        email
+        id
+        name
+      }
+      settings {
+        currency
+      }
+    }
+  }
+}

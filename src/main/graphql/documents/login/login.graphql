@@ -1,0 +1,22 @@
+mutation Login($email: EmailAddress!, $password: String!) {
+  login(input: { email: $email, password: $password }) {
+    ... on ActiveAccount {
+      accessToken
+      refreshToken
+      user {
+        personal {
+          email
+          id
+          name
+        }
+        settings {
+          currency
+        }
+      }
+    }
+    ... on InactiveAccount {
+      accessToken
+      message
+    }
+  }
+}

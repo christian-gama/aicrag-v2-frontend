@@ -1,0 +1,36 @@
+query FindAllUsers(
+  $email: String
+  $id: String
+  $limit: String
+  $name: String
+  $page: String
+  $role: String
+  $sort: String
+) {
+  findAllUsers(query: { email: $email, id: $id, limit: $limit, name: $name, page: $page, role: $role, sort: $sort }) {
+    count
+    displaying
+    documents {
+      logs {
+        createdAt
+        lastLoginAt
+        lastSeenAt
+        updatedAt
+      }
+      personal {
+        email
+        id
+        name
+        password
+      }
+      settings {
+        accountActivated
+        currency
+        handicap
+        role
+      }
+      tokenVersion
+    }
+    page
+  }
+}

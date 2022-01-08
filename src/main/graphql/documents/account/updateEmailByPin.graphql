@@ -1,0 +1,14 @@
+mutation UpdateEmailByPin($emailPin: String!) {
+  updateEmailByPin(input: { emailPin: $emailPin }) {
+    user {
+      personal {
+        email
+        id
+        name
+      }
+      settings {
+        currency
+      }
+    }
+  }
+}

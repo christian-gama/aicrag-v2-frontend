@@ -1,0 +1,474 @@
+directive @administrator on FIELD_DEFINITION
+
+directive @guest on FIELD_DEFINITION
+
+directive @moderator on FIELD_DEFINITION
+
+directive @partialProtected on FIELD_DEFINITION
+
+directive @protected on FIELD_DEFINITION
+
+directive @user on FIELD_DEFINITION
+
+type ActivateAccount {
+  accessToken: JWT!
+  refreshToken: JWT!
+  user: PublicUser!
+}
+
+input ActivateAccountInput {
+  activationPin: String!
+  email: EmailAddress!
+}
+
+type ActiveAccount {
+  accessToken: JWT!
+  refreshToken: JWT!
+  user: PublicUser!
+}
+
+type CreateTask {
+  task: Task!
+}
+
+input CreateTaskInput {
+  commentary: String
+  date: DateString!
+  duration: Float!
+  status: TaskStatus!
+  taskId: String
+  type: TaskType!
+}
+
+scalar DateString
+
+type DeleteTask {
+  message: String!
+}
+
+input DeleteTaskParam {
+  id: UUID!
+}
+
+type DeleteUser {
+  message: String!
+}
+
+input DeleteUserParam {
+  id: UUID!
+}
+
+type DetailedInvoice {
+  date: GetAllInvoicesDate!
+  tasks: Int!
+  totalUsd: Float!
+}
+
+scalar EmailAddress
+
+type FindAllTasks {
+  count: Int!
+  displaying: Int!
+  documents: [Task!]!
+  page: String!
+}
+
+input FindAllTasksQueries {
+  limit: String
+  page: String
+  sort: String
+}
+
+type FindAllUserTasks {
+  count: Int!
+  displaying: Int!
+  documents: [Task!]!
+  page: String!
+}
+
+input FindAllUserTasksParam {
+  userId: UUID!
+}
+
+input FindAllUserTasksQueries {
+  limit: String
+  page: String
+  sort: String
+}
+
+type FindAllUsers {
+  count: Int!
+  displaying: Int!
+  documents: [FullUser!]!
+  page: String!
+}
+
+input FindAllUsersQueries {
+  email: String
+  id: String
+  limit: String
+  name: String
+  page: String
+  role: String
+  sort: String
+}
+
+type FindOneTask {
+  task: Task!
+}
+
+input FindOneTaskParam {
+  id: UUID!
+}
+
+type ForgotPassword {
+  user: PublicUser!
+}
+
+input ForgotPasswordInput {
+  email: EmailAddress!
+}
+
+type FullUser {
+  logs: UserLogs!
+  personal: UserPersonal!
+  settings: UserSettings!
+  temporary: UserTemporary!
+  tokenVersion: Int!
+}
+
+type GetAllInvoices {
+  count: Int!
+  displaying: Int!
+  documents: [DetailedInvoice!]!
+  page: String!
+}
+
+type GetAllInvoicesDate {
+  month: Int!
+  year: Int!
+}
+
+input GetAllInvoicesQueries {
+  limit: String
+  page: String
+  sort: String
+  type: GetAllInvoicesType!
+}
+
+enum GetAllInvoicesType {
+  QA
+  TX
+  both
+}
+
+type GetInvoiceByMonth {
+  count: Int!
+  displaying: Int!
+  documents: [Task!]!
+  page: String!
+}
+
+enum GetInvoiceByMonthOperator {
+  eq
+  gte
+  lte
+}
+
+enum GetInvoiceByMonthPeriod {
+  past_3_days
+  past_7_days
+  past_15_days
+  today
+}
+
+input GetInvoiceByMonthQueries {
+  duration: Int
+  limit: String
+  month: String!
+  operator: GetInvoiceByMonthOperator
+  page: String
+  period: GetInvoiceByMonthPeriod
+  sort: String
+  taskId: String
+  type: GetInvoiceByMonthType!
+  year: String!
+}
+
+enum GetInvoiceByMonthType {
+  QA
+  TX
+  both
+}
+
+type InactiveAccount {
+  accessToken: JWT!
+  message: String!
+}
+
+scalar JWT
+
+union Login = ActiveAccount | InactiveAccount
+
+input LoginInput {
+  email: EmailAddress!
+  password: String!
+}
+
+type Logout {
+  message: String!
+}
+
+type Mutation {
+  activateAccount(input: ActivateAccountInput!): ActivateAccount
+  createTask(input: CreateTaskInput!): CreateTask!
+  deleteTask(param: FindOneTaskParam!): DeleteTask!
+  deleteUser(param: DeleteUserParam!): DeleteUser!
+  empty: String
+  forgotPassword(input: ForgotPasswordInput!): ForgotPassword!
+  login(input: LoginInput!): Login
+  logout: Logout!
+  resetPassword(input: ResetPasswordInput!): ResetPassword!
+  sendEmailPin(input: SendEmailPinInput!): SendEmailPin!
+  sendRecoverPasswordEmail(input: SendRecoverPasswordEmailInput!): SendRecoverPasswordEmail!
+  sendWelcomeEmail(input: SendWelcomeEmailInput!): SendWelcomeEmail!
+  signUp(input: SignUpInput!): SignUp!
+  updateEmailByPin(input: UpdateEmailByCodeInput!): UpdateEmailByCode!
+  updateMe(input: UpdateMeInput!): UpdateMe!
+  updatePassword(input: UpdatePasswordInput!): UpdatePassword!
+  updateTask(input: UpdateTaskInput!, param: UpdateTaskParam!): UpdateTask!
+  updateUser(input: UpdateUserInput!, param: UpdateUserParam!): UpdateUser!
+  updateUserTask(input: UpdateTaskInput!, param: UpdateTaskParam!): UpdateTask!
+}
+
+type PublicUser {
+  personal: PublicUserPersonal!
+  settings: PublicUserSettings!
+}
+
+type PublicUserPersonal {
+  email: EmailAddress!
+  id: UUID!
+  name: String!
+}
+
+type PublicUserSettings {
+  currency: UserCurrency!
+}
+
+type Query {
+  empty: String
+  findAllTasks(query: FindAllTasksQueries!): FindAllTasks!
+  findAllUserTasks(param: FindAllUserTasksParam!, query: FindAllUserTasksQueries!): FindAllUserTasks!
+  findAllUsers(query: FindAllUsersQueries!): FindAllUsers!
+  findOneTask(param: FindOneTaskParam!): FindOneTask!
+  getAllInvoices(query: GetAllInvoicesQueries!): GetAllInvoices!
+  getInvoiceByMonth(query: GetInvoiceByMonthQueries!): GetInvoiceByMonth!
+  verifyResetPasswordToken(param: VerifyResetPasswordTokenInput!): VerifyResetPasswordToken!
+}
+
+type ResetPassword {
+  refreshToken: JWT!
+  user: PublicUser!
+}
+
+input ResetPasswordInput {
+  password: String!
+  passwordConfirmation: String!
+}
+
+type SendEmailPin {
+  message: String!
+}
+
+input SendEmailPinInput {
+  email: EmailAddress!
+}
+
+type SendRecoverPasswordEmail {
+  message: String!
+}
+
+input SendRecoverPasswordEmailInput {
+  email: EmailAddress!
+}
+
+type SendWelcomeEmail {
+  message: String!
+}
+
+input SendWelcomeEmailInput {
+  email: EmailAddress!
+}
+
+type SignUp {
+  user: PublicUser!
+}
+
+input SignUpInput {
+  email: EmailAddress!
+  name: String!
+  password: String!
+  passwordConfirmation: String!
+}
+
+type Task {
+  commentary: String!
+  date: TaskDate!
+  duration: Float!
+  id: UUID!
+  logs: TaskLogs!
+  status: TaskStatus!
+  taskId: String!
+  type: String!
+  usd: Float!
+  user: PublicUser!
+}
+
+type TaskDate {
+  day: Int!
+  full: DateString!
+  hours: String!
+  month: Int!
+  year: Int!
+}
+
+type TaskLogs {
+  createdAt: DateString!
+  updatedAt: DateString
+}
+
+enum TaskStatus {
+  completed
+  in_progress
+}
+
+enum TaskType {
+  QA
+  TX
+}
+
+scalar UUID
+
+type UpdateEmailByCode {
+  user: PublicUser!
+}
+
+input UpdateEmailByCodeInput {
+  emailPin: String!
+}
+
+union UpdateMe = UpdateMeHasChanges | UpdateMeNoChanges
+
+type UpdateMeHasChanges {
+  user: PublicUser!
+}
+
+input UpdateMeInput {
+  currency: UserCurrency
+  email: EmailAddress
+  name: String
+}
+
+type UpdateMeNoChanges {
+  message: String!
+}
+
+type UpdatePassword {
+  user: PublicUser!
+}
+
+input UpdatePasswordInput {
+  currentPassword: String!
+  password: String!
+  passwordConfirmation: String!
+}
+
+union UpdateTask = UpdateTaskHasChanges | UpdateTaskNoChanges
+
+type UpdateTaskHasChanges {
+  task: Task!
+}
+
+input UpdateTaskInput {
+  commentary: String
+  date: DateString
+  duration: Float
+  status: TaskStatus
+  taskId: String
+  type: TaskType
+}
+
+type UpdateTaskNoChanges {
+  message: String!
+}
+
+input UpdateTaskParam {
+  id: UUID!
+}
+
+union UpdateUser = UpdateUserHasChanges | UpdateUserNoChanges
+
+type UpdateUserHasChanges {
+  user: FullUser!
+}
+
+input UpdateUserInput {
+  accountStatus: String
+  email: String
+  handicap: Float
+  name: String
+  role: String
+  tokenVersion: Int
+}
+
+type UpdateUserNoChanges {
+  message: String!
+}
+
+input UpdateUserParam {
+  id: UUID!
+}
+
+enum UserCurrency {
+  BRL
+  USD
+}
+
+type UserLogs {
+  createdAt: DateString!
+  lastLoginAt: DateString
+  lastSeenAt: DateString
+  updatedAt: DateString
+}
+
+type UserPersonal {
+  email: EmailAddress!
+  id: UUID!
+  name: String!
+  password: String!
+}
+
+type UserSettings {
+  accountActivated: Boolean!
+  currency: UserCurrency!
+  handicap: Int!
+  role: Int!
+}
+
+type UserTemporary {
+  activationPin: String
+  activationPinExpiration: DateString
+  resetPasswordToken: String
+  tempEmail: String
+  tempEmailPin: String
+  tempEmailPinExpiration: DateString
+}
+
+type VerifyResetPasswordToken {
+  accessToken: JWT!
+}
+
+input VerifyResetPasswordTokenInput {
+  token: JWT!
+}

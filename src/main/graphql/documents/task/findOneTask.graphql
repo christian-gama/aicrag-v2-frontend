@@ -1,0 +1,34 @@
+query FindOneTask($id: UUID!) {
+  findOneTask(param: { id: $id }) {
+    task {
+      commentary
+      date {
+        day
+        full
+        hours
+        month
+        year
+      }
+      duration
+      id
+      logs {
+        createdAt
+        updatedAt
+      }
+      status
+      taskId
+      type
+      usd
+      user {
+        personal {
+          email
+          id
+          name
+        }
+        settings {
+          currency
+        }
+      }
+    }
+  }
+}

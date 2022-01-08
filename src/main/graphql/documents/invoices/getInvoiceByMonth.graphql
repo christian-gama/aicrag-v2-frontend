@@ -1,0 +1,61 @@
+query GetInvoiceByMonth(
+  $duration: Int
+  $limit: String
+  $month: String!
+  $operator: GetInvoiceByMonthOperator
+  $page: String
+  $period: GetInvoiceByMonthPeriod
+  $sort: String
+  $taskId: String
+  $type: GetInvoiceByMonthType!
+  $year: String!
+) {
+  getInvoiceByMonth(
+    query: {
+      duration: $duration
+      limit: $limit
+      month: $month
+      operator: $operator
+      page: $page
+      period: $period
+      sort: $sort
+      taskId: $taskId
+      type: $type
+      year: $year
+    }
+  ) {
+    count
+    displaying
+    documents {
+      commentary
+      date {
+        day
+        full
+        hours
+        month
+        year
+      }
+      duration
+      id
+      logs {
+        createdAt
+        updatedAt
+      }
+      status
+      taskId
+      type
+      usd
+      user {
+        personal {
+          email
+          id
+          name
+        }
+        settings {
+          currency
+        }
+      }
+    }
+    page
+  }
+}

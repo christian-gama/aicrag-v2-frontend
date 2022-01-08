@@ -1,0 +1,5 @@
+mutation DeleteUser($id: UUID!) {
+  deleteUser(param: { id: $id }) {
+    message
+  }
+}
