@@ -3,13 +3,13 @@ import calendarStoreMock from '@/../tests/mocks/calendarStore.mock'
 import { cleanup, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import CalendarTimerWrapperContainer from '..'
+import CalendarTimer from '..'
 
 const makeSut = (): void => {
-  render(<CalendarTimerWrapperContainer />, { ...calendarStoreMock })
+  render(<CalendarTimer />, { ...calendarStoreMock })
 }
 
-describe('CalendarTime', () => {
+describe('CalendarTimer', () => {
   afterAll(() => {
     cleanup()
   })

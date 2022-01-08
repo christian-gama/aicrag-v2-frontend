@@ -3,7 +3,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { calendarActions } from '@/application/models/redux/calendar'
 import { RootState, AppDispatch } from '@/application/store'
-import CalendarDayNumber from '@/presentation/components/Calendar/subComponents/CalendarDayNumber'
+import CalendarDayNumber from '../CalendarDayNumber'
 import isDaySelected from './methods/isDaySelected'
 import pickDateHandler from './methods/pickDateHandler'
 import shouldDayBeDimmed from './methods/shouldDayBeDimmed'
@@ -31,11 +31,11 @@ const CalendarDaysContainer: React.FC = () => {
 
       daysFromCalendar.push(
         <CalendarDayNumber
+          dayNumber={date.day}
           key={date.toISO()}
           onClick={() => pickDateHandler({ calendarDate, day: date.day, dispatch, setSelectedDate })}
           selected={isDaySelected(date, selectedDate)}
           testid={`day-${date.toISODate()}`}
-          dayNumber={date.day}
         />
       )
     }

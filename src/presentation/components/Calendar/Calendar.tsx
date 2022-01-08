@@ -1,15 +1,39 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { calendarActions } from '@/application/models/redux/calendar'
+import { AppDispatch, RootState } from '@/application/store'
 import Modal from '../UI/Modal/Modal'
 import CalendarProps from './Calendar.model'
 import * as style from './stylesheet'
+import CalendarBody from './subComponents/CalendarBody'
+import CalendarFooter from './subComponents/CalendarFooter'
+import CalendarHeader from './subComponents/CalendarHeader'
 
 const Calendar: React.FC<CalendarProps> = (props) => {
-  const { onDismiss, isCalendarOpen, children } = props
+  const { resetCalendar, closeCalendar } = calendarActions
+  const { previousDate } = props
+
+  const dispatch = useDispatch<AppDispatch>()
+  const isCalendarOpen = useSelector<RootState, boolean>((state) => state.calendar.isCalendarOpen)
+
+  useEffect(() => {
+    dispatch(resetCalendar(previousDate))
+  }, [])
 
   return (
-    <Modal onDismiss={onDismiss} isOpen={isCalendarOpen}>
+    <Modal
+      onDismiss={() => {
+        dispatch(resetCalendar(previousDate))
+        dispatch(closeCalendar())
+      }}
+      isOpen={isCalendarOpen}
+    >
       <div className={style.calendar} data-testid="calendar-wrapper">
-        {children}
+        <CalendarHeader />
+
+        <CalendarBody />
+
+        <CalendarFooter />
       </div>
     </Modal>
   )

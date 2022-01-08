@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import React from 'react'
-import CalendarWeekDayContainer from '..'
+import CalendarWeekday from '..'
 
 const makeSut = (): void => {
-  render(<CalendarWeekDayContainer />)
+  render(<CalendarWeekday />)
 }
 
-describe('CalendarWeekDay', () => {
+describe('CalendarWeekday', () => {
   it('should render all the week days (short)', () => {
     makeSut()
 
