@@ -25,7 +25,7 @@ describe('Card', () => {
 
     const card = screen.queryByTestId('card')
 
-    expect(card).toHaveStyle('margin-right: auto; margin-left: auto;')
+    expect(card).toHaveStyle('position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);')
   })
 
   it('should not be centered if centered prop is false', () => {
