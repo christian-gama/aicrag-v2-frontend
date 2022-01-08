@@ -42,9 +42,6 @@ bower_components
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
-build
-
-generated
 
 # Dependency directories
 node_modules/
@@ -183,4 +180,5 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,node,windows
 
-public/js
+build
+generated
