@@ -4,7 +4,7 @@ import React from 'react'
 import IValidation from '@/domain/validation/validation.model'
 import FormProvider from '@/application/models/context/form/FormProvider'
 import ControlledInput from '../../ControlledInput'
-import FormContainer from '..'
+import BaseForm from '..'
 
 type sutConfig = {
   children?:
@@ -23,12 +23,12 @@ type sutConfig = {
 const makeSut = (config: sutConfig) => {
   render(
     <FormProvider>
-      <FormContainer
+      <BaseForm
         submitHandler={config.submitHandler ?? jest.fn()}
         validator={config.validator ?? ({ validate: jest.fn() } as any)}
       >
         {config.children}
-      </FormContainer>
+      </BaseForm>
     </FormProvider>
   )
 }

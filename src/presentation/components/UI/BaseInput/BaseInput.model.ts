@@ -1,7 +1,7 @@
 import IValidation from '@/domain/validation/validation.model'
 import Maybe from '@/application/utils/typescript/maybe.model'
 
-type InputProps = {
+type BaseInputProps = {
   error: Maybe<Error['message']>
   isFocused: boolean
   isTouched: boolean
@@ -12,4 +12,4 @@ type InputProps = {
   icon?: () => React.ReactNode
 } & React.InputHTMLAttributes<HTMLInputElement>
 
-export default InputProps
+export default BaseInputProps

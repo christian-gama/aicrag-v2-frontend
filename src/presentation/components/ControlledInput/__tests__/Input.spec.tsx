@@ -5,15 +5,15 @@ import React from 'react'
 import IValidation from '@/domain/validation/validation.model'
 import FormProvider from '@/application/models/context/form/FormProvider'
 import ControlledInput from '..'
-import FormContainer from '../../FormContainer'
+import BaseForm from '../../BaseForm'
 import ControlledInputProps from '../ControlledInput.model'
 
 const makeSut = (props: ControlledInputProps & { validator?: IValidation }): void => {
   render(
     <FormProvider>
-      <FormContainer submitHandler={jest.fn()} validator={props.validator}>
+      <BaseForm submitHandler={jest.fn()} validator={props.validator}>
         <ControlledInput {...props} icon={props.icon} label={props.label} />
-      </FormContainer>
+      </BaseForm>
     </FormProvider>
   )
 }

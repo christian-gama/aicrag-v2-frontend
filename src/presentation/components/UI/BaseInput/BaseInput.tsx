@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import InputProps from './Input.model'
+import BaseInputProps from './BaseInput.model'
 import * as style from './stylesheet'
 import { inputRecipe, labelRecipe, LabelRecipeVariants } from './stylesheet/recipes'
 
-const Input: React.FC<InputProps> = (props) => {
+const BaseInput: React.FC<BaseInputProps> = (props) => {
   const { error, icon, isFocused, isTouched, isValid, label, name, type, validator, value, ...rest } = props
 
   // Avoid the autofill of the input by the browser
@@ -78,4 +78,4 @@ const Input: React.FC<InputProps> = (props) => {
   )
 }
 
-export default Input
+export default BaseInput
