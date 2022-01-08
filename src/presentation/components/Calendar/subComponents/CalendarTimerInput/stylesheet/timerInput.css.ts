@@ -7,7 +7,7 @@ export const timerInput = style({
   border: `1px solid ${vars.colors['cyan-600']}`,
   borderRadius: '5px',
   display: 'flex',
-  height: '100%',
+  height: '4rem',
   justifyContent: 'center',
   textAlign: 'center',
   transition: 'transform 0.1s linear, border 0.1s linear',

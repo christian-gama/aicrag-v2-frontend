@@ -1,5 +1,6 @@
 import { style } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
+import { breakpoints } from '@/application/common/breakpoints.css'
 import { fromBottom, fromLeft, fromRight, fromTop } from './keyframes'
 
 const backdropStyle = style({
@@ -25,7 +26,18 @@ const modalRecipe = recipe({
     animationTimingFunction: 'ease',
     position: 'absolute',
     transform: 'translate(-50%, -50%)',
-    zIndex: '11'
+    zIndex: '11',
+
+    '@media': {
+      [breakpoints.mobile]: {
+        animation: 'none',
+        bottom: '0%',
+        left: '0%',
+        right: '0%',
+        top: '0%',
+        transform: 'translate(0%, 0%)'
+      }
+    }
   },
 
   variants: {
@@ -35,16 +47,19 @@ const modalRecipe = recipe({
         left: '50%',
         top: '-50%'
       },
+
       right: {
         animationName: fromRight,
         right: '-50%',
         top: '50%'
       },
+
       bottom: {
         animationName: fromBottom,
         bottom: '-50%',
         left: '50%'
       },
+
       left: {
         animationName: fromLeft,
         left: '-50%',

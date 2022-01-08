@@ -1,4 +1,5 @@
 import React from 'react'
+import HorizontalScrollBar from '../UI/HorizontalScrollBar'
 import * as style from './stylesheet'
 import TableProps from './Table.model'
 
@@ -11,9 +12,12 @@ const Table: React.FC<TableProps> = (props) => {
           data-testid="table-showing-up"
         >{`Mostrando ${props.showingUp?.current} de ${props.showingUp.total}`}</span>
       )}
-      <table className={style.tableStyle} data-testid="table">
-        {props.children}
-      </table>
+
+      <HorizontalScrollBar>
+        <table className={style.tableStyle} data-testid="table">
+          {props.children}
+        </table>
+      </HorizontalScrollBar>
     </>
   )
 }

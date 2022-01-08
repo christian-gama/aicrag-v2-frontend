@@ -52,7 +52,7 @@ const Alert: React.FC<AlertProps> = (props) => {
 
   return (
     <Modal isOpen={isOpen} onDismiss={props.onCancel}>
-      <Card centered>
+      <Card>
         <div className={style.alert} data-testid="alert">
           <div className={alertHeaderStyle} data-testid="alert-header">
             <InfoCircleIcon color={getIconColor()} />

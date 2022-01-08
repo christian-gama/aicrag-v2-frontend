@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css'
+import { breakpoints } from '@/application/common/breakpoints.css'
 import { vars } from '@/application/common/stylesheet/vars.css'
 
 export const calendar = style({
@@ -6,7 +7,12 @@ export const calendar = style({
   flexDirection: 'column',
   alignItems: 'center',
   width: '52rem',
-  height: '100%',
   backgroundColor: vars.colors.white,
-  borderRadius: '5px'
+  borderRadius: '5px',
+
+  '@media': {
+    [breakpoints.mobile]: {
+      width: '100vw'
+    }
+  }
 })

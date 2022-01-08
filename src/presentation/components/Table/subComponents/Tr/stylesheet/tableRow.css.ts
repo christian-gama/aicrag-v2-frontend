@@ -1,5 +1,6 @@
 import { createGlobalTheme, style } from '@vanilla-extract/css'
 import { calc } from '@vanilla-extract/css-utils'
+import { breakpoints } from '@/application/common/breakpoints.css'
 import { vars } from '@/application/common/stylesheet/vars.css'
 
 const roundness = '5px'
@@ -35,6 +36,18 @@ export const tableRow = style({
     'thead > &': {
       backgroundColor: vars.colors['navy-500'],
       color: vars.colors.white
+    }
+  },
+
+  '@media': {
+    [breakpoints.mobile]: {
+      gridTemplateColumns: 'repeat(auto-fill, minmax(14%, 1fr))',
+      padding: '0 2.4rem',
+      gap: '1.6rem',
+      height: '6.6rem',
+      marginTop: '1rem',
+      maxHeight: '6.6rem',
+      minHeight: '6.6rem'
     }
   }
 })
