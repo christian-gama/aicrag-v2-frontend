@@ -27,7 +27,6 @@ export const setInputIsTouched = (state: FormStates, action: FormInputActionPayl
 }
 
 export const setInputIsFocused = (state: FormStates, action: FormInputActionPayload): FormStates => {
-  console.log(action.payload.isFocused)
   return {
     ...state,
     input: {
