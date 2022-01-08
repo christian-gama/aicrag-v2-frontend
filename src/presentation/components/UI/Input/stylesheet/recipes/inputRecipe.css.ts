@@ -19,6 +19,10 @@ export const inputRecipe = recipe({
     selectors: {
       '&:focus': {
         outline: 'none'
+      },
+
+      '&:autofill': {
+        background: vars.colors.white
       }
     }
   },

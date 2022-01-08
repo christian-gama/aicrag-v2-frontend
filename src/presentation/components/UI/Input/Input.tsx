@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import InputProps from './Input.model'
 import * as style from './stylesheet'
 import { inputRecipe, labelRecipe, LabelRecipeVariants } from './stylesheet/recipes'
 
 const Input: React.FC<InputProps> = (props) => {
-  const { name, onBlur, onChange, onFocus, type, value, icon, isValid, isTouched, validator, error, isFocused } = props
+  const { error, icon, isFocused, isTouched, isValid, label, name, type, validator, value, ...rest } = props
+
+  // Avoid the autofill of the input by the browser
+  const [readonly, setReadonly] = useState(true)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setReadonly(false)
+    }, 50)
+
+    return () => clearTimeout(timer)
+  }, [])
 
   const getState = (): LabelRecipeVariants['state'] => {
     if (validator) {
@@ -35,19 +45,18 @@ const Input: React.FC<InputProps> = (props) => {
   return (
     <div className={style.input} data-testid={`${name}-container`}>
       <div className={style.inputContent}>
-        <label data-testid={`${name}-label`} htmlFor={uniqueId} className={labelStyle}>
-          {name}
+        <label data-testid={`${label}-label`} htmlFor={uniqueId} className={labelStyle}>
+          {label}
         </label>
 
         <div className={style.inputBox}>
           <input
+            {...rest}
             className={inputStyle}
             data-testid={`${name}-input`}
             id={uniqueId}
             name={name}
-            onBlur={onBlur}
-            onChange={onChange}
-            onFocus={onFocus}
+            readOnly={readonly}
             type={type}
             value={value}
           />

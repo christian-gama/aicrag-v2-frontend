@@ -1,11 +1,14 @@
+import Optional from '@/application/utils/typescript/optional.model'
+
 type ControlledInputProps = {
+  autoFocus?: boolean
   icon?: React.ReactElement
   name: string
-  type?: 'text' | 'email' | 'password' | 'number'
+  label: string
   defaultValue?: string
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
-  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void
-}
+} & Pick<
+React.InputHTMLAttributes<HTMLInputElement>,
+Optional<'autoFocus' | 'onBlur' | 'onChange' | 'onFocus' | 'defaultValue' | 'type'>
+>
 
 export default ControlledInputProps

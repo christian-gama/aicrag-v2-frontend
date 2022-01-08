@@ -13,35 +13,41 @@ import onFocusHandler from './methods/onFocusHandler'
 const ControlledInput: React.FC<Omit<ControlledInputProps, 'uniqueFormName' | 'validation'>> = (
   props: ControlledInputProps
 ) => {
-  const { icon, name, type } = props
+  const { icon, name, type, autoFocus, label, defaultValue } = props
 
   const { dispatch, state } = useContext(FormContext)
 
-  const { data, validator } = state.form
+  const { data, validator, isResetting } = state.form
   const { isTouched, currentType, error, isFocused, isValid, value } = state.input
+
+  console.log(state)
 
   useEffect(() => {
     dispatch({ type: 'INPUT/SET_CURRENT_TYPE', payload: { currentType: { [name]: type ?? 'text' } } })
-    dispatch({ type: 'INPUT/SET_IS_TOUCHED', payload: { isTouched: { [name]: false } } })
     dispatch({ type: 'INPUT/SET_ERROR', payload: { error: { [name]: undefined } } })
-    dispatch({ type: 'INPUT/SET_IS_FOCUSED', payload: { isFocused: { [name]: false } } })
+    dispatch({ type: 'INPUT/SET_IS_FOCUSED', payload: { isFocused: { [name]: !!autoFocus } } })
+    dispatch({ type: 'INPUT/SET_IS_TOUCHED', payload: { isTouched: { [name]: false } } })
     dispatch({ type: 'INPUT/SET_IS_VALID', payload: { isValid: { [name]: false } } })
-    dispatch({ type: 'INPUT/SET_VALUE', payload: { value: { [name]: '' } } })
-  }, [])
+    dispatch({ type: 'INPUT/SET_VALUE', payload: { value: { [name]: defaultValue ?? '' } } })
+    console.log('entrei no useEffect do input')
+  }, [isResetting])
 
   useEffect(() => {
     dispatch({ type: 'FORM/SET_FORM_DATA', payload: { data: { [name]: value } } })
-  }, [])
+  }, [isResetting])
 
-  const showPasswordHandler = (): void =>
+  const showPasswordHandler = (): void => {
     currentType[name] === 'password'
       ? dispatch({ type: 'INPUT/SET_CURRENT_TYPE', payload: { currentType: { [name]: 'text' } } })
       : dispatch({ type: 'INPUT/SET_CURRENT_TYPE', payload: { currentType: { [name]: 'password' } } })
+  }
 
   const shouldRenderIcon = type === 'password' || icon
 
   return (
     <Input
+      label={label}
+      autoFocus={autoFocus}
       name={name}
       error={error[name]}
       isFocused={isFocused[name]}

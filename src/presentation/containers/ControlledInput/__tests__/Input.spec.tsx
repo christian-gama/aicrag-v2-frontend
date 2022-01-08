@@ -12,14 +12,7 @@ const makeSut = (props: ControlledInputProps & { validator?: IValidation }): voi
   render(
     <FormProvider>
       <FormContainer submitHandler={jest.fn()} validator={props.validator}>
-        <ControlledInput
-          icon={props.icon}
-          name={props.name}
-          onBlur={props.onBlur}
-          onChange={props.onChange}
-          onFocus={props.onFocus}
-          type={props.type}
-        />
+        <ControlledInput {...props} icon={props.icon} label={props.label} />
       </FormContainer>
     </FormProvider>
   )
@@ -34,7 +27,7 @@ describe('Input', () => {
     it('should display an icon if provided', () => {
       const icon = <div>Icon</div>
 
-      makeSut({ name: 'input', icon })
+      makeSut({ name: 'input', icon, label: 'Input' })
 
       const iconElement = screen.getByTestId('input-icon')
 
@@ -42,7 +35,7 @@ describe('Input', () => {
     })
 
     it('should hide password if click on eyeClosedIcon', () => {
-      makeSut({ name: 'input', type: 'password' })
+      makeSut({ name: 'input', type: 'password', label: 'Input' })
 
       const eyeOpenIcon = screen.getByTestId('eyeOpenIcon')
       fireEvent.click(eyeOpenIcon)
@@ -56,13 +49,13 @@ describe('Input', () => {
     })
 
     it('should not display an icon if not provided', () => {
-      makeSut({ name: 'input' })
+      makeSut({ name: 'input', label: 'Input' })
 
       expect(screen.queryByTestId('input-icon')).toBeNull()
     })
 
     it('should display an EyeIcon component if input type is password', () => {
-      makeSut({ name: 'input', type: 'password' })
+      makeSut({ name: 'input', type: 'password', label: 'Input' })
 
       const iconElement = screen.getByTestId('eyeOpenIcon')
 
@@ -70,7 +63,7 @@ describe('Input', () => {
     })
 
     it('should change input type from password to text if click on EyeIcon', () => {
-      makeSut({ name: 'input', type: 'password' })
+      makeSut({ name: 'input', type: 'password', label: 'Input' })
 
       const iconElement = screen.getByTestId('eyeOpenIcon')
       fireEvent.click(iconElement)
@@ -86,10 +79,10 @@ describe('Input', () => {
       const validator = makeValidationMock(true)
       const validatorSpy = jest.spyOn(validator, 'validate')
 
-      makeSut({ name: 'input', validator })
+      makeSut({ name: 'input', validator, label: 'Input' })
 
       const input = screen.getByTestId('input-input')
-      userEvent.type(input, 'any_value')
+      fireEvent.change(input, { target: { value: 'any_value' } })
 
       expect(validatorSpy).toHaveBeenLastCalledWith('input', { input: 'any_value' })
     })
@@ -97,7 +90,7 @@ describe('Input', () => {
     it('should clear any error message onBlur if validator succeeds', () => {
       const validator = makeValidationMock(true)
 
-      makeSut({ name: 'input', validator })
+      makeSut({ name: 'input', validator, label: 'Input' })
 
       const input = screen.getByTestId('input-input')
       fireEvent.blur(input)
@@ -110,7 +103,7 @@ describe('Input', () => {
     it('should display an error message if validator fails', () => {
       const validator = makeValidationMock(false)
 
-      makeSut({ name: 'input', validator })
+      makeSut({ name: 'input', validator, label: 'Input' })
 
       const input = screen.getByTestId('input-input')
       fireEvent.blur(input)
@@ -123,7 +116,7 @@ describe('Input', () => {
     it('should not display an error if validator succeds', () => {
       const validator = makeValidationMock(true)
 
-      makeSut({ name: 'input', validator })
+      makeSut({ name: 'input', validator, label: 'Input' })
 
       const input = screen.getByTestId('input-input')
       fireEvent.blur(input)
@@ -134,7 +127,7 @@ describe('Input', () => {
     it('should not display an error if the input was not touched', () => {
       const validator = makeValidationMock(true)
 
-      makeSut({ name: 'input', validator })
+      makeSut({ name: 'input', validator, label: 'Input' })
 
       expect(screen.queryByTestId('input-error')).toBeNull()
     })
@@ -142,7 +135,7 @@ describe('Input', () => {
     it('should remove any error message if input is valid', () => {
       const validator = makeValidationMock(true)
 
-      makeSut({ name: 'input', validator })
+      makeSut({ name: 'input', validator, label: 'Input' })
 
       const input = screen.getByTestId('input-input')
       fireEvent.blur(input)
@@ -154,7 +147,7 @@ describe('Input', () => {
       const validator = makeValidationMock(true)
       const validatorSpy = jest.spyOn(validator, 'validate')
 
-      makeSut({ name: 'input', validator })
+      makeSut({ name: 'input', validator, label: 'Input' })
 
       const input = screen.getByTestId('input-input')
       fireEvent.focus(input)
@@ -165,7 +158,7 @@ describe('Input', () => {
     it('should not render an error message onChange if the input was not touched', () => {
       const validator = makeValidationMock(false)
 
-      makeSut({ name: 'input', validator })
+      makeSut({ name: 'input', validator, label: 'Input' })
 
       const input = screen.getByTestId('input-input')
       userEvent.type(input, 'any_value')
@@ -179,7 +172,7 @@ describe('Input', () => {
     it('should render an error message onChange if the input was touched and validator fails', () => {
       const validator = makeValidationMock(false)
 
-      makeSut({ name: 'input', validator })
+      makeSut({ name: 'input', validator, label: 'Input' })
 
       const input = screen.getByTestId('input-input')
       fireEvent.blur(input)
@@ -193,7 +186,7 @@ describe('Input', () => {
     it('should call onBlur if passed through props', () => {
       const onBlur = jest.fn()
 
-      makeSut({ name: 'input', onBlur })
+      makeSut({ name: 'input', onBlur, label: 'Input' })
 
       const input = screen.getByTestId('input-input')
       fireEvent.blur(input)
@@ -204,7 +197,7 @@ describe('Input', () => {
     it('should call onChange if passed through props', () => {
       const onChange = jest.fn()
 
-      makeSut({ name: 'input', onChange })
+      makeSut({ name: 'input', onChange, label: 'Input' })
 
       const input = screen.getByTestId('input-input')
       fireEvent.change(input, { target: { value: 'any_value' } })
@@ -215,7 +208,7 @@ describe('Input', () => {
     it('should call onFocus if passed through props', () => {
       const onFocus = jest.fn()
 
-      makeSut({ name: 'input', onFocus })
+      makeSut({ name: 'input', onFocus, label: 'Input' })
 
       const input = screen.getByTestId('input-input')
       fireEvent.focus(input)

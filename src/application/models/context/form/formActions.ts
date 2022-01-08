@@ -10,7 +10,17 @@ export const setFormValidator = (state: FormStates, action: FormActionPayload) =
   }
 }
 
-export const resetForm = (state: FormStates): FormStates => {
+export const setIsResetting = (state: FormStates, action: FormActionPayload) => {
+  return {
+    ...state,
+    form: {
+      ...state.form,
+      isResetting: action.payload.isResetting!
+    }
+  }
+}
+
+export const resetForm = (): FormStates => {
   return {
     form: {
       isResetting: true,

@@ -1,3 +1,4 @@
+import React from 'react'
 import IValidation from '@/domain/validation/validation.model'
 import Maybe from '@/application/utils/typescript/maybe.model'
 
@@ -18,7 +19,7 @@ export type FormStates = {
     data: Object<any>
   }
   input: {
-    currentType: Object<'text' | 'email' | 'password' | 'number'>
+    currentType: Object<React.InputHTMLAttributes<HTMLInputElement>['type']>
     error: Object<Maybe<string>>
     isFocused: Object<boolean>
     isTouched: Object<boolean>
@@ -58,6 +59,7 @@ export type FormActionPayload = {
   | 'FORM/SET_IS_CHANGING'
   | 'FORM/SET_IS_DIRTY'
   | 'FORM/SET_IS_FOCUSED'
+  | 'FORM/SET_IS_RESETTING'
   | 'FORM/SET_IS_SUBMITTED'
   | 'FORM/SET_IS_SUBMITTING'
   | 'FORM/SET_IS_VALID'

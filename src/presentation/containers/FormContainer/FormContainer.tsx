@@ -8,13 +8,21 @@ const FormContainer: React.FC<FormContainerProps> = (props) => {
   const { validator, children, submitHandler } = props
   const { dispatch, state } = useContext(FormContext)
 
-  const { error, isValid, data } = state.form
+  const { error, isValid, data, isResetting } = state.form
 
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
   useEffect(() => {
-    dispatch({ type: 'FORM/SET_VALIDATOR', payload: { validator } })
+    dispatch({ type: 'FORM/RESET_FORM', payload: {} })
   }, [])
+
+  useEffect(() => {
+    if (isResetting) dispatch({ type: 'FORM/SET_IS_RESETTING', payload: { isResetting: false } })
+  }, [isResetting])
+
+  useEffect(() => {
+    dispatch({ type: 'FORM/SET_VALIDATOR', payload: { validator } })
+  }, [isResetting])
 
   return (
     <>

@@ -2,18 +2,14 @@ import IValidation from '@/domain/validation/validation.model'
 import Maybe from '@/application/utils/typescript/maybe.model'
 
 type InputProps = {
-  name: string
-  type: 'text' | 'email' | 'password' | 'number'
   error: Maybe<Error['message']>
-  validator?: IValidation
-  value: string
-  isValid: boolean
-  isTouched: boolean
   isFocused: boolean
+  isTouched: boolean
+  isValid: boolean
+  label: string
+  name: string
+  validator?: IValidation
   icon?: () => React.ReactNode
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
-  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void
-}
+} & React.InputHTMLAttributes<HTMLInputElement>
 
 export default InputProps

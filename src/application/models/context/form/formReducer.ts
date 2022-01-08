@@ -9,7 +9,8 @@ import {
   setFormIsSubmitted,
   setFormIsValidating,
   setFormData,
-  setFormValidator
+  setFormValidator,
+  setIsResetting
 } from './formActions'
 import {
   setInputCurrentType,
@@ -24,7 +25,10 @@ import { FormActionPayload, FormInputActionPayload, FormStates } from './protoco
 const formReducer = (state: FormStates, action: FormActionPayload | FormInputActionPayload): FormStates => {
   switch (action.type) {
     case 'FORM/RESET_FORM':
-      return resetForm(state)
+      return resetForm()
+
+    case 'FORM/SET_IS_RESETTING':
+      return setIsResetting(state, action)
 
     case 'FORM/SET_ERROR':
       return setFormError(state, action)
