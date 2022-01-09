@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { resolve } = require('path')
 
 module.exports = {
-  entry: './src/main/index.tsx',
+  entry: './src/external/index.tsx',
   output: {
     filename: 'main-bundle-[fullhash].js',
     path: resolve(__dirname, 'build'),

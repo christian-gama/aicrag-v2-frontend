@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "typeRoots": ["./src/main/@types", "./node_modules/@types"],
+    "typeRoots": ["src/external/@types", "./node_modules/@types"],
     "target": "ES2015",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "esModuleInterop": true,
