@@ -27,7 +27,7 @@ const BaseForm: React.FC<FormProps> = (props) => {
   return (
     <>
       <form
-        onSubmit={async (event) =>
+        onSubmit={async (event) => {
           await onSubmitHandler({
             dispatch,
             event,
@@ -36,13 +36,15 @@ const BaseForm: React.FC<FormProps> = (props) => {
             setIsPopoverOpen,
             data
           })
-        }
+        }}
         data-testid="form"
       >
         {children}
       </form>
 
-      {!isValid && error && <Popover isOpen={isPopoverOpen} message={error} type="error" />}
+      {!isValid && error && (
+        <Popover onClose={() => setIsPopoverOpen(false)} isOpen={isPopoverOpen} message={error} type="error" />
+      )}
     </>
   )
 }
