@@ -1,7 +1,7 @@
 import React from 'react'
+import SignUpForm from '@/components/templates/forms/SignUpForm'
 import FormProvider from '@/application/models/context/form/FormProvider'
-import SignUpForm from '@/presentation/components/layout/Welcome/SignUpForm'
-import WelcomeCard from '../../../components/layout/Welcome/WelcomeCard/WelcomeCard'
+import WelcomeCard from '../../../../components/templates/WelcomeCard/WelcomeCard'
 
 const SignUp: React.FC = () => {
   return (
