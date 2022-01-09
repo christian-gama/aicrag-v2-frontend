@@ -1,5 +1,5 @@
 import React from 'react'
-import P from '../../texts/P'
+import P from '../../../../../components/atoms/texts/P'
 import PopoverMessageListProps from './PopoverMessageList.model'
 import * as style from './stylesheet'
 
