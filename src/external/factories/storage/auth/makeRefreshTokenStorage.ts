@@ -1,4 +1,4 @@
-import RefreshTokenStorage from '@/infra/localStorage/auth/refreshTokenStorage'
+import RefreshTokenStorage from '@/services/localStorage/auth/refreshTokenStorage'
 
 const makeRefreshTokenStorage = () => {
   return new RefreshTokenStorage()

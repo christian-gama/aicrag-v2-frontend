@@ -1,4 +1,4 @@
-import AccessTokenStorage from '@/infra/localStorage/auth/accessTokenStorage'
+import AccessTokenStorage from '@/services/localStorage/auth/accessTokenStorage'
 
 const makeAccessTokenStorage = () => {
   return new AccessTokenStorage()
