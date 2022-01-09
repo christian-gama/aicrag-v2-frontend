@@ -1,4 +1,5 @@
 import getErrorMessage from '../getErrorMessage'
+import translateError from '../translateError'
 
 describe('getErrorMessage', () => {
   it('should return the graphql error message', () => {
@@ -14,7 +15,7 @@ describe('getErrorMessage', () => {
       }
     }
 
-    expect(getErrorMessage(error)).toBe('GraphQL error message')
+    expect(getErrorMessage(error)).toBe(translateError('GraphQL error message'))
   })
 
   it('should return the network error message', () => {
