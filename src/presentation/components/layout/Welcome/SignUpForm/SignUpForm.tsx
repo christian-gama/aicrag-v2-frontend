@@ -1,10 +1,10 @@
+import makeSignUpValidator from '@/external/factories/validation/makeSignUpValidator'
 import React, { useContext } from 'react'
 import FormContext from '@/application/models/context/form/FormContext'
 import { useSignUpMutation } from '@/infra/api'
 import BaseForm from '@/presentation/components/forms/BaseForm'
 import ControlledInput from '@/presentation/components/forms/ControlledInput'
 import Button from '@/presentation/components/UI/Button'
-import makeSignUpValidator from '@/main/factories/validation/makeSignUpValidator'
 import * as style from './stylesheet'
 
 const SignUpForm: React.FC = () => {
