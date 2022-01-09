@@ -1,4 +1,4 @@
-import capitalize from '@/application/utils/capitalize'
+import capitalize from '@/helpers/capitalize'
 
 class InvalidFieldError extends Error {
   constructor (public readonly field: string, protected readonly reason: string) {

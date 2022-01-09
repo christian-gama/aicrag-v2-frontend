@@ -1,10 +1,10 @@
+import writeMonthYear from '@/helpers/writeMonthYear'
 import { DateTime } from 'luxon'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { calendarActions } from '@/context/models/calendar'
 import { CalendarStates } from '@/context/models/calendar/protocols/calendar.model'
 import { RootState, AppDispatch } from '@/context/store'
-import writeMonthYear from '@/application/utils/writeMonthYear'
 import ChevronIcon from '../../atoms/icons/ChevronIcon'
 import * as style from './stylesheet'
 

@@ -1,5 +1,5 @@
+import Maybe from '@/helpers/typescript/maybe.model'
 import IValidation from '@/domain/validation/validation.model'
-import Maybe from '@/application/utils/typescript/maybe.model'
 
 type BaseInputProps = {
   error: Maybe<Error['message']>

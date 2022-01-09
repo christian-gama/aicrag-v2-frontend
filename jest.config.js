@@ -8,7 +8,8 @@ module.exports = {
     '!<rootDir>/src/**/*.model.ts',
     '!<rootDir>/src/**/api/index.ts',
     '!<rootDir>/src/**/store/*.ts',
-    '!<rootDir>/src/external/**/*'
+    '!<rootDir>/src/external/**/*',
+    '!<rootDir>/src/helpers/**/*'
   ],
   coverageDirectory: 'coverage',
   roots: ['<rootDir>/src'],

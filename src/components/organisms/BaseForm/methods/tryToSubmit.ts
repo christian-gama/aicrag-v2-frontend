@@ -1,5 +1,5 @@
+import getErrorMessage from '@/helpers/getErrorMessage'
 import { FormActionPayload, FormInputActionPayload } from '@/context/models/form/protocols/form.model'
-import getErrorMessage from '@/application/utils/getErrorMessage'
 import FormProps from '../BaseForm.model'
 
 type Params = {

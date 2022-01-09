@@ -1,11 +1,11 @@
+import getFormattedTime from '@/helpers/getFormattedTime'
+import timerIncreaser from '@/helpers/timerIncreaser'
 import { DateTime } from 'luxon'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { calendarActions } from '@/context/models/calendar'
 import { CalendarStates } from '@/context/models/calendar/protocols/calendar.model'
 import { AppDispatch, RootState } from '@/context/store'
-import getFormattedTime from '@/application/utils/getFormattedTime'
-import timerIncreaser from '@/application/utils/timerIncreaser'
 import makeTimerValidator from '@/external/factories/validation/makeTimerValidator'
 
 const useCalendarTimer = () => {

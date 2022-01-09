@@ -1,4 +1,4 @@
-import Maybe from '@/application/utils/typescript/maybe.model'
+import Maybe from '@/helpers/typescript/maybe.model'
 
 interface IFieldValidation {
   field: string

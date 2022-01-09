@@ -1,6 +1,6 @@
+import Maybe from '@/helpers/typescript/maybe.model'
 import React from 'react'
 import IValidation from '@/domain/validation/validation.model'
-import Maybe from '@/application/utils/typescript/maybe.model'
 
 type Object<T extends unknown> = { [key: string]: T }
 

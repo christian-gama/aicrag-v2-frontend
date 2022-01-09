@@ -1,6 +1,6 @@
+import capitalize from '@/helpers/capitalize'
 import React, { useEffect, useState } from 'react'
 import { FillColorVariants } from '@/components/_settings/variants.css'
-import capitalize from '@/application/utils/capitalize'
 import Button from '../../atoms/Button/Button'
 import { ButtonVariants } from '../../atoms/Button/stylesheet/recipes'
 import Card from '../../atoms/Card/Card'

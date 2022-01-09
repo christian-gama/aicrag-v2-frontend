@@ -1,4 +1,4 @@
-import Optional from '@/application/utils/typescript/optional.model'
+import Optional from '@/helpers/typescript/optional.model'
 
 type ControlledInputProps = {
   autoFocus?: boolean

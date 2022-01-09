@@ -1,4 +1,4 @@
-import Maybe from '@/application/utils/typescript/maybe.model'
+import Maybe from '@/helpers/typescript/maybe.model'
 import IFieldValidation from '../../domain/validation/fieldValidation.model'
 import InvalidFieldError from '../errors/invalidFieldError'
 

@@ -1,5 +1,5 @@
+import translateError from '@/helpers/translateError'
 import React, { useEffect, useState } from 'react'
-import translateError from '@/application/utils/translateError'
 import BaseInputProps from './BaseInput.model'
 import * as style from './stylesheet'
 import { inputRecipe, labelRecipe, LabelRecipeVariants } from './stylesheet/recipes'
