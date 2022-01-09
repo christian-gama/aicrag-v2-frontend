@@ -10,7 +10,11 @@ const H4: React.FC<H4Props> = (props) => {
     color: props.color
   })
 
-  return <h4 className={h4Style}>{props.children}</h4>
+  return (
+    <h4 className={h4Style} data-testid="h4">
+      {props.children}
+    </h4>
+  )
 }
 
 export default H4

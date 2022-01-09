@@ -10,7 +10,11 @@ const H3: React.FC<H3Props> = (props) => {
     color: props.color
   })
 
-  return <h3 className={h3Style}>{props.children}</h3>
+  return (
+    <h3 className={h3Style} data-testid="h3">
+      {props.children}
+    </h3>
+  )
 }
 
 export default H3

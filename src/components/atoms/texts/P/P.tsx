@@ -10,7 +10,11 @@ const P: React.FC<PProps> = (props) => {
     color: props.color
   })
 
-  return <p className={pStyle}>{props.children}</p>
+  return (
+    <p className={pStyle} data-testid="p">
+      {props.children}
+    </p>
+  )
 }
 
 export default P
