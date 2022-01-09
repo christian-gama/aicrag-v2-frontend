@@ -1,12 +1,12 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import React from 'react'
+import useWindowDimensions from '@/components/_hooks/useWindowDimensions'
 import Background from '@/components/atoms/Background'
 import Card from '@/components/atoms/Card'
 import LogoIcon from '@/components/atoms/icons/LogoIcon'
 import H2 from '@/components/atoms/texts/H2'
 import H4 from '@/components/atoms/texts/H4'
 import Menu from '@/components/molecules/Menu'
-import useWindowDimensions from '@/presentation/hooks/useWindowDimensions'
 import * as style from './stylesheet'
 import { dimensionVars } from './stylesheet'
 

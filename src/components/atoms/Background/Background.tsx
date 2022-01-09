@@ -1,6 +1,6 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import React from 'react'
-import useWindowDimensions from '@/presentation/hooks/useWindowDimensions'
+import useWindowDimensions from '@/components/_hooks/useWindowDimensions'
 import BackgroundProps from './Background.model'
 import { backgroundRecipe, dimensionVars } from './stylesheet/recipes'
 
