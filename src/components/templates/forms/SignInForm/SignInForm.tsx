@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import Button from '@/components/atoms/Button'
+import ControlledInput from '@/components/molecules/ControlledInput'
 import BaseForm from '@/components/organisms/BaseForm'
 import FormContext from '@/application/models/context/form/FormContext'
 import { useLoginMutation } from '@/infra/api'
-import ControlledInput from '@/presentation/components/forms/ControlledInput'
 import makeSignInValidator from '@/external/factories/validation/makeSignInValidator'
 import * as style from './stylesheet'
 
