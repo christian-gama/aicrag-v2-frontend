@@ -1,7 +1,7 @@
 import { ApolloProvider } from '@apollo/client'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import '@/application/common/stylesheet/global.css'
+import '@/components/_settings/global.css'
 import { Provider, useDispatch } from 'react-redux'
 import { BrowserRouter, Routes } from 'react-router-dom'
 import Button from '@/components/atoms/Button'

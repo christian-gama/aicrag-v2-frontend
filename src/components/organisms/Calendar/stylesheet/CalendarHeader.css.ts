@@ -1,6 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { breakpoints } from '@/application/common/breakpoints.css'
-import { vars } from '@/application/common/stylesheet/vars.css'
+import { vars } from '@/components/_settings/vars.css'
 
 export const calendarHeader = style({
   display: 'flex',
@@ -13,7 +12,7 @@ export const calendarHeader = style({
   borderRadius: '5px 5px 0 0',
 
   '@media': {
-    [breakpoints.mobile]: {
+    [vars.breakpoints.mobile]: {
       borderRadius: '0',
       padding: '1.2rem'
     }

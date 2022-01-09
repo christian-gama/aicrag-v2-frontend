@@ -1,5 +1,5 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { breakpoints } from '@/application/common/breakpoints.css'
+import { vars } from '@/components/_settings/vars.css'
 import { padding } from './alert.css'
 import { colors } from './variants'
 
@@ -15,7 +15,7 @@ export const alertHeaderRecipe = recipe({
       width: '100%',
 
       '@media': {
-        [breakpoints.mobile]: {
+        [vars.breakpoints.mobile]: {
           borderRadius: '0'
         }
       }

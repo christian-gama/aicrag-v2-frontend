@@ -1,5 +1,5 @@
 import { createGlobalTheme, style } from '@vanilla-extract/css'
-import { breakpoints } from '@/application/common/breakpoints.css'
+import { vars } from '@/components/_settings/vars.css'
 
 export const dimensionVars = createGlobalTheme(':root', {
   height: ''
@@ -11,12 +11,12 @@ export const welcome = style({
   padding: '3.6rem 5rem',
 
   '@media': {
-    [breakpoints.tablet]: {
+    [vars.breakpoints.tablet]: {
       width: '50rem',
       padding: '2rem 2.8rem'
     },
 
-    [breakpoints.mobile]: {
+    [vars.breakpoints.mobile]: {
       width: '100vw',
       minHeight: dimensionVars.height,
       height: '100%',

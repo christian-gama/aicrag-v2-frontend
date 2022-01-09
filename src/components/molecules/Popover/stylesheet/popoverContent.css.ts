@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { breakpoints } from '@/application/common/breakpoints.css'
+import { vars } from '@/components/_settings/vars.css'
 
 export const popoverContent = style({
   alignItems: 'center',
@@ -11,7 +11,7 @@ export const popoverContent = style({
   width: '100%',
 
   '@media': {
-    [breakpoints.mobile]: {
+    [vars.breakpoints.mobile]: {
       paddingLeft: '1.2rem'
     }
   }

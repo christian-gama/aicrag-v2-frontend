@@ -1,10 +1,10 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { fillColor } from '@/application/common/stylesheet/variants/fillColor.css'
+import { fillColorVariants } from '@/components/_settings/fillColorVariants.css'
 import { size } from '../../../common/variants/size.css'
 
 export const iconRecipe = recipe({
   variants: {
-    color: fillColor,
+    color: fillColorVariants,
     size
   },
 

@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { breakpoints } from '@/application/common/breakpoints.css'
+import { vars } from '@/components/_settings/vars.css'
 
 export const welcomeWrapper = style({
   position: 'absolute',
@@ -8,7 +8,7 @@ export const welcomeWrapper = style({
   transform: 'translate(-50%, -50%)',
 
   '@media': {
-    [breakpoints.mobile]: {
+    [vars.breakpoints.mobile]: {
       top: '0%',
       left: '0%',
       transform: 'translate(0%, 0%)'

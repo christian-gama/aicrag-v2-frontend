@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { breakpoints } from '@/application/common/breakpoints.css'
+import { vars } from '@/components/_settings/vars.css'
 
 export const calendarBody = style({
   display: 'grid',
@@ -11,7 +11,7 @@ export const calendarBody = style({
   padding: '1.2rem 3.2rem',
 
   '@media': {
-    [breakpoints.mobile]: {
+    [vars.breakpoints.mobile]: {
       padding: '0.8rem 1.2rem',
       gridAutoRows: '44px'
     }

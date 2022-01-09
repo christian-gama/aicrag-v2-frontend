@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { vars } from '@/application/common/stylesheet/vars.css'
+import { vars } from '@/components/_settings/vars.css'
 
 export const containedDangerStyle = style({
   backgroundColor: vars.colors['danger-400'],

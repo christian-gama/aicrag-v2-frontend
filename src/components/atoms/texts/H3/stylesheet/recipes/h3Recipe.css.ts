@@ -1,6 +1,6 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { fillColor } from '@/application/common/stylesheet/variants/fillColor.css'
-import { vars } from '@/application/common/stylesheet/vars.css'
+import { fillColorVariants } from '@/components/_settings/fillColorVariants.css'
+import { vars } from '@/components/_settings/vars.css'
 import { baseStyle } from '../../../common/base.css'
 
 export const h3Recipe = recipe({
@@ -12,7 +12,7 @@ export const h3Recipe = recipe({
     }
   ],
 
-  variants: { color: fillColor },
+  variants: { color: fillColorVariants },
 
   defaultVariants: {
     color: 'text'

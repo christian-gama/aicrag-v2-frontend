@@ -1,6 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { breakpoints } from '@/application/common/breakpoints.css'
-import { vars } from '@/application/common/stylesheet/vars.css'
+import { vars } from '@/components/_settings/vars.css'
 
 export const popoverButtonWrapper = style({
   alignItems: 'center',
@@ -11,7 +10,7 @@ export const popoverButtonWrapper = style({
   borderLeft: `1px solid ${vars.colors.white}`,
 
   '@media': {
-    [breakpoints.mobile]: {
+    [vars.breakpoints.mobile]: {
       width: '7.2rem'
     }
   }

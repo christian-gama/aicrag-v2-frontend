@@ -1,6 +1,5 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { breakpoints } from '@/application/common/breakpoints.css'
-import { vars } from '@/application/common/stylesheet/vars.css'
+import { vars } from '@/components/_settings/vars.css'
 import { showUp } from '../keyframes'
 
 export const popoverRecipe = recipe({
@@ -25,7 +24,7 @@ export const popoverRecipe = recipe({
     zIndex: '5',
 
     '@media': {
-      [breakpoints.mobile]: {
+      [vars.breakpoints.mobile]: {
         right: '0',
         left: '0',
         margin: '0 auto',

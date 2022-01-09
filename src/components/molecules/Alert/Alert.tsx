@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FillColorVariants } from '@/application/common/stylesheet/variants/fillColor.css'
+import { FillColorVariants } from '@/components/_settings/fillColorVariants.css'
 import capitalize from '@/application/utils/capitalize'
 import Button from '../../atoms/Button/Button'
 import { ButtonVariants } from '../../atoms/Button/stylesheet/recipes'

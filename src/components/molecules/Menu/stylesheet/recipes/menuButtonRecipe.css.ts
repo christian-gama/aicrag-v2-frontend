@@ -1,5 +1,5 @@
 import { recipe } from '@vanilla-extract/recipes'
-import { vars } from '@/application/common/stylesheet/vars.css'
+import { vars } from '@/components/_settings/vars.css'
 
 export const menuButtonRecipe = recipe({
   base: {

@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { breakpoints } from '@/application/common/breakpoints.css'
+import { vars } from '@/components/_settings/vars.css'
 import { fromBottom, fromLeft, fromRight, fromTop } from './keyframes'
 
 const backdropStyle = style({
@@ -29,7 +29,7 @@ const modalRecipe = recipe({
     zIndex: '11',
 
     '@media': {
-      [breakpoints.mobile]: {
+      [vars.breakpoints.mobile]: {
         animation: 'none',
         bottom: '0%',
         left: '0%',

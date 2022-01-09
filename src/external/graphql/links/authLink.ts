@@ -1,6 +1,6 @@
+import { ApolloLink } from '@apollo/client'
 import makeAccessTokenStorage from '@/external/factories/storage/auth/makeAccessTokenStorage'
 import makeRefreshTokenStorage from '@/external/factories/storage/auth/makeRefreshTokenStorage'
-import { ApolloLink } from '@apollo/client'
 
 const authLink = new ApolloLink((operation, forward) => {
   const accessTokenStorage = makeAccessTokenStorage()
