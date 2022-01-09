@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Menu from '../Menu'
-import MenuProps from '../Menu.model'
+import MenuProps from '../protocols/Menu.model'
 
 const makeSut = (props: MenuProps) => {
   return render(

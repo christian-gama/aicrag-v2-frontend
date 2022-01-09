@@ -1,1 +1,1 @@
-export * from './menu.css'
+export * as style from './Menu.css'

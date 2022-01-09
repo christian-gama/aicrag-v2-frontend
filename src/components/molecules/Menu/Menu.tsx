@@ -1,8 +1,7 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import MenuProps from './Menu.model'
-import * as style from './stylesheet'
-import { menuButtonRecipe } from './stylesheet/recipes'
+import MenuProps from './protocols/Menu.model'
+import { style } from './stylesheet'
 
 const Menu: React.FC<MenuProps> = (props) => {
   const location = useLocation()
@@ -12,7 +11,7 @@ const Menu: React.FC<MenuProps> = (props) => {
       {props.buttons.map((button, index) => {
         const isActive = location.pathname.replace(props.url, '').includes(button.toLowerCase())
 
-        const menuButtonStyle = menuButtonRecipe({
+        const menuButtonStyle = style.menuButtonRecipe({
           active: isActive
         })
 

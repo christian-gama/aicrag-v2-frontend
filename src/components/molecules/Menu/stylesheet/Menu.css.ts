@@ -1,5 +1,13 @@
-import { recipe } from '@vanilla-extract/recipes'
+import { style } from '@vanilla-extract/css'
+import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { vars } from '@/components/_settings/vars.css'
+
+export const menu = style({
+  display: 'flex',
+  width: '100%',
+  height: '4.8rem',
+  backgroundColor: vars.colors.white
+})
 
 export const menuButtonRecipe = recipe({
   base: {
@@ -37,3 +45,5 @@ export const menuButtonRecipe = recipe({
     }
   }
 })
+
+export type MenuButtonVariants = NonNullable<RecipeVariants<typeof menuButtonRecipe>>
