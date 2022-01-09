@@ -1,6 +1,6 @@
 import Maybe from '@/helpers/typescript/maybe.model'
-import IFieldValidation from '../../domain/validation/fieldValidation.model'
 import InvalidFieldError from '../errors/invalidFieldError'
+import IFieldValidation from './protocols/fieldValidation.model'
 
 class IsDateValidator implements IFieldValidation {
   constructor (readonly field: string) {}

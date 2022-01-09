@@ -1,6 +1,6 @@
 import Maybe from '@/helpers/typescript/maybe.model'
-import IFieldValidation from '@/domain/validation/fieldValidation.model'
-import IValidation from '@/domain/validation/validation.model'
+import IFieldValidation from '@/services/validators/protocols/fieldValidation.model'
+import IValidation from '@/services/validators/protocols/validation.model'
 
 class ValidatorComposite implements IValidation {
   constructor (private readonly validators: IFieldValidation[]) {}

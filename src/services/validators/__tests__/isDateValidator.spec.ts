@@ -1,5 +1,5 @@
-import IFieldValidation from '@/domain/validation/fieldValidation.model'
 import InvalidFieldError from '@/services/errors/invalidFieldError'
+import IFieldValidation from '@/services/validators/protocols/fieldValidation.model'
 import IsDateValidator from '../isDateValidator'
 
 const makeSut = (): IFieldValidation => {

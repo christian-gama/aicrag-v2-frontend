@@ -1,7 +1,7 @@
 import makeValidationMock from '@/../tests/mocks/validator.mock'
 import { render, fireEvent, screen, act, cleanup } from '@testing-library/react'
 import React from 'react'
-import IValidation from '@/domain/validation/validation.model'
+import IValidation from '@/services/validators/protocols/validation.model'
 import FormProvider from '@/context/models/form/FormProvider'
 import ControlledInput from '../../../molecules/ControlledInput'
 import BaseForm from '..'

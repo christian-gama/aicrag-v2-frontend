@@ -1,6 +1,6 @@
 import Maybe from '@/helpers/typescript/maybe.model'
-import IFieldValidation from '../../domain/validation/fieldValidation.model'
 import InvalidFieldError from '../errors/invalidFieldError'
+import IFieldValidation from './protocols/fieldValidation.model'
 
 class Regex implements IFieldValidation {
   constructor (readonly field: string, private readonly regex: RegExp) {}

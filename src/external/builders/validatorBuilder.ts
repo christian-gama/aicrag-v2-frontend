@@ -1,4 +1,3 @@
-import IFieldValidation from '@/domain/validation/fieldValidation.model'
 import CompareFieldsValidator from '@/services/validators/compareFieldsValidator'
 import EmailValidator from '@/services/validators/emailValidator'
 import IsNumberValidator from '@/services/validators/isNumberValidator'
@@ -6,6 +5,7 @@ import MaxLengthValidator from '@/services/validators/maxLengthValidator'
 import MaxValidator from '@/services/validators/maxValidator'
 import MinLengthValidator from '@/services/validators/minLengthValidator'
 import MinValidator from '@/services/validators/minValidator'
+import IFieldValidation from '@/services/validators/protocols/fieldValidation.model'
 import Regex from '@/services/validators/regex'
 import RequiredFieldValidator from '@/services/validators/requiredFieldValidator'
 

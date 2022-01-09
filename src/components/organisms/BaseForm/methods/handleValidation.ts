@@ -1,5 +1,5 @@
 import React from 'react'
-import IValidation from '@/domain/validation/validation.model'
+import IValidation from '@/services/validators/protocols/validation.model'
 import { FormActionPayload, FormInputActionPayload, FormStates } from '@/context/models/form/protocols/form.model'
 
 type Params = {

@@ -1,5 +1,5 @@
 import Maybe from '@/helpers/typescript/maybe.model'
-import IValidation from '@/domain/validation/validation.model'
+import IValidation from '@/services/validators/protocols/validation.model'
 
 const makeValidationMock = (isValid: boolean): IValidation => {
   class ValidatorMock implements IValidation {

@@ -1,4 +1,4 @@
-import Storage from '@/domain/storage/storage.model'
+import Storage from '@/services/localStorage/protocols/storage.model'
 
 class AccessTokenStorage implements Storage {
   get () {

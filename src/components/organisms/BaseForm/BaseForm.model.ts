@@ -1,4 +1,4 @@
-import IValidation from '@/domain/validation/validation.model'
+import IValidation from '@/services/validators/protocols/validation.model'
 
 type FormProps = {
   loading?: boolean
