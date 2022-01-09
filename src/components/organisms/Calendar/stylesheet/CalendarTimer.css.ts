@@ -1,12 +1,12 @@
 import { style } from '@vanilla-extract/css'
-import { vars } from '@/components/_settings/vars.css'
+import { breakpoints } from '@/components/_settings/breakpoints.css'
 
 export const calendarTimer = style({
   display: 'flex',
   alignItems: 'center',
 
   '@media': {
-    [vars.breakpoints.mobile]: {
+    [breakpoints.mobile]: {
       marginBottom: '3.2rem'
     }
   }

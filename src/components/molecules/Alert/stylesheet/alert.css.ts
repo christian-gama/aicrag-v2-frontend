@@ -1,11 +1,11 @@
 import { style } from '@vanilla-extract/css'
-import { vars } from '@/components/_settings/vars.css'
+import { breakpoints } from '@/components/_settings/breakpoints.css'
 
 export const padding = style({
   padding: '2rem 3.5rem',
 
   '@media': {
-    [vars.breakpoints.mobile]: {
+    [breakpoints.mobile]: {
       padding: '1.5rem 2rem'
     }
   }
@@ -18,7 +18,7 @@ export const alert = style({
   width: '42rem',
 
   '@media': {
-    [vars.breakpoints.mobile]: {
+    [breakpoints.mobile]: {
       width: '100vw'
     }
   }

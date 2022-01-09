@@ -1,5 +1,6 @@
 import { createGlobalTheme } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
+import { breakpoints } from '@/components/_settings/breakpoints.css'
 import { vars } from '@/components/_settings/vars.css'
 
 export const dimensionVars = createGlobalTheme(':root', {
@@ -19,7 +20,7 @@ export const backgroundRecipe = recipe({
     overflowY: 'auto',
 
     '@media': {
-      [vars.breakpoints.mobile]: {
+      [breakpoints.mobile]: {
         height: dimensionVars.height
       }
     }

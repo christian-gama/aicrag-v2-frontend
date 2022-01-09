@@ -1,5 +1,6 @@
 import { style } from '@vanilla-extract/css'
 import { calc } from '@vanilla-extract/css-utils'
+import { breakpoints } from '@/components/_settings/breakpoints.css'
 import { vars } from '@/components/_settings/vars.css'
 import { tableVars } from '../../Tr/stylesheet'
 
@@ -15,7 +16,7 @@ export const dateWrapper = style({
   width: '75%',
 
   '@media': {
-    [vars.breakpoints.mobile]: {
+    [breakpoints.mobile]: {
       marginLeft: '-2.4rem',
       width: '70%'
     }

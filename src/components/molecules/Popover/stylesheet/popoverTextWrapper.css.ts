@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { vars } from '@/components/_settings/vars.css'
+import { breakpoints } from '@/components/_settings/breakpoints.css'
 
 export const popoverTextWrapper = style({
   alignItems: 'center',
@@ -13,7 +13,7 @@ export const popoverTextWrapper = style({
   width: '100%',
 
   '@media': {
-    [vars.breakpoints.mobile]: {
+    [breakpoints.mobile]: {
       maxWidth: '92%',
       gap: '1.6rem'
     }

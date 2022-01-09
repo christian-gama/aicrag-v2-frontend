@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css'
+import { breakpoints } from '@/components/_settings/breakpoints.css'
 import { vars } from '@/components/_settings/vars.css'
 
 export const scrollBar = style({
@@ -20,13 +21,13 @@ export const scrollBar = style({
   },
 
   '@media': {
-    [vars.breakpoints.desktop]: {
+    [breakpoints.desktop]: {
       overflowX: 'auto',
       msOverflowX: 'auto',
       whiteSpace: 'nowrap'
     },
 
-    [vars.breakpoints.mobile]: {
+    [breakpoints.mobile]: {
       overflowX: 'auto',
       whiteSpace: 'nowrap',
       msOverflowX: 'auto',

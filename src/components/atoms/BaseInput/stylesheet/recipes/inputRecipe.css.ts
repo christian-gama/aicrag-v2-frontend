@@ -1,4 +1,5 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
+import { breakpoints } from '@/components/_settings/breakpoints.css'
 import { vars } from '@/components/_settings/vars.css'
 import { state, hasIcon } from '../variants/input'
 
@@ -27,7 +28,7 @@ export const inputRecipe = recipe({
     },
 
     '@media': {
-      [vars.breakpoints.mobile]: {
+      [breakpoints.mobile]: {
         height: '4.4rem'
       }
     }

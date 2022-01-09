@@ -1,12 +1,12 @@
 import { style } from '@vanilla-extract/css'
-import { vars } from '@/components/_settings/vars.css'
+import { breakpoints } from '@/components/_settings/breakpoints.css'
 
 export const dateTextPrimary = style({
   fontSize: '2.4rem',
   lineHeight: '1.2',
 
   '@media': {
-    [vars.breakpoints.mobile]: {
+    [breakpoints.mobile]: {
       fontSize: '2rem',
       lineHeight: '1.2'
     }

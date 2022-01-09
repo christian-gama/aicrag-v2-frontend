@@ -1,5 +1,6 @@
 import { createGlobalTheme, style } from '@vanilla-extract/css'
 import { calc } from '@vanilla-extract/css-utils'
+import { breakpoints } from '@/components/_settings/breakpoints.css'
 import { vars } from '@/components/_settings/vars.css'
 
 const roundness = '5px'
@@ -40,7 +41,7 @@ export const tableRow = style({
   },
 
   '@media': {
-    [vars.breakpoints.mobile]: {
+    [breakpoints.mobile]: {
       gridTemplateColumns: 'repeat(auto-fill, minmax(14%, 1fr))',
       padding: '0 2.4rem',
       gap: '1.6rem',

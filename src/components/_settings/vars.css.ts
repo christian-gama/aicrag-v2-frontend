@@ -1,12 +1,5 @@
 import { createGlobalTheme } from '@vanilla-extract/css'
 
-const breakpoints = {
-  mobile: 'screen and (max-width: 520px)',
-  tablet: 'screen and (max-width: 820px)',
-  desktop: 'screen and (max-width: 1024px)',
-  widescreen: 'screen and (max-width: 1366px)'
-}
-
 const shadow = {
   xsm: '0px 2px 4px rgba(0, 0, 0, 0.15)',
   sm: '0px 5px 10px rgba(0, 0, 0, 0.15)',
@@ -138,7 +131,6 @@ const colors = {
 }
 
 export const vars = createGlobalTheme(':root', {
-  breakpoints,
   colors,
   font,
   shadow
