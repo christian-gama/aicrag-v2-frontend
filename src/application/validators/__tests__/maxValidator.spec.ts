@@ -1,5 +1,5 @@
 import IFieldValidation from '@/domain/validation/fieldValidation.model'
-import InvalidFieldError from '@/application/errors/invalidFieldError'
+import InvalidFieldError from '@/services/errors/invalidFieldError'
 import MaxValidator from '../maxValidator'
 
 const makeSut = (): IFieldValidation => {

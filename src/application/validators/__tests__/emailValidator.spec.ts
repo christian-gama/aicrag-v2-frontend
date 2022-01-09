@@ -1,6 +1,6 @@
 import faker from 'faker'
 import IFieldValidation from '@/domain/validation/fieldValidation.model'
-import InvalidFieldError from '@/application/errors/invalidFieldError'
+import InvalidFieldError from '@/services/errors/invalidFieldError'
 import EmailValidator from '../emailValidator'
 
 const makeSut = (): IFieldValidation => {

@@ -1,6 +1,6 @@
 import Maybe from '@/helpers/typescript/maybe.model'
 import IFieldValidation from '../../domain/validation/fieldValidation.model'
-import InvalidFieldError from '../errors/invalidFieldError'
+import InvalidFieldError from '../../services/errors/invalidFieldError'
 
 class IsEqualToValidator implements IFieldValidation {
   constructor (readonly field: string, readonly valueToCompare: string | string[]) {}
