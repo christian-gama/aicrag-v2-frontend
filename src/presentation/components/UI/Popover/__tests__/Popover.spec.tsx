@@ -12,6 +12,12 @@ describe('Popover', () => {
     cleanup()
   })
 
+  beforeAll(() => {
+    const container = document.createElement('div')
+    container.setAttribute('id', 'overlay-root')
+    document.body.appendChild(container)
+  })
+
   it('should render PopoverMessageList if message is an array', () => {
     const messages = ['message 1', 'message 2']
 

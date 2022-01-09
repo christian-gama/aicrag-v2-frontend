@@ -1,5 +1,6 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import React, { useEffect, useState } from 'react'
+import ReactDOM from 'react-dom'
 import CheckIcon from '../icons/CheckIcon'
 import CloseIcon from '../icons/CloseIcon'
 import ErrorIcon from '../icons/ErrorIcon'
@@ -57,7 +58,7 @@ const Popover: React.FC<PopoverProps> = (props) => {
 
   if (!isOpen) return null
 
-  return (
+  return ReactDOM.createPortal(
     <div
       className={popoverStyle}
       style={assignInlineVars(popoverVars, { duration: `${duration}s` })}
@@ -81,7 +82,9 @@ const Popover: React.FC<PopoverProps> = (props) => {
       <div className={progressBarWrapperStyle} data-testid="popover-progress-bar-wrapper">
         <div className={progressBarStyle} data-testid="popover-progress-bar" />
       </div>
-    </div>
+    </div>,
+
+    document.querySelector('#overlay-root') as HTMLElement
   )
 }
 
