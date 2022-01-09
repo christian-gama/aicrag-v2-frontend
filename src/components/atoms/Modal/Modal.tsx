@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import Card from '../Card/Card'
 import dismissOnClickHandler from './methods/dismissOnClickHandler'
 import dismissOnEscapeHandler from './methods/dismissOnEscapeHandler'
-import ModalProps from './Modal.model'
-import { modalClasses } from './stylesheet/modal.css'
+import ModalProps from './protocols/Modal.model'
+import { style } from './stylesheet'
 
 const Modal: React.FC<ModalProps> = (props) => {
   const [isOpenState, setIsOpenState] = useState(false)
@@ -19,13 +19,13 @@ const Modal: React.FC<ModalProps> = (props) => {
     )
   }, [])
 
-  const modalStyle = modalClasses.modalRecipe({
+  const modalStyle = style.modalRecipe({
     direction: props.direction
   })
 
   const element = isOpenState && (
     <div
-      className={modalClasses.backdropStyle}
+      className={style.backdrop}
       data-testid="backdrop"
       onClick={(event) => dismissOnClickHandler({ event, setIsOpenState, onDismiss: props.onDismiss })}
     >

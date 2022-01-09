@@ -1,5 +1,5 @@
 import IHandler from '@/domain/handler/handler.model'
-import ModalProps from '../Modal.model'
+import ModalProps from '../protocols/Modal.model'
 
 type Params = {
   event: KeyboardEvent
