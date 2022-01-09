@@ -17,7 +17,7 @@ describe('Button', () => {
   it('should have a svg icon in the document when has loading prop as true', () => {
     render(<Button loading>Click me</Button>)
 
-    expect(screen.getByRole('spinbutton')).toBeInTheDocument()
+    expect(screen.getByTestId('loading-spinner-icon')).toBeInTheDocument()
   })
 
   it('should have disabled attribute when has disabled prop as true', () => {
@@ -79,7 +79,7 @@ describe('Button', () => {
       </Button>
     )
 
-    const spinner = screen.getByRole('spinbutton')
+    const spinner = screen.getByTestId('loading-spinner-icon')
     userEvent.click(spinner)
 
     expect(onClick).not.toHaveBeenCalled()
