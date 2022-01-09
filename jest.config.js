@@ -14,7 +14,8 @@ module.exports = {
   roots: ['<rootDir>/src'],
   testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.(ts|tsx)$': ['babel-jest', { configFile: './babel-jest.config.js' }]
+    '^.+\\.css.ts': ['babel-jest', { configFile: './babel-jest.config.js' }],
+    '^.+\\.tsx?$': '@swc/jest'
   },
   moduleNameMapper: {
     '@/(.*)$': '<rootDir>/src/$1'
