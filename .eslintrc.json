@@ -27,10 +27,13 @@
         "groups": [
           "module",
           "/^@/domain/",
+          "/^@/services/",
+          "/^@/components/",
           "/^@/application/",
           "/^@/infra/",
           "/^@/presentation/",
           "/^@/main/",
+          "/^@/external/",
           "/^@/utils/",
           "/^@/tests/",
           ["parent", "sibling", "index"]

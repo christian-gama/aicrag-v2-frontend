@@ -1,4 +1,3 @@
-import makeTimerValidator from '@/external/factories/validation/makeTimerValidator'
 import { DateTime } from 'luxon'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,6 +6,7 @@ import { CalendarStates } from '@/application/models/redux/calendar/protocols/ca
 import { AppDispatch, RootState } from '@/application/store'
 import getFormattedTime from '@/application/utils/getFormattedTime'
 import timerIncreaser from '@/application/utils/timerIncreaser'
+import makeTimerValidator from '@/external/factories/validation/makeTimerValidator'
 
 const useCalendarTimer = () => {
   const { setSelectedDate } = calendarActions

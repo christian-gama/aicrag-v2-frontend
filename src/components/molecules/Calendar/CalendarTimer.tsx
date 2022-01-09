@@ -1,5 +1,5 @@
 import React from 'react'
-import ClockIcon from '../UI/icons/ClockIcon'
+import ClockIcon from '../../../presentation/components/UI/icons/ClockIcon'
 import CalendarTimerInput from './CalendarTimerInput'
 import useCalendarTimer from './hooks/useCalendarTimer'
 import * as style from './stylesheet'
