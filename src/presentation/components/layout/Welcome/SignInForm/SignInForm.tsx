@@ -4,10 +4,11 @@ import { useLoginMutation } from '@/infra/api'
 import BaseForm from '@/presentation/components/forms/BaseForm'
 import ControlledInput from '@/presentation/components/forms/ControlledInput'
 import Button from '@/presentation/components/UI/Button'
+import makeSignInValidator from '@/main/factories/validation/makeSignInValidator'
 import * as style from './stylesheet'
 
 const SignInForm: React.FC = () => {
-  const [login] = useLoginMutation()
+  const [login, { loading }] = useLoginMutation()
   const { state } = useContext(FormContext)
 
   const onSubmitHandler = async () => {
@@ -17,7 +18,12 @@ const SignInForm: React.FC = () => {
   }
 
   return (
-    <BaseForm submitHandler={onSubmitHandler}>
+    <BaseForm
+      submitHandler={onSubmitHandler}
+      validator={makeSignInValidator()}
+      loading={loading}
+      successMessage="Login efetuado com sucesso"
+    >
       <div className={style.signInForm}>
         <div className={style.inputWrapper}>
           <ControlledInput label="Seu email" name="email" type="email" autoFocus />
@@ -26,7 +32,7 @@ const SignInForm: React.FC = () => {
         </div>
 
         <div className={style.buttonWrapper}>
-          <Button type="submit" style={{ size: 'lg' }}>
+          <Button type="submit" style={{ size: 'lg' }} loading={loading}>
             Acessar
           </Button>
         </div>

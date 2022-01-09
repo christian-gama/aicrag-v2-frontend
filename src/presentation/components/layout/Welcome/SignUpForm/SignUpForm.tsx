@@ -4,10 +4,11 @@ import { useSignUpMutation } from '@/infra/api'
 import BaseForm from '@/presentation/components/forms/BaseForm'
 import ControlledInput from '@/presentation/components/forms/ControlledInput'
 import Button from '@/presentation/components/UI/Button'
+import makeSignUpValidator from '@/main/factories/validation/makeSignUpValidator'
 import * as style from './stylesheet'
 
 const SignUpForm: React.FC = () => {
-  const [signUp] = useSignUpMutation()
+  const [signUp, { loading }] = useSignUpMutation()
   const { state } = useContext(FormContext)
 
   const onSubmitHandler = async () => {
@@ -22,7 +23,12 @@ const SignUpForm: React.FC = () => {
   }
 
   return (
-    <BaseForm submitHandler={onSubmitHandler}>
+    <BaseForm
+      submitHandler={onSubmitHandler}
+      validator={makeSignUpValidator()}
+      loading={loading}
+      successMessage="Conta criada com sucesso"
+    >
       <div className={style.signUpForm}>
         <div className={style.inputWrapper}>
           <ControlledInput label="Seu nome" name="name" type="text" autoFocus />
@@ -34,11 +40,9 @@ const SignUpForm: React.FC = () => {
           <ControlledInput label="Confirme sua senha" name="passwordConfirmation" type="password" />
         </div>
 
-        <div className={style.buttonWrapper}>
-          <Button type="submit" style={{ size: 'lg' }}>
-            Criar conta
-          </Button>
-        </div>
+        <Button type="submit" style={{ size: 'lg' }} loading={loading}>
+          Criar conta
+        </Button>
       </div>
     </BaseForm>
   )
