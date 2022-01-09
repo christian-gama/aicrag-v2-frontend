@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css'
 import { breakpoints } from '@/components/_settings/breakpoints.css'
 import { vars } from '@/components/_settings/vars.css'
 
-export const scrollBar = style({
+export const HorizontalScrollBar = style({
   width: '100%',
   paddingBottom: '1.6rem',
 
