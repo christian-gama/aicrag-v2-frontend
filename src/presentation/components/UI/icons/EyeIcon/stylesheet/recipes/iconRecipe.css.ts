@@ -16,7 +16,7 @@ export const iconRecipe = recipe({
 
   defaultVariants: {
     size: 'md',
-    color: 'secondary'
+    color: 'primary'
   }
 })
 

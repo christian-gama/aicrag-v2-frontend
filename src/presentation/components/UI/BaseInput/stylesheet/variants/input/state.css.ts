@@ -19,10 +19,10 @@ export const state = styleVariants({
   },
 
   default: {
-    boxShadow: `0 0 0 1px ${vars.colors['cyan-600']}`,
+    boxShadow: `0 0 0 1px ${vars.colors['navy-500']}`,
 
     ':focus': {
-      boxShadow: `inset 0 0 0 3px ${vars.colors['cyan-600']}`
+      boxShadow: `inset 0 0 0 3px ${vars.colors['navy-500']}`
     }
   }
 })

@@ -11,7 +11,7 @@ const BaseInput: React.FC<BaseInputProps> = (props) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setReadonly(false)
-    }, 50)
+    }, 100)
 
     return () => clearTimeout(timer)
   }, [])
@@ -59,6 +59,7 @@ const BaseInput: React.FC<BaseInputProps> = (props) => {
             readOnly={readonly}
             type={type}
             value={value}
+            placeholder=" "
           />
 
           {icon && (
