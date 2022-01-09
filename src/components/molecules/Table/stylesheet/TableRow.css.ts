@@ -3,34 +3,30 @@ import { calc } from '@vanilla-extract/css-utils'
 import { breakpoints } from '@/components/_settings/breakpoints.css'
 import { vars } from '@/components/_settings/vars.css'
 
-const roundness = '5px'
-
-const row = {
-  height: '7.6rem',
-  width: '90rem',
-  horizontalPadding: '3.2rem',
-  gap: '2.4rem'
-}
-
-export const tableVars = createGlobalTheme(':root', {
-  roundness,
-  row
+export const tableRowVars = createGlobalTheme(':root', {
+  roundness: '5px',
+  row: {
+    height: '7.6rem',
+    width: '90rem',
+    horizontalPadding: '3.2rem',
+    gap: '2.4rem'
+  }
 })
 
 export const tableRow = style({
   alignItems: 'center',
-  borderRadius: tableVars.roundness,
+  borderRadius: tableRowVars.roundness,
   boxShadow: vars.shadow.xsm,
   display: 'grid',
-  gap: tableVars.row.gap,
+  gap: tableRowVars.row.gap,
   gridTemplateColumns: 'repeat(auto-fill, minmax(16%, 1fr))',
-  height: tableVars.row.height,
-  marginTop: calc.divide(tableVars.row.height, 6),
-  maxHeight: tableVars.row.height,
-  maxWidth: tableVars.row.width,
-  padding: `0 ${tableVars.row.horizontalPadding}`,
+  height: tableRowVars.row.height,
+  marginTop: calc.divide(tableRowVars.row.height, 6),
+  maxHeight: tableRowVars.row.height,
+  maxWidth: tableRowVars.row.width,
+  padding: `0 ${tableRowVars.row.horizontalPadding}`,
   transition: 'transform 0.2s ease-in-out',
-  width: tableVars.row.width,
+  width: tableRowVars.row.width,
   backgroundColor: vars.colors.white,
 
   selectors: {

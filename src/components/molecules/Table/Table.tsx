@@ -1,7 +1,7 @@
 import React from 'react'
 import HorizontalScrollBar from '../../atoms/HorizontalScrollBar'
+import TableProps from './protocols/Table.model'
 import * as style from './stylesheet'
-import TableProps from './Table.model'
 
 const Table: React.FC<TableProps> = (props) => {
   return (

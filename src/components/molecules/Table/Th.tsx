@@ -1,9 +1,9 @@
 import React from 'react'
-import { tableCell } from '../../stylesheet'
+import * as style from './stylesheet'
 
 const Th: React.FC = (props) => {
   return (
-    <th className={tableCell} data-testid="table-th">
+    <th className={style.tableCell} data-testid="table-th">
       {props.children}
     </th>
   )

@@ -1,11 +1,11 @@
 import React from 'react'
-import DateDataProps from './DateData.model.css'
+import DateDataProps from './protocols/DateData.model'
 import * as style from './stylesheet'
 
 const DateData: React.FC<DateDataProps> = (props) => {
   return (
-    <div className={style.dateWrapper} data-testid="table-date-data">
-      <span className={style.dateTextPrimary}>{props.primaryDate}</span>
+    <div className={style.dateData} data-testid="table-date-data">
+      <span className={style.dateDataTextPrimary}>{props.primaryDate}</span>
       <span>{props.secondaryDate}</span>
     </div>
   )

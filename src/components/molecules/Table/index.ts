@@ -1,9 +1,9 @@
-import Td from './subComponents/Cells/Td'
-import Th from './subComponents/Cells/Th'
-import Tbody from './subComponents/Tbody'
-import Thead from './subComponents/Thead'
-import Tr from './subComponents/Tr'
 import Table from './Table'
+import Tbody from './Tbody'
+import Td from './Td'
+import Th from './Th'
+import Thead from './Thead'
+import Tr from './Tr'
 
 export default {
   Main: Table,
