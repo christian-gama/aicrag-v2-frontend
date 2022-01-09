@@ -1,11 +1,11 @@
 import React from 'react'
 import LoadingSpinnerIcon from '../icons/LoadingSpinnerIcon'
-import ButtonProps from './Button.model'
 import { getLoadingColor } from './methods/getLoadingColor'
-import { buttonRecipe } from './stylesheet/recipes'
+import ButtonProps from './protocols/Button.model'
+import * as style from './stylesheet'
 
 const Button: React.FC<ButtonProps> = (props) => {
-  const buttonStyle = buttonRecipe({
+  const buttonStyle = style.buttonRecipe({
     ...props.style,
     disabled: !!props.disabled
   })
