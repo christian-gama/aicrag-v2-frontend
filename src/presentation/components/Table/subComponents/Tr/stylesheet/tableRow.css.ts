@@ -31,6 +31,7 @@ export const tableRow = style({
   padding: `0 ${tableVars.row.horizontalPadding}`,
   transition: 'transform 0.2s ease-in-out',
   width: tableVars.row.width,
+  backgroundColor: vars.colors.white,
 
   selectors: {
     'thead > &': {
