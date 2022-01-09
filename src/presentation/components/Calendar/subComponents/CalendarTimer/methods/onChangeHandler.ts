@@ -13,10 +13,10 @@ const onChangeHandler: IHandler<Params> = ({ event, setHours, setMinutes, valida
 
   switch (name) {
     case 'calendar-hour':
-      return !validation.validate('hora', { hora: value }) ? setHours(value) : undefined
+      return !validation.validate('hour', { hour: value }) ? setHours(value) : undefined
 
     case 'calendar-minute':
-      return !validation.validate('minuto', { minuto: value }) ? setMinutes(value) : undefined
+      return !validation.validate('minute', { minute: value }) ? setMinutes(value) : undefined
   }
 }
 
