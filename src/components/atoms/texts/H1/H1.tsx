@@ -1,12 +1,12 @@
 import React from 'react'
-import { H1RecipeVariants, h1Recipe } from './stylesheet/recipes'
+import { style } from './stylesheet'
 
 type H1Props = {
-  color?: H1RecipeVariants['color']
+  color?: style.H1RecipeVariants['color']
 }
 
 const H1: React.FC<H1Props> = (props) => {
-  const h1Style = h1Recipe({
+  const h1Style = style.h1Recipe({
     color: props.color
   })
 

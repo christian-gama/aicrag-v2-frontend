@@ -1,12 +1,12 @@
 import React from 'react'
-import { pRecipe, PRecipeVariants } from './stylesheet/recipes/pRecipe.css'
+import { style } from './stylesheet'
 
 type PProps = {
-  color?: PRecipeVariants['color']
+  color?: style.PRecipeVariants['color']
 }
 
 const P: React.FC<PProps> = (props) => {
-  const pStyle = pRecipe({
+  const pStyle = style.pRecipe({
     color: props.color
   })
 

@@ -1,14 +1,14 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { fillColorVariants } from '@/components/_settings/variants.css'
 import { vars } from '@/components/_settings/vars.css'
-import { baseStyle } from '../../../common/base.css'
+import { baseStyle } from '../../common/base.css'
 
-export const h1Recipe = recipe({
+export const h2Recipe = recipe({
   base: [
     baseStyle,
     {
-      fontFamily: vars.font.h1.fontFamily,
-      fontSize: vars.font.h1.fontSize
+      fontFamily: vars.font.h2.fontFamily,
+      fontSize: vars.font.h2.fontSize
     }
   ],
 
@@ -19,4 +19,4 @@ export const h1Recipe = recipe({
   }
 })
 
-export type H1RecipeVariants = NonNullable<RecipeVariants<typeof h1Recipe>>
+export type H2RecipeVariants = NonNullable<RecipeVariants<typeof h2Recipe>>
