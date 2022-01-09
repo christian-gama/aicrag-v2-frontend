@@ -3,8 +3,8 @@ import { render, fireEvent, screen, act, cleanup } from '@testing-library/react'
 import React from 'react'
 import IValidation from '@/services/validators/protocols/validation.model'
 import FormProvider from '@/context/models/form/form.provider'
-import ControlledInput from '../../../molecules/ControlledInput'
-import BaseForm from '..'
+import ControlForm from '../ControlForm'
+import ControlInput from '../ControlInput'
 
 type sutConfig = {
   children?:
@@ -23,12 +23,12 @@ type sutConfig = {
 const makeSut = (config: sutConfig) => {
   render(
     <FormProvider>
-      <BaseForm
+      <ControlForm
         submitHandler={config.submitHandler ?? jest.fn()}
         validator={config.validator ?? ({ validate: jest.fn() } as any)}
       >
         {config.children}
-      </BaseForm>
+      </ControlForm>
     </FormProvider>
   )
 }
@@ -46,7 +46,7 @@ describe('Form', () => {
   })
 
   it('should render children', () => {
-    const children = <ControlledInput name="title" label="Title" />
+    const children = <ControlInput name="title" label="Title" />
 
     makeSut({ children })
 
@@ -57,7 +57,7 @@ describe('Form', () => {
 
   it('should call onSubmitHandler when form is submitted', async () => {
     const submitHandlerMock = jest.fn().mockReturnValue(Promise.resolve())
-    const children = <ControlledInput name="title" label="Title" />
+    const children = <ControlInput name="title" label="Title" />
 
     makeSut({ children, submitHandler: submitHandlerMock })
 
@@ -75,7 +75,7 @@ describe('Form', () => {
     const validator = makeValidationMock(true)
     const validationSpy = jest.spyOn(validator, 'validate')
 
-    const children = <ControlledInput name="title" label="Title" />
+    const children = <ControlInput name="title" label="Title" />
 
     makeSut({ children, validator })
 
@@ -93,7 +93,7 @@ describe('Form', () => {
     const validator = makeValidationMock(true)
     const validationSpy = jest.spyOn(validator, 'validate')
 
-    const children = <ControlledInput name="title" label="Title" />
+    const children = <ControlInput name="title" label="Title" />
 
     makeSut({ children, validator })
 
@@ -110,7 +110,7 @@ describe('Form', () => {
   it('should not call submitHandler if form is invalid', async () => {
     const submitHandler = jest.fn()
     const validator = makeValidationMock(false)
-    const children = <ControlledInput name="title" label="Title" />
+    const children = <ControlInput name="title" label="Title" />
 
     makeSut({ children, submitHandler, validator })
 
@@ -129,7 +129,7 @@ describe('Form', () => {
       throw new Error('any_error')
     })
 
-    const children = <ControlledInput name="title" label="Title" />
+    const children = <ControlInput name="title" label="Title" />
 
     makeSut({ children, submitHandler, validator: makeValidationMock(true) })
 
@@ -144,7 +144,7 @@ describe('Form', () => {
 
   it('should display the error message below the input if validation fails when trying to submit right away', () => {
     const validator = makeValidationMock(false)
-    const children = <ControlledInput name="title" label="Title" />
+    const children = <ControlInput name="title" label="Title" />
 
     makeSut({ children, validator })
 

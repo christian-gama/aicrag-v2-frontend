@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import { useSignUpMutation } from '@/services/api'
 import FormContext from '@/context/models/form/form.context'
 import Button from '@/components/atoms/Button'
-import ControlledInput from '@/components/molecules/ControlledInput'
-import BaseForm from '@/components/organisms/BaseForm'
+import ControlForm from '@/components/organisms/Control/ControlForm'
+import ControlInput from '@/components/organisms/Control/ControlInput'
 import makeSignUpValidator from '@/external/factories/validation/makeSignUpValidator'
 import * as style from './stylesheet'
 
@@ -23,7 +23,7 @@ const SignUpForm: React.FC = () => {
   }
 
   return (
-    <BaseForm
+    <ControlForm
       submitHandler={onSubmitHandler}
       validator={makeSignUpValidator()}
       loading={loading}
@@ -31,20 +31,20 @@ const SignUpForm: React.FC = () => {
     >
       <div className={style.signUpForm}>
         <div className={style.inputWrapper}>
-          <ControlledInput label="Seu nome" name="name" type="text" autoFocus />
+          <ControlInput label="Seu nome" name="name" type="text" autoFocus />
 
-          <ControlledInput label="Seu email" name="email" type="email" />
+          <ControlInput label="Seu email" name="email" type="email" />
 
-          <ControlledInput label="Sua senha" name="password" type="password" />
+          <ControlInput label="Sua senha" name="password" type="password" />
 
-          <ControlledInput label="Confirme sua senha" name="passwordConfirmation" type="password" />
+          <ControlInput label="Confirme sua senha" name="passwordConfirmation" type="password" />
         </div>
 
         <Button type="submit" style={{ size: 'lg' }} loading={loading}>
           Criar conta
         </Button>
       </div>
-    </BaseForm>
+    </ControlForm>
   )
 }
 

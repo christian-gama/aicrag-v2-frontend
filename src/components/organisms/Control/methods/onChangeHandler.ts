@@ -1,14 +1,14 @@
 import IHandler from '@/domain/handler/handler.model'
 import IValidation from '@/services/validators/protocols/validation.model'
 import { FormActionPayload, FormInputActionPayload, FormStates } from '@/context/models/form/protocols/form.model'
-import ControlledInputProps from '../protocols/ControlledInput.model'
+import ControlInputProps from '../protocols/ControlInput.model'
 
 type Params = {
   dispatch: (options: FormActionPayload | FormInputActionPayload) => void
   event: React.ChangeEvent<HTMLInputElement>
   data?: FormStates['form']['data']
-  name: ControlledInputProps['name']
-  onChange?: ControlledInputProps['onChange']
+  name: ControlInputProps['name']
+  onChange?: ControlInputProps['onChange']
   validator?: IValidation
   isTouched: boolean
 }

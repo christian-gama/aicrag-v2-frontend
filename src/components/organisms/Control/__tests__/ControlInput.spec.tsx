@@ -4,16 +4,16 @@ import userEvent from '@testing-library/user-event'
 import React from 'react'
 import IValidation from '@/services/validators/protocols/validation.model'
 import FormProvider from '@/context/models/form/form.provider'
-import ControlledInput from '..'
-import BaseForm from '../../../organisms/BaseForm'
-import ControlledInputProps from '../protocols/ControlledInput.model'
+import ControlForm from '../ControlForm'
+import ControlInput from '../ControlInput'
+import ControlInputProps from '../protocols/ControlInput.model'
 
-const makeSut = (props: ControlledInputProps & { validator?: IValidation }): void => {
+const makeSut = (props: ControlInputProps & { validator?: IValidation }): void => {
   render(
     <FormProvider>
-      <BaseForm submitHandler={jest.fn()} validator={props.validator}>
-        <ControlledInput {...props} icon={props.icon} label={props.label} />
-      </BaseForm>
+      <ControlForm submitHandler={jest.fn()} validator={props.validator}>
+        <ControlInput {...props} icon={props.icon} label={props.label} />
+      </ControlForm>
     </FormProvider>
   )
 }

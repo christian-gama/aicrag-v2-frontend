@@ -1,6 +1,6 @@
 import IValidation from '@/services/validators/protocols/validation.model'
 import { FormActionPayload, FormInputActionPayload, FormStates } from '@/context/models/form/protocols/form.model'
-import FormProps from '../BaseForm.model'
+import ControlFormProps from '../protocols/ControlForm.model'
 import handleValidation from './handleValidation'
 import tryToSubmit from './tryToSubmit'
 
@@ -8,7 +8,7 @@ type Params = {
   dispatch: (options: FormActionPayload | FormInputActionPayload) => void
   event: React.FormEvent<HTMLFormElement>
   data?: FormStates['form']['data']
-  submitHandler: FormProps['submitHandler']
+  submitHandler: ControlFormProps['submitHandler']
   validator?: IValidation
   setIsErrorPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>
   setIsSuccessPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>

@@ -1,14 +1,14 @@
 import IHandler from '@/domain/handler/handler.model'
 import IValidation from '@/services/validators/protocols/validation.model'
 import { FormActionPayload, FormInputActionPayload, FormStates } from '@/context/models/form/protocols/form.model'
-import ControlledInputProps from '../protocols/ControlledInput.model'
+import ControlInputProps from '../protocols/ControlInput.model'
 
 type Params = {
   dispatch: (options: FormActionPayload | FormInputActionPayload) => void
   event: React.FocusEvent<HTMLInputElement>
-  name: ControlledInputProps['name']
+  name: ControlInputProps['name']
   data?: FormStates['form']['data']
-  onBlur?: ControlledInputProps['onBlur']
+  onBlur?: ControlInputProps['onBlur']
   validator?: IValidation
 }
 

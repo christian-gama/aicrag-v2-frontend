@@ -5,14 +5,12 @@ import EyeIcon from '../../atoms/icons/EyeIcon'
 import onBlurHandler from './methods/onBlurHandler'
 import onChangeHandler from './methods/onChangeHandler'
 import onFocusHandler from './methods/onFocusHandler'
-import ControlledInputProps from './protocols/ControlledInput.model'
+import ControlInputProps from './protocols/ControlInput.model'
 
 /**
  * @description Must be used inside a Form component with FormProvider
  */
-const ControlledInput: React.FC<Omit<ControlledInputProps, 'uniqueFormName' | 'validation'>> = (
-  props: ControlledInputProps
-) => {
+const ControlInput: React.FC<Omit<ControlInputProps, 'uniqueFormName' | 'validation'>> = (props: ControlInputProps) => {
   const { icon, name, type, autoFocus, label, defaultValue } = props
 
   const { dispatch, state } = useContext(FormContext)
@@ -89,4 +87,4 @@ const ControlledInput: React.FC<Omit<ControlledInputProps, 'uniqueFormName' | 'v
   )
 }
 
-export default ControlledInput
+export default ControlInput

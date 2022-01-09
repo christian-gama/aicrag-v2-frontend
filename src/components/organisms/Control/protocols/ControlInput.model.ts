@@ -1,6 +1,6 @@
 import Optional from '@/helpers/typescript/optional.model'
 
-type ControlledInputProps = {
+type ControlInputProps = {
   autoFocus?: boolean
   icon?: React.ReactElement
   name: string
@@ -11,4 +11,4 @@ React.InputHTMLAttributes<HTMLInputElement>,
 Optional<'autoFocus' | 'onBlur' | 'onChange' | 'onFocus' | 'defaultValue' | 'type'>
 >
 
-export default ControlledInputProps
+export default ControlInputProps

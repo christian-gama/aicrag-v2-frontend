@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import { useLoginMutation } from '@/services/api'
 import FormContext from '@/context/models/form/form.context'
 import Button from '@/components/atoms/Button'
-import ControlledInput from '@/components/molecules/ControlledInput'
-import BaseForm from '@/components/organisms/BaseForm'
+import ControlForm from '@/components/organisms/Control/ControlForm'
+import ControlInput from '@/components/organisms/Control/ControlInput'
 import makeSignInValidator from '@/external/factories/validation/makeSignInValidator'
 import * as style from './stylesheet'
 
@@ -18,7 +18,7 @@ const SignInForm: React.FC = () => {
   }
 
   return (
-    <BaseForm
+    <ControlForm
       submitHandler={onSubmitHandler}
       validator={makeSignInValidator()}
       loading={loading}
@@ -26,9 +26,9 @@ const SignInForm: React.FC = () => {
     >
       <div className={style.signInForm}>
         <div className={style.inputWrapper}>
-          <ControlledInput label="Seu email" name="email" type="email" autoFocus />
+          <ControlInput label="Seu email" name="email" type="email" autoFocus />
 
-          <ControlledInput label="Sua senha" name="password" type="password" />
+          <ControlInput label="Sua senha" name="password" type="password" />
         </div>
 
         <div className={style.buttonWrapper}>
@@ -39,7 +39,7 @@ const SignInForm: React.FC = () => {
 
         <span className={style.forgotPassword}>Esqueceu sua senha?</span>
       </div>
-    </BaseForm>
+    </ControlForm>
   )
 }
 
