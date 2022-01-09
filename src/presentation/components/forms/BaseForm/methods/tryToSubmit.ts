@@ -5,19 +5,22 @@ import FormProps from '../BaseForm.model'
 type Params = {
   dispatch: (options: FormActionPayload | FormInputActionPayload) => void
   submitHandler: FormProps['submitHandler']
-  setIsPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setIsErrorPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setIsSuccessPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const tryToSubmit = async (params: Params): Promise<void> => {
-  const { dispatch, submitHandler, setIsPopoverOpen } = params
+  const { dispatch, submitHandler, setIsErrorPopoverOpen, setIsSuccessPopoverOpen } = params
 
   try {
     await submitHandler()
-    setIsPopoverOpen(false)
+    setIsErrorPopoverOpen(false)
+    setIsSuccessPopoverOpen(true)
   } catch (error: any) {
     dispatch({ type: 'FORM/SET_ERROR', payload: { error: getErrorMessage(error) } })
     dispatch({ type: 'FORM/SET_IS_VALID', payload: { isValid: false } })
-    setIsPopoverOpen(true)
+    setIsErrorPopoverOpen(true)
+    setIsSuccessPopoverOpen(false)
   }
 
   dispatch({ type: 'FORM/SET_IS_SUBMITTED', payload: { isSubmitted: true } })

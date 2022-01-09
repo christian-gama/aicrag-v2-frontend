@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import FormContext from '@/application/models/context/form/FormContext'
 import Popover from '@/presentation/components/UI/Popover'
+import ProgressBar from '../../UI/ProgressBar'
 import FormProps from './BaseForm.model'
 import onSubmitHandler from './methods/onSubmitHandler'
 
@@ -8,9 +9,10 @@ const BaseForm: React.FC<FormProps> = (props) => {
   const { validator, children, submitHandler } = props
   const { dispatch, state } = useContext(FormContext)
 
-  const { error, isValid, data, isResetting } = state.form
+  const { error, isValid, data, isResetting, isSubmitting, isSubmitted } = state.form
 
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false)
+  const [isErrorPopoverOpen, setIsErrorPopoverOpen] = useState(false)
+  const [isSuccessPopoverOpen, setIsSuccessPopoverOpen] = useState(false)
 
   useEffect(() => {
     dispatch({ type: 'FORM/RESET_FORM', payload: {} })
@@ -33,7 +35,8 @@ const BaseForm: React.FC<FormProps> = (props) => {
             event,
             submitHandler,
             validator,
-            setIsPopoverOpen,
+            setIsErrorPopoverOpen,
+            setIsSuccessPopoverOpen,
             data
           })
         }}
@@ -43,8 +46,24 @@ const BaseForm: React.FC<FormProps> = (props) => {
       </form>
 
       {!isValid && error && (
-        <Popover onClose={() => setIsPopoverOpen(false)} isOpen={isPopoverOpen} message={error} type="error" />
+        <Popover
+          onClose={() => setIsErrorPopoverOpen(false)}
+          isOpen={isErrorPopoverOpen}
+          message={error}
+          type="error"
+        />
       )}
+
+      {isValid && !error && isSubmitted && (
+        <Popover
+          onClose={() => setIsSuccessPopoverOpen(false)}
+          isOpen={isSuccessPopoverOpen}
+          message={props.successMessage ?? 'Formulário bem sucedido'}
+          type="success"
+        />
+      )}
+
+      {<ProgressBar loading={props.loading ?? isSubmitting} />}
     </>
   )
 }

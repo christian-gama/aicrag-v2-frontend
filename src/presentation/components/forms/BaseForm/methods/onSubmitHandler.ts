@@ -14,7 +14,8 @@ type Params = {
   data?: FormStates['form']['data']
   submitHandler: FormProps['submitHandler']
   validator?: IValidation
-  setIsPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setIsErrorPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setIsSuccessPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const onSubmitHandler = async (params: Params): Promise<void> => {
