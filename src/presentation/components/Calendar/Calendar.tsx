@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { calendarActions } from '@/application/models/redux/calendar'
 import { AppDispatch, RootState } from '@/application/store'
 import Modal from '../UI/Modal/Modal'
-import CalendarProps from './Calendar.model'
+import CalendarBody from './CalendarBody'
+import CalendarFooter from './CalendarFooter'
+import CalendarHeader from './CalendarHeader'
+import CalendarProps from './protocols/Calendar.model'
 import * as style from './stylesheet'
-import CalendarBody from './subComponents/CalendarBody'
-import CalendarFooter from './subComponents/CalendarFooter'
-import CalendarHeader from './subComponents/CalendarHeader'
 
 const Calendar: React.FC<CalendarProps> = (props) => {
   const { resetCalendar, closeCalendar } = calendarActions
