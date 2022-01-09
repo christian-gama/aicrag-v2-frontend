@@ -1,7 +1,11 @@
 import { style } from '@vanilla-extract/css'
 import { vars } from '@/components/_settings/vars.css'
 
-export const listItem = style({
+export const popoverMessageList = style({
+  listStyle: 'none'
+})
+
+export const popoverMessageListItem = style({
   display: 'flex',
 
   '::before': {

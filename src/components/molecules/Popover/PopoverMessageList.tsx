@@ -1,15 +1,15 @@
 import React from 'react'
-import P from '../../../atoms/texts/P'
-import PopoverMessageListProps from './PopoverMessageList.model'
+import P from '@/components/atoms/texts/P'
+import PopoverMessageListProps from './protocols/PopoverMessageList.model'
 import * as style from './stylesheet'
 
 const PopoverMessageList: React.FC<PopoverMessageListProps> = (props) => {
   const { messages } = props
 
   return (
-    <ul className={style.list} data-testid="popover-list">
+    <ul className={style.popoverMessageList} data-testid="popover-list">
       {messages.map((message, index) => (
-        <li key={index} className={style.listItem}>
+        <li key={index} className={style.popoverMessageListItem}>
           <P color="white">{message}</P>
         </li>
       ))}

@@ -20,6 +20,6 @@
     "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["src", "tests"],
+  "include": ["src", "tests", "listItem.css.ts"],
   "exclude": ["node_modules", "dist"],
 }

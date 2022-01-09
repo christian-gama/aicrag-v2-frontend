@@ -7,11 +7,9 @@ import ErrorIcon from '../../atoms/icons/ErrorIcon'
 import InfoCircleIcon from '../../atoms/icons/InfoCircleIcon'
 import P from '../../atoms/texts/P'
 import getDuration from './methods/getDuration'
-import PopoverProps from './Popover.model'
+import PopoverMessageList from './PopoverMessageList'
+import PopoverProps from './protocols/Popover.model'
 import * as style from './stylesheet'
-import { progressBarRecipe, progressBarWrapperRecipe, popoverVars } from './stylesheet/recipes'
-import { popoverRecipe } from './stylesheet/recipes/popoverRecipe.css'
-import PopoverMessageList from './subComponents/PopoverMessageList'
 
 const Popover: React.FC<PopoverProps> = (props) => {
   const { message, type } = props
@@ -45,15 +43,15 @@ const Popover: React.FC<PopoverProps> = (props) => {
     }
   }
 
-  const popoverStyle = popoverRecipe({
+  const popoverStyle = style.popoverRecipe({
     type
   })
 
-  const progressBarStyle = progressBarRecipe({
+  const progressBarStyle = style.progressBarRecipe({
     type
   })
 
-  const progressBarWrapperStyle = progressBarWrapperRecipe({
+  const progressBarWrapperStyle = style.progressBarWrapperRecipe({
     type
   })
 
@@ -62,7 +60,7 @@ const Popover: React.FC<PopoverProps> = (props) => {
   return ReactDOM.createPortal(
     <div
       className={popoverStyle}
-      style={assignInlineVars(popoverVars, { duration: `${duration}s` })}
+      style={assignInlineVars(style.popoverVars, { duration: `${duration}s` })}
       data-testid="popover"
     >
       <div className={style.popoverContent}>

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import React from 'react'
-import PopoverMessageList from '..'
+import PopoverMessageList from '../PopoverMessageList'
 
 describe('PopoverMessageList', () => {
   it('should render the message from messages', () => {
