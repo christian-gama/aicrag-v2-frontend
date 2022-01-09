@@ -1,3 +1,1 @@
-export * from './progressBarBackground.css'
-export * from './progressBar.css'
-export * from './progressBarProgress.css'
+export * as style from './ProgressBar.css'
