@@ -1,1 +1,1 @@
-export * from './iconHitbox.css'
+export * as style from './ChevronIcon.css'

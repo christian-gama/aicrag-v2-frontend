@@ -19,8 +19,8 @@ describe('CalendarHeader', () => {
 
     makeSut()
 
-    const chevronRight = screen.getByTestId('chevron-right-icon')
-    fireEvent.click(chevronRight)
+    const chevronIcons = screen.getAllByTestId('chevron-icon')
+    fireEvent.click(chevronIcons[0])
 
     expect(dispatchSpy).toHaveBeenCalled()
 
@@ -32,8 +32,8 @@ describe('CalendarHeader', () => {
 
     makeSut()
 
-    const chevronRight = screen.getByTestId('chevron-left-icon')
-    fireEvent.click(chevronRight)
+    const chevronIcons = screen.getAllByTestId('chevron-icon')
+    fireEvent.click(chevronIcons[1])
 
     expect(dispatchSpy).toHaveBeenCalled()
 
