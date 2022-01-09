@@ -45,10 +45,10 @@ describe('Input', () => {
     it('should hide password if click on eyeClosedIcon', () => {
       makeSut({ name: 'input', type: 'password', label: 'Input' })
 
-      const eyeOpenIcon = screen.getByTestId('eyeOpenIcon')
+      const eyeOpenIcon = screen.getByTestId('eye-open-icon')
       fireEvent.click(eyeOpenIcon)
 
-      const eyeClosedIcon = screen.getByTestId('eyeClosedIcon')
+      const eyeClosedIcon = screen.getByTestId('eye-closed-icon')
       fireEvent.click(eyeClosedIcon)
 
       const input = screen.getByTestId('base-input')
@@ -65,7 +65,7 @@ describe('Input', () => {
     it('should display an EyeIcon component if input type is password', () => {
       makeSut({ name: 'input', type: 'password', label: 'Input' })
 
-      const iconElement = screen.getByTestId('eyeOpenIcon')
+      const iconElement = screen.getByTestId('eye-open-icon')
 
       expect(iconElement).toBeInTheDocument()
     })
@@ -73,7 +73,7 @@ describe('Input', () => {
     it('should change input type from password to text if click on EyeIcon', () => {
       makeSut({ name: 'input', type: 'password', label: 'Input' })
 
-      const iconElement = screen.getByTestId('eyeOpenIcon')
+      const iconElement = screen.getByTestId('eye-open-icon')
       fireEvent.click(iconElement)
 
       const input = screen.getByTestId('base-input')

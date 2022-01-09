@@ -14,7 +14,7 @@ describe('EyeIcon', () => {
   it('should display eyeOpenIcon if showPassword is false', () => {
     makeSut(false)
 
-    const icon = screen.getByTestId('eyeOpenIcon')
+    const icon = screen.getByTestId('eye-open-icon')
 
     expect(icon).toBeInTheDocument()
   })
@@ -22,7 +22,7 @@ describe('EyeIcon', () => {
   it('should display eyeClosedIcon if showPassword is true', () => {
     makeSut(true)
 
-    const icon = screen.getByTestId('eyeClosedIcon')
+    const icon = screen.getByTestId('eye-closed-icon')
 
     expect(icon).toBeInTheDocument()
   })

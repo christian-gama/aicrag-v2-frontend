@@ -1,9 +1,9 @@
 import React from 'react'
 import EyeIconProps from './EyeIcon.model'
-import { iconRecipe } from './stylesheet/recipes'
+import { style } from './stylesheet'
 
 const EyeIcon: React.FC<EyeIconProps> = (props) => {
-  const eyeIconStyle = iconRecipe({
+  const eyeIconStyle = style.eyeIconRecipe({
     color: props.style?.color,
     size: props.style?.size
   })
@@ -11,7 +11,7 @@ const EyeIcon: React.FC<EyeIconProps> = (props) => {
   const eyeOpenIcon = (
     <svg
       className={eyeIconStyle}
-      data-testid={'eyeOpenIcon'}
+      data-testid="eye-open-icon"
       onClick={props.onClick}
       viewBox="0 0 60 48"
       xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,7 @@ const EyeIcon: React.FC<EyeIconProps> = (props) => {
   const eyeClosedIcon = (
     <svg
       className={eyeIconStyle}
-      data-testid={'eyeClosedIcon'}
+      data-testid="eye-closed-icon"
       onClick={props.onClick}
       viewBox="0 0 60 48"
       xmlns="http://www.w3.org/2000/svg"
