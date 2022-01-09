@@ -1,8 +1,7 @@
 import translateError from '@/helpers/translateError'
 import React, { useEffect, useState } from 'react'
-import BaseInputProps from './BaseInput.model'
+import BaseInputProps from './protocols/BaseInput.model'
 import * as style from './stylesheet'
-import { inputRecipe, labelRecipe, LabelRecipeVariants } from './stylesheet/recipes'
 
 const BaseInput: React.FC<BaseInputProps> = (props) => {
   const { error, icon, isFocused, isTouched, isValid, label, name, type, validator, value, ...rest } = props
@@ -17,7 +16,7 @@ const BaseInput: React.FC<BaseInputProps> = (props) => {
     return () => clearTimeout(timer)
   }, [])
 
-  const getState = (): LabelRecipeVariants['state'] => {
+  const getState = (): style.LabelRecipeVariants['state'] => {
     if (validator) {
       if (!isValid && isTouched) {
         return 'error'
@@ -31,22 +30,20 @@ const BaseInput: React.FC<BaseInputProps> = (props) => {
     return 'default'
   }
 
-  const labelStyle = labelRecipe({
+  const labelStyle = style.labelRecipe({
     float: !!isFocused || value !== '',
     state: getState()
   })
 
-  const inputStyle = inputRecipe({
+  const inputStyle = style.inputRecipe({
     hasIcon: !!icon || type === 'password',
     state: getState()
   })
 
-  const uniqueId = `input-${name.toLowerCase()}-${Math.floor(Math.random() * 1000)}`
-
   return (
-    <div className={style.input} data-testid={`${name}-container`}>
+    <div className={style.input} data-testid={'base-input-wrapper'}>
       <div className={style.inputContent}>
-        <label data-testid={`${label}-label`} htmlFor={uniqueId} className={labelStyle}>
+        <label data-testid={'base-input-label'} htmlFor={name} className={labelStyle}>
           {label}
         </label>
 
@@ -54,8 +51,8 @@ const BaseInput: React.FC<BaseInputProps> = (props) => {
           <input
             {...rest}
             className={inputStyle}
-            data-testid={`${name}-input`}
-            id={uniqueId}
+            data-testid={'base-input'}
+            id={name}
             name={name}
             readOnly={readonly}
             type={type}
@@ -64,7 +61,7 @@ const BaseInput: React.FC<BaseInputProps> = (props) => {
           />
 
           {icon && (
-            <div data-testid={`${props.name}-icon`} className={style.inputIcon}>
+            <div data-testid={'base-input-icon'} className={style.inputIcon}>
               {icon()}
             </div>
           )}
@@ -72,7 +69,7 @@ const BaseInput: React.FC<BaseInputProps> = (props) => {
       </div>
 
       {error && (
-        <div data-testid={`${name}-error`} className={style.inputError}>
+        <div data-testid={'base-input-error'} className={style.inputError}>
           {translateError(error)}
         </div>
       )}

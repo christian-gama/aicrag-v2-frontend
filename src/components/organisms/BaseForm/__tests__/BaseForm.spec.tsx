@@ -50,7 +50,7 @@ describe('Form', () => {
 
     makeSut({ children })
 
-    const inputElement = screen.getByTestId('title-input')
+    const inputElement = screen.getByTestId('base-input')
 
     expect(screen.getByTestId('form')).toContainElement(inputElement)
   })
@@ -61,7 +61,7 @@ describe('Form', () => {
 
     makeSut({ children, submitHandler: submitHandlerMock })
 
-    const input = screen.getByTestId('title-input')
+    const input = screen.getByTestId('base-input')
     act(() => {
       fireEvent.change(input, { target: { value: 'any_value' } })
       fireEvent.blur(input)
@@ -79,7 +79,7 @@ describe('Form', () => {
 
     makeSut({ children, validator })
 
-    const input = screen.getByTestId('title-input')
+    const input = screen.getByTestId('base-input')
     act(() => {
       fireEvent.change(input, { target: { value: 'any_title' } })
       fireEvent.blur(input)
@@ -97,7 +97,7 @@ describe('Form', () => {
 
     makeSut({ children, validator })
 
-    const input = screen.getByTestId('title-input')
+    const input = screen.getByTestId('base-input')
     act(() => {
       fireEvent.change(input, { target: { value: 'any_title' } })
       fireEvent.blur(input)
@@ -114,7 +114,7 @@ describe('Form', () => {
 
     makeSut({ children, submitHandler, validator })
 
-    const input = screen.getByTestId('title-input')
+    const input = screen.getByTestId('base-input')
     act(() => {
       fireEvent.change(input, { target: { value: 'any_title' } })
       fireEvent.blur(input)
@@ -152,7 +152,7 @@ describe('Form', () => {
       fireEvent.submit(screen.getByTestId('form'))
     })
 
-    const errorElement = screen.getByTestId('title-error')
+    const errorElement = screen.getByTestId('base-input-error')
 
     expect(errorElement).toBeTruthy()
   })

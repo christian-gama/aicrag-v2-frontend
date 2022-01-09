@@ -1,5 +1,1 @@
-export * from './inputBox.css'
-export * from './inputContent.css'
-export * from './inputError.css'
-export * from './inputIcon.css'
-export * from './input.css'
+export * from './Input.css'

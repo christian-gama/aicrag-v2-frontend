@@ -23,13 +23,21 @@ describe('Input', () => {
     cleanup()
   })
 
+  it('should render correctly', () => {
+    makeSut({ label: 'Any name', name: 'any_name' })
+
+    const inputElement = screen.getByTestId('base-input')
+
+    expect(inputElement).toBeInTheDocument()
+  })
+
   describe('icon interaction', () => {
     it('should display an icon if provided', () => {
       const icon = <div>Icon</div>
 
       makeSut({ name: 'input', icon, label: 'Input' })
 
-      const iconElement = screen.getByTestId('input-icon')
+      const iconElement = screen.getByTestId('base-input-icon')
 
       expect(iconElement).toBeInTheDocument()
     })
@@ -43,7 +51,7 @@ describe('Input', () => {
       const eyeClosedIcon = screen.getByTestId('eyeClosedIcon')
       fireEvent.click(eyeClosedIcon)
 
-      const input = screen.getByTestId('input-input')
+      const input = screen.getByTestId('base-input')
 
       expect(input).toHaveAttribute('type', 'password')
     })
@@ -68,7 +76,7 @@ describe('Input', () => {
       const iconElement = screen.getByTestId('eyeOpenIcon')
       fireEvent.click(iconElement)
 
-      const input = screen.getByTestId('input-input')
+      const input = screen.getByTestId('base-input')
 
       expect(input).toHaveAttribute('type', 'text')
     })
@@ -81,7 +89,7 @@ describe('Input', () => {
 
       makeSut({ name: 'input', validator, label: 'Input' })
 
-      const input = screen.getByTestId('input-input')
+      const input = screen.getByTestId('base-input')
       fireEvent.change(input, { target: { value: 'any_value' } })
 
       expect(validatorSpy).toHaveBeenLastCalledWith('input', { input: 'any_value' })
@@ -92,10 +100,10 @@ describe('Input', () => {
 
       makeSut({ name: 'input', validator, label: 'Input' })
 
-      const input = screen.getByTestId('input-input')
+      const input = screen.getByTestId('base-input')
       fireEvent.blur(input)
 
-      const errorMessage = screen.queryByTestId('input-error')
+      const errorMessage = screen.queryByTestId('base-input-error')
 
       expect(errorMessage).toBeNull()
     })
@@ -105,10 +113,10 @@ describe('Input', () => {
 
       makeSut({ name: 'input', validator, label: 'Input' })
 
-      const input = screen.getByTestId('input-input')
+      const input = screen.getByTestId('base-input')
       fireEvent.blur(input)
 
-      const error = screen.getByTestId('input-error')
+      const error = screen.getByTestId('base-input-error')
 
       expect(typeof error.textContent).toBe('string')
     })
@@ -118,10 +126,12 @@ describe('Input', () => {
 
       makeSut({ name: 'input', validator, label: 'Input' })
 
-      const input = screen.getByTestId('input-input')
+      const input = screen.getByTestId('base-input')
       fireEvent.blur(input)
 
-      expect(screen.queryByTestId('input-error')).toBeNull()
+      const error = screen.queryByTestId('base-input-error')
+
+      expect(error).toBeNull()
     })
 
     it('should not display an error if the input was not touched', () => {
@@ -129,7 +139,9 @@ describe('Input', () => {
 
       makeSut({ name: 'input', validator, label: 'Input' })
 
-      expect(screen.queryByTestId('input-error')).toBeNull()
+      const error = screen.queryByTestId('base-input-error')
+
+      expect(error).toBeNull()
     })
 
     it('should remove any error message if input is valid', () => {
@@ -137,10 +149,12 @@ describe('Input', () => {
 
       makeSut({ name: 'input', validator, label: 'Input' })
 
-      const input = screen.getByTestId('input-input')
+      const input = screen.getByTestId('base-input')
       fireEvent.blur(input)
 
-      expect(screen.queryByTestId('input-error')).toBeNull()
+      const error = screen.queryByTestId('base-input-error')
+
+      expect(error).toBeNull()
     })
 
     it('should validate input on focus', () => {
@@ -149,7 +163,7 @@ describe('Input', () => {
 
       makeSut({ name: 'input', validator, label: 'Input' })
 
-      const input = screen.getByTestId('input-input')
+      const input = screen.getByTestId('base-input')
       fireEvent.focus(input)
 
       expect(validatorSpy).toHaveBeenCalled()
@@ -160,11 +174,11 @@ describe('Input', () => {
 
       makeSut({ name: 'input', validator, label: 'Input' })
 
-      const input = screen.getByTestId('input-input')
+      const input = screen.getByTestId('base-input')
       userEvent.type(input, 'any_value')
       fireEvent.change(input, { target: { value: 'any_value' } })
 
-      const error = screen.queryByTestId('input-error')
+      const error = screen.queryByTestId('base-input-error')
 
       expect(error).toBeNull()
     })
@@ -174,11 +188,11 @@ describe('Input', () => {
 
       makeSut({ name: 'input', validator, label: 'Input' })
 
-      const input = screen.getByTestId('input-input')
+      const input = screen.getByTestId('base-input')
       fireEvent.blur(input)
       userEvent.type(input, 'any_value')
 
-      const error = screen.getByTestId('input-error')
+      const error = screen.getByTestId('base-input-error')
 
       expect(typeof error.textContent).toBe('string')
     })
@@ -188,7 +202,7 @@ describe('Input', () => {
 
       makeSut({ name: 'input', onBlur, label: 'Input' })
 
-      const input = screen.getByTestId('input-input')
+      const input = screen.getByTestId('base-input')
       fireEvent.blur(input)
 
       expect(onBlur).toHaveBeenCalled()
@@ -199,7 +213,7 @@ describe('Input', () => {
 
       makeSut({ name: 'input', onChange, label: 'Input' })
 
-      const input = screen.getByTestId('input-input')
+      const input = screen.getByTestId('base-input')
       fireEvent.change(input, { target: { value: 'any_value' } })
 
       expect(onChange).toHaveBeenCalled()
@@ -210,7 +224,7 @@ describe('Input', () => {
 
       makeSut({ name: 'input', onFocus, label: 'Input' })
 
-      const input = screen.getByTestId('input-input')
+      const input = screen.getByTestId('base-input')
       fireEvent.focus(input)
 
       expect(onFocus).toHaveBeenCalled()
