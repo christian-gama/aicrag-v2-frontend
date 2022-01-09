@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import translateError from '@/application/utils/translateError'
 import BaseInputProps from './BaseInput.model'
 import * as style from './stylesheet'
 import { inputRecipe, labelRecipe, LabelRecipeVariants } from './stylesheet/recipes'
@@ -72,7 +73,7 @@ const BaseInput: React.FC<BaseInputProps> = (props) => {
 
       {error && (
         <div data-testid={`${name}-error`} className={style.inputError}>
-          {error}
+          {translateError(error)}
         </div>
       )}
     </div>
