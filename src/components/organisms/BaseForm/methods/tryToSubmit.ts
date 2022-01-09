@@ -1,4 +1,4 @@
-import { FormActionPayload, FormInputActionPayload } from '@/application/models/context/form/protocols/form.model'
+import { FormActionPayload, FormInputActionPayload } from '@/context/models/form/protocols/form.model'
 import getErrorMessage from '@/application/utils/getErrorMessage'
 import FormProps from '../BaseForm.model'
 

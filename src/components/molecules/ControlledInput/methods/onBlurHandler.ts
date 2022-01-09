@@ -1,10 +1,6 @@
 import IHandler from '@/domain/handler/handler.model'
 import IValidation from '@/domain/validation/validation.model'
-import {
-  FormActionPayload,
-  FormInputActionPayload,
-  FormStates
-} from '@/application/models/context/form/protocols/form.model'
+import { FormActionPayload, FormInputActionPayload, FormStates } from '@/context/models/form/protocols/form.model'
 import ControlledInputProps from '../ControlledInput.model'
 
 type Params = {

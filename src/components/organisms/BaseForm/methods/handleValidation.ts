@@ -1,10 +1,6 @@
 import React from 'react'
 import IValidation from '@/domain/validation/validation.model'
-import {
-  FormActionPayload,
-  FormInputActionPayload,
-  FormStates
-} from '@/application/models/context/form/protocols/form.model'
+import { FormActionPayload, FormInputActionPayload, FormStates } from '@/context/models/form/protocols/form.model'
 
 type Params = {
   dispatch: (options: FormActionPayload | FormInputActionPayload) => void

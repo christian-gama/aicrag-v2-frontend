@@ -1,9 +1,5 @@
 import IValidation from '@/domain/validation/validation.model'
-import {
-  FormActionPayload,
-  FormInputActionPayload,
-  FormStates
-} from '@/application/models/context/form/protocols/form.model'
+import { FormActionPayload, FormInputActionPayload, FormStates } from '@/context/models/form/protocols/form.model'
 import FormProps from '../BaseForm.model'
 import handleValidation from './handleValidation'
 import tryToSubmit from './tryToSubmit'

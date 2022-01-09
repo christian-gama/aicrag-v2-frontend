@@ -28,6 +28,7 @@
           "module",
           "/^@/domain/",
           "/^@/services/",
+          "/^@/context/",
           "/^@/components/",
           "/^@/application/",
           "/^@/infra/",

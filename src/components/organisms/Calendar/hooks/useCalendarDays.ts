@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon'
 import { useDispatch, useSelector } from 'react-redux'
-import { calendarActions } from '@/application/models/redux/calendar'
-import { CalendarStates } from '@/application/models/redux/calendar/protocols/calendar.model'
-import { AppDispatch, RootState } from '@/application/store'
+import { calendarActions } from '@/context/models/calendar'
+import { CalendarStates } from '@/context/models/calendar/protocols/calendar.model'
+import { AppDispatch, RootState } from '@/context/store'
 
 const useCalendarDays = () => {
   const dispatch = useDispatch<AppDispatch>()

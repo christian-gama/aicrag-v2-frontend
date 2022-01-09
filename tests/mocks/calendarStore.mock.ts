@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import { Reducer } from 'react'
-import { calendarReducer } from '@/application/models/redux/calendar'
-import { RootState } from '@/application/store'
+import { calendarReducer } from '@/context/models/calendar'
+import { RootState } from '@/context/store'
 
 type Store = {
   reducer: { [key: string]: Reducer<any, any> }
