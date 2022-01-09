@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../../../presentation/components/UI/Button'
+import Button from '../../atoms/Button'
 import CalendarButtonWrapperProps from './protocols/CalendarButtonWrapper.model'
 import * as style from './stylesheet'
 
