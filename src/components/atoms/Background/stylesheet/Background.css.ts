@@ -3,7 +3,7 @@ import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { breakpoints } from '@/components/_settings/breakpoints.css'
 import { vars } from '@/components/_settings/vars.css'
 
-export const dimensionVars = createGlobalTheme(':root', {
+export const backgroundVars = createGlobalTheme(':root', {
   height: ''
 })
 
@@ -11,7 +11,7 @@ export const backgroundRecipe = recipe({
   base: {
     position: 'fixed',
     width: '100vw',
-    height: dimensionVars.height,
+    height: backgroundVars.height,
     WebkitBackgroundSize: 'cover',
     backgroundSize: 'cover',
     zIndex: '-1',
@@ -21,7 +21,7 @@ export const backgroundRecipe = recipe({
 
     '@media': {
       [breakpoints.mobile]: {
-        height: dimensionVars.height
+        height: backgroundVars.height
       }
     }
   },

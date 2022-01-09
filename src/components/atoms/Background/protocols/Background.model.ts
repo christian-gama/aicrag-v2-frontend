@@ -1,4 +1,4 @@
-import { BackgroundVariants } from './stylesheet/recipes'
+import { BackgroundVariants } from '../stylesheet'
 
 type BackgroundProps = {
   gradient?: BackgroundVariants['gradient']

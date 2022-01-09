@@ -1,8 +1,8 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import React from 'react'
 import useWindowDimensions from '@/components/_hooks/useWindowDimensions'
-import BackgroundProps from './Background.model'
-import { backgroundRecipe, dimensionVars } from './stylesheet/recipes'
+import BackgroundProps from './protocols/Background.model'
+import { backgroundRecipe, backgroundVars } from './stylesheet'
 
 const Background: React.FC<BackgroundProps> = (props) => {
   const { height } = useWindowDimensions()
@@ -12,7 +12,11 @@ const Background: React.FC<BackgroundProps> = (props) => {
   })
 
   return (
-    <div className={backgroundStyle} style={assignInlineVars(dimensionVars, { height: `${height}px` })}>
+    <div
+      className={backgroundStyle}
+      data-testid="background"
+      style={assignInlineVars(backgroundVars, { height: `${height}px` })}
+    >
       {props.children}
     </div>
   )
