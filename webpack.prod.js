@@ -12,7 +12,7 @@ module.exports = merge(common, {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './template.prod.html'
+      template: './public/template.prod.html'
     }),
     new FaviconsWebpackPlugin({
       logo: resolve(__dirname, 'public/assets/favicon.svg'),
