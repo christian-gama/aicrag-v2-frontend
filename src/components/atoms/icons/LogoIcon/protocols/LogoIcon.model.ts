@@ -1,4 +1,4 @@
-import { LogoIconVariants } from './stylesheet/recipes'
+import { LogoIconVariants } from '../stylesheet/LogoIcon.css'
 
 type LogoIconProps = {
   color?: LogoIconVariants['color']

@@ -1,7 +1,7 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { fillColorVariants } from '@/components/_settings/variants.css'
 
-export const iconRecipe = recipe({
+export const logoIconRecipe = recipe({
   variants: {
     color: fillColorVariants,
 
@@ -29,4 +29,4 @@ export const iconRecipe = recipe({
   }
 })
 
-export type LogoIconVariants = NonNullable<RecipeVariants<typeof iconRecipe>>
+export type LogoIconVariants = NonNullable<RecipeVariants<typeof logoIconRecipe>>
