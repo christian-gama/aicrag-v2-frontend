@@ -1,7 +1,7 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
-import CheckIcon from '../../atoms/icons/CheckIcon'
+import CheckIcon from '../../atoms/icons/CheckCircleIcon'
 import CloseIcon from '../../atoms/icons/CloseIcon'
 import ErrorIcon from '../../atoms/icons/ErrorIcon'
 import InfoCircleIcon from '../../atoms/icons/InfoCircleIcon'
