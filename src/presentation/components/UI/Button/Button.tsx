@@ -1,5 +1,5 @@
 import React from 'react'
-import LoadingSpinnerIcon from '../icons/LoadingSpinnerIcon'
+import LoadingSpinnerIcon from '../../../../components/atoms/icons/LoadingSpinnerIcon'
 import ButtonProps from './Button.model'
 import { getLoadingColor } from './methods/getLoadingColor'
 import { buttonRecipe } from './stylesheet/recipes'
