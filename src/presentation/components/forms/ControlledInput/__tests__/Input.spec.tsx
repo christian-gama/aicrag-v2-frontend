@@ -5,7 +5,7 @@ import React from 'react'
 import IValidation from '@/domain/validation/validation.model'
 import FormProvider from '@/application/models/context/form/FormProvider'
 import ControlledInput from '..'
-import BaseForm from '../../BaseForm'
+import BaseForm from '../../../../../components/organisms/BaseForm'
 import ControlledInputProps from '../ControlledInput.model'
 
 const makeSut = (props: ControlledInputProps & { validator?: IValidation }): void => {

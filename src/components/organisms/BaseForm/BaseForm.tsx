@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Popover from '@/components/molecules/Popover'
 import FormContext from '@/application/models/context/form/FormContext'
-import ProgressBar from '../../UI/ProgressBar'
+import ProgressBar from '../../../presentation/components/UI/ProgressBar'
 import FormProps from './BaseForm.model'
 import onSubmitHandler from './methods/onSubmitHandler'
 
