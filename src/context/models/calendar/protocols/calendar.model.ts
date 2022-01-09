@@ -1,4 +1,4 @@
-import { calendarActions } from '..'
+import { calendarActions } from '../calendar.actions'
 
 export type CalendarStates = {
   calendarDate: number

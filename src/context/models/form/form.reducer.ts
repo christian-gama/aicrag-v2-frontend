@@ -11,7 +11,7 @@ import {
   setFormData,
   setFormValidator,
   setIsResetting
-} from './formActions'
+} from './form.actions'
 import {
   setInputCurrentType,
   setInputError,
@@ -19,7 +19,7 @@ import {
   setInputIsTouched,
   setInputIsValid,
   setInputValue
-} from './inputActions'
+} from './input.actions'
 import { FormActionPayload, FormInputActionPayload, FormStates } from './protocols/form.model'
 
 const formReducer = (state: FormStates, action: FormActionPayload | FormInputActionPayload): FormStates => {

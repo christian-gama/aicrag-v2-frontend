@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { calendarActions } from '@/context/models/calendar'
+import { calendarActions } from '@/context/models/calendar/calendar.actions'
 import { AppDispatch, RootState } from '@/context/store'
 import Modal from '../../atoms/Modal/Modal'
 import CalendarBody from './CalendarBody'

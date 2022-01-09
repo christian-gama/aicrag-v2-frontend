@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { useDispatch, useSelector } from 'react-redux'
-import { calendarActions } from '@/context/models/calendar'
+import { calendarActions } from '@/context/models/calendar/calendar.actions'
 import { CalendarStates } from '@/context/models/calendar/protocols/calendar.model'
 import { AppDispatch, RootState } from '@/context/store'
 

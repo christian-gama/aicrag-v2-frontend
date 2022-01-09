@@ -1,5 +1,5 @@
 import React from 'react'
-import FormProvider from '@/context/models/form/FormProvider'
+import FormProvider from '@/context/models/form/form.provider'
 import SignUpForm from '@/components/templates/forms/SignUpForm'
 import WelcomeCard from '../../../templates/WelcomeCard/WelcomeCard'
 

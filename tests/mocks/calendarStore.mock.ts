@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { Reducer } from 'react'
-import { calendarReducer } from '@/context/models/calendar'
+import { calendarReducer } from '@/context/models/calendar/calendar.reducer'
 import { RootState } from '@/context/store'
 
 type Store = {
