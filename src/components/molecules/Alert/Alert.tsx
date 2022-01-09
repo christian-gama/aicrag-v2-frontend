@@ -8,10 +8,10 @@ import InfoCircleIcon from '../../atoms/icons/InfoCircleIcon'
 import Modal from '../../atoms/Modal'
 import H4 from '../../atoms/texts/H4'
 import P from '../../atoms/texts/P'
-import AlertProps from './Alert.model'
 import handleAction from './methods/actionHandler'
 import cancelHandler from './methods/cancelHandler'
-import * as style from './stylesheet'
+import AlertProps from './protocols/Alert.model'
+import { style } from './stylesheet'
 
 const Alert: React.FC<AlertProps> = (props) => {
   const [isOpen, setIsOpen] = useState(!!props.isOpen)

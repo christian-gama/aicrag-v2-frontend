@@ -1,5 +1,5 @@
 import IHandler from '@/domain/handler/handler.model'
-import AlertProps, { AlertWithAction } from '../Alert.model'
+import AlertProps, { AlertWithAction } from '../protocols/Alert.model'
 
 type Params = {
   mode: AlertProps['mode']

@@ -1,5 +1,5 @@
 import IHandler from '@/domain/handler/handler.model'
-import AlertProps from '../Alert.model'
+import AlertProps from '../protocols/Alert.model'
 
 type Params = {
   onCancel: AlertProps['onCancel']

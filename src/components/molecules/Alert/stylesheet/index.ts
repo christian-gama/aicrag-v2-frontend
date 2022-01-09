@@ -1,4 +1,1 @@
-export * from './alertBody.css'
-export * from './alertFooter.css'
-export * from './alertHeaderRecipe.css'
-export * from './alert.css'
+export * as style from './Alert.css'
