@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import SignIn from '@/components/pages/Welcome/SignIn'
-import SignUp from '@/components/pages/Welcome/SignUp'
+import SignIn from '@/components/views/Welcome/SignIn'
+import SignUp from '@/components/views/Welcome/SignUp'
 
 export default (
   <Route path="/boas-vindas">
