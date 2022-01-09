@@ -6,6 +6,7 @@ import MaxLengthValidator from '@/application/validators/maxLengthValidator'
 import MaxValidator from '@/application/validators/maxValidator'
 import MinLengthValidator from '@/application/validators/minLengthValidator'
 import MinValidator from '@/application/validators/minValidator'
+import Regex from '@/application/validators/Regex'
 import RequiredFieldValidator from '@/application/validators/requiredFieldValidator'
 
 class ValidatorBuilder {
@@ -21,7 +22,7 @@ class ValidatorBuilder {
     return this
   }
 
-  email (): ValidatorBuilder {
+  isEmail (): ValidatorBuilder {
     this.validations.push(new EmailValidator(this.field))
 
     return this
@@ -29,6 +30,12 @@ class ValidatorBuilder {
 
   min (min: number): ValidatorBuilder {
     this.validations.push(new MinValidator(this.field, min))
+
+    return this
+  }
+
+  regex (regex: RegExp): ValidatorBuilder {
+    this.validations.push(new Regex(this.field, regex))
 
     return this
   }
