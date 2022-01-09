@@ -1,6 +1,6 @@
 import IFieldValidation from '@/domain/validation/fieldValidation.model'
 import InvalidFieldError from '@/application/errors/invalidFieldError'
-import Regex from '../Regex'
+import Regex from '../regex'
 
 const makeSut = (): IFieldValidation => {
   return new Regex('field', /^[a-z]$/)

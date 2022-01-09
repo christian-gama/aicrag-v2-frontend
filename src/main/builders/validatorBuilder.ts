@@ -6,7 +6,7 @@ import MaxLengthValidator from '@/application/validators/maxLengthValidator'
 import MaxValidator from '@/application/validators/maxValidator'
 import MinLengthValidator from '@/application/validators/minLengthValidator'
 import MinValidator from '@/application/validators/minValidator'
-import Regex from '@/application/validators/Regex'
+import Regex from '@/application/validators/regex'
 import RequiredFieldValidator from '@/application/validators/requiredFieldValidator'
 
 class ValidatorBuilder {
