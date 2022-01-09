@@ -1,4 +1,4 @@
-import { CardVariants } from './stylesheet/recipes'
+import { CardVariants } from '../stylesheet/Card.css'
 
 type CardProps = {
   centered?: CardVariants['centered']
