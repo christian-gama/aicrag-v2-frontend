@@ -3,7 +3,8 @@ import tryToSubmit from '../tryToSubmit'
 describe('tryToSubmit', () => {
   const dispatch = jest.fn()
   const submitHandler = jest.fn() as any
-  const setIsPopoverOpen = jest.fn()
+  const setIsErrorPopoverOpen = jest.fn()
+  const setIsSuccessPopoverOpen = jest.fn()
 
   afterEach(() => {
     jest.clearAllMocks()
@@ -13,7 +14,8 @@ describe('tryToSubmit', () => {
     await tryToSubmit({
       dispatch,
       submitHandler,
-      setIsPopoverOpen
+      setIsErrorPopoverOpen,
+      setIsSuccessPopoverOpen
     })
 
     expect(dispatch).toHaveBeenCalledWith({ type: 'FORM/SET_IS_SUBMITTED', payload: { isSubmitted: true } })
@@ -27,11 +29,12 @@ describe('tryToSubmit', () => {
     await tryToSubmit({
       dispatch,
       submitHandler,
-      setIsPopoverOpen
+      setIsErrorPopoverOpen,
+      setIsSuccessPopoverOpen
     })
 
     expect(dispatch).toHaveBeenCalledWith({ type: 'FORM/SET_ERROR', payload: { error: 'error message' } })
     expect(dispatch).toHaveBeenCalledWith({ type: 'FORM/SET_IS_VALID', payload: { isValid: false } })
-    expect(setIsPopoverOpen).toHaveBeenCalledWith(true)
+    expect(setIsErrorPopoverOpen).toHaveBeenCalledWith(true)
   })
 })

@@ -11,7 +11,8 @@ describe('onSubmitHandler', () => {
   const submitHandler = jest.fn()
   const tryToSubmitMock = tryToSubmit as jest.Mock
   const event = { preventDefault: jest.fn() } as any
-  const setIsPopoverOpen = jest.fn()
+  const setIsErrorPopoverOpen = jest.fn()
+  const setIsSuccessPopoverOpen = jest.fn()
   const validator = {
     validate: jest.fn()
   }
@@ -32,7 +33,8 @@ describe('onSubmitHandler', () => {
       event,
       data,
       submitHandler,
-      setIsPopoverOpen,
+      setIsErrorPopoverOpen,
+      setIsSuccessPopoverOpen,
       validator
     })
 
@@ -47,7 +49,8 @@ describe('onSubmitHandler', () => {
       event,
       data,
       submitHandler,
-      setIsPopoverOpen,
+      setIsErrorPopoverOpen,
+      setIsSuccessPopoverOpen,
       validator
     })
 

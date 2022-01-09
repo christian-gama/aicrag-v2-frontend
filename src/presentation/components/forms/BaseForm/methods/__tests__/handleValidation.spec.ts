@@ -2,7 +2,7 @@ import handleValidation from '../handleValidation'
 
 describe('handleValidation', () => {
   const dispatch = jest.fn()
-  const setIsPopoverOpen = jest.fn()
+  const setIsErrorPopoverOpen = jest.fn()
   const data = {
     name: '',
     email: '',
@@ -18,7 +18,7 @@ describe('handleValidation', () => {
     handleValidation({
       dispatch,
       data,
-      setIsPopoverOpen
+      setIsErrorPopoverOpen
     })
 
     expect(dispatch).toHaveBeenNthCalledWith(1, { type: 'FORM/SET_IS_VALIDATING', payload: { isValidating: true } })
@@ -34,13 +34,13 @@ describe('handleValidation', () => {
     handleValidation({
       dispatch,
       data,
-      setIsPopoverOpen,
+      setIsErrorPopoverOpen,
       validator
     })
 
     expect(dispatch).toHaveBeenNthCalledWith(2, {
       type: 'FORM/SET_ERROR',
-      payload: { error: 'Não foi possível continuar, pois há erros que precisam ser corrigidos.' }
+      payload: { error: 'Não foi possível continuar, pois há erros que precisam ser corrigidos' }
     })
     expect(dispatch).toHaveBeenNthCalledWith(3, { type: 'FORM/SET_IS_VALID', payload: { isValid: false } })
     expect(dispatch).toHaveBeenNthCalledWith(4, { type: 'FORM/SET_IS_VALIDATING', payload: { isValidating: false } })
@@ -63,7 +63,7 @@ describe('handleValidation', () => {
     const error = handleValidation({
       dispatch,
       data,
-      setIsPopoverOpen,
+      setIsErrorPopoverOpen,
       validator
     })
 
