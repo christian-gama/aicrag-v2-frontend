@@ -1,6 +1,10 @@
 import { styleVariants } from '@vanilla-extract/css'
 
 export const roundness = styleVariants({
+  none: {
+    borderRadius: '0'
+  },
+
   sm: {
     borderRadius: '3px'
   },
