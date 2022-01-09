@@ -3,7 +3,7 @@ import InvalidFieldError from '@/application/errors/invalidFieldError'
 import Regex from '../regex'
 
 const makeSut = (): IFieldValidation => {
-  return new Regex('field', /^[a-z]$/)
+  return new Regex('field', /[^a-z]$/)
 }
 
 describe('regex', () => {
