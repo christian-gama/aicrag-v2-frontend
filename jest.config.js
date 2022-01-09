@@ -2,7 +2,7 @@ module.exports = {
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{ts,tsx}',
     '!<rootDir>/node_modules/**',
-    '!<rootDir>/src/**/(*)Context.ts',
+    '!<rootDir>/src/**/(*).context.ts',
     '!<rootDir>/src/**/stylesheet/**/*',
     '!<rootDir>/src/**/*.css.ts',
     '!<rootDir>/src/**/*.model.ts',
@@ -14,8 +14,7 @@ module.exports = {
   roots: ['<rootDir>/src'],
   testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.css.ts': ['babel-jest', { configFile: './babel-jest.config.js' }],
-    '^.+\\.tsx?$': '@swc/jest'
+    '^.+\\.tsx?$': ['babel-jest', { configFile: './babel-jest.config.js' }]
   },
   moduleNameMapper: {
     '@/(.*)$': '<rootDir>/src/$1'
