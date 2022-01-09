@@ -1,13 +1,13 @@
 import IFieldValidation from '@/domain/validation/fieldValidation.model'
-import CompareFieldsValidator from '@/application/validators/compareFieldsValidator'
-import EmailValidator from '@/application/validators/emailValidator'
-import IsNumberValidator from '@/application/validators/isNumberValidator'
-import MaxLengthValidator from '@/application/validators/maxLengthValidator'
-import MaxValidator from '@/application/validators/maxValidator'
-import MinLengthValidator from '@/application/validators/minLengthValidator'
-import MinValidator from '@/application/validators/minValidator'
-import Regex from '@/application/validators/regex'
-import RequiredFieldValidator from '@/application/validators/requiredFieldValidator'
+import CompareFieldsValidator from '@/services/validators/compareFieldsValidator'
+import EmailValidator from '@/services/validators/emailValidator'
+import IsNumberValidator from '@/services/validators/isNumberValidator'
+import MaxLengthValidator from '@/services/validators/maxLengthValidator'
+import MaxValidator from '@/services/validators/maxValidator'
+import MinLengthValidator from '@/services/validators/minLengthValidator'
+import MinValidator from '@/services/validators/minValidator'
+import Regex from '@/services/validators/regex'
+import RequiredFieldValidator from '@/services/validators/requiredFieldValidator'
 
 class ValidatorBuilder {
   private constructor (private readonly field: string, private readonly validations: IFieldValidation[]) {}

@@ -1,17 +1,17 @@
 import Maybe from '@/helpers/typescript/maybe.model'
 import IFieldValidation from '../../domain/validation/fieldValidation.model'
-import InvalidFieldError from '../../services/errors/invalidFieldError'
+import InvalidFieldError from '../errors/invalidFieldError'
 
-class IsNumberValidator implements IFieldValidation {
+class IsDateValidator implements IFieldValidation {
   constructor (readonly field: string) {}
 
   validate (input: Record<string, any>): Maybe<Error> {
     const fieldValue = input[this.field]
 
-    if (isNaN(fieldValue)) {
-      return new InvalidFieldError(this.field, 'deve ser um número')
+    if (isNaN(Date.parse(fieldValue))) {
+      return new InvalidFieldError(this.field, 'deve ser uma data válida')
     }
   }
 }
 
-export default IsNumberValidator
+export default IsDateValidator
