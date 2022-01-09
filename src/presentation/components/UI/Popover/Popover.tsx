@@ -27,6 +27,7 @@ const Popover: React.FC<PopoverProps> = (props) => {
     if (props.isOpen) {
       const timer = setTimeout(() => {
         setIsOpen(false)
+        if (props.onClose) props.onClose()
       }, duration * 1000)
 
       return () => clearTimeout(timer)

@@ -5,6 +5,7 @@ type PopoverProps = {
   duration?: number
   message: string | string[]
   type: PopoverVariants['type']
+  onClose?: () => void
 }
 
 export default PopoverProps
