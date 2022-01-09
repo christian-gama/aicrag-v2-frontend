@@ -6,7 +6,7 @@ import IValidation from '@/services/validators/protocols/validation.model'
 import FormProvider from '@/context/models/form/form.provider'
 import ControlledInput from '..'
 import BaseForm from '../../../organisms/BaseForm'
-import ControlledInputProps from '../ControlledInput.model'
+import ControlledInputProps from '../protocols/ControlledInput.model'
 
 const makeSut = (props: ControlledInputProps & { validator?: IValidation }): void => {
   render(

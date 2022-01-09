@@ -1,7 +1,7 @@
 import IHandler from '@/domain/handler/handler.model'
 import IValidation from '@/services/validators/protocols/validation.model'
 import { FormActionPayload, FormInputActionPayload, FormStates } from '@/context/models/form/protocols/form.model'
-import ControlledInputProps from '../ControlledInput.model'
+import ControlledInputProps from '../protocols/ControlledInput.model'
 
 type Params = {
   dispatch: (options: FormActionPayload | FormInputActionPayload) => void
