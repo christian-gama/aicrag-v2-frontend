@@ -43,15 +43,26 @@ describe('Popover', () => {
   it('should last the duration passed through props', async () => {
     const duration = 0.1
 
-    const onCloseSpy = jest.fn()
-    makeSut({ message: 'message', type: 'info', duration, onClose: onCloseSpy })
+    makeSut({ message: 'message', type: 'info', duration })
 
     const popover = screen.getByTestId('popover')
 
     await waitForElementToBeRemoved(popover, { timeout: duration * 1250 })
 
     expect(popover).not.toBeInTheDocument()
-    expect(onCloseSpy).toHaveBeenCalled()
+  })
+
+  it('should call onClose when the duration is passed through props', async () => {
+    const duration = 0.1
+    const onClose = jest.fn()
+
+    makeSut({ message: 'message', type: 'info', duration, onClose })
+
+    const popover = screen.getByTestId('popover')
+
+    await waitForElementToBeRemoved(popover, { timeout: duration * 1250 })
+
+    expect(onClose).toHaveBeenCalledTimes(1)
   })
 
   it('should close Popover if click on close button', () => {
