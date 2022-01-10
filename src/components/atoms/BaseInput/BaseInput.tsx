@@ -9,6 +9,7 @@ const BaseInput: React.FC<BaseInputProps> = (props) => {
   // Avoid the autofill of the input by the browser
   const [readonly, setReadonly] = useState(true)
   useEffect(() => {
+    /* istanbul ignore next */
     const timer = setTimeout(() => {
       setReadonly(false)
     }, 100)
