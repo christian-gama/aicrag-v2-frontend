@@ -1,16 +1,16 @@
 import React from 'react'
 import FormProvider from '@/context/models/form/form.provider'
-import SignInForm from '../../templates/Welcome/SignInForm'
-import WelcomeCard from '../../templates/Welcome/WelcomeCard'
+import EntryCard from '../../templates/Entry/EntryCard'
+import SignInForm from '../../templates/Entry/SignInForm'
 
 const SignIn: React.FC = () => {
   return (
     <div data-testid="sign-in">
-      <WelcomeCard>
+      <EntryCard>
         <FormProvider>
           <SignInForm />
         </FormProvider>
-      </WelcomeCard>
+      </EntryCard>
     </div>
   )
 }

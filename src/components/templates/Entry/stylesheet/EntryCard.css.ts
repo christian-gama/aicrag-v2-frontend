@@ -5,7 +5,7 @@ export const windowDimensionVars = createGlobalTheme(':root', {
   height: ''
 })
 
-export const welcomeCard = style({
+export const entryCard = style({
   height: '65rem',
   width: '60rem',
   padding: '3.6rem 5rem',
@@ -26,7 +26,7 @@ export const welcomeCard = style({
   }
 })
 
-export const welcomeCardMenuWrapper = style({
+export const entryCardMenuWrapper = style({
   marginBottom: '3.2rem',
 
   '@media': {
@@ -38,7 +38,7 @@ export const welcomeCardMenuWrapper = style({
   }
 })
 
-export const welcomeCardHeader = style({
+export const entryCardHeader = style({
   display: 'flex',
   gap: '1rem',
   width: '100%',
@@ -47,7 +47,7 @@ export const welcomeCardHeader = style({
   marginBottom: '3.6rem'
 })
 
-export const welcomeCardWrapper = style({
+export const entryCardWrapper = style({
   position: 'absolute',
   top: '50%',
   left: '50%',

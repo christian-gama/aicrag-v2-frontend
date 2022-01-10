@@ -1,15 +1,15 @@
 import { MockedProvider } from '@apollo/client/testing'
 import { cleanup, render, screen } from '@testing-library/react'
 import React from 'react'
-import { BrowserRouter, Routes } from 'react-router-dom'
-import WelcomeRoute from '@/external/router/WelcomeRoute'
+import { MemoryRouter, Routes } from 'react-router-dom'
+import EntryRoute from '@/external/router/EntryRoute'
 
 const makeSut = () => {
   return render(
     <MockedProvider>
-      <BrowserRouter>
-        <Routes location={'/boas-vindas/entrar'}>{WelcomeRoute}</Routes>
-      </BrowserRouter>
+      <MemoryRouter initialEntries={['/entry/sign-in']}>
+        <Routes>{EntryRoute}</Routes>
+      </MemoryRouter>
     </MockedProvider>
   )
 }

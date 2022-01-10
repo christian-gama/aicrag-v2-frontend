@@ -9,23 +9,23 @@ import H4 from '@/components/atoms/texts/H4'
 import Menu from '@/components/molecules/Menu'
 import * as style from './stylesheet'
 
-const WelcomeCard: React.FC = (props) => {
+const EntryCard: React.FC = (props) => {
   const { width, height } = useWindowDimensions()
 
   return (
     <Background gradient>
-      <div className={style.welcomeCardWrapper}>
+      <div className={style.entryCardWrapper}>
         <Card roundness={width <= 520 ? 'none' : 'sm'}>
           <div
-            className={style.welcomeCard}
+            className={style.entryCard}
             style={assignInlineVars(style.windowDimensionVars, { height: `${height}px` })}
           >
-            <header className={style.welcomeCardHeader}>
+            <header className={style.entryCardHeader}>
               <LogoIcon />
               {width < 520 ? <H4>Boas-vindas ao Aicrag!</H4> : <H2>Boas-vindas ao Aicrag!</H2>}
             </header>
 
-            <nav className={style.welcomeCardMenuWrapper}>
+            <nav className={style.entryCardMenuWrapper}>
               <Menu buttons={['Entrar', 'Cadastrar']} url="/boas-vindas/" />
             </nav>
 
@@ -37,4 +37,4 @@ const WelcomeCard: React.FC = (props) => {
   )
 }
 
-export default WelcomeCard
+export default EntryCard
