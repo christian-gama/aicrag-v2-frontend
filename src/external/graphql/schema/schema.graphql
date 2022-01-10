@@ -201,6 +201,12 @@ enum GetInvoiceByMonthType {
   both
 }
 
+type GetMe {
+  accessToken: JWT
+  refreshToken: JWT
+  user: PublicUser!
+}
+
 type InactiveAccount {
   accessToken: JWT!
   message: String!
@@ -264,6 +270,7 @@ type Query {
   findOneTask(param: FindOneTaskParam!): FindOneTask!
   getAllInvoices(query: GetAllInvoicesQueries!): GetAllInvoices!
   getInvoiceByMonth(query: GetInvoiceByMonthQueries!): GetInvoiceByMonth!
+  getMe: GetMe!
   verifyResetPasswordToken(param: VerifyResetPasswordTokenInput!): VerifyResetPasswordToken!
 }
 
