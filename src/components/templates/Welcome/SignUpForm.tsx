@@ -30,7 +30,7 @@ const SignUpForm: React.FC = () => {
       successMessage="Conta criada com sucesso"
     >
       <div className={style.signUpForm}>
-        <div className={style.inputWrapper}>
+        <div className={style.signUpFormInputWrapper}>
           <ControlInput label="Seu nome" name="name" type="text" autoFocus />
 
           <ControlInput label="Seu email" name="email" type="email" />

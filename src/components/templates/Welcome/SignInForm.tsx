@@ -25,19 +25,19 @@ const SignInForm: React.FC = () => {
       successMessage="Login efetuado com sucesso"
     >
       <div className={style.signInForm}>
-        <div className={style.inputWrapper}>
+        <div className={style.signInFormInputWrapper}>
           <ControlInput label="Seu email" name="email" type="email" autoFocus />
 
           <ControlInput label="Sua senha" name="password" type="password" />
         </div>
 
-        <div className={style.buttonWrapper}>
+        <div className={style.signInFormButtonWrapper}>
           <Button type="submit" style={{ size: 'lg' }} loading={loading}>
             Acessar
           </Button>
         </div>
 
-        <span className={style.forgotPassword}>Esqueceu sua senha?</span>
+        <span className={style.signInFormForgotPassword}>Esqueceu sua senha?</span>
       </div>
     </ControlForm>
   )
