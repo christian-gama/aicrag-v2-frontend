@@ -1,10 +1,10 @@
 overwrite: true
 schema:
-  - "./src/infra/graphql/schema/schema.graphql"
+  - "./src/external/graphql/schema/schema.graphql"
 documents:
   - "./src/**/*.graphql"
 generates:
-  src/infra/graphql/generated/index.ts:
+  src/services/api/index.ts:
     plugins:
       - "typescript"
       - "typescript-operations"
