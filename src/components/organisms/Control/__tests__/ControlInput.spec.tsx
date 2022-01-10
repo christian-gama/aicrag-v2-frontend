@@ -229,5 +229,18 @@ describe('Input', () => {
 
       expect(onFocus).toHaveBeenCalled()
     })
+
+    it('should display an error onChange if the input was already touched', () => {
+      const validator = makeValidationMock(false)
+
+      makeSut({ name: 'input', validator, label: 'Input' })
+
+      const input = screen.getByTestId('base-input')
+      fireEvent.blur(input)
+      fireEvent.change(input, { target: { value: 'any_value' } })
+      const error = screen.getByTestId('base-input-error')
+
+      expect(error).toBeInTheDocument()
+    })
   })
 })

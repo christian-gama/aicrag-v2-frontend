@@ -1,55 +1,33 @@
-import React, { useContext, useEffect, useState } from 'react'
-import FormContext from '@/context/models/form/form.context'
+import React from 'react'
 import Popover from '@/components/molecules/Popover'
 import ProgressBar from '../../atoms/ProgressBar'
-import onSubmitHandler from './methods/onSubmitHandler'
+import useControlForm from './hooks/useControlForm'
 import ControlFormProps from './protocols/ControlForm.model'
 
 const ControlForm: React.FC<ControlFormProps> = (props) => {
-  const { validator, children, submitHandler } = props
-  const { dispatch, state } = useContext(FormContext)
-
-  const { error, isValid, data, isResetting, isSubmitting, isSubmitted } = state.form
-
-  const [isErrorPopoverOpen, setIsErrorPopoverOpen] = useState(false)
-  const [isSuccessPopoverOpen, setIsSuccessPopoverOpen] = useState(false)
-
-  useEffect(() => {
-    dispatch({ type: 'FORM/RESET_FORM', payload: {} })
-  }, [])
-
-  useEffect(() => {
-    if (isResetting) dispatch({ type: 'FORM/SET_IS_RESETTING', payload: { isResetting: false } })
-  }, [isResetting])
-
-  useEffect(() => {
-    dispatch({ type: 'FORM/SET_VALIDATOR', payload: { validator } })
-  }, [isResetting])
+  const {
+    error,
+    isErrorPopoverOpen,
+    isSubmitted,
+    isSubmitting,
+    isSuccessPopoverOpen,
+    isValid,
+    onCloseErrorPopover,
+    onCloseSuccessPopover,
+    onSubmitHandler
+  } = useControlForm(props)
 
   return (
     <>
-      <form
-        onSubmit={async (event) => {
-          await onSubmitHandler({
-            dispatch,
-            event,
-            submitHandler,
-            validator,
-            setIsErrorPopoverOpen,
-            setIsSuccessPopoverOpen,
-            data
-          })
-        }}
-        data-testid="form"
-      >
-        {children}
+      <form onSubmit={onSubmitHandler} data-testid="form">
+        {props.children}
       </form>
 
       {!isValid && error && (
         <Popover
           onClose={
             /* istanbul ignore next */
-            () => setIsErrorPopoverOpen(false)
+            onCloseErrorPopover
           }
           isOpen={isErrorPopoverOpen}
           message={error}
@@ -61,7 +39,7 @@ const ControlForm: React.FC<ControlFormProps> = (props) => {
         <Popover
           onClose={
             /* istanbul ignore next */
-            () => setIsSuccessPopoverOpen(false)
+            onCloseSuccessPopover
           }
           isOpen={isSuccessPopoverOpen}
           message={props.successMessage ?? 'Formulário bem sucedido'}

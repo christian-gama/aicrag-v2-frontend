@@ -23,10 +23,7 @@ type sutConfig = {
 const makeSut = (config: sutConfig) => {
   render(
     <FormProvider>
-      <ControlForm
-        submitHandler={config.submitHandler ?? jest.fn()}
-        validator={config.validator ?? ({ validate: jest.fn() } as any)}
-      >
+      <ControlForm submitHandler={config.submitHandler ?? jest.fn()} validator={config.validator}>
         {config.children}
       </ControlForm>
     </FormProvider>
@@ -131,7 +128,7 @@ describe('Form', () => {
 
     const children = <ControlInput name="title" label="Title" />
 
-    makeSut({ children, submitHandler, validator: makeValidationMock(true) })
+    makeSut({ children, submitHandler })
 
     act(() => {
       fireEvent.submit(screen.getByTestId('form'))
