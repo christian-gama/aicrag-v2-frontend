@@ -47,7 +47,10 @@ const ControlForm: React.FC<ControlFormProps> = (props) => {
 
       {!isValid && error && (
         <Popover
-          onClose={() => setIsErrorPopoverOpen(false)}
+          onClose={
+            /* istanbul ignore next */
+            () => setIsErrorPopoverOpen(false)
+          }
           isOpen={isErrorPopoverOpen}
           message={error}
           type="error"
@@ -56,7 +59,10 @@ const ControlForm: React.FC<ControlFormProps> = (props) => {
 
       {isValid && !error && isSubmitted && (
         <Popover
-          onClose={() => setIsSuccessPopoverOpen(false)}
+          onClose={
+            /* istanbul ignore next */
+            () => setIsSuccessPopoverOpen(false)
+          }
           isOpen={isSuccessPopoverOpen}
           message={props.successMessage ?? 'Formulário bem sucedido'}
           type="success"
