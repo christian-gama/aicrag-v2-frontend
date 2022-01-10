@@ -16,6 +16,7 @@ const useWindowDimensions = () => {
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>
 
+    /* istanbul ignore next */
     const handleResize = () => {
       clearTimeout(timer)
 
