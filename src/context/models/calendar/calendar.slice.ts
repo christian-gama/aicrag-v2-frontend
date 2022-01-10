@@ -37,10 +37,6 @@ const calendarSlice = createSlice({
       state.calendarDate = action.payload
     },
 
-    setPreviousDate: (state, action: CalendarPayloads) => {
-      state.previousDate = action.payload
-    },
-
     setSelectedDate: (state, action: CalendarPayloads) => {
       state.selectedDate = action.payload
     }
