@@ -5,11 +5,13 @@ import WelcomeCard from '../../templates/Welcome/WelcomeCard'
 
 const SignIn: React.FC = () => {
   return (
-    <WelcomeCard>
-      <FormProvider>
-        <SignInForm />
-      </FormProvider>
-    </WelcomeCard>
+    <div data-testid="sign-in">
+      <WelcomeCard>
+        <FormProvider>
+          <SignInForm />
+        </FormProvider>
+      </WelcomeCard>
+    </div>
   )
 }
 
