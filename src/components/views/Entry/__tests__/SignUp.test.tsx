@@ -9,9 +9,7 @@ const makeSut = () => {
     <MockedProvider>
       <MemoryRouter initialEntries={['/entry/sign-up']}>
         <Routes>
-          <Route path="/entry">
-            <Route path="sign-up" element={<SignUp />} />
-          </Route>
+          <Route path="/entry/sign-up" element={<SignUp />} />
         </Routes>
       </MemoryRouter>
     </MockedProvider>

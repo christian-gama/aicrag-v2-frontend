@@ -6,12 +6,10 @@ import SignUp from '@/components/views/Entry/SignUp'
 const App = () => {
   return (
     <BrowserRouter>
-      <Routes location={'/entry'}>
-        <Route></Route>
-        <Route path="/entry">
-          <Route path="sign-in" element={<SignIn />} />
-          <Route path="sign-up" element={<SignUp />} />
-        </Route>
+      <Routes>
+        <Route path="/" />
+        <Route path="/entry/sign-in" element={<SignIn />} />
+        <Route path="/entry/sign-up" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   )
