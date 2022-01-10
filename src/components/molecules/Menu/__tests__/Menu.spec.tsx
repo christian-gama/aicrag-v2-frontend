@@ -18,7 +18,11 @@ const makeSut = (props: MenuProps) => {
 
 describe('Menu', () => {
   it('should have the correct href', () => {
-    const buttons = ['Home', 'About', 'Contact']
+    const buttons = [
+      { buttonName: 'Home', to: 'Home' },
+      { buttonName: 'About', to: 'About' },
+      { buttonName: 'Contact', to: 'Contact' }
+    ]
     const url = '/teste/url/'
     makeSut({ buttons, url })
 

@@ -26,7 +26,13 @@ const EntryCard: React.FC = (props) => {
             </header>
 
             <nav className={style.entryCardMenuWrapper}>
-              <Menu buttons={['Entrar', 'Cadastrar']} url="/boas-vindas/" />
+              <Menu
+                buttons={[
+                  { buttonName: 'Entrar', to: 'sign-in' },
+                  { buttonName: 'Cadastrar', to: 'sign-up' }
+                ]}
+                url="/entry/"
+              />
             </nav>
 
             <main>{props.children}</main>

@@ -1,5 +1,5 @@
 type MenuProps = {
-  buttons: string[]
+  buttons: Array<{ buttonName: string, to: string }>
   url: string
 }
 

@@ -8,8 +8,8 @@ const Menu: React.FC<MenuProps> = (props) => {
 
   return (
     <div className={style.menu} data-testid="menu">
-      {props.buttons.map((button, index) => {
-        const isActive = location.pathname.replace(props.url, '').includes(button.toLowerCase())
+      {props.buttons.map(({ buttonName, to }, index) => {
+        const isActive = location.pathname.replace(props.url, '').includes(to.toLowerCase())
 
         const menuButtonStyle = style.menuButtonRecipe({
           active: isActive
@@ -17,13 +17,13 @@ const Menu: React.FC<MenuProps> = (props) => {
 
         return (
           <Link
-            key={`${button}-${index}`}
-            to={`${props.url}${button.toLowerCase()}`}
+            key={`${buttonName}-${index}`}
+            to={`${props.url}${to.toLowerCase()}`}
             className={menuButtonStyle}
             data-active={isActive}
-            data-testid={`menu-link-${button.toLowerCase()}`}
+            data-testid={`menu-link-${buttonName.toLowerCase()}`}
           >
-            {button}
+            {buttonName}
           </Link>
         )
       })}
