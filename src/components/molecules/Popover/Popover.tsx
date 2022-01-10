@@ -1,12 +1,12 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
+import getDuration from '../../../helpers/getDuration'
 import CheckIcon from '../../atoms/icons/CheckCircleIcon'
 import CloseIcon from '../../atoms/icons/CloseIcon'
 import ErrorIcon from '../../atoms/icons/ErrorIcon'
 import InfoCircleIcon from '../../atoms/icons/InfoCircleIcon'
 import P from '../../atoms/texts/P'
-import getDuration from './methods/getDuration'
 import PopoverMessageList from './PopoverMessageList'
 import PopoverProps from './protocols/Popover.model'
 import * as style from './stylesheet'
@@ -25,6 +25,7 @@ const Popover: React.FC<PopoverProps> = (props) => {
     if (props.isOpen) {
       const timer = setTimeout(() => {
         setIsOpen(false)
+
         if (props.onClose) props.onClose()
       }, duration * 1000)
 
