@@ -62,4 +62,24 @@ describe('Backdrop', () => {
 
     expect(backdrop).toBeInTheDocument()
   })
+
+  it('should call onDismiss when pressing "Escape"', () => {
+    const onDismiss = jest.fn()
+    makeSut({ isOpen: true, onDismiss })
+
+    const event = new KeyboardEvent('keydown', { key: 'Escape' })
+    document.dispatchEvent(event)
+
+    expect(onDismiss).toHaveBeenCalled()
+  })
+
+  it('should call onDismiss when pressing clicking on backdrop', () => {
+    const onDismiss = jest.fn()
+    makeSut({ isOpen: true, onDismiss })
+
+    const backdrop = screen.getByTestId('backdrop')
+    backdrop.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+
+    expect(onDismiss).toHaveBeenCalled()
+  })
 })
