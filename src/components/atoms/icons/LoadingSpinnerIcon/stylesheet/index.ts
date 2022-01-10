@@ -1,1 +1,1 @@
-export * as style from './LoadingSpinnerIcon.css'
+export * from './LoadingSpinnerIcon.css'

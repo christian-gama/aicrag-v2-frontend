@@ -1,1 +1,1 @@
-export * as style from './H3.css'
+export * from './H3.css'

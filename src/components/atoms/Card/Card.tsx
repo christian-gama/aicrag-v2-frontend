@@ -1,7 +1,7 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import React from 'react'
 import CardProps from './protocols/Card.model'
-import { style } from './stylesheet'
+import * as style from './stylesheet'
 
 const Card: React.FC<CardProps> = (props) => {
   const cardStyle = style.cardRecipe({

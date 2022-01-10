@@ -1,1 +1,1 @@
-export * as style from './ErrorIcon.css'
+export * from './ErrorIcon.css'

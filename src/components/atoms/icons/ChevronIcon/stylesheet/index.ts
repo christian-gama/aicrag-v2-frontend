@@ -1,1 +1,1 @@
-export * as style from './ChevronIcon.css'
+export * from './ChevronIcon.css'

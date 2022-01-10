@@ -1,1 +1,1 @@
-export * as style from './CheckCircleIcon.css'
+export * from './CheckCircleIcon.css'

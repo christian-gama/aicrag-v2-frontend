@@ -1,5 +1,5 @@
 import React from 'react'
-import { style } from './stylesheet'
+import * as style from './stylesheet'
 
 type H3Props = {
   color?: style.H3RecipeVariants['color']

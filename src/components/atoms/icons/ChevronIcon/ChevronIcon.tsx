@@ -1,6 +1,6 @@
 import React from 'react'
 import ChevronIconProps from './protocols/ChevronIcon.model'
-import { style } from './stylesheet'
+import * as style from './stylesheet'
 
 const ChevronIcon: React.FC<ChevronIconProps> = (props) => {
   const chevronStyle = style.chevronIconRecipe({

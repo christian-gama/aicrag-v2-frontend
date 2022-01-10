@@ -1,1 +1,1 @@
-export * as style from './InfoCircleIcon.css'
+export * from './InfoCircleIcon.css'

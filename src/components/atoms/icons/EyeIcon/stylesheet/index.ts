@@ -1,1 +1,1 @@
-export * as style from './EyeIcon.css'
+export * from './EyeIcon.css'

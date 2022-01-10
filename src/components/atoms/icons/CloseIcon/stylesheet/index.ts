@@ -1,1 +1,1 @@
-export * as style from './CloseIcon.css'
+export * from './CloseIcon.css'

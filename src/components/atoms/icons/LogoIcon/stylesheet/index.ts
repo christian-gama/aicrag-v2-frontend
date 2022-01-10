@@ -1,1 +1,1 @@
-export * as style from './LogoIcon.css'
+export * from './LogoIcon.css'

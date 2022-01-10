@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import MenuProps from './protocols/Menu.model'
-import { style } from './stylesheet'
+import * as style from './stylesheet'
 
 const Menu: React.FC<MenuProps> = (props) => {
   const location = useLocation()

@@ -11,7 +11,7 @@ import P from '../../atoms/texts/P'
 import handleAction from './methods/actionHandler'
 import cancelHandler from './methods/cancelHandler'
 import AlertProps from './protocols/Alert.model'
-import { style } from './stylesheet'
+import * as style from './stylesheet'
 
 const Alert: React.FC<AlertProps> = (props) => {
   const [isOpen, setIsOpen] = useState(!!props.isOpen)

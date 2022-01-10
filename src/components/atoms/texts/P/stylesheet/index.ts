@@ -1,1 +1,1 @@
-export * as style from './P.css'
+export * from './P.css'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { style } from './stylesheet'
+import * as style from './stylesheet'
 
 type PProps = {
   color?: style.PRecipeVariants['color']

@@ -1,6 +1,6 @@
 import React from 'react'
 import EyeIconProps from './EyeIcon.model'
-import { style } from './stylesheet'
+import * as style from './stylesheet'
 
 const EyeIcon: React.FC<EyeIconProps> = (props) => {
   const eyeIconStyle = style.eyeIconRecipe({

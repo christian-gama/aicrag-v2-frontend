@@ -1,1 +1,1 @@
-export * as style from './HorizontalScrollBar.css'
+export * from './HorizontalScrollBar.css'

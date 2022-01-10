@@ -1,1 +1,1 @@
-export * as style from './Modal.css'
+export * from './Modal.css'
