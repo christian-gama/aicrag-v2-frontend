@@ -37,9 +37,8 @@ describe('Alert', () => {
       isOpen: true,
       message: 'message',
       mode: 'cancelOnly',
-      onCancel: jest.fn(),
       title: 'title',
-      type: 'danger'
+      type: 'info'
     })
 
     expect(screen.getByTestId('alert-cancel-button')).toBeTruthy()
@@ -69,14 +68,12 @@ describe('Alert', () => {
   })
 
   it('should dismiss the alert if click on cancel button', () => {
-    const onCancel = jest.fn()
     makeSut({
       isOpen: true,
       message: 'message',
       mode: 'cancelOnly',
-      onCancel,
       title: 'title',
-      type: 'danger'
+      type: 'default'
     })
 
     const cancelButton = screen.getByTestId('alert-cancel-button')
@@ -87,5 +84,22 @@ describe('Alert', () => {
     setTimeout(() => {
       expect(alert).toBeNull()
     })
+  })
+
+  it('should call onCancel when clicking on cancel button if it is defined', () => {
+    const onCancel = jest.fn()
+    makeSut({
+      isOpen: true,
+      message: 'message',
+      mode: 'cancelOnly',
+      onCancel,
+      title: 'title',
+      type: 'default'
+    })
+
+    const cancelButton = screen.getByTestId('alert-cancel-button')
+    cancelButton.click()
+
+    expect(onCancel).toHaveBeenCalledTimes(1)
   })
 })

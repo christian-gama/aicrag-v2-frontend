@@ -1,5 +1,5 @@
 import capitalize from '@/helpers/capitalize'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { FillColorVariants } from '@/components/_settings/variants.css'
 import { ButtonVariants } from '@/components/atoms/Button/stylesheet'
 import Button from '../../atoms/Button'
@@ -8,17 +8,12 @@ import InfoCircleIcon from '../../atoms/icons/InfoCircleIcon'
 import H4 from '../../atoms/texts/H4'
 import P from '../../atoms/texts/P'
 import Modal from '../Modal'
-import handleAction from './methods/actionHandler'
-import cancelHandler from './methods/cancelHandler'
+import useAlert from './hooks/useAlert'
 import AlertProps from './protocols/Alert.model'
 import * as style from './stylesheet'
 
 const Alert: React.FC<AlertProps> = (props) => {
-  const [isOpen, setIsOpen] = useState(!!props.isOpen)
-
-  useEffect(() => {
-    setIsOpen(!!props.isOpen)
-  }, [props.isOpen])
+  const { cancelHandler, handleAction, isOpen } = useAlert(props)
 
   const alertHeaderStyle = style.alertHeaderRecipe({
     color: props.type
@@ -65,7 +60,7 @@ const Alert: React.FC<AlertProps> = (props) => {
 
           <div className={style.alertFooter} data-testid="alert-footer">
             <Button
-              onClick={() => cancelHandler({ onCancel: props.onCancel, setIsOpen })}
+              onClick={cancelHandler}
               style={{ mode: 'outlined', size: 'sm', color: getButtonColor() }}
               testid="alert-cancel-button"
             >
@@ -74,7 +69,7 @@ const Alert: React.FC<AlertProps> = (props) => {
 
             {props.mode === 'actionAndCancel' && (
               <Button
-                onClick={() => handleAction({ onAction: props.onAction, mode: props.mode })}
+                onClick={handleAction}
                 style={{ color: getButtonColor(), size: 'sm' }}
                 testid="alert-action-button"
               >
