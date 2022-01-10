@@ -12,4 +12,10 @@ describe('getDuration', () => {
 
     expect(duration).toBe(3)
   })
+
+  it('should return the original duration when passing a long array', () => {
+    const duration = getDuration(['12345', '12345', '12345', '12345', '12345', '12345', '12345', '12345'])
+
+    expect(duration).toBe(4)
+  })
 })
