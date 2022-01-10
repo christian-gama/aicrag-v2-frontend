@@ -1,18 +1,16 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import React from 'react'
-import Maybe from '@/helpers/typescript/maybe.model'
-import Modal from '..'
+import Backdrop from '../Backdrop'
+import BackdropProps from '../protocols/Backdrop.model'
 
-const makeSut = (config?: { isOpen?: boolean, onDismiss?: VoidFunction }): void => {
-  if (config?.isOpen === undefined) {
-    config = { ...config, isOpen: true }
-  }
-
-  render(<Modal {...config} />)
+const makeSut = (props: BackdropProps) => {
+  return render(<Backdrop {...props} />)
 }
 
-describe('Modal', () => {
-  const overlay = (): Maybe<HTMLElement> => document.getElementById('overlay-root') as HTMLElement
+describe('Backdrop', () => {
+  afterEach(() => {
+    cleanup()
+  })
 
   beforeEach(() => {
     const container = document.createElement('div')
@@ -20,21 +18,16 @@ describe('Modal', () => {
     document.body.appendChild(container)
   })
 
-  afterEach(() => {
-    cleanup()
-    overlay()?.remove()
-  })
-
-  it('should render the backdrop', () => {
-    makeSut()
+  it('should render Backdrop correctly', () => {
+    makeSut({ isOpen: true })
 
     const backdrop = screen.getByTestId('backdrop')
 
     expect(backdrop).toBeInTheDocument()
   })
 
-  it('should dismiss modal when press "Escape"', () => {
-    makeSut()
+  it('should dismiss the backdrop when press "Escape"', () => {
+    makeSut({ isOpen: true })
 
     const backdrop = screen.queryByTestId('backdrop')
     const event = new KeyboardEvent('keydown', { key: 'Escape' })
@@ -43,8 +36,8 @@ describe('Modal', () => {
     expect(backdrop).not.toBeInTheDocument()
   })
 
-  it('should dismiss modal when click on backdrop', () => {
-    makeSut()
+  it('should dismiss the backdrop when click on it', () => {
+    makeSut({ isOpen: true })
 
     const backdrop = screen.getByTestId('backdrop')
     backdrop.dispatchEvent(new MouseEvent('click', { bubbles: true }))
@@ -61,21 +54,11 @@ describe('Modal', () => {
   })
 
   it('should keep the modal on the screen if press any other key but "Escape"', () => {
-    makeSut()
+    makeSut({ isOpen: true })
 
     const backdrop = screen.queryByTestId('backdrop')
     const event = new KeyboardEvent('keydown', { key: 'Enter' })
     document.dispatchEvent(event)
-
-    expect(backdrop).toBeInTheDocument()
-  })
-
-  it('should keep the modal on the screen if click on the modal', () => {
-    makeSut()
-
-    const backdrop = screen.queryByTestId('backdrop')
-    const modal = screen.getByTestId('modal')
-    modal.dispatchEvent(new MouseEvent('click', { bubbles: true }))
 
     expect(backdrop).toBeInTheDocument()
   })

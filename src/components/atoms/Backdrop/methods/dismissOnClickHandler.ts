@@ -1,10 +1,10 @@
 import IHandler from '@/domain/handler/handler.model'
-import ModalProps from '../protocols/Modal.model'
+import BackdropProps from '../protocols/Backdrop.model'
 
 type Params = {
   event: React.MouseEvent
   setIsOpenState: React.Dispatch<React.SetStateAction<boolean>>
-  onDismiss: ModalProps['onDismiss']
+  onDismiss: BackdropProps['onDismiss']
 }
 
 const dismissOnClickHandler: IHandler<Params> = ({ event, onDismiss, setIsOpenState }) => {

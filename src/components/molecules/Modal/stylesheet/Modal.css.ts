@@ -1,4 +1,4 @@
-import { keyframes, style } from '@vanilla-extract/css'
+import { keyframes } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { breakpoints } from '@/components/_settings/breakpoints.css'
 
@@ -54,22 +54,6 @@ const fromTopAnimation = keyframes({
 
   '100%': {
     top: '50%'
-  }
-})
-
-// Styles
-export const backdrop = style({
-  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  height: '100vh',
-  position: 'fixed',
-  width: '100vw',
-  zIndex: '10',
-
-  '@supports': {
-    '(webkitBackdropFilter: none) or (backdrop-filter: none)': {
-      backdropFilter: 'blur(2px)',
-      WebkitBackdropFilter: 'blur(2px)'
-    }
   }
 })
 

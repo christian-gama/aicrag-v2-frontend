@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
-import Card from '../Card/Card'
 import dismissOnClickHandler from './methods/dismissOnClickHandler'
 import dismissOnEscapeHandler from './methods/dismissOnEscapeHandler'
-import ModalProps from './protocols/Modal.model'
+import BackdropProps from './protocols/Backdrop.model'
 import * as style from './stylesheet'
 
-const Modal: React.FC<ModalProps> = (props) => {
+const Backdrop: React.FC<BackdropProps> = (props) => {
   const [isOpenState, setIsOpenState] = useState(false)
 
   useEffect(() => {
@@ -19,25 +18,17 @@ const Modal: React.FC<ModalProps> = (props) => {
     )
   }, [])
 
-  const modalStyle = style.modalRecipe({
-    direction: props.direction
-  })
-
   const element = isOpenState && (
     <div
       className={style.backdrop}
       data-testid="backdrop"
       onClick={(event) => dismissOnClickHandler({ event, setIsOpenState, onDismiss: props.onDismiss })}
     >
-      <Card>
-        <div className={modalStyle} data-testid="modal">
-          {props.children}
-        </div>
-      </Card>
+      {props.children}
     </div>
   )
 
   return ReactDOM.createPortal(element, document.getElementById('overlay-root') as HTMLElement)
 }
 
-export default Modal
+export default Backdrop
