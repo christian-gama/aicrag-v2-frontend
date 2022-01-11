@@ -1,6 +1,7 @@
-version: '3'
+version: '3.8'
 services:
-  app:
+  aicrag_dev:
+    container_name: aicrag_dev
     build:
       context: .
       dockerfile: Dockerfile.dev
@@ -10,4 +11,3 @@ services:
     volumes:
       - /usr/aicrag/node_modules
       - ./src/:/usr/aicrag/src/
-      - ./tests/:/usr/aicrag/tests/

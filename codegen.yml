@@ -1,14 +1,13 @@
 overwrite: true
 schema:
-  - "./src/external/graphql/schema/schema.graphql"
+  - './src/external/graphql/schema/schema.graphql'
 documents:
-  - "./src/**/*.graphql"
+  - './src/**/*.graphql'
 generates:
   src/services/api/index.ts:
     plugins:
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-react-apollo"
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
     config:
       withMutationFn: false
-

@@ -1,15 +1,17 @@
+############
+# Build
 FROM node:17-alpine as builder
-
 WORKDIR /usr/aicrag
-
 COPY ./package.json .
 COPY ./yarn.lock .
-RUN yarn install
-
+RUN yarn install --prod --network-timeout=10000
 COPY ./ ./
-
 RUN yarn build
 
+############
+# Production
 FROM nginx
+RUN rm -rf /etc/nginx/conf.d
+COPY ./config/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /usr/aicrag/build /usr/share/nginx/html
 
