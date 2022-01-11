@@ -1,0 +1,16 @@
+query GetMe {
+  getMe {
+    user {
+      personal {
+        email
+        id
+        name
+      }
+      settings {
+        currency
+      }
+    }
+    accessToken
+    refreshToken
+  }
+}
