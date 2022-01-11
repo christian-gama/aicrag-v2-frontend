@@ -12,8 +12,8 @@ const authLink = new ApolloLink((operation, forward) => {
 
       headers: {
         ...prevContext.headers,
-        'X-Access-Token': accessTokenStorage.get(),
-        'X-Refresh-Token': refreshTokenStorage.get()
+        'x-access-token': accessTokenStorage.get(),
+        'x-refresh-token': refreshTokenStorage.get()
       }
     }
   })
@@ -23,13 +23,12 @@ const authLink = new ApolloLink((operation, forward) => {
     const headers = context.response.headers
 
     if (headers) {
-      const accessToken = headers.get('X-Access-Token') as string
-
+      const accessToken = headers.get('x-access-token') as string
       if (accessToken) {
         accessTokenStorage.set(accessToken)
       }
 
-      const refreshToken = headers.get('X-Refresh-Token') as string
+      const refreshToken = headers.get('x-refresh-token') as string
       if (refreshToken) {
         refreshTokenStorage.set(refreshToken)
       }
