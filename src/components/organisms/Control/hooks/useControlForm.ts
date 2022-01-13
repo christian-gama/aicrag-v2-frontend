@@ -1,4 +1,3 @@
-import getErrorMessage from '@/helpers/getErrorMessage'
 import { useContext, useState, useEffect } from 'react'
 import FormContext from '@/context/models/form/form.context'
 import ControlFormProps from '../protocols/ControlForm.model'
@@ -61,6 +60,7 @@ const useControlForm = (props: ControlFormProps) => {
       }
     }
 
+    dispatch({ type: 'FORM/SET_ERROR', payload: { error: undefined } })
     dispatch({ type: 'FORM/SET_IS_VALIDATING', payload: { isValidating: false } })
     dispatch({ type: 'FORM/SET_IS_VALID', payload: { isValid: true } })
     setIsErrorPopoverOpen(false)
@@ -72,10 +72,11 @@ const useControlForm = (props: ControlFormProps) => {
 
       setIsErrorPopoverOpen(false)
       setIsSuccessPopoverOpen(true)
-    } catch (error: any) {
-      dispatch({ type: 'FORM/SET_ERROR', payload: { error: getErrorMessage(error) } })
+    } catch (error) {
+      // API errors are handled by the errorLink from Apollo Client
+
       dispatch({ type: 'FORM/SET_IS_VALID', payload: { isValid: false } })
-      setIsErrorPopoverOpen(true)
+
       setIsSuccessPopoverOpen(false)
     }
 

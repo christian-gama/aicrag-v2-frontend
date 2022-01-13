@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { useSignUpMutation } from '@/services/api'
+import { useSendWelcomeEmailMutation, useSignUpMutation } from '@/services/api'
 import FormContext from '@/context/models/form/form.context'
 import Button from '@/components/atoms/Button'
 import ControlForm from '@/components/organisms/Control/ControlForm'
@@ -8,7 +8,9 @@ import makeSignUpValidator from '@/external/factories/validation/makeSignUpValid
 import * as style from './stylesheet'
 
 const SignUpForm: React.FC = () => {
-  const [signUp, { loading }] = useSignUpMutation()
+  const [signUp, { loading: loadingSignUp }] = useSignUpMutation()
+  const [sendWelcomeEmail, { loading: loadingSendEmail }] = useSendWelcomeEmailMutation()
+
   const { state } = useContext(FormContext)
 
   const onSubmitHandler = async () => {
@@ -20,13 +22,20 @@ const SignUpForm: React.FC = () => {
         passwordConfirmation: state.form.data.passwordConfirmation
       }
     })
+
+    /* istanbul ignore next */
+    await sendWelcomeEmail({
+      variables: {
+        email: state.form.data.email
+      }
+    })
   }
 
   return (
     <ControlForm
       submitHandler={onSubmitHandler}
       validator={makeSignUpValidator()}
-      loading={loading}
+      loading={loadingSignUp || loadingSendEmail}
       successMessage="Conta criada com sucesso"
     >
       <div className={style.signUpForm}>
@@ -40,7 +49,7 @@ const SignUpForm: React.FC = () => {
           <ControlInput label="Confirme sua senha" name="passwordConfirmation" type="password" />
         </div>
 
-        <Button type="submit" style={{ size: 'lg' }} loading={loading}>
+        <Button type="submit" style={{ size: 'lg' }} loading={loadingSignUp || loadingSendEmail}>
           Criar conta
         </Button>
       </div>

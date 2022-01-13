@@ -121,7 +121,7 @@ describe('Form', () => {
     expect(submitHandler).not.toHaveBeenCalled()
   })
 
-  it('should display a Popover component if throws when trying to submit', async () => {
+  it('should catch if submitHandler throws', async () => {
     const submitHandler = jest.fn().mockImplementation(async () => {
       throw new Error('any_error')
     })
@@ -134,9 +134,7 @@ describe('Form', () => {
       fireEvent.submit(screen.getByTestId('form'))
     })
 
-    const popover = await screen.findByTestId('popover')
-
-    expect(popover).toBeTruthy()
+    expect(submitHandler).toHaveBeenCalled()
   })
 
   it('should display the error message below the input if validation fails when trying to submit right away', () => {

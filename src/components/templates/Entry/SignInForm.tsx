@@ -5,16 +5,30 @@ import Button from '@/components/atoms/Button'
 import ControlForm from '@/components/organisms/Control/ControlForm'
 import ControlInput from '@/components/organisms/Control/ControlInput'
 import makeSignInValidator from '@/external/factories/validation/makeSignInValidator'
+import { auth } from '@/external/graphql/reactiveVars/auth'
 import * as style from './stylesheet'
 
 const SignInForm: React.FC = () => {
   const [login, { loading }] = useLoginMutation()
+
   const { state } = useContext(FormContext)
 
   const onSubmitHandler = async () => {
-    await login({
+    const response = await login({
       variables: { email: state.form.data.email, password: state.form.data.password }
     })
+
+    /* istanbul ignore next */
+    // @ts-expect-error
+    if (response.data?.login?.accessToken && !response.data?.login?.refreshToken) {
+      auth.partialLogin()
+    }
+
+    /* istanbul ignore next */
+    // @ts-expect-error
+    if (response.data?.login?.refreshToken) {
+      auth.login()
+    }
   }
 
   return (
