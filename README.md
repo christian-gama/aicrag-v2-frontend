@@ -1,3 +1,5 @@
+![Github Actions](https://github.com/christian-gama/aicrag-v2-frontend/actions/workflows/main.yml/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/christian-gama/aicrag-v2-frontend/badge.svg?branch=main)](https://coveralls.io/github/christian-gama/aicrag-v2-frontend?branch=main)
+
 # Welcome to my first personal project: Aicrag (frontend)
 
 The purpose of this project is to save monthly invoices from a transcription project. It is possible to save the amount of money you earn per each task and keep your records saved. The project can also have Quality Assurance, besides the Transcriptionist, so it is also possibile to save the records for QAs.
@@ -17,7 +19,7 @@ As this is my first personal project ever, you may find some stuffs that you dis
 
 > ### Methodologies I've used
 
-- Clean Architecture
+- Atomic Design
 - Continuous Integration
 - Conventional Commits
 - Modular Design
