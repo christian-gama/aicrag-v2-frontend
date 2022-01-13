@@ -34,7 +34,6 @@ jobs:
           node-version: '17.x'
 
       - name: Install dependencies
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn --prefer-offline
 
       - name: Lint
