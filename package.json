@@ -26,8 +26,8 @@
     "docker:restart": "docker-compose restart",
     "cypress:open": "cypress open",
     "lint": "yarn format:prettier && yarn format:lint && yarn typecheck",
-    "format:lint": "eslint ./src --fix",
-    "format:prettier": "prettier ./src --write",
+    "format:lint": "eslint . --fix",
+    "format:prettier": "prettier . --write",
     "typecheck": "tsc -p ./tsconfig.json",
     "codegen": "rimraf ./src/infra/graphql/generated && graphql-codegen"
   },

@@ -15,10 +15,8 @@ mutation UpdateUser(
       name: $name
       role: $role
       tokenVersion: $tokenVersion
-    },
-    param: {
-      id: $id
     }
+    param: { id: $id }
   ) {
     ... on UpdateUserHasChanges {
       user {

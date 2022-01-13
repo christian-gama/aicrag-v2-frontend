@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile.dev
     restart: always
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
       - /usr/aicrag/node_modules
       - ./src/:/usr/aicrag/src/
