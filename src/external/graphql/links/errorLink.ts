@@ -8,9 +8,6 @@ import { auth } from '../reactiveVars/auth'
 import { errorVar } from '../reactiveVars/errorVar'
 
 const errorLink = onError(({ networkError, graphQLErrors }) => {
-  console.log('NETWORK ERROR', networkError)
-  console.log('GRAPHQL ERROR', graphQLErrors)
-
   if (graphQLErrors && graphQLErrors.length > 0) {
     for (const error of graphQLErrors) {
       const errorCode = error.extensions.code
