@@ -1,6 +1,12 @@
+.github
+.husky
+.vscode
 *.d.ts
 api
 build
+conf
+coverage
 dist
 node_modules
 public
+
