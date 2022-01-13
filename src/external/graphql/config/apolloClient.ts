@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache, HttpLink, from } from '@apollo/client'
-import authErrorLink from '../links/authErrorLink'
 import authLink from '../links/authLink'
+import authErrorLink from '../links/errorLink'
 
 const link = from([authErrorLink, authLink, new HttpLink({ uri: 'http://localhost:4000/graphql' })])
 
