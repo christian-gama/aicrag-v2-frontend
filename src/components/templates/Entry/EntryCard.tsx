@@ -14,7 +14,7 @@ const EntryCard: React.FC = (props) => {
 
   return (
     <Background gradient>
-      <div className={style.entryCardWrapper}>
+      <div className={style.entryCardWrapper} data-testid="entry-card">
         <Card roundness={width <= 520 ? 'none' : 'sm'}>
           <div
             className={style.entryCard}
