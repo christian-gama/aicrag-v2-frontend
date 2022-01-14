@@ -185,3 +185,4 @@ build
 dist
 dist-ssr
 *.local
+.env.development

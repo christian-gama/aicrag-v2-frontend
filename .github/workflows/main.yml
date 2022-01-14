@@ -33,9 +33,15 @@ jobs:
 
       - name: Test
         run: yarn test:ci
-
+        
       - name: Lint commit message
         uses: wagoid/commitlint-github-action@v4
+
+      - name: Create .env
+        run: |
+          touch .env.production
+          echo VITE_API_URL=https://api-aicrag.herokuapp.com/graphql >> .env.production
+          cat .env.production
 
       - name: Build
         run: yarn build
@@ -52,10 +58,6 @@ jobs:
           netlify-config-path: ./netlify.toml
           production-branch: main
           publish-dir: './build'
-          deploy-message: "Deploy from GitHub Actions"
-          enable-pull-request-comment: false
-          enable-commit-comment: true
-          overwrites-pull-request-comment: true
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
