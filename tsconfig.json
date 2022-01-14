@@ -1,25 +1,25 @@
 {
   "compilerOptions": {
-    "typeRoots": ["src/external/@types", "./node_modules/@types"],
-    "target": "ES2015",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "esModuleInterop": true,
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "jsx": "react",
-    "rootDirs": ["src", "tests"],
     "baseUrl": "src",
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "noEmit": true,
     "outDir": "dist",
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "rootDirs": ["src", "tests"],
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ESNext",
+    "typeRoots": ["src/external/@types", "./node_modules/@types"],
     "paths": {
       "@/*": ["*"]
-    },
-    "resolveJsonModule": true,
-    "strict": true,
-    "sourceMap": true,
-    "removeComments": true,
-    "skipLibCheck": true,
-    "noEmit": true
+    }
   },
-  "include": ["src", "tests", "listItem.css.ts"],
+  "include": ["src", "tests"],
   "exclude": ["node_modules", "dist"]
 }
