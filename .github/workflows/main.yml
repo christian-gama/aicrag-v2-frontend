@@ -50,7 +50,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           netlify-config-path: ./netlify.toml
-          production-branch: master
+          production-branch: main
           publish-dir: './build'
           deploy-message: "Deploy from GitHub Actions"
           enable-pull-request-comment: false
