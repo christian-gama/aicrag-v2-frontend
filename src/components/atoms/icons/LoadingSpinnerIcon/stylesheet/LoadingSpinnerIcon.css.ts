@@ -22,13 +22,13 @@ const colorVariants = styleVariants({
 
 const sizeVariants = styleVariants({
   sm: {
-    width: '2.6rem',
-    height: '2.6rem'
+    width: '1.6rem',
+    height: '1.6rem'
   },
 
   md: {
-    width: '3.6rem',
-    height: '3.6rem'
+    width: '2.6rem',
+    height: '2.6rem'
   },
 
   lg: {

@@ -30,7 +30,7 @@
     "test:unit": "yarn test:silent -c jest-unit.config.js",
     "test:verbose": "jest --passWithNoTests --detectOpenHandles --verbose --no-cache",
     "typecheck": "tsc -p ./tsconfig.json",
-    "storybook": "start-storybook -p 6006 -s public",
+    "storybook": "start-storybook -p 6006 -s public --no-manager-cache",
     "build-storybook": "build-storybook -s public"
   },
   "devDependencies": {
@@ -46,7 +46,7 @@
     "@graphql-codegen/typescript-operations": "^2.2.2",
     "@graphql-codegen/typescript-react-apollo": "^3.2.3",
     "@storybook/addon-a11y": "^6.4.12",
-    "@storybook/addon-actions": "^6.5.0-alpha.17",
+    "@storybook/addon-actions": "^6.4.12",
     "@storybook/addon-essentials": "^6.5.0-alpha.17",
     "@storybook/addon-links": "^6.5.0-alpha.17",
     "@storybook/addon-postcss": "^2.0.0",
@@ -56,6 +56,7 @@
     "@storybook/node-logger": "^6.5.0-alpha.17",
     "@storybook/preset-create-react-app": "^4.0.0",
     "@storybook/react": "^6.5.0-alpha.17",
+    "@storybook/testing-library": "^0.0.7",
     "@testing-library/dom": "^8.11.1",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",

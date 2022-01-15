@@ -74,12 +74,12 @@ const modeVariants = styleVariants({
 // Compound Variants
 // Cyan
 const containedCyanStyle = style({
-  backgroundColor: vars.colors['cyan-600'],
+  backgroundColor: vars.colors['cyan-900'],
   color: vars.colors.white,
   border: 'none',
 
   ':hover': {
-    backgroundColor: vars.colors['cyan-900'],
+    backgroundColor: vars.colors['cyan-700'],
     cursor: 'pointer'
   },
 
@@ -90,11 +90,11 @@ const containedCyanStyle = style({
 
 const outlinedCyanStyle = style({
   backgroundColor: vars.colors.transparent,
-  border: `1px solid ${vars.colors['cyan-600']}`,
-  color: vars.colors['cyan-600'],
+  border: `1px solid ${vars.colors['cyan-900']}`,
+  color: vars.colors['cyan-900'],
 
   ':hover': {
-    backgroundColor: vars.colors['cyan-600'],
+    backgroundColor: vars.colors['cyan-900'],
     border: 'none',
     color: vars.colors.white,
     cursor: 'pointer'
@@ -214,7 +214,7 @@ const containedLightStyle = style({
 
 const outlinedLightStyle = style({
   backgroundColor: vars.colors.transparent,
-  border: `1px solid ${vars.colors['gray-900']}`,
+  border: `1px solid ${vars.colors.text.default}`,
   color: vars.colors.text.default,
 
   ':hover': {

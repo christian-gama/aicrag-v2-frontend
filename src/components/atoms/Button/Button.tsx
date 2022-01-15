@@ -24,11 +24,15 @@ const Button: React.FC<ButtonProps> = (props) => {
   const renderChildren = (): React.ReactNode => {
     if (props.loading) {
       return (
-        <LoadingSpinnerIcon
-          style={{
-            color: getLoadingColor()
-          }}
-        />
+        <>
+          {props.children}
+          <LoadingSpinnerIcon
+            style={{
+              size: 'sm',
+              color: getLoadingColor()
+            }}
+          />
+        </>
       )
     }
 
