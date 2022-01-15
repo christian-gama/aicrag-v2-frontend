@@ -13,7 +13,20 @@ const Template: ComponentStory<typeof Backdrop> = (args) => {
 
   return (
     <>
-      <button onClick={() => setIsOpen((prev) => !prev)}>Open Backdrop</button>
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          backgroundImage: "url('https://source.unsplash.com/random/1920x1080')",
+          backgroundSize: 'cover',
+          width: '100vw',
+          height: '100vh'
+        }}
+      >
+        <button onClick={() => setIsOpen((prev) => !prev)}>Open Backdrop</button>
+      </div>
+
       <Backdrop isOpen={isOpen || args.isOpen} onDismiss={args.onDismiss} />
     </>
   )
