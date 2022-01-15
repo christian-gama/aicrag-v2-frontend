@@ -1,4 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { screen, userEvent } from '@storybook/testing-library'
 import React from 'react'
 import BaseInput from './BaseInput'
 
@@ -64,4 +65,23 @@ WithValue.args = {
   isTouched: false,
   isValid: false,
   type: 'text'
+}
+
+export const Typing = Template.bind({})
+Typing.args = {
+  label: 'Label',
+  name: 'label',
+  isFocused: true,
+  defaultValue: '',
+  isTouched: false,
+  isValid: false,
+  type: 'text'
+}
+Typing.play = async () => {
+  const input = screen.getByTestId('base-input')
+  await userEvent.type(
+    input,
+    '.... typing{backspace}{backspace}{backspace}{backspace}{backspace}{backspace}{backspace}{backspace}{backspace}{backspace}{backspace}',
+    { delay: 100 }
+  )
 }
