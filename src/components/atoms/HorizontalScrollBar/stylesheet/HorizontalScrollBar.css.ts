@@ -1,10 +1,17 @@
-import { style } from '@vanilla-extract/css'
+import { createGlobalTheme, style } from '@vanilla-extract/css'
 import { breakpoints } from '@/components/_settings/breakpoints.css'
 import { vars } from '@/components/_settings/vars.css'
 
-export const HorizontalScrollBar = style({
-  width: '100%',
+export const horizontalScrollBarVars = createGlobalTheme(':root', {
+  width: '100%'
+})
+
+export const horizontalScrollBar = style({
+  width: horizontalScrollBarVars.width,
+  maxWidth: horizontalScrollBarVars.width,
   paddingBottom: '1.6rem',
+  msOverflowX: 'auto',
+  overflowX: 'auto',
 
   '::-webkit-scrollbar': {
     height: '8px',
@@ -23,14 +30,12 @@ export const HorizontalScrollBar = style({
   '@media': {
     [breakpoints.desktop]: {
       overflowX: 'auto',
-      msOverflowX: 'auto',
       whiteSpace: 'nowrap'
     },
 
     [breakpoints.mobile]: {
       overflowX: 'auto',
       whiteSpace: 'nowrap',
-      msOverflowX: 'auto',
       paddingBottom: '1.2rem'
     }
   }
