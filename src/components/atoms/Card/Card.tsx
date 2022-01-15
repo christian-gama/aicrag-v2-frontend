@@ -28,7 +28,7 @@ const Card: React.FC<CardProps> = (props) => {
       className={cardStyle}
       style={assignInlineVars(style.cardVars, {
         height: props.style?.height ?? 'max-content',
-        margin: props.style?.height ?? '0',
+        margin: props.style?.margin ?? '0',
         padding: props.style?.padding ?? '0',
         width: props.style?.width ?? 'max-content'
       })}
