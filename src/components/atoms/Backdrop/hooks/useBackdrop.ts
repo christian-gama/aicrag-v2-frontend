@@ -9,20 +9,25 @@ const useBackdrop = (props: ComponentPropsWithoutRef<typeof Backdrop>) => {
   }, [props.isOpen])
 
   useEffect(() => {
-    const dismissOnEscapeHandler = (event: KeyboardEvent) => {
+    function removeListener () {
+      document.removeEventListener('keydown', dismissOnEscapeHandler)
+    }
+
+    function dismissOnEscapeHandler (event: KeyboardEvent) {
       if (event.key === 'Escape') {
         if (props.onDismiss) props.onDismiss()
 
+        removeListener()
         setIsOpenState(false)
       }
     }
 
-    document.addEventListener('keydown', dismissOnEscapeHandler)
-
-    return () => {
-      document.removeEventListener('keydown', dismissOnEscapeHandler)
+    if (isOpenState) {
+      document.addEventListener('keydown', dismissOnEscapeHandler)
     }
-  }, [])
+
+    return removeListener
+  }, [isOpenState])
 
   const dismissOnClickHandler = (event: React.MouseEvent) => {
     if (event.target === event.currentTarget) {
