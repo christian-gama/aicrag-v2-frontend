@@ -1,7 +1,11 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import MenuProps from './protocols/Menu.model'
 import * as style from './stylesheet'
+
+type MenuProps = {
+  buttons: Array<{ buttonName: string, to: string }>
+  url: string
+}
 
 const Menu: React.FC<MenuProps> = (props) => {
   const location = useLocation()

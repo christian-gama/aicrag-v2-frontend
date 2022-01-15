@@ -1,7 +1,10 @@
 import React from 'react'
 import P from '@/components/atoms/texts/P'
-import PopoverMessageListProps from './protocols/PopoverMessageList.model'
 import * as style from './stylesheet'
+
+type PopoverMessageListProps = {
+  messages: string[]
+}
 
 const PopoverMessageList: React.FC<PopoverMessageListProps> = (props) => {
   const { messages } = props

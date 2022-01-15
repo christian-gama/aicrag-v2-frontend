@@ -1,9 +1,8 @@
 import { cleanup, render, screen, waitForElementToBeRemoved } from '@testing-library/react'
-import React from 'react'
+import React, { ComponentPropsWithRef } from 'react'
 import Popover from '../Popover'
-import PopoverProps from '../protocols/Popover.model'
 
-const makeSut = (props: PopoverProps) => {
+const makeSut = (props: ComponentPropsWithRef<typeof Popover>) => {
   render(<Popover isOpen={props.isOpen ?? true} {...props} />)
 }
 

@@ -1,8 +1,8 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, ComponentPropsWithRef } from 'react'
 import FormContext from '@/context/models/form/form.context'
-import ControlFormProps from '../protocols/ControlForm.model'
+import ControlForm from '../ControlForm'
 
-const useControlForm = (props: ControlFormProps) => {
+const useControlForm = (props: ComponentPropsWithRef<typeof ControlForm>) => {
   const { dispatch, state } = useContext(FormContext)
 
   const { error, isValid, data, isResetting, isSubmitting, isSubmitted } = state.form

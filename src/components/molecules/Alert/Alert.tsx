@@ -9,8 +9,16 @@ import H4 from '../../atoms/texts/H4'
 import P from '../../atoms/texts/P'
 import Modal from '../Modal'
 import useAlert from './hooks/useAlert'
-import AlertProps from './protocols/Alert.model'
 import * as style from './stylesheet'
+import { AlertHeaderVariants } from './stylesheet'
+
+type AlertProps = {
+  isOpen?: boolean
+  message: string
+  onCancel?: () => void
+  title: string
+  type: AlertHeaderVariants['color']
+} & (AlertWithAction | AlertWithoutAction)
 
 const Alert: React.FC<AlertProps> = (props) => {
   const { cancelHandler, handleAction, isOpen } = useAlert(props)
@@ -84,3 +92,10 @@ const Alert: React.FC<AlertProps> = (props) => {
 }
 
 export default Alert
+
+type AlertWithAction = {
+  actionName: string
+  mode: 'actionAndCancel'
+  onAction: () => void
+}
+type AlertWithoutAction = { mode: 'cancelOnly' }

@@ -1,30 +1,15 @@
 import makeValidationMock from '@/../tests/mocks/validator.mock'
 import { render, fireEvent, screen, act, cleanup } from '@testing-library/react'
-import React from 'react'
-import IValidation from '@/services/validators/protocols/validation.model'
+import React, { ComponentPropsWithRef } from 'react'
 import FormProvider from '@/context/models/form/form.provider'
 import ControlForm from '../ControlForm'
 import ControlInput from '../ControlInput'
 
-type sutConfig = {
-  children?:
-  | string
-  | number
-  | boolean
-  | {}
-  | React.ReactElement<any, string | React.JSXElementConstructor<any>>
-  | React.ReactPortal
-  | null
-  | undefined
-  validator?: IValidation
-  submitHandler?: () => Promise<void>
-}
-
-const makeSut = (config: sutConfig) => {
+const makeSut = ({ submitHandler, children, validator }: ComponentPropsWithRef<typeof ControlForm>) => {
   render(
     <FormProvider>
-      <ControlForm submitHandler={config.submitHandler ?? jest.fn()} validator={config.validator}>
-        {config.children}
+      <ControlForm submitHandler={submitHandler} validator={validator}>
+        {children}
       </ControlForm>
     </FormProvider>
   )
@@ -45,7 +30,7 @@ describe('Form', () => {
   it('should render children', () => {
     const children = <ControlInput name="title" label="Title" />
 
-    makeSut({ children })
+    makeSut({ children, submitHandler: jest.fn() })
 
     const inputElement = screen.getByTestId('base-input')
 
@@ -74,7 +59,7 @@ describe('Form', () => {
 
     const children = <ControlInput name="title" label="Title" />
 
-    makeSut({ children, validator })
+    makeSut({ children, validator, submitHandler: jest.fn() })
 
     const input = screen.getByTestId('base-input')
     act(() => {
@@ -92,7 +77,7 @@ describe('Form', () => {
 
     const children = <ControlInput name="title" label="Title" />
 
-    makeSut({ children, validator })
+    makeSut({ children, validator, submitHandler: jest.fn() })
 
     const input = screen.getByTestId('base-input')
     act(() => {
@@ -141,7 +126,7 @@ describe('Form', () => {
     const validator = makeValidationMock(false)
     const children = <ControlInput name="title" label="Title" />
 
-    makeSut({ children, validator })
+    makeSut({ children, validator, submitHandler: jest.fn() })
 
     act(() => {
       fireEvent.submit(screen.getByTestId('form'))

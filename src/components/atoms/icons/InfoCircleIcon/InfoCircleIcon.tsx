@@ -1,6 +1,11 @@
 import React from 'react'
-import InfoCircleIconProps from './protocols/InfoCircleIcon.model'
 import * as style from './stylesheet'
+import { InfoCircleIconRecipeVariants } from './stylesheet'
+
+type InfoCircleIconProps = {
+  color?: InfoCircleIconRecipeVariants['color']
+  size?: InfoCircleIconRecipeVariants['size']
+}
 
 const InfoCircleIcon: React.FC<InfoCircleIconProps> = (props) => {
   const infoCircleStyle = style.infoCircleIconRecipe({

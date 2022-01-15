@@ -1,6 +1,11 @@
 import React from 'react'
-import LogoIconProps from './protocols/LogoIcon.model'
 import * as style from './stylesheet'
+import { LogoIconVariants } from './stylesheet'
+
+type LogoIconProps = {
+  color?: LogoIconVariants['color']
+  size?: LogoIconVariants['size']
+}
 
 const LogoIcon: React.FC<LogoIconProps> = (props) => {
   const iconStyle = style.logoIconRecipe({

@@ -1,7 +1,19 @@
 import translateError from '@/helpers/translateError'
+import Maybe from '@/helpers/typescript/maybe.model'
 import React, { useEffect, useState } from 'react'
-import BaseInputProps from './protocols/BaseInput.model'
+import IValidation from '@/services/validators/protocols/validation.model'
 import * as style from './stylesheet'
+
+type BaseInputProps = {
+  error?: Maybe<Error['message']>
+  isFocused?: boolean
+  isTouched?: boolean
+  isValid?: boolean
+  label: string
+  name: string
+  validator?: IValidation
+  icon?: () => React.ReactNode
+} & React.InputHTMLAttributes<HTMLInputElement>
 
 const BaseInput: React.FC<BaseInputProps> = (props) => {
   const { error, icon, isFocused, isTouched, isValid, label, name, type, validator, value, ...rest } = props

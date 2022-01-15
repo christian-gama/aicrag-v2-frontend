@@ -1,6 +1,11 @@
 import React from 'react'
-import CloseIconProps from './protocols/CloseIcon.model'
 import * as style from './stylesheet'
+import { CloseIconVariants } from './stylesheet'
+
+type CloseIconProps = {
+  color?: CloseIconVariants['color']
+  size?: CloseIconVariants['size']
+}
 
 const CloseIcon: React.FC<CloseIconProps> = (props) => {
   const closeIconStyle = style.closeIconRecipe({

@@ -1,14 +1,13 @@
 import makeValidationMock from '@/../tests/mocks/validator.mock'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
+import React, { ComponentPropsWithRef } from 'react'
 import IValidation from '@/services/validators/protocols/validation.model'
 import FormProvider from '@/context/models/form/form.provider'
 import ControlForm from '../ControlForm'
 import ControlInput from '../ControlInput'
-import ControlInputProps from '../protocols/ControlInput.model'
 
-const makeSut = (props: ControlInputProps & { validator?: IValidation }): void => {
+const makeSut = (props: ComponentPropsWithRef<typeof ControlInput> & { validator?: IValidation }): void => {
   render(
     <FormProvider>
       <ControlForm submitHandler={jest.fn()} validator={props.validator}>

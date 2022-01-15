@@ -1,7 +1,6 @@
 import { cleanup, render, screen } from '@testing-library/react'
-import React from 'react'
+import React, { ComponentPropsWithRef } from 'react'
 import DateData from '../DateData'
-import TableProps from '../protocols/Table.model'
 import Table from '../Table'
 import Tbody from '../Tbody'
 import Td from '../Td'
@@ -9,7 +8,7 @@ import Th from '../Th'
 import Thead from '../Thead'
 import Tr from '../Tr'
 
-const makeSut = (props: TableProps) => {
+const makeSut = (props: ComponentPropsWithRef<typeof Table>) => {
   return render(
     <Table {...props}>
       <Thead>

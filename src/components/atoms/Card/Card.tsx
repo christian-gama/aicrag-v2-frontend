@@ -1,7 +1,19 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import React from 'react'
-import CardProps from './protocols/Card.model'
 import * as style from './stylesheet'
+import { CardVariants } from './stylesheet'
+
+type CardProps = {
+  centered?: CardVariants['centered']
+  roundness?: CardVariants['roundness']
+  transparent?: CardVariants['transparent']
+  style?: {
+    width?: string
+    height?: string
+    padding?: string
+    margin?: string
+  }
+}
 
 const Card: React.FC<CardProps> = (props) => {
   const cardStyle = style.cardRecipe({

@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
-import AlertProps from '../protocols/Alert.model'
+import { ComponentPropsWithoutRef, useEffect, useState } from 'react'
+import Alert from '../Alert'
 
-const useAlert = (props: AlertProps) => {
+const useAlert = (props: ComponentPropsWithoutRef<typeof Alert>) => {
   const [isOpen, setIsOpen] = useState(!!props.isOpen)
 
   useEffect(() => {

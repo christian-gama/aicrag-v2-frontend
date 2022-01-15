@@ -1,10 +1,9 @@
 import { render, screen } from '@testing-library/react'
-import React from 'react'
+import React, { ComponentPropsWithRef } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Menu from '../Menu'
-import MenuProps from '../protocols/Menu.model'
 
-const makeSut = (props: MenuProps) => {
+const makeSut = (props: ComponentPropsWithRef<typeof Menu>) => {
   return render(
     <>
       <BrowserRouter>

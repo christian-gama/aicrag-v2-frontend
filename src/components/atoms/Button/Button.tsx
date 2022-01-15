@@ -1,7 +1,20 @@
 import React from 'react'
 import LoadingSpinnerIcon from '../icons/LoadingSpinnerIcon'
-import ButtonProps from './protocols/Button.model'
 import * as style from './stylesheet'
+import { ButtonVariants } from './stylesheet'
+
+type ButtonProps = {
+  style?: {
+    color?: ButtonVariants['color']
+    mode?: ButtonVariants['mode']
+    size?: ButtonVariants['size']
+  }
+  disabled?: ButtonVariants['disabled']
+  loading?: boolean
+  testid?: string
+  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type']
+  onClick?: (event?: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => void
+}
 
 const Button: React.FC<ButtonProps> = (props) => {
   const buttonStyle = style.buttonRecipe({

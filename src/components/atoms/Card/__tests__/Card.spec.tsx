@@ -1,10 +1,9 @@
 import { cleanup, render, screen } from '@testing-library/react'
-import React from 'react'
+import React, { ComponentPropsWithRef } from 'react'
 import Card from '..'
-import { CardVariants } from '../stylesheet/Card.css'
 
-const makeSut = (style?: { centered?: CardVariants['centered'], roundness?: CardVariants['roundness'] }): void => {
-  render(<Card centered={style?.centered} roundness={style?.roundness} />)
+const makeSut = ({ centered, children, roundness, style, transparent }: ComponentPropsWithRef<typeof Card>): void => {
+  render(<Card centered={centered} roundness={roundness} />)
 }
 
 describe('Card', () => {
@@ -13,7 +12,7 @@ describe('Card', () => {
   })
 
   it('should render on the screen', () => {
-    makeSut()
+    makeSut({})
 
     const card = screen.queryByTestId('card')
 

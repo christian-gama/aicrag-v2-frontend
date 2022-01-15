@@ -1,7 +1,11 @@
 import React from 'react'
 import Button from '../../atoms/Button'
-import CalendarButtonWrapperProps from './protocols/CalendarButtonWrapper.model'
 import * as style from './stylesheet'
+
+type CalendarButtonWrapperProps = {
+  onCancelHandler: () => void
+  onConfirmHandler: () => void
+}
 
 const CalendarButtonWrapper: React.FC<CalendarButtonWrapperProps> = (props) => {
   const { onCancelHandler, onConfirmHandler } = props

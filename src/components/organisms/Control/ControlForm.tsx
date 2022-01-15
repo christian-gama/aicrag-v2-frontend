@@ -1,8 +1,15 @@
 import React from 'react'
+import IValidation from '@/services/validators/protocols/validation.model'
 import Popover from '@/components/molecules/Popover'
 import ProgressBar from '../../atoms/ProgressBar'
 import useControlForm from './hooks/useControlForm'
-import ControlFormProps from './protocols/ControlForm.model'
+
+type ControlFormProps = {
+  loading?: boolean
+  successMessage?: string
+  validator?: IValidation
+  submitHandler: () => Promise<void>
+}
 
 const ControlForm: React.FC<ControlFormProps> = (props) => {
   const {

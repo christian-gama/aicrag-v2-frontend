@@ -1,6 +1,9 @@
 import React from 'react'
-import TdProps from './protocols/Td.model'
 import * as style from './stylesheet'
+
+type TdProps = {
+  hasCalendar?: boolean
+}
 
 const Td: React.FC<TdProps> = (props) => {
   return (

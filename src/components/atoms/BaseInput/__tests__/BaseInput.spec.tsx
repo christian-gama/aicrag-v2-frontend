@@ -1,9 +1,8 @@
 import { render, screen } from '@testing-library/react'
-import React from 'react'
+import React, { ComponentPropsWithRef } from 'react'
 import BaseInput from '../BaseInput'
-import BaseInputProps from '../protocols/BaseInput.model'
 
-const makeSut = (props: BaseInputProps) => {
+const makeSut = (props: ComponentPropsWithRef<typeof BaseInput>) => {
   return render(<BaseInput {...props} />)
 }
 

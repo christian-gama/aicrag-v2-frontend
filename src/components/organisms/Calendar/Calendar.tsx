@@ -6,8 +6,11 @@ import Modal from '../../molecules/Modal/Modal'
 import CalendarBody from './CalendarBody'
 import CalendarFooter from './CalendarFooter'
 import CalendarHeader from './CalendarHeader'
-import CalendarProps from './protocols/Calendar.model'
 import * as style from './stylesheet'
+
+type CalendarProps = {
+  previousDate: number
+}
 
 const Calendar: React.FC<CalendarProps> = (props) => {
   const { resetCalendar, closeCalendar } = calendarActions

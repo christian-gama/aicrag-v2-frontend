@@ -1,9 +1,8 @@
 import { cleanup, render, screen } from '@testing-library/react'
-import React from 'react'
+import React, { ComponentPropsWithRef } from 'react'
 import ChevronIcon from '../ChevronIcon'
-import ChevronIconProps from '../protocols/ChevronIcon.model'
 
-const makeSut = (props: ChevronIconProps) => {
+const makeSut = (props: ComponentPropsWithRef<typeof ChevronIcon>) => {
   return render(<ChevronIcon {...props} />)
 }
 

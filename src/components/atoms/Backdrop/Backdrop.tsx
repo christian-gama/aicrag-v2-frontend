@@ -1,8 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import useBackdrop from './hooks/useBackdrop'
-import BackdropProps from './protocols/Backdrop.model'
 import * as style from './stylesheet'
+
+type BackdropProps = {
+  isOpen?: boolean
+  onDismiss?: VoidFunction
+}
 
 const Backdrop: React.FC<BackdropProps> = (props) => {
   const { dismissOnClickHandler, isOpenState } = useBackdrop(props)

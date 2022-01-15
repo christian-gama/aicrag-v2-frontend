@@ -1,9 +1,8 @@
 import { cleanup, render, screen } from '@testing-library/react'
-import React from 'react'
+import React, { ComponentPropsWithRef } from 'react'
 import Backdrop from '../Backdrop'
-import BackdropProps from '../protocols/Backdrop.model'
 
-const makeSut = (props: BackdropProps) => {
+const makeSut = (props: ComponentPropsWithRef<typeof Backdrop>) => {
   return render(<Backdrop {...props} />)
 }
 

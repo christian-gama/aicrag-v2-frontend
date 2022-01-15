@@ -1,8 +1,19 @@
+import Optional from '@/helpers/typescript/optional.model'
 import React from 'react'
 import BaseInput from '../../atoms/BaseInput/BaseInput'
 import EyeIcon from '../../atoms/icons/EyeIcon'
 import useControlInput from './hooks/useControlInput'
-import ControlInputProps from './protocols/ControlInput.model'
+
+type ControlInputProps = {
+  autoFocus?: boolean
+  icon?: React.ReactElement
+  name: string
+  label: string
+  defaultValue?: string
+} & Pick<
+React.InputHTMLAttributes<HTMLInputElement>,
+Optional<'autoFocus' | 'onBlur' | 'onChange' | 'onFocus' | 'defaultValue' | 'type'>
+>
 
 /**
  * @description Must be used inside a Form component with FormProvider

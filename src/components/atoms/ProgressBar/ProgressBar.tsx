@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
-import ProgressBarProps from './ProgressBar.model'
 import * as style from './stylesheet'
+
+type ProgressBarProps = {
+  loading?: boolean
+}
 
 const ProgressBar: React.FC<ProgressBarProps> = (props) => {
   const [isOpen, setIsOpen] = useState(false)

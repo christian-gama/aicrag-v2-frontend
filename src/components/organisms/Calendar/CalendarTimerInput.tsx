@@ -1,8 +1,15 @@
 import React from 'react'
-import CalendarTimerInputProps from './protocols/CalendarTimerInput.model'
 import * as style from './stylesheet'
 
-export const CalendarTimerInput: React.FC<CalendarTimerInputProps> = (props) => {
+type CalendarTimerInputProps = {
+  name: 'hour' | 'minute'
+  value: string
+  onBlur: (event: React.FocusEvent<HTMLInputElement>) => void
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void
+}
+
+const CalendarTimerInput: React.FC<CalendarTimerInputProps> = (props) => {
   return (
     <input
       className={style.calendarTimerInput}

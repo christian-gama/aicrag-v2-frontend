@@ -8,8 +8,16 @@ import ErrorIcon from '../../atoms/icons/ErrorIcon'
 import InfoCircleIcon from '../../atoms/icons/InfoCircleIcon'
 import P from '../../atoms/texts/P'
 import PopoverMessageList from './PopoverMessageList'
-import PopoverProps from './protocols/Popover.model'
 import * as style from './stylesheet'
+import { PopoverVariants } from './stylesheet'
+
+type PopoverProps = {
+  isOpen?: boolean
+  duration?: number
+  message: string | string[]
+  type: PopoverVariants['type']
+  onClose?: () => void
+}
 
 const Popover: React.FC<PopoverProps> = (props) => {
   const { message, type } = props

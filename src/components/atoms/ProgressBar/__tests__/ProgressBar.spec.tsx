@@ -1,9 +1,8 @@
 import { cleanup, render, screen } from '@testing-library/react'
-import React from 'react'
+import React, { ComponentPropsWithRef } from 'react'
 import ProgressBar from '../ProgressBar'
-import ProgressBarProps from '../ProgressBar.model'
 
-const makeSut = (props: ProgressBarProps) => {
+const makeSut = (props: ComponentPropsWithRef<typeof ProgressBar>) => {
   return render(<ProgressBar {...props} />)
 }
 

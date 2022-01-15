@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
-import BackdropProps from '../protocols/Backdrop.model'
+import { useState, useEffect, ComponentPropsWithoutRef } from 'react'
+import Backdrop from '../Backdrop'
 
-const useBackdrop = (props: BackdropProps) => {
+const useBackdrop = (props: ComponentPropsWithoutRef<typeof Backdrop>) => {
   const [isOpenState, setIsOpenState] = useState(false)
 
   useEffect(() => {

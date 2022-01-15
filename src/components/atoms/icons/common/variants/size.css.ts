@@ -1,6 +1,6 @@
 import { styleVariants } from '@vanilla-extract/css'
 
-export const size = styleVariants({
+export const sizeVariants = styleVariants({
   sm: {
     width: '1.6rem',
     height: '1.6rem',

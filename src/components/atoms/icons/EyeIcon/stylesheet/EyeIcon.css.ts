@@ -1,6 +1,6 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { fillColorVariants } from '@/components/_settings/variants.css'
-import { size } from '../../common/variants/size.css'
+import { sizeVariants } from '../../common/variants/size.css'
 
 export const eyeIconRecipe = recipe({
   base: {
@@ -11,7 +11,7 @@ export const eyeIconRecipe = recipe({
 
   variants: {
     color: fillColorVariants,
-    size
+    size: sizeVariants
   },
 
   defaultVariants: {

@@ -1,7 +1,7 @@
 import { style, styleVariants } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { vars } from '@/components/_settings/vars.css'
-import { size } from '../../common/variants/size.css'
+import { sizeVariants } from '../../common/variants/size.css'
 
 // Styles
 export const chevronIconHitbox = style({
@@ -65,7 +65,7 @@ export const chevronIconRecipe = recipe({
   },
 
   variants: {
-    size,
+    size: sizeVariants,
     color: colorVariants,
     direction: directionVariants
   },

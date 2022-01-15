@@ -1,6 +1,10 @@
 import React from 'react'
-import DateDataProps from './protocols/DateData.model'
 import * as style from './stylesheet'
+
+type DateDataProps = {
+  primaryDate: string
+  secondaryDate: string
+}
 
 const DateData: React.FC<DateDataProps> = (props) => {
   return (

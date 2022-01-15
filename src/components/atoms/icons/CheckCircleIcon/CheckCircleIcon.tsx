@@ -1,6 +1,11 @@
 import React from 'react'
-import CheckCircleIconProps from './protocols/CheckIcon.model'
 import * as style from './stylesheet'
+import { CheckCircleIconVariants } from './stylesheet'
+
+type CheckCircleIconProps = {
+  color?: CheckCircleIconVariants['color']
+  size?: CheckCircleIconVariants['size']
+}
 
 const CheckCircleIcon: React.FC<CheckCircleIconProps> = (props) => {
   const checkIconStyle = style.checkCircleIconRecipe({

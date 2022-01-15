@@ -1,7 +1,13 @@
 import React from 'react'
 import HorizontalScrollBar from '../../atoms/HorizontalScrollBar'
-import TableProps from './protocols/Table.model'
 import * as style from './stylesheet'
+
+type TableProps = {
+  showingUp?: {
+    current: number
+    total: number
+  }
+}
 
 const Table: React.FC<TableProps> = (props) => {
   return (

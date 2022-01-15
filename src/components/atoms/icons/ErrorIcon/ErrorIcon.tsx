@@ -1,6 +1,11 @@
 import React from 'react'
-import ErrorIconProps from './protocols/ErrorIcon.model'
 import * as style from './stylesheet'
+import { ErrorIconVariants } from './stylesheet'
+
+type ErrorIconProps = {
+  color?: ErrorIconVariants['color']
+  size?: ErrorIconVariants['size']
+}
 
 const ErrorIcon: React.FC<ErrorIconProps> = (props) => {
   const errorIconStyle = style.errorIconRecipe({
