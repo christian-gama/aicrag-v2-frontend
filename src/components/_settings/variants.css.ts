@@ -54,6 +54,19 @@ export const fillColorVariants = styleVariants({
     fill: vars.colors['danger-300']
   },
 
+  warningDarker: {
+    color: vars.colors['warning-700'],
+    fill: vars.colors['warning-700']
+  },
+  warning: {
+    color: vars.colors['warning-500'],
+    fill: vars.colors['warning-500']
+  },
+  warningLighter: {
+    color: vars.colors['warning-300'],
+    fill: vars.colors['warning-300']
+  },
+
   infoDarker: {
     color: vars.colors['info-700'],
     fill: vars.colors['info-700']

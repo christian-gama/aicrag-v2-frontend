@@ -73,7 +73,7 @@ describe('Alert', () => {
       message: 'message',
       mode: 'cancelOnly',
       title: 'title',
-      type: 'default'
+      type: 'warning'
     })
 
     const cancelButton = screen.getByTestId('alert-cancel-button')
@@ -94,7 +94,7 @@ describe('Alert', () => {
       mode: 'cancelOnly',
       onCancel,
       title: 'title',
-      type: 'default'
+      type: 'warning'
     })
 
     const cancelButton = screen.getByTestId('alert-cancel-button')

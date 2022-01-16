@@ -37,7 +37,7 @@ const Alert: React.FC<AlertProps> = (props) => {
         return 'danger'
 
       default:
-        return 'dark'
+        return 'textDarker'
     }
   }
 
@@ -50,7 +50,7 @@ const Alert: React.FC<AlertProps> = (props) => {
         return 'danger'
 
       default:
-        return 'cyan'
+        return 'warning'
     }
   }
 

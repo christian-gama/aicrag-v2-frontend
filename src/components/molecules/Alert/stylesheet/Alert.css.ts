@@ -12,8 +12,8 @@ export const colorVariants = styleVariants({
     backgroundColor: vars.colors['info-50']
   },
 
-  default: {
-    backgroundColor: vars.colors['gray-50']
+  warning: {
+    backgroundColor: vars.colors['warning-50']
   }
 })
 
@@ -85,7 +85,7 @@ export const alertHeaderRecipe = recipe({
   },
 
   defaultVariants: {
-    color: 'default'
+    color: 'warning'
   }
 })
 

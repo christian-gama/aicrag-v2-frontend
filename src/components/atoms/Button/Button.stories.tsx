@@ -33,6 +33,24 @@ CyanOutlined.args = {
   }
 }
 
+export const WarningContained = Template.bind({})
+WarningContained.args = {
+  children: 'Button',
+  style: {
+    mode: 'contained',
+    color: 'warning'
+  }
+}
+
+export const WarningOutlined = Template.bind({})
+WarningOutlined.args = {
+  children: 'Button',
+  style: {
+    mode: 'outlined',
+    color: 'warning'
+  }
+}
+
 export const DangerContained = Template.bind({})
 DangerContained.args = {
   children: 'Button',

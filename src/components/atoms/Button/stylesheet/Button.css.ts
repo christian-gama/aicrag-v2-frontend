@@ -8,7 +8,8 @@ const colorVariants = styleVariants({
   danger: {},
   info: {},
   light: {},
-  cyan: {}
+  cyan: {},
+  warning: {}
 })
 
 const disabledVariants = styleVariants({
@@ -102,6 +103,39 @@ const outlinedCyanStyle = style({
 
   ':focus': {
     boxShadow: `0 0 1px 4px ${vars.colors['cyan-100']}`
+  }
+})
+
+// Warning
+const containedWarningStyle = style({
+  backgroundColor: vars.colors['warning-500'],
+  color: vars.colors.text.default,
+  border: 'none',
+
+  ':hover': {
+    backgroundColor: vars.colors['warning-300'],
+    cursor: 'pointer'
+  },
+
+  ':focus': {
+    boxShadow: `0 0 1px 4px ${vars.colors['warning-100']}`
+  }
+})
+
+const outlinedWarningStyle = style({
+  backgroundColor: vars.colors.transparent,
+  border: `1px solid ${vars.colors['warning-500']}`,
+  color: vars.colors['warning-900'],
+
+  ':hover': {
+    backgroundColor: vars.colors['warning-500'],
+    border: 'none',
+    color: vars.colors.text.default,
+    cursor: 'pointer'
+  },
+
+  ':focus': {
+    boxShadow: `0 0 1px 4px ${vars.colors['warning-100']}`
   }
 })
 
@@ -264,6 +298,16 @@ export const buttonRecipe = recipe({
     {
       variants: {
         mode: 'contained',
+        color: 'warning',
+        disabled: false
+      },
+
+      style: containedWarningStyle
+    },
+
+    {
+      variants: {
+        mode: 'contained',
         color: 'danger',
         disabled: false
       },
@@ -306,6 +350,16 @@ export const buttonRecipe = recipe({
       },
 
       style: outlinedCyanStyle
+    },
+
+    {
+      variants: {
+        mode: 'outlined',
+        color: 'warning',
+        disabled: false
+      },
+
+      style: outlinedWarningStyle
     },
 
     {

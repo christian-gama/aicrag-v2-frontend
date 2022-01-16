@@ -127,7 +127,18 @@ const colors = {
   'danger-600': '#9b0e12',
   'danger-700': '#910c0f',
   'danger-800': '#88090c',
-  'danger-900': '#770506'
+  'danger-900': '#770506',
+
+  'warning-50': '#fbfae0',
+  'warning-100': '#f5f4b3',
+  'warning-200': '#efec80',
+  'warning-300': '#e9e44d',
+  'warning-400': '#e4df26',
+  'warning-500': '#dfd900',
+  'warning-600': '#dbd500',
+  'warning-700': '#d7cf00',
+  'warning-800': '#d2ca00',
+  'warning-900': '#cac000'
 }
 
 export const vars = createGlobalTheme(':root', {
