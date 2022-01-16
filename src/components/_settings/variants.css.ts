@@ -96,8 +96,8 @@ export const fillColorVariants = styleVariants({
   },
 
   dark: {
-    color: vars.colors['gray-700'],
-    fill: vars.colors['gray-700']
+    color: vars.colors['gray-900'],
+    fill: vars.colors['gray-900']
   }
 })
 

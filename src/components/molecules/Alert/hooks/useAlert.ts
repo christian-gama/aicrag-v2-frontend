@@ -12,6 +12,8 @@ const useAlert = (props: ComponentPropsWithoutRef<typeof Alert>) => {
   const handleAction = () => {
     if (props.mode === 'actionAndCancel') {
       props.onAction()
+
+      setIsOpen(false)
     }
   }
 

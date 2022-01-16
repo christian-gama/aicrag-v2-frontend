@@ -21,6 +21,7 @@ type AlertProps = {
 } & (AlertWithAction | AlertWithoutAction)
 
 const Alert: React.FC<AlertProps> = (props) => {
+  const mode = props.mode || 'cancelOnly'
   const { cancelHandler, handleAction, isOpen } = useAlert(props)
 
   const alertHeaderStyle = style.alertHeaderRecipe({
@@ -69,10 +70,10 @@ const Alert: React.FC<AlertProps> = (props) => {
           <div className={style.alertFooter} data-testid="alert-footer">
             <Button
               onClick={cancelHandler}
-              style={{ mode: 'outlined', size: 'sm', color: getButtonColor() }}
+              style={{ mode: 'outlined', size: 'sm', color: mode === 'cancelOnly' ? getButtonColor() : 'light' }}
               testid="alert-cancel-button"
             >
-              {props.mode === 'cancelOnly' ? 'Voltar' : 'Cancelar'}
+              {mode === 'cancelOnly' ? 'Voltar' : 'Cancelar'}
             </Button>
 
             {props.mode === 'actionAndCancel' && (

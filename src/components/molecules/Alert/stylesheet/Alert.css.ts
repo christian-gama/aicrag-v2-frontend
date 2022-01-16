@@ -18,7 +18,7 @@ export const colorVariants = styleVariants({
 })
 
 export const padding = style({
-  padding: '2rem 3.5rem',
+  padding: '2rem 2.8rem',
 
   '@media': {
     [breakpoints.mobile]: {
@@ -55,6 +55,7 @@ export const alertFooter = style([
   {
     display: 'flex',
     justifyContent: 'flex-end',
+    gap: '0.8rem',
     alignItems: 'flex-end',
     width: '100%'
   }
