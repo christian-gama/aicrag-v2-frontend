@@ -13,17 +13,23 @@ export const signInFormButtonWrapper = style({
   gap: '4rem'
 })
 
-export const signInFormForgotPassword = style({
-  color: vars.colors.text.default,
-  fontFamily: vars.font.hint.fontFamily,
-  fontSize: vars.font.hint.fontSize,
-  marginTop: '2rem'
-})
-
 export const signInFormInputWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '3.6rem',
   marginBottom: '6rem',
+  width: '100%'
+})
+
+export const signInFormForgotPasswordWrapper = style({
+  alignItems: 'center',
+  backgroundColor: vars.colors['gray-50'],
+  borderRadius: '0 0 5px 5px',
+  bottom: '0',
+  display: 'flex',
+  height: '9rem',
+  justifyContent: 'center',
+  left: '0',
+  position: 'absolute',
   width: '100%'
 })

@@ -6,6 +6,7 @@ export const windowDimensionVars = createGlobalTheme(':root', {
 })
 
 export const entryCard = style({
+  position: 'relative',
   height: '65rem',
   width: '60rem',
   padding: '3.6rem 5rem',

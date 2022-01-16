@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { useLoginMutation } from '@/services/api'
 import FormContext from '@/context/models/form/form.context'
 import Button from '@/components/atoms/Button'
+import Link from '@/components/atoms/texts/Link'
 import ControlForm from '@/components/organisms/Control/ControlForm'
 import ControlInput from '@/components/organisms/Control/ControlInput'
 import makeSignInValidator from '@/external/factories/validation/makeSignInValidator'
@@ -51,7 +52,9 @@ const SignInForm: React.FC = () => {
           </Button>
         </div>
 
-        <span className={style.signInFormForgotPassword}>Esqueceu sua senha?</span>
+        <div className={style.signInFormForgotPasswordWrapper}>
+          <Link to="/">Esqueceu sua senha?</Link>
+        </div>
       </div>
     </ControlForm>
   )

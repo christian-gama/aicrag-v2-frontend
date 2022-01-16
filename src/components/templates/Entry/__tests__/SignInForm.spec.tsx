@@ -1,6 +1,7 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing'
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import React from 'react'
+import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import { LoginDocument } from '@/services/api'
 import FormProvider from '@/context/models/form/form.provider'
 import SignInForm from '../SignInForm'
@@ -9,7 +10,11 @@ const makeSut = (mocks: Array<MockedResponse<Record<string, any>>>) => {
   return render(
     <MockedProvider mocks={mocks}>
       <FormProvider>
-        <SignInForm />
+        <MemoryRouter initialEntries={['/entry/sign-in']}>
+          <Routes>
+            <Route path="/entry/sign-in" element={<SignInForm />} />
+          </Routes>
+        </MemoryRouter>
       </FormProvider>
     </MockedProvider>
   )
