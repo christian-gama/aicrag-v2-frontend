@@ -19,7 +19,7 @@ export const tableRow = style({
   boxShadow: vars.shadow.xsm,
   display: 'grid',
   gap: tableRowVars.row.gap,
-  gridTemplateColumns: 'repeat(auto-fill, minmax(16%, 1fr))',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(12rem, 1fr))',
   height: tableRowVars.row.height,
   marginTop: calc.divide(tableRowVars.row.height, 6),
   maxHeight: tableRowVars.row.height,
@@ -38,7 +38,8 @@ export const tableRow = style({
 
   '@media': {
     [breakpoints.mobile]: {
-      gridTemplateColumns: 'repeat(auto-fill, minmax(14%, 1fr))',
+      width: '62rem',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(9rem, 1fr))',
       padding: '0 2.4rem',
       gap: '1.6rem',
       height: '6.6rem',
