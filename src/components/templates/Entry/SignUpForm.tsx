@@ -49,7 +49,7 @@ const SignUpForm: React.FC = () => {
           <ControlInput label="Confirme sua senha" name="passwordConfirmation" type="password" />
         </div>
 
-        <Button type="submit" style={{ size: 'lg' }} loading={loadingSignUp || loadingSendEmail}>
+        <Button type="submit" style={{ size: 'lg' }} loading={loadingSignUp || loadingSendEmail} testid="submit-button">
           Criar conta
         </Button>
       </div>

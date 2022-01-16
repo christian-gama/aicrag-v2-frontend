@@ -46,7 +46,7 @@ const SignInForm: React.FC = () => {
         </div>
 
         <div className={style.signInFormButtonWrapper}>
-          <Button type="submit" style={{ size: 'lg' }} loading={loading}>
+          <Button type="submit" style={{ size: 'lg' }} loading={loading} testid="submit-button">
             Acessar
           </Button>
         </div>
