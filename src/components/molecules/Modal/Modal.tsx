@@ -17,11 +17,9 @@ const Modal: React.FC<ModalProps> = (props) => {
 
   return (
     <Backdrop {...props}>
-      <Card>
-        <div className={modalStyle} data-testid="modal">
-          {props.children}
-        </div>
-      </Card>
+      <div className={modalStyle} data-testid="modal">
+        <Card>{props.children}</Card>
+      </div>
     </Backdrop>
   )
 }

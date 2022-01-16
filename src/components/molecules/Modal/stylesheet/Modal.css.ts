@@ -5,15 +5,15 @@ import { breakpoints } from '@/components/_settings/breakpoints.css'
 // Keyframes
 const fromBottomAnimation = keyframes({
   '0%': {
-    bottom: '-100%'
+    top: '100%'
   },
 
   '80%': {
-    bottom: '60%'
+    top: '40%'
   },
 
   '100%': {
-    bottom: '50%'
+    top: '50%'
   }
 })
 
@@ -33,13 +33,15 @@ const fromLeftAnimation = keyframes({
 
 const fromRightAnimation = keyframes({
   '0%': {
-    right: '-100%'
+    left: '100%'
   },
+
   '80%': {
-    right: '60%'
+    left: '40%'
   },
+
   '100%': {
-    right: '50%'
+    left: '50%'
   }
 })
 
@@ -90,13 +92,13 @@ export const modalRecipe = recipe({
 
       right: {
         animationName: fromRightAnimation,
-        right: '-50%',
+        left: '100%',
         top: '50%'
       },
 
       bottom: {
         animationName: fromBottomAnimation,
-        bottom: '-50%',
+        top: '100%',
         left: '50%'
       },
 
