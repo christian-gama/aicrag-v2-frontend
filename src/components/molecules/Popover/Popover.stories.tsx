@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import React, { useState } from 'react'
+import React from 'react'
 import Popover from './Popover'
 
 export default {
@@ -7,16 +7,7 @@ export default {
   component: Popover
 } as ComponentMeta<typeof Popover>
 
-const Template: ComponentStory<typeof Popover> = (args) => {
-  const [isOpen, setIsOpen] = useState(false)
-
-  return (
-    <>
-      <button onClick={() => setIsOpen((prev) => !prev)}>Toggle Popover</button>
-      <Popover {...args} isOpen={isOpen} />
-    </>
-  )
-}
+const Template: ComponentStory<typeof Popover> = (args) => <Popover {...args} />
 
 export const SuccessType = Template.bind({})
 SuccessType.args = {
