@@ -30,7 +30,7 @@ const Popover: React.FC<PopoverProps> = (props) => {
   }, [props.isOpen])
 
   useEffect(() => {
-    if (props.isOpen) {
+    if (isOpen) {
       const timer = setTimeout(() => {
         setIsOpen(false)
 
@@ -39,7 +39,7 @@ const Popover: React.FC<PopoverProps> = (props) => {
 
       return () => clearTimeout(timer)
     }
-  }, [props.isOpen])
+  }, [isOpen])
 
   const renderIcon = () => {
     switch (type) {
@@ -66,6 +66,9 @@ const Popover: React.FC<PopoverProps> = (props) => {
 
   if (!isOpen) return null
 
+  const overlayRoot = document.getElementById('overlay-root')
+  const root = document.getElementById('root') as HTMLElement
+
   return ReactDOM.createPortal(
     <div
       className={popoverStyle}
@@ -80,7 +83,10 @@ const Popover: React.FC<PopoverProps> = (props) => {
 
         <div
           className={style.popoverButtonWrapper}
-          onClick={() => setIsOpen(false)}
+          onClick={() => {
+            if (props.onClose) props.onClose()
+            setIsOpen(false)
+          }}
           data-testid="popover-close-wrapper"
         >
           <CloseIcon color="white" size="sm" />
@@ -92,7 +98,7 @@ const Popover: React.FC<PopoverProps> = (props) => {
       </div>
     </div>,
 
-    document.querySelector('#overlay-root') as HTMLElement
+    overlayRoot ?? root
   )
 }
 
