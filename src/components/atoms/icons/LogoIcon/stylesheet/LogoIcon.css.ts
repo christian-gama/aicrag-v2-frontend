@@ -7,18 +7,15 @@ export const logoIconRecipe = recipe({
 
     size: {
       sm: {
-        width: '4.8rem',
-        height: '4.8rem'
+        width: '20rem'
       },
 
       md: {
-        width: '6.2rem',
-        height: '6.2rem'
+        width: '28rem'
       },
 
       lg: {
-        width: '9rem',
-        height: '9rem'
+        width: '40rem'
       }
     }
   },

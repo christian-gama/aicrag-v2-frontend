@@ -14,7 +14,7 @@ const LogoIcon: React.FC<LogoIconProps> = (props) => {
   })
 
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" className={iconStyle} viewBox="0 0 63 65" data-testid="logo-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" className={iconStyle} viewBox="0 0 235 65" data-testid="logo-icon">
       <g transform="translate(-4.805 -114.279)">
         <g transform="translate(7 5)">
           <path
