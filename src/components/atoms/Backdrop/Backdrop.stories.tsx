@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { userEvent, screen, fireEvent } from '@storybook/testing-library'
-import React, { useState } from 'react'
+import React from 'react'
 import Backdrop from './Backdrop'
 
 export default {
@@ -9,8 +9,6 @@ export default {
 } as ComponentMeta<typeof Backdrop>
 
 const Template: ComponentStory<typeof Backdrop> = (args) => {
-  const [isOpen, setIsOpen] = useState(false)
-
   return (
     <>
       <div
@@ -20,19 +18,20 @@ const Template: ComponentStory<typeof Backdrop> = (args) => {
           left: 0,
           backgroundImage: "url('https://source.unsplash.com/random/1920x1080')",
           backgroundSize: 'cover',
-          width: '100vw',
-          height: '100vh'
+          width: '100%',
+          height: '100%'
         }}
-      >
-        <button onClick={() => setIsOpen((prev) => !prev)}>Open Backdrop</button>
-      </div>
+      ></div>
 
-      <Backdrop isOpen={isOpen || args.isOpen} onDismiss={args.onDismiss} />
+      <Backdrop {...args} />
     </>
   )
 }
 
 export const Default = Template.bind({})
+Default.args = {
+  isOpen: true
+}
 
 export const ClickOnBackdrop = Template.bind({})
 ClickOnBackdrop.args = {
