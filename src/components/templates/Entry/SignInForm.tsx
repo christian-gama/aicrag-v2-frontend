@@ -53,7 +53,7 @@ const SignInForm: React.FC = () => {
         </div>
 
         <div className={style.signInFormForgotPasswordWrapper}>
-          <Link to="/">Esqueceu sua senha?</Link>
+          <Link to="/entry/forgot-password">Esqueceu sua senha?</Link>
         </div>
       </div>
     </ControlForm>

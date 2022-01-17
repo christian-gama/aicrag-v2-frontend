@@ -3,7 +3,7 @@ import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { breakpoints } from '@/components/_settings/breakpoints.css'
 import { vars } from '@/components/_settings/vars.css'
 
-export const colorVariants = styleVariants({
+const colorVariants = styleVariants({
   danger: {
     backgroundColor: vars.colors['danger-50']
   },

@@ -56,7 +56,7 @@ const Button: React.FC<ButtonProps> = (props) => {
     <button
       className={buttonStyle}
       data-testid={props.testid}
-      disabled={props.disabled ?? props.loading}
+      disabled={!!props.disabled || !!props.loading}
       onClick={props.onClick}
       type={props.type ?? 'button'}
     >
