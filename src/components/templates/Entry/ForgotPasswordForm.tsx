@@ -11,6 +11,7 @@ const ForgotPasswordForm: React.FC = () => {
   const [startCountdown, setStartCountdown] = useState(false)
   const [countdown, setCountdown] = useState(60)
 
+  /* istanbul ignore next */
   useEffect(() => {
     if (startCountdown) {
       const interval = setInterval(() => {
@@ -31,7 +32,6 @@ const ForgotPasswordForm: React.FC = () => {
   const { state } = useContext(FormContext)
 
   const onSubmitHandler = async () => {
-    /* istanbul ignore next */
     await forgotPassword({
       variables: { email: state.form.data.email }
     })
@@ -43,11 +43,11 @@ const ForgotPasswordForm: React.FC = () => {
       }
     })
 
-    /* istanbul ignore next */
     if (response.data?.sendRecoverPasswordEmail) {
       setCountdown(60)
       setStartCountdown(true)
     } else {
+      /* istanbul ignore next */
       setStartCountdown(false)
     }
   }
