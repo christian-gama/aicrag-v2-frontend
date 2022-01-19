@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { userEvent, screen, fireEvent } from '@storybook/testing-library'
+import { userEvent, fireEvent, within } from '@storybook/testing-library'
 import React from 'react'
 import Backdrop from './Backdrop'
 
@@ -8,25 +8,7 @@ export default {
   component: Backdrop
 } as ComponentMeta<typeof Backdrop>
 
-const Template: ComponentStory<typeof Backdrop> = (args) => {
-  return (
-    <>
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          backgroundImage: "url('https://source.unsplash.com/random/1920x1080')",
-          backgroundSize: 'cover',
-          width: '100%',
-          height: '100%'
-        }}
-      ></div>
-
-      <Backdrop {...args} />
-    </>
-  )
-}
+const Template: ComponentStory<typeof Backdrop> = (args) => <Backdrop {...args} />
 
 export const Default = Template.bind({})
 Default.args = {
@@ -35,27 +17,20 @@ Default.args = {
 
 export const ClickOnBackdrop = Template.bind({})
 ClickOnBackdrop.args = {
-  isOpen: true,
-  onDismiss: () => {
-    alert('Dismissed by clicking on backdrop')
-  }
+  isOpen: true
 }
-ClickOnBackdrop.play = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 300))
+ClickOnBackdrop.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
 
-  const backdrop = screen.getByTestId('backdrop')
-  await userEvent.click(backdrop)
+  const backdrop = canvas.queryByTestId('backdrop')
+
+  if (backdrop) await userEvent.click(backdrop)
 }
 
 export const PressEscape = Template.bind({})
 PressEscape.args = {
-  isOpen: true,
-  onDismiss: () => {
-    alert('Dismissed using ESCAPE')
-  }
+  isOpen: true
 }
 PressEscape.play = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 300))
-
   fireEvent.keyDown(document, { key: 'Escape' })
 }

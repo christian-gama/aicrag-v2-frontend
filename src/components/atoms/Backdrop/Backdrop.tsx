@@ -18,9 +18,8 @@ const Backdrop: React.FC<BackdropProps> = (props) => {
   )
 
   const overlayRoot = document.getElementById('overlay-root') as HTMLElement
-  const root = document.getElementById('root') as HTMLElement
 
-  return ReactDOM.createPortal(element, overlayRoot ?? root)
+  return ReactDOM.createPortal(element, overlayRoot)
 }
 
 export default Backdrop
