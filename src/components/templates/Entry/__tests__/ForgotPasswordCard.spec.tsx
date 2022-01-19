@@ -1,3 +1,4 @@
+import OverlayRoot from '@/../tests/mocks/overlayRoot'
 import { composeStories } from '@storybook/testing-react'
 import { cleanup, render, screen } from '@testing-library/react'
 import React from 'react'
@@ -9,14 +10,15 @@ jest.mock('../../../_hooks/useWindowDimensions')
 const useWindowDimensionsMock = useWindowDimensions as jest.Mock
 
 describe('ForgotPassword', () => {
+  const overlayRoot = new OverlayRoot()
+
   afterEach(() => {
     cleanup()
+    overlayRoot.removeOverlayRoot()
   })
 
   beforeEach(() => {
-    const container = document.createElement('div')
-    container.setAttribute('id', 'overlay-root')
-    document.body.appendChild(container)
+    overlayRoot.addOverlayRoot()
   })
 
   it('renders default form', () => {

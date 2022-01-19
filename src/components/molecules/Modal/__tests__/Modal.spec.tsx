@@ -1,3 +1,4 @@
+import OverlayRoot from '@/../tests/mocks/overlayRoot'
 import { cleanup, render, screen } from '@testing-library/react'
 import React from 'react'
 import Modal from '..'
@@ -11,14 +12,15 @@ const makeSut = (config?: { isOpen?: boolean, onDismiss?: VoidFunction }): void 
 }
 
 describe('Modal', () => {
-  beforeEach(() => {
-    const container = document.createElement('div')
-    container.setAttribute('id', 'overlay-root')
-    document.body.appendChild(container)
-  })
+  const overlayRoot = new OverlayRoot()
 
   afterEach(() => {
     cleanup()
+    overlayRoot.removeOverlayRoot()
+  })
+
+  beforeEach(() => {
+    overlayRoot.addOverlayRoot()
   })
 
   it('should render correctly', () => {

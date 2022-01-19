@@ -1,3 +1,4 @@
+import OverlayRoot from '@/../tests/mocks/overlayRoot'
 import makeValidationMock from '@/../tests/mocks/validator.mock'
 import { render, fireEvent, screen, act, cleanup } from '@testing-library/react'
 import React, { ComponentPropsWithRef } from 'react'
@@ -16,15 +17,15 @@ const makeSut = ({ submitHandler, children, validator }: ComponentPropsWithRef<t
 }
 
 describe('Form', () => {
+  const overlayRoot = new OverlayRoot()
+
   afterEach(() => {
     cleanup()
-    document.querySelector('#overlay-root')?.remove()
+    overlayRoot.removeOverlayRoot()
   })
 
   beforeEach(() => {
-    const container = document.createElement('div')
-    container.setAttribute('id', 'overlay-root')
-    document.body.appendChild(container)
+    overlayRoot.addOverlayRoot()
   })
 
   it('should render children', () => {

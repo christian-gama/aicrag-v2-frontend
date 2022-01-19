@@ -1,8 +1,9 @@
 import render from '@/../tests/config/renderWithProvider'
 import calendarStoreMock from '@/../tests/mocks/calendarStore.mock'
+import OverlayRoot from '@/../tests/mocks/overlayRoot'
 import { calendarActions } from '@/context/models/calendar/calendar.actions'
 import { AppDispatch } from '@/context/store'
-import { screen, fireEvent } from '@testing-library/react'
+import { screen, fireEvent, cleanup } from '@testing-library/react'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import Calendar from '..'
@@ -41,10 +42,15 @@ const makeSut = (): void => {
 }
 
 describe('Calendar', () => {
-  beforeAll(() => {
-    const container = document.createElement('div')
-    container.setAttribute('id', 'overlay-root')
-    document.body.appendChild(container)
+  const overlayRoot = new OverlayRoot()
+
+  afterEach(() => {
+    cleanup()
+    overlayRoot.removeOverlayRoot()
+  })
+
+  beforeEach(() => {
+    overlayRoot.addOverlayRoot()
   })
 
   it('should render the calendar', () => {

@@ -1,3 +1,4 @@
+import OverlayRoot from '@/../tests/mocks/overlayRoot'
 import { cleanup, render, screen } from '@testing-library/react'
 import React, { ComponentPropsWithRef } from 'react'
 import ProgressBar from '../ProgressBar'
@@ -7,14 +8,15 @@ const makeSut = (props: ComponentPropsWithRef<typeof ProgressBar>) => {
 }
 
 describe('ProgressBar', () => {
-  afterAll(() => {
+  const overlayRoot = new OverlayRoot()
+
+  afterEach(() => {
     cleanup()
+    overlayRoot.removeOverlayRoot()
   })
 
-  beforeAll(() => {
-    const container = document.createElement('div')
-    container.setAttribute('id', 'overlay-root')
-    document.body.appendChild(container)
+  beforeEach(() => {
+    overlayRoot.addOverlayRoot()
   })
 
   it('should render when passing loading prop as true', () => {

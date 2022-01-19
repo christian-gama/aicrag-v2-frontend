@@ -1,3 +1,4 @@
+import OverlayRoot from '@/../tests/mocks/overlayRoot'
 import { MockedProvider } from '@apollo/client/testing'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import React from 'react'
@@ -20,14 +21,15 @@ const makeSut = () => {
 }
 
 describe('SignUpForm', () => {
+  const overlayRoot = new OverlayRoot()
+
   afterEach(() => {
     cleanup()
+    overlayRoot.removeOverlayRoot()
   })
 
   beforeEach(() => {
-    const container = document.createElement('div')
-    container.setAttribute('id', 'overlay-root')
-    document.body.appendChild(container)
+    overlayRoot.addOverlayRoot()
   })
 
   it('should render SignUpForm correctly', () => {

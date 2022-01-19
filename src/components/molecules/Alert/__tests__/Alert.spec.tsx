@@ -1,3 +1,4 @@
+import OverlayRoot from '@/../tests/mocks/overlayRoot'
 import { cleanup, render, screen } from '@testing-library/react'
 import React, { ComponentPropsWithRef } from 'react'
 import Alert from '..'
@@ -7,16 +8,16 @@ const makeSut = (config: ComponentPropsWithRef<typeof Alert>) => {
 }
 
 describe('Alert', () => {
-  beforeAll(() => {
-    const container = document.createElement('div')
-    container.setAttribute('id', 'overlay-root')
-    document.body.appendChild(container)
-  })
+  const overlayRoot = new OverlayRoot()
 
   afterEach(() => {
     cleanup()
+    overlayRoot.removeOverlayRoot()
   })
 
+  beforeEach(() => {
+    overlayRoot.addOverlayRoot()
+  })
   it('should render both cancel and action buttons if mode is equal to "actionAndCancel"', () => {
     makeSut({
       actionName: 'action',

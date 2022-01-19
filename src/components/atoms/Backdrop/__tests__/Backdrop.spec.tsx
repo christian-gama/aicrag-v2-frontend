@@ -1,3 +1,4 @@
+import OverlayRoot from '@/../tests/mocks/overlayRoot'
 import { composeStories } from '@storybook/testing-react'
 import { cleanup, render, screen } from '@testing-library/react'
 import React from 'react'
@@ -7,14 +8,15 @@ import * as stories from '../Backdrop.stories'
 const { ClickOnBackdrop, Default, PressEscape } = composeStories(stories)
 
 describe('Backdrop', () => {
+  const overlayRoot = new OverlayRoot()
+
   afterEach(() => {
     cleanup()
+    overlayRoot.removeOverlayRoot()
   })
 
   beforeEach(() => {
-    const container = document.createElement('div')
-    container.setAttribute('id', 'overlay-root')
-    document.body.appendChild(container)
+    overlayRoot.addOverlayRoot()
   })
 
   it('should render Backdrop correctly ', () => {
