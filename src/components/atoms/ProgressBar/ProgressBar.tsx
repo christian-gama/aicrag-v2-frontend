@@ -34,8 +34,7 @@ const ProgressBar: React.FC<ProgressBarProps> = (props) => {
 
   if (!isOpen) return null
 
-  const overlayRoot = document.getElementById('overlay-root')
-  const root = document.getElementById('root') as HTMLElement
+  const overlayRoot = document.getElementById('overlay-root') as HTMLElement
 
   return ReactDOM.createPortal(
     <div className={style.progressBar} data-testid="progress-bar">
@@ -43,7 +42,8 @@ const ProgressBar: React.FC<ProgressBarProps> = (props) => {
         <div className={style.progressBarProgress} data-testid="progress" />
       </div>
     </div>,
-    overlayRoot ?? root
+
+    overlayRoot
   )
 }
 

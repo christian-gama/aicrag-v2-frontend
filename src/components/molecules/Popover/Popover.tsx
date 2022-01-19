@@ -66,8 +66,7 @@ const Popover: React.FC<PopoverProps> = (props) => {
 
   if (!isOpen) return null
 
-  const overlayRoot = document.getElementById('overlay-root')
-  const root = document.getElementById('root') as HTMLElement
+  const overlayRoot = document.getElementById('overlay-root') as HTMLElement
 
   return ReactDOM.createPortal(
     <div
@@ -98,7 +97,7 @@ const Popover: React.FC<PopoverProps> = (props) => {
       </div>
     </div>,
 
-    overlayRoot ?? root
+    overlayRoot
   )
 }
 

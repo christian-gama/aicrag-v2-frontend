@@ -15,9 +15,9 @@ import { AlertHeaderVariants } from './stylesheet'
 type AlertProps = {
   isOpen?: boolean
   message: string
-  onCancel?: () => void
   title: string
   type: AlertHeaderVariants['color']
+  onCancel?: () => void
 } & (AlertWithAction | AlertWithoutAction)
 
 const Alert: React.FC<AlertProps> = (props) => {

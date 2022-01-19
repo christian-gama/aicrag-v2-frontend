@@ -34,6 +34,15 @@ describe('Backdrop', () => {
     expect(screen.queryByTestId('backdrop')).not.toBeInTheDocument()
   })
 
+  it('should dismiss when pressing "Escape"', async () => {
+    render(<PressEscape {...PressEscape.args} />)
+    const overlayRoot = document.getElementById('overlay-root') as HTMLElement
+
+    await PressEscape.play({ canvasElement: overlayRoot })
+
+    expect(screen.queryByTestId('backdrop')).not.toBeInTheDocument()
+  })
+
   it('should not render the backdrop when isOpen is false', () => {
     render(<Default {...Default.args} isOpen={false} />)
 

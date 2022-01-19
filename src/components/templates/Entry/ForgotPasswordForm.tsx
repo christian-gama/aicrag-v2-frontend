@@ -36,20 +36,14 @@ const ForgotPasswordForm: React.FC = () => {
       variables: { email: state.form.data.email }
     })
 
-    /* istanbul ignore next */
-    const response = await sendRecoverPasswordEmail({
+    await sendRecoverPasswordEmail({
       variables: {
         email: state.form.data.email
       }
     })
 
-    if (response.data?.sendRecoverPasswordEmail) {
-      setCountdown(60)
-      setStartCountdown(true)
-    } else {
-      /* istanbul ignore next */
-      setStartCountdown(false)
-    }
+    setCountdown(60)
+    setStartCountdown(true)
   }
 
   return (
