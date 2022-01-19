@@ -1,10 +1,10 @@
-import OverlayRoot from '@/../tests/mocks/overlayRoot'
 import { MockedProvider, MockedResponse } from '@apollo/client/testing'
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import React from 'react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import { LoginDocument } from '@/services/api'
 import FormProvider from '@/context/models/form/form.provider'
+import OverlayRoot from '@/tests/helpers/overlayRoot'
 import SignInForm from '../SignInForm'
 
 const makeSut = (mocks: Array<MockedResponse<Record<string, any>>>) => {

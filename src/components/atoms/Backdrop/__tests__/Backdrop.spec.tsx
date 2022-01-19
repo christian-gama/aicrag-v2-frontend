@@ -1,14 +1,16 @@
-import OverlayRoot from '@/../tests/mocks/overlayRoot'
+import { fireEvent } from '@storybook/testing-library'
 import { composeStories } from '@storybook/testing-react'
 import { cleanup, render, screen } from '@testing-library/react'
 import React from 'react'
-import Backdrop from '../Backdrop'
+import OverlayRoot from '@/tests/helpers/overlayRoot'
 import * as stories from '../Backdrop.stories'
 
-const { ClickOnBackdrop, Default, PressEscape } = composeStories(stories)
+const { ClickOnBackdrop, ClickOnBackdropWithAction, Default, PressEscape, PressEscapeWithAction } =
+  composeStories(stories)
 
 describe('Backdrop', () => {
   const overlayRoot = new OverlayRoot()
+  const alertSpy = jest.spyOn(window, 'alert')
 
   afterEach(() => {
     cleanup()
@@ -20,29 +22,11 @@ describe('Backdrop', () => {
   })
 
   it('should render Backdrop correctly ', () => {
-    render(<Backdrop isOpen />)
+    render(<Default {...Default.args} />)
 
     const backdrop = screen.getByTestId('backdrop')
 
     expect(backdrop).toBeInTheDocument()
-  })
-
-  it('should dismiss the backdrop when click on it', async () => {
-    render(<ClickOnBackdrop {...ClickOnBackdrop.args} />)
-    const overlayRoot = document.getElementById('overlay-root') as HTMLElement
-
-    await ClickOnBackdrop.play({ canvasElement: overlayRoot })
-
-    expect(screen.queryByTestId('backdrop')).not.toBeInTheDocument()
-  })
-
-  it('should dismiss when pressing "Escape"', async () => {
-    render(<PressEscape {...PressEscape.args} />)
-    const overlayRoot = document.getElementById('overlay-root') as HTMLElement
-
-    await PressEscape.play({ canvasElement: overlayRoot })
-
-    expect(screen.queryByTestId('backdrop')).not.toBeInTheDocument()
   })
 
   it('should not render the backdrop when isOpen is false', () => {
@@ -57,29 +41,48 @@ describe('Backdrop', () => {
     render(<Default {...Default.args} />)
 
     const backdrop = screen.queryByTestId('backdrop')
-    const event = new KeyboardEvent('keydown', { key: 'Enter' })
-    document.dispatchEvent(event)
+    fireEvent.keyDown(document, { key: 'Enter' })
 
     expect(backdrop).toBeInTheDocument()
   })
 
-  it('should call onDismiss when pressing "Escape"', async () => {
-    const onDismiss = jest.fn()
-    render(<PressEscape {...PressEscape.args} onDismiss={onDismiss} />)
-    const overlayRoot = document.getElementById('overlay-root') as HTMLElement
+  describe('ClickOnBackdrop', () => {
+    it('should dismiss the backdrop when click on it', async () => {
+      render(<ClickOnBackdrop {...ClickOnBackdrop.args} />)
+      const overlayRoot = document.getElementById('overlay-root') as HTMLElement
 
-    await PressEscape.play({ canvasElement: overlayRoot })
+      await ClickOnBackdrop.play({ canvasElement: overlayRoot })
 
-    expect(onDismiss).toHaveBeenCalled()
+      expect(screen.queryByTestId('backdrop')).not.toBeInTheDocument()
+    })
+
+    it('should call onDismiss when pressing clicking on backdrop', async () => {
+      render(<ClickOnBackdropWithAction {...ClickOnBackdropWithAction.args} />)
+      const overlayRoot = document.getElementById('overlay-root') as HTMLElement
+
+      await ClickOnBackdrop.play({ canvasElement: overlayRoot })
+
+      expect(alertSpy).toHaveBeenCalled()
+    })
   })
 
-  it('should call onDismiss when pressing clicking on backdrop', async () => {
-    const onDismiss = jest.fn()
-    render(<ClickOnBackdrop {...ClickOnBackdrop.args} onDismiss={onDismiss} />)
-    const overlayRoot = document.getElementById('overlay-root') as HTMLElement
+  describe('PressEscape', () => {
+    it('should dismiss when pressing "Escape"', async () => {
+      render(<PressEscape {...PressEscape.args} />)
+      const overlayRoot = document.getElementById('overlay-root') as HTMLElement
 
-    await ClickOnBackdrop.play({ canvasElement: overlayRoot })
+      await PressEscape.play({ canvasElement: overlayRoot })
 
-    expect(screen.queryByTestId('backdrop')).not.toBeInTheDocument()
+      expect(screen.queryByTestId('backdrop')).not.toBeInTheDocument()
+    })
+
+    it('should call onDismiss when pressing "Escape"', async () => {
+      render(<PressEscapeWithAction {...PressEscapeWithAction.args} />)
+      const overlayRoot = document.getElementById('overlay-root') as HTMLElement
+
+      await PressEscape.play({ canvasElement: overlayRoot })
+
+      expect(alertSpy).toHaveBeenCalled()
+    })
   })
 })

@@ -1,8 +1,8 @@
-import OverlayRoot from '@/../tests/mocks/overlayRoot'
 import { composeStories } from '@storybook/testing-react'
 import { cleanup, render, screen } from '@testing-library/react'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
+import OverlayRoot from '@/tests/helpers/overlayRoot'
 import * as stories from '../ForgotPasswordForm.stories'
 
 const { Default, WithError, WithSuccess } = composeStories(stories)

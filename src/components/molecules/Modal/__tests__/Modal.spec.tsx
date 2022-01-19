@@ -1,4 +1,4 @@
-import OverlayRoot from '@/../tests/mocks/overlayRoot'
+import OverlayRoot from '@/tests/helpers/overlayRoot'
 import { cleanup, render, screen } from '@testing-library/react'
 import React from 'react'
 import Modal from '..'

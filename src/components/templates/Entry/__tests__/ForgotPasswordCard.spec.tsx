@@ -1,8 +1,8 @@
-import OverlayRoot from '@/../tests/mocks/overlayRoot'
 import { composeStories } from '@storybook/testing-react'
 import { cleanup, render, screen } from '@testing-library/react'
 import React from 'react'
 import useWindowDimensions from '@/components/_hooks/useWindowDimensions'
+import OverlayRoot from '@/tests/helpers/overlayRoot'
 import * as stories from '../ForgotPasswordCard.stories'
 
 const { Default } = composeStories(stories)

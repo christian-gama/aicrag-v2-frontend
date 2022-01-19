@@ -1,6 +1,6 @@
-import OverlayRoot from '@/../tests/mocks/overlayRoot'
 import { cleanup, render, screen, waitForElementToBeRemoved } from '@testing-library/react'
 import React, { ComponentPropsWithRef } from 'react'
+import OverlayRoot from '@/tests/helpers/overlayRoot'
 import Popover from '../Popover'
 
 const makeSut = (props: ComponentPropsWithRef<typeof Popover>) => {

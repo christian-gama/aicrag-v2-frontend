@@ -1,9 +1,9 @@
 import render from '@/../tests/config/renderWithProvider'
 import calendarStoreMock from '@/../tests/mocks/calendarStore.mock'
-import OverlayRoot from '@/../tests/mocks/overlayRoot'
 import { cleanup, screen, fireEvent } from '@testing-library/react'
 import { DateTime } from 'luxon'
 import React from 'react'
+import OverlayRoot from '@/tests/helpers/overlayRoot'
 import Calendar from '../Calendar'
 
 const makeSut = (): void => {

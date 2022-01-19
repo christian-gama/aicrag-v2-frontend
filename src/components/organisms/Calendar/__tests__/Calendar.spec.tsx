@@ -1,6 +1,6 @@
 import render from '@/../tests/config/renderWithProvider'
 import calendarStoreMock from '@/../tests/mocks/calendarStore.mock'
-import OverlayRoot from '@/../tests/mocks/overlayRoot'
+import OverlayRoot from '@/tests/helpers/overlayRoot'
 import { calendarActions } from '@/context/models/calendar/calendar.actions'
 import { AppDispatch } from '@/context/store'
 import { screen, fireEvent, cleanup } from '@testing-library/react'

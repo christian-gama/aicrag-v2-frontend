@@ -1,8 +1,8 @@
-import OverlayRoot from '@/../tests/mocks/overlayRoot'
 import makeValidationMock from '@/../tests/mocks/validator.mock'
 import { render, fireEvent, screen, act, cleanup } from '@testing-library/react'
 import React, { ComponentPropsWithRef } from 'react'
 import FormProvider from '@/context/models/form/form.provider'
+import OverlayRoot from '@/tests/helpers/overlayRoot'
 import ControlForm from '../ControlForm'
 import ControlInput from '../ControlInput'
 

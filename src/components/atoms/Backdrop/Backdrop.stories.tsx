@@ -1,36 +1,44 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { userEvent, fireEvent, within } from '@storybook/testing-library'
-import React from 'react'
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
+import { userEvent, fireEvent, screen } from '@storybook/testing-library'
+import sleep from '@/tests/helpers/sleep'
 import Backdrop from './Backdrop'
 
 export default {
   title: 'atoms/Backdrop',
-  component: Backdrop
+  component: Backdrop,
+  args: {
+    isOpen: true
+  }
 } as ComponentMeta<typeof Backdrop>
 
-const Template: ComponentStory<typeof Backdrop> = (args) => <Backdrop {...args} />
+export const Default: ComponentStoryObj<typeof Backdrop> = {}
 
-export const Default = Template.bind({})
-Default.args = {
-  isOpen: true
+export const ClickOnBackdrop: ComponentStoryObj<typeof Backdrop> = {
+  play: async () => {
+    await sleep()
+    const backdrop = screen.queryByTestId('backdrop')
+
+    if (backdrop) await userEvent.click(backdrop)
+  }
 }
 
-export const ClickOnBackdrop = Template.bind({})
-ClickOnBackdrop.args = {
-  isOpen: true
-}
-ClickOnBackdrop.play = async ({ canvasElement }) => {
-  const canvas = within(canvasElement)
-
-  const backdrop = canvas.queryByTestId('backdrop')
-
-  if (backdrop) await userEvent.click(backdrop)
+export const ClickOnBackdropWithAction: ComponentStoryObj<typeof Backdrop> = {
+  ...ClickOnBackdrop,
+  args: {
+    onDismiss: () => alert('Dismissed')
+  }
 }
 
-export const PressEscape = Template.bind({})
-PressEscape.args = {
-  isOpen: true
+export const PressEscape: ComponentStoryObj<typeof Backdrop> = {
+  play: async () => {
+    await sleep()
+    fireEvent.keyDown(document, { key: 'Escape' })
+  }
 }
-PressEscape.play = async () => {
-  fireEvent.keyDown(document, { key: 'Escape' })
+
+export const PressEscapeWithAction: ComponentStoryObj<typeof Backdrop> = {
+  ...PressEscape,
+  args: {
+    onDismiss: () => alert('Dismissed')
+  }
 }

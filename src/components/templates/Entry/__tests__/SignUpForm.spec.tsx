@@ -1,9 +1,9 @@
-import OverlayRoot from '@/../tests/mocks/overlayRoot'
 import { MockedProvider } from '@apollo/client/testing'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import React from 'react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import FormProvider from '@/context/models/form/form.provider'
+import OverlayRoot from '@/tests/helpers/overlayRoot'
 import SignUpForm from '../SignUpForm'
 
 const makeSut = () => {
