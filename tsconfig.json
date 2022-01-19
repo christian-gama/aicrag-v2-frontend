@@ -18,7 +18,8 @@
     "typeRoots": ["src/external/@types", "./node_modules/@types"],
     "strictBindCallApply": true,
     "paths": {
-      "@/*": ["*"]
+      "@/tests/*": ["../tests/*"],
+      "@/*": ["*"],
     }
   },
   "include": ["src", "tests"],

@@ -18,6 +18,7 @@ module.exports = {
     '^.+\\.tsx?$': ['babel-jest', { configFile: './babel-jest.config.js' }]
   },
   moduleNameMapper: {
+    '@/tests/(.*)$': '<rootDir>/tests/$1',
     '@/(.*)$': '<rootDir>/src/$1'
   },
   resetMocks: true,
