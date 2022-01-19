@@ -1,4 +1,7 @@
 import '../src/components/_settings/global.css'
+import addOverlayRoot from './addOverlayRoot'
+
+addOverlayRoot()
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
