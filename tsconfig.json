@@ -15,13 +15,13 @@
     "sourceMap": true,
     "strict": true,
     "target": "ESNext",
-    "typeRoots": ["src/external/@types", "./node_modules/@types"],
+    "typeRoots": ["@types", "./node_modules/@types"],
     "strictBindCallApply": true,
     "paths": {
       "@/tests/*": ["../tests/*"],
       "@/*": ["*"],
     }
   },
-  "include": ["src", "tests"],
+  "include": ["src", "tests", "@types"],
   "exclude": ["node_modules", "dist"]
 }
