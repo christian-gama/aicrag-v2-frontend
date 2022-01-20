@@ -1,60 +1,50 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import React from 'react'
 import Card from './Card'
 
 export default {
   title: 'atoms/Card',
-  component: Card
+  component: Card,
+  args: {
+    children: (
+      <div style={{ width: '300px', height: '300px' }}>
+        <div style={{ width: '33%', height: '33%', backgroundColor: 'orangered' }}></div>
+      </div>
+    )
+  },
+  decorators: [
+    (story) => (
+      <div style={{ backgroundColor: '#555', width: '100vw', height: '100vh', padding: '1.2rem' }}>{story()}</div>
+    )
+  ]
 } as ComponentMeta<typeof Card>
 
-const Template: ComponentStory<typeof Card> = (args) => (
-  <Card {...args}>
-    <div style={{ width: '300px', height: '300px' }}>Any content</div>
-  </Card>
-)
+export const Default: ComponentStoryObj<typeof Card> = {}
 
-export const Default = Template.bind({})
+export const Centered: ComponentStoryObj<typeof Card> = { args: { centered: true } }
 
-export const Centered = Template.bind({})
-Centered.args = {
-  centered: true
-}
+export const WithNoRoundness: ComponentStoryObj<typeof Card> = { args: { roundness: 'none' } }
 
-export const WithNoRoundness = Template.bind({})
-WithNoRoundness.args = {
-  roundness: 'none'
-}
+export const WithSmallRoundness: ComponentStoryObj<typeof Card> = { args: { roundness: 'sm' } }
 
-export const WithSmallRoundness = Template.bind({})
-WithSmallRoundness.args = {
-  roundness: 'sm'
-}
+export const WithMediumRoundness: ComponentStoryObj<typeof Card> = { args: { roundness: 'md' } }
 
-export const WithMediumRoundness = Template.bind({})
-WithMediumRoundness.args = {
-  roundness: 'md'
-}
+export const WithLargeRoundness: ComponentStoryObj<typeof Card> = { args: { roundness: 'lg' } }
 
-export const WithLargeRoundness = Template.bind({})
-WithLargeRoundness.args = {
-  roundness: 'lg'
-}
+export const WithExtraLargeRoundness: ComponentStoryObj<typeof Card> = { args: { roundness: 'xl' } }
 
-export const WithExtraLargeRoundness = Template.bind({})
-WithExtraLargeRoundness.args = {
-  roundness: 'xl'
-}
-
-export const WithPadding = Template.bind({})
-WithPadding.args = {
-  style: {
-    padding: '10px'
+export const WithPadding: ComponentStoryObj<typeof Card> = {
+  args: {
+    style: {
+      padding: '10px'
+    }
   }
 }
 
-export const WithMargin = Template.bind({})
-WithMargin.args = {
-  style: {
-    margin: '50px'
+export const WithMargin: ComponentStoryObj<typeof Card> = {
+  args: {
+    style: {
+      margin: '50px'
+    }
   }
 }

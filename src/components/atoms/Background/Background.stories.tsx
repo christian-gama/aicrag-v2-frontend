@@ -1,5 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
-import React from 'react'
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import Background from './Background'
 
 export default {
@@ -7,11 +6,10 @@ export default {
   component: Background
 } as ComponentMeta<typeof Background>
 
-const Template: ComponentStory<typeof Background> = (args) => <Background {...args} />
+export const Default: ComponentStoryObj<typeof Background> = {}
 
-export const Default = Template.bind({})
-
-export const Gradient = Template.bind({})
-Gradient.args = {
-  gradient: true
+export const Gradient: ComponentStoryObj<typeof Background> = {
+  args: {
+    gradient: true
+  }
 }

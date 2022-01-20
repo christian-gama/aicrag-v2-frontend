@@ -1,64 +1,21 @@
 import { MockedProvider } from '@apollo/client/testing'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import { screen, userEvent, fireEvent, within } from '@storybook/testing-library'
 import React from 'react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
-import { ForgotPasswordDocument, SendRecoverPasswordEmailDocument } from '@/services/api'
 import FormProvider from '@/context/models/form/form.provider'
+import sleep from '@/tests/helpers/sleep'
+import forgotPasswordMock from '@/tests/mocks/queries/forgotPassword.mock'
+import sendRecoverPasswordEmailMock from '@/tests/mocks/queries/sendRecoverPasswordEmail'
+import variablesMock from '@/tests/mocks/variables.mock'
 import ForgotPasswordForm from './ForgotPasswordForm'
-
-const emailValue = 'any@email.com'
-const sendRecoverPasswordEmailValue = 'any message'
 
 export default {
   title: 'templates/Entry/ForgotPasswordForm',
   component: ForgotPasswordForm,
   decorators: [
     (story) => (
-      <MockedProvider
-        mocks={[
-          {
-            request: {
-              query: ForgotPasswordDocument,
-              variables: {
-                email: emailValue
-              }
-            },
-            result: {
-              data: {
-                forgotPassword: {
-                  user: {
-                    personal: {
-                      email: emailValue,
-                      id: 'any id',
-                      name: 'any name'
-                    },
-                    settings: {
-                      currency: 'BRL'
-                    }
-                  }
-                }
-              }
-            }
-          },
-          {
-            request: {
-              query: SendRecoverPasswordEmailDocument,
-              variables: {
-                email: emailValue
-              }
-            },
-            result: {
-              data: {
-                sendRecoverPasswordEmail: {
-                  message: sendRecoverPasswordEmailValue
-                }
-              }
-            }
-          }
-        ]}
-        addTypename={false}
-      >
+      <MockedProvider mocks={[forgotPasswordMock(), sendRecoverPasswordEmailMock()]} addTypename={false}>
         <FormProvider>
           <MemoryRouter>
             <Routes>
@@ -71,26 +28,28 @@ export default {
   ]
 } as ComponentMeta<typeof ForgotPasswordForm>
 
-const Template: ComponentStory<typeof ForgotPasswordForm> = (args) => <ForgotPasswordForm {...args} />
+export const Default: ComponentStoryObj<typeof ForgotPasswordForm> = {}
 
-export const Default = Template.bind({})
+export const WithError: ComponentStoryObj<typeof ForgotPasswordForm> = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
 
-export const WithError = Template.bind({})
-WithError.play = async () => {
-  const email = screen.getAllByTestId('base-input')[0]
+    const email = canvas.getAllByTestId('base-input')[0]
 
-  await userEvent.click(email)
-  fireEvent.submit(screen.getByTestId('form'))
+    await userEvent.click(email)
+
+    fireEvent.submit(screen.getByTestId('form'))
+  }
 }
 
-export const WithSuccess = Template.bind({})
-WithSuccess.play = async ({ canvasElement }) => {
-  const canvas = within(canvasElement)
+export const WithSuccess: ComponentStoryObj<typeof ForgotPasswordForm> = {
+  play: async ({ canvasElement }) => {
+    await sleep()
+    const canvas = within(canvasElement)
 
-  const email = canvas.getAllByTestId('base-input')[0]
-  await userEvent.click(email)
-  await userEvent.type(email, emailValue)
-  fireEvent.submit(canvas.getByTestId('form'))
+    const email = canvas.getAllByTestId('base-input')[0]
+    await userEvent.type(email, variablesMock.email)
 
-  await new Promise((resolve) => setTimeout(resolve, 30))
+    fireEvent.submit(canvas.getByTestId('form'))
+  }
 }

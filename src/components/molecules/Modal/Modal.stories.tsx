@@ -1,51 +1,56 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
+import { screen, userEvent } from '@storybook/testing-library'
 import React from 'react'
+import sleep from '@/tests/helpers/sleep'
 import Modal from './Modal'
 
 export default {
   title: 'molecules/Modal',
-  component: Modal
+  component: Modal,
+  args: {
+    children: (
+      <div style={{ width: '300px', height: '300px' }}>
+        <div style={{ width: '33%', height: '33%', backgroundColor: 'orangered' }}></div>
+      </div>
+    ),
+    isOpen: true
+  }
 } as ComponentMeta<typeof Modal>
 
-const Template: ComponentStory<typeof Modal> = (args) => <Modal {...args} />
+export const Default: ComponentStoryObj<typeof Modal> = {}
 
-export const Default = Template.bind({})
-Default.args = {
-  children: <div style={{ width: '300px', height: '300px' }}>Any content</div>,
-  isOpen: true
+export const FromTop: ComponentStoryObj<typeof Modal> = {
+  args: {
+    direction: 'top'
+  }
 }
 
-export const FromTop = Template.bind({})
-FromTop.args = {
-  children: <div style={{ width: '300px', height: '300px' }}>Any content</div>,
-  isOpen: true,
-  direction: 'top'
+export const FromBottom: ComponentStoryObj<typeof Modal> = {
+  args: {
+    direction: 'bottom'
+  }
 }
 
-export const FromBottom = Template.bind({})
-FromBottom.args = {
-  children: <div style={{ width: '300px', height: '300px' }}>Any content</div>,
-  isOpen: true,
-  direction: 'bottom'
+export const FromLeft: ComponentStoryObj<typeof Modal> = {
+  args: {
+    direction: 'left'
+  }
 }
 
-export const FromLeft = Template.bind({})
-FromLeft.args = {
-  children: <div style={{ width: '300px', height: '300px' }}>Any content</div>,
-  isOpen: true,
-  direction: 'left'
+export const FromRight: ComponentStoryObj<typeof Modal> = {
+  args: {
+    direction: 'right'
+  }
 }
 
-export const FromRight = Template.bind({})
-FromRight.args = {
-  children: <div style={{ width: '300px', height: '300px' }}>Any content</div>,
-  isOpen: true,
-  direction: 'right'
-}
+export const WithDismissHandler: ComponentStoryObj<typeof Modal> = {
+  args: {
+    onDismiss: () => alert('This component was dismissed by clicking on the backdrop.')
+  },
+  play: async () => {
+    await sleep()
+    const backdrop = screen.getByTestId('backdrop')
 
-export const WithDismissHandler = Template.bind({})
-WithDismissHandler.args = {
-  children: <div style={{ width: '300px', height: '300px' }}>Any content</div>,
-  isOpen: true,
-  onDismiss: () => alert('Dismissing')
+    await userEvent.click(backdrop)
+  }
 }

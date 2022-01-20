@@ -31,7 +31,15 @@ export const menuButtonRecipe = recipe({
     active: {
       true: {
         backgroundColor: vars.colors['navy-500'],
-        color: vars.colors.white
+        color: vars.colors.white,
+
+        ':active': {
+          color: vars.colors.white
+        },
+
+        ':visited': {
+          color: vars.colors.white
+        }
       },
 
       false: {
@@ -40,6 +48,14 @@ export const menuButtonRecipe = recipe({
 
         ':hover': {
           backgroundColor: vars.colors['navy-50']
+        },
+
+        ':active': {
+          color: vars.colors['navy-500']
+        },
+
+        ':visited': {
+          color: vars.colors['navy-500']
         }
       }
     }

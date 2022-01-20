@@ -1,39 +1,42 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import { screen, userEvent } from '@storybook/testing-library'
 import React, { useState } from 'react'
+import sleep from '@/tests/helpers/sleep'
+import Button from '../Button'
 import ProgressBar from './ProgressBar'
 
 export default {
   title: 'atoms/ProgressBar',
-  component: ProgressBar
+  component: ProgressBar,
+  args: {
+    loading: true
+  },
+  decorators: [
+    (story, { args }) => {
+      const [isOpen, setIsOpen] = useState(!!args.loading)
+      return (
+        <>
+          <div style={{ marginTop: '3.2rem' }}>
+            <Button onClick={() => setIsOpen((prev) => !prev)} style={{ size: 'lg', mode: 'outlined' }}>
+              Toggle Progress Bar
+            </Button>
+          </div>
+          {story({ args: { ...args, loading: isOpen } })}
+        </>
+      )
+    }
+  ]
 } as ComponentMeta<typeof ProgressBar>
 
-const Template: ComponentStory<typeof ProgressBar> = (args) => {
-  const [isOpen, setIsOpen] = useState(!!args.loading)
+export const Default: ComponentStoryObj<typeof ProgressBar> = {}
 
-  return (
-    <>
-      <button style={{ marginTop: '16px' }} onClick={() => setIsOpen((prev) => !prev)}>
-        Toggle Progress Bar
-      </button>
-      <ProgressBar loading={isOpen} />
-    </>
-  )
-}
+export const MultipleClicksOnToggle: ComponentStoryObj<typeof ProgressBar> = {
+  play: async () => {
+    await sleep()
+    const button = screen.getByText(/toggle Progress Bar/i)
 
-export const Default = Template.bind({})
-Default.args = {
-  loading: true
-}
-
-export const MultipleClicksOnToggle = Template.bind({})
-MultipleClicksOnToggle.args = {
-  loading: true
-}
-MultipleClicksOnToggle.play = async () => {
-  const button = screen.getByText('Toggle Progress Bar')
-
-  await userEvent.click(button)
-  await userEvent.click(button)
-  await userEvent.click(button)
+    await userEvent.click(button)
+    await userEvent.click(button)
+    await userEvent.click(button)
+  }
 }

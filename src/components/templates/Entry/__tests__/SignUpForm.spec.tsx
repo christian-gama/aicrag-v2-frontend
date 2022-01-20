@@ -1,14 +1,20 @@
-import { MockedProvider } from '@apollo/client/testing'
-import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { MockedProvider, MockedResponse } from '@apollo/client/testing'
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
+import { act } from 'react-dom/test-utils'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import FormProvider from '@/context/models/form/form.provider'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
+import sleep from '@/tests/helpers/sleep'
+import sendWelcomeEmailMock from '@/tests/mocks/queries/sendWelcomeEmail.mock'
+import signUpMock from '@/tests/mocks/queries/signUp.mock'
+import variablesMock from '@/tests/mocks/variables.mock'
 import SignUpForm from '../SignUpForm'
 
-const makeSut = () => {
+const makeSut = (mocks: Array<MockedResponse<Record<string, any>>>) => {
   return render(
-    <MockedProvider>
+    <MockedProvider mocks={mocks} addTypename={false}>
       <FormProvider>
         <MemoryRouter initialEntries={['/entry/sign-in']}>
           <Routes>
@@ -33,7 +39,7 @@ describe('SignUpForm', () => {
   })
 
   it('should render SignUpForm correctly', () => {
-    makeSut()
+    makeSut([signUpMock()])
 
     const signInForm = screen.getByTestId('form')
 
@@ -41,17 +47,21 @@ describe('SignUpForm', () => {
   })
 
   it('should submit the form', async () => {
-    makeSut()
+    makeSut([signUpMock(), sendWelcomeEmailMock()])
 
     const form = screen.getByTestId('form')
     const inputs = screen.getAllByTestId('base-input')
-    fireEvent.change(inputs[0], { target: { value: 'any name' } })
-    fireEvent.change(inputs[1], { target: { value: 'any@email.com' } })
-    fireEvent.change(inputs[2], { target: { value: 'any_password' } })
-    fireEvent.change(inputs[3], { target: { value: 'any_password' } })
+    userEvent.type(inputs[0], variablesMock.name)
+    userEvent.type(inputs[1], variablesMock.email)
+    userEvent.type(inputs[2], variablesMock.password)
+    userEvent.type(inputs[3], variablesMock.password)
 
     fireEvent.submit(form)
 
-    expect(screen.queryByTestId('base-input-error')).toBeNull()
+    await act(async () => {
+      await sleep(0)
+    })
+
+    await waitFor(() => expect(screen.getByTestId('loading-spinner-icon')).toBeInTheDocument())
   })
 })

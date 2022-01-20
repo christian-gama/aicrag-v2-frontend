@@ -1,15 +1,19 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing'
-import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
+import { act } from 'react-dom/test-utils'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
-import { LoginDocument } from '@/services/api'
 import FormProvider from '@/context/models/form/form.provider'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
+import sleep from '@/tests/helpers/sleep'
+import loginMock from '@/tests/mocks/queries/login.mock'
+import variablesMock from '@/tests/mocks/variables.mock'
 import SignInForm from '../SignInForm'
 
 const makeSut = (mocks: Array<MockedResponse<Record<string, any>>>) => {
   return render(
-    <MockedProvider mocks={mocks}>
+    <MockedProvider mocks={mocks} addTypename={false}>
       <FormProvider>
         <MemoryRouter initialEntries={['/entry/sign-in']}>
           <Routes>
@@ -34,24 +38,7 @@ describe('SignInForm', () => {
   })
 
   it('should render SignInForm correctly', () => {
-    const mock: Array<MockedResponse<Record<string, any>>> = [
-      {
-        request: {
-          query: LoginDocument,
-          variables: {
-            email: 'any@email.com',
-            password: 'any_password'
-          }
-        },
-        result: {
-          data: {
-            login: { accessToken: 'any_token', refreshToken: 'any_token' }
-          }
-        }
-      }
-    ]
-
-    makeSut(mock)
+    makeSut([loginMock()])
 
     const signInForm = screen.getByTestId('form')
 
@@ -59,33 +46,37 @@ describe('SignInForm', () => {
   })
 
   it('should submit the form', async () => {
-    const mock: Array<MockedResponse<Record<string, any>>> = [
-      {
-        request: {
-          query: LoginDocument,
-          variables: {
-            email: 'any@email.com',
-            password: 'any_password'
-          }
-        },
-        result: {
-          data: {
-            login: { accessToken: 'any_token', refreshToken: 'any_token' }
-          }
-        }
-      }
-    ]
-
-    makeSut(mock)
+    makeSut([loginMock()])
 
     const form = screen.getByTestId('form')
     const inputs = screen.getAllByTestId('base-input')
-    fireEvent.change(inputs[0], { target: { value: 'any@email.com' } })
-    fireEvent.change(inputs[1], { target: { value: 'any_password' } })
+    userEvent.type(inputs[0], variablesMock.email)
+    userEvent.type(inputs[1], variablesMock.password)
 
     fireEvent.submit(form)
 
-    await waitFor(() => setInterval(() => {}, 1000))
+    await act(async () => {
+      await sleep()
+    })
+
+    expect(form).toBeInTheDocument()
+  })
+
+  it('should submit the form and receive only access token', async () => {
+    makeSut([
+      { ...loginMock(), result: { data: { login: { accessToken: variablesMock.token, refreshToken: undefined } } } }
+    ])
+
+    const form = screen.getByTestId('form')
+    const inputs = screen.getAllByTestId('base-input')
+    userEvent.type(inputs[0], variablesMock.email)
+    userEvent.type(inputs[1], variablesMock.password)
+
+    fireEvent.submit(form)
+
+    await act(async () => {
+      await sleep()
+    })
 
     expect(form).toBeInTheDocument()
   })

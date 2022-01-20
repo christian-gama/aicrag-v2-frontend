@@ -1,9 +1,13 @@
 import { MockedProvider } from '@apollo/client/testing'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { screen, userEvent } from '@storybook/testing-library'
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
+import { userEvent, within } from '@storybook/testing-library'
 import React from 'react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import FormProvider from '@/context/models/form/form.provider'
+import sleep from '@/tests/helpers/sleep'
+import sendWelcomeEmailMock from '@/tests/mocks/queries/sendWelcomeEmail.mock'
+import signUpMock from '@/tests/mocks/queries/signUp.mock'
+import variablesMock from '@/tests/mocks/variables.mock'
 import SignUpForm from './SignUpForm'
 
 export default {
@@ -11,7 +15,7 @@ export default {
   component: SignUpForm,
   decorators: [
     (story: any) => (
-      <MockedProvider>
+      <MockedProvider mocks={[signUpMock(), sendWelcomeEmailMock()]} addTypename={false}>
         <FormProvider>
           <MemoryRouter>
             <Routes>
@@ -24,39 +28,40 @@ export default {
   ]
 } as ComponentMeta<typeof SignUpForm>
 
-const Template: ComponentStory<typeof SignUpForm> = (args) => <SignUpForm {...args} />
+export const Default: ComponentStoryObj<typeof SignUpForm> = {}
 
-export const Default = Template.bind({})
+export const WithError: ComponentStoryObj<typeof SignUpForm> = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const name = canvas.getAllByTestId('base-input')[0]
+    const email = canvas.getAllByTestId('base-input')[1]
+    const password = canvas.getAllByTestId('base-input')[2]
+    const passwordConfirmation = canvas.getAllByTestId('base-input')[3]
 
-export const WithError = Template.bind({})
-WithError.play = async () => {
-  const name = screen.getAllByTestId('base-input')[0]
-  const email = screen.getAllByTestId('base-input')[1]
-  const password = screen.getAllByTestId('base-input')[2]
-  const passwordConfirmation = screen.getAllByTestId('base-input')[3]
+    await userEvent.click(name)
+    await userEvent.click(email)
+    await userEvent.click(password)
+    await userEvent.click(passwordConfirmation)
 
-  await userEvent.click(name)
-  await userEvent.click(email)
-  await userEvent.click(password)
-  await userEvent.click(passwordConfirmation)
-  await userEvent.click(screen.getByTestId('submit-button'))
+    await userEvent.click(canvas.getByTestId('submit-button'))
+  }
 }
 
-export const WithSuccess = Template.bind({})
-WithSuccess.play = async () => {
-  const name = screen.getAllByTestId('base-input')[0]
-  const email = screen.getAllByTestId('base-input')[1]
-  const password = screen.getAllByTestId('base-input')[2]
-  const passwordConfirmation = screen.getAllByTestId('base-input')[3]
+export const WithSuccess: ComponentStoryObj<typeof SignUpForm> = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const name = canvas.getAllByTestId('base-input')[0]
+    const email = canvas.getAllByTestId('base-input')[1]
+    const password = canvas.getAllByTestId('base-input')[2]
+    const passwordConfirmation = canvas.getAllByTestId('base-input')[3]
 
-  await userEvent.click(name)
-  await userEvent.type(name, '_valid name', { delay: 100 })
-  await userEvent.click(email)
-  await userEvent.type(email, 'valid@email.com', { delay: 100 })
-  await userEvent.click(password)
-  await userEvent.type(password, 'validpassword', { delay: 100 })
-  await userEvent.click(passwordConfirmation)
-  await userEvent.type(passwordConfirmation, 'validpassword', { delay: 100 })
+    await userEvent.type(name, variablesMock.name)
+    await userEvent.type(email, variablesMock.email)
+    await userEvent.type(password, variablesMock.password)
+    await userEvent.type(passwordConfirmation, variablesMock.passwordConfirmation)
 
-  await userEvent.click(screen.getByTestId('submit-button'))
+    await sleep()
+
+    await userEvent.click(canvas.getByTestId('submit-button'))
+  }
 }

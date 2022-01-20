@@ -23,7 +23,6 @@ const SignUpForm: React.FC = () => {
       }
     })
 
-    /* istanbul ignore next */
     await sendWelcomeEmail({
       variables: {
         email: state.form.data.email

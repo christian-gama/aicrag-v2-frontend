@@ -1,5 +1,6 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import React from 'react'
+import { useLocation } from 'react-router-dom'
 import useWindowDimensions from '@/components/_hooks/useWindowDimensions'
 import Background from '@/components/atoms/Background'
 import Card from '@/components/atoms/Card'
@@ -9,6 +10,7 @@ import * as style from './stylesheet'
 
 const EntryCard: React.FC = (props) => {
   const { width, height } = useWindowDimensions()
+  const location = useLocation()
 
   return (
     <Background gradient>
@@ -25,10 +27,9 @@ const EntryCard: React.FC = (props) => {
             <nav className={style.entryCardMenuWrapper}>
               <Menu
                 buttons={[
-                  { buttonName: 'Entrar', to: 'sign-in' },
-                  { buttonName: 'Cadastrar', to: 'sign-up' }
+                  { buttonName: 'Entrar', to: '/entry/sign-in', active: location.pathname === '/entry/sign-in' },
+                  { buttonName: 'Cadastrar', to: '/entry/sign-up', active: location.pathname === '/entry/sign-up' }
                 ]}
-                url="/entry/"
               />
             </nav>
 

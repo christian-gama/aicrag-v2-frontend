@@ -1,23 +1,18 @@
+import { composeStories } from '@storybook/testing-react'
 import { render, screen } from '@testing-library/react'
 import React from 'react'
-import Background from '../Background'
+import * as stories from '../Background.stories'
 
-const makeSut = () => {
-  return render(
-    <Background>
-      <div>Hello</div>
-    </Background>
-  )
-}
+const { Default, Gradient } = composeStories(stories)
 
 describe('Background', () => {
   it('should render Background correctly', () => {
-    makeSut()
-    expect(screen.getByTestId('background')).toBeTruthy()
+    render(<Default {...Default.args} />)
+    expect(screen.getByTestId('background')).toBeInTheDocument()
   })
 
-  it('should render children', () => {
-    makeSut()
-    expect(screen.getByTestId('background')).toHaveTextContent('Hello')
+  it('should render Background with gradient correctly', () => {
+    render(<Gradient {...Gradient.args} />)
+    expect(screen.getByTestId('background')).toBeInTheDocument()
   })
 })

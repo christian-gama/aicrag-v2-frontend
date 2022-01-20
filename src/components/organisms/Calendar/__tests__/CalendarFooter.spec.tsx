@@ -1,6 +1,7 @@
 import render from '@/../tests/config/renderWithProvider'
 import calendarStoreMock from '@/../tests/mocks/calendarStore.mock'
-import { cleanup, screen, fireEvent } from '@testing-library/react'
+import { cleanup, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { DateTime } from 'luxon'
 import React from 'react'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
@@ -38,7 +39,7 @@ describe('CalendarFooter', () => {
     makeSut()
 
     const confirmButton = screen.getByTestId('calendar-confirm-button')
-    fireEvent.click(confirmButton)
+    userEvent.click(confirmButton)
 
     expect(confirmButton).not.toBeInTheDocument()
   })
@@ -47,7 +48,7 @@ describe('CalendarFooter', () => {
     makeSut()
 
     const cancelButton = screen.getByTestId('calendar-cancel-button')
-    fireEvent.click(cancelButton)
+    userEvent.click(cancelButton)
 
     expect(cancelButton).not.toBeInTheDocument()
   })

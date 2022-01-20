@@ -14,14 +14,14 @@ import { PopoverVariants } from './stylesheet'
 type PopoverProps = {
   isOpen?: boolean
   duration?: number
+  minDuration?: number
   message: string | string[]
   type: PopoverVariants['type']
   onClose?: () => void
 }
 
-const Popover: React.FC<PopoverProps> = (props) => {
-  const { message, type } = props
-  const duration = props.duration ?? getDuration(message)
+const Popover: React.FC<PopoverProps> = ({ message, type, minDuration = 3, ...props }) => {
+  const duration = props.duration ?? getDuration(message, minDuration)
 
   const [isOpen, setIsOpen] = useState(!!props.isOpen)
 

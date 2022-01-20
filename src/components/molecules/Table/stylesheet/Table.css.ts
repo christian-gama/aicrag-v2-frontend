@@ -7,9 +7,13 @@ export const tableStyle = style({
 })
 
 export const tableCell = style({
-  display: 'flex',
+  position: 'relative',
   height: '100%',
-  alignItems: 'center'
+  textAlign: 'start',
+  overflow: 'hidden',
+  msTextOverflow: 'ellipsis',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap'
 })
 
 export const tableSpanShowingup = style({

@@ -1,47 +1,58 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
-import React from 'react'
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
+import { screen, userEvent } from '@storybook/testing-library'
 import Popover from './Popover'
 
 export default {
   title: 'molecules/Popover',
-  component: Popover
+  component: Popover,
+  args: {
+    isOpen: true,
+    message: 'This is a popover message'
+  }
 } as ComponentMeta<typeof Popover>
 
-const Template: ComponentStory<typeof Popover> = (args) => <Popover {...args} />
-
-export const SuccessType = Template.bind({})
-SuccessType.args = {
-  isOpen: true,
-  message: 'This is a popover message',
-  type: 'success'
+export const Success: ComponentStoryObj<typeof Popover> = {
+  args: {
+    type: 'success'
+  }
 }
 
-export const ErrorType = Template.bind({})
-ErrorType.args = {
-  isOpen: true,
-  message: 'This is a popover message',
-  type: 'error'
+export const Error: ComponentStoryObj<typeof Popover> = {
+  args: {
+    type: 'error'
+  }
 }
 
-export const InfoType = Template.bind({})
-InfoType.args = {
-  isOpen: true,
-  message: 'This is a popover message',
-  type: 'info'
+export const Info: ComponentStoryObj<typeof Popover> = {
+  args: {
+    type: 'info'
+  }
 }
 
-export const CustomDuration = Template.bind({})
-CustomDuration.args = {
-  isOpen: true,
-  message: 'This is a popover message with custom duration of 10s',
-  type: 'success',
-  duration: 10
+export const WithCustomDuration: ComponentStoryObj<typeof Popover> = {
+  args: {
+    type: 'success',
+    duration: 10
+  }
 }
 
-export const WithCloseHandler = Template.bind({})
-WithCloseHandler.args = {
-  isOpen: true,
-  message: 'This is a popover message',
-  type: 'success',
-  onClose: () => alert('close')
+export const WithAction: ComponentStoryObj<typeof Popover> = {
+  args: {
+    type: 'info',
+    minDuration: 0.01,
+    duration: 0.01,
+    onClose: () => alert('This component was dismissed by clicking on the cross icon.')
+  }
+}
+
+export const ClickOnClose: ComponentStoryObj<typeof Popover> = {
+  args: {
+    type: 'info',
+    onClose: () => alert('This component was dismissed by clicking on the cross icon.')
+  },
+  play: async () => {
+    const close = screen.getByTestId('popover-close-wrapper')
+
+    await userEvent.click(close)
+  }
 }

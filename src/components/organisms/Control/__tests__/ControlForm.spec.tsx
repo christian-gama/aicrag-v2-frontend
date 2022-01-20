@@ -1,5 +1,6 @@
 import makeValidationMock from '@/../tests/mocks/validator.mock'
-import { render, fireEvent, screen, act, cleanup } from '@testing-library/react'
+import { render, fireEvent, screen, act, cleanup, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React, { ComponentPropsWithRef } from 'react'
 import FormProvider from '@/context/models/form/form.provider'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
@@ -45,16 +46,34 @@ describe('Form', () => {
     makeSut({ children, submitHandler: submitHandlerMock })
 
     const input = screen.getByTestId('base-input')
-    act(() => {
-      fireEvent.change(input, { target: { value: 'any_value' } })
-      fireEvent.blur(input)
-      fireEvent.submit(screen.getByTestId('form'))
-    })
 
-    expect(submitHandlerMock).toHaveBeenCalled()
+    userEvent.type(input, 'any_value')
+    fireEvent.blur(input)
+    fireEvent.submit(screen.getByTestId('form'))
+
+    await waitFor(() => expect(submitHandlerMock).toHaveBeenCalled())
   })
 
-  it('should execute validation function if pass it through props', () => {
+  it('should execute validation function if pass it through props', async () => {
+    const validator = makeValidationMock(true)
+    const validationSpy = jest.spyOn(validator, 'validate')
+
+    const children = <ControlInput name="title" label="Title" />
+    makeSut({ children, validator, submitHandler: jest.fn() })
+    const input = await screen.getByTestId('base-input')
+
+    await act(async () => {
+      userEvent.type(input, 'any_title')
+      fireEvent.blur(input)
+      await fireEvent.submit(screen.getByTestId('form'))
+    })
+
+    await waitFor(() => {
+      expect(validationSpy).toHaveBeenCalled()
+    })
+  })
+
+  it('should execute validation function if pass it through props', async () => {
     const validator = makeValidationMock(true)
     const validationSpy = jest.spyOn(validator, 'validate')
 
@@ -63,31 +82,14 @@ describe('Form', () => {
     makeSut({ children, validator, submitHandler: jest.fn() })
 
     const input = screen.getByTestId('base-input')
-    act(() => {
-      fireEvent.change(input, { target: { value: 'any_title' } })
-      fireEvent.blur(input)
-      fireEvent.submit(screen.getByTestId('form'))
+
+    userEvent.type(input, 'any_title')
+    fireEvent.blur(input)
+    fireEvent.submit(screen.getByTestId('form'))
+
+    await waitFor(() => {
+      expect(validationSpy).toHaveBeenCalled()
     })
-
-    expect(validationSpy).toHaveBeenCalled()
-  })
-
-  it('should execute validation function if pass it through props', () => {
-    const validator = makeValidationMock(true)
-    const validationSpy = jest.spyOn(validator, 'validate')
-
-    const children = <ControlInput name="title" label="Title" />
-
-    makeSut({ children, validator, submitHandler: jest.fn() })
-
-    const input = screen.getByTestId('base-input')
-    act(() => {
-      fireEvent.change(input, { target: { value: 'any_title' } })
-      fireEvent.blur(input)
-      fireEvent.submit(screen.getByTestId('form'))
-    })
-
-    expect(validationSpy).toHaveBeenCalled()
   })
 
   it('should not call submitHandler if form is invalid', async () => {
@@ -98,11 +100,10 @@ describe('Form', () => {
     makeSut({ children, submitHandler, validator })
 
     const input = screen.getByTestId('base-input')
-    act(() => {
-      fireEvent.change(input, { target: { value: 'any_title' } })
-      fireEvent.blur(input)
-      fireEvent.submit(screen.getByTestId('form'))
-    })
+
+    userEvent.type(input, 'any_title')
+    fireEvent.blur(input)
+    fireEvent.submit(screen.getByTestId('form'))
 
     expect(submitHandler).not.toHaveBeenCalled()
   })
@@ -129,12 +130,10 @@ describe('Form', () => {
 
     makeSut({ children, validator, submitHandler: jest.fn() })
 
-    act(() => {
-      fireEvent.submit(screen.getByTestId('form'))
-    })
+    fireEvent.submit(screen.getByTestId('form'))
 
     const errorElement = screen.getByTestId('base-input-error')
 
-    expect(errorElement).toBeTruthy()
+    expect(errorElement).toBeInTheDocument()
   })
 })

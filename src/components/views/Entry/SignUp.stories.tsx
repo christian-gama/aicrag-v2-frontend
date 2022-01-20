@@ -1,16 +1,18 @@
 import { MockedProvider } from '@apollo/client/testing'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import React from 'react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import FormProvider from '@/context/models/form/form.provider'
-import SignUp from './SignUp'
+import sendWelcomeEmailMock from '@/tests/mocks/queries/sendWelcomeEmail.mock'
+import signUpMock from '@/tests/mocks/queries/signUp.mock'
+import SignUpComponent from './SignUp'
 
 export default {
-  title: 'views/Entry/SignUp',
-  component: SignUp,
+  title: 'views/Entry/Sign Up',
+  component: SignUpComponent,
   decorators: [
-    (story: any) => (
-      <MockedProvider>
+    (story) => (
+      <MockedProvider mocks={[signUpMock(), sendWelcomeEmailMock()]} addTypename={false}>
         <FormProvider>
           <MemoryRouter>
             <Routes>
@@ -21,8 +23,6 @@ export default {
       </MockedProvider>
     )
   ]
-} as ComponentMeta<typeof SignUp>
+} as ComponentMeta<typeof SignUpComponent>
 
-const Template: ComponentStory<typeof SignUp> = (args) => <SignUp {...args} />
-
-export const Default = Template.bind({})
+export const SignUp: ComponentStoryObj<typeof SignUpComponent> = {}

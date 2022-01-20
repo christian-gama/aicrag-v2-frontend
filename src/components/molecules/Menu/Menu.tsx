@@ -1,30 +1,25 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import * as style from './stylesheet'
 
 type MenuProps = {
-  buttons: Array<{ buttonName: string, to: string }>
-  url: string
+  buttons: Array<{ buttonName: string, to: string, active?: boolean }>
 }
 
 const Menu: React.FC<MenuProps> = (props) => {
-  const location = useLocation()
-
   return (
     <div className={style.menu} data-testid="menu">
-      {props.buttons.map(({ buttonName, to }, index) => {
-        const isActive = location.pathname.replace(props.url, '').includes(to.toLowerCase())
-
+      {props.buttons.map(({ buttonName, to, active }, index) => {
         const menuButtonStyle = style.menuButtonRecipe({
-          active: isActive
+          active: !!active
         })
 
         return (
           <Link
             key={`${buttonName}-${index}`}
-            to={`${props.url}${to.toLowerCase()}`}
+            to={to.toLowerCase()}
             className={menuButtonStyle}
-            data-active={isActive}
+            data-active={!!active}
             data-testid={`menu-link-${buttonName.toLowerCase()}`}
           >
             {buttonName}

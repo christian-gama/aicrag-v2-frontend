@@ -1,6 +1,7 @@
 import render from '@/../tests/config/renderWithProvider'
 import calendarStoreMock from '@/../tests/mocks/calendarStore.mock'
-import { cleanup, screen, fireEvent } from '@testing-library/react'
+import { cleanup, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
 import * as Redux from 'react-redux'
 import CalendarHeader from '../CalendarHeader'
@@ -20,7 +21,7 @@ describe('CalendarHeader', () => {
     makeSut()
 
     const chevronIcons = screen.getAllByTestId('chevron-icon')
-    fireEvent.click(chevronIcons[0])
+    userEvent.click(chevronIcons[0])
 
     expect(dispatchSpy).toHaveBeenCalled()
 
@@ -33,7 +34,7 @@ describe('CalendarHeader', () => {
     makeSut()
 
     const chevronIcons = screen.getAllByTestId('chevron-icon')
-    fireEvent.click(chevronIcons[1])
+    userEvent.click(chevronIcons[1])
 
     expect(dispatchSpy).toHaveBeenCalled()
 

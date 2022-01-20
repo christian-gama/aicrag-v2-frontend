@@ -1,9 +1,11 @@
 import { MockedProvider } from '@apollo/client/testing'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { screen, userEvent } from '@storybook/testing-library'
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
+import { userEvent, within } from '@storybook/testing-library'
 import React from 'react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import FormProvider from '@/context/models/form/form.provider'
+import loginMock from '@/tests/mocks/queries/login.mock'
+import variablesMock from '@/tests/mocks/variables.mock'
 import SignInForm from './SignInForm'
 
 export default {
@@ -11,7 +13,7 @@ export default {
   component: SignInForm,
   decorators: [
     (story: any) => (
-      <MockedProvider>
+      <MockedProvider addTypename={false} mocks={[loginMock()]}>
         <FormProvider>
           <MemoryRouter>
             <Routes>
@@ -24,28 +26,29 @@ export default {
   ]
 } as ComponentMeta<typeof SignInForm>
 
-const Template: ComponentStory<typeof SignInForm> = (args) => <SignInForm {...args} />
+export const Default: ComponentStoryObj<typeof SignInForm> = {}
 
-export const Default = Template.bind({})
+export const WithError: ComponentStoryObj<typeof SignInForm> = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const email = canvas.getAllByTestId('base-input')[0]
+    const password = canvas.getAllByTestId('base-input')[1]
 
-export const WithError = Template.bind({})
-WithError.play = async () => {
-  const email = screen.getAllByTestId('base-input')[0]
-  const password = screen.getAllByTestId('base-input')[1]
-
-  await userEvent.click(email)
-  await userEvent.click(password)
-  await userEvent.click(screen.getByTestId('submit-button'))
+    await userEvent.click(email)
+    await userEvent.click(password)
+    await userEvent.click(canvas.getByTestId('submit-button'))
+  }
 }
 
-export const WithSuccess = Template.bind({})
-WithSuccess.play = async () => {
-  const email = screen.getAllByTestId('base-input')[0]
-  const password = screen.getAllByTestId('base-input')[1]
+export const WithSuccess: ComponentStoryObj<typeof SignInForm> = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const email = canvas.getAllByTestId('base-input')[0]
+    const password = canvas.getAllByTestId('base-input')[1]
 
-  await userEvent.click(email)
-  await userEvent.type(email, '_valid@email.com', { delay: 100 })
-  await userEvent.click(password)
-  await userEvent.type(password, 'validpassword', { delay: 100 })
-  await userEvent.click(screen.getByTestId('submit-button'))
+    await userEvent.type(email, variablesMock.email)
+    await userEvent.type(password, variablesMock.password)
+
+    await userEvent.click(canvas.getByTestId('submit-button'))
+  }
 }

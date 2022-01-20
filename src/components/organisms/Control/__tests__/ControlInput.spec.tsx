@@ -45,10 +45,10 @@ describe('Input', () => {
       makeSut({ name: 'input', type: 'password', label: 'Input' })
 
       const eyeOpenIcon = screen.getByTestId('eye-open-icon')
-      fireEvent.click(eyeOpenIcon)
+      userEvent.click(eyeOpenIcon)
 
       const eyeClosedIcon = screen.getByTestId('eye-closed-icon')
-      fireEvent.click(eyeClosedIcon)
+      userEvent.click(eyeClosedIcon)
 
       const input = screen.getByTestId('base-input')
 
@@ -73,7 +73,7 @@ describe('Input', () => {
       makeSut({ name: 'input', type: 'password', label: 'Input' })
 
       const iconElement = screen.getByTestId('eye-open-icon')
-      fireEvent.click(iconElement)
+      userEvent.click(iconElement)
 
       const input = screen.getByTestId('base-input')
 
@@ -89,7 +89,7 @@ describe('Input', () => {
       makeSut({ name: 'input', validator, label: 'Input' })
 
       const input = screen.getByTestId('base-input')
-      fireEvent.change(input, { target: { value: 'any_value' } })
+      userEvent.type(input, 'any_value')
 
       expect(validatorSpy).toHaveBeenLastCalledWith('input', { input: 'any_value' })
     })
@@ -175,7 +175,6 @@ describe('Input', () => {
 
       const input = screen.getByTestId('base-input')
       userEvent.type(input, 'any_value')
-      fireEvent.change(input, { target: { value: 'any_value' } })
 
       const error = screen.queryByTestId('base-input-error')
 
@@ -213,7 +212,7 @@ describe('Input', () => {
       makeSut({ name: 'input', onChange, label: 'Input' })
 
       const input = screen.getByTestId('base-input')
-      fireEvent.change(input, { target: { value: 'any_value' } })
+      userEvent.type(input, 'any_title')
 
       expect(onChange).toHaveBeenCalled()
     })
@@ -236,7 +235,7 @@ describe('Input', () => {
 
       const input = screen.getByTestId('base-input')
       fireEvent.blur(input)
-      fireEvent.change(input, { target: { value: 'any_value' } })
+      userEvent.type(input, 'any_title')
       const error = screen.getByTestId('base-input-error')
 
       expect(error).toBeInTheDocument()

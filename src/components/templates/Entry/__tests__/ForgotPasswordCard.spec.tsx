@@ -5,7 +5,7 @@ import useWindowDimensions from '@/components/_hooks/useWindowDimensions'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
 import * as stories from '../ForgotPasswordCard.stories'
 
-const { Default } = composeStories(stories)
+const { ForgotPasswordCard } = composeStories(stories)
 jest.mock('../../../_hooks/useWindowDimensions')
 const useWindowDimensionsMock = useWindowDimensions as jest.Mock
 
@@ -21,17 +21,18 @@ describe('ForgotPassword', () => {
     overlayRoot.addOverlayRoot()
   })
 
-  it('renders default form', () => {
+  it('renders ForgotPasswordCard form', () => {
     useWindowDimensionsMock.mockReturnValue({ width: 521, height: 500 })
 
-    render(<Default />)
+    render(<ForgotPasswordCard />)
+
     expect(screen.getByRole('heading', { name: /esqueceu sua senha\?/i })).toBeInTheDocument()
   })
 
   it('should render with border if width is greater than 520', () => {
     useWindowDimensionsMock.mockReturnValue({ width: 521, height: 500 })
 
-    render(<Default />)
+    render(<ForgotPasswordCard />)
 
     const card = screen.getByTestId('card')
 
@@ -41,7 +42,7 @@ describe('ForgotPassword', () => {
   it('should render with no border if width is lesser than 520', () => {
     useWindowDimensionsMock.mockReturnValue({ width: 500, height: 500 })
 
-    render(<Default />)
+    render(<ForgotPasswordCard />)
 
     const card = screen.getByTestId('card')
 

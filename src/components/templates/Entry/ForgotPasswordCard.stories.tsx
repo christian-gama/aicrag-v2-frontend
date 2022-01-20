@@ -1,11 +1,11 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import React from 'react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
-import ForgotPasswordCard from './ForgotPasswordCard'
+import ForgotPasswordCardComponent from './ForgotPasswordCard'
 
 export default {
-  title: 'templates/Entry/ForgotPasswordCard',
-  component: ForgotPasswordCard,
+  title: 'templates/entry/Forgot Password Card',
+  component: ForgotPasswordCardComponent,
   decorators: [
     (story: any) => (
       <MemoryRouter>
@@ -15,8 +15,6 @@ export default {
       </MemoryRouter>
     )
   ]
-} as ComponentMeta<typeof ForgotPasswordCard>
+} as ComponentMeta<typeof ForgotPasswordCardComponent>
 
-const Template: ComponentStory<typeof ForgotPasswordCard> = (args) => <ForgotPasswordCard {...args} />
-
-export const Default = Template.bind({})
+export const ForgotPasswordCard: ComponentStoryObj<typeof ForgotPasswordCardComponent> = {}

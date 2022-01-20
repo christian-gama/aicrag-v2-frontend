@@ -60,7 +60,8 @@ export const cardRecipe = recipe({
     maxWidth: cardVars.width,
     minWidth: cardVars.width,
     padding: cardVars.padding,
-    width: cardVars.width
+    width: cardVars.width,
+    overflow: 'hidden'
   },
 
   variants: {

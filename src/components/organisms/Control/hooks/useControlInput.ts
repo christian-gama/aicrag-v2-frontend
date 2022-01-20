@@ -1,4 +1,4 @@
-import { ComponentPropsWithRef, useContext, useEffect } from 'react'
+import { ComponentPropsWithRef, useContext, useEffect, useState } from 'react'
 import FormContext from '@/context/models/form/form.context'
 import ControlInput from '../ControlInput'
 
@@ -7,6 +7,8 @@ const useControlInput = (props: ComponentPropsWithRef<typeof ControlInput>) => {
 
   const { data, validator, isResetting } = state.form
   const { isTouched, currentType, error, isFocused, isValid, value } = state.input
+
+  const [isReadOnly, setIsReadOnly] = useState(true)
 
   useEffect(() => {
     dispatch({ type: 'INPUT/SET_CURRENT_TYPE', payload: { currentType: { [props.name]: props.type ?? 'text' } } })
@@ -18,7 +20,7 @@ const useControlInput = (props: ComponentPropsWithRef<typeof ControlInput>) => {
   }, [isResetting])
 
   useEffect(() => {
-    dispatch({ type: 'FORM/SET_FORM_DATA', payload: { data: { [props.name]: value } } })
+    dispatch({ type: 'FORM/SET_FORM_DATA', payload: { data: { [props.name]: value[props.name] } } })
   }, [isResetting])
 
   const showPasswordHandler = (): void => {
@@ -59,6 +61,7 @@ const useControlInput = (props: ComponentPropsWithRef<typeof ControlInput>) => {
   }
 
   const onFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
+    setIsReadOnly(false)
     const value = event.currentTarget.value
     const error = validator?.validate(props.name, { ...data, [props.name]: value })
 
@@ -72,6 +75,7 @@ const useControlInput = (props: ComponentPropsWithRef<typeof ControlInput>) => {
   }
 
   return {
+    isReadOnly,
     currentType,
     error,
     isFocused,

@@ -1,74 +1,80 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react'
-import React from 'react'
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
+import { screen, userEvent } from '@storybook/testing-library'
+import sleep from '@/tests/helpers/sleep'
 import Alert from './Alert'
 
 export default {
   title: 'molecules/Alert',
-  component: Alert
+  component: Alert,
+  args: {
+    isOpen: true,
+    message: 'This is a message',
+    title: 'This is a title'
+  }
 } as ComponentMeta<typeof Alert>
 
-const Template: ComponentStory<typeof Alert> = (args) => <Alert {...args} />
+export const Default: ComponentStoryObj<typeof Alert> = {}
 
-export const Default = Template.bind({})
-Default.args = {
-  isOpen: true,
-  title: 'This is a title',
-  message: 'This is a message'
+export const DefaultWithAction: ComponentStoryObj<typeof Alert> = {
+  args: {
+    actionName: 'Action',
+    mode: 'actionAndCancel',
+    onAction: () => alert('This component was dismissed by clicking on the action button.')
+  }
 }
 
-export const DefaultWithAction = Template.bind({})
-DefaultWithAction.args = {
-  isOpen: true,
-  title: 'This is a title',
-  message: 'This is a message',
-  actionName: 'Action',
-  mode: 'actionAndCancel',
-  onAction: () => alert('Executing action')
+export const ClickOnAction: ComponentStoryObj<typeof Alert> = {
+  ...DefaultWithAction,
+  play: async () => {
+    await sleep()
+    const button = screen.getByText(/action/i)
+
+    await userEvent.click(button)
+  }
 }
 
-export const DefaultWithCancelHandler = Template.bind({})
-DefaultWithCancelHandler.args = {
-  isOpen: true,
-  title: 'This is a title',
-  message: 'This is a message',
-  mode: 'cancelOnly',
-  onCancel: () => alert('Executing onCancel')
+export const DefaultWithCancelHandler: ComponentStoryObj<typeof Alert> = {
+  args: {
+    mode: 'cancelOnly',
+    onCancel: () => alert('This component was dismissed by clicking on the cancel button.')
+  }
 }
 
-export const Info = Template.bind({})
-Info.args = {
-  isOpen: true,
-  title: 'This is a title',
-  message: 'This is a message',
-  type: 'info'
+export const ClickOnCancel: ComponentStoryObj<typeof Alert> = {
+  ...DefaultWithCancelHandler,
+  play: async () => {
+    await sleep()
+    const button = screen.getByText(/voltar/i)
+
+    await userEvent.click(button)
+  }
 }
 
-export const InfoWithAction = Template.bind({})
-InfoWithAction.args = {
-  isOpen: true,
-  title: 'This is a title',
-  message: 'This is a message',
-  type: 'info',
-  actionName: 'Action',
-  mode: 'actionAndCancel',
-  onAction: () => alert('Executing action')
+export const Info: ComponentStoryObj<typeof Alert> = {
+  args: {
+    type: 'info'
+  }
 }
 
-export const Danger = Template.bind({})
-Danger.args = {
-  isOpen: true,
-  title: 'This is a title',
-  message: 'This is a message',
-  type: 'danger'
+export const InfoWithAction: ComponentStoryObj<typeof Alert> = {
+  args: {
+    actionName: 'Action',
+    mode: 'actionAndCancel',
+    type: 'info',
+    onAction: () => alert('This component was dismissed by clicking on the action button.')
+  }
+}
+export const Danger: ComponentStoryObj<typeof Alert> = {
+  args: {
+    type: 'danger'
+  }
 }
 
-export const DangerWithAction = Template.bind({})
-DangerWithAction.args = {
-  isOpen: true,
-  title: 'This is a title',
-  message: 'This is a message',
-  type: 'danger',
-  actionName: 'Action',
-  mode: 'actionAndCancel',
-  onAction: () => alert('Executing action')
+export const DangerWithAction: ComponentStoryObj<typeof Alert> = {
+  args: {
+    actionName: 'Action',
+    mode: 'actionAndCancel',
+    type: 'danger',
+    onAction: () => alert('This component was dismissed by clicking on the action button.')
+  }
 }

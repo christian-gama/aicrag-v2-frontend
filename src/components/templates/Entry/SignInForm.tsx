@@ -19,13 +19,11 @@ const SignInForm: React.FC = () => {
       variables: { email: state.form.data.email, password: state.form.data.password }
     })
 
-    /* istanbul ignore next */
     // @ts-expect-error
     if (response.data?.login?.accessToken && !response.data?.login?.refreshToken) {
       auth.partialLogin()
     }
 
-    /* istanbul ignore next */
     // @ts-expect-error
     if (response.data?.login?.refreshToken) {
       auth.login()

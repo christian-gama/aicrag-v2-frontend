@@ -18,12 +18,12 @@ const makeSut = (props: ComponentPropsWithRef<typeof Menu>) => {
 describe('Menu', () => {
   it('should have the correct href', () => {
     const buttons = [
-      { buttonName: 'Home', to: 'Home' },
-      { buttonName: 'About', to: 'About' },
-      { buttonName: 'Contact', to: 'Contact' }
+      { buttonName: 'Home', to: '/teste/url/Home' },
+      { buttonName: 'About', to: '/teste/url/About' },
+      { buttonName: 'Contact', to: '/teste/url/Contact' }
     ]
-    const url = '/teste/url/'
-    makeSut({ buttons, url })
+
+    makeSut({ buttons })
 
     const link = screen.getByTestId('menu-link-home')
 

@@ -1,18 +1,16 @@
-import Optional from '@/helpers/typescript/optional.model'
 import React from 'react'
 import BaseInput from '../../atoms/BaseInput/BaseInput'
 import EyeIcon from '../../atoms/icons/EyeIcon'
 import useControlInput from './hooks/useControlInput'
 
 type ControlInputProps = {
-  autoFocus?: boolean
   icon?: React.ReactElement
   name: string
   label: string
   defaultValue?: string
 } & Pick<
 React.InputHTMLAttributes<HTMLInputElement>,
-Optional<'autoFocus' | 'onBlur' | 'onChange' | 'onFocus' | 'defaultValue' | 'type'>
+'autoFocus' | 'onBlur' | 'onChange' | 'onFocus' | 'type' | 'autoComplete' | 'readOnly'
 >
 
 /**
@@ -25,6 +23,7 @@ const ControlInput: React.FC<Omit<ControlInputProps, 'uniqueFormName' | 'validat
     currentType,
     error,
     isFocused,
+    isReadOnly,
     isTouched,
     isValid,
     onBlurHandler,
@@ -39,6 +38,7 @@ const ControlInput: React.FC<Omit<ControlInputProps, 'uniqueFormName' | 'validat
 
   return (
     <BaseInput
+      readOnly={isReadOnly}
       autoFocus={autoFocus}
       error={error[name]}
       isFocused={isFocused[name]}

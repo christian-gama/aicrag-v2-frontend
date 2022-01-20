@@ -1,6 +1,7 @@
 import render from '@/../tests/config/renderWithProvider'
 import calendarStoreMock from '@/../tests/mocks/calendarStore.mock'
-import { screen, cleanup, fireEvent } from '@testing-library/react'
+import { screen, cleanup } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
 import CalendarDays from '../CalendarDays'
 
@@ -66,7 +67,7 @@ describe('CalendarDays', () => {
   it('should select a date when clicking on a day', () => {
     makeSut()
 
-    fireEvent.click(screen.getByTestId('day-2022-01-01'))
+    userEvent.click(screen.getByTestId('day-2022-01-01'))
     const day = screen.getByTestId('day-2022-01-01')
 
     expect(day).toHaveAttribute('data-selected', 'true')
@@ -75,7 +76,7 @@ describe('CalendarDays', () => {
   it('should happen nothing when clicking on a dimmed day', () => {
     makeSut()
 
-    fireEvent.click(screen.getByTestId('day-2021-12-28'))
+    userEvent.click(screen.getByTestId('day-2021-12-28'))
     const day = screen.getByTestId('day-2021-12-28')
 
     expect(day).not.toHaveAttribute('data-selected', 'false')

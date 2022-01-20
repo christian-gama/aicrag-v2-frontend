@@ -1,13 +1,13 @@
 import { MockedProvider } from '@apollo/client/testing'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import React from 'react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import FormProvider from '@/context/models/form/form.provider'
-import EntryCard from './EntryCard'
+import EntryCardComponent from './EntryCard'
 
 export default {
-  title: 'templates/Entry/EntryCard',
-  component: EntryCard,
+  title: 'templates/entry/Entry Card',
+  component: EntryCardComponent,
   decorators: [
     (story: any) => (
       <MockedProvider>
@@ -21,8 +21,6 @@ export default {
       </MockedProvider>
     )
   ]
-} as ComponentMeta<typeof EntryCard>
+} as ComponentMeta<typeof EntryCardComponent>
 
-const Template: ComponentStory<typeof EntryCard> = (args) => <EntryCard {...args} />
-
-export const Default = Template.bind({})
+export const EntryCard: ComponentStoryObj<typeof EntryCardComponent> = {}
