@@ -13,11 +13,14 @@ type Args<T extends unknown> = T & { columns: number, rows: number }
 export default {
   title: 'molecules/Table',
   component: Table.Main,
+  args: {
+    rows: 4,
+    columns: 4
+  },
   argTypes: {
     rows: {
       name: 'Rows',
       type: { name: 'number', required: true },
-      defaultValue: 4,
       control: {
         type: 'number',
         min: 1,
@@ -27,7 +30,6 @@ export default {
     columns: {
       name: 'Columns',
       type: { name: 'number', required: true },
-      defaultValue: 5,
       control: {
         type: 'number',
         min: 1,
