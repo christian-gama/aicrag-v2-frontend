@@ -1,14 +1,14 @@
-const path = require('path')
+const { resolve } = require('path')
 
 module.exports = {
-  stories: ['../src/components/**/*.stories.tsx'],
+  stories: ['../src/**/*.stories.tsx'],
   addons: [
-    path.resolve(__dirname, 'vanillaExtract'),
-    path.resolve(__dirname, 'pathAlias'),
+    resolve(__dirname, 'pathAlias'),
+    resolve(__dirname, 'vanillaExtract'),
     '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-a11y',
+    '@storybook/addon-essentials'
   ],
+  framework: '@storybook/react',
   core: {
     builder: 'storybook-builder-vite'
   }

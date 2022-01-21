@@ -1,6 +1,6 @@
 import { defineConfig, Plugin } from 'vite'
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
-import reactRefresh from '@vitejs/plugin-react-refresh'
+import react from '@vitejs/plugin-react'
 import path from 'path'
 
 const removeAttributes = (options: { attributes: string[] }): Plugin => {
@@ -37,5 +37,5 @@ export default defineConfig({
 
   publicDir: 'public',
 
-  plugins: [reactRefresh(), vanillaExtractPlugin(), removeAttributes({ attributes: ['data-testid'] })]
+  plugins: [react(), vanillaExtractPlugin(), removeAttributes({ attributes: ['data-testid'] })]
 })
