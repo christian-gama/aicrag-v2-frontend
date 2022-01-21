@@ -110,7 +110,6 @@ const useControlForm = (props: ComponentPropsWithRef<typeof ControlForm>) => {
       setIsSuccessPopoverOpen(true)
     } catch (error) {
       // API errors are handled by the errorLink from Apollo Client
-      console.log(error)
       dispatch({ type: 'FORM/SET_IS_VALID', payload: { isValid: false } })
 
       setIsSuccessPopoverOpen(false)
