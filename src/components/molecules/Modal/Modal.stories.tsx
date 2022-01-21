@@ -8,11 +8,7 @@ export default {
   title: 'molecules/Modal',
   component: Modal,
   args: {
-    children: (
-      <div style={{ width: '300px', height: '300px' }}>
-        <div style={{ width: '33%', height: '33%', backgroundColor: 'orangered' }}></div>
-      </div>
-    ),
+    children: <div style={{ width: '300px', height: '300px' }} />,
     isOpen: true
   }
 } as ComponentMeta<typeof Modal>
@@ -45,7 +41,8 @@ export const FromRight: ComponentStoryObj<typeof Modal> = {
 
 export const WithDismissHandler: ComponentStoryObj<typeof Modal> = {
   args: {
-    onDismiss: () => alert('This component was dismissed by clicking on the backdrop.')
+    onDismiss: () =>
+      alert('This component was dismissed by clicking on the backdrop.')
   },
   play: async () => {
     await sleep()

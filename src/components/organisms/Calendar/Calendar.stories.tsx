@@ -8,7 +8,11 @@ import CalendarComponent from './Calendar'
 export default {
   title: 'organisms/Calendar',
   component: CalendarComponent,
-  decorators: [(story: any) => <Provider store={configureStore(calendarStoreMock)}>{story()}</Provider>]
+  decorators: [
+    (story) => (
+      <Provider store={configureStore(calendarStoreMock)}>{story()}</Provider>
+    )
+  ]
 } as ComponentMeta<typeof CalendarComponent>
 
 export const Calendar: ComponentStoryObj<typeof CalendarComponent> = {

@@ -3,26 +3,29 @@ import faker from 'faker'
 import React from 'react'
 import arrayFrom from '@/tests/helpers/arrayFrom'
 import randomNumber from '@/tests/helpers/randomNumber'
-import Table from '.'
+import TableComponent from '.'
 
 const randomCapitalizedWord = () =>
-  faker.random.words(randomNumber(1, 3)).replace(/\b\w/g, (letter) => letter.toUpperCase())
+  faker.random
+    .words(randomNumber(1, 3))
+    .replace(/\b\w/g, (letter) => letter.toUpperCase())
 
 type Args<T extends unknown> = T & { columns: number, rows: number }
 
 export default {
   title: 'molecules/Table',
-  component: Table.Main,
+  component: TableComponent.Main,
   args: {
     rows: 4,
-    columns: 4
+    columns: 4,
+    showingUp: undefined
   },
   argTypes: {
     rows: {
       name: 'Rows',
       type: { name: 'number', required: true },
       control: {
-        type: 'number',
+        type: 'range',
         min: 1,
         max: 10
       }
@@ -31,7 +34,7 @@ export default {
       name: 'Columns',
       type: { name: 'number', required: true },
       control: {
-        type: 'number',
+        type: 'range',
         min: 1,
         max: 5
       }
@@ -46,38 +49,33 @@ export default {
           ...customArgs,
           children: (
             <>
-              <Table.Thead>
-                <Table.Tr>
+              <TableComponent.Thead>
+                <TableComponent.Tr>
                   {arrayFrom(customArgs.columns).map((_, i) => (
-                    <Table.Th key={i}>{randomCapitalizedWord()}</Table.Th>
+                    <TableComponent.Th key={i}>
+                      {randomCapitalizedWord()}
+                    </TableComponent.Th>
                   ))}
-                </Table.Tr>
-              </Table.Thead>
+                </TableComponent.Tr>
+              </TableComponent.Thead>
 
-              <Table.Tbody>
+              <TableComponent.Tbody>
                 {arrayFrom(customArgs.rows ?? 4).map((_, i) => (
-                  <Table.Tr key={i}>
+                  <TableComponent.Tr key={i}>
                     {arrayFrom(customArgs.columns).map((_, i) => (
-                      <Table.Td key={i}>{randomCapitalizedWord()}</Table.Td>
+                      <TableComponent.Td key={i}>
+                        {randomCapitalizedWord()}
+                      </TableComponent.Td>
                     ))}
-                  </Table.Tr>
+                  </TableComponent.Tr>
                 ))}
-              </Table.Tbody>
+              </TableComponent.Tbody>
             </>
           )
         }
       })
     }
   ]
-} as ComponentMeta<typeof Table.Main>
+} as ComponentMeta<typeof TableComponent.Main>
 
-export const Default: ComponentStoryObj<typeof Table.Main> = {}
-
-export const WithShowingUpText: ComponentStoryObj<typeof Table.Main> = {
-  args: {
-    showingUp: {
-      current: 1,
-      total: 10
-    }
-  }
-}
+export const Table: ComponentStoryObj<typeof TableComponent.Main> = {}

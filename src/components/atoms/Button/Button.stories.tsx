@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import { within, userEvent } from '@storybook/testing-library'
 import Button from './Button'
 
 export default {
@@ -11,6 +10,29 @@ export default {
 } as ComponentMeta<typeof Button>
 
 export const Default: ComponentStoryObj<typeof Button> = {}
+
+export const Playground: ComponentStoryObj<typeof Button> = {
+  argTypes: {
+    type: {
+      control: {
+        type: 'select',
+        options: ['button', 'submit', 'reset']
+      }
+    }
+  },
+  args: {
+    children: 'Button',
+    onClick: () => alert('Button was clicked'),
+    disabled: false,
+    loading: false,
+    type: 'button',
+    style: {
+      color: 'cyan',
+      mode: 'contained',
+      size: 'md'
+    }
+  }
+}
 
 export const CyanContained: ComponentStoryObj<typeof Button> = {
   args: {
@@ -161,18 +183,5 @@ export const Small: ComponentStoryObj<typeof Button> = {
     style: {
       size: 'sm'
     }
-  }
-}
-
-export const ButtonWithOnClick: ComponentStoryObj<typeof Button> = {
-  args: {
-    onClick: () => {
-      alert('This button has been clicked.')
-    }
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-
-    await userEvent.click(canvas.getByText(/button/i))
   }
 }
