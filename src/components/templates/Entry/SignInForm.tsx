@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-import { useLoginMutation } from '@/services/api'
 import FormContext from '@/context/models/form/form.context'
 import Button from '@/components/atoms/Button'
 import Link from '@/components/atoms/texts/Link'
 import ControlForm from '@/components/organisms/Control/ControlForm'
 import ControlInput from '@/components/organisms/Control/ControlInput'
 import makeSignInValidator from '@/external/factories/validation/makeSignInValidator'
+import { useLoginMutation } from '@/external/graphql/generated'
 import { authVar } from '@/external/graphql/reactiveVars/authVar'
 import * as style from './stylesheet'
 

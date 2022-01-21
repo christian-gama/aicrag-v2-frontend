@@ -1,10 +1,13 @@
 import React, { useContext } from 'react'
-import { useSendWelcomeEmailMutation, useSignUpMutation } from '@/services/api'
 import FormContext from '@/context/models/form/form.context'
 import Button from '@/components/atoms/Button'
 import ControlForm from '@/components/organisms/Control/ControlForm'
 import ControlInput from '@/components/organisms/Control/ControlInput'
 import makeSignUpValidator from '@/external/factories/validation/makeSignUpValidator'
+import {
+  useSendWelcomeEmailMutation,
+  useSignUpMutation
+} from '@/external/graphql/generated'
 import * as style from './stylesheet'
 
 const SignUpForm: React.FC = () => {

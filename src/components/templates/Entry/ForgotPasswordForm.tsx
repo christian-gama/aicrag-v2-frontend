@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {
-  useForgotPasswordMutation,
-  useSendRecoverPasswordEmailMutation
-} from '@/services/api'
 import FormContext from '@/context/models/form/form.context'
 import Button from '@/components/atoms/Button'
 import ControlForm from '@/components/organisms/Control/ControlForm'
 import ControlInput from '@/components/organisms/Control/ControlInput'
 import makeForgotPasswordValidator from '@/external/factories/validation/makeForgotPasswordValidation'
+import {
+  useForgotPasswordMutation,
+  useSendRecoverPasswordEmailMutation
+} from '@/external/graphql/generated'
 import * as style from './stylesheet'
 
 const ForgotPasswordForm: React.FC = () => {

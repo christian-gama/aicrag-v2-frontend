@@ -43,4 +43,4 @@ As this is my first personal project ever, you may find some stuffs that you dis
 - Prettier
 - Rimraf
 - Typescript
-- YARN
+- PNPM

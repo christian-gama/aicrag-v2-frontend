@@ -5,5 +5,5 @@ COPY ./package.json .
 COPY ./pnpm-lock.yaml .
 RUN pnpm install
 COPY ./ ./
-CMD ["pnpm", "run", "dev", "--", "--host"]
+CMD ["pnpm", "run", "dev"]
 

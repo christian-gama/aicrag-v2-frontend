@@ -1,5 +1,5 @@
 import { MockedResponse } from '@apollo/client/testing'
-import { SignUpDocument } from '@/services/api'
+import { SignUpDocument } from '@/external/graphql/generated'
 import userFragmentMock from '../fragments/userFragment.mock'
 import variablesMock from '../variables.mock'
 

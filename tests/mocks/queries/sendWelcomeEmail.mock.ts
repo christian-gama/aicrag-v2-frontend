@@ -1,5 +1,5 @@
 import { MockedResponse } from '@apollo/client/testing'
-import { SendWelcomeEmailDocument } from '@/services/api'
+import { SendWelcomeEmailDocument } from '@/external/graphql/generated'
 import variablesMock from '../variables.mock'
 
 const sendWelcomeEmailMock = (

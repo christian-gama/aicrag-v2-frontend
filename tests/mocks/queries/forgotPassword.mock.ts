@@ -1,5 +1,5 @@
 import { MockedResponse } from '@apollo/client/testing'
-import { ForgotPasswordDocument } from '@/services/api'
+import { ForgotPasswordDocument } from '@/external/graphql/generated'
 import userFragmentMock from '../fragments/userFragment.mock'
 import variablesMock from '../variables.mock'
 

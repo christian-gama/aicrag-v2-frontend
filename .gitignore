@@ -179,11 +179,13 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,node,windows
-build
-
 # Vite
 .DS_Store
+.env.development
+*.local
+build
 dist
 dist-ssr
-*.local
-.env.development
+
+# GraphQL
+generated

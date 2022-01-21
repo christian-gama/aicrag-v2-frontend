@@ -1,5 +1,5 @@
 import { MockedResponse } from '@apollo/client/testing'
-import { SendRecoverPasswordEmailDocument } from '@/services/api'
+import { SendRecoverPasswordEmailDocument } from '@/external/graphql/generated'
 import sendEmailFragment from '../fragments/sendEmailFragment'
 import variablesMock from '../variables.mock'
 
