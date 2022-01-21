@@ -19,21 +19,28 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '17.x'
+          cache: 'pnpm'
 
-      - uses: actions/cache@v2
+      - name: Install PNPM
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.27.2
+
+      - name: Use cache
+        uses: actions/cache@v2
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Install dependencies
-        run: yarn
+        run: pnpm install
 
       - name: Lint
-        run: yarn lint
+        run: pnpm lint
 
       - name: Test
-        run: yarn test:ci
-        
+        run: pnpm test:ci
+
       - name: Lint commit message
         uses: wagoid/commitlint-github-action@v4
 
@@ -44,7 +51,7 @@ jobs:
           cat .env.production
 
       - name: Build
-        run: yarn build
+        run: pnpm build
 
       - name: Coveralls
         uses: coverallsapp/github-action@master

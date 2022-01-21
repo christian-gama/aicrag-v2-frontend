@@ -1,8 +1,9 @@
 FROM node:17-alpine
 WORKDIR /usr/aicrag
+RUN npm install -g pnpm
 COPY ./package.json .
-COPY ./yarn.lock .
-RUN yarn install --network-timeout=10000
+COPY ./pnpm-lock.yaml .
+RUN pnpm install
 COPY ./ ./
-CMD ["yarn", "dev", "--host"]
+CMD ["pnpm", "run", "dev", "--", "--host"]
 
