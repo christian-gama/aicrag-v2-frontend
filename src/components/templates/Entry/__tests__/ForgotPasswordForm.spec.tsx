@@ -1,12 +1,34 @@
-import { composeStories } from '@storybook/testing-react'
-import { cleanup, render, screen, waitFor } from '@testing-library/react'
+import { MockedResponse, MockedProvider } from '@apollo/client/testing'
+import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
+import { MemoryRouter, Routes, Route } from 'react-router-dom'
+import FormProvider from '@/context/models/form/form.provider'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
-import * as stories from '../ForgotPasswordForm.stories'
+import sleep from '@/tests/helpers/sleep'
+import forgotPasswordMock from '@/tests/mocks/queries/forgotPassword.mock'
+import loginMock from '@/tests/mocks/queries/login.mock'
+import variablesMock from '@/tests/mocks/variables.mock'
+import ForgotPasswordForm from '../ForgotPasswordForm'
 
-const { Default, WithError, WithSuccess } = composeStories(stories)
+const makeSut = (mocks: Array<MockedResponse<Record<string, any>>>) => {
+  return render(
+    <MockedProvider mocks={mocks} addTypename={false}>
+      <FormProvider>
+        <MemoryRouter initialEntries={['/entry/forgot-password']}>
+          <Routes>
+            <Route
+              path="/entry/forgot-password"
+              element={<ForgotPasswordForm />}
+            />
+          </Routes>
+        </MemoryRouter>
+      </FormProvider>
+    </MockedProvider>
+  )
+}
 
-describe('ForgotPassword', () => {
+describe('ForgotPasswordMock', () => {
   const overlayRoot = new OverlayRoot()
 
   afterEach(() => {
@@ -18,25 +40,27 @@ describe('ForgotPassword', () => {
     overlayRoot.addOverlayRoot()
   })
 
-  it('renders default form', async () => {
-    render(<Default {...Default.args} />)
+  it('should render ForgotPasswordForm correctly', () => {
+    makeSut([forgotPasswordMock()])
 
-    expect(screen.getByTestId('form')).toBeInTheDocument()
+    const forgotPasswordForm = screen.getByTestId('form')
+
+    expect(forgotPasswordForm).toBeInTheDocument()
   })
 
-  it('renders form with error', async () => {
-    const { container } = render(<WithError {...WithError.args} />)
+  it('should submit the form', async () => {
+    makeSut([loginMock()])
 
-    await WithError.play({ canvasElement: container })
+    const form = screen.getByTestId('form')
+    const inputs = screen.getAllByTestId('base-input')
+    userEvent.type(inputs[0], variablesMock.email)
 
-    await waitFor(() => expect(screen.getByText(/email inválido\(a\): é obrigatório/i)).toBeInTheDocument())
-  })
+    fireEvent.submit(form)
 
-  it('renders form with success', async () => {
-    const { container } = render(<WithSuccess {...WithSuccess.args} />)
+    await act(async () => {
+      await sleep()
+    })
 
-    await WithSuccess.play({ canvasElement: container })
-
-    await waitFor(() => expect(screen.getByRole('button', { name: /[0-9]{2} s/i })).toBeInTheDocument())
+    expect(form).toBeInTheDocument()
   })
 })

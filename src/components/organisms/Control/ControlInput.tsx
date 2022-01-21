@@ -8,15 +8,18 @@ type ControlInputProps = {
   name: string
   label: string
   defaultValue?: string
+  type?: React.ComponentPropsWithRef<typeof BaseInput>['type']
 } & Pick<
 React.InputHTMLAttributes<HTMLInputElement>,
-'autoFocus' | 'onBlur' | 'onChange' | 'onFocus' | 'type' | 'autoComplete' | 'readOnly'
+'autoFocus' | 'onBlur' | 'onChange' | 'onFocus' | 'autoComplete' | 'readOnly'
 >
 
 /**
  * @description Must be used inside a Form component with FormProvider
  */
-const ControlInput: React.FC<Omit<ControlInputProps, 'uniqueFormName' | 'validation'>> = (props: ControlInputProps) => {
+const ControlInput: React.FC<
+Omit<ControlInputProps, 'uniqueFormName' | 'validation'>
+> = (props: ControlInputProps) => {
   const { icon, name, type, autoFocus, label } = props
 
   const {
@@ -49,7 +52,7 @@ const ControlInput: React.FC<Omit<ControlInputProps, 'uniqueFormName' | 'validat
       onBlur={onBlurHandler}
       onChange={onChangeHandler}
       onFocus={onFocusHandler}
-      type={currentType[name]}
+      type={currentType[name] ?? 'text'}
       validator={validator}
       value={value[name] ?? ''}
       icon={
@@ -58,7 +61,10 @@ const ControlInput: React.FC<Omit<ControlInputProps, 'uniqueFormName' | 'validat
               <>
                 {type !== 'password' && icon}
                 {type === 'password' && (
-                  <EyeIcon showPassword={currentType[name] !== 'password'} onClick={showPasswordHandler} />
+                  <EyeIcon
+                    showPassword={currentType[name] !== 'password'}
+                    onClick={showPasswordHandler}
+                  />
                 )}
               </>
             )

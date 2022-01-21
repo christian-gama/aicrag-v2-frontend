@@ -1,6 +1,7 @@
 import Maybe from '@/helpers/typescript/maybe.model'
 import React from 'react'
 import IValidation from '@/services/validators/protocols/validation.model'
+import BaseInput from '@/components/atoms/BaseInput'
 
 type Object<T extends unknown> = { [key: string]: T }
 
@@ -19,7 +20,7 @@ export type FormStates = {
     data: Object<any>
   }
   input: {
-    currentType: Object<React.InputHTMLAttributes<HTMLInputElement>['type']>
+    currentType: Object<React.ComponentPropsWithRef<typeof BaseInput>['type']>
     error: Object<Maybe<string>>
     isFocused: Object<boolean>
     isTouched: Object<boolean>
@@ -66,7 +67,9 @@ export type FormActionPayload = {
   | 'FORM/SET_IS_VALIDATING'
   | 'FORM/SET_VALIDATOR'
 
-  payload: Partial<{ [key in keyof FormStates['form']]: FormStates['form'][key] }>
+  payload: Partial<{
+    [key in keyof FormStates['form']]: FormStates['form'][key]
+  }>
 }
 
 export type FormInputActionPayload = {
@@ -77,5 +80,7 @@ export type FormInputActionPayload = {
   | 'INPUT/SET_IS_VALID'
   | 'INPUT/SET_VALUE'
   | 'INPUT/SET_CURRENT_TYPE'
-  payload: Partial<{ [key in keyof FormStates['input']]: FormStates['input'][key] }>
+  payload: Partial<{
+    [key in keyof FormStates['input']]: FormStates['input'][key]
+  }>
 }

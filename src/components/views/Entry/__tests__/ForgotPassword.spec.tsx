@@ -16,7 +16,7 @@ const makeSut = () => {
   )
 }
 
-describe('SignIn', () => {
+describe('ForgotPassword', () => {
   afterEach(() => {
     cleanup()
   })

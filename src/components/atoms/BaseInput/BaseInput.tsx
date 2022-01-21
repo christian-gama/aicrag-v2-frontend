@@ -11,12 +11,25 @@ type BaseInputProps = {
   isValid?: boolean
   label: string
   name: string
+  type?: 'email' | 'password' | 'text' | 'number' | 'search'
   validator?: IValidation
   icon?: () => React.ReactNode
-} & React.InputHTMLAttributes<HTMLInputElement>
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>
 
 const BaseInput: React.FC<BaseInputProps> = (props) => {
-  const { error, icon, isFocused, isTouched, isValid, label, name, type, validator, value, ...rest } = props
+  const {
+    error,
+    icon,
+    isFocused,
+    isTouched,
+    isValid,
+    label,
+    name,
+    type,
+    validator,
+    value,
+    ...rest
+  } = props
 
   const getState = (): style.LabelRecipeVariants['state'] => {
     if (validator) {
@@ -45,7 +58,10 @@ const BaseInput: React.FC<BaseInputProps> = (props) => {
   return (
     <div className={style.input} data-testid={'base-input-wrapper'}>
       <div className={style.inputContent}>
-        <label data-testid={'base-input-label'} htmlFor={name} className={labelStyle}>
+        <label
+          data-testid={'base-input-label'}
+          htmlFor={name}
+          className={labelStyle}>
           {label}
         </label>
 

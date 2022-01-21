@@ -1,31 +1,45 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import { userEvent, within } from '@storybook/testing-library'
 import React from 'react'
 import BaseInput from './BaseInput'
 
 export default {
-  title: 'atoms/BaseInput',
+  title: 'atoms/Base Input',
   component: BaseInput,
+  args: {
+    type: 'text'
+  },
+  argTypes: {
+    type: {
+      options: ['text', 'email', 'password', 'number', 'search'],
+      control: { type: 'select' }
+    },
+    error: {
+      control: {
+        type: 'text'
+      }
+    },
+    validator: {
+      control: {
+        type: 'function'
+      }
+    }
+  },
   decorators: [(story) => <div style={{ width: '500px' }}>{story()}</div>]
 } as ComponentMeta<typeof BaseInput>
 
 export const Default: ComponentStoryObj<typeof BaseInput> = {}
 
-export const Typing: ComponentStoryObj<typeof BaseInput> = {
+export const Playground: ComponentStoryObj<typeof BaseInput> = {
   args: {
-    defaultValue: '',
-    isFocused: true,
+    value: '',
+    isFocused: false,
     isTouched: false,
     isValid: false,
     label: 'Label',
     name: 'label',
-    type: 'text'
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const input = canvas.getByTestId('base-input')
-
-    await userEvent.type(input, 'Some text')
+    type: 'text',
+    error: undefined,
+    validator: { validate: () => undefined }
   }
 }
 
