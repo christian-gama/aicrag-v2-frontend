@@ -12,9 +12,8 @@ type CalendarProps = {
   previousDate: number
 }
 
-const Calendar: React.FC<CalendarProps> = (props) => {
+const Calendar: React.FC<CalendarProps> = ({ previousDate }) => {
   const { resetCalendar, closeCalendar } = calendarActions
-  const { previousDate } = props
 
   const dispatch = useDispatch<AppDispatch>()
   const isCalendarOpen = useSelector<RootState, boolean>(

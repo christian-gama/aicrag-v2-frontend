@@ -7,14 +7,14 @@ type BackIconProps = {
   size?: BackIconVariants['size']
 }
 
-const BackIcon: React.FC<BackIconProps> = (props) => {
+const BackIcon: React.FC<BackIconProps> = ({ children, color, size }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 48 48"
       className={style.backIconRecipe({
-        color: props.color,
-        size: props.size
+        color,
+        size
       })}
       data-testid="back-icon"
     >

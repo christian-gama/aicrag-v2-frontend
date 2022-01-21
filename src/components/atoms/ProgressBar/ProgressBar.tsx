@@ -6,23 +6,23 @@ type ProgressBarProps = {
   loading?: boolean
 }
 
-const ProgressBar: React.FC<ProgressBarProps> = (props) => {
+const ProgressBar: React.FC<ProgressBarProps> = ({ loading }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    if (props.loading && !isOpen) {
+    if (loading && !isOpen) {
       setIsOpen(true)
     }
-  }, [props.loading])
+  }, [loading])
 
   useEffect(() => {
-    if (props.loading && !isOpen) {
+    if (loading && !isOpen) {
       setIsOpen(true)
     }
-  }, [props.loading])
+  }, [loading])
 
   useEffect(() => {
-    if (!props.loading && isOpen) {
+    if (!loading && isOpen) {
       /* istanbul ignore next */
       const timer = setTimeout(() => {
         setIsOpen(false)
@@ -30,7 +30,7 @@ const ProgressBar: React.FC<ProgressBarProps> = (props) => {
 
       return () => clearTimeout(timer)
     }
-  }, [props.loading])
+  }, [loading])
 
   if (!isOpen) return null
 

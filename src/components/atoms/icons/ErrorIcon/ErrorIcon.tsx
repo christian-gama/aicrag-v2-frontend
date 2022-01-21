@@ -7,10 +7,10 @@ type ErrorIconProps = {
   size?: ErrorIconVariants['size']
 }
 
-const ErrorIcon: React.FC<ErrorIconProps> = (props) => {
+const ErrorIcon: React.FC<ErrorIconProps> = ({ children, color, size }) => {
   const errorIconStyle = style.errorIconRecipe({
-    color: props.color,
-    size: props.size
+    color,
+    size
   })
 
   return (

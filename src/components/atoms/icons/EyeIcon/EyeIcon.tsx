@@ -1,5 +1,5 @@
 import React from 'react'
-import * as style from './stylesheet'
+import * as styles from './stylesheet'
 import { EyeIconVariants } from './stylesheet'
 
 type EyeIconProps = {
@@ -11,17 +11,17 @@ type EyeIconProps = {
   showPassword: boolean
 }
 
-const EyeIcon: React.FC<EyeIconProps> = (props) => {
-  const eyeIconStyle = style.eyeIconRecipe({
-    color: props.style?.color,
-    size: props.style?.size
+const EyeIcon: React.FC<EyeIconProps> = ({ showPassword, onClick, style }) => {
+  const eyeIconStyle = styles.eyeIconRecipe({
+    color: style?.color,
+    size: style?.size
   })
 
   const eyeOpenIcon = (
     <svg
       className={eyeIconStyle}
       data-testid="eye-open-icon"
-      onClick={props.onClick}
+      onClick={onClick}
       viewBox="0 0 60 48"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -37,7 +37,7 @@ const EyeIcon: React.FC<EyeIconProps> = (props) => {
     <svg
       className={eyeIconStyle}
       data-testid="eye-closed-icon"
-      onClick={props.onClick}
+      onClick={onClick}
       viewBox="0 0 60 48"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -49,7 +49,7 @@ const EyeIcon: React.FC<EyeIconProps> = (props) => {
     </svg>
   )
 
-  return props.showPassword ? eyeClosedIcon : eyeOpenIcon
+  return showPassword ? eyeClosedIcon : eyeOpenIcon
 }
 
 export default EyeIcon

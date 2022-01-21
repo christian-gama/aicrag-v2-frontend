@@ -9,17 +9,22 @@ type ChevronIconProps = {
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-const ChevronIcon: React.FC<ChevronIconProps> = (props) => {
+const ChevronIcon: React.FC<ChevronIconProps> = ({
+  direction,
+  color,
+  onClick,
+  size
+}) => {
   const chevronStyle = style.chevronIconRecipe({
-    color: props.color,
-    direction: props.direction,
-    size: props.size
+    color: color,
+    direction: direction,
+    size: size
   })
 
   return (
     <div
       className={style.chevronIconHitbox}
-      onClick={props.onClick}
+      onClick={onClick}
       data-testid={'chevron-icon'}
     >
       <svg

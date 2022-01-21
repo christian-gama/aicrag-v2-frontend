@@ -7,10 +7,10 @@ type CloseIconProps = {
   size?: CloseIconVariants['size']
 }
 
-const CloseIcon: React.FC<CloseIconProps> = (props) => {
+const CloseIcon: React.FC<CloseIconProps> = ({ color, size }) => {
   const closeIconStyle = style.closeIconRecipe({
-    color: props.color,
-    size: props.size
+    color,
+    size
   })
 
   return (

@@ -1,10 +1,10 @@
 import React from 'react'
 import * as style from './stylesheet'
 
-const Tbody: React.FC = (props) => {
+const Tbody: React.FC = ({ children }) => {
   return (
     <tbody className={style.tableBody} data-testid="table-tbody">
-      {props.children}
+      {children}
     </tbody>
   )
 }

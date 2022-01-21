@@ -1,5 +1,5 @@
 import React from 'react'
-import * as style from './stylesheet'
+import * as styles from './stylesheet'
 import { LoadingSpinnerVariants } from './stylesheet'
 
 type LoadingSpinnerIconProps = {
@@ -10,9 +10,9 @@ type LoadingSpinnerIconProps = {
   }
 }
 
-const LoadingSpinnerIcon: React.FC<LoadingSpinnerIconProps> = (props) => {
-  const loadingSpinnerStyle = style.loadingSpinnerIconRecipe({
-    ...props.style
+const LoadingSpinnerIcon: React.FC<LoadingSpinnerIconProps> = ({ style }) => {
+  const loadingSpinnerStyle = styles.loadingSpinnerIconRecipe({
+    ...style
   })
 
   return (

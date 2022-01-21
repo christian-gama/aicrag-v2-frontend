@@ -8,8 +8,12 @@ type BackdropProps = {
   onDismiss?: VoidFunction
 }
 
-const Backdrop: React.FC<BackdropProps> = (props) => {
-  const { dismissOnClickHandler, isOpenState } = useBackdrop(props)
+const Backdrop: React.FC<BackdropProps> = ({ children, isOpen, onDismiss }) => {
+  const { dismissOnClickHandler, isOpenState } = useBackdrop({
+    children,
+    isOpen,
+    onDismiss
+  })
 
   const element = isOpenState && (
     <div
@@ -17,7 +21,7 @@ const Backdrop: React.FC<BackdropProps> = (props) => {
       data-testid="backdrop"
       onClick={dismissOnClickHandler}
     >
-      {props.children}
+      {children}
     </div>
   )
 

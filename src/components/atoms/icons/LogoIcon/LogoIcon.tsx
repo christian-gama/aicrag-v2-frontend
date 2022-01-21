@@ -7,10 +7,10 @@ type LogoIconProps = {
   size?: LogoIconVariants['size']
 }
 
-const LogoIcon: React.FC<LogoIconProps> = (props) => {
+const LogoIcon: React.FC<LogoIconProps> = ({ children, color, size }) => {
   const iconStyle = style.logoIconRecipe({
-    color: props.color,
-    size: props.size
+    color,
+    size
   })
 
   return (

@@ -7,16 +7,19 @@ type HorizontalScrollBarProps = {
   width?: string
 }
 
-const HorizontalScrollBar: React.FC<HorizontalScrollBarProps> = (props) => {
+const HorizontalScrollBar: React.FC<HorizontalScrollBarProps> = ({
+  children,
+  width
+}) => {
   return (
     <div
       className={style.horizontalScrollBar}
       data-testid="horizontal-scroll-bar"
       style={assignInlineVars(horizontalScrollBarVars, {
-        width: props.width ?? '100%'
+        width: width ?? '100%'
       })}
     >
-      {props.children}
+      {children}
     </div>
   )
 }

@@ -9,18 +9,24 @@ type CalendarTimerInputProps = {
   onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
-const CalendarTimerInput: React.FC<CalendarTimerInputProps> = (props) => {
+const CalendarTimerInput: React.FC<CalendarTimerInputProps> = ({
+  name,
+  onBlur,
+  onChange,
+  onKeyDown,
+  value
+}) => {
   return (
     <input
       className={style.calendarTimerInput}
-      data-testid={`calendar-${props.name}`}
-      id={`calendar-${props.name}`}
-      name={`calendar-${props.name}`}
-      onBlur={props.onBlur}
-      onChange={props.onChange}
-      onKeyDown={props.onKeyDown}
+      data-testid={`calendar-${name}`}
+      id={`calendar-${name}`}
+      name={`calendar-${name}`}
+      onBlur={onBlur}
+      onChange={onChange}
+      onKeyDown={onKeyDown}
       type="text"
-      value={props.value}
+      value={value}
     />
   )
 }

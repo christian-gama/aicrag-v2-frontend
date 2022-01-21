@@ -6,10 +6,10 @@ type MenuProps = {
   buttons: Array<{ buttonName: string, to: string, active?: boolean }>
 }
 
-const Menu: React.FC<MenuProps> = (props) => {
+const Menu: React.FC<MenuProps> = ({ buttons }) => {
   return (
     <div className={style.menu} data-testid="menu">
-      {props.buttons.map(({ buttonName, to, active }, index) => {
+      {buttons.map(({ buttonName, to, active }, index) => {
         const menuButtonStyle = style.menuButtonRecipe({
           active: !!active
         })

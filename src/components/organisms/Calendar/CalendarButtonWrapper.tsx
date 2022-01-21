@@ -7,9 +7,10 @@ type CalendarButtonWrapperProps = {
   onConfirmHandler: () => void
 }
 
-const CalendarButtonWrapper: React.FC<CalendarButtonWrapperProps> = (props) => {
-  const { onCancelHandler, onConfirmHandler } = props
-
+const CalendarButtonWrapper: React.FC<CalendarButtonWrapperProps> = ({
+  onCancelHandler,
+  onConfirmHandler
+}) => {
   return (
     <div className={style.calendarButtonWrapper}>
       <Button

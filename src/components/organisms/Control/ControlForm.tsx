@@ -11,7 +11,13 @@ type ControlFormProps = {
   submitHandler: () => Promise<void>
 }
 
-const ControlForm: React.FC<ControlFormProps> = (props) => {
+const ControlForm: React.FC<ControlFormProps> = ({
+  submitHandler,
+  children,
+  loading,
+  successMessage,
+  validator
+}) => {
   const {
     error,
     isErrorPopoverOpen,
@@ -22,12 +28,18 @@ const ControlForm: React.FC<ControlFormProps> = (props) => {
     onCloseErrorPopover,
     onCloseSuccessPopover,
     onSubmitHandler
-  } = useControlForm(props)
+  } = useControlForm({
+    submitHandler,
+    children,
+    loading,
+    successMessage,
+    validator
+  })
 
   return (
     <>
       <form onSubmit={onSubmitHandler} data-testid="form">
-        {props.children}
+        {children}
       </form>
 
       {!isValid && error && (
@@ -49,12 +61,12 @@ const ControlForm: React.FC<ControlFormProps> = (props) => {
             onCloseSuccessPopover
           }
           isOpen={isSuccessPopoverOpen}
-          message={props.successMessage ?? 'Formulário bem sucedido'}
+          message={successMessage ?? 'Formulário bem sucedido'}
           type="success"
         />
       )}
 
-      {<ProgressBar loading={props.loading ?? isSubmitting} />}
+      {<ProgressBar loading={loading ?? isSubmitting} />}
     </>
   )
 }

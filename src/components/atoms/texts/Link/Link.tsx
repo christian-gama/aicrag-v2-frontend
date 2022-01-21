@@ -4,10 +4,10 @@ import * as style from './stylesheet'
 
 type LinkProps = ComponentPropsWithRef<typeof RouterLink>
 
-const Link: React.FC<LinkProps> = (props) => {
+const Link: React.FC<LinkProps> = ({ children, ...rest }) => {
   return (
-    <RouterLink className={style.link} data-testid="link" {...props}>
-      {props.children}
+    <RouterLink className={style.link} data-testid="link" {...rest}>
+      {children}
     </RouterLink>
   )
 }

@@ -8,7 +8,7 @@ import LogoIcon from '@/components/atoms/icons/LogoIcon'
 import Menu from '@/components/molecules/Menu'
 import * as style from './stylesheet'
 
-const EntryCard: React.FC = (props) => {
+const EntryCard: React.FC = ({ children }) => {
   const { width, height } = useWindowDimensions()
   const location = useLocation()
 
@@ -43,7 +43,7 @@ const EntryCard: React.FC = (props) => {
               />
             </nav>
 
-            <main>{props.children}</main>
+            <main>{children}</main>
           </div>
         </Card>
       </div>

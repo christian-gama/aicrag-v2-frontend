@@ -9,19 +9,19 @@ type TableProps = {
   }
 }
 
-const Table: React.FC<TableProps> = (props) => {
+const Table: React.FC<TableProps> = ({ children, showingUp }) => {
   return (
     <>
-      {props.showingUp && (
+      {showingUp && (
         <span
           className={style.tableSpanShowingup}
           data-testid="table-showing-up"
-        >{`Mostrando ${props.showingUp?.current} de ${props.showingUp.total}`}</span>
+        >{`Mostrando ${showingUp?.current} de ${showingUp.total}`}</span>
       )}
 
       <HorizontalScrollBar>
         <table className={style.tableStyle} data-testid="table">
-          {props.children}
+          {children}
         </table>
       </HorizontalScrollBar>
     </>

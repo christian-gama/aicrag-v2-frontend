@@ -10,7 +10,7 @@ import H2 from '@/components/atoms/texts/H2'
 import H3 from '@/components/atoms/texts/H3'
 import * as style from './stylesheet'
 
-const ForgotPasswordCard: React.FC = (props) => {
+const ForgotPasswordCard: React.FC = ({ children }) => {
   const { width, height } = useWindowDimensions()
 
   return (
@@ -43,7 +43,7 @@ const ForgotPasswordCard: React.FC = (props) => {
 
             <Divider />
 
-            <main>{props.children}</main>
+            <main>{children}</main>
           </div>
         </Card>
       </div>

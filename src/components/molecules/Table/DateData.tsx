@@ -6,11 +6,11 @@ type DateDataProps = {
   secondaryDate: string
 }
 
-const DateData: React.FC<DateDataProps> = (props) => {
+const DateData: React.FC<DateDataProps> = ({ primaryDate, secondaryDate }) => {
   return (
     <div className={style.dateData} data-testid="table-date-data">
-      <span className={style.dateDataTextPrimary}>{props.primaryDate}</span>
-      <span>{props.secondaryDate}</span>
+      <span className={style.dateDataTextPrimary}>{primaryDate}</span>
+      <span>{secondaryDate}</span>
     </div>
   )
 }

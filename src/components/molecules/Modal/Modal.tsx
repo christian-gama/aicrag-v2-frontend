@@ -10,15 +10,20 @@ type ModalProps = {
   onDismiss?: VoidFunction
 }
 
-const Modal: React.FC<ModalProps> = (props) => {
+const Modal: React.FC<ModalProps> = ({
+  children,
+  direction,
+  isOpen,
+  onDismiss
+}) => {
   const modalStyle = style.modalRecipe({
-    direction: props.direction
+    direction
   })
 
   return (
-    <Backdrop {...props}>
+    <Backdrop isOpen={isOpen} onDismiss={onDismiss}>
       <div className={modalStyle} data-testid="modal">
-        <Card>{props.children}</Card>
+        <Card>{children}</Card>
       </div>
     </Backdrop>
   )

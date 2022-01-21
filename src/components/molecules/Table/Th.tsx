@@ -1,10 +1,10 @@
 import React from 'react'
 import * as style from './stylesheet'
 
-const Th: React.FC = (props) => {
+const Th: React.FC = ({ children }) => {
   return (
     <th className={style.tableCell} data-testid="table-th">
-      {props.children}
+      {children}
     </th>
   )
 }

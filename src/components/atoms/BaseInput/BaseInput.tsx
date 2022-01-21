@@ -16,21 +16,19 @@ type BaseInputProps = {
   icon?: () => React.ReactNode
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>
 
-const BaseInput: React.FC<BaseInputProps> = (props) => {
-  const {
-    error,
-    icon,
-    isFocused,
-    isTouched,
-    isValid,
-    label,
-    name,
-    type,
-    validator,
-    value,
-    ...rest
-  } = props
-
+const BaseInput: React.FC<BaseInputProps> = ({
+  error,
+  icon,
+  isFocused,
+  isTouched,
+  isValid,
+  label,
+  name,
+  type,
+  validator,
+  value,
+  ...rest
+}) => {
   const getState = (): style.LabelRecipeVariants['state'] => {
     if (validator) {
       if (!isValid && isTouched) {

@@ -7,10 +7,10 @@ type InfoCircleIconProps = {
   size?: InfoCircleIconRecipeVariants['size']
 }
 
-const InfoCircleIcon: React.FC<InfoCircleIconProps> = (props) => {
+const InfoCircleIcon: React.FC<InfoCircleIconProps> = ({ color, size }) => {
   const infoCircleStyle = style.infoCircleIconRecipe({
-    color: props.color,
-    size: props.size
+    color,
+    size
   })
 
   return (

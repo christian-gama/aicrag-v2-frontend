@@ -11,11 +11,11 @@ type BackgroundProps = {
   gradient?: BackgroundVariants['gradient']
 }
 
-const Background: React.FC<BackgroundProps> = (props) => {
+const Background: React.FC<BackgroundProps> = ({ children, gradient }) => {
   const { height } = useWindowDimensions()
 
   const backgroundStyle = backgroundRecipe({
-    gradient: !!props.gradient
+    gradient: !!gradient
   })
 
   return (
@@ -24,7 +24,7 @@ const Background: React.FC<BackgroundProps> = (props) => {
       data-testid="background"
       style={assignInlineVars(backgroundVars, { height: `${height}px` })}
     >
-      {props.children}
+      {children}
     </div>
   )
 }

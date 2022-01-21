@@ -24,27 +24,27 @@ const Popover: React.FC<PopoverProps> = ({
   message,
   type,
   minDuration = 3,
-  ...props
+  duration = getDuration(message, minDuration),
+  isOpen,
+  onClose
 }) => {
-  const duration = props.duration ?? getDuration(message, minDuration)
-
-  const [isOpen, setIsOpen] = useState(!!props.isOpen)
+  const [isOpenState, setIsOpenState] = useState(!!isOpen)
 
   useEffect(() => {
-    setIsOpen(!!props.isOpen)
-  }, [props.isOpen])
+    setIsOpenState(!!isOpen)
+  }, [isOpen])
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpenState) {
       const timer = setTimeout(() => {
-        setIsOpen(false)
+        setIsOpenState(false)
 
-        if (props.onClose) props.onClose()
+        if (onClose) onClose()
       }, duration * 1000)
 
       return () => clearTimeout(timer)
     }
-  }, [isOpen])
+  }, [isOpenState])
 
   const renderIcon = () => {
     switch (type) {
@@ -69,7 +69,7 @@ const Popover: React.FC<PopoverProps> = ({
     type
   })
 
-  if (!isOpen) return null
+  if (!isOpenState) return null
 
   const overlayRoot = document.getElementById('overlay-root') as HTMLElement
 
@@ -94,8 +94,8 @@ const Popover: React.FC<PopoverProps> = ({
         <div
           className={style.popoverButtonWrapper}
           onClick={() => {
-            if (props.onClose) props.onClose()
-            setIsOpen(false)
+            if (onClose) onClose()
+            setIsOpenState(false)
           }}
           data-testid="popover-close-wrapper"
         >

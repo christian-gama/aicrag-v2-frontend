@@ -7,10 +7,10 @@ type CheckCircleIconProps = {
   size?: CheckCircleIconVariants['size']
 }
 
-const CheckCircleIcon: React.FC<CheckCircleIconProps> = (props) => {
+const CheckCircleIcon: React.FC<CheckCircleIconProps> = ({ color, size }) => {
   const checkIconStyle = style.checkCircleIconRecipe({
-    color: props.color,
-    size: props.size
+    color,
+    size
   })
 
   return (

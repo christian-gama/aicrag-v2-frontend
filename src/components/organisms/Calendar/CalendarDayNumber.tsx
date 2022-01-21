@@ -10,9 +10,13 @@ type CalendarDayNumberProps = {
   onClick?: (dayNumber: number) => void
 }
 
-const CalendarDayNumber: React.FC<CalendarDayNumberProps> = (props) => {
-  const { dimmed, onClick, selected, testid, dayNumber } = props
-
+const CalendarDayNumber: React.FC<CalendarDayNumberProps> = ({
+  dimmed,
+  onClick,
+  selected,
+  testid,
+  dayNumber
+}) => {
   return (
     <span
       data-testid={testid}

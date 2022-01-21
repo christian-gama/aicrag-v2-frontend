@@ -19,9 +19,19 @@ React.InputHTMLAttributes<HTMLInputElement>,
  */
 const ControlInput: React.FC<
 Omit<ControlInputProps, 'uniqueFormName' | 'validation'>
-> = (props: ControlInputProps) => {
-  const { icon, name, type, autoFocus, label } = props
-
+> = ({
+  icon,
+  name,
+  type,
+  autoFocus,
+  label,
+  autoComplete,
+  defaultValue,
+  onBlur,
+  onChange,
+  onFocus,
+  readOnly
+}: ControlInputProps) => {
   const {
     currentType,
     error,
@@ -35,7 +45,18 @@ Omit<ControlInputProps, 'uniqueFormName' | 'validation'>
     showPasswordHandler,
     validator,
     value
-  } = useControlInput(props)
+  } = useControlInput({
+    label,
+    name,
+    autoFocus,
+    defaultValue,
+    icon,
+    onBlur,
+    onChange,
+    onFocus,
+    readOnly,
+    type
+  })
 
   const shouldRenderIcon = type === 'password' || icon
 

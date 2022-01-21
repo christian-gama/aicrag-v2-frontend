@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Thead: React.FC = (props) => {
-  return <thead data-testid="table-thead">{props.children}</thead>
+const Thead: React.FC = ({ children }) => {
+  return <thead data-testid="table-thead">{children}</thead>
 }
 
 export default Thead
