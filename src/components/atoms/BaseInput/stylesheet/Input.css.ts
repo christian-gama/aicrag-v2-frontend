@@ -162,5 +162,9 @@ export const labelRecipe = recipe({
   }
 })
 
-export type LabelRecipeVariants = NonNullable<RecipeVariants<typeof labelRecipe>>
-export type InputRecipeVariants = NonNullable<RecipeVariants<typeof inputRecipe>>
+export type LabelRecipeVariants = NonNullable<
+RecipeVariants<typeof labelRecipe>
+>
+export type InputRecipeVariants = NonNullable<
+RecipeVariants<typeof inputRecipe>
+>

@@ -12,7 +12,9 @@ describe('minValidator', () => {
     const input = { field: 4 }
     const result = sut.validate(input)
 
-    expect(result).toStrictEqual(new InvalidFieldError('field', 'deve ser maior ou igual a 5'))
+    expect(result).toStrictEqual(
+      new InvalidFieldError('field', 'deve ser maior ou igual a 5')
+    )
   })
 
   it('should return undefined if field is lesser than min', () => {

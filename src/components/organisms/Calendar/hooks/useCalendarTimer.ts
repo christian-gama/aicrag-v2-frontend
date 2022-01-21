@@ -13,10 +13,16 @@ const useCalendarTimer = () => {
   const validation = makeTimerValidator()
 
   const dispatch = useDispatch<AppDispatch>()
-  const selectedDate = useSelector<RootState, CalendarStates['selectedDate']>((state) => state.calendar.selectedDate)
+  const selectedDate = useSelector<RootState, CalendarStates['selectedDate']>(
+    (state) => state.calendar.selectedDate
+  )
 
-  const [hours, setHours] = useState(getFormattedTime(DateTime.fromMillis(selectedDate).hour))
-  const [minutes, setMinutes] = useState(getFormattedTime(DateTime.fromMillis(selectedDate).minute))
+  const [hours, setHours] = useState(
+    getFormattedTime(DateTime.fromMillis(selectedDate).hour)
+  )
+  const [minutes, setMinutes] = useState(
+    getFormattedTime(DateTime.fromMillis(selectedDate).minute)
+  )
 
   useEffect(() => {
     const transformedTime = DateTime.fromMillis(selectedDate)
@@ -44,10 +50,14 @@ const useCalendarTimer = () => {
 
     switch (name) {
       case 'calendar-hour':
-        return !validation.validate('hour', { hour: value }) ? setHours(value) : undefined
+        return !validation.validate('hour', { hour: value })
+          ? setHours(value)
+          : undefined
 
       case 'calendar-minute':
-        return !validation.validate('minute', { minute: value }) ? setMinutes(value) : undefined
+        return !validation.validate('minute', { minute: value })
+          ? setMinutes(value)
+          : undefined
     }
   }
 
@@ -57,13 +67,37 @@ const useCalendarTimer = () => {
     switch (event.key) {
       case 'ArrowUp':
         return name === 'calendar-hour'
-          ? setHours((prevHours) => timerIncreaser({ increase: true, prevTime: prevHours, type: 'hour' }))
-          : setMinutes((prevMinutes) => timerIncreaser({ increase: true, prevTime: prevMinutes, type: 'minute' }))
+          ? setHours((prevHours) =>
+            timerIncreaser({
+              increase: true,
+              prevTime: prevHours,
+              type: 'hour'
+            })
+          )
+          : setMinutes((prevMinutes) =>
+            timerIncreaser({
+              increase: true,
+              prevTime: prevMinutes,
+              type: 'minute'
+            })
+          )
 
       case 'ArrowDown':
         return name === 'calendar-hour'
-          ? setHours((prevHours) => timerIncreaser({ increase: false, prevTime: prevHours, type: 'hour' }))
-          : setMinutes((prevMinutes) => timerIncreaser({ increase: false, prevTime: prevMinutes, type: 'minute' }))
+          ? setHours((prevHours) =>
+            timerIncreaser({
+              increase: false,
+              prevTime: prevHours,
+              type: 'hour'
+            })
+          )
+          : setMinutes((prevMinutes) =>
+            timerIncreaser({
+              increase: false,
+              prevTime: prevMinutes,
+              type: 'minute'
+            })
+          )
     }
   }
 

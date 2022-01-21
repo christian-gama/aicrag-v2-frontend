@@ -12,7 +12,9 @@ describe('isEqualToValidator', () => {
     const input = { field: 'any_value' }
     const result = sut.validate(input)
 
-    expect(result).toStrictEqual(new InvalidFieldError('field', 'deve ser igual a different_value'))
+    expect(result).toStrictEqual(
+      new InvalidFieldError('field', 'deve ser igual a different_value')
+    )
   })
 
   it('should return an InvalidFieldError if field is not equal to one of the valueToCompare', () => {
@@ -21,7 +23,10 @@ describe('isEqualToValidator', () => {
     const result = sut.validate(input)
 
     expect(result).toStrictEqual(
-      new InvalidFieldError('field', 'deve ser igual a um dos valores: different_value, other_value')
+      new InvalidFieldError(
+        'field',
+        'deve ser igual a um dos valores: different_value, other_value'
+      )
     )
   })
 

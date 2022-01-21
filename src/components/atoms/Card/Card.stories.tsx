@@ -13,7 +13,8 @@ export default {
             width: '33%',
             height: '33%',
             backgroundColor: 'orangered'
-          }}></div>
+          }}
+        ></div>
       </div>
     )
   },
@@ -25,7 +26,8 @@ export default {
           width: '100vw',
           height: '100vh',
           padding: '1.2rem'
-        }}>
+        }}
+      >
         {story()}
       </div>
     )

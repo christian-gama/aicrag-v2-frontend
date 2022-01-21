@@ -1,5 +1,12 @@
 import makeValidationMock from '@/../tests/mocks/validator.mock'
-import { render, fireEvent, screen, act, cleanup, waitFor } from '@testing-library/react'
+import {
+  render,
+  fireEvent,
+  screen,
+  act,
+  cleanup,
+  waitFor
+} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React, { ComponentPropsWithRef } from 'react'
 import FormProvider from '@/context/models/form/form.provider'
@@ -7,7 +14,11 @@ import OverlayRoot from '@/tests/helpers/overlayRoot'
 import ControlForm from '../ControlForm'
 import ControlInput from '../ControlInput'
 
-const makeSut = ({ submitHandler, children, validator }: ComponentPropsWithRef<typeof ControlForm>) => {
+const makeSut = ({
+  submitHandler,
+  children,
+  validator
+}: ComponentPropsWithRef<typeof ControlForm>) => {
   render(
     <FormProvider>
       <ControlForm submitHandler={submitHandler} validator={validator}>

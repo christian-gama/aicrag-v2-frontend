@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useForgotPasswordMutation, useSendRecoverPasswordEmailMutation } from '@/services/api'
+import {
+  useForgotPasswordMutation,
+  useSendRecoverPasswordEmailMutation
+} from '@/services/api'
 import FormContext from '@/context/models/form/form.context'
 import Button from '@/components/atoms/Button'
 import ControlForm from '@/components/organisms/Control/ControlForm'
@@ -27,7 +30,8 @@ const ForgotPasswordForm: React.FC = () => {
   }, [startCountdown])
 
   const [forgotPassword, { loading }] = useForgotPasswordMutation()
-  const [sendRecoverPasswordEmail, { loading: loadingRecover }] = useSendRecoverPasswordEmailMutation()
+  const [sendRecoverPasswordEmail, { loading: loadingRecover }] =
+    useSendRecoverPasswordEmailMutation()
 
   const { state } = useContext(FormContext)
 

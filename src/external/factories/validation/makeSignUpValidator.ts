@@ -10,7 +10,12 @@ const makeSignUpValidator = (): ValidatorComposite => {
       .build(),
     ...Builder.field('email').required().isEmail().build(),
     ...Builder.field('password').required().minLength(6).maxLength(32).build(),
-    ...Builder.field('passwordConfirmation').required().minLength(6).maxLength(32).sameAs('password').build()
+    ...Builder.field('passwordConfirmation')
+      .required()
+      .minLength(6)
+      .maxLength(32)
+      .sameAs('password')
+      .build()
   ])
 }
 

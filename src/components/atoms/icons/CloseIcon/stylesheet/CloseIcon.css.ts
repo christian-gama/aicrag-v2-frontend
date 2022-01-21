@@ -29,4 +29,6 @@ export const closeIconRecipe = recipe({
   }
 })
 
-export type CloseIconVariants = NonNullable<RecipeVariants<typeof closeIconRecipe>>
+export type CloseIconVariants = NonNullable<
+RecipeVariants<typeof closeIconRecipe>
+>

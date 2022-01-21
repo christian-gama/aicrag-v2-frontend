@@ -236,7 +236,9 @@ type Mutation {
   logout: Logout!
   resetPassword(input: ResetPasswordInput!): ResetPassword!
   sendEmailPin(input: SendEmailPinInput!): SendEmailPin!
-  sendRecoverPasswordEmail(input: SendRecoverPasswordEmailInput!): SendRecoverPasswordEmail!
+  sendRecoverPasswordEmail(
+    input: SendRecoverPasswordEmailInput!
+  ): SendRecoverPasswordEmail!
   sendWelcomeEmail(input: SendWelcomeEmailInput!): SendWelcomeEmail!
   signUp(input: SignUpInput!): SignUp!
   updateEmailByPin(input: UpdateEmailByCodeInput!): UpdateEmailByCode!
@@ -265,13 +267,18 @@ type PublicUserSettings {
 type Query {
   empty: String
   findAllTasks(query: FindAllTasksQueries!): FindAllTasks!
-  findAllUserTasks(param: FindAllUserTasksParam!, query: FindAllUserTasksQueries!): FindAllUserTasks!
+  findAllUserTasks(
+    param: FindAllUserTasksParam!
+    query: FindAllUserTasksQueries!
+  ): FindAllUserTasks!
   findAllUsers(query: FindAllUsersQueries!): FindAllUsers!
   findOneTask(param: FindOneTaskParam!): FindOneTask!
   getAllInvoices(query: GetAllInvoicesQueries!): GetAllInvoices!
   getInvoiceByMonth(query: GetInvoiceByMonthQueries!): GetInvoiceByMonth!
   getMe: GetMe!
-  verifyResetPasswordToken(param: VerifyResetPasswordTokenInput!): VerifyResetPasswordToken!
+  verifyResetPasswordToken(
+    param: VerifyResetPasswordTokenInput!
+  ): VerifyResetPasswordToken!
 }
 
 type ResetPassword {

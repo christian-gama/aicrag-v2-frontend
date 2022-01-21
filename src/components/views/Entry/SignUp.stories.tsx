@@ -12,7 +12,10 @@ export default {
   component: SignUpComponent,
   decorators: [
     (story) => (
-      <MockedProvider mocks={[signUpMock(), sendWelcomeEmailMock()]} addTypename={false}>
+      <MockedProvider
+        mocks={[signUpMock(), sendWelcomeEmailMock()]}
+        addTypename={false}
+      >
         <FormProvider>
           <MemoryRouter>
             <Routes>

@@ -9,7 +9,10 @@ class MaxValidator implements IFieldValidation {
     const fieldValue = input[this.field]
 
     if (+fieldValue > this.min) {
-      return new InvalidFieldError(this.field, `deve ser menor ou igual a ${this.min}`)
+      return new InvalidFieldError(
+        this.field,
+        `deve ser menor ou igual a ${this.min}`
+      )
     }
   }
 }

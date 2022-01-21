@@ -12,7 +12,9 @@ describe('isNumberValidator', () => {
     const input = { field: 'any_value' }
     const result = sut.validate(input)
 
-    expect(result).toStrictEqual(new InvalidFieldError('field', 'deve ser um número'))
+    expect(result).toStrictEqual(
+      new InvalidFieldError('field', 'deve ser um número')
+    )
   })
 
   it('should return undefined if field is a number', () => {

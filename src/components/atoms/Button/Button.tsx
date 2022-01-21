@@ -13,7 +13,9 @@ type ButtonProps = {
   loading?: boolean
   testid?: string
   type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type']
-  onClick?: (event?: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => void
+  onClick?: (
+    event?: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => void
 }
 
 const Button: React.FC<ButtonProps> = (props) => {

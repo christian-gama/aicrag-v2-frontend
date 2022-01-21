@@ -273,7 +273,8 @@ export const buttonRecipe = recipe({
     fontSize: vars.font.button.fontSize,
     justifyContent: 'center',
     textTransform: vars.font.button.textTransform,
-    transition: 'background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out'
+    transition:
+      'background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out'
   },
 
   variants: {

@@ -13,7 +13,9 @@ describe('emailValidator', () => {
     const input = { field: 'invalid@email' }
     const result = sut.validate(input)
 
-    expect(result).toStrictEqual(new InvalidFieldError('field', 'deve ser um email válido'))
+    expect(result).toStrictEqual(
+      new InvalidFieldError('field', 'deve ser um email válido')
+    )
   })
 
   it('should return undefined if field is an email', () => {

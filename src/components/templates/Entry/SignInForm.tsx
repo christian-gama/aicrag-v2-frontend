@@ -16,11 +16,17 @@ const SignInForm: React.FC = () => {
 
   const onSubmitHandler = async () => {
     const response = await login({
-      variables: { email: state.form.data.email, password: state.form.data.password }
+      variables: {
+        email: state.form.data.email,
+        password: state.form.data.password
+      }
     })
 
-    // @ts-expect-error
-    if (response.data?.login?.accessToken && !response.data?.login?.refreshToken) {
+    if (
+      response.data?.login?.accessToken &&
+      // @ts-expect-error
+      !response.data?.login?.refreshToken
+    ) {
       auth.partialLogin()
     }
 
@@ -45,7 +51,12 @@ const SignInForm: React.FC = () => {
         </div>
 
         <div className={style.signInFormButtonWrapper}>
-          <Button type="submit" style={{ size: 'lg' }} loading={loading} testid="submit-button">
+          <Button
+            type="submit"
+            style={{ size: 'lg' }}
+            loading={loading}
+            testid="submit-button"
+          >
             Acessar
           </Button>
         </div>

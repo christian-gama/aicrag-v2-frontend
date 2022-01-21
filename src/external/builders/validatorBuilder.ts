@@ -10,7 +10,10 @@ import Regex from '@/services/validators/regex'
 import RequiredFieldValidator from '@/services/validators/requiredFieldValidator'
 
 class ValidatorBuilder {
-  private constructor (private readonly field: string, private readonly validations: IFieldValidation[]) {}
+  private constructor (
+    private readonly field: string,
+    private readonly validations: IFieldValidation[]
+  ) {}
 
   static field (field: string): ValidatorBuilder {
     return new ValidatorBuilder(field, [])

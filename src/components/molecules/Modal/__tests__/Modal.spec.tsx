@@ -3,7 +3,10 @@ import { cleanup, render, screen } from '@testing-library/react'
 import React from 'react'
 import Modal from '..'
 
-const makeSut = (config?: { isOpen?: boolean, onDismiss?: VoidFunction }): void => {
+const makeSut = (config?: {
+  isOpen?: boolean
+  onDismiss?: VoidFunction
+}): void => {
   if (config?.isOpen === undefined) {
     config = { ...config, isOpen: true }
   }

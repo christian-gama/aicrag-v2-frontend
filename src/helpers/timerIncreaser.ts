@@ -1,6 +1,10 @@
 import getFormattedTime from './getFormattedTime'
 
-const timerIncreaser = (config: { type: 'hour' | 'minute', prevTime: string, increase: boolean }): string => {
+const timerIncreaser = (config: {
+  type: 'hour' | 'minute'
+  prevTime: string
+  increase: boolean
+}): string => {
   const { type, prevTime, increase } = config
 
   if (increase) {

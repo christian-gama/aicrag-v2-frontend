@@ -19,7 +19,9 @@ const ForgotPasswordCard: React.FC = (props) => {
         <Card roundness={width <= 520 ? 'none' : 'sm'}>
           <div
             className={style.forgotPassword}
-            style={assignInlineVars(style.windowDimensionVars, { height: `${height}px` })}
+            style={assignInlineVars(style.windowDimensionVars, {
+              height: `${height}px`
+            })}
           >
             <header className={style.forgotPasswordHeader}>
               <nav>
@@ -28,7 +30,15 @@ const ForgotPasswordCard: React.FC = (props) => {
                 </Link>
               </nav>
 
-              <div>{width < 520 ? <H3>Esqueceu sua senha?</H3> : <H2>Esqueceu sua senha?</H2>}</div>
+              <div>
+                {width < 520
+                  ? (
+                  <H3>Esqueceu sua senha?</H3>
+                    )
+                  : (
+                  <H2>Esqueceu sua senha?</H2>
+                    )}
+              </div>
             </header>
 
             <Divider />

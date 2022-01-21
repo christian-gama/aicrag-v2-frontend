@@ -5,7 +5,8 @@ import useCalendarTimer from './hooks/useCalendarTimer'
 import * as style from './stylesheet'
 
 const CalendarTimer: React.FC = () => {
-  const { hours, minutes, onBlurHandler, onChangeHandler, onKeyDownHandler } = useCalendarTimer()
+  const { hours, minutes, onBlurHandler, onChangeHandler, onKeyDownHandler } =
+    useCalendarTimer()
 
   return (
     <div className={style.calendarTimer} data-testid="calendar-timer">

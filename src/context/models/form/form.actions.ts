@@ -1,6 +1,9 @@
 import { FormStates, FormActionPayload } from './protocols/form.model'
 
-export const setFormValidator = (state: FormStates, action: FormActionPayload) => {
+export const setFormValidator = (
+  state: FormStates,
+  action: FormActionPayload
+) => {
   return {
     ...state,
     form: {
@@ -10,7 +13,10 @@ export const setFormValidator = (state: FormStates, action: FormActionPayload) =
   }
 }
 
-export const setIsResetting = (state: FormStates, action: FormActionPayload) => {
+export const setIsResetting = (
+  state: FormStates,
+  action: FormActionPayload
+) => {
   return {
     ...state,
     form: {
@@ -46,7 +52,10 @@ export const resetForm = (): FormStates => {
   }
 }
 
-export const setFormError = (state: FormStates, action: FormActionPayload): FormStates => {
+export const setFormError = (
+  state: FormStates,
+  action: FormActionPayload
+): FormStates => {
   return {
     ...state,
     form: {
@@ -56,35 +65,78 @@ export const setFormError = (state: FormStates, action: FormActionPayload): Form
   }
 }
 
-export const setFormIsValid = (state: FormStates, action: FormActionPayload): FormStates => {
+export const setFormIsValid = (
+  state: FormStates,
+  action: FormActionPayload
+): FormStates => {
   return { ...state, form: { ...state.form, isValid: action.payload.isValid! } }
 }
 
-export const setFormIsDirty = (state: FormStates, action: FormActionPayload): FormStates => {
+export const setFormIsDirty = (
+  state: FormStates,
+  action: FormActionPayload
+): FormStates => {
   return { ...state, form: { ...state.form, isDirty: action.payload.isDirty! } }
 }
 
-export const setFormIsChanging = (state: FormStates, action: FormActionPayload): FormStates => {
-  return { ...state, form: { ...state.form, isChanging: action.payload.isChanging!, isResetting: false } }
+export const setFormIsChanging = (
+  state: FormStates,
+  action: FormActionPayload
+): FormStates => {
+  return {
+    ...state,
+    form: {
+      ...state.form,
+      isChanging: action.payload.isChanging!,
+      isResetting: false
+    }
+  }
 }
 
-export const setIsFocused = (state: FormStates, action: FormActionPayload): FormStates => {
-  return { ...state, form: { ...state.form, isFocused: action.payload.isFocused! } }
+export const setIsFocused = (
+  state: FormStates,
+  action: FormActionPayload
+): FormStates => {
+  return {
+    ...state,
+    form: { ...state.form, isFocused: action.payload.isFocused! }
+  }
 }
 
-export const setFormIsSubmitting = (state: FormStates, action: FormActionPayload): FormStates => {
-  return { ...state, form: { ...state.form, isSubmitting: action.payload.isSubmitting! } }
+export const setFormIsSubmitting = (
+  state: FormStates,
+  action: FormActionPayload
+): FormStates => {
+  return {
+    ...state,
+    form: { ...state.form, isSubmitting: action.payload.isSubmitting! }
+  }
 }
 
-export const setFormIsSubmitted = (state: FormStates, action: FormActionPayload): FormStates => {
-  return { ...state, form: { ...state.form, isSubmitted: action.payload.isSubmitted! } }
+export const setFormIsSubmitted = (
+  state: FormStates,
+  action: FormActionPayload
+): FormStates => {
+  return {
+    ...state,
+    form: { ...state.form, isSubmitted: action.payload.isSubmitted! }
+  }
 }
 
-export const setFormIsValidating = (state: FormStates, action: FormActionPayload): FormStates => {
-  return { ...state, form: { ...state.form, isValidating: action.payload.isValidating! } }
+export const setFormIsValidating = (
+  state: FormStates,
+  action: FormActionPayload
+): FormStates => {
+  return {
+    ...state,
+    form: { ...state.form, isValidating: action.payload.isValidating! }
+  }
 }
 
-export const setFormData = (state: FormStates, action: FormActionPayload): FormStates => {
+export const setFormData = (
+  state: FormStates,
+  action: FormActionPayload
+): FormStates => {
   return {
     ...state,
     form: {

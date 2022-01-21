@@ -1,4 +1,8 @@
-mutation UpdateMe($currency: UserCurrency, $email: EmailAddress, $name: String) {
+mutation UpdateMe(
+  $currency: UserCurrency
+  $email: EmailAddress
+  $name: String
+) {
   updateMe(input: { currency: $currency, email: $email, name: $name }) {
     ... on UpdateMeHasChanges {
       user {

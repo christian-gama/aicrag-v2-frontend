@@ -115,4 +115,6 @@ export const modalRecipe = recipe({
   }
 })
 
-export type ModalRecipeVariants = NonNullable<RecipeVariants<typeof modalRecipe>>
+export type ModalRecipeVariants = NonNullable<
+RecipeVariants<typeof modalRecipe>
+>

@@ -46,4 +46,6 @@ export const calendarDayNumberRecipe = recipe({
   }
 })
 
-export type CalendarDayNumberVariants = NonNullable<RecipeVariants<typeof calendarDayNumberRecipe>>
+export type CalendarDayNumberVariants = NonNullable<
+RecipeVariants<typeof calendarDayNumberRecipe>
+>

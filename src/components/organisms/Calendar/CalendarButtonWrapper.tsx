@@ -22,7 +22,11 @@ const CalendarButtonWrapper: React.FC<CalendarButtonWrapperProps> = (props) => {
 
       <span style={{ marginLeft: '1.2rem' }} />
 
-      <Button testid="calendar-confirm-button" style={{ mode: 'contained', size: 'sm' }} onClick={onConfirmHandler}>
+      <Button
+        testid="calendar-confirm-button"
+        style={{ mode: 'contained', size: 'sm' }}
+        onClick={onConfirmHandler}
+      >
         Salvar
       </Button>
     </div>

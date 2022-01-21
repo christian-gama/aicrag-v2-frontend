@@ -34,9 +34,12 @@ globalStyle('html', {
   fontFamily: 'Open Sans, sans-serif'
 })
 
-globalStyle('article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section', {
-  display: 'block'
-})
+globalStyle(
+  'article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section',
+  {
+    display: 'block'
+  }
+)
 
 globalStyle('ol, ul', {
   listStyle: 'none'

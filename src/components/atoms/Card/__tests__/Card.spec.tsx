@@ -2,7 +2,13 @@ import { cleanup, render, screen } from '@testing-library/react'
 import React, { ComponentPropsWithRef } from 'react'
 import Card from '..'
 
-const makeSut = ({ centered, children, roundness, style, transparent }: ComponentPropsWithRef<typeof Card>): void => {
+const makeSut = ({
+  centered,
+  children,
+  roundness,
+  style,
+  transparent
+}: ComponentPropsWithRef<typeof Card>): void => {
   render(<Card centered={centered} roundness={roundness} />)
 }
 

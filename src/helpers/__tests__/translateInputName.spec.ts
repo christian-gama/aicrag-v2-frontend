@@ -5,7 +5,9 @@ describe('translateInputName', () => {
     expect(translateInputName('name')).toBe('Nome')
     expect(translateInputName('email')).toBe('Email')
     expect(translateInputName('password')).toBe('Senha')
-    expect(translateInputName('passwordConfirmation')).toBe('Confirmação de senha')
+    expect(translateInputName('passwordConfirmation')).toBe(
+      'Confirmação de senha'
+    )
     expect(translateInputName('other')).toBe('other')
   })
 })

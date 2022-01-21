@@ -64,7 +64,14 @@ describe('SignInForm', () => {
 
   it('should submit the form and receive only access token', async () => {
     makeSut([
-      { ...loginMock(), result: { data: { login: { accessToken: variablesMock.token, refreshToken: undefined } } } }
+      {
+        ...loginMock(),
+        result: {
+          data: {
+            login: { accessToken: variablesMock.token, refreshToken: undefined }
+          }
+        }
+      }
     ])
 
     const form = screen.getByTestId('form')

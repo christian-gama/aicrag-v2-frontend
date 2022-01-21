@@ -62,4 +62,6 @@ export const menuButtonRecipe = recipe({
   }
 })
 
-export type MenuButtonVariants = NonNullable<RecipeVariants<typeof menuButtonRecipe>>
+export type MenuButtonVariants = NonNullable<
+RecipeVariants<typeof menuButtonRecipe>
+>

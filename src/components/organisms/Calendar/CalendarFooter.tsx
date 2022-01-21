@@ -11,7 +11,10 @@ const CalendarFooter: React.FC = () => {
     <div className={style.calendarFooter} data-testid="calendar-footer">
       <CalendarTimer />
 
-      <CalendarButtonWrapper onCancelHandler={() => onCancelHandler()} onConfirmHandler={() => onConfirmHandler()} />
+      <CalendarButtonWrapper
+        onCancelHandler={() => onCancelHandler()}
+        onConfirmHandler={() => onConfirmHandler()}
+      />
     </div>
   )
 }

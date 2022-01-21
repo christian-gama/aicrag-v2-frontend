@@ -18,7 +18,8 @@ const signUpMock = (
       name: input?.name ?? variablesMock.name,
       email: input?.email ?? variablesMock.email,
       password: input?.password ?? variablesMock.password,
-      passwordConfirmation: input?.passwordConfirmation ?? variablesMock.passwordConfirmation
+      passwordConfirmation:
+        input?.passwordConfirmation ?? variablesMock.passwordConfirmation
     }
   },
   result: {

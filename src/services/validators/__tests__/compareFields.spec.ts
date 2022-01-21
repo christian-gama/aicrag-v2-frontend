@@ -12,7 +12,9 @@ describe('compareFieldsValidator', () => {
     const input = { field: 'a', fieldToCompare: 'b' }
     const result = sut.validate(input)
 
-    expect(result).toStrictEqual(new InvalidFieldError('field', 'deve ser igual ao campo fieldToCompare'))
+    expect(result).toStrictEqual(
+      new InvalidFieldError('field', 'deve ser igual ao campo fieldToCompare')
+    )
   })
 
   it('should return undefined if field and fieldToCompare are equal', () => {

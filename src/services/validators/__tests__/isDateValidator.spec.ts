@@ -12,7 +12,9 @@ describe('isDateValidator', () => {
     const input = { field: 'any_value' }
     const result = sut.validate(input)
 
-    expect(result).toStrictEqual(new InvalidFieldError('field', 'deve ser uma data válida'))
+    expect(result).toStrictEqual(
+      new InvalidFieldError('field', 'deve ser uma data válida')
+    )
   })
 
   it('should return undefined if field is a date', () => {

@@ -13,4 +13,6 @@ export const errorIconRecipe = recipe({
   }
 })
 
-export type ErrorIconVariants = NonNullable<RecipeVariants<typeof errorIconRecipe>>
+export type ErrorIconVariants = NonNullable<
+RecipeVariants<typeof errorIconRecipe>
+>

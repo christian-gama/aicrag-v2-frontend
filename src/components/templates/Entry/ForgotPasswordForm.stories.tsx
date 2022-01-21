@@ -14,7 +14,8 @@ export default {
     (story) => (
       <MockedProvider
         mocks={[forgotPasswordMock(), sendRecoverPasswordEmailMock()]}
-        addTypename={false}>
+        addTypename={false}
+      >
         <FormProvider>
           <MemoryRouter>
             <Routes>

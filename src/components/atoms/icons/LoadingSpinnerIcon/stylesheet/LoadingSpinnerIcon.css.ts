@@ -89,4 +89,6 @@ export const loadingSpinnerIconRecipe = recipe({
   }
 })
 
-export type LoadingSpinnerVariants = NonNullable<RecipeVariants<typeof loadingSpinnerIconRecipe>>
+export type LoadingSpinnerVariants = NonNullable<
+RecipeVariants<typeof loadingSpinnerIconRecipe>
+>

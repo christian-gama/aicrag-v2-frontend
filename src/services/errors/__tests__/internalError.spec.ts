@@ -10,6 +10,8 @@ describe('InvalidInputError', () => {
   })
 
   it('should have a message', () => {
-    expect(new InternalError().message).toBe('Algo deu errado, tente novamente mais tarde')
+    expect(new InternalError().message).toBe(
+      'Algo deu errado, tente novamente mais tarde'
+    )
   })
 })

@@ -37,5 +37,9 @@ export default defineConfig({
 
   publicDir: 'public',
 
-  plugins: [react(), vanillaExtractPlugin(), removeAttributes({ attributes: ['data-testid'] })]
+  plugins: [
+    react(),
+    vanillaExtractPlugin(),
+    removeAttributes({ attributes: ['data-testid'] })
+  ]
 })

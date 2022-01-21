@@ -7,7 +7,11 @@ import FormProvider from '@/context/models/form/form.provider'
 import ControlForm from '../ControlForm'
 import ControlInput from '../ControlInput'
 
-const makeSut = (props: ComponentPropsWithRef<typeof ControlInput> & { validator?: IValidation }): void => {
+const makeSut = (
+  props: ComponentPropsWithRef<typeof ControlInput> & {
+    validator?: IValidation
+  }
+): void => {
   render(
     <FormProvider>
       <ControlForm submitHandler={jest.fn()} validator={props.validator}>
@@ -91,7 +95,9 @@ describe('Input', () => {
       const input = screen.getByTestId('base-input')
       userEvent.type(input, 'any_value')
 
-      expect(validatorSpy).toHaveBeenLastCalledWith('input', { input: 'any_value' })
+      expect(validatorSpy).toHaveBeenLastCalledWith('input', {
+        input: 'any_value'
+      })
     })
 
     it('should clear any error message onBlur if validator succeeds', () => {

@@ -9,7 +9,11 @@
     "es2021": true,
     "jest": true
   },
-  "extends": ["plugin:react/recommended", "standard-with-typescript", "plugin:storybook/recommended"],
+  "extends": [
+    "plugin:react/recommended",
+    "standard-with-typescript",
+    "plugin:storybook/recommended"
+  ],
   "parserOptions": {
     "project": "./tsconfig.json"
   },

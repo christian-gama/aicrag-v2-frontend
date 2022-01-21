@@ -12,7 +12,10 @@ export default {
   component: ForgotPasswordComponent,
   decorators: [
     (story) => (
-      <MockedProvider mocks={[forgotPasswordMock(), sendRecoverPasswordEmailMock()]} addTypename={false}>
+      <MockedProvider
+        mocks={[forgotPasswordMock(), sendRecoverPasswordEmailMock()]}
+        addTypename={false}
+      >
         <FormProvider>
           <MemoryRouter>
             <Routes>
@@ -25,4 +28,5 @@ export default {
   ]
 } as ComponentMeta<typeof ForgotPasswordComponent>
 
-export const ForgotPassword: ComponentStoryObj<typeof ForgotPasswordComponent> = {}
+export const ForgotPassword: ComponentStoryObj<typeof ForgotPasswordComponent> =
+  {}

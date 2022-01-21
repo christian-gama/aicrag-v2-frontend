@@ -26,4 +26,6 @@ export const logoIconRecipe = recipe({
   }
 })
 
-export type LogoIconVariants = NonNullable<RecipeVariants<typeof logoIconRecipe>>
+export type LogoIconVariants = NonNullable<
+RecipeVariants<typeof logoIconRecipe>
+>

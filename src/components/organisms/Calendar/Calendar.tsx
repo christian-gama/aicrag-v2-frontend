@@ -17,7 +17,9 @@ const Calendar: React.FC<CalendarProps> = (props) => {
   const { previousDate } = props
 
   const dispatch = useDispatch<AppDispatch>()
-  const isCalendarOpen = useSelector<RootState, boolean>((state) => state.calendar.isCalendarOpen)
+  const isCalendarOpen = useSelector<RootState, boolean>(
+    (state) => state.calendar.isCalendarOpen
+  )
 
   useEffect(() => {
     dispatch(resetCalendar(previousDate))

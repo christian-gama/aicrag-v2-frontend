@@ -38,4 +38,6 @@ export const backgroundRecipe = recipe({
   }
 })
 
-export type BackgroundVariants = NonNullable<RecipeVariants<typeof backgroundRecipe>>
+export type BackgroundVariants = NonNullable<
+RecipeVariants<typeof backgroundRecipe>
+>

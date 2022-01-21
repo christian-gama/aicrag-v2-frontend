@@ -11,24 +11,44 @@ import * as style from './stylesheet'
 const CalendarHeader: React.FC = () => {
   const { setCalendarDate } = calendarActions
 
-  const calendarDate = useSelector<RootState, CalendarStates['calendarDate']>((state) => state.calendar.calendarDate)
+  const calendarDate = useSelector<RootState, CalendarStates['calendarDate']>(
+    (state) => state.calendar.calendarDate
+  )
   const dispatch = useDispatch<AppDispatch>()
 
   // Methods
   const handleNextMonth = (): void => {
-    dispatch(setCalendarDate(DateTime.fromMillis(calendarDate).plus({ months: 1 }).toMillis()))
+    dispatch(
+      setCalendarDate(
+        DateTime.fromMillis(calendarDate).plus({ months: 1 }).toMillis()
+      )
+    )
   }
 
   const handlePreviousMonth = (): void => {
-    dispatch(setCalendarDate(DateTime.fromMillis(calendarDate).minus({ months: 1 }).toMillis()))
+    dispatch(
+      setCalendarDate(
+        DateTime.fromMillis(calendarDate).minus({ months: 1 }).toMillis()
+      )
+    )
   }
 
   return (
     <div className={style.calendarHeader} data-testid="calendar-header">
-      <ChevronIcon color="white" direction="left" onClick={handlePreviousMonth} />
+      <ChevronIcon
+        color="white"
+        direction="left"
+        onClick={handlePreviousMonth}
+      />
 
-      <span className={style.calendarHeaderDate} data-testid="calendar-header-date">
-        {writeMonthYear(DateTime.fromMillis(calendarDate).monthLong, DateTime.fromMillis(calendarDate).year)}
+      <span
+        className={style.calendarHeaderDate}
+        data-testid="calendar-header-date"
+      >
+        {writeMonthYear(
+          DateTime.fromMillis(calendarDate).monthLong,
+          DateTime.fromMillis(calendarDate).year
+        )}
       </span>
 
       <ChevronIcon color="white" direction="right" onClick={handleNextMonth} />

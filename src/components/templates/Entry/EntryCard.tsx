@@ -18,7 +18,9 @@ const EntryCard: React.FC = (props) => {
         <Card roundness={width <= 520 ? 'none' : 'sm'}>
           <div
             className={style.entryCard}
-            style={assignInlineVars(style.windowDimensionVars, { height: `${height}px` })}
+            style={assignInlineVars(style.windowDimensionVars, {
+              height: `${height}px`
+            })}
           >
             <header className={style.entryCardHeader}>
               <LogoIcon />
@@ -27,8 +29,16 @@ const EntryCard: React.FC = (props) => {
             <nav className={style.entryCardMenuWrapper}>
               <Menu
                 buttons={[
-                  { buttonName: 'Entrar', to: '/entry/sign-in', active: location.pathname === '/entry/sign-in' },
-                  { buttonName: 'Cadastrar', to: '/entry/sign-up', active: location.pathname === '/entry/sign-up' }
+                  {
+                    buttonName: 'Entrar',
+                    to: '/entry/sign-in',
+                    active: location.pathname === '/entry/sign-in'
+                  },
+                  {
+                    buttonName: 'Cadastrar',
+                    to: '/entry/sign-up',
+                    active: location.pathname === '/entry/sign-up'
+                  }
                 ]}
               />
             </nav>

@@ -7,8 +7,12 @@ const useCalendarFooter = () => {
   const { closeCalendar, saveCalendar, resetCalendar } = calendarActions
 
   const dispatch = useDispatch<AppDispatch>()
-  const selectedDate = useSelector<RootState, CalendarStates['selectedDate']>((state) => state.calendar.selectedDate)
-  const previousDate = useSelector<RootState, CalendarStates['previousDate']>((state) => state.calendar.previousDate)
+  const selectedDate = useSelector<RootState, CalendarStates['selectedDate']>(
+    (state) => state.calendar.selectedDate
+  )
+  const previousDate = useSelector<RootState, CalendarStates['previousDate']>(
+    (state) => state.calendar.previousDate
+  )
 
   const onCancelHandler = (): void => {
     dispatch(resetCalendar(previousDate))

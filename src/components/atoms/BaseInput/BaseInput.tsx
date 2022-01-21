@@ -61,7 +61,8 @@ const BaseInput: React.FC<BaseInputProps> = (props) => {
         <label
           data-testid={'base-input-label'}
           htmlFor={name}
-          className={labelStyle}>
+          className={labelStyle}
+        >
           {label}
         </label>
 

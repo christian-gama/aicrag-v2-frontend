@@ -17,4 +17,6 @@ export default {
   ]
 } as ComponentMeta<typeof ForgotPasswordCardComponent>
 
-export const ForgotPasswordCard: ComponentStoryObj<typeof ForgotPasswordCardComponent> = {}
+export const ForgotPasswordCard: ComponentStoryObj<
+  typeof ForgotPasswordCardComponent
+> = {}

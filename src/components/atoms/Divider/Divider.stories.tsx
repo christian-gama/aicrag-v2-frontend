@@ -13,7 +13,8 @@ export default {
           width: '100vw',
           height: '100vh',
           padding: '2.4rem'
-        }}>
+        }}
+      >
         {story()}
       </div>
     )

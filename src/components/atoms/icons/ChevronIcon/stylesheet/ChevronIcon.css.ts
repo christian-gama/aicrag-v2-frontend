@@ -77,4 +77,6 @@ export const chevronIconRecipe = recipe({
   }
 })
 
-export type ChevronIconVariants = NonNullable<RecipeVariants<typeof chevronIconRecipe>>
+export type ChevronIconVariants = NonNullable<
+RecipeVariants<typeof chevronIconRecipe>
+>

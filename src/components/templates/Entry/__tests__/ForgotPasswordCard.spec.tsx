@@ -26,7 +26,9 @@ describe('ForgotPassword', () => {
 
     render(<ForgotPasswordCard />)
 
-    expect(screen.getByRole('heading', { name: /esqueceu sua senha\?/i })).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { name: /esqueceu sua senha\?/i })
+    ).toBeInTheDocument()
   })
 
   it('should render with border if width is greater than 520', () => {

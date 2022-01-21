@@ -12,7 +12,9 @@ describe('minLengthValidator', () => {
     const input = { field: '1234' }
     const result = sut.validate(input)
 
-    expect(result).toStrictEqual(new InvalidFieldError('field', 'deve ter no mínimo 5 caracteres'))
+    expect(result).toStrictEqual(
+      new InvalidFieldError('field', 'deve ter no mínimo 5 caracteres')
+    )
   })
 
   it('should return undefined if field is less than maxLength', () => {

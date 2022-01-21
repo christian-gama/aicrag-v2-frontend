@@ -8,7 +8,9 @@ import OverlayRoot from '@/tests/helpers/overlayRoot'
 import Calendar from '../Calendar'
 
 const makeSut = (): void => {
-  render(<Calendar previousDate={DateTime.now().toMillis()} />, { ...calendarStoreMock })
+  render(<Calendar previousDate={DateTime.now().toMillis()} />, {
+    ...calendarStoreMock
+  })
 }
 
 describe('CalendarFooter', () => {

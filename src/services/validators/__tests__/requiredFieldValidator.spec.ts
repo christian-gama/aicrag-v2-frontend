@@ -12,7 +12,9 @@ describe('requiredFieldValidator', () => {
     const input = { field: undefined }
     const result = sut.validate(input)
 
-    expect(result).toStrictEqual(new InvalidFieldError('field', 'é obrigatório'))
+    expect(result).toStrictEqual(
+      new InvalidFieldError('field', 'é obrigatório')
+    )
   })
 
   it('should return undefined if field is defined', () => {

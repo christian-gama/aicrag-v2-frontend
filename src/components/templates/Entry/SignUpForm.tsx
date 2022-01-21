@@ -9,7 +9,8 @@ import * as style from './stylesheet'
 
 const SignUpForm: React.FC = () => {
   const [signUp, { loading: loadingSignUp }] = useSignUpMutation()
-  const [sendWelcomeEmail, { loading: loadingSendEmail }] = useSendWelcomeEmailMutation()
+  const [sendWelcomeEmail, { loading: loadingSendEmail }] =
+    useSendWelcomeEmailMutation()
 
   const { state } = useContext(FormContext)
 
@@ -45,10 +46,19 @@ const SignUpForm: React.FC = () => {
 
           <ControlInput label="Sua senha" name="password" type="password" />
 
-          <ControlInput label="Confirme sua senha" name="passwordConfirmation" type="password" />
+          <ControlInput
+            label="Confirme sua senha"
+            name="passwordConfirmation"
+            type="password"
+          />
         </div>
 
-        <Button type="submit" style={{ size: 'lg' }} loading={loadingSignUp || loadingSendEmail} testid="submit-button">
+        <Button
+          type="submit"
+          style={{ size: 'lg' }}
+          loading={loadingSignUp || loadingSendEmail}
+          testid="submit-button"
+        >
           Criar conta
         </Button>
       </div>

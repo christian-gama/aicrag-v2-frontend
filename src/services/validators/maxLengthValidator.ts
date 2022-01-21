@@ -9,7 +9,10 @@ class MaxLengthValidator implements IFieldValidation {
     const fieldValue = input[this.field]
 
     if (fieldValue.length > this.maxLength) {
-      return new InvalidFieldError(this.field, `deve ter no máximo ${this.maxLength} caracteres`)
+      return new InvalidFieldError(
+        this.field,
+        `deve ter no máximo ${this.maxLength} caracteres`
+      )
     }
   }
 }

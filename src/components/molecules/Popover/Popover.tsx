@@ -20,7 +20,12 @@ type PopoverProps = {
   onClose?: () => void
 }
 
-const Popover: React.FC<PopoverProps> = ({ message, type, minDuration = 3, ...props }) => {
+const Popover: React.FC<PopoverProps> = ({
+  message,
+  type,
+  minDuration = 3,
+  ...props
+}) => {
   const duration = props.duration ?? getDuration(message, minDuration)
 
   const [isOpen, setIsOpen] = useState(!!props.isOpen)
@@ -77,7 +82,13 @@ const Popover: React.FC<PopoverProps> = ({ message, type, minDuration = 3, ...pr
       <div className={style.popoverContent}>
         <div className={style.popoverTextWrapper}>
           {renderIcon()}
-          {Array.isArray(message) ? <PopoverMessageList messages={message} /> : <P color="white">{message}</P>}
+          {Array.isArray(message)
+            ? (
+            <PopoverMessageList messages={message} />
+              )
+            : (
+            <P color="white">{message}</P>
+              )}
         </div>
 
         <div
@@ -92,7 +103,10 @@ const Popover: React.FC<PopoverProps> = ({ message, type, minDuration = 3, ...pr
         </div>
       </div>
 
-      <div className={progressBarWrapperStyle} data-testid="popover-progress-bar-wrapper">
+      <div
+        className={progressBarWrapperStyle}
+        data-testid="popover-progress-bar-wrapper"
+      >
         <div className={progressBarStyle} data-testid="popover-progress-bar" />
       </div>
     </div>,

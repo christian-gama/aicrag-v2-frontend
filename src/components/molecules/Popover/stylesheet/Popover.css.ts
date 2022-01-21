@@ -1,4 +1,9 @@
-import { createGlobalTheme, keyframes, style, styleVariants } from '@vanilla-extract/css'
+import {
+  createGlobalTheme,
+  keyframes,
+  style,
+  styleVariants
+} from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 import { breakpoints } from '@/components/_settings/breakpoints.css'
 import { vars } from '@/components/_settings/vars.css'
@@ -189,5 +194,9 @@ export const progressBarWrapperRecipe = recipe({
 })
 
 export type PopoverVariants = NonNullable<RecipeVariants<typeof popoverRecipe>>
-export type ProgressBarVariants = NonNullable<RecipeVariants<typeof progressBarRecipe>>
-export type ProgressBarWrapperVariants = NonNullable<RecipeVariants<typeof progressBarWrapperRecipe>>
+export type ProgressBarVariants = NonNullable<
+RecipeVariants<typeof progressBarRecipe>
+>
+export type ProgressBarWrapperVariants = NonNullable<
+RecipeVariants<typeof progressBarWrapperRecipe>
+>

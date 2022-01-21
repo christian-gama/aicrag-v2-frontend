@@ -89,4 +89,6 @@ export const alertHeaderRecipe = recipe({
   }
 })
 
-export type AlertHeaderVariants = NonNullable<RecipeVariants<typeof alertHeaderRecipe>>
+export type AlertHeaderVariants = NonNullable<
+RecipeVariants<typeof alertHeaderRecipe>
+>

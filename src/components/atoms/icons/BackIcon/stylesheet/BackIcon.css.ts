@@ -51,4 +51,6 @@ export const backIconRecipe = recipe({
   }
 })
 
-export type BackIconVariants = NonNullable<RecipeVariants<typeof backIconRecipe>>
+export type BackIconVariants = NonNullable<
+RecipeVariants<typeof backIconRecipe>
+>

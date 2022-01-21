@@ -10,11 +10,15 @@ describe('InvalidInputError', () => {
   })
 
   it('should have a name', () => {
-    expect(new InvalidFieldError('field', 'reason').name).toBe('InvalidInputError')
+    expect(new InvalidFieldError('field', 'reason').name).toBe(
+      'InvalidInputError'
+    )
   })
 
   it('should have a message', () => {
-    expect(new InvalidFieldError('field', 'reason').message).toBe('Field inválido(a): reason')
+    expect(new InvalidFieldError('field', 'reason').message).toBe(
+      'Field inválido(a): reason'
+    )
   })
 
   it('should have a field', () => {

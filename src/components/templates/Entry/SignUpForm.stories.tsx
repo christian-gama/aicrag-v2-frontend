@@ -14,7 +14,8 @@ export default {
     (story: any) => (
       <MockedProvider
         mocks={[signUpMock(), sendWelcomeEmailMock()]}
-        addTypename={false}>
+        addTypename={false}
+      >
         <FormProvider>
           <MemoryRouter>
             <Routes>

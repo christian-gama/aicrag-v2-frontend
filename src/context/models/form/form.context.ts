@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import React from 'react'
-import { FormActionPayload, FormInputActionPayload, FormStates } from './protocols/form.model'
+import {
+  FormActionPayload,
+  FormInputActionPayload,
+  FormStates
+} from './protocols/form.model'
 
 export const initialFormState: FormStates = {
   form: {

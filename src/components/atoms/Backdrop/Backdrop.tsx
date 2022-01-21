@@ -12,7 +12,11 @@ const Backdrop: React.FC<BackdropProps> = (props) => {
   const { dismissOnClickHandler, isOpenState } = useBackdrop(props)
 
   const element = isOpenState && (
-    <div className={style.backdrop} data-testid="backdrop" onClick={dismissOnClickHandler}>
+    <div
+      className={style.backdrop}
+      data-testid="backdrop"
+      onClick={dismissOnClickHandler}
+    >
       {props.children}
     </div>
   )

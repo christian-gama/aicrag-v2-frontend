@@ -9,7 +9,10 @@ class MinLengthValidator implements IFieldValidation {
     const fieldName = input[this.field]
 
     if (fieldName.length < this.minLength) {
-      return new InvalidFieldError(this.field, `deve ter no mínimo ${this.minLength} caracteres`)
+      return new InvalidFieldError(
+        this.field,
+        `deve ter no mínimo ${this.minLength} caracteres`
+      )
     }
   }
 }

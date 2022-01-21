@@ -20,9 +20,16 @@ import {
   setInputIsValid,
   setInputValue
 } from './input.actions'
-import { FormActionPayload, FormInputActionPayload, FormStates } from './protocols/form.model'
+import {
+  FormActionPayload,
+  FormInputActionPayload,
+  FormStates
+} from './protocols/form.model'
 
-const formReducer = (state: FormStates, action: FormActionPayload | FormInputActionPayload): FormStates => {
+const formReducer = (
+  state: FormStates,
+  action: FormActionPayload | FormInputActionPayload
+): FormStates => {
   switch (action.type) {
     case 'FORM/RESET_FORM':
       return resetForm()

@@ -13,4 +13,6 @@ export const checkCircleIconRecipe = recipe({
   }
 })
 
-export type CheckCircleIconVariants = NonNullable<RecipeVariants<typeof checkCircleIconRecipe>>
+export type CheckCircleIconVariants = NonNullable<
+RecipeVariants<typeof checkCircleIconRecipe>
+>

@@ -70,7 +70,11 @@ const Alert: React.FC<AlertProps> = (props) => {
           <div className={style.alertFooter} data-testid="alert-footer">
             <Button
               onClick={cancelHandler}
-              style={{ mode: 'outlined', size: 'sm', color: mode === 'cancelOnly' ? getButtonColor() : 'light' }}
+              style={{
+                mode: 'outlined',
+                size: 'sm',
+                color: mode === 'cancelOnly' ? getButtonColor() : 'light'
+              }}
               testid="alert-cancel-button"
             >
               {mode === 'cancelOnly' ? 'Voltar' : 'Cancelar'}

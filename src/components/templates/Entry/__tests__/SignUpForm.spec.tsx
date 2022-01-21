@@ -1,5 +1,11 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing'
-import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor
+} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
@@ -62,6 +68,8 @@ describe('SignUpForm', () => {
       await sleep(0)
     })
 
-    await waitFor(() => expect(screen.getByTestId('loading-spinner-icon')).toBeInTheDocument())
+    await waitFor(() =>
+      expect(screen.getByTestId('loading-spinner-icon')).toBeInTheDocument()
+    )
   })
 })

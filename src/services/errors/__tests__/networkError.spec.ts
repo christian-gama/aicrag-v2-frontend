@@ -10,6 +10,8 @@ describe('InvalidInputError', () => {
   })
 
   it('should have a message', () => {
-    expect(new NetworkError().message).toBe('Houve um erro inesperado de conexão')
+    expect(new NetworkError().message).toBe(
+      'Houve um erro inesperado de conexão'
+    )
   })
 })

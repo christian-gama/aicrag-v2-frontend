@@ -1,7 +1,11 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import React from 'react'
 import useWindowDimensions from '@/components/_hooks/useWindowDimensions'
-import { backgroundRecipe, BackgroundVariants, backgroundVars } from './stylesheet'
+import {
+  backgroundRecipe,
+  BackgroundVariants,
+  backgroundVars
+} from './stylesheet'
 
 type BackgroundProps = {
   gradient?: BackgroundVariants['gradient']
