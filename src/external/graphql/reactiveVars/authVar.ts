@@ -9,15 +9,15 @@ const initialValue = {
     !!makeAccessTokenStorage().get() && !makeRefreshTokenStorage().get()
 }
 
-const authVar = makeVar(initialValue)
+const _authVar = makeVar(initialValue)
 
-export const auth = {
+export const authVar = {
   login: () =>
-    authVar({ isAuthenticated: true, isPartiallyAuthenticated: false }),
+    _authVar({ isAuthenticated: true, isPartiallyAuthenticated: false }),
   logout: () =>
-    authVar({ isAuthenticated: false, isPartiallyAuthenticated: false }),
+    _authVar({ isAuthenticated: false, isPartiallyAuthenticated: false }),
   partialLogin: () =>
-    authVar({ isAuthenticated: false, isPartiallyAuthenticated: true })
+    _authVar({ isAuthenticated: false, isPartiallyAuthenticated: true })
 }
 
-export const useAuth = () => useReactiveVar(authVar)
+export const useAuth = () => useReactiveVar(_authVar)

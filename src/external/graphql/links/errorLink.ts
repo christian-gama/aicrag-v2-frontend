@@ -4,7 +4,7 @@ import NetworkError from '@/services/errors/connectionError'
 import InternalError from '@/services/errors/internalError'
 import makeAccessTokenStorage from '@/external/factories/storage/auth/makeAccessTokenStorage'
 import makeRefreshTokenStorage from '@/external/factories/storage/auth/makeRefreshTokenStorage'
-import { auth } from '../reactiveVars/auth'
+import { authVar } from '../reactiveVars/authVar'
 import { errorVar } from '../reactiveVars/errorVar'
 
 const errorLink = onError(({ networkError, graphQLErrors }) => {
@@ -13,7 +13,7 @@ const errorLink = onError(({ networkError, graphQLErrors }) => {
       const errorCode = error.extensions.code
 
       if (errorCode === '401' && error.message.match(/token/gi)) {
-        auth.logout()
+        authVar.logout()
 
         const accessToken = makeAccessTokenStorage()
         const refreshToken = makeRefreshTokenStorage()

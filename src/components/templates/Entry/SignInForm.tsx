@@ -6,7 +6,7 @@ import Link from '@/components/atoms/texts/Link'
 import ControlForm from '@/components/organisms/Control/ControlForm'
 import ControlInput from '@/components/organisms/Control/ControlInput'
 import makeSignInValidator from '@/external/factories/validation/makeSignInValidator'
-import { auth } from '@/external/graphql/reactiveVars/auth'
+import { authVar } from '@/external/graphql/reactiveVars/authVar'
 import * as style from './stylesheet'
 
 const SignInForm: React.FC = () => {
@@ -27,12 +27,12 @@ const SignInForm: React.FC = () => {
       // @ts-expect-error
       !response.data?.login?.refreshToken
     ) {
-      auth.partialLogin()
+      authVar.partialLogin()
     }
 
     // @ts-expect-error
     if (response.data?.login?.refreshToken) {
-      auth.login()
+      authVar.login()
     }
   }
 
