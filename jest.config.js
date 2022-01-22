@@ -1,18 +1,20 @@
 module.exports = {
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{ts,tsx}',
-    '!<rootDir>/node_modules/**',
-    '!<rootDir>/src/**/(*).context.ts',
-    '!<rootDir>/src/**/stylesheet/**/*',
+    '!<rootDir>/node_modules/**/*',
+    '!<rootDir>/src/**/*.context.ts',
     '!<rootDir>/src/**/*.css.ts',
     '!<rootDir>/src/**/*.model.ts',
-    '!<rootDir>/src/**/api/index.ts',
+    '!<rootDir>/src/**/*.stories.{ts,tsx}',
     '!<rootDir>/src/**/store/*.ts',
-    '!<rootDir>/src/external/**/*',
-    '!<rootDir>/src/**/*.stories.{ts,tsx}'
+    '!<rootDir>/src/**/stylesheet/**/*',
+    '!<rootDir>/src/external/**/*'
   ],
   coverageDirectory: 'coverage',
+  maxWorkers: '50%',
+  resetMocks: true,
   roots: ['<rootDir>/src'],
+  setupFilesAfterEnv: ['<rootDir>/tests/config/jestDom.ts'],
   testEnvironment: 'jsdom',
   transform: {
     '^.+\\.tsx?$': ['babel-jest', { configFile: './babel-jest.config.js' }]
@@ -20,7 +22,5 @@ module.exports = {
   moduleNameMapper: {
     '@/tests/(.*)$': '<rootDir>/tests/$1',
     '@/(.*)$': '<rootDir>/src/$1'
-  },
-  resetMocks: true,
-  setupFilesAfterEnv: ['<rootDir>/tests/config/jestDom.ts']
+  }
 }
