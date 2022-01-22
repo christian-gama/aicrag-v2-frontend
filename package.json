@@ -12,7 +12,6 @@
     "compose:restart": "docker-compose restart",
     "compose:up": "docker-compose up --build -d",
     "coveralls": "coveralls < coverage/lcov.info",
-    "cypress:open": "cypress open",
     "dev": "pnpm run codegen && vite --host",
     "docker:build:dev": "docker buildx build -f Dockerfile.dev -t christiangama/aicrag_frontend_development .",
     "docker:build:prod": "docker buildx build -f Dockerfile.prod -t christiangama/aicrag_frontend .",
@@ -31,7 +30,8 @@
     "test:silent": "jest --passWithNoTests --silent --noStackTrace",
     "test:unit": "pnpm run test:silent -- -c jest-unit.config.js",
     "test:verbose": "jest --passWithNoTests --detectOpenHandles --verbose",
-    "typecheck": "tsc -p ./tsconfig.json"
+    "typecheck": "tsc -p ./tsconfig.json",
+    "postinstall": "pnpm run codegen"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
