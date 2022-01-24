@@ -1,9 +1,11 @@
 FROM node:17-alpine
 WORKDIR /usr/aicrag
 RUN npm install -g pnpm
+RUN pnpm add -g pnpm
 COPY ./package.json .
 COPY ./pnpm-lock.yaml .
-RUN pnpm install
+COPY ./.npmrc .
+RUN pnpm install --unsafe-perm
 COPY ./ ./
 CMD ["pnpm", "run", "dev"]
 
