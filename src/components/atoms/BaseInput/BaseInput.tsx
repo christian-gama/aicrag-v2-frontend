@@ -1,32 +1,32 @@
+import React from 'react'
 import translateError from '@/helpers/translateError'
 import Maybe from '@/helpers/typescript/maybe.model'
-import React from 'react'
 import IValidation from '@/services/validators/protocols/validation.model'
 import * as style from './stylesheet'
 
 type BaseInputProps = {
+  type?: 'email' | 'password' | 'text' | 'number' | 'search'
   error?: Maybe<Error['message']>
+  validator?: IValidation
   isFocused?: boolean
   isTouched?: boolean
   isValid?: boolean
   label: string
   name: string
-  type?: 'email' | 'password' | 'text' | 'number' | 'search'
-  validator?: IValidation
   icon?: () => React.ReactNode
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>
 
 const BaseInput: React.FC<BaseInputProps> = ({
-  error,
-  icon,
   isFocused,
   isTouched,
+  validator,
   isValid,
+  error,
   label,
+  value,
+  icon,
   name,
   type,
-  validator,
-  value,
   ...rest
 }) => {
   const getState = (): style.LabelRecipeVariants['state'] => {
