@@ -20,9 +20,9 @@ const Background: React.FC<BackgroundProps> = ({ children, gradient }) => {
 
   return (
     <div
+      style={assignInlineVars(backgroundVars, { height: `${height}px` })}
       className={backgroundStyle}
       data-testid="background"
-      style={assignInlineVars(backgroundVars, { height: `${height}px` })}
     >
       {children}
     </div>
