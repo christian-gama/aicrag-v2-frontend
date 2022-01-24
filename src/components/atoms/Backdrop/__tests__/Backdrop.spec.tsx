@@ -1,11 +1,9 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react'
-import React, { ComponentPropsWithRef } from 'react'
+import { cleanup, fireEvent, render } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import React from 'react'
+import getElement from '@/tests/helpers/getElement'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
-import Backdrop from '../Backdrop'
-
-const makeSut = (props: ComponentPropsWithRef<typeof Backdrop>) => {
-  return render(<Backdrop {...props} />)
-}
+import Backdrop from '..'
 
 describe('Backdrop', () => {
   const overlayRoot = new OverlayRoot()
@@ -19,65 +17,68 @@ describe('Backdrop', () => {
     overlayRoot.addOverlayRoot()
   })
 
-  it('should render Backdrop correctly', () => {
-    makeSut({ isOpen: true })
-
-    const backdrop = screen.getByTestId('backdrop')
+  it('renders correctly', () => {
+    render(<Backdrop isOpen />)
+    const backdrop = getElement('backdrop')
 
     expect(backdrop).toBeInTheDocument()
   })
 
-  it('should dismiss the backdrop when press "Escape"', () => {
-    makeSut({ isOpen: true })
+  it('dismiss if click on backdrop', () => {
+    render(<Backdrop isOpen />)
+    const backdrop = getElement('backdrop')
 
-    const backdrop = screen.queryByTestId('backdrop')
+    userEvent.click(backdrop)
+
+    expect(backdrop).not.toBeInTheDocument()
+  })
+
+  it('dismiss and calls onDismiss if it is passed through props', () => {
+    const onDismiss = jest.fn()
+    render(<Backdrop isOpen onDismiss={onDismiss} />)
+    const backdrop = getElement('backdrop')
+
+    userEvent.click(backdrop)
+  })
+
+  it("do not dismiss if click in backdrop's children", () => {
+    render(
+      <Backdrop isOpen>
+        <div data-testid="child">Child</div>
+      </Backdrop>
+    )
+    const backdrop = getElement('backdrop')
+    const child = getElement('child')
+
+    userEvent.click(child)
+
+    expect(backdrop).toBeInTheDocument()
+  })
+
+  it('dismiss if press Escape key', () => {
+    render(<Backdrop isOpen />)
+    const backdrop = getElement('backdrop')
+
     fireEvent.keyDown(document, { key: 'Escape' })
 
     expect(backdrop).not.toBeInTheDocument()
   })
 
-  it('should dismiss the backdrop when click on it', () => {
-    makeSut({ isOpen: true })
-
-    const backdrop = screen.getByTestId('backdrop')
-    fireEvent.click(backdrop)
-
-    expect(backdrop).not.toBeInTheDocument()
-  })
-
-  it('should not render the backdrop when isOpen is false', () => {
-    makeSut({ isOpen: false })
-
-    const modal = screen.queryByTestId('backdrop')
-
-    expect(modal).not.toBeInTheDocument()
-  })
-
-  it('should keep the modal on the screen if press any other key but "Escape"', () => {
-    makeSut({ isOpen: true })
-
-    const backdrop = screen.queryByTestId('backdrop')
-    fireEvent.keyDown(document, { key: 'Enter' })
-
-    expect(backdrop).toBeInTheDocument()
-  })
-
-  it('should call onDismiss when pressing "Escape"', () => {
+  it('dismiss if press Escape key and calls onDismiss if it is passed through props', () => {
     const onDismiss = jest.fn()
-    makeSut({ isOpen: true, onDismiss })
+    render(<Backdrop isOpen onDismiss={onDismiss} />)
 
     fireEvent.keyDown(document, { key: 'Escape' })
 
     expect(onDismiss).toHaveBeenCalled()
   })
 
-  it('should call onDismiss when pressing clicking on backdrop', () => {
-    const onDismiss = jest.fn()
-    makeSut({ isOpen: true, onDismiss })
+  it('do not dismiss if press a key different of Escape', () => {
+    render(<Backdrop isOpen />)
+    const backdrop = getElement('backdrop')
 
-    const backdrop = screen.getByTestId('backdrop')
-    fireEvent.click(backdrop)
+    fireEvent.keyDown(document, { key: 'a' })
 
-    expect(onDismiss).toHaveBeenCalled()
+    expect(backdrop).toBeInTheDocument()
   })
 })
