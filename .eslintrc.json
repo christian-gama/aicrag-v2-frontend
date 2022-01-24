@@ -10,45 +10,40 @@
     "jest": true
   },
   "extends": [
+    "plugin:storybook/recommended",
     "plugin:react/recommended",
-    "standard-with-typescript",
-    "plugin:storybook/recommended"
+    "standard-with-typescript"
   ],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
   "plugins": ["react", "@typescript-eslint", "import-helpers"],
   "rules": {
-    "import/no-anonymous-default-export": "off",
-    "react/prop-types": "off",
-    "@typescript-eslint/consistent-type-assertions": "off",
-    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
+    "@typescript-eslint/consistent-type-assertions": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
-    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "import/no-anonymous-default-export": "off",
+    "react/prop-types": "off",
     "import-helpers/order-imports": [
       "warn",
       {
         "newlinesBetween": "never",
         "groups": [
           "module",
-          "/^@/domain/",
+          "/^@/helpers/",
           "/^@/services/",
           "/^@/context/",
           "/^@/components/",
-          "/^@/application/",
-          "/^@/infra/",
-          "/^@/presentation/",
-          "/^@/main/",
           "/^@/external/",
-          "/^@/utils/",
           "/^@/tests/",
           ["parent", "sibling", "index"]
         ],
         "alphabetize": {
-          "order": "asc",
-          "ignoreCase": true
+          "ignoreCase": true,
+          "order": "asc"
         }
       }
     ]
