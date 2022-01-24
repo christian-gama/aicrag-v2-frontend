@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import React, { ComponentPropsWithRef } from 'react'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
 import Backdrop from '../Backdrop'
@@ -31,8 +31,7 @@ describe('Backdrop', () => {
     makeSut({ isOpen: true })
 
     const backdrop = screen.queryByTestId('backdrop')
-    const event = new KeyboardEvent('keydown', { key: 'Escape' })
-    document.dispatchEvent(event)
+    fireEvent.keyDown(document, { key: 'Escape' })
 
     expect(backdrop).not.toBeInTheDocument()
   })
@@ -41,7 +40,7 @@ describe('Backdrop', () => {
     makeSut({ isOpen: true })
 
     const backdrop = screen.getByTestId('backdrop')
-    backdrop.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    fireEvent.click(backdrop)
 
     expect(backdrop).not.toBeInTheDocument()
   })
@@ -58,8 +57,7 @@ describe('Backdrop', () => {
     makeSut({ isOpen: true })
 
     const backdrop = screen.queryByTestId('backdrop')
-    const event = new KeyboardEvent('keydown', { key: 'Enter' })
-    document.dispatchEvent(event)
+    fireEvent.keyDown(document, { key: 'Enter' })
 
     expect(backdrop).toBeInTheDocument()
   })
@@ -68,8 +66,7 @@ describe('Backdrop', () => {
     const onDismiss = jest.fn()
     makeSut({ isOpen: true, onDismiss })
 
-    const event = new KeyboardEvent('keydown', { key: 'Escape' })
-    document.dispatchEvent(event)
+    fireEvent.keyDown(document, { key: 'Escape' })
 
     expect(onDismiss).toHaveBeenCalled()
   })
@@ -79,7 +76,7 @@ describe('Backdrop', () => {
     makeSut({ isOpen: true, onDismiss })
 
     const backdrop = screen.getByTestId('backdrop')
-    backdrop.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    fireEvent.click(backdrop)
 
     expect(onDismiss).toHaveBeenCalled()
   })

@@ -60,7 +60,10 @@ describe('Form', () => {
 
     userEvent.type(input, 'any_value')
     fireEvent.blur(input)
-    fireEvent.submit(screen.getByTestId('form'))
+
+    act(() => {
+      fireEvent.submit(screen.getByTestId('form'))
+    })
 
     await waitFor(() => expect(submitHandlerMock).toHaveBeenCalled())
   })
@@ -71,12 +74,13 @@ describe('Form', () => {
 
     const children = <ControlInput name="title" label="Title" />
     makeSut({ children, validator, submitHandler: jest.fn() })
-    const input = await screen.getByTestId('base-input')
+    const input = screen.getByTestId('base-input')
 
-    await act(async () => {
-      userEvent.type(input, 'any_title')
-      fireEvent.blur(input)
-      await fireEvent.submit(screen.getByTestId('form'))
+    userEvent.type(input, 'any_title')
+    fireEvent.blur(input)
+
+    act(() => {
+      fireEvent.submit(screen.getByTestId('form'))
     })
 
     await waitFor(() => {
@@ -96,7 +100,10 @@ describe('Form', () => {
 
     userEvent.type(input, 'any_title')
     fireEvent.blur(input)
-    fireEvent.submit(screen.getByTestId('form'))
+
+    act(() => {
+      fireEvent.submit(screen.getByTestId('form'))
+    })
 
     await waitFor(() => {
       expect(validationSpy).toHaveBeenCalled()
@@ -114,9 +121,14 @@ describe('Form', () => {
 
     userEvent.type(input, 'any_title')
     fireEvent.blur(input)
-    fireEvent.submit(screen.getByTestId('form'))
 
-    expect(submitHandler).not.toHaveBeenCalled()
+    act(() => {
+      fireEvent.submit(screen.getByTestId('form'))
+    })
+
+    await waitFor(() => {
+      expect(submitHandler).not.toHaveBeenCalled()
+    })
   })
 
   it('should catch if submitHandler throws', async () => {
@@ -132,19 +144,25 @@ describe('Form', () => {
       fireEvent.submit(screen.getByTestId('form'))
     })
 
-    expect(submitHandler).toHaveBeenCalled()
+    await waitFor(() => {
+      expect(submitHandler).toHaveBeenCalled()
+    })
   })
 
-  it('should display the error message below the input if validation fails when trying to submit right away', () => {
+  it('should display the error message below the input if validation fails when trying to submit right away', async () => {
     const validator = makeValidationMock(false)
     const children = <ControlInput name="title" label="Title" />
 
     makeSut({ children, validator, submitHandler: jest.fn() })
 
-    fireEvent.submit(screen.getByTestId('form'))
+    act(() => {
+      fireEvent.submit(screen.getByTestId('form'))
+    })
 
     const errorElement = screen.getByTestId('base-input-error')
 
-    expect(errorElement).toBeInTheDocument()
+    await waitFor(() => {
+      expect(errorElement).toBeInTheDocument()
+    })
   })
 })
