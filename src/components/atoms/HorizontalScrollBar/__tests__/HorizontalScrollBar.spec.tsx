@@ -15,19 +15,11 @@ describe('HorizontalScrollBar ', () => {
     cleanup()
   })
 
-  it('should render correctly', () => {
+  it('renders correctly', () => {
     makeSut()
 
     const horizontalScrollBar = screen.getByTestId('horizontal-scroll-bar')
 
     expect(horizontalScrollBar).toBeInTheDocument()
-  })
-
-  it('should render children', () => {
-    makeSut()
-
-    const children = screen.getByText('Children')
-
-    expect(children).toBeInTheDocument()
   })
 })

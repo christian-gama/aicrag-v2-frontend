@@ -16,12 +16,16 @@ const HorizontalScrollBar: React.FC<HorizontalScrollBarProps> = ({
       className={style.horizontalScrollBar}
       data-testid="horizontal-scroll-bar"
       style={assignInlineVars(horizontalScrollBarVars, {
-        width: width ?? '100%'
+        width: width!
       })}
     >
       {children}
     </div>
   )
+}
+
+HorizontalScrollBar.defaultProps = {
+  width: '100%'
 }
 
 export default HorizontalScrollBar
