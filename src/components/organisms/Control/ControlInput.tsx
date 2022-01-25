@@ -4,14 +4,14 @@ import EyeIcon from '../../atoms/icons/EyeIcon'
 import useControlInput from './hooks/useControlInput'
 
 type ControlInputProps = {
-  icon?: React.ReactElement
-  name: string
-  label: string
-  defaultValue?: string
   type?: React.ComponentPropsWithRef<typeof BaseInput>['type']
+  icon?: React.ReactElement
+  defaultValue?: string
+  label: string
+  name: string
 } & Pick<
 React.InputHTMLAttributes<HTMLInputElement>,
-'autoFocus' | 'onBlur' | 'onChange' | 'onFocus' | 'autoComplete' | 'readOnly'
+'autoFocus' | 'onBlur' | 'onChange' | 'onFocus' | 'autoComplete'
 >
 
 /**
@@ -20,41 +20,36 @@ React.InputHTMLAttributes<HTMLInputElement>,
 const ControlInput: React.FC<
 Omit<ControlInputProps, 'uniqueFormName' | 'validation'>
 > = ({
-  icon,
-  name,
-  type,
-  autoFocus,
-  label,
-  autoComplete,
   defaultValue,
-  onBlur,
+  autoFocus,
   onChange,
   onFocus,
-  readOnly
+  onBlur,
+  label,
+  icon,
+  name,
+  type
 }: ControlInputProps) => {
   const {
-    currentType,
-    error,
-    isFocused,
-    isReadOnly,
-    isTouched,
-    isValid,
-    onBlurHandler,
+    showPasswordHandler,
     onChangeHandler,
     onFocusHandler,
-    showPasswordHandler,
+    onBlurHandler,
+    currentType,
+    isReadOnly,
+    isFocused,
+    isTouched,
     validator,
+    isValid,
+    error,
     value
   } = useControlInput({
-    label,
-    name,
-    autoFocus,
     defaultValue,
-    icon,
-    onBlur,
+    autoFocus,
     onChange,
     onFocus,
-    readOnly,
+    onBlur,
+    name,
     type
   })
 
@@ -62,20 +57,20 @@ Omit<ControlInputProps, 'uniqueFormName' | 'validation'>
 
   return (
     <BaseInput
-      readOnly={isReadOnly}
-      autoFocus={autoFocus}
-      error={error[name]}
+      type={currentType[name] ?? 'text'}
       isFocused={isFocused[name]}
       isTouched={isTouched[name]}
+      onChange={onChangeHandler}
+      value={value[name] ?? ''}
+      onFocus={onFocusHandler}
       isValid={isValid[name]}
+      onBlur={onBlurHandler}
+      readOnly={isReadOnly}
+      autoFocus={autoFocus}
+      validator={validator}
+      error={error[name]}
       label={label}
       name={name}
-      onBlur={onBlurHandler}
-      onChange={onChangeHandler}
-      onFocus={onFocusHandler}
-      type={currentType[name] ?? 'text'}
-      validator={validator}
-      value={value[name] ?? ''}
       icon={
         shouldRenderIcon
           ? () => (
