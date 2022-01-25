@@ -16,14 +16,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ loading }) => {
   }, [loading])
 
   useEffect(() => {
-    if (loading && !isOpen) {
-      setIsOpen(true)
-    }
-  }, [loading])
-
-  useEffect(() => {
     if (!loading && isOpen) {
-      /* istanbul ignore next */
       const timer = setTimeout(() => {
         setIsOpen(false)
       }, 1250)
