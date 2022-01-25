@@ -2,17 +2,13 @@ import { cleanup, render, screen } from '@testing-library/react'
 import React from 'react'
 import Divider from '../Divider'
 
-const makeSut = () => {
-  return render(<Divider />)
-}
-
 describe('Divider', () => {
   afterEach(() => {
     cleanup()
   })
 
-  it('should render Divider correctly', () => {
-    makeSut()
+  it('renders correctly', () => {
+    render(<Divider />)
 
     const divider = screen.getByTestId('divider')
 
