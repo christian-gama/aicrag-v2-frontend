@@ -5,11 +5,19 @@ import { vars } from '@/components/_settings/vars.css'
 
 const colorVariants = styleVariants({
   white: {
-    fill: vars.colors.white
+    fill: vars.colors.white,
+
+    ':hover': {
+      fill: vars.colors['gray-200']
+    }
   },
 
   primary: {
-    fill: vars.colors['navy-500']
+    fill: vars.colors['navy-500'],
+
+    ':hover': {
+      fill: vars.colors['navy-800']
+    }
   }
 })
 
@@ -37,7 +45,9 @@ const sizeVariants = styleVariants({
 
 export const backIconRecipe = recipe({
   base: {
-    display: 'inline-block'
+    display: 'inline-block',
+
+    transition: 'fill 0.2s ease-in-out'
   },
 
   variants: {
