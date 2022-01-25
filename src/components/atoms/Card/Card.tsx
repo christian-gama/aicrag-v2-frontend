@@ -8,24 +8,24 @@ type CardProps = {
   roundness?: CardVariants['roundness']
   transparent?: CardVariants['transparent']
   style?: {
-    width?: string
-    height?: string
     padding?: string
+    height?: string
     margin?: string
+    width?: string
   }
 }
 
 const Card: React.FC<CardProps> = ({
+  transparent,
+  roundness,
   centered,
   children,
-  roundness,
-  style,
-  transparent
+  style
 }) => {
   const cardStyle = styles.cardRecipe({
-    centered: centered,
-    roundness: roundness,
-    transparent: transparent
+    transparent,
+    roundness,
+    centered
   })
 
   return (
@@ -34,14 +34,20 @@ const Card: React.FC<CardProps> = ({
       className={cardStyle}
       style={assignInlineVars(styles.cardVars, {
         height: style?.height ?? 'max-content',
-        margin: style?.margin ?? '0',
+        width: style?.width ?? 'max-content',
         padding: style?.padding ?? '0',
-        width: style?.width ?? 'max-content'
+        margin: style?.margin ?? '0'
       })}
     >
       {children}
     </div>
   )
+}
+
+Card.defaultProps = {
+  transparent: false,
+  centered: false,
+  roundness: 'sm'
 }
 
 export default Card
