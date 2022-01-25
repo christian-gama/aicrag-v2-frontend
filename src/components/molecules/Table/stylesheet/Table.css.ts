@@ -9,16 +9,16 @@ export const tableStyle = style({
 export const tableCell = style({
   position: 'relative',
   height: '100%',
-  textAlign: 'start',
   overflow: 'hidden',
-  msTextOverflow: 'ellipsis',
+  textAlign: 'start',
   textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap'
+  whiteSpace: 'nowrap',
+  msTextOverflow: 'ellipsis'
 })
 
 export const tableSpanShowingup = style({
   display: 'block',
-  fontSize: vars.font.hint.fontSize,
+  marginBottom: '0.8rem',
   fontFamily: vars.font.hint.fontFamily,
-  marginBottom: '0.8rem'
+  fontSize: vars.font.hint.fontSize
 })

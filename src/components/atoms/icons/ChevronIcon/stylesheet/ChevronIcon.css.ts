@@ -5,12 +5,12 @@ import { sizeVariants } from '../../common/variants/size.css'
 
 // Styles
 export const chevronIconHitbox = style({
-  alignItems: 'center',
-  borderRadius: '50%',
   display: 'flex',
+  alignItems: 'center',
   justifyContent: 'center',
-  padding: '0.8rem',
   transition: 'background-color 0.1s ease-in-out',
+  borderRadius: '50%',
+  padding: '0.8rem',
 
   ':hover': {
     cursor: 'pointer'

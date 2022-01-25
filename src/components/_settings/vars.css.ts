@@ -9,34 +9,34 @@ const shadow = {
 
 const font = {
   h1: {
-    fontSize: '4.8rem',
     fontFamily: 'Lato, sans-serif',
+    fontSize: '4.8rem',
     fontWeight: 'regular'
   },
   h2: {
-    fontSize: '3.2rem',
-    fontFamily: 'Lato, sans-serif'
+    fontFamily: 'Lato, sans-serif',
+    fontSize: '3.2rem'
   },
   h3: {
-    fontSize: '2.8rem',
-    fontFamily: 'Open Sans, sans-serif'
+    fontFamily: 'Open Sans, sans-serif',
+    fontSize: '2.8rem'
   },
   h4: {
-    fontSize: '1.8rem',
-    fontFamily: 'Open Sans, sans-serif'
+    fontFamily: 'Open Sans, sans-serif',
+    fontSize: '1.8rem'
   },
   p: {
-    fontSize: '1.6rem',
-    fontFamily: 'Open Sans, sans-serif'
+    fontFamily: 'Open Sans, sans-serif',
+    fontSize: '1.6rem'
   },
   button: {
-    fontSize: '1.6rem',
+    textTransform: 'uppercase',
     fontFamily: 'Open Sans, sans-serif',
-    textTransform: 'uppercase'
+    fontSize: '1.6rem'
   },
   hint: {
-    fontSize: '1.4rem',
-    fontFamily: 'Open Sans, sans-serif'
+    fontFamily: 'Open Sans, sans-serif',
+    fontSize: '1.4rem'
   }
 }
 

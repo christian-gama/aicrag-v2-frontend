@@ -10,14 +10,14 @@ export const backgroundVars = createGlobalTheme(':root', {
 export const backgroundRecipe = recipe({
   base: {
     position: 'fixed',
+    zIndex: '-1',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
     width: '100vw',
     height: backgroundVars.height,
-    WebkitBackgroundSize: 'cover',
-    backgroundSize: 'cover',
-    zIndex: '-1',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
     overflowY: 'auto',
+    WebkitBackgroundSize: 'cover',
 
     '@media': {
       [breakpoints.mobile]: {

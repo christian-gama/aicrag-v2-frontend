@@ -7,22 +7,22 @@ export const windowDimensionVars = createGlobalTheme(':root', {
 
 export const entryCard = style({
   position: 'relative',
-  height: '65rem',
-  width: '60rem',
   padding: '3.6rem 5rem',
+  width: '60rem',
+  height: '65rem',
 
   '@media': {
     [breakpoints.tablet]: {
-      width: '50rem',
-      padding: '2rem 2.8rem'
+      padding: '2rem 2.8rem',
+      width: '50rem'
     },
 
     [breakpoints.mobile]: {
-      width: '100vw',
-      minHeight: windowDimensionVars.height,
-      height: '100%',
       margin: '0 auto',
-      padding: '1.2rem 1.6rem'
+      padding: '1.2rem 1.6rem',
+      width: '100vw',
+      height: '100%',
+      minHeight: windowDimensionVars.height
     }
   }
 })

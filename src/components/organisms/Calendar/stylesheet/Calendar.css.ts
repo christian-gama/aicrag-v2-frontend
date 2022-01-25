@@ -6,9 +6,9 @@ export const calendar = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  width: '52rem',
-  backgroundColor: vars.colors.white,
   borderRadius: '5px',
+  backgroundColor: vars.colors.white,
+  width: '52rem',
 
   '@media': {
     [breakpoints.mobile]: {

@@ -14,7 +14,7 @@ export const signUpFormButtonWrapper = style({
 export const signUpFormInputWrapper = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '2rem',
   marginBottom: '3.6rem',
-  width: '100%'
+  width: '100%',
+  gap: '2rem'
 })

@@ -14,8 +14,8 @@ export const horizontalScrollBar = style({
   overflowX: 'auto',
 
   '::-webkit-scrollbar': {
-    height: '8px',
-    width: '8px'
+    width: '8px',
+    height: '8px'
   },
 
   '::-webkit-scrollbar-track': {
@@ -34,9 +34,9 @@ export const horizontalScrollBar = style({
     },
 
     [breakpoints.mobile]: {
+      paddingBottom: '1.2rem',
       overflowX: 'auto',
-      whiteSpace: 'nowrap',
-      paddingBottom: '1.2rem'
+      whiteSpace: 'nowrap'
     }
   }
 })

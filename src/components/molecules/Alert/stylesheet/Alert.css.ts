@@ -43,10 +43,10 @@ export const alert = style({
 export const alertBody = style([
   padding,
   {
-    textAlign: 'justify',
-    hyphens: 'auto',
+    width: '100%',
     minHeight: '12rem',
-    width: '100%'
+    textAlign: 'justify',
+    hyphens: 'auto'
   }
 ])
 
@@ -54,10 +54,10 @@ export const alertFooter = style([
   padding,
   {
     display: 'flex',
-    justifyContent: 'flex-end',
-    gap: '0.8rem',
     alignItems: 'flex-end',
-    width: '100%'
+    justifyContent: 'flex-end',
+    width: '100%',
+    gap: '0.8rem'
   }
 ])
 
@@ -65,12 +65,12 @@ export const alertHeaderRecipe = recipe({
   base: [
     padding,
     {
+      display: 'flex',
       alignItems: 'center',
       borderRadius: '5px 5px 0 0',
-      display: 'flex',
-      gap: '1.6rem',
-      height: '7rem',
       width: '100%',
+      height: '7rem',
+      gap: '1.6rem',
 
       '@media': {
         [breakpoints.mobile]: {

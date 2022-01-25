@@ -9,13 +9,13 @@ export const popoverMessageListItem = style({
   display: 'flex',
 
   '::before': {
-    color: vars.colors.white,
-    content: '\\2022',
     display: 'inline-block',
+    marginRight: '0.8rem',
+    width: '1.6rem',
+    color: vars.colors.white,
     fontSize: '2rem',
     fontWeight: 'bold',
-    marginRight: '0.8rem',
-    width: '1.6rem'
+    content: '\\2022'
   },
 
   selectors: {

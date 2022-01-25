@@ -14,13 +14,13 @@ const moveGradientAnimation = keyframes({
 
 const progressAnimation = keyframes({
   '0%': {
-    width: '0vw',
-    transform: 'translateX(0)'
+    transform: 'translateX(0)',
+    width: '0vw'
   },
 
   '50%': {
-    width: '100vw',
-    transform: 'translateX(0)'
+    transform: 'translateX(0)',
+    width: '100vw'
   },
 
   '100%': {
@@ -30,23 +30,23 @@ const progressAnimation = keyframes({
 
 // Styles
 export const progressBar = style({
-  boxShadow: vars.shadow.xsm,
-  height: '0.8rem',
   position: 'fixed',
   top: 0,
-  width: '100vw'
+  boxShadow: vars.shadow.xsm,
+  width: '100vw',
+  height: '0.8rem'
 })
 
 export const progressBarBackground = style({
   backgroundColor: vars.colors['gray-100'],
-  height: '100%',
-  width: '100%'
+  width: '100%',
+  height: '100%'
 })
 
 export const progressBarProgress = style({
-  animation: `${moveGradientAnimation} 1s infinite alternate, ${progressAnimation} 3s linear infinite forwards`,
   backgroundImage: `linear-gradient(to right, ${vars.colors['cyan-800']} 0%, ${vars.colors['cyan-300']} 100%)`,
   backgroundSize: '300% 300%',
+  width: '0',
   height: '100%',
-  width: '0'
+  animation: `${moveGradientAnimation} 1s infinite alternate, ${progressAnimation} 3s linear infinite forwards`
 })

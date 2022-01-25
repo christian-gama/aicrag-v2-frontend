@@ -45,22 +45,22 @@ const transparentVariants = styleVariants({
 })
 
 export const cardVars = createGlobalTheme(':root', {
-  height: 'max-content',
   margin: '0',
   padding: '0',
-  width: 'max-content'
+  width: 'max-content',
+  height: 'max-content'
 })
 
 // Recipes
 export const cardRecipe = recipe({
   base: {
-    boxShadow: vars.shadow.sm,
-    height: cardVars.height,
     margin: cardVars.margin,
-    maxWidth: cardVars.width,
-    minWidth: cardVars.width,
+    boxShadow: vars.shadow.sm,
     padding: cardVars.padding,
     width: cardVars.width,
+    minWidth: cardVars.width,
+    maxWidth: cardVars.width,
+    height: cardVars.height,
     overflow: 'hidden'
   },
 

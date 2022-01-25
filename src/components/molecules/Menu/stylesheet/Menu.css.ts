@@ -4,23 +4,23 @@ import { vars } from '@/components/_settings/vars.css'
 
 export const menu = style({
   display: 'flex',
+  backgroundColor: vars.colors.white,
   width: '100%',
-  height: '4.8rem',
-  backgroundColor: vars.colors.white
+  height: '4.8rem'
 })
 
 export const menuButtonRecipe = recipe({
   base: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
     flex: '1',
-    fontSize: vars.font.button.fontSize,
-    fontFamily: vars.font.button.fontFamily,
-    border: 'none',
+    alignItems: 'center',
+    justifyContent: 'center',
     transition: 'background-color 0.1s ease-in-out, color 0.1s ease-in-out',
+    border: 'none',
     borderBottom: `1px solid ${vars.colors['navy-500']}`,
     textDecoration: 'none',
+    fontFamily: vars.font.button.fontFamily,
+    fontSize: vars.font.button.fontSize,
 
     ':hover': {
       cursor: 'pointer'

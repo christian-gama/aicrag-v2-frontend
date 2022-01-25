@@ -16,20 +16,20 @@ export const signInFormButtonWrapper = style({
 export const signInFormInputWrapper = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '3.6rem',
   marginBottom: '6rem',
-  width: '100%'
+  width: '100%',
+  gap: '3.6rem'
 })
 
 export const signInFormForgotPasswordWrapper = style({
-  alignItems: 'center',
-  backgroundColor: vars.colors['gray-50'],
-  borderRadius: '0 0 5px 5px',
-  bottom: '0',
   display: 'flex',
-  height: '9rem',
-  justifyContent: 'center',
-  left: '0',
   position: 'absolute',
-  width: '100%'
+  bottom: '0',
+  left: '0',
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: '0 0 5px 5px',
+  backgroundColor: vars.colors['gray-50'],
+  width: '100%',
+  height: '9rem'
 })

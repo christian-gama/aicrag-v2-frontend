@@ -38,18 +38,18 @@ const inputHasIconVariants = styleVariants({
 
 const labelFloatVariants = styleVariants({
   true: {
+    top: '0',
     backgroundColor: vars.colors.white,
-    fontSize: '1.2rem',
-    fontWeight: 'bold',
     padding: '0px 4px',
-    top: '0'
+    fontSize: '1.2rem',
+    fontWeight: 'bold'
   },
 
   false: {
-    fontWeight: 'normal',
-    padding: '0',
     top: '50%',
-    fontSize: vars.font.p.fontSize
+    padding: '0',
+    fontSize: vars.font.p.fontSize,
+    fontWeight: 'normal'
   }
 })
 
@@ -81,41 +81,41 @@ export const inputBox = style({
 
 export const inputContent = style({
   display: 'flex',
+  position: 'relative',
   flexDirection: 'column',
-  justifyContent: 'center',
-  position: 'relative'
+  justifyContent: 'center'
 })
 
 export const inputError = style({
+  marginTop: '0.4rem',
+  marginLeft: '0.4rem',
   color: vars.colors['danger-400'],
   fontFamily: vars.font.hint.fontFamily,
-  fontSize: vars.font.hint.fontSize,
-  marginLeft: '0.4rem',
-  marginTop: '0.4rem'
+  fontSize: vars.font.hint.fontSize
 })
 
 export const inputIcon = style({
-  backgroundColor: vars.colors.white,
   position: 'absolute',
-  right: '0',
   top: '50%',
-  transform: 'translate(-50%, -50%)'
+  right: '0',
+  transform: 'translate(-50%, -50%)',
+  backgroundColor: vars.colors.white
 })
 
 // Recipes
 export const inputRecipe = recipe({
   base: {
-    backgroundColor: vars.colors.white,
     border: 'none',
     borderRadius: '5px',
+    backgroundColor: vars.colors.white,
+    padding: '1rem',
+    width: '100%',
+    minWidth: '100%',
+    maxWidth: '100%',
+    height: '4.8rem',
     color: vars.colors.text.default,
     fontFamily: vars.font.p.fontFamily,
     fontSize: vars.font.p.fontSize,
-    height: '4.8rem',
-    maxWidth: '100%',
-    minWidth: '100%',
-    padding: '1rem',
-    width: '100%',
 
     selectors: {
       '&:focus': {

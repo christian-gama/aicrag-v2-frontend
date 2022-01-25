@@ -5,12 +5,12 @@ import { sizeVariants } from '../../common/variants/size.css'
 
 // Styles
 export const closeIconHitbox = style({
-  alignItems: 'center',
-  borderRadius: '50%',
   display: 'flex',
+  alignItems: 'center',
   justifyContent: 'center',
-  maxWidth: 'min-content',
+  borderRadius: '50%',
   padding: '0.8rem',
+  maxWidth: 'min-content',
 
   ':hover': {
     cursor: 'pointer'

@@ -75,9 +75,9 @@ const modeVariants = styleVariants({
 // Compound Variants
 // Cyan
 const containedCyanStyle = style({
+  border: 'none',
   backgroundColor: vars.colors['cyan-900'],
   color: vars.colors.white,
-  border: 'none',
 
   ':hover': {
     backgroundColor: vars.colors['cyan-700'],
@@ -90,15 +90,15 @@ const containedCyanStyle = style({
 })
 
 const outlinedCyanStyle = style({
-  backgroundColor: vars.colors.transparent,
   border: `1px solid ${vars.colors['cyan-900']}`,
+  backgroundColor: vars.colors.transparent,
   color: vars.colors['cyan-900'],
 
   ':hover': {
-    backgroundColor: vars.colors['cyan-900'],
     border: 'none',
-    color: vars.colors.white,
-    cursor: 'pointer'
+    backgroundColor: vars.colors['cyan-900'],
+    cursor: 'pointer',
+    color: vars.colors.white
   },
 
   ':focus': {
@@ -108,9 +108,9 @@ const outlinedCyanStyle = style({
 
 // Warning
 const containedWarningStyle = style({
+  border: 'none',
   backgroundColor: vars.colors['warning-500'],
   color: vars.colors.text.default,
-  border: 'none',
 
   ':hover': {
     backgroundColor: vars.colors['warning-300'],
@@ -123,15 +123,15 @@ const containedWarningStyle = style({
 })
 
 const outlinedWarningStyle = style({
-  backgroundColor: vars.colors.transparent,
   border: `1px solid ${vars.colors['warning-500']}`,
+  backgroundColor: vars.colors.transparent,
   color: vars.colors['warning-900'],
 
   ':hover': {
-    backgroundColor: vars.colors['warning-500'],
     border: 'none',
-    color: vars.colors.text.default,
-    cursor: 'pointer'
+    backgroundColor: vars.colors['warning-500'],
+    cursor: 'pointer',
+    color: vars.colors.text.default
   },
 
   ':focus': {
@@ -141,9 +141,9 @@ const outlinedWarningStyle = style({
 
 // Danger
 const containedDangerStyle = style({
+  border: 'none',
   backgroundColor: vars.colors['danger-400'],
   color: vars.colors.white,
-  border: 'none',
 
   ':hover': {
     backgroundColor: vars.colors['danger-700'],
@@ -156,15 +156,15 @@ const containedDangerStyle = style({
 })
 
 const outlinedDangerStyle = style({
-  backgroundColor: vars.colors.transparent,
   border: `1px solid ${vars.colors['danger-400']}`,
+  backgroundColor: vars.colors.transparent,
   color: vars.colors['danger-400'],
 
   ':hover': {
-    backgroundColor: vars.colors['danger-400'],
     border: 'none',
-    color: vars.colors.white,
-    cursor: 'pointer'
+    backgroundColor: vars.colors['danger-400'],
+    cursor: 'pointer',
+    color: vars.colors.white
   },
 
   ':focus': {
@@ -174,9 +174,9 @@ const outlinedDangerStyle = style({
 
 // Disabled
 const containedDisabledStyle = style({
+  border: 'none',
   backgroundColor: vars.colors['gray-600'],
   color: vars.colors.white,
-  border: 'none',
 
   ':hover': {
     backgroundColor: vars.colors['gray-600'],
@@ -185,23 +185,23 @@ const containedDisabledStyle = style({
 })
 
 const outlinedDisabledStyle = style({
-  backgroundColor: vars.colors.transparent,
   border: `1px solid ${vars.colors['gray-600']}`,
+  backgroundColor: vars.colors.transparent,
   color: vars.colors['gray-600'],
 
   ':hover': {
-    backgroundColor: vars.colors.transparent,
     border: `1px solid ${vars.colors['gray-600']}`,
-    color: vars.colors['gray-600'],
-    cursor: 'not-allowed'
+    backgroundColor: vars.colors.transparent,
+    cursor: 'not-allowed',
+    color: vars.colors['gray-600']
   }
 })
 
 // Info
 const containedInfoStyle = style({
+  border: 'none',
   backgroundColor: vars.colors['info-400'],
   color: vars.colors.white,
-  border: 'none',
 
   ':hover': {
     backgroundColor: vars.colors['info-900'],
@@ -214,15 +214,15 @@ const containedInfoStyle = style({
 })
 
 const outlinedInfoStyle = style({
-  backgroundColor: vars.colors.transparent,
   border: `1px solid ${vars.colors['info-400']}`,
+  backgroundColor: vars.colors.transparent,
   color: vars.colors['info-400'],
 
   ':hover': {
-    backgroundColor: vars.colors['info-400'],
     border: 'none',
-    color: vars.colors.white,
-    cursor: 'pointer'
+    backgroundColor: vars.colors['info-400'],
+    cursor: 'pointer',
+    color: vars.colors.white
   },
 
   ':focus': {
@@ -232,9 +232,9 @@ const outlinedInfoStyle = style({
 
 // Light
 const containedLightStyle = style({
+  border: 'none',
   backgroundColor: vars.colors['gray-50'],
   color: vars.colors.text.default,
-  border: 'none',
 
   ':hover': {
     backgroundColor: vars.colors['gray-100'],
@@ -247,15 +247,15 @@ const containedLightStyle = style({
 })
 
 const outlinedLightStyle = style({
-  backgroundColor: vars.colors.transparent,
   border: `1px solid ${vars.colors.text.default}`,
+  backgroundColor: vars.colors.transparent,
   color: vars.colors.text.default,
 
   ':hover': {
-    backgroundColor: vars.colors['gray-100'],
     border: 'none',
-    color: vars.colors.text.dark,
-    cursor: 'pointer'
+    backgroundColor: vars.colors['gray-100'],
+    cursor: 'pointer',
+    color: vars.colors.text.dark
   },
 
   ':focus': {
@@ -266,15 +266,15 @@ const outlinedLightStyle = style({
 // Recipes
 export const buttonRecipe = recipe({
   base: {
-    alignItems: 'center',
-    borderRadius: '5px',
     display: 'flex',
-    fontFamily: vars.font.button.fontFamily,
-    fontSize: vars.font.button.fontSize,
+    alignItems: 'center',
     justifyContent: 'center',
-    textTransform: vars.font.button.textTransform,
     transition:
-      'background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out'
+      'background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out',
+    borderRadius: '5px',
+    textTransform: vars.font.button.textTransform,
+    fontFamily: vars.font.button.fontFamily,
+    fontSize: vars.font.button.fontSize
   },
 
   variants: {
