@@ -1,37 +1,34 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import React from 'react'
 import {
-  FormActionPayload,
   FormInputActionPayload,
+  FormActionPayload,
   FormStates
 } from './protocols/form.model'
 
 export const initialFormState: FormStates = {
   form: {
-    isDirty: false,
-    isSubmitted: false,
-    error: undefined,
-    data: {},
     isSubmitting: false,
-    isValid: false,
     isValidating: false,
-    isFocused: false,
-    isChanging: false,
-    isResetting: false
+    isSubmitted: false,
+    isResetting: false,
+    error: undefined,
+    isValid: false,
+    data: {}
   },
   input: {
     currentType: {},
-    error: {},
     isFocused: {},
     isTouched: {},
     isValid: {},
+    error: {},
     value: {}
   }
 }
 
 const FormContext = React.createContext<{
-  state: FormStates
   dispatch: (options: FormActionPayload | FormInputActionPayload) => void
+  state: FormStates
 }>({
       state: initialFormState,
       dispatch: (options) => {}

@@ -30,14 +30,11 @@ export const resetForm = (): FormStates => {
   return {
     form: {
       isResetting: true,
-      isDirty: false,
       isSubmitted: false,
       error: undefined,
       isSubmitting: false,
       isValid: false,
       isValidating: false,
-      isFocused: false,
-      isChanging: false,
       data: {},
       validator: undefined
     },
@@ -70,37 +67,6 @@ export const setFormIsValid = (
   action: FormActionPayload
 ): FormStates => {
   return { ...state, form: { ...state.form, isValid: action.payload.isValid! } }
-}
-
-export const setFormIsDirty = (
-  state: FormStates,
-  action: FormActionPayload
-): FormStates => {
-  return { ...state, form: { ...state.form, isDirty: action.payload.isDirty! } }
-}
-
-export const setFormIsChanging = (
-  state: FormStates,
-  action: FormActionPayload
-): FormStates => {
-  return {
-    ...state,
-    form: {
-      ...state.form,
-      isChanging: action.payload.isChanging!,
-      isResetting: false
-    }
-  }
-}
-
-export const setIsFocused = (
-  state: FormStates,
-  action: FormActionPayload
-): FormStates => {
-  return {
-    ...state,
-    form: { ...state.form, isFocused: action.payload.isFocused! }
-  }
 }
 
 export const setFormIsSubmitting = (

@@ -5,35 +5,35 @@ import ProgressBar from '../../atoms/ProgressBar'
 import useControlForm from './hooks/useControlForm'
 
 type ControlFormProps = {
-  loading?: boolean
   successMessage?: string
   validator?: IValidation
+  loading?: boolean
   submitHandler: () => Promise<void>
 }
 
 const ControlForm: React.FC<ControlFormProps> = ({
+  successMessage,
   submitHandler,
   children,
-  loading,
-  successMessage,
-  validator
+  validator,
+  loading
 }) => {
   const {
-    error,
-    isErrorPopoverOpen,
-    isSubmitted,
-    isSubmitting,
-    isSuccessPopoverOpen,
-    isValid,
-    onCloseErrorPopover,
     onCloseSuccessPopover,
-    onSubmitHandler
+    isSuccessPopoverOpen,
+    onCloseErrorPopover,
+    isErrorPopoverOpen,
+    onSubmitHandler,
+    isSubmitting,
+    isSubmitted,
+    isValid,
+    error
   } = useControlForm({
+    successMessage,
     submitHandler,
     children,
-    loading,
-    successMessage,
-    validator
+    validator,
+    loading
   })
 
   return (

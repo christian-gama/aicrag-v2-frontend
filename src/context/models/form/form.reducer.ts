@@ -2,9 +2,6 @@ import {
   resetForm,
   setFormError,
   setFormIsValid,
-  setFormIsDirty,
-  setFormIsChanging,
-  setIsFocused,
   setFormIsSubmitting,
   setFormIsSubmitted,
   setFormIsValidating,
@@ -42,15 +39,6 @@ const formReducer = (
 
     case 'FORM/SET_IS_VALID':
       return setFormIsValid(state, action)
-
-    case 'FORM/SET_IS_DIRTY':
-      return setFormIsDirty(state, action)
-
-    case 'FORM/SET_IS_CHANGING':
-      return setFormIsChanging(state, action)
-
-    case 'FORM/SET_IS_FOCUSED':
-      return setIsFocused(state, action)
 
     case 'FORM/SET_IS_SUBMITTING':
       return setFormIsSubmitting(state, action)

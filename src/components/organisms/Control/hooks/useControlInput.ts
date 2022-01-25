@@ -83,9 +83,6 @@ const useControlInput = (props: ComponentPropsWithRef<typeof ControlInput>) => {
       type: 'FORM/SET_FORM_DATA',
       payload: { data: { [props.name]: value } }
     })
-    dispatch({ type: 'FORM/SET_IS_DIRTY', payload: { isDirty: true } })
-    dispatch({ type: 'FORM/SET_IS_FOCUSED', payload: { isFocused: false } })
-    dispatch({ type: 'FORM/SET_IS_CHANGING', payload: { isChanging: false } })
   }
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,7 +110,6 @@ const useControlInput = (props: ComponentPropsWithRef<typeof ControlInput>) => {
 
     if (props.onChange) props.onChange(event)
 
-    dispatch({ type: 'FORM/SET_IS_CHANGING', payload: { isChanging: true } })
     dispatch({
       type: 'FORM/SET_FORM_DATA',
       payload: { data: { [props.name]: value } }
@@ -143,7 +139,6 @@ const useControlInput = (props: ComponentPropsWithRef<typeof ControlInput>) => {
       type: 'FORM/SET_FORM_DATA',
       payload: { data: { [props.name]: value } }
     })
-    dispatch({ type: 'FORM/SET_IS_FOCUSED', payload: { isFocused: true } })
   }
 
   return {
