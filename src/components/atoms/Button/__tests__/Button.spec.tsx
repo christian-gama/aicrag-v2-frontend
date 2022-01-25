@@ -1,107 +1,87 @@
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
+import getElement from '@/tests/helpers/getElement'
 import Button from '..'
+
+const mockedFunction = jest.fn()
+jest.mock(
+  '../../icons/LoadingSpinnerIcon',
+  () =>
+    function mockedComponent (props: any) {
+      mockedFunction(props)
+
+      return null
+    }
+)
 
 describe('Button', () => {
   afterEach(() => {
     cleanup()
   })
 
-  it('should have "click me" as text inside button', () => {
-    render(<Button>Click me</Button>)
+  it('renders correctly', () => {
+    render(<Button />)
+    const button = getElement('button')
 
-    expect(screen.getByText('Click me')).toBeInTheDocument()
+    expect(button).toBeInTheDocument()
   })
 
-  it('should have a svg icon in the document when has loading prop as true', () => {
-    render(<Button loading>Click me</Button>)
+  it('is disabled if disabled props is true', () => {
+    render(<Button disabled />)
+    const button = getElement('button')
 
-    expect(screen.getByTestId('loading-spinner-icon')).toBeInTheDocument()
+    expect(button).toBeDisabled()
+    expect(button.className).toMatch(/disabled_true/gi)
   })
 
-  it('should have disabled attribute when has disabled prop as true', () => {
-    render(<Button disabled>Click me</Button>)
+  it('must not call onClick if is disabled', () => {
+    const onClickSpy = jest.fn()
+    render(<Button disabled onClick={onClickSpy} />)
+    const button = getElement('button')
 
-    expect(screen.getByText('Click me')).toHaveAttribute('disabled')
+    userEvent.click(button)
+
+    expect(onClickSpy).not.toHaveBeenCalled()
   })
 
-  it('should not execute onClick if disabled', () => {
-    const onClick = jest.fn()
-    render(
-      <Button disabled onClick={onClick} testid="button">
-        Click me
-      </Button>
+  it('must not call onClick if loading', () => {
+    const onClickSpy = jest.fn()
+    render(<Button loading onClick={onClickSpy} />)
+    const button = getElement('button')
+
+    userEvent.click(button)
+
+    expect(onClickSpy).not.toHaveBeenCalled()
+  })
+
+  it('calls onClick when clicked', () => {
+    const onClickSpy = jest.fn()
+    render(<Button onClick={onClickSpy} />)
+    const button = getElement('button')
+
+    userEvent.click(button)
+
+    expect(onClickSpy).toHaveBeenCalled()
+  })
+
+  it('calls LoadingSpinner with white color if does not have a mode defined', async () => {
+    render(<Button loading />)
+
+    expect(mockedFunction).toHaveBeenCalledWith(
+      expect.objectContaining({
+        style: { color: 'white', size: expect.anything() }
+      })
     )
-
-    const button = screen.getByTestId('button')
-    userEvent.click(button)
-
-    expect(onClick).not.toHaveBeenCalled()
   })
 
-  it('should execute onClick if not disabled', () => {
-    const onClick = jest.fn()
-    render(<Button onClick={onClick}>Click me</Button>)
+  it('calls LoadingSpinner with main color if mode is equal to outlined', async () => {
+    render(<Button loading style={{ mode: 'outlined' }} />)
 
-    const button = screen.getByText('Click me')
-    userEvent.click(button)
-
-    expect(onClick).toHaveBeenCalled()
-  })
-
-  it('should not execute onClick if loading', () => {
-    const onClick = jest.fn()
-
-    render(
-      <Button loading onClick={onClick} testid="button">
-        Click me
-      </Button>
+    expect(mockedFunction).toHaveBeenCalledWith(
+      expect.objectContaining({
+        style: { color: 'main', size: expect.anything() }
+      })
     )
-
-    const button = screen.getByTestId('button')
-    userEvent.click(button)
-
-    expect(onClick).not.toHaveBeenCalled()
-  })
-
-  it('should not execute onClick if loading and has mode as outlined', () => {
-    const onClick = jest.fn()
-    render(
-      <Button
-        loading
-        onClick={onClick}
-        style={{
-          mode: 'outlined'
-        }}
-      >
-        Click me
-      </Button>
-    )
-
-    const spinner = screen.getByTestId('loading-spinner-icon')
-    userEvent.click(spinner)
-
-    expect(onClick).not.toHaveBeenCalled()
-  })
-
-  it('should execute onClick if not loading', () => {
-    const onClick = jest.fn()
-    render(<Button onClick={onClick}>Click me</Button>)
-
-    const button = screen.getByText('Click me')
-    userEvent.click(button)
-
-    expect(onClick).toHaveBeenCalled()
-  })
-
-  it('should not execute onClick if not passed through props', () => {
-    const onClick = jest.fn()
-    render(<Button>Click me</Button>)
-
-    const button = screen.getByText('Click me')
-    userEvent.click(button)
-
-    expect(onClick).not.toHaveBeenCalled()
   })
 })

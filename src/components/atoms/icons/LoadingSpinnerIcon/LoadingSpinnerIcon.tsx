@@ -5,8 +5,8 @@ import { LoadingSpinnerVariants } from './stylesheet'
 type LoadingSpinnerIconProps = {
   style?: {
     color?: LoadingSpinnerVariants['color']
-    size?: LoadingSpinnerVariants['size']
     speed?: LoadingSpinnerVariants['speed']
+    size?: LoadingSpinnerVariants['size']
   }
 }
 
