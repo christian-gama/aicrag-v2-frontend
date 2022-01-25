@@ -3,36 +3,36 @@ import * as style from './stylesheet'
 import { ChevronIconVariants } from './stylesheet'
 
 type ChevronIconProps = {
+  direction?: NonNullable<ChevronIconVariants['direction']>
   color?: ChevronIconVariants['color']
-  direction: NonNullable<ChevronIconVariants['direction']>
   size?: ChevronIconVariants['size']
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
 const ChevronIcon: React.FC<ChevronIconProps> = ({
   direction,
-  color,
   onClick,
+  color,
   size
 }) => {
   const chevronStyle = style.chevronIconRecipe({
-    color: color,
-    direction: direction,
-    size: size
+    direction,
+    color,
+    size
   })
 
   return (
     <div
       className={style.chevronIconHitbox}
-      onClick={onClick}
       data-testid={'chevron-icon'}
+      onClick={onClick}
     >
       <svg
-        className={chevronStyle}
         xmlns="http://www.w3.org/2000/svg"
-        width="27"
-        height="48"
+        className={chevronStyle}
         viewBox="0 0 27 48"
+        height="48"
+        width="27"
       >
         <path
           d="M28.217,28.513,8.417,49.875a2.321,2.321,0,0,1-3.458,0L2.649,47.384a2.788,2.788,0,0,1,0-3.726L18.337,26.648,2.645,9.638a2.788,2.788,0,0,1,0-3.726L4.959,3.42a2.321,2.321,0,0,1,3.458,0l19.8,21.362A2.787,2.787,0,0,1,28.217,28.513Z"
@@ -41,6 +41,12 @@ const ChevronIcon: React.FC<ChevronIconProps> = ({
       </svg>
     </div>
   )
+}
+
+ChevronIcon.defaultProps = {
+  direction: 'right',
+  color: 'main',
+  size: 'md'
 }
 
 export default ChevronIcon

@@ -9,6 +9,7 @@ export const errorIconRecipe = recipe({
   },
 
   defaultVariants: {
+    color: 'primary',
     size: 'md'
   }
 })

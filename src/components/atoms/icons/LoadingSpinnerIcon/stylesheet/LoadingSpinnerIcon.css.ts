@@ -82,9 +82,9 @@ export const loadingSpinnerIconRecipe = recipe({
   },
 
   defaultVariants: {
-    size: 'sm',
-    color: 'main',
     speed: 'normal',
+    color: 'main',
+    size: 'md',
     space: 'md'
   }
 })

@@ -17,4 +17,8 @@ const H2: React.FC<H2Props> = ({ children, color }) => {
   )
 }
 
+H2.defaultProps = {
+  color: 'text'
+}
+
 export default H2

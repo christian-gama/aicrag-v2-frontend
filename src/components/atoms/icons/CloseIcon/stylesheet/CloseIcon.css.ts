@@ -25,6 +25,7 @@ export const closeIconRecipe = recipe({
   },
 
   defaultVariants: {
+    color: 'primary',
     size: 'md'
   }
 })

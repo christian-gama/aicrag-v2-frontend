@@ -46,8 +46,8 @@ export const backIconRecipe = recipe({
   },
 
   defaultVariants: {
-    size: 'sm',
-    color: 'primary'
+    color: 'primary',
+    size: 'sm'
   }
 })
 

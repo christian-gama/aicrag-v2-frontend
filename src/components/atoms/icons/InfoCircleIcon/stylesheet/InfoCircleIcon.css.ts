@@ -9,6 +9,7 @@ export const infoCircleIconRecipe = recipe({
   },
 
   defaultVariants: {
+    color: 'primary',
     size: 'md'
   }
 })

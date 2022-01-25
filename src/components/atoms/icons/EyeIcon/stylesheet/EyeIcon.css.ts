@@ -15,8 +15,8 @@ export const eyeIconRecipe = recipe({
   },
 
   defaultVariants: {
-    size: 'md',
-    color: 'primary'
+    color: 'primary',
+    size: 'md'
   }
 })
 

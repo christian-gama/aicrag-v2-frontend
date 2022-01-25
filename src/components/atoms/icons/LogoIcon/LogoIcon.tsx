@@ -16,9 +16,9 @@ const LogoIcon: React.FC<LogoIconProps> = ({ children, color, size }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
+      data-testid="logo-icon"
       className={iconStyle}
       viewBox="0 0 235 65"
-      data-testid="logo-icon"
     >
       <g transform="translate(-4.805 -114.279)">
         <g transform="translate(7 5)">
@@ -29,8 +29,8 @@ const LogoIcon: React.FC<LogoIconProps> = ({ children, color, size }) => {
           <g transform="translate(105.74 136.479)">
             <g transform="translate(0 0)">
               <path
-                d="M5.047-16.359v-25h8v25Zm0,0"
                 transform="translate(-6.982 40.159)"
+                d="M5.047-16.359v-25h8v25Zm0,0"
               />
             </g>
           </g>
@@ -74,6 +74,11 @@ const LogoIcon: React.FC<LogoIconProps> = ({ children, color, size }) => {
       </g>
     </svg>
   )
+}
+
+LogoIcon.defaultProps = {
+  color: 'primary',
+  size: 'sm'
 }
 
 export default LogoIcon

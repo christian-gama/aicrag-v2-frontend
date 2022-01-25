@@ -21,8 +21,8 @@ export const logoIconRecipe = recipe({
   },
 
   defaultVariants: {
-    size: 'sm',
-    color: 'primary'
+    color: 'primary',
+    size: 'sm'
   }
 })
 

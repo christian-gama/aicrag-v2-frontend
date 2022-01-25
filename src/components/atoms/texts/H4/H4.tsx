@@ -17,4 +17,8 @@ const H4: React.FC<H4Props> = ({ children, color }) => {
   )
 }
 
+H4.defaultProps = {
+  color: 'text'
+}
+
 export default H4

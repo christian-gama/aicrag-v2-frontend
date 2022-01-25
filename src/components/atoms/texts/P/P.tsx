@@ -17,4 +17,8 @@ const P: React.FC<PProps> = ({ children, color }) => {
   )
 }
 
+P.defaultProps = {
+  color: 'text'
+}
+
 export default P

@@ -7,6 +7,7 @@ type LoadingSpinnerIconProps = {
     color?: LoadingSpinnerVariants['color']
     speed?: LoadingSpinnerVariants['speed']
     size?: LoadingSpinnerVariants['size']
+    space?: LoadingSpinnerVariants['space']
   }
 }
 
@@ -28,6 +29,15 @@ const LoadingSpinnerIcon: React.FC<LoadingSpinnerIconProps> = ({ style }) => {
       />
     </svg>
   )
+}
+
+LoadingSpinnerIcon.defaultProps = {
+  style: {
+    speed: 'normal',
+    color: 'main',
+    size: 'md',
+    space: 'md'
+  }
 }
 
 export default LoadingSpinnerIcon

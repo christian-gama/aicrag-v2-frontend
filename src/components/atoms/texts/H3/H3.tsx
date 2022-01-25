@@ -17,4 +17,8 @@ const H3: React.FC<H3Props> = ({ children, color }) => {
   )
 }
 
+H3.defaultProps = {
+  color: 'text'
+}
+
 export default H3
