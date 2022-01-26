@@ -6,15 +6,15 @@ import { ModalRecipeVariants } from './stylesheet'
 
 type ModalProps = {
   direction?: ModalRecipeVariants['direction']
-  isOpen?: boolean
   onDismiss?: VoidFunction
+  isOpen?: boolean
 }
 
 const Modal: React.FC<ModalProps> = ({
-  children,
   direction,
-  isOpen,
-  onDismiss
+  children,
+  onDismiss,
+  isOpen
 }) => {
   const modalStyle = style.modalRecipe({
     direction
@@ -27,6 +27,10 @@ const Modal: React.FC<ModalProps> = ({
       </div>
     </Backdrop>
   )
+}
+
+Modal.defaultProps = {
+  direction: 'top'
 }
 
 export default Modal

@@ -1,18 +1,9 @@
+import getElement from '@/tests/helpers/getElement'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, render } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
 import Modal from '..'
-
-const makeSut = (config?: {
-  isOpen?: boolean
-  onDismiss?: VoidFunction
-}): void => {
-  if (config?.isOpen === undefined) {
-    config = { ...config, isOpen: true }
-  }
-
-  render(<Modal {...config} />)
-}
 
 describe('Modal', () => {
   const overlayRoot = new OverlayRoot()
@@ -26,21 +17,30 @@ describe('Modal', () => {
     overlayRoot.addOverlayRoot()
   })
 
-  it('should render correctly', () => {
-    makeSut()
-
-    const backdrop = screen.getByTestId('modal')
+  it('renders correctly', () => {
+    render(<Modal isOpen />)
+    const backdrop = getElement('modal')
 
     expect(backdrop).toBeInTheDocument()
   })
 
-  it('should keep the modal on the screen if click on the modal', () => {
-    makeSut()
+  it('keeps the modal on the screen if click on the modal', () => {
+    render(<Modal isOpen />)
+    const modal = getElement('modal')
+    const backdrop = getElement('backdrop')
 
-    const modal = screen.getByTestId('modal')
-    modal.dispatchEvent(new MouseEvent('click', { bubbles: true }))
-    const backdrop = screen.queryByTestId('backdrop')
+    userEvent.click(modal)
 
     expect(backdrop).toBeInTheDocument()
+  })
+
+  it('calls onDismiss when clicking on backdrop', () => {
+    const onDismiss = jest.fn()
+    render(<Modal isOpen onDismiss={onDismiss} />)
+    const backdrop = getElement('backdrop')
+
+    userEvent.click(backdrop)
+
+    expect(onDismiss).toHaveBeenCalled()
   })
 })
