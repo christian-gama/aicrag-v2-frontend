@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import IValidation from '@/services/validators/protocols/validation.model'
-import Popover from '@/components/molecules/Popover'
+import { popoverVar } from '@/external/graphql/reactiveVars/popoverVar'
 import ProgressBar from '../../atoms/ProgressBar'
 import useControlForm from './hooks/useControlForm'
 
 type ControlFormProps = {
-  successMessage?: string
   validator?: IValidation
+  successMessage: string
   loading?: boolean
   submitHandler: () => Promise<void>
 }
@@ -14,57 +14,33 @@ type ControlFormProps = {
 const ControlForm: React.FC<ControlFormProps> = ({
   successMessage,
   submitHandler,
-  children,
   validator,
+  children,
   loading
 }) => {
-  const {
-    onCloseSuccessPopover,
-    isSuccessPopoverOpen,
-    onCloseErrorPopover,
-    isErrorPopoverOpen,
-    onSubmitHandler,
-    isSubmitting,
-    isSubmitted,
-    isValid,
-    error
-  } = useControlForm({
-    successMessage,
-    submitHandler,
-    children,
-    validator,
-    loading
-  })
+  const { onSubmitHandler, isSubmitting, isSubmitted, isValid, error } =
+    useControlForm({
+      successMessage,
+      submitHandler,
+      validator,
+      children,
+      loading
+    })
 
+  useEffect(() => {
+    if (!isValid && error) {
+      popoverVar.setPopover(error, 'error')
+    }
+
+    if (!error && isValid && isSubmitted) {
+      popoverVar.setPopover(successMessage, 'success')
+    }
+  }, [successMessage, isSubmitted, isValid, error])
   return (
     <>
       <form onSubmit={onSubmitHandler} data-testid="form">
         {children}
       </form>
-
-      {!isValid && error && (
-        <Popover
-          onClose={
-            /* istanbul ignore next */
-            onCloseErrorPopover
-          }
-          isOpen={isErrorPopoverOpen}
-          message={error}
-          type="error"
-        />
-      )}
-
-      {isValid && !error && isSubmitted && (
-        <Popover
-          onClose={
-            /* istanbul ignore next */
-            onCloseSuccessPopover
-          }
-          isOpen={isSuccessPopoverOpen}
-          message={successMessage ?? 'Formulário bem sucedido'}
-          type="success"
-        />
-      )}
 
       {<ProgressBar loading={loading ?? isSubmitting} />}
     </>

@@ -5,12 +5,12 @@ import ForgotPassword from '@/components/views/Entry/ForgotPassword'
 import SignIn from '@/components/views/Entry/SignIn'
 import SignUp from '@/components/views/Entry/SignUp'
 import { useGetMeQuery } from '@/external/graphql/generated'
-import { errorVar, useErrorVar } from './graphql/reactiveVars/errorVar'
+import { popoverVar, usePopoverVar } from './graphql/reactiveVars/popoverVar'
 import MustLogoutRoute from './proxies/MustLogoutRoute'
 import ProtectedRoute from './proxies/ProtectedRoute'
 
 const App = () => {
-  const { isOpen, message } = useErrorVar()
+  const { isOpen, message, type } = usePopoverVar()
   useGetMeQuery()
 
   return (
@@ -27,10 +27,13 @@ const App = () => {
       </BrowserRouter>
 
       <Popover
-        type="error"
+        type={type}
         isOpen={isOpen}
-        message={message ?? 'Algo deu errado, tente novamente mais tarde'}
-        onClose={errorVar.reset}
+        message={message ?? ''}
+        onClose={() => {
+          popoverVar.onClose?.()
+          popoverVar.reset()
+        }}
       />
     </>
   )

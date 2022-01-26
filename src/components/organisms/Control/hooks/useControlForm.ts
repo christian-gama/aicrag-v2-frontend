@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, ComponentPropsWithRef } from 'react'
+import { useContext, useEffect, ComponentPropsWithRef } from 'react'
 import FormContext from '@/context/models/form/form.context'
 import ControlForm from '../ControlForm'
 
@@ -7,9 +7,6 @@ const useControlForm = (props: ComponentPropsWithRef<typeof ControlForm>) => {
 
   const { error, isValid, data, isResetting, isSubmitting, isSubmitted } =
     state.form
-
-  const [isErrorPopoverOpen, setIsErrorPopoverOpen] = useState(false)
-  const [isSuccessPopoverOpen, setIsSuccessPopoverOpen] = useState(false)
 
   useEffect(() => {
     dispatch({ type: 'FORM/RESET_FORM', payload: {} })
@@ -86,7 +83,6 @@ const useControlForm = (props: ComponentPropsWithRef<typeof ControlForm>) => {
             type: 'INPUT/SET_IS_VALID',
             payload: { isValid: { [field]: false } }
           })
-          setIsErrorPopoverOpen(true)
 
           return error
         }
@@ -99,46 +95,33 @@ const useControlForm = (props: ComponentPropsWithRef<typeof ControlForm>) => {
       payload: { isValidating: false }
     })
     dispatch({ type: 'FORM/SET_IS_VALID', payload: { isValid: true } })
-    setIsErrorPopoverOpen(false)
   }
 
   const tryToSubmit = async (): Promise<void> => {
     try {
       await props.submitHandler()
 
-      setIsErrorPopoverOpen(false)
-      setIsSuccessPopoverOpen(true)
+      dispatch({
+        type: 'FORM/SET_IS_SUBMITTED',
+        payload: { isSubmitted: true }
+      })
     } catch (error) {
       // API errors are handled by the errorLink from Apollo Client
       dispatch({ type: 'FORM/SET_IS_VALID', payload: { isValid: false } })
-
-      setIsSuccessPopoverOpen(false)
+      dispatch({
+        type: 'FORM/SET_IS_SUBMITTED',
+        payload: { isSubmitted: false }
+      })
     }
-
-    dispatch({ type: 'FORM/SET_IS_SUBMITTED', payload: { isSubmitted: true } })
-  }
-
-  /* istanbul ignore next */
-  const onCloseErrorPopover = () => {
-    setIsErrorPopoverOpen(false)
-  }
-
-  /* istanbul ignore next */
-  const onCloseSuccessPopover = () => {
-    setIsSuccessPopoverOpen(false)
   }
 
   return {
     data,
     error,
-    isErrorPopoverOpen,
-    isSuccessPopoverOpen,
     isValid,
     isSubmitting,
     isSubmitted,
-    onSubmitHandler,
-    onCloseErrorPopover,
-    onCloseSuccessPopover
+    onSubmitHandler
   }
 }
 

@@ -14,7 +14,11 @@ const makeSut = (
 ): void => {
   render(
     <FormProvider>
-      <ControlForm submitHandler={jest.fn()} validator={props.validator}>
+      <ControlForm
+        submitHandler={jest.fn()}
+        validator={props.validator}
+        successMessage="any_message"
+      >
         <ControlInput {...props} icon={props.icon} label={props.label} />
       </ControlForm>
     </FormProvider>

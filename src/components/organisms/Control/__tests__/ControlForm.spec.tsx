@@ -17,11 +17,16 @@ import ControlInput from '../ControlInput'
 const makeSut = ({
   submitHandler,
   children,
-  validator
+  validator,
+  successMessage
 }: ComponentPropsWithRef<typeof ControlForm>) => {
   render(
     <FormProvider>
-      <ControlForm submitHandler={submitHandler} validator={validator}>
+      <ControlForm
+        submitHandler={submitHandler}
+        validator={validator}
+        successMessage={successMessage}
+      >
         {children}
       </ControlForm>
     </FormProvider>
@@ -43,7 +48,11 @@ describe('Form', () => {
   it('should render children', () => {
     const children = <ControlInput name="title" label="Title" />
 
-    makeSut({ children, submitHandler: jest.fn() })
+    makeSut({
+      children,
+      submitHandler: jest.fn(),
+      successMessage: 'any_message'
+    })
 
     const inputElement = screen.getByTestId('base-input')
 
@@ -54,7 +63,11 @@ describe('Form', () => {
     const submitHandlerMock = jest.fn().mockReturnValue(Promise.resolve())
     const children = <ControlInput name="title" label="Title" />
 
-    makeSut({ children, submitHandler: submitHandlerMock })
+    makeSut({
+      children,
+      submitHandler: submitHandlerMock,
+      successMessage: 'any_message'
+    })
 
     const input = screen.getByTestId('base-input')
 
@@ -73,7 +86,12 @@ describe('Form', () => {
     const validationSpy = jest.spyOn(validator, 'validate')
 
     const children = <ControlInput name="title" label="Title" />
-    makeSut({ children, validator, submitHandler: jest.fn() })
+    makeSut({
+      children,
+      validator,
+      submitHandler: jest.fn(),
+      successMessage: 'any_message'
+    })
     const input = screen.getByTestId('base-input')
 
     userEvent.type(input, 'any_title')
@@ -94,7 +112,12 @@ describe('Form', () => {
 
     const children = <ControlInput name="title" label="Title" />
 
-    makeSut({ children, validator, submitHandler: jest.fn() })
+    makeSut({
+      children,
+      validator,
+      submitHandler: jest.fn(),
+      successMessage: 'any_message'
+    })
 
     const input = screen.getByTestId('base-input')
 
@@ -115,7 +138,12 @@ describe('Form', () => {
     const validator = makeValidationMock(false)
     const children = <ControlInput name="title" label="Title" />
 
-    makeSut({ children, submitHandler, validator })
+    makeSut({
+      children,
+      submitHandler,
+      validator,
+      successMessage: 'any_message'
+    })
 
     const input = screen.getByTestId('base-input')
 
@@ -138,7 +166,7 @@ describe('Form', () => {
 
     const children = <ControlInput name="title" label="Title" />
 
-    makeSut({ children, submitHandler })
+    makeSut({ children, submitHandler, successMessage: 'any_message' })
 
     act(() => {
       fireEvent.submit(screen.getByTestId('form'))
@@ -153,7 +181,12 @@ describe('Form', () => {
     const validator = makeValidationMock(false)
     const children = <ControlInput name="title" label="Title" />
 
-    makeSut({ children, validator, submitHandler: jest.fn() })
+    makeSut({
+      children,
+      validator,
+      submitHandler: jest.fn(),
+      successMessage: 'any_message'
+    })
 
     act(() => {
       fireEvent.submit(screen.getByTestId('form'))
