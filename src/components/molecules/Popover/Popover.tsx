@@ -2,7 +2,7 @@ import { assignInlineVars } from '@vanilla-extract/dynamic'
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import getDuration from '../../../helpers/getDuration'
-import CheckIcon from '../../atoms/icons/CheckCircleIcon'
+import CheckCircleIcon from '../../atoms/icons/CheckCircleIcon'
 import CloseIcon from '../../atoms/icons/CloseIcon'
 import ErrorIcon from '../../atoms/icons/ErrorIcon'
 import InfoCircleIcon from '../../atoms/icons/InfoCircleIcon'
@@ -12,21 +12,21 @@ import * as style from './stylesheet'
 import { PopoverVariants } from './stylesheet'
 
 type PopoverProps = {
-  isOpen?: boolean
-  duration?: number
-  minDuration?: number
-  message: string | string[]
   type: PopoverVariants['type']
+  message: string | string[]
+  minDuration?: number
   onClose?: () => void
+  duration?: number
+  isOpen?: boolean
 }
 
 const Popover: React.FC<PopoverProps> = ({
-  message,
-  type,
   minDuration = 3,
-  duration = getDuration(message, minDuration),
+  message,
   isOpen,
-  onClose
+  onClose,
+  type,
+  duration = getDuration(message, minDuration)
 }) => {
   const [isOpenState, setIsOpenState] = useState(!!isOpen)
 
@@ -49,7 +49,7 @@ const Popover: React.FC<PopoverProps> = ({
   const renderIcon = () => {
     switch (type) {
       case 'success':
-        return <CheckIcon color="white" size="md" />
+        return <CheckCircleIcon color="white" size="md" />
       case 'error':
         return <ErrorIcon color="white" size="md" />
       case 'info':
@@ -75,8 +75,8 @@ const Popover: React.FC<PopoverProps> = ({
 
   return ReactDOM.createPortal(
     <div
-      className={popoverStyle}
       style={assignInlineVars(style.popoverVars, { duration: `${duration}s` })}
+      className={popoverStyle}
       data-testid="popover"
     >
       <div className={style.popoverContent}>
