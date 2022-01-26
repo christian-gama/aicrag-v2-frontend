@@ -1,8 +1,20 @@
 import getElement from '@/tests/helpers/getElement'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
 import { cleanup, render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
 import Alert from '..'
+
+const mockedFunction = jest.fn()
+jest.mock(
+  '../../../atoms/icons/InfoCircleIcon',
+  () =>
+    function mockedComponent (props: any) {
+      mockedFunction(props)
+
+      return null
+    }
+)
 
 describe('Alert', () => {
   const overlayRoot = new OverlayRoot()
@@ -17,7 +29,7 @@ describe('Alert', () => {
   })
 
   it('renders correctly', () => {
-    render(<Alert isOpen title="" message="" type="info" mode="cancelOnly" />)
+    render(<Alert isOpen title="" message="" type="info" />)
     const alert = getElement('alert')
 
     expect(alert).toBeInTheDocument()
@@ -47,7 +59,7 @@ describe('Alert', () => {
         mode="actionAndCancel"
         onAction={onAction}
         actionName="action"
-        type="warning"
+        type="info"
         message=""
         title=""
         isOpen
@@ -55,23 +67,24 @@ describe('Alert', () => {
     )
     const actionButton = screen.getByRole('button', { name: 'action' })
 
-    actionButton.click()
+    userEvent.click(actionButton)
 
     expect(onAction).toHaveBeenCalled()
   })
 
+  it('closes if click on cancel button', () => {
+    render(<Alert type="info" message="" title="" isOpen />)
+    const cancelButton = screen.getByRole('button', { name: /voltar/gi })
+    const alert = getElement('alert')
+
+    userEvent.click(cancelButton)
+
+    expect(alert).not.toBeInTheDocument()
+  })
+
   it('calls onCancel when click on cancel button', () => {
     const onCancel = jest.fn()
-    render(
-      <Alert
-        onCancel={onCancel}
-        mode="cancelOnly"
-        type="info"
-        message=""
-        title=""
-        isOpen
-      />
-    )
+    render(<Alert onCancel={onCancel} type="info" message="" title="" isOpen />)
     const cancelButton = screen.getByRole('button', { name: /voltar/gi })
 
     cancelButton.click()
@@ -80,9 +93,41 @@ describe('Alert', () => {
   })
 
   it('has a single button if mode is cancelOnly', () => {
-    render(<Alert mode="cancelOnly" type="danger" message="" title="" isOpen />)
+    render(<Alert mode="cancelOnly" type="info" message="" title="" isOpen />)
     const cancelButtons = screen.getAllByRole('button')
 
     expect(cancelButtons).toHaveLength(1)
+  })
+
+  it('calls InfoCircleIcon with correct color', () => {
+    render(<Alert isOpen title="" message="" type="info" />)
+
+    expect(mockedFunction).toHaveBeenCalledWith({
+      color: 'info'
+    })
+  })
+
+  it("calls InfoCircleIcon with color equal to info if alert's type is equal to info", () => {
+    render(<Alert isOpen title="" message="" type="info" />)
+
+    expect(mockedFunction).toHaveBeenCalledWith({
+      color: 'info'
+    })
+  })
+
+  it("calls InfoCircleIcon with color equal to danger if alert's type is equal to danger", () => {
+    render(<Alert isOpen title="" message="" type="danger" />)
+
+    expect(mockedFunction).toHaveBeenCalledWith({
+      color: 'danger'
+    })
+  })
+
+  it("calls InfoCircleIcon with color equal to warning if alert's type is equal to warning", () => {
+    render(<Alert isOpen title="" message="" type="warning" />)
+
+    expect(mockedFunction).toHaveBeenCalledWith({
+      color: 'textDarker'
+    })
   })
 })

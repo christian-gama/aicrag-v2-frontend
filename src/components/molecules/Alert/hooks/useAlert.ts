@@ -8,13 +8,11 @@ const useAlert = (props: ComponentPropsWithoutRef<typeof Alert>) => {
     setIsOpen(!!props.isOpen)
   }, [props.isOpen])
 
-  /* istanbul ignore next */
   const handleAction = () => {
-    if (props.mode === 'actionAndCancel') {
-      props.onAction()
+    // @ts-expect-error
+    props.onAction()
 
-      setIsOpen(false)
-    }
+    setIsOpen(false)
   }
 
   const cancelHandler = () => {
