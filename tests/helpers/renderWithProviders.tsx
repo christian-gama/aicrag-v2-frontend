@@ -3,6 +3,7 @@ import { MemoryRouter } from '@storybook/router/node_modules/react-router'
 import { render, RenderOptions } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
+import FormProvider from '@/context/models/form/form.provider'
 import calendarStoreMock from '../mocks/calendarStore.mock'
 
 const AllProviders: React.FC = ({ children }) => {
@@ -12,7 +13,9 @@ const AllProviders: React.FC = ({ children }) => {
 
   return (
     <Provider store={testStore}>
-      <MemoryRouter initialEntries={['/']}>{children}</MemoryRouter>
+      <FormProvider>
+        <MemoryRouter initialEntries={['/']}>{children}</MemoryRouter>
+      </FormProvider>
     </Provider>
   )
 }

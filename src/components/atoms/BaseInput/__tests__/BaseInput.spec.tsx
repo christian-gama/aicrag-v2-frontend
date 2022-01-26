@@ -15,7 +15,7 @@ describe('BaseInput ', () => {
   it("has an error state if validator is defined, the input is not valid and it's touched", () => {
     render(
       <BaseInput
-        validator={makeValidationMock(false)}
+        validator={makeValidationMock(jest.fn())}
         label="Any name"
         name="any_name"
         isTouched
@@ -31,7 +31,7 @@ describe('BaseInput ', () => {
   it('has a success state if has a validator and input is valid', () => {
     render(
       <BaseInput
-        validator={makeValidationMock(true)}
+        validator={makeValidationMock(jest.fn())}
         label="Any name"
         name="any_name"
         isTouched
@@ -60,7 +60,7 @@ describe('BaseInput ', () => {
       <BaseInput
         label="Any name"
         name="any_name"
-        validator={makeValidationMock(false)}
+        validator={makeValidationMock(jest.fn())}
       />
     )
 

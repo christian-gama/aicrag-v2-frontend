@@ -132,20 +132,9 @@ const useControlInput = ({
   const onFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
     setIsReadOnly(false)
 
-    const value = event.currentTarget.value
-    const error = validateInput({ state, name, value })
-
     dispatch({
       type: 'INPUT/SET_IS_FOCUSED',
       payload: { isFocused: { [name]: true } }
-    })
-    dispatch({
-      type: 'INPUT/SET_IS_VALID',
-      payload: { isValid: { [name]: !error } }
-    })
-    dispatch({
-      type: 'FORM/SET_FORM_DATA',
-      payload: { data: { [name]: value } }
     })
 
     if (onFocus) onFocus(event)
