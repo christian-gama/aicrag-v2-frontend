@@ -1,11 +1,8 @@
+import getElement from '@/tests/helpers/getElement'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
 import { cleanup, render, screen } from '@testing-library/react'
-import React, { ComponentPropsWithRef } from 'react'
+import React from 'react'
 import Alert from '..'
-
-const makeSut = (config: ComponentPropsWithRef<typeof Alert>) => {
-  render(<Alert {...config} />)
-}
 
 describe('Alert', () => {
   const overlayRoot = new OverlayRoot()
@@ -18,89 +15,74 @@ describe('Alert', () => {
   beforeEach(() => {
     overlayRoot.addOverlayRoot()
   })
-  it('should render both cancel and action buttons if mode is equal to "actionAndCancel"', () => {
-    makeSut({
-      actionName: 'action',
-      isOpen: true,
-      message: 'message',
-      mode: 'actionAndCancel',
-      onAction: jest.fn(),
-      title: 'title',
-      type: 'danger'
-    })
 
-    expect(screen.getByTestId('alert-action-button')).toBeTruthy()
-    expect(screen.getByTestId('alert-cancel-button')).toBeTruthy()
+  it('renders correctly', () => {
+    render(<Alert isOpen title="" message="" type="info" mode="cancelOnly" />)
+    const alert = getElement('alert')
+
+    expect(alert).toBeInTheDocument()
   })
 
-  it('should render only cancel button if mode is equal to "cancelOnly"', () => {
-    makeSut({
-      isOpen: true,
-      message: 'message',
-      mode: 'cancelOnly',
-      title: 'title',
-      type: 'info'
-    })
+  it('renders an action button if mode is actionAndCancel', () => {
+    render(
+      <Alert
+        mode="actionAndCancel"
+        onAction={() => {}}
+        actionName="action"
+        type="info"
+        message=""
+        title=""
+        isOpen
+      />
+    )
+    const actionButton = screen.getByRole('button', { name: 'action' })
 
-    expect(screen.getByTestId('alert-cancel-button')).toBeTruthy()
-    expect(screen.queryByTestId('alert-action-button')).toBeNull()
+    expect(actionButton).toBeInTheDocument()
   })
 
-  it('should dismiss the alert if click on action button', () => {
+  it('calls onAction when click on action button', () => {
     const onAction = jest.fn()
-    makeSut({
-      actionName: 'action',
-      isOpen: true,
-      message: 'message',
-      mode: 'actionAndCancel',
-      onAction,
-      title: 'title',
-      type: 'danger'
-    })
+    render(
+      <Alert
+        mode="actionAndCancel"
+        onAction={onAction}
+        actionName="action"
+        type="warning"
+        message=""
+        title=""
+        isOpen
+      />
+    )
+    const actionButton = screen.getByRole('button', { name: 'action' })
 
-    const actionButton = screen.getByTestId('alert-action-button')
     actionButton.click()
 
-    const alert = screen.getByTestId('alert')
-
-    setTimeout(() => {
-      expect(alert).toBeNull()
-    })
+    expect(onAction).toHaveBeenCalled()
   })
 
-  it('should dismiss the alert if click on cancel button', () => {
-    makeSut({
-      isOpen: true,
-      message: 'message',
-      mode: 'cancelOnly',
-      title: 'title',
-      type: 'warning'
-    })
-
-    const cancelButton = screen.getByTestId('alert-cancel-button')
-    cancelButton.click()
-
-    const alert = screen.getByTestId('alert')
-
-    setTimeout(() => {
-      expect(alert).toBeNull()
-    })
-  })
-
-  it('should call onCancel when clicking on cancel button if it is defined', () => {
+  it('calls onCancel when click on cancel button', () => {
     const onCancel = jest.fn()
-    makeSut({
-      isOpen: true,
-      message: 'message',
-      mode: 'cancelOnly',
-      onCancel,
-      title: 'title',
-      type: 'warning'
-    })
+    render(
+      <Alert
+        onCancel={onCancel}
+        mode="cancelOnly"
+        type="info"
+        message=""
+        title=""
+        isOpen
+      />
+    )
+    const cancelButton = screen.getByRole('button', { name: /voltar/gi })
 
-    const cancelButton = screen.getByTestId('alert-cancel-button')
     cancelButton.click()
 
-    expect(onCancel).toHaveBeenCalledTimes(1)
+    expect(onCancel).toHaveBeenCalled()
+  })
+
+  it('has a single button if mode is cancelOnly', () => {
+    render(<Alert mode="cancelOnly" type="danger" message="" title="" isOpen />)
+    const cancelButtons = screen.getAllByRole('button')
+
+    expect(cancelButtons).toHaveLength(1)
   })
 })

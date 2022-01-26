@@ -1,5 +1,5 @@
-import capitalize from '@/helpers/capitalize'
 import React from 'react'
+import capitalize from '@/helpers/capitalize'
 import { FillColorVariants } from '@/components/_settings/variants.css'
 import { ButtonVariants } from '@/components/atoms/Button/stylesheet'
 import Button from '../../atoms/Button'
@@ -13,15 +13,15 @@ import * as style from './stylesheet'
 import { AlertHeaderVariants } from './stylesheet'
 
 type AlertProps = {
+  type: AlertHeaderVariants['color']
+  onCancel?: () => void
   isOpen?: boolean
   message: string
   title: string
-  type: AlertHeaderVariants['color']
-  onCancel?: () => void
 } & (AlertWithAction | AlertWithoutAction)
 
 const Alert: React.FC<AlertProps> = (props) => {
-  const mode = props.mode || 'cancelOnly'
+  const mode = props.mode!
   const { cancelHandler, handleAction, isOpen } = useAlert(props)
 
   const alertHeaderStyle = style.alertHeaderRecipe({
@@ -82,9 +82,9 @@ const Alert: React.FC<AlertProps> = (props) => {
 
             {props.mode === 'actionAndCancel' && (
               <Button
-                onClick={handleAction}
                 style={{ color: getButtonColor(), size: 'sm' }}
                 testid="alert-action-button"
+                onClick={handleAction}
               >
                 {props.actionName}
               </Button>
@@ -96,11 +96,15 @@ const Alert: React.FC<AlertProps> = (props) => {
   )
 }
 
-export default Alert
-
 type AlertWithAction = {
-  actionName: string
   mode: 'actionAndCancel'
   onAction: () => void
+  actionName: string
 }
-type AlertWithoutAction = { mode: 'cancelOnly' }
+type AlertWithoutAction = { mode?: 'cancelOnly' }
+
+Alert.defaultProps = {
+  mode: 'cancelOnly'
+}
+
+export default Alert
