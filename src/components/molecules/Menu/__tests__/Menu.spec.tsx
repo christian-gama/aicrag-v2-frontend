@@ -1,32 +1,35 @@
 import { render, screen } from '@testing-library/react'
-import React, { ComponentPropsWithRef } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
+import getElement from '@/tests/helpers/getElement'
 import Menu from '../Menu'
 
-const makeSut = (props: ComponentPropsWithRef<typeof Menu>) => {
-  return render(
-    <>
-      <BrowserRouter>
-        <Routes location={'/'}>
-          <Route path={'/'} element={<Menu {...props} />} />
-        </Routes>
-      </BrowserRouter>
-    </>
-  )
-}
-
 describe('Menu', () => {
-  it('should have the correct href', () => {
-    const buttons = [
-      { buttonName: 'Home', to: '/teste/url/Home' },
-      { buttonName: 'About', to: '/teste/url/About' },
-      { buttonName: 'Contact', to: '/teste/url/Contact' }
-    ]
+  it('renders correctly', () => {
+    render(<Menu buttons={[]} />, {
+      wrapper: BrowserRouter
+    })
+    const menu = getElement('menu')
 
-    makeSut({ buttons })
+    expect(menu).toBeInTheDocument()
+  })
 
-    const link = screen.getByTestId('menu-link-home')
+  it('has an active button if set button as active', () => {
+    render(
+      <Menu
+        buttons={[
+          { buttonName: 'Button', to: '/', active: true },
+          { buttonName: 'Button 2', to: '/' }
+        ]}
+      />,
+      {
+        wrapper: BrowserRouter
+      }
+    )
+    const links = screen.getAllByTestId('menu-link')
 
-    expect(link).toHaveAttribute('href', '/teste/url/home')
+    expect(links[0]).toHaveAttribute('data-active', 'true')
+    expect(links[1]).toHaveAttribute('data-active', 'false')
+    expect(links[0].className).toMatch(/active/gi)
   })
 })

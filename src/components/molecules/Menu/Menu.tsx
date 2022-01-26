@@ -16,11 +16,11 @@ const Menu: React.FC<MenuProps> = ({ buttons }) => {
 
         return (
           <Link
+            data-testid="menu-link"
             key={`${buttonName}-${index}`}
-            to={to.toLowerCase()}
             className={menuButtonStyle}
             data-active={!!active}
-            data-testid={`menu-link-${buttonName.toLowerCase()}`}
+            to={to.toLowerCase()}
           >
             {buttonName}
           </Link>
