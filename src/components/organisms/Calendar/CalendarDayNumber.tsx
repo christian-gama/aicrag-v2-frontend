@@ -3,33 +3,33 @@ import * as style from './stylesheet'
 import { CalendarDayNumberVariants } from './stylesheet'
 
 type CalendarDayNumberProps = {
-  dayNumber: number
-  dimmed?: CalendarDayNumberVariants['dimmed']
   selected?: CalendarDayNumberVariants['selected']
-  testid?: string
+  dimmed?: CalendarDayNumberVariants['dimmed']
   onClick?: (dayNumber: number) => void
+  dayNumber: number
+  testid?: string
 }
 
 const CalendarDayNumber: React.FC<CalendarDayNumberProps> = ({
-  dimmed,
-  onClick,
+  dayNumber,
   selected,
-  testid,
-  dayNumber
+  onClick,
+  dimmed,
+  testid
 }) => {
   return (
     <span
-      data-testid={testid}
       className={style.calendarDayNumberRecipe({
         selected: !!selected,
         dimmed: !!dimmed
       })}
-      data-selected={selected}
       onClick={() => {
         if (onClick && !dimmed) {
           onClick(dayNumber)
         }
       }}
+      data-selected={selected}
+      data-testid={testid}
     >
       {dayNumber}
     </span>

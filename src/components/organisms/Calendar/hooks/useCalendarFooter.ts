@@ -25,8 +25,8 @@ const useCalendarFooter = () => {
   }
 
   return {
-    onCancelHandler,
-    onConfirmHandler
+    onConfirmHandler,
+    onCancelHandler
   }
 }
 

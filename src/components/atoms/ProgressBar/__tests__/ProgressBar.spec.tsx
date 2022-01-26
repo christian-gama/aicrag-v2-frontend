@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from '@testing-library/react'
+import { act, cleanup, render, screen } from '@testing-library/react'
 import React from 'react'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
 import ProgressBar from '../ProgressBar'
@@ -30,7 +30,10 @@ describe('ProgressBar', () => {
     expect(progressBar).toBeInTheDocument()
 
     rerender(<ProgressBar loading={false} />)
-    jest.advanceTimersByTime(1500)
+
+    act(() => {
+      jest.advanceTimersByTime(3000)
+    })
 
     expect(progressBar).not.toBeInTheDocument()
   })

@@ -12,8 +12,8 @@ const CalendarFooter: React.FC = () => {
       <CalendarTimer />
 
       <CalendarButtonWrapper
-        onCancelHandler={() => onCancelHandler()}
         onConfirmHandler={() => onConfirmHandler()}
+        onCancelHandler={() => onCancelHandler()}
       />
     </div>
   )

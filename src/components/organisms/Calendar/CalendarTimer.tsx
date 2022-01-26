@@ -18,19 +18,19 @@ const CalendarTimer: React.FC = () => {
         {
           <>
             <CalendarTimerInput
-              name="hour"
-              onBlur={(event) => onBlurHandler(event)}
-              onChange={(event) => onChangeHandler(event)}
               onKeyDown={(event) => onKeyDownHandler(event)}
+              onChange={(event) => onChangeHandler(event)}
+              onBlur={(event) => onBlurHandler(event)}
               value={hours}
+              name="hour"
             />
 
             <CalendarTimerInput
-              name="minute"
-              onBlur={(event) => onBlurHandler(event)}
-              onChange={(event) => onChangeHandler(event)}
               onKeyDown={(event) => onKeyDownHandler(event)}
+              onChange={(event) => onChangeHandler(event)}
+              onBlur={(event) => onBlurHandler(event)}
               value={minutes}
+              name="minute"
             />
           </>
         }

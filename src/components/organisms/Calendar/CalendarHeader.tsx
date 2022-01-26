@@ -1,7 +1,7 @@
-import writeMonthYear from '@/helpers/writeMonthYear'
 import { DateTime } from 'luxon'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import writeMonthYear from '@/helpers/writeMonthYear'
 import { calendarActions } from '@/context/models/calendar/calendar.actions'
 import { CalendarStates } from '@/context/models/calendar/protocols/calendar.model'
 import { RootState, AppDispatch } from '@/context/store'
@@ -16,7 +16,6 @@ const CalendarHeader: React.FC = () => {
   )
   const dispatch = useDispatch<AppDispatch>()
 
-  // Methods
   const handleNextMonth = (): void => {
     dispatch(
       setCalendarDate(
@@ -36,9 +35,9 @@ const CalendarHeader: React.FC = () => {
   return (
     <div className={style.calendarHeader} data-testid="calendar-header">
       <ChevronIcon
-        color="white"
-        direction="left"
         onClick={handlePreviousMonth}
+        direction="left"
+        color="white"
       />
 
       <span

@@ -17,9 +17,9 @@ const CalendarDays: React.FC = () => {
         daysFromCalendar.push(
           <CalendarDayNumber
             testid={`day-${date.toISODate()}`}
+            dayNumber={date.day}
             key={date.toISO()}
             dimmed
-            dayNumber={date.day}
           />
         )
 
@@ -28,11 +28,11 @@ const CalendarDays: React.FC = () => {
 
       daysFromCalendar.push(
         <CalendarDayNumber
+          onClick={() => pickDateHandler(date.day)}
+          testid={`day-${date.toISODate()}`}
+          selected={isDaySelected(date)}
           dayNumber={date.day}
           key={date.toISO()}
-          onClick={() => pickDateHandler(date.day)}
-          selected={isDaySelected(date)}
-          testid={`day-${date.toISODate()}`}
         />
       )
     }

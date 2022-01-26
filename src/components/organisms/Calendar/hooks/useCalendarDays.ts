@@ -26,8 +26,8 @@ const useCalendarDays = () => {
 
   const isDaySelected = (date: DateTime) => {
     return (
-      date.year === DateTime.fromMillis(selectedDate).year &&
       date.month === DateTime.fromMillis(selectedDate).month &&
+      date.year === DateTime.fromMillis(selectedDate).year &&
       date.day === DateTime.fromMillis(selectedDate).day
     )
   }
@@ -41,9 +41,9 @@ const useCalendarDays = () => {
   }
 
   return {
-    isDaySelected,
-    pickDateHandler,
     shouldDayBeDimmed,
+    pickDateHandler,
+    isDaySelected,
     startDate
   }
 }
