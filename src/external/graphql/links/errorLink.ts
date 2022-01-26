@@ -11,8 +11,9 @@ const errorLink = onError(({ networkError, graphQLErrors }) => {
   if (graphQLErrors && graphQLErrors.length > 0) {
     for (const error of graphQLErrors) {
       const errorCode = error.extensions.code
+      const isTokenError = error.message.match(/token/gi)
 
-      if (errorCode === '401' && error.message.match(/token/gi)) {
+      if (errorCode === '401' && isTokenError) {
         authVar.logout()
 
         const accessToken = makeAccessTokenStorage()
@@ -33,14 +34,18 @@ const errorLink = onError(({ networkError, graphQLErrors }) => {
       }
     }
 
-    if (graphQLErrors[0].extensions.code === 'BAD_USER_INPUT') {
+    const error = graphQLErrors[0]
+
+    const isBadInputError = error.extensions.code === 'BAD_USER_INPUT'
+    if (isBadInputError) {
       popoverVar.setPopover(new InternalError().message, 'error')
 
       return
     }
 
-    if (!graphQLErrors[0].message.includes('token')) {
-      popoverVar.setPopover(translateError(graphQLErrors[0].message), 'error')
+    const isTokenError = !error.message.includes('token')
+    if (isTokenError) {
+      popoverVar.setPopover(translateError(error.message), 'error')
 
       return
     }
