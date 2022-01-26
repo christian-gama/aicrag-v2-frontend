@@ -8,7 +8,7 @@ import Th from '../Th'
 import Thead from '../Thead'
 import Tr from '../Tr'
 
-const makeSut = (props: ComponentPropsWithRef<typeof Table>) => {
+const renderTable = (props?: ComponentPropsWithRef<typeof Table>) => {
   return render(
     <Table {...props}>
       <Thead>
@@ -38,9 +38,8 @@ describe('Table', () => {
     cleanup()
   })
 
-  it('should render Table correctly', () => {
-    makeSut({})
-
+  it('renders correctly', () => {
+    renderTable()
     const table = screen.getByTestId('table')
     const thead = screen.getByTestId('table-thead')
     const tbody = screen.getByTestId('table-tbody')
@@ -58,9 +57,8 @@ describe('Table', () => {
     expect(tds[1]).toBeInTheDocument()
   })
 
-  it('should have the correct showing message if it is defined', () => {
-    makeSut({ showingUp: { current: 1, total: 10 } })
-
+  it('displays the correct showing up count', () => {
+    renderTable({ showingUp: { current: 1, total: 10 } })
     const showingUp = screen.getByTestId('table-showing-up')
 
     expect(showingUp).toBeInTheDocument()
