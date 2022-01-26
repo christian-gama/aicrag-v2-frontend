@@ -1,6 +1,5 @@
-import { cleanup, render } from '@testing-library/react'
+import { cleanup, render, screen } from '@testing-library/react'
 import React from 'react'
-import getElement from '@/tests/helpers/getElement'
 import HorizontalScrollBar from '../HorizontalScrollBar'
 
 describe('HorizontalScrollBar ', () => {
@@ -10,7 +9,7 @@ describe('HorizontalScrollBar ', () => {
 
   it('renders correctly', () => {
     render(<HorizontalScrollBar />)
-    const horizontalScrollBar = getElement('horizontal-scroll-bar')
+    const horizontalScrollBar = screen.getByTestId('horizontal-scroll-bar')
 
     expect(horizontalScrollBar).toBeInTheDocument()
   })

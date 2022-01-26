@@ -2,7 +2,6 @@ import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
-import getElement from '@/tests/helpers/getElement'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
 import Popover from '../Popover'
 
@@ -50,7 +49,7 @@ describe('Popover', () => {
 
   it('renders correctly', () => {
     render(<Popover isOpen message={[]} type="success" />)
-    const popover = getElement('popover')
+    const popover = screen.getByTestId('popover')
 
     expect(popover).toBeInTheDocument()
   })
@@ -76,7 +75,7 @@ describe('Popover', () => {
   it('lasts the duration passed through props', async () => {
     const duration = 10
     render(<Popover isOpen message="" type="success" duration={duration} />)
-    const popover = getElement('popover')
+    const popover = screen.getByTestId('popover')
 
     act(() => {
       jest.advanceTimersByTime(10000)
@@ -99,7 +98,7 @@ describe('Popover', () => {
   it('calls onClose when click on close button', () => {
     const onClose = jest.fn()
     render(<Popover isOpen message="" type="success" onClose={onClose} />)
-    const closeButton = getElement('popover-close-wrapper')
+    const closeButton = screen.getByTestId('popover-close-wrapper')
 
     userEvent.click(closeButton)
 
@@ -108,8 +107,8 @@ describe('Popover', () => {
 
   it('closes if click on close button', () => {
     render(<Popover isOpen message="" type="success" />)
-    const closeButton = getElement('popover-close-wrapper')
-    const popover = getElement('popover')
+    const closeButton = screen.getByTestId('popover-close-wrapper')
+    const popover = screen.getByTestId('popover')
 
     userEvent.click(closeButton)
 

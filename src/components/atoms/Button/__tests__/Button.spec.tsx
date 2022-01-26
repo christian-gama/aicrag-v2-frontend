@@ -1,7 +1,6 @@
-import { cleanup, render } from '@testing-library/react'
+import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import getElement from '@/tests/helpers/getElement'
 import Button from '..'
 
 const mockedFunction = jest.fn()
@@ -22,14 +21,14 @@ describe('Button', () => {
 
   it('renders correctly', () => {
     render(<Button />)
-    const button = getElement('button')
+    const button = screen.getByTestId('button')
 
     expect(button).toBeInTheDocument()
   })
 
   it('is disabled if disabled props is true', () => {
     render(<Button disabled />)
-    const button = getElement('button')
+    const button = screen.getByTestId('button')
 
     expect(button).toBeDisabled()
     expect(button.className).toMatch(/disabled_true/gi)
@@ -38,7 +37,7 @@ describe('Button', () => {
   it('must not call onClick if is disabled', () => {
     const onClickSpy = jest.fn()
     render(<Button disabled onClick={onClickSpy} />)
-    const button = getElement('button')
+    const button = screen.getByTestId('button')
 
     userEvent.click(button)
 
@@ -48,7 +47,7 @@ describe('Button', () => {
   it('must not call onClick if loading', () => {
     const onClickSpy = jest.fn()
     render(<Button loading onClick={onClickSpy} />)
-    const button = getElement('button')
+    const button = screen.getByTestId('button')
 
     userEvent.click(button)
 
@@ -58,7 +57,7 @@ describe('Button', () => {
   it('calls onClick when clicked', () => {
     const onClickSpy = jest.fn()
     render(<Button onClick={onClickSpy} />)
-    const button = getElement('button')
+    const button = screen.getByTestId('button')
 
     userEvent.click(button)
 

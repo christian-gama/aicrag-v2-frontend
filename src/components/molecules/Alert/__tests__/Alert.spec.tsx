@@ -1,4 +1,3 @@
-import getElement from '@/tests/helpers/getElement'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
 import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -30,7 +29,7 @@ describe('Alert', () => {
 
   it('renders correctly', () => {
     render(<Alert isOpen title="" message="" type="info" />)
-    const alert = getElement('alert')
+    const alert = screen.getByTestId('alert')
 
     expect(alert).toBeInTheDocument()
   })
@@ -75,7 +74,7 @@ describe('Alert', () => {
   it('closes if click on cancel button', () => {
     render(<Alert type="info" message="" title="" isOpen />)
     const cancelButton = screen.getByRole('button', { name: /voltar/gi })
-    const alert = getElement('alert')
+    const alert = screen.getByTestId('alert')
 
     userEvent.click(cancelButton)
 

@@ -1,12 +1,11 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import React from 'react'
-import getElement from '@/tests/helpers/getElement'
 import Background from '../Background'
 
 describe('Background', () => {
   it('renders correctly', () => {
     render(<Background />)
-    const background = getElement('background')
+    const background = screen.getByTestId('background')
 
     expect(background).toBeTruthy()
   })

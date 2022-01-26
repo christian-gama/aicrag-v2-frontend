@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
-import getElement from '@/tests/helpers/getElement'
 import Menu from '../Menu'
 
 describe('Menu', () => {
@@ -9,7 +8,7 @@ describe('Menu', () => {
     render(<Menu buttons={[]} />, {
       wrapper: BrowserRouter
     })
-    const menu = getElement('menu')
+    const menu = screen.getByTestId('menu')
 
     expect(menu).toBeInTheDocument()
   })

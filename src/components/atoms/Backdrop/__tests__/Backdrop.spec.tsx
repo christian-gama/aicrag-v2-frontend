@@ -1,7 +1,6 @@
-import { cleanup, fireEvent, render } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import getElement from '@/tests/helpers/getElement'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
 import Backdrop from '..'
 
@@ -19,14 +18,14 @@ describe('Backdrop', () => {
 
   it('renders correctly', () => {
     render(<Backdrop isOpen />)
-    const backdrop = getElement('backdrop')
+    const backdrop = screen.getByTestId('backdrop')
 
     expect(backdrop).toBeInTheDocument()
   })
 
   it('dismiss if click on backdrop', () => {
     render(<Backdrop isOpen />)
-    const backdrop = getElement('backdrop')
+    const backdrop = screen.getByTestId('backdrop')
 
     userEvent.click(backdrop)
 
@@ -36,7 +35,7 @@ describe('Backdrop', () => {
   it('dismiss and calls onDismiss if it is passed through props', () => {
     const onDismiss = jest.fn()
     render(<Backdrop isOpen onDismiss={onDismiss} />)
-    const backdrop = getElement('backdrop')
+    const backdrop = screen.getByTestId('backdrop')
 
     userEvent.click(backdrop)
   })
@@ -47,8 +46,8 @@ describe('Backdrop', () => {
         <div data-testid="child">Child</div>
       </Backdrop>
     )
-    const backdrop = getElement('backdrop')
-    const child = getElement('child')
+    const backdrop = screen.getByTestId('backdrop')
+    const child = screen.getByTestId('child')
 
     userEvent.click(child)
 
@@ -57,7 +56,7 @@ describe('Backdrop', () => {
 
   it('dismiss if press Escape key', () => {
     render(<Backdrop isOpen />)
-    const backdrop = getElement('backdrop')
+    const backdrop = screen.getByTestId('backdrop')
 
     fireEvent.keyDown(document, { key: 'Escape' })
 
@@ -75,7 +74,7 @@ describe('Backdrop', () => {
 
   it('do not dismiss if press a key different of Escape', () => {
     render(<Backdrop isOpen />)
-    const backdrop = getElement('backdrop')
+    const backdrop = screen.getByTestId('backdrop')
 
     fireEvent.keyDown(document, { key: 'a' })
 

@@ -1,6 +1,5 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import React from 'react'
-import getElement from '@/tests/helpers/getElement'
 import makeValidationMock from '@/tests/mocks/validator.mock'
 import BaseInput from '../BaseInput'
 
@@ -8,7 +7,7 @@ describe('BaseInput ', () => {
   it('renders correctly', () => {
     render(<BaseInput label="Any name" name="any_name" />)
 
-    const baseInput = getElement('base-input')
+    const baseInput = screen.getByTestId('base-input')
 
     expect(baseInput).toBeInTheDocument()
   })
@@ -23,7 +22,7 @@ describe('BaseInput ', () => {
       />
     )
 
-    const baseInput = getElement('base-input')
+    const baseInput = screen.getByTestId('base-input')
 
     expect(baseInput.className).toMatch(/state_error/gi)
     expect(baseInput.className).not.toMatch(/state_success/gi)
@@ -40,7 +39,7 @@ describe('BaseInput ', () => {
       />
     )
 
-    const baseInput = getElement('base-input')
+    const baseInput = screen.getByTestId('base-input')
 
     expect(baseInput.className).toMatch(/state_success/gi)
     expect(baseInput.className).not.toMatch(/state_error/gi)
@@ -49,7 +48,7 @@ describe('BaseInput ', () => {
   it('has a default state if do not have a validator', () => {
     render(<BaseInput label="Any name" name="any_name" />)
 
-    const baseInput = getElement('base-input')
+    const baseInput = screen.getByTestId('base-input')
 
     expect(baseInput.className).toMatch(/state_default/gi)
     expect(baseInput.className).not.toMatch(/state_error/gi)
@@ -65,7 +64,7 @@ describe('BaseInput ', () => {
       />
     )
 
-    const baseInput = getElement('base-input')
+    const baseInput = screen.getByTestId('base-input')
 
     expect(baseInput.className).toMatch(/state_default/gi)
     expect(baseInput.className).not.toMatch(/state_error/gi)
@@ -77,7 +76,7 @@ describe('BaseInput ', () => {
       <BaseInput error="Any error" label="Any name" name="any_name" isTouched />
     )
 
-    const baseInputWrapper = getElement('base-input-wrapper')
+    const baseInputWrapper = screen.getByTestId('base-input-wrapper')
 
     expect(baseInputWrapper.textContent).toMatch(/any error/gi)
   })
@@ -92,7 +91,7 @@ describe('BaseInput ', () => {
       />
     )
 
-    const baseInputWrapper = getElement('base-input-wrapper')
+    const baseInputWrapper = screen.getByTestId('base-input-wrapper')
 
     expect(baseInputWrapper.textContent).toMatch(/icon/gi)
   })
