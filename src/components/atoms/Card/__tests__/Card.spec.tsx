@@ -1,4 +1,5 @@
-import { cleanup, render, screen } from '@testing-library/react'
+import getElement from '@/tests/helpers/getElement'
+import { cleanup, render } from '@testing-library/react'
 import React from 'react'
 import Card from '..'
 
@@ -9,7 +10,7 @@ describe('Card', () => {
 
   it('renders correctly', () => {
     render(<Card />)
-    const card = screen.queryByTestId('card')
+    const card = getElement('card')
 
     expect(card).toBeInTheDocument()
   })
