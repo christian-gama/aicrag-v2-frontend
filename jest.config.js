@@ -11,7 +11,7 @@ module.exports = {
     '!<rootDir>/src/external/**/*'
   ],
   coverageDirectory: 'coverage',
-  maxWorkers: '50%',
+  maxWorkers: '75%',
   resetMocks: true,
   roots: ['<rootDir>/src'],
   setupFilesAfterEnv: ['<rootDir>/tests/config/jestDom.ts'],
