@@ -12,21 +12,19 @@ import renderWithProviders from '@/tests/helpers/renderWithProviders'
 const DummyButton = () => {
   const dispatch = useDispatch<AppDispatch>()
 
-  const openCalendarHandler = () => {
-    dispatch(calendarActions.openCalendar())
-  }
-
-  const closeCalendarHandler = () => {
-    dispatch(calendarActions.closeCalendar())
-  }
-
   return (
     <div>
-      <button onClick={openCalendarHandler} data-testid="open-button">
-        OpenCalendar
+      <button
+        onClick={() => dispatch(calendarActions.openCalendar())}
+        data-testid="open-button"
+      >
+        Open Calendar
       </button>
-      <button onClick={closeCalendarHandler} data-testid="close-button">
-        CloseCalendar
+      <button
+        onClick={() => dispatch(calendarActions.closeCalendar())}
+        data-testid="close-button"
+      >
+        Close Calendar
       </button>
     </div>
   )
@@ -45,6 +43,8 @@ const renderWithButton = (): void => {
 
 describe('Calendar', () => {
   const overlayRoot = new OverlayRoot()
+  const getDateByIndex = (index: number) =>
+    screen.getByTestId('calendar-body').childNodes[index]
 
   afterEach(() => {
     cleanup()
@@ -71,34 +71,30 @@ describe('Calendar', () => {
     expect(backdrop).not.toBeInTheDocument()
   })
 
-  it('opens when dispatching openCalendar action', async () => {
+  it('opens when dispatching openCalendar action', () => {
     renderWithButton()
+    const calendarContainer = () => screen.queryByTestId('calendar-wrapper')
+    const calendarButton = (state: 'open' | 'close') =>
+      screen.getByTestId(`${state}-button`)
 
     // Close
-    let calendarContainer = screen.getByTestId('calendar-wrapper')
-    const closeCalendarButton = screen.getByTestId('close-button')
+    userEvent.click(calendarButton('close'))
 
-    userEvent.click(closeCalendarButton)
-
-    expect(calendarContainer).not.toBeInTheDocument()
+    expect(calendarContainer()).not.toBeInTheDocument()
 
     // Open
-    const openCalendarButton = screen.getByTestId('open-button')
+    userEvent.click(calendarButton('open'))
 
-    userEvent.click(openCalendarButton)
-
-    calendarContainer = screen.getByTestId('calendar-wrapper')
-    expect(calendarContainer).toBeInTheDocument()
+    expect(calendarContainer()).toBeInTheDocument()
   })
 
   it('renders the correct days based on 2022-01-01T00:00:00.000Z', () => {
     renderWithButton()
-    const body = screen.getByTestId('calendar-body')
 
-    expect(body.childNodes[7]).toHaveTextContent('26')
-    expect(body.childNodes[20]).toHaveTextContent('8')
-    expect(body.childNodes[27]).toHaveTextContent('15')
-    expect(body.childNodes[48]).toHaveTextContent('5')
+    expect(getDateByIndex(7)).toHaveTextContent('26')
+    expect(getDateByIndex(20)).toHaveTextContent('8')
+    expect(getDateByIndex(27)).toHaveTextContent('15')
+    expect(getDateByIndex(48)).toHaveTextContent('5')
   })
 
   it('picks a date when clicking on a day', () => {
@@ -119,33 +115,6 @@ describe('Calendar', () => {
     expect(day.hasAttribute('data-selected')).toBeFalsy()
   })
 
-  it('closes the calendar when clicking on "Confirm"', () => {
-    renderWithButton()
-    const confirmButton = screen.getByTestId('calendar-confirm-button')
-
-    userEvent.click(confirmButton)
-
-    expect(confirmButton).not.toBeInTheDocument()
-  })
-
-  it('closes when clicking on "Cancel"', () => {
-    renderWithButton()
-    const cancelButton = screen.getByTestId('calendar-cancel-button')
-
-    userEvent.click(cancelButton)
-
-    expect(cancelButton).not.toBeInTheDocument()
-  })
-
-  it('renders all the week days (short)', () => {
-    renderWithButton()
-    const body = screen.getByTestId('calendar-body')
-
-    expect(body.childNodes[0]).toHaveTextContent('Dom')
-    expect(body.childNodes[3]).toHaveTextContent('Qua')
-    expect(body.childNodes[6]).toHaveTextContent('Sab')
-  })
-
   it('renders the correct date heading', () => {
     renderWithButton()
     const heading = screen.getByTestId('calendar-header-date')
@@ -156,31 +125,55 @@ describe('Calendar', () => {
   it('skips to previous month when clicking on ChevronIcon from the left', () => {
     renderWithButton()
     const chevronIcons = screen.getAllByTestId('chevron-icon')
-    const body = screen.getByTestId('calendar-body')
 
     userEvent.click(chevronIcons[0])
 
-    expect(body.childNodes[7]).toHaveTextContent('28')
-    expect(body.childNodes[20]).toHaveTextContent('11')
-    expect(body.childNodes[27]).toHaveTextContent('18')
-    expect(body.childNodes[48]).toHaveTextContent('8')
+    expect(getDateByIndex(7)).toHaveTextContent('28')
+    expect(getDateByIndex(20)).toHaveTextContent('11')
+    expect(getDateByIndex(27)).toHaveTextContent('18')
+    expect(getDateByIndex(48)).toHaveTextContent('8')
   })
 
   it('skips to next month when clicking on ChevronIcon from the right', () => {
     renderWithButton()
     const chevronIcons = screen.getAllByTestId('chevron-icon')
-    const body = screen.getByTestId('calendar-body')
 
     userEvent.click(chevronIcons[1])
 
-    expect(body.childNodes[7]).toHaveTextContent('30')
-    expect(body.childNodes[20]).toHaveTextContent('12')
-    expect(body.childNodes[27]).toHaveTextContent('19')
-    expect(body.childNodes[48]).toHaveTextContent('12')
+    expect(getDateByIndex(7)).toHaveTextContent('30')
+    expect(getDateByIndex(20)).toHaveTextContent('12')
+    expect(getDateByIndex(27)).toHaveTextContent('19')
+    expect(getDateByIndex(48)).toHaveTextContent('12')
+  })
+
+  it('closes the calendar when clicking on confirm button', () => {
+    renderWithButton()
+    const confirmButton = screen.getByTestId('calendar-confirm-button')
+
+    userEvent.click(confirmButton)
+
+    expect(confirmButton).not.toBeInTheDocument()
+  })
+
+  it('closes when clicking on cancel button', () => {
+    renderWithButton()
+    const cancelButton = screen.getByTestId('calendar-cancel-button')
+
+    userEvent.click(cancelButton)
+
+    expect(cancelButton).not.toBeInTheDocument()
+  })
+
+  it('renders all the week days (short)', () => {
+    renderWithButton()
+
+    expect(getDateByIndex(0)).toHaveTextContent('Dom')
+    expect(getDateByIndex(3)).toHaveTextContent('Qua')
+    expect(getDateByIndex(6)).toHaveTextContent('Sab')
   })
 
   describe('Timer', () => {
-    describe('onChange', () => {
+    describe('when triggers onChange', () => {
       it('updates the hour input value if value is valid', () => {
         renderWithButton()
         const hourInput = screen.getByTestId('calendar-hour')
@@ -200,7 +193,7 @@ describe('Calendar', () => {
       })
     })
 
-    describe('onBlur', () => {
+    describe('when triggers onBlur', () => {
       it('updates the hour input value if value is valid', () => {
         renderWithButton()
         const hourInput = screen.getByTestId('calendar-hour')
@@ -222,7 +215,7 @@ describe('Calendar', () => {
       })
     })
 
-    describe('arrowUp', () => {
+    describe('when triggers  arrowUp', () => {
       it('increases the value of hour', () => {
         renderWithButton()
         const hourInput = screen.getByTestId('calendar-hour')
@@ -244,7 +237,7 @@ describe('Calendar', () => {
       })
     })
 
-    describe('arrowDown', () => {
+    describe('when triggers arrowDown', () => {
       it('decreases the value of hour', () => {
         renderWithButton()
         const hourInput = screen.getByTestId('calendar-hour')
