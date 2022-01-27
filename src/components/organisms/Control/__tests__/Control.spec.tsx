@@ -29,7 +29,7 @@ describe('Control', () => {
   describe('Form', () => {
     it('renders correctly', () => {
       renderWithProviders(
-        <ControlForm submitHandler={jest.fn()} successMessage="">
+        <ControlForm submitHandler={jest.fn()}>
           <ControlInput name="title" label="Title" />
         </ControlForm>
       )
@@ -41,7 +41,7 @@ describe('Control', () => {
     it('calls submitHandler when submit', async () => {
       const submitHandlerSpy = jest.fn().mockReturnValue(Promise.resolve())
       renderWithProviders(
-        <ControlForm submitHandler={submitHandlerSpy} successMessage="">
+        <ControlForm submitHandler={submitHandlerSpy}>
           <ControlInput name="title" label="Title" />
         </ControlForm>
       )
@@ -60,7 +60,6 @@ describe('Control', () => {
         <ControlForm
           submitHandler={jest.fn()}
           validator={makeValidationMock(validatorSpy)}
-          successMessage=""
         >
           <ControlInput name="title" label="Title" defaultValue="Any Value" />
         </ControlForm>
@@ -83,7 +82,7 @@ describe('Control', () => {
         throw new Error()
       })
       renderWithProviders(
-        <ControlForm submitHandler={submitHandlerSpy} successMessage="">
+        <ControlForm submitHandler={submitHandlerSpy}>
           <ControlInput name="title" label="Title" />
         </ControlForm>
       )
@@ -102,7 +101,6 @@ describe('Control', () => {
         <ControlForm
           submitHandler={jest.fn()}
           validator={makeValidationMock(jest.fn().mockReturnValue('any_error'))}
-          successMessage=""
         >
           <ControlInput name="title" label="Title" />
         </ControlForm>
@@ -141,7 +139,7 @@ describe('Control', () => {
   describe('Input', () => {
     it('starts as readOnly', () => {
       renderWithProviders(
-        <ControlForm submitHandler={jest.fn()} successMessage="">
+        <ControlForm submitHandler={jest.fn()}>
           <ControlInput label="Title" name="title" />
         </ControlForm>
       )
@@ -152,7 +150,7 @@ describe('Control', () => {
 
     it('displays an icon if icon is defined', () => {
       renderWithProviders(
-        <ControlForm submitHandler={jest.fn()} successMessage="">
+        <ControlForm submitHandler={jest.fn()}>
           <ControlInput
             icon={<div data-testid="icon">Icon</div>}
             label="Title"
@@ -167,7 +165,7 @@ describe('Control', () => {
 
     it('toggles the eye icon when clicking on it', () => {
       renderWithProviders(
-        <ControlForm submitHandler={jest.fn()} successMessage="">
+        <ControlForm submitHandler={jest.fn()}>
           <ControlInput type="password" label="Title" name="title" />
         </ControlForm>
       )
@@ -187,7 +185,7 @@ describe('Control', () => {
 
     it('starts with password type and changes to text when click on eye icon', async () => {
       renderWithProviders(
-        <ControlForm submitHandler={jest.fn()} successMessage="">
+        <ControlForm submitHandler={jest.fn()}>
           <ControlInput type="password" label="Title" name="title" />
         </ControlForm>
       )
@@ -206,7 +204,6 @@ describe('Control', () => {
         renderWithProviders(
           <ControlForm
             submitHandler={jest.fn()}
-            successMessage=""
             validator={makeValidationMock(
               jest.fn().mockReturnValue('any_error')
             )}
@@ -225,7 +222,6 @@ describe('Control', () => {
         renderWithProviders(
           <ControlForm
             submitHandler={jest.fn()}
-            successMessage=""
             validator={makeValidationMock(jest.fn())}
           >
             <ControlInput label="Title" name="title" />
@@ -242,7 +238,7 @@ describe('Control', () => {
       it('calls onBlur function', () => {
         const onBlurSpy = jest.fn()
         renderWithProviders(
-          <ControlForm submitHandler={jest.fn()} successMessage="">
+          <ControlForm submitHandler={jest.fn()}>
             <ControlInput label="Title" name="title" onBlur={onBlurSpy} />
           </ControlForm>
         )
@@ -259,7 +255,6 @@ describe('Control', () => {
         renderWithProviders(
           <ControlForm
             submitHandler={jest.fn()}
-            successMessage=""
             validator={makeValidationMock(
               jest.fn().mockReturnValue('any_error')
             )}
@@ -278,7 +273,6 @@ describe('Control', () => {
         renderWithProviders(
           <ControlForm
             submitHandler={jest.fn()}
-            successMessage=""
             validator={makeValidationMock(
               jest.fn().mockReturnValue('any_error')
             )}
@@ -298,7 +292,6 @@ describe('Control', () => {
         renderWithProviders(
           <ControlForm
             submitHandler={jest.fn()}
-            successMessage=""
             validator={makeValidationMock(jest.fn())}
           >
             <ControlInput label="Title" name="title" />
@@ -314,7 +307,7 @@ describe('Control', () => {
       it('calls onChange function', () => {
         const onChangeSpy = jest.fn()
         renderWithProviders(
-          <ControlForm submitHandler={jest.fn()} successMessage="">
+          <ControlForm submitHandler={jest.fn()}>
             <ControlInput label="Title" name="title" onChange={onChangeSpy} />
           </ControlForm>
         )
@@ -330,7 +323,7 @@ describe('Control', () => {
       it('calls onFocus function', () => {
         const onFocusSpy = jest.fn()
         renderWithProviders(
-          <ControlForm submitHandler={jest.fn()} successMessage="">
+          <ControlForm submitHandler={jest.fn()}>
             <ControlInput label="Title" name="title" onFocus={onFocusSpy} />
           </ControlForm>
         )
@@ -343,7 +336,7 @@ describe('Control', () => {
 
       it('removes the readOnly attribute', () => {
         renderWithProviders(
-          <ControlForm submitHandler={jest.fn()} successMessage="">
+          <ControlForm submitHandler={jest.fn()}>
             <ControlInput label="Title" name="title" />
           </ControlForm>
         )
