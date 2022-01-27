@@ -7,7 +7,7 @@ import useControlForm from './hooks/useControlForm'
 type ControlFormProps = {
   submitHandler: () => Promise<void>
   validator?: IValidation
-  successMessage?: string
+  successMessage: string
   loading?: boolean
 }
 
@@ -33,7 +33,7 @@ const ControlForm: React.FC<ControlFormProps> = ({
     }
 
     if (!error && isValid && isSubmitted) {
-      successMessage && popoverVar.setPopover(successMessage, 'success')
+      popoverVar.setPopover(successMessage, 'success')
     }
   }, [successMessage, isSubmitted, isValid, error])
   return (
