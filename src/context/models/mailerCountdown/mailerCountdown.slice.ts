@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { DateTime } from 'luxon'
+import isDateExpired from '@/helpers/isDateExpired'
 import makeMailerCountdownStorage from '@/external/factories/storage/mailerCountdown/makeMailerCountdown'
 import {
   MailerCountdownStates,
@@ -7,20 +8,19 @@ import {
 } from './protocols/mailerCountdown.model'
 
 const mailerCountdownStorage = makeMailerCountdownStorage()
+const countdownKey = mailerCountdownStorage.get()
+
+const getSeconds = () =>
+  countdownKey !== null
+    ? Math.ceil(
+      DateTime.fromISO(countdownKey).toSeconds() - DateTime.now().toSeconds()
+    )
+    : 60
 
 const initialMailerCountdownState: MailerCountdownStates = {
-  timeLeftInSeconds:
-    mailerCountdownStorage.get() !== null
-      ? Math.ceil(
-        DateTime.fromISO(mailerCountdownStorage.get()!).toSeconds() -
-            DateTime.now().toSeconds()
-      )
-      : 60,
+  timeLeftInSeconds: getSeconds(),
   isOnCountdown:
-    mailerCountdownStorage.get() !== null
-      ? DateTime.fromISO(mailerCountdownStorage.get()!).toMillis() <
-        DateTime.now().toMillis()
-      : true
+    countdownKey !== null ? isDateExpired(new Date(countdownKey)) : true
 }
 
 const mailerCountdownSlice = createSlice({
@@ -30,37 +30,32 @@ const mailerCountdownSlice = createSlice({
     startCountdown: (state) => {
       state.timeLeftInSeconds = 60
       state.isOnCountdown = true
+
       mailerCountdownStorage.set(state.timeLeftInSeconds.toString())
     },
+
     stopCountdown: (state) => {
       mailerCountdownStorage.reset()
+
       state.isOnCountdown = false
     },
+
     setTimeLeft: (state, action: SetTimeLeftPayload) => {
       state.timeLeftInSeconds = action.payload.timeLeftInSeconds
     },
+
     verifyCountdown: (state) => {
-      console.log(mailerCountdownStorage.get())
       const isExpired =
-        mailerCountdownStorage.get() !== null
-          ? DateTime.fromISO(mailerCountdownStorage.get()!).toMillis() <
-            DateTime.now().toMillis()
-          : true
+        countdownKey !== null ? isDateExpired(new Date(countdownKey)) : true
 
       if (isExpired) {
-        console.log('isExpired', isExpired)
         state.isOnCountdown = false
         state.timeLeftInSeconds = 0
+
         mailerCountdownStorage.reset()
       } else {
         state.isOnCountdown = true
-        state.timeLeftInSeconds =
-          mailerCountdownStorage.get() !== null
-            ? Math.ceil(
-              DateTime.fromISO(mailerCountdownStorage.get()!).toSeconds() -
-                  DateTime.now().toSeconds()
-            )
-            : 60
+        state.timeLeftInSeconds = getSeconds()
       }
     }
   }
