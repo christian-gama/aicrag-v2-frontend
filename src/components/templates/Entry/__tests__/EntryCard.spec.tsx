@@ -20,7 +20,6 @@ describe('EntryCard', () => {
 
   it('renders correctly', () => {
     renderWithProviders(<EntryCard />)
-
     const entryCard = screen.getByTestId('entry-card')
 
     expect(entryCard).toBeInTheDocument()
@@ -29,7 +28,6 @@ describe('EntryCard', () => {
   it('renders with no border if width is lesser or equal to 520', () => {
     useWindowDimensionsMock.mockReturnValue({ width: 520 })
     renderWithProviders(<EntryCard />)
-
     const card = screen.getByTestId('card')
 
     expect(card.className).toMatch(/roundness_none/gi)
