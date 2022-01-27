@@ -6,11 +6,8 @@ import { AppDispatch, RootState } from '@/context/store'
 
 const useCalendarDays = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const calendarDate = useSelector<RootState, CalendarStates['calendarDate']>(
-    (state) => state.calendar.calendarDate
-  )
-  const selectedDate = useSelector<RootState, CalendarStates['selectedDate']>(
-    (state) => state.calendar.selectedDate
+  const { calendarDate, selectedDate } = useSelector<RootState, CalendarStates>(
+    (state) => state.calendar
   )
 
   const startDate = DateTime.fromMillis(calendarDate).startOf('month')
