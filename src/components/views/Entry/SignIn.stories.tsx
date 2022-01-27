@@ -1,8 +1,6 @@
-import { MockedProvider } from '@apollo/client/testing'
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import React from 'react'
-import { MemoryRouter, Routes, Route } from 'react-router-dom'
-import FormProvider from '@/context/models/form/form.provider'
+import { AllProviders } from '@/tests/helpers/renderWithProviders'
 import loginMock from '@/tests/mocks/queries/login.mock'
 import SignInComponent from './SignIn'
 
@@ -11,15 +9,7 @@ export default {
   component: SignInComponent,
   decorators: [
     (story) => (
-      <MockedProvider mocks={[loginMock()]} addTypename={false}>
-        <FormProvider>
-          <MemoryRouter>
-            <Routes>
-              <Route path="/" element={story()} />
-            </Routes>
-          </MemoryRouter>
-        </FormProvider>
-      </MockedProvider>
+      <AllProviders apolloMocks={[loginMock()]}>{story()}</AllProviders>
     )
   ]
 } as ComponentMeta<typeof SignInComponent>

@@ -1,8 +1,6 @@
-import { MockedProvider } from '@apollo/client/testing'
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import React from 'react'
-import { MemoryRouter, Routes, Route } from 'react-router-dom'
-import FormProvider from '@/context/models/form/form.provider'
+import { AllProviders } from '@/tests/helpers/renderWithProviders'
 import forgotPasswordMock from '@/tests/mocks/queries/forgotPassword.mock'
 import sendRecoverPasswordEmailMock from '@/tests/mocks/queries/sendRecoverPasswordEmail'
 import ForgotPasswordFormComponent from './ForgotPasswordForm'
@@ -12,18 +10,11 @@ export default {
   component: ForgotPasswordFormComponent,
   decorators: [
     (story) => (
-      <MockedProvider
-        mocks={[forgotPasswordMock(), sendRecoverPasswordEmailMock()]}
-        addTypename={false}
+      <AllProviders
+        apolloMocks={[forgotPasswordMock(), sendRecoverPasswordEmailMock()]}
       >
-        <FormProvider>
-          <MemoryRouter>
-            <Routes>
-              <Route path="/" element={story()} />
-            </Routes>
-          </MemoryRouter>
-        </FormProvider>
-      </MockedProvider>
+        {story()}
+      </AllProviders>
     )
   ]
 } as ComponentMeta<typeof ForgotPasswordFormComponent>
