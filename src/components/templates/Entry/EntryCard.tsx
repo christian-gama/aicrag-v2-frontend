@@ -30,14 +30,14 @@ const EntryCard: React.FC = ({ children }) => {
               <Menu
                 buttons={[
                   {
+                    active: location.pathname === '/entry/sign-in',
                     buttonName: 'Entrar',
-                    to: '/entry/sign-in',
-                    active: location.pathname === '/entry/sign-in'
+                    to: '/entry/sign-in'
                   },
                   {
+                    active: location.pathname === '/entry/sign-up',
                     buttonName: 'Cadastrar',
-                    to: '/entry/sign-up',
-                    active: location.pathname === '/entry/sign-up'
+                    to: '/entry/sign-up'
                   }
                 ]}
               />
