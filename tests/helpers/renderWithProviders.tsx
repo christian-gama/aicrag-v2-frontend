@@ -38,11 +38,20 @@ export const AllProviders: React.FC<AllProvidersProps> = ({
   )
 }
 
+type RenderWithProvidersOptions = {
+  apolloMocks?: Array<MockedResponse<Record<string, any>>>
+} & RenderOptions
+
 const renderWithProviders = (
   ui: React.ReactElement,
-  options?: RenderOptions
+  options?: RenderWithProvidersOptions
 ) => {
-  return render(ui, { wrapper: AllProviders, ...options })
+  return render(
+    <AllProviders apolloMocks={options?.apolloMocks}>{ui}</AllProviders>,
+    {
+      ...options
+    }
+  )
 }
 
 export default renderWithProviders

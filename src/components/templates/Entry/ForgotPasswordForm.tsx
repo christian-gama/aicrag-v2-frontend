@@ -52,10 +52,10 @@ const ForgotPasswordForm: React.FC = () => {
 
   return (
     <ControlForm
-      submitHandler={onSubmitHandler}
-      validator={makeForgotPasswordValidator()}
-      loading={loading}
       successMessage="Instruções para recuperar a sua senha foram enviadas para o seu email."
+      validator={makeForgotPasswordValidator()}
+      submitHandler={onSubmitHandler}
+      loading={loading}
     >
       <div className={style.forgotPasswordForm}>
         <div className={style.forgotPasswordFormInputWrapper}>
@@ -64,11 +64,11 @@ const ForgotPasswordForm: React.FC = () => {
 
         <div className={style.forgotPasswordFormButtonWrapper}>
           <Button
-            disabled={startCountdown}
-            type="submit"
-            style={{ size: 'lg' }}
             loading={loading || loadingRecover}
+            disabled={startCountdown}
+            style={{ size: 'lg' }}
             testid="submit-button"
+            type="submit"
           >
             {startCountdown ? `${countdown} s` : 'Resetar senha'}
           </Button>
