@@ -7,8 +7,8 @@ export type MailerCountdownStates = {
 
 export type MailerCountdownActions = typeof mailerCountdownActions
 
-export type SetTimeLeftPayload = {
+export type SetTimePayload = {
   payload: {
-    timeLeftInSeconds: number
+    time: number
   }
 }

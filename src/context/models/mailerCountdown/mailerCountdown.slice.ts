@@ -4,58 +4,72 @@ import isDateExpired from '@/helpers/isDateExpired'
 import makeMailerCountdownStorage from '@/external/factories/storage/mailerCountdown/makeMailerCountdown'
 import {
   MailerCountdownStates,
-  SetTimeLeftPayload
+  SetTimePayload
 } from './protocols/mailerCountdown.model'
 
-const mailerCountdownStorage = makeMailerCountdownStorage()
-const countdownKey = mailerCountdownStorage.get()
+class Countdown {
+  defaultTime = 60
+  storage = makeMailerCountdownStorage()
 
-const getSeconds = () =>
-  countdownKey !== null
-    ? Math.ceil(
-      DateTime.fromISO(countdownKey).toSeconds() - DateTime.now().toSeconds()
-    )
-    : 60
+  get timeLeft () {
+    return this.storage.get()
+  }
 
-const initialMailerCountdownState: MailerCountdownStates = {
-  timeLeftInSeconds: getSeconds(),
-  isOnCountdown:
-    countdownKey !== null ? isDateExpired(new Date(countdownKey)) : true
+  get initialState (): MailerCountdownStates {
+    return {
+      timeLeftInSeconds: this.getSeconds(),
+      isOnCountdown:
+        this.timeLeft !== null ? !isDateExpired(new Date(this.timeLeft)) : false
+    }
+  }
+
+  getSeconds () {
+    return this.timeLeft !== null
+      ? Math.ceil(
+        DateTime.fromISO(this.timeLeft).toSeconds() -
+            DateTime.now().toSeconds()
+      )
+      : this.defaultTime
+  }
 }
+
+const countdown = new Countdown()
 
 const mailerCountdownSlice = createSlice({
   name: 'mailerCountdown',
-  initialState: initialMailerCountdownState,
+  initialState: countdown.initialState,
   reducers: {
     startCountdown: (state) => {
-      state.timeLeftInSeconds = 60
+      state.timeLeftInSeconds = countdown.defaultTime
       state.isOnCountdown = true
 
-      mailerCountdownStorage.set(state.timeLeftInSeconds.toString())
+      countdown.storage.set(state.timeLeftInSeconds.toString())
     },
 
     stopCountdown: (state) => {
-      mailerCountdownStorage.reset()
+      countdown.storage.reset()
 
       state.isOnCountdown = false
     },
 
-    setTimeLeft: (state, action: SetTimeLeftPayload) => {
-      state.timeLeftInSeconds = action.payload.timeLeftInSeconds
+    setTimeLeft: (state, action: SetTimePayload) => {
+      state.timeLeftInSeconds = action.payload.time
     },
 
     verifyCountdown: (state) => {
       const isExpired =
-        countdownKey !== null ? isDateExpired(new Date(countdownKey)) : true
+        countdown.timeLeft !== null
+          ? isDateExpired(new Date(countdown.timeLeft))
+          : true
 
       if (isExpired) {
         state.isOnCountdown = false
-        state.timeLeftInSeconds = 0
+        state.timeLeftInSeconds = countdown.defaultTime
 
-        mailerCountdownStorage.reset()
+        countdown.storage.reset()
       } else {
         state.isOnCountdown = true
-        state.timeLeftInSeconds = getSeconds()
+        state.timeLeftInSeconds = countdown.getSeconds()
       }
     }
   }

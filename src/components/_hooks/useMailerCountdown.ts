@@ -21,12 +21,13 @@ const useMailerCountdown = () => {
     let timeLeft = timeLeftInSeconds
 
     if (isOnCountdown) {
+      /* istanbul ignore next */
       const interval = setInterval(() => {
         if (timeLeft <= 0) {
           dispatch(stopCountdown())
         }
 
-        dispatch(setTimeLeft({ timeLeftInSeconds: --timeLeft }))
+        dispatch(setTimeLeft({ time: --timeLeft }))
       }, 1000)
 
       return () => clearInterval(interval)
