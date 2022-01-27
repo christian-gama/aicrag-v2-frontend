@@ -11,19 +11,18 @@ import {
 import * as style from './stylesheet'
 
 const SignUpForm: React.FC = () => {
-  const [signUp, { loading: loadingSignUp }] = useSignUpMutation()
-  const [sendWelcomeEmail, { loading: loadingSendEmail }] =
-    useSendWelcomeEmailMutation()
+  const [signUp] = useSignUpMutation()
+  const [sendWelcomeEmail] = useSendWelcomeEmailMutation()
 
   const { state } = useContext(FormContext)
 
   const onSubmitHandler = async () => {
     await signUp({
       variables: {
-        name: state.form.data.name,
-        email: state.form.data.email,
+        passwordConfirmation: state.form.data.passwordConfirmation,
         password: state.form.data.password,
-        passwordConfirmation: state.form.data.passwordConfirmation
+        email: state.form.data.email,
+        name: state.form.data.name
       }
     })
 
@@ -36,10 +35,10 @@ const SignUpForm: React.FC = () => {
 
   return (
     <ControlForm
-      submitHandler={onSubmitHandler}
-      validator={makeSignUpValidator()}
-      loading={loadingSignUp || loadingSendEmail}
       successMessage="Conta criada com sucesso"
+      loading={state.form.isSubmitting}
+      validator={makeSignUpValidator()}
+      submitHandler={onSubmitHandler}
     >
       <div className={style.signUpForm}>
         <div className={style.signUpFormInputWrapper}>
@@ -50,17 +49,17 @@ const SignUpForm: React.FC = () => {
           <ControlInput label="Sua senha" name="password" type="password" />
 
           <ControlInput
-            label="Confirme sua senha"
             name="passwordConfirmation"
+            label="Confirme sua senha"
             type="password"
           />
         </div>
 
         <Button
-          type="submit"
+          loading={state.form.isSubmitting}
           style={{ size: 'lg' }}
-          loading={loadingSignUp || loadingSendEmail}
           testid="submit-button"
+          type="submit"
         >
           Criar conta
         </Button>

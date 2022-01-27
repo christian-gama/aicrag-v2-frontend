@@ -1,4 +1,10 @@
-import { act, cleanup, fireEvent, screen } from '@testing-library/react'
+import {
+  act,
+  cleanup,
+  fireEvent,
+  screen,
+  waitFor
+} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
@@ -43,6 +49,12 @@ describe('ForgotPasswordForm', () => {
       await sleep()
     })
 
-    expect(forgotPasswordForm).toBeInTheDocument()
+    await waitFor(() => {
+      const countdown = screen.getByRole('button', {
+        name: /60 s/i
+      })
+
+      expect(countdown).toBeInTheDocument()
+    })
   })
 })

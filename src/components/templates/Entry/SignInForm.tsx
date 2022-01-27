@@ -10,15 +10,14 @@ import { authVar } from '@/external/graphql/reactiveVars/authVar'
 import * as style from './stylesheet'
 
 const SignInForm: React.FC = () => {
-  const [login, { loading }] = useLoginMutation()
+  const [login] = useLoginMutation()
 
   const { state } = useContext(FormContext)
-
   const onSubmitHandler = async () => {
     const response = await login({
       variables: {
-        email: state.form.data.email,
-        password: state.form.data.password
+        password: state.form.data.password,
+        email: state.form.data.email
       }
     })
 
@@ -38,10 +37,10 @@ const SignInForm: React.FC = () => {
 
   return (
     <ControlForm
-      submitHandler={onSubmitHandler}
-      validator={makeSignInValidator()}
-      loading={loading}
       successMessage="Login efetuado com sucesso"
+      validator={makeSignInValidator()}
+      loading={state.form.isSubmitting}
+      submitHandler={onSubmitHandler}
     >
       <div className={style.signInForm}>
         <div className={style.signInFormInputWrapper}>
@@ -52,10 +51,10 @@ const SignInForm: React.FC = () => {
 
         <div className={style.signInFormButtonWrapper}>
           <Button
-            type="submit"
+            loading={state.form.isSubmitting}
             style={{ size: 'lg' }}
-            loading={loading}
             testid="submit-button"
+            type="submit"
           >
             Acessar
           </Button>

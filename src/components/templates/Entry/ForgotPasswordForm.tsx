@@ -22,9 +22,8 @@ const ForgotPasswordForm: React.FC = () => {
   MailerCountdownStates
   >((state) => state.mailerCountdown)
 
-  const [forgotPassword, { loading }] = useForgotPasswordMutation()
-  const [sendRecoverPasswordEmail, { loading: loadingRecover }] =
-    useSendRecoverPasswordEmailMutation()
+  const [forgotPassword] = useForgotPasswordMutation()
+  const [sendRecoverPasswordEmail] = useSendRecoverPasswordEmailMutation()
 
   const { state } = useContext(FormContext)
   const onSubmitHandler = async () => {
@@ -46,7 +45,6 @@ const ForgotPasswordForm: React.FC = () => {
       successMessage="Instruções para recuperar a sua senha foram enviadas para o seu email."
       validator={makeForgotPasswordValidator()}
       submitHandler={onSubmitHandler}
-      loading={loading}
     >
       <div className={style.forgotPasswordForm}>
         <div className={style.forgotPasswordFormInputWrapper}>
@@ -55,7 +53,7 @@ const ForgotPasswordForm: React.FC = () => {
 
         <div className={style.forgotPasswordFormButtonWrapper}>
           <Button
-            loading={loading || loadingRecover}
+            loading={state.form.isSubmitting && !isOnCountdown}
             disabled={isOnCountdown}
             style={{ size: 'lg' }}
             testid="submit-button"

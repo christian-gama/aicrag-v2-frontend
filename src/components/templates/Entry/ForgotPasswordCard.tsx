@@ -31,7 +31,7 @@ const ForgotPasswordCard: React.FC = ({ children }) => {
               </nav>
 
               <div>
-                {width < 520
+                {width <= 520
                   ? (
                   <H3>Esqueceu sua senha?</H3>
                     )
