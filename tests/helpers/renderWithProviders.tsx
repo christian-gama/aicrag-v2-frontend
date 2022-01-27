@@ -5,7 +5,9 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import FormProvider from '@/context/models/form/form.provider'
+import useMailerCountdown from '@/components/_hooks/useMailerCountdown'
 import calendarStoreMock from '../mocks/calendarStore.mock'
+import mailerCountdownMock from '../mocks/mailerCountdown.mock'
 import getPath from './getPath'
 
 type AllProvidersProps = {
@@ -17,8 +19,11 @@ export const AllProviders: React.FC<AllProvidersProps> = ({
   children
 }) => {
   const testStore = configureStore({
-    reducer: { ...calendarStoreMock.reducer },
-    preloadedState: { ...calendarStoreMock.preloadedState }
+    reducer: { ...calendarStoreMock.reducer, ...mailerCountdownMock.reducer },
+    preloadedState: {
+      ...calendarStoreMock.preloadedState,
+      ...mailerCountdownMock.preloadedState
+    }
   })
 
   const path = getPath()
@@ -29,13 +34,22 @@ export const AllProviders: React.FC<AllProvidersProps> = ({
         <FormProvider>
           <MemoryRouter initialEntries={[path]}>
             <Routes>
-              <Route path={path} element={children} />
+              <Route
+                element={<MailerCountdown>{children}</MailerCountdown>}
+                path={path}
+              />
             </Routes>
           </MemoryRouter>
         </FormProvider>
       </MockedProvider>
     </Provider>
   )
+}
+
+export const MailerCountdown: React.FC = ({ children }) => {
+  useMailerCountdown()
+
+  return <>{children}</>
 }
 
 type RenderWithProvidersOptions = {

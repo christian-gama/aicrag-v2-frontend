@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import useMailerCountdown from '@/components/_hooks/useMailerCountdown'
 import Popover from '@/components/molecules/Popover'
 import ForgotPassword from '@/components/views/Entry/ForgotPassword'
 import SignIn from '@/components/views/Entry/SignIn'
@@ -12,6 +13,7 @@ import ProtectedRoute from './proxies/ProtectedRoute'
 const App = () => {
   const { isOpen, message, type } = usePopoverVar()
   useGetMeQuery()
+  useMailerCountdown()
 
   return (
     <>

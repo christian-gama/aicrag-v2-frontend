@@ -1,5 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import FormContext from '@/context/models/form/form.context'
+import { mailerCountdownActions } from '@/context/models/mailerCountdown/mailerCountdown.actions'
+import { MailerCountdownStates } from '@/context/models/mailerCountdown/protocols/mailerCountdown.model'
+import { AppDispatch, RootState } from '@/context/store'
 import Button from '@/components/atoms/Button'
 import ControlForm from '@/components/organisms/Control/ControlForm'
 import ControlInput from '@/components/organisms/Control/ControlInput'
@@ -11,30 +15,18 @@ import {
 import * as style from './stylesheet'
 
 const ForgotPasswordForm: React.FC = () => {
-  const [startCountdown, setStartCountdown] = useState(false)
-  const [countdown, setCountdown] = useState(60)
-
-  /* istanbul ignore next */
-  useEffect(() => {
-    if (startCountdown) {
-      const interval = setInterval(() => {
-        setCountdown((prev) => {
-          if (prev <= 1) setStartCountdown(false)
-
-          return prev - 1
-        })
-      }, 1000)
-
-      return () => clearInterval(interval)
-    }
-  }, [startCountdown])
+  const dispatch = useDispatch<AppDispatch>()
+  const { startCountdown } = mailerCountdownActions
+  const { isOnCountdown, timeLeftInSeconds } = useSelector<
+  RootState,
+  MailerCountdownStates
+  >((state) => state.mailerCountdown)
 
   const [forgotPassword, { loading }] = useForgotPasswordMutation()
   const [sendRecoverPasswordEmail, { loading: loadingRecover }] =
     useSendRecoverPasswordEmailMutation()
 
   const { state } = useContext(FormContext)
-
   const onSubmitHandler = async () => {
     await forgotPassword({
       variables: { email: state.form.data.email }
@@ -46,8 +38,7 @@ const ForgotPasswordForm: React.FC = () => {
       }
     })
 
-    setCountdown(60)
-    setStartCountdown(true)
+    dispatch(startCountdown())
   }
 
   return (
@@ -65,12 +56,12 @@ const ForgotPasswordForm: React.FC = () => {
         <div className={style.forgotPasswordFormButtonWrapper}>
           <Button
             loading={loading || loadingRecover}
-            disabled={startCountdown}
+            disabled={isOnCountdown}
             style={{ size: 'lg' }}
             testid="submit-button"
             type="submit"
           >
-            {startCountdown ? `${countdown} s` : 'Resetar senha'}
+            {isOnCountdown ? `${timeLeftInSeconds} s` : 'Resetar senha'}
           </Button>
         </div>
       </div>
