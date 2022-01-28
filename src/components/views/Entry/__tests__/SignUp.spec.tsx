@@ -1,17 +1,17 @@
 import { cleanup, screen } from '@testing-library/react'
 import React from 'react'
 import renderWithProviders from '@/tests/helpers/renderWithProviders'
-import ForgotPassword from '../ForgotPassword'
+import SignUp from '../SignUp'
 
-describe('ForgotPassword', () => {
+describe('SignUp', () => {
   afterEach(() => {
     cleanup()
   })
 
   it('renders correctly', () => {
-    renderWithProviders(<ForgotPassword />)
+    renderWithProviders(<SignUp />)
     const button = screen.getByRole('button', {
-      name: /resetar senha/i
+      name: /criar conta/i
     })
 
     expect(button).toBeInTheDocument()
