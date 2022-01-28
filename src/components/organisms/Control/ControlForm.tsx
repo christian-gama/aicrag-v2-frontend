@@ -4,10 +4,12 @@ import { popoverVar } from '@/external/graphql/reactiveVars/popoverVar'
 import ProgressBar from '../../atoms/ProgressBar'
 import useControlForm from './hooks/useControlForm'
 
+type PostSubmitFn = VoidFunction
+
 type ControlFormProps = {
-  submitHandler: () => Promise<void>
+  submitHandler: () => Promise<PostSubmitFn> | Promise<void>
   validator?: IValidation
-  successMessage: string
+  successMessage?: string
   loading?: boolean
 }
 
@@ -33,7 +35,7 @@ const ControlForm: React.FC<ControlFormProps> = ({
     }
 
     if (!error && isValid && isSubmitted) {
-      popoverVar.setPopover(successMessage, 'success')
+      if (successMessage) popoverVar.setPopover(successMessage, 'success')
     }
   }, [successMessage, isSubmitted, isValid, error])
   return (

@@ -41,11 +41,6 @@ const useControlForm = (props: ComponentPropsWithRef<typeof ControlForm>) => {
     if (!props.validator || !error) {
       await tryToSubmit()
     }
-
-    dispatch({
-      type: 'FORM/SET_IS_SUBMITTING',
-      payload: { isSubmitting: false }
-    })
   }
 
   const handleValidation = () => {
@@ -99,15 +94,26 @@ const useControlForm = (props: ComponentPropsWithRef<typeof ControlForm>) => {
 
   const tryToSubmit = async (): Promise<void> => {
     try {
-      await props.submitHandler()
+      const postSubmitFn = await props.submitHandler()
 
       dispatch({
         type: 'FORM/SET_IS_SUBMITTED',
         payload: { isSubmitted: true }
       })
+
+      dispatch({
+        type: 'FORM/SET_IS_SUBMITTING',
+        payload: { isSubmitting: false }
+      })
+
+      postSubmitFn?.()
     } catch (error) {
       // API errors are handled by the errorLink from Apollo Client
       dispatch({ type: 'FORM/SET_IS_VALID', payload: { isValid: false } })
+      dispatch({
+        type: 'FORM/SET_IS_SUBMITTING',
+        payload: { isSubmitting: false }
+      })
       dispatch({
         type: 'FORM/SET_IS_SUBMITTED',
         payload: { isSubmitted: false }
