@@ -5,7 +5,7 @@ import { useAuth } from '../graphql/reactiveVars/authVar'
 const MustLogoutRoute: React.FC = () => {
   const { isAuthenticated } = useAuth()
 
-  return !isAuthenticated ? <Outlet /> : <Navigate to="/" />
+  return !isAuthenticated ? <Outlet /> : <Navigate replace to="/" />
 }
 
 export default MustLogoutRoute

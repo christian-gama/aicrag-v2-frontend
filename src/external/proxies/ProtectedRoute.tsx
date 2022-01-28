@@ -10,7 +10,7 @@ const ProtectedRoute: React.FC = () => {
     <Outlet />
       )
     : (
-    <Navigate to="/entry/sign-in" />
+    <Navigate replace to="/entry/sign-in" />
       )
 }
 

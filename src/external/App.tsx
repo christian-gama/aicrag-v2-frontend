@@ -1,7 +1,8 @@
 import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import useMailerCountdown from '@/components/_hooks/useMailerCountdown'
 import Popover from '@/components/molecules/Popover'
+import ResetPasswordForm from '@/components/templates/Entry/ResetPasswordForm'
 import ForgotPassword from '@/components/views/Entry/ForgotPassword'
 import SignIn from '@/components/views/Entry/SignIn'
 import SignUp from '@/components/views/Entry/SignUp'
@@ -18,17 +19,18 @@ const App = () => {
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<ProtectedRoute />} />
-          <Route path="/entry" element={<MustLogoutRoute />}>
-            <Route path="forgot-password" element={<ForgotPassword />} />
-            <Route path="sign-in" element={<SignIn />} />
-            <Route path="sign-up" element={<SignUp />} />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<ProtectedRoute />} />
+
+        <Route path="/entry" element={<MustLogoutRoute />}>
+          <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="sign-in" element={<SignIn />} />
+          <Route path="sign-up" element={<SignUp />} />
+          <Route path="reset-password/:token" element={<ResetPasswordForm />} />
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
 
       <Popover
         type={type}
