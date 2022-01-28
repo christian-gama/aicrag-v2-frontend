@@ -5,6 +5,7 @@ import Popover from '@/components/molecules/Popover'
 import ForgotPassword from '@/components/views/Entry/ForgotPassword'
 import SignIn from '@/components/views/Entry/SignIn'
 import SignUp from '@/components/views/Entry/SignUp'
+import NotFound from '@/components/views/NotFound'
 import { useGetMeQuery } from '@/external/graphql/generated'
 import { popoverVar, usePopoverVar } from './graphql/reactiveVars/popoverVar'
 import MustLogoutRoute from './proxies/MustLogoutRoute'
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="sign-in" element={<SignIn />} />
             <Route path="sign-up" element={<SignUp />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
 
