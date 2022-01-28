@@ -2,7 +2,7 @@ import { cleanup, screen } from '@testing-library/react'
 import React from 'react'
 import useWindowDimensions from '@/components/_hooks/useWindowDimensions'
 import renderWithProviders from '@/tests/helpers/renderWithProviders'
-import ForgotPasswordCard from '../ForgotPasswordCard'
+import ForgotPasswordCard from '../PasswordCard'
 
 jest.mock('../../../_hooks/useWindowDimensions')
 const useWindowDimensionsMock = useWindowDimensions as jest.Mock

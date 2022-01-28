@@ -1,16 +1,16 @@
 import React from 'react'
 import FormProvider from '@/context/models/form/form.provider'
-import ForgotPasswordCard from '@/components/templates/Entry/ForgotPasswordCard'
 import ForgotPasswordForm from '@/components/templates/Entry/ForgotPasswordForm'
+import PasswordCard from '@/components/templates/Entry/PasswordCard'
 
 const ForgotPassword: React.FC = () => {
   return (
     <div data-testid="sign-in">
-      <ForgotPasswordCard>
+      <PasswordCard>
         <FormProvider>
           <ForgotPasswordForm />
         </FormProvider>
-      </ForgotPasswordCard>
+      </PasswordCard>
     </div>
   )
 }
