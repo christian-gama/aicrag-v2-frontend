@@ -16,7 +16,7 @@ const ForgotPasswordCard: React.FC = ({ children }) => {
   return (
     <Background gradient>
       <div className={style.forgotPasswordWrapper}>
-        <Card roundness={width <= 520 ? 'none' : 'sm'}>
+        <Card roundness={width <= 520 ? 'none' : 'md'}>
           <div
             className={style.forgotPassword}
             style={assignInlineVars(style.windowDimensionVars, {

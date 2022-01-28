@@ -47,7 +47,7 @@ const Card: React.FC<CardProps> = ({
 Card.defaultProps = {
   transparent: false,
   centered: false,
-  roundness: 'sm'
+  roundness: 'md'
 }
 
 export default Card
