@@ -7,9 +7,10 @@ const makeSut = (): IFieldValidation => {
 }
 
 describe('minValidator', () => {
-  it('should return an InvalidFieldError if field is greater than min', () => {
+  it('returns an InvalidFieldError if field is greater than min', () => {
     const sut = makeSut()
     const input = { field: 4 }
+
     const result = sut.validate(input)
 
     expect(result).toStrictEqual(
@@ -17,9 +18,10 @@ describe('minValidator', () => {
     )
   })
 
-  it('should return undefined if field is lesser than min', () => {
+  it('returns undefined if field is lesser than min', () => {
     const sut = makeSut()
     const input = { field: 5 }
+
     const result = sut.validate(input)
 
     expect(result).toBeUndefined()

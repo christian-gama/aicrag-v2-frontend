@@ -8,9 +8,10 @@ const makeSut = (): IFieldValidation => {
 }
 
 describe('emailValidator', () => {
-  it('should return an InvalidFieldError if field is not an email', () => {
+  it('returns an InvalidFieldError if field is not an email', () => {
     const sut = makeSut()
     const input = { field: 'invalid@email' }
+
     const result = sut.validate(input)
 
     expect(result).toStrictEqual(
@@ -18,9 +19,10 @@ describe('emailValidator', () => {
     )
   })
 
-  it('should return undefined if field is an email', () => {
+  it('returns undefined if field is an email', () => {
     const sut = makeSut()
     const input = { field: faker.internet.email() }
+
     const result = sut.validate(input)
 
     expect(result).toBeUndefined()

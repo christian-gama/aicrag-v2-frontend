@@ -5,7 +5,7 @@ const makeSut = () => {
 }
 
 describe('accessTokenStorage', () => {
-  it('should return null if no token is stored', () => {
+  it('returns null if no token is stored', () => {
     const sut = makeSut()
 
     const accessToken = sut.get()
@@ -13,7 +13,7 @@ describe('accessTokenStorage', () => {
     expect(accessToken).toBeNull()
   })
 
-  it('should return token if token is stored', () => {
+  it('returns a token if token is stored', () => {
     const sut = makeSut()
     const accessToken = 'any_token'
     sut.set(accessToken)
@@ -23,7 +23,7 @@ describe('accessTokenStorage', () => {
     expect(result).toBe(accessToken)
   })
 
-  it('should remove token if reset is called', () => {
+  it('removes the token if reset is called', () => {
     const sut = makeSut()
     const accessToken = 'any_token'
     sut.set(accessToken)

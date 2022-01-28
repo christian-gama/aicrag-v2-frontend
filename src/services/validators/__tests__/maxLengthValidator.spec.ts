@@ -7,9 +7,10 @@ const makeSut = (): IFieldValidation => {
 }
 
 describe('maxLengthValidator', () => {
-  it('should return an InvalidFieldError if field is greater than maxLength', () => {
+  it('returns an InvalidFieldError if field is greater than maxLength', () => {
     const sut = makeSut()
     const input = { field: '123456' }
+
     const result = sut.validate(input)
 
     expect(result).toStrictEqual(
@@ -17,9 +18,10 @@ describe('maxLengthValidator', () => {
     )
   })
 
-  it('should return undefined if field is less than maxLength', () => {
+  it('returns undefined if field is less than maxLength', () => {
     const sut = makeSut()
     const input = { field: '12345' }
+
     const result = sut.validate(input)
 
     expect(result).toBeUndefined()

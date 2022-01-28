@@ -2,25 +2,25 @@ import timerIncreaser from '../timerIncreaser'
 
 describe('timerIncreaser', () => {
   describe('hour', () => {
-    it('should return next hour', () => {
+    it('returns next hour', () => {
       expect(
         timerIncreaser({ type: 'hour', prevTime: '10', increase: true })
       ).toBe('11')
     })
 
-    it('should return previous hour', () => {
+    it('returns previous hour', () => {
       expect(
         timerIncreaser({ type: 'hour', prevTime: '10', increase: false })
       ).toBe('09')
     })
 
-    it('should return next hour when previous hour is 23', () => {
+    it('returns next hour when previous hour is 23', () => {
       expect(
         timerIncreaser({ type: 'hour', prevTime: '23', increase: true })
       ).toBe('00')
     })
 
-    it('should return previous hour when previous hour is 00', () => {
+    it('returns previous hour when previous hour is 00', () => {
       expect(
         timerIncreaser({ type: 'hour', prevTime: '00', increase: false })
       ).toBe('23')
@@ -28,25 +28,25 @@ describe('timerIncreaser', () => {
   })
 
   describe('minute', () => {
-    it('should return next minute', () => {
+    it('returns next minute', () => {
       expect(
         timerIncreaser({ type: 'minute', prevTime: '10', increase: true })
       ).toBe('11')
     })
 
-    it('should return previous minute', () => {
+    it('returns previous minute', () => {
       expect(
         timerIncreaser({ type: 'minute', prevTime: '10', increase: false })
       ).toBe('09')
     })
 
-    it('should return next minute when previous minute is 59', () => {
+    it('returns next minute when previous minute is 59', () => {
       expect(
         timerIncreaser({ type: 'minute', prevTime: '59', increase: true })
       ).toBe('00')
     })
 
-    it('should return previous minute when previous minute is 00', () => {
+    it('returns previous minute when previous minute is 00', () => {
       expect(
         timerIncreaser({ type: 'minute', prevTime: '00', increase: false })
       ).toBe('59')

@@ -7,9 +7,10 @@ const makeSut = (): IFieldValidation => {
 }
 
 describe('requiredFieldValidator', () => {
-  it('should return an InvalidFieldError if field is not defined', () => {
+  it('returns an InvalidFieldError if field is not defined', () => {
     const sut = makeSut()
     const input = { field: undefined }
+
     const result = sut.validate(input)
 
     expect(result).toStrictEqual(
@@ -17,9 +18,10 @@ describe('requiredFieldValidator', () => {
     )
   })
 
-  it('should return undefined if field is defined', () => {
+  it('returns undefined if field is defined', () => {
     const sut = makeSut()
     const input = { field: 'any_value' }
+
     const result = sut.validate(input)
 
     expect(result).toBeUndefined()

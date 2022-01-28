@@ -7,9 +7,10 @@ const makeSut = (): IFieldValidation => {
 }
 
 describe('isNumberValidator', () => {
-  it('should return an InvalidFieldError if field is not a number', () => {
+  it('returns an InvalidFieldError if field is not a number', () => {
     const sut = makeSut()
     const input = { field: 'any_value' }
+
     const result = sut.validate(input)
 
     expect(result).toStrictEqual(
@@ -17,9 +18,10 @@ describe('isNumberValidator', () => {
     )
   })
 
-  it('should return undefined if field is a number', () => {
+  it('returns undefined if field is a number', () => {
     const sut = makeSut()
     const input = { field: 5 }
+
     const result = sut.validate(input)
 
     expect(result).toBeUndefined()

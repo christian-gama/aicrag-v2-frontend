@@ -6,10 +6,13 @@ const makeSignUpValidator = (): ValidatorComposite => {
     ...Builder.field('name')
       .required()
       .minLength(1)
-      .regex(/[^a-zA-Z .']/g)
+      .regex(/^[a-zA-Z\u00C0-\u00FF .']*$/g)
       .build(),
+
     ...Builder.field('email').required().isEmail().build(),
+
     ...Builder.field('password').required().minLength(6).maxLength(32).build(),
+
     ...Builder.field('passwordConfirmation')
       .required()
       .minLength(6)

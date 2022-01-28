@@ -9,7 +9,7 @@ const makeSut = (validators: IFieldValidation[]) => {
 }
 
 describe('validatorComposite', () => {
-  it('should return an array of errors', () => {
+  it('returns an array of errors', () => {
     const validators = [
       new RequiredFieldValidator('any_field'),
       new CompareFieldsValidator('any_field', 'another_field')
@@ -26,7 +26,7 @@ describe('validatorComposite', () => {
     )
   })
 
-  it('should return undefined if there is no error', () => {
+  it('returns undefined if there is no error', () => {
     const validators = [
       new RequiredFieldValidator('any_field'),
       new CompareFieldsValidator('any_field', 'another_field')

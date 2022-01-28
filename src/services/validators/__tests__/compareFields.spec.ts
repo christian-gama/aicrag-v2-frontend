@@ -7,9 +7,10 @@ const makeSut = (): IFieldValidation => {
 }
 
 describe('compareFieldsValidator', () => {
-  it('should return an InvalidFieldError if field and fieldToCompare are not equal', () => {
+  it('returns an InvalidFieldError if field and fieldToCompare are not equal', () => {
     const sut = makeSut()
     const input = { field: 'a', fieldToCompare: 'b' }
+
     const result = sut.validate(input)
 
     expect(result).toStrictEqual(
@@ -17,9 +18,10 @@ describe('compareFieldsValidator', () => {
     )
   })
 
-  it('should return undefined if field and fieldToCompare are equal', () => {
+  it('returns undefined if field and fieldToCompare are equal', () => {
     const sut = makeSut()
     const input = { field: 'a', fieldToCompare: 'a' }
+
     const result = sut.validate(input)
 
     expect(result).toBeUndefined()

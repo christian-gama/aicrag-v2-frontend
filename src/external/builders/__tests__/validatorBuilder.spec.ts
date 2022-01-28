@@ -9,24 +9,15 @@ import Regex from '@/services/validators/regex'
 import RequiredFieldValidator from '@/services/validators/requiredFieldValidator'
 import ValidatorBuilder from '../validatorBuilder'
 
-const makeSut = () => {
-  return ValidatorBuilder
-}
-
 describe('ValidatorBuilder', () => {
-  it('should return a new instance of ValidatorBuilder when using field method', () => {
-    const sut = makeSut()
-
-    const result = sut.field('any_field')
+  it('returns a new instance when using field method', () => {
+    const result = ValidatorBuilder.field('any_field')
 
     expect(result).toBeInstanceOf(ValidatorBuilder)
   })
 
-  it('should return an array including all chained methods', () => {
-    const sut = makeSut()
-
-    const result = sut
-      .field('any_field')
+  it('returns an array including all chained methods', () => {
+    const result = ValidatorBuilder.field('any_field')
       .isEmail()
       .isNumber()
       .max(1)
