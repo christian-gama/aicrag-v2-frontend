@@ -3,7 +3,7 @@ const variablesMock = {
   email: 'any@email.com',
   password: '123123',
   passwordConfirmation: '123123',
-  emailMessage: 'Any message',
+  message: 'Any message',
   token: 'any_token'
 } as const
 

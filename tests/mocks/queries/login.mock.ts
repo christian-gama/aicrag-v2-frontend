@@ -9,7 +9,10 @@ const loginMock = (
     email?: string
     password?: string
   },
-  error?: Error
+  options?: {
+    error?: Error
+    typename?: 'ActiveAccount' | 'InactiveAccount'
+  }
 ): MockedResponse<Record<string, any>> => ({
   request: {
     query: LoginDocument,
@@ -20,14 +23,22 @@ const loginMock = (
   },
   result: {
     data: {
-      login: {
-        ...userFragmentMock,
-        accessToken: tokenFragmentMock('access'),
-        refreshToken: tokenFragmentMock('refresh')
-      }
+      login:
+        options?.typename === 'InactiveAccount'
+          ? {
+              accessToken: tokenFragmentMock('access'),
+              message: variablesMock.message,
+              __typename: 'InactiveAccount'
+            }
+          : {
+              refreshToken: tokenFragmentMock('refresh'),
+              accessToken: tokenFragmentMock('access'),
+              __typename: 'ActiveAccount',
+              ...userFragmentMock
+            }
     }
   },
-  error
+  error: options?.error
 })
 
 export default loginMock

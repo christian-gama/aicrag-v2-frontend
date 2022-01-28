@@ -4,10 +4,8 @@ import { popoverVar } from '@/external/graphql/reactiveVars/popoverVar'
 import ProgressBar from '../../atoms/ProgressBar'
 import useControlForm from './hooks/useControlForm'
 
-type PostSubmitFn = VoidFunction
-
 type ControlFormProps = {
-  submitHandler: () => Promise<PostSubmitFn> | Promise<void>
+  submitHandler: () => Promise<(() => void) | undefined> | Promise<void>
   validator?: IValidation
   successMessage?: string
   loading?: boolean

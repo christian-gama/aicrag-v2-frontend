@@ -22,13 +22,11 @@ const SignInForm: React.FC = () => {
     })
 
     const typename = data?.login?.__typename
-    if (typename === 'InactiveAccount') {
-      return authVar.partialLogin
-    }
-
     if (typename === 'ActiveAccount') {
       return authVar.login
     }
+
+    return authVar.partialLogin
   }
 
   return (
@@ -38,7 +36,7 @@ const SignInForm: React.FC = () => {
           ? `Boas-vindas, ${data.login.user.personal.name}! Seu login foi efetuado com sucesso`
           : undefined
       }
-      submitHandler={onSubmitHandler as any}
+      submitHandler={onSubmitHandler}
       validator={makeSignInValidator()}
       loading={state.form.isSubmitting}
     >
