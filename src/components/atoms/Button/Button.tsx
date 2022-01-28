@@ -1,5 +1,5 @@
 import React from 'react'
-import LoadingSpinnerIcon from '../icons/LoadingSpinnerIcon'
+import LoadingSpinnerIcon from '../../utils/icons/LoadingSpinnerIcon'
 import * as styles from './stylesheet'
 import { ButtonVariants } from './stylesheet'
 

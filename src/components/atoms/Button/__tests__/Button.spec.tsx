@@ -1,11 +1,11 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import Button from '..'
+import Button from '../Button'
 
 const mockedFunction = jest.fn()
 jest.mock(
-  '../../icons/LoadingSpinnerIcon',
+  '../../../utils/icons/LoadingSpinnerIcon',
   () =>
     function mockedComponent (props: any) {
       mockedFunction(props)

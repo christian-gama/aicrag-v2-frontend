@@ -1,6 +1,6 @@
 import React from 'react'
 import BaseInput from '../../atoms/BaseInput/BaseInput'
-import EyeIcon from '../../atoms/icons/EyeIcon'
+import EyeIcon from '../../utils/icons/EyeIcon'
 import useControlInput from './hooks/useControlInput'
 
 type ControlInputProps = {

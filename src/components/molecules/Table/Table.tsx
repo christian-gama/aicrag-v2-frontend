@@ -1,5 +1,5 @@
 import React from 'react'
-import HorizontalScrollBar from '../../atoms/HorizontalScrollBar'
+import HorizontalScrollBar from '../../utils/HorizontalScrollBar'
 import * as style from './stylesheet'
 
 type TableProps = {

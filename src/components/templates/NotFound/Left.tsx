@@ -1,6 +1,6 @@
 import React from 'react'
 import useWindowDimensions from '@/components/_hooks/useWindowDimensions'
-import LogoIcon from '@/components/atoms/icons/LogoIcon'
+import LogoIcon from '@/components/utils/icons/LogoIcon'
 import * as style from './stylesheet'
 
 const Left: React.FC = () => {

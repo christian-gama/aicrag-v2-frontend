@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import useMailerCountdown from '@/components/_hooks/useMailerCountdown'
 import Popover from '@/components/molecules/Popover'
 import ResetPasswordForm from '@/components/templates/Entry/ResetPasswordForm'
+import LoadingSpinnerIcon from '@/components/utils/icons/LoadingSpinnerIcon'
 import ForgotPassword from '@/components/views/Entry/ForgotPassword'
 import SignIn from '@/components/views/Entry/SignIn'
 import SignUp from '@/components/views/Entry/SignUp'
@@ -14,8 +15,12 @@ import ProtectedRoute from './proxies/ProtectedRoute'
 
 const App = () => {
   const { isOpen, message, type } = usePopoverVar()
-  useGetMeQuery()
+  const { loading } = useGetMeQuery()
   useMailerCountdown()
+
+  if (loading) {
+    return <LoadingSpinnerIcon style={{ size: 'lg' }} />
+  }
 
   return (
     <>

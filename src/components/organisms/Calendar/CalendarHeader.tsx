@@ -5,7 +5,7 @@ import writeMonthYear from '@/helpers/writeMonthYear'
 import { calendarActions } from '@/context/models/calendar/calendar.actions'
 import { CalendarStates } from '@/context/models/calendar/protocols/calendar.model'
 import { RootState, AppDispatch } from '@/context/store'
-import ChevronIcon from '../../atoms/icons/ChevronIcon'
+import ChevronIcon from '../../utils/icons/ChevronIcon'
 import * as style from './stylesheet'
 
 const CalendarHeader: React.FC = () => {

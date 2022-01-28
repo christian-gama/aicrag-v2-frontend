@@ -1,12 +1,12 @@
-import OverlayRoot from '@/tests/helpers/overlayRoot'
 import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import Alert from '..'
+import OverlayRoot from '@/tests/helpers/overlayRoot'
+import Alert from '../Alert'
 
 const mockedFunction = jest.fn()
 jest.mock(
-  '../../../atoms/icons/InfoCircleIcon',
+  '../../../utils/icons/InfoCircleIcon',
   () =>
     function mockedComponent (props: any) {
       mockedFunction(props)

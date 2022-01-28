@@ -1,6 +1,6 @@
 import React from 'react'
-import Backdrop from '../../atoms/Backdrop'
 import Card from '../../atoms/Card/Card'
+import Backdrop from '../../utils/Backdrop'
 import * as style from './stylesheet'
 import { ModalRecipeVariants } from './stylesheet'
 

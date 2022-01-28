@@ -3,8 +3,8 @@ import React from 'react'
 import useWindowDimensions from '@/components/_hooks/useWindowDimensions'
 import Background from '@/components/atoms/Background'
 import Card from '@/components/atoms/Card'
-import LogoIcon from '@/components/atoms/icons/LogoIcon'
 import Menu from '@/components/molecules/Menu'
+import LogoIcon from '@/components/utils/icons/LogoIcon'
 import * as style from './stylesheet'
 
 const EntryCard: React.FC = ({ children }) => {

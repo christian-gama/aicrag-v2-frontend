@@ -7,7 +7,7 @@ import Popover from '../Popover'
 
 const mockedFunction = jest.fn()
 jest.mock(
-  '../../../atoms/icons/CheckCircleIcon',
+  '../../../utils/icons/CheckCircleIcon',
   () =>
     function mockedComponent (props: any) {
       mockedFunction(props)
@@ -16,7 +16,7 @@ jest.mock(
     }
 )
 jest.mock(
-  '../../../atoms/icons/ErrorIcon',
+  '../../../utils/icons/ErrorIcon',
   () =>
     function mockedComponent (props: any) {
       mockedFunction(props)
@@ -25,7 +25,7 @@ jest.mock(
     }
 )
 jest.mock(
-  '../../../atoms/icons/InfoCircleIcon',
+  '../../../utils/icons/InfoCircleIcon',
   () =>
     function mockedComponent (props: any) {
       mockedFunction(props)
