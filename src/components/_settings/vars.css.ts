@@ -129,16 +129,16 @@ const colors = {
   'danger-800': '#88090c',
   'danger-900': '#770506',
 
-  'warning-50': '#fbfae0',
-  'warning-100': '#f5f4b3',
-  'warning-200': '#efec80',
-  'warning-300': '#e9e44d',
-  'warning-400': '#e4df26',
-  'warning-500': '#dfd900',
-  'warning-600': '#dbd500',
-  'warning-700': '#d7cf00',
-  'warning-800': '#d2ca00',
-  'warning-900': '#cac000'
+  'warning-50': '#FFF3E0',
+  'warning-100': '#FFE0B3',
+  'warning-200': '#FFCC80',
+  'warning-300': '#FFB74D',
+  'warning-400': '#FFA726',
+  'warning-500': '#FF9800',
+  'warning-600': '#FF9000',
+  'warning-700': '#FF8500',
+  'warning-800': '#FF7B00',
+  'warning-900': '#FF6A00'
 }
 
 export const vars = createGlobalTheme(':root', {

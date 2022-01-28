@@ -110,10 +110,10 @@ const outlinedCyanStyle = style({
 const containedWarningStyle = style({
   border: 'none',
   backgroundColor: vars.colors['warning-500'],
-  color: vars.colors.text.default,
+  color: vars.colors.white,
 
   ':hover': {
-    backgroundColor: vars.colors['warning-300'],
+    backgroundColor: vars.colors['warning-800'],
     cursor: 'pointer'
   },
 
@@ -123,15 +123,15 @@ const containedWarningStyle = style({
 })
 
 const outlinedWarningStyle = style({
-  border: `1px solid ${vars.colors['warning-500']}`,
+  border: `1px solid ${vars.colors['warning-800']}`,
   backgroundColor: vars.colors.transparent,
-  color: vars.colors['warning-900'],
+  color: vars.colors['warning-800'],
 
   ':hover': {
     border: 'none',
-    backgroundColor: vars.colors['warning-500'],
+    backgroundColor: vars.colors['warning-800'],
     cursor: 'pointer',
-    color: vars.colors.text.default
+    color: vars.colors.white
   },
 
   ':focus': {

@@ -110,7 +110,7 @@ describe('Alert', () => {
     render(<Alert isOpen title="" message="" type="info" />)
 
     expect(mockedFunction).toHaveBeenCalledWith({
-      color: 'info'
+      color: expect.stringContaining('info')
     })
   })
 
@@ -118,7 +118,7 @@ describe('Alert', () => {
     render(<Alert isOpen title="" message="" type="danger" />)
 
     expect(mockedFunction).toHaveBeenCalledWith({
-      color: 'danger'
+      color: expect.stringContaining('danger')
     })
   })
 
@@ -126,7 +126,7 @@ describe('Alert', () => {
     render(<Alert isOpen title="" message="" type="warning" />)
 
     expect(mockedFunction).toHaveBeenCalledWith({
-      color: 'textDarker'
+      color: expect.stringContaining('warning')
     })
   })
 })
