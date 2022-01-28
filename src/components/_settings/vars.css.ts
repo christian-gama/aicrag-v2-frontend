@@ -138,7 +138,9 @@ const colors = {
   'warning-600': '#FF9000',
   'warning-700': '#FF8500',
   'warning-800': '#FF7B00',
-  'warning-900': '#FF6A00'
+  'warning-900': '#FF6A00',
+
+  gradient: 'linear-gradient(to bottom right, #0c7580 0%, #03112a 100%)'
 }
 
 export const vars = createGlobalTheme(':root', {

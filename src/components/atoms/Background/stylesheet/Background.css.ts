@@ -29,7 +29,7 @@ export const backgroundRecipe = recipe({
   variants: {
     gradient: {
       true: {
-        backgroundImage: `linear-gradient(to bottom right, ${vars.colors['cyan-900']} 0%, ${vars.colors['navy-900']} 100%)`
+        backgroundImage: vars.colors.gradient
       },
       false: {
         backgroundColor: vars.colors['gray-100']
