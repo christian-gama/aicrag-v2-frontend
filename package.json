@@ -76,7 +76,8 @@
     "jest": "^27.4.7",
     "lint-staged": "^12.3.2",
     "prettier": "^2.5.1",
-    "storybook-builder-vite": "^0.1.13"
+    "storybook-builder-vite": "^0.1.13",
+    "vite-plugin-rewrite-all": "^0.1.2"
   },
   "dependencies": {
     "@apollo/client": "^3.5.8",

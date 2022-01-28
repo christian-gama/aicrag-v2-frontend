@@ -2,6 +2,7 @@ import { defineConfig, Plugin } from 'vite'
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
 import react from '@vitejs/plugin-react'
 import path from 'path'
+import pluginRewriteAll from 'vite-plugin-rewrite-all'
 
 const removeAttributes = (options: { attributes: string[] }): Plugin => {
   return {
@@ -38,8 +39,9 @@ export default defineConfig({
   publicDir: 'public',
 
   plugins: [
-    react(),
+    removeAttributes({ attributes: ['data-testid'] }),
     vanillaExtractPlugin(),
-    removeAttributes({ attributes: ['data-testid'] })
+    pluginRewriteAll(),
+    react()
   ]
 })
