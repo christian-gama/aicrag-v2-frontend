@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import useMailerCountdown from '@/components/_hooks/useMailerCountdown'
 import Popover from '@/components/molecules/Popover'
 import ResetPasswordForm from '@/components/templates/Entry/ResetPasswordForm'
+import Center from '@/components/utils/Center'
 import LoadingSpinnerIcon from '@/components/utils/icons/LoadingSpinnerIcon'
 import ForgotPassword from '@/components/views/Entry/ForgotPassword'
 import SignIn from '@/components/views/Entry/SignIn'
@@ -19,7 +20,11 @@ const App = () => {
   useMailerCountdown()
 
   if (loading) {
-    return <LoadingSpinnerIcon style={{ size: 'lg' }} />
+    return (
+      <Center>
+        <LoadingSpinnerIcon style={{ size: 'lg' }} />
+      </Center>
+    )
   }
 
   return (
