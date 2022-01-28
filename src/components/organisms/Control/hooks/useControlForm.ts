@@ -78,6 +78,14 @@ const useControlForm = (props: ComponentPropsWithRef<typeof ControlForm>) => {
             type: 'INPUT/SET_IS_VALID',
             payload: { isValid: { [field]: false } }
           })
+          dispatch({
+            type: 'FORM/SET_IS_SUBMITTING',
+            payload: { isSubmitting: false }
+          })
+          dispatch({
+            type: 'FORM/SET_IS_SUBMITTED',
+            payload: { isSubmitted: false }
+          })
 
           return error
         }
