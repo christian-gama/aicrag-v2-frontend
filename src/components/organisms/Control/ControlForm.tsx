@@ -38,7 +38,11 @@ const ControlForm: React.FC<ControlFormProps> = ({
   }, [successMessage, isSubmitted, isValid, error])
   return (
     <>
-      <form onSubmit={onSubmitHandler} data-testid="form">
+      <form
+        onSubmit={onSubmitHandler}
+        data-testid="form"
+        data-loading={loading ?? isSubmitting}
+      >
         {children}
       </form>
 

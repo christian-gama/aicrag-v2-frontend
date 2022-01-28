@@ -152,6 +152,43 @@ describe('Control', () => {
         expect(setPopoverSpy).toHaveBeenCalledWith('Success message', 'success')
       )
     })
+
+    it('stops the loading state when catches an error', async () => {
+      const submitHandlerSpy = jest.fn().mockImplementation(() => {
+        throw new Error()
+      })
+      renderWithProviders(
+        <ControlForm submitHandler={submitHandlerSpy}>
+          <ControlInput name="title" label="Title" />
+        </ControlForm>
+      )
+      const form = screen.getByTestId('form')
+
+      act(() => {
+        fireEvent.submit(form)
+      })
+
+      await waitFor(() => expect(form).toHaveAttribute('data-loading', 'false'))
+    })
+
+    it('stops the loading state when validation fails', async () => {
+      const validateSpy = jest.fn().mockReturnValue('any_error')
+      renderWithProviders(
+        <ControlForm
+          submitHandler={jest.fn()}
+          validator={makeValidationMock(validateSpy)}
+        >
+          <ControlInput name="title" label="Title" />
+        </ControlForm>
+      )
+      const form = screen.getByTestId('form')
+
+      act(() => {
+        fireEvent.submit(form)
+      })
+
+      await waitFor(() => expect(form).toHaveAttribute('data-loading', 'false'))
+    })
   })
 
   describe('Input', () => {

@@ -130,12 +130,12 @@ const useControlForm = (props: ComponentPropsWithRef<typeof ControlForm>) => {
   }
 
   return {
-    data,
-    error,
-    isValid,
+    onSubmitHandler,
     isSubmitting,
     isSubmitted,
-    onSubmitHandler
+    isValid,
+    error,
+    data
   }
 }
 
