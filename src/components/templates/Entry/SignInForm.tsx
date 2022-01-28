@@ -42,9 +42,20 @@ const SignInForm: React.FC = () => {
     >
       <div className={style.signInForm}>
         <div className={style.signInFormInputWrapper}>
-          <ControlInput label="Seu email" name="email" type="email" autoFocus />
+          <ControlInput
+            autoComplete="username"
+            label="Seu email"
+            name="email"
+            type="email"
+            autoFocus
+          />
 
-          <ControlInput label="Sua senha" name="password" type="password" />
+          <ControlInput
+            autoComplete="current-password"
+            label="Sua senha"
+            name="password"
+            type="password"
+          />
         </div>
 
         <div className={style.signInFormButtonWrapper}>

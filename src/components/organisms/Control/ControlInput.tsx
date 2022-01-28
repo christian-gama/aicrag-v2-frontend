@@ -20,6 +20,7 @@ React.InputHTMLAttributes<HTMLInputElement>,
 const ControlInput: React.FC<
 Omit<ControlInputProps, 'uniqueFormName' | 'validation'>
 > = ({
+  autoComplete,
   defaultValue,
   autoFocus,
   onChange,
@@ -58,6 +59,7 @@ Omit<ControlInputProps, 'uniqueFormName' | 'validation'>
   return (
     <BaseInput
       type={currentType[name] ?? 'text'}
+      autoComplete={autoComplete}
       isFocused={isFocused[name]}
       isTouched={isTouched[name]}
       onChange={onChangeHandler}

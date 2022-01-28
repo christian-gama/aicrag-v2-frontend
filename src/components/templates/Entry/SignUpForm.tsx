@@ -42,14 +42,31 @@ const SignUpForm: React.FC = () => {
     >
       <div className={style.signUpForm}>
         <div className={style.signUpFormInputWrapper}>
-          <ControlInput label="Seu nome" name="name" type="text" autoFocus />
+          <ControlInput
+            label="Seu nome"
+            name="name"
+            type="text"
+            autoFocus
+            autoComplete="name"
+          />
 
-          <ControlInput label="Seu email" name="email" type="email" />
+          <ControlInput
+            autoComplete="username"
+            label="Seu email"
+            name="email"
+            type="email"
+          />
 
-          <ControlInput label="Sua senha" name="password" type="password" />
+          <ControlInput
+            autoComplete="new-password"
+            label="Sua senha"
+            name="password"
+            type="password"
+          />
 
           <ControlInput
             name="passwordConfirmation"
+            autoComplete="new-password"
             label="Confirme sua senha"
             type="password"
           />

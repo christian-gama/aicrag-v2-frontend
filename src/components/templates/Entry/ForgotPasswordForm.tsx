@@ -48,7 +48,13 @@ const ForgotPasswordForm: React.FC = () => {
     >
       <div className={style.forgotPasswordForm}>
         <div className={style.forgotPasswordFormInputWrapper}>
-          <ControlInput label="Seu email" name="email" type="email" autoFocus />
+          <ControlInput
+            autoComplete="email"
+            label="Seu email"
+            name="email"
+            type="email"
+            autoFocus
+          />
         </div>
 
         <div className={style.forgotPasswordFormButtonWrapper}>
