@@ -18,7 +18,7 @@ describe('Menu', () => {
       <Menu
         buttons={[
           { buttonName: 'Button', to: '/', active: true },
-          { buttonName: 'Button 2', to: '/' }
+          { buttonName: 'Button 2', to: '/', active: false }
         ]}
       />,
       {
@@ -27,8 +27,7 @@ describe('Menu', () => {
     )
     const links = screen.getAllByTestId('menu-link')
 
-    expect(links[0]).toHaveAttribute('data-active', 'true')
-    expect(links[1]).toHaveAttribute('data-active', 'false')
-    expect(links[0].className).toMatch(/active/gi)
+    expect(links[0].className).toMatch(/active_true/gi)
+    expect(links[1].className).toMatch(/active_false/gi)
   })
 })
