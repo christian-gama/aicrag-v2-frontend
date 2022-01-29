@@ -22,9 +22,6 @@ const ResetPasswordForm: React.FC = () => {
   const { error, loading } = useVerifyResetPasswordTokenQuery({
     variables: {
       token
-    },
-    onCompleted: () => {
-      authVar.partialLogin()
     }
   })
 

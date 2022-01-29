@@ -2,7 +2,6 @@ import { fireEvent, userEvent } from '@storybook/testing-library'
 import { cleanup, screen, waitFor } from '@testing-library/react'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
-import { authVar } from '@/external/graphql/reactiveVars/authVar'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
 import renderWithProviders from '@/tests/helpers/renderWithProviders'
 import sleep from '@/tests/helpers/sleep'
@@ -39,27 +38,25 @@ describe('ResetPasswordForm', () => {
     expect(resetPassword).toBeInTheDocument()
   })
 
-  it('displays the form if params is valid and calls partialLogin', async () => {
-    const partialLoginSpy = jest.spyOn(authVar, 'partialLogin')
+  it('displays the form if params is valid', async () => {
     renderWithProviders(<ResetPasswordForm />, {
       apolloMocks: [verifyResetPasswordTokenMock()]
     })
-    await waitFor(() => screen.getByTestId('form'))
+    await act(async () => {
+      await sleep()
+    })
     const form = screen.getByTestId('form')
 
     expect(form).toBeInTheDocument()
-    expect(partialLoginSpy).toHaveBeenCalled()
   })
 
   it('submits the form and redirects afterwards', async () => {
     renderWithProviders(<ResetPasswordForm />, {
       apolloMocks: [verifyResetPasswordTokenMock(), resetPasswordMock()]
     })
-
     await act(async () => {
       await sleep()
     })
-
     const form = screen.getByTestId('form')
     const [password, passwordConfirmation] = screen.getAllByTestId('base-input')
 
