@@ -32,6 +32,6 @@ describe('ForgotPasswordCard', () => {
     renderWithProviders(<ForgotPasswordCard />)
     const card = screen.getByTestId('card')
 
-    expect(card).toHaveStyle('border-radius: 0')
+    expect(card.className).toMatch(/roundness_none/gi)
   })
 })
