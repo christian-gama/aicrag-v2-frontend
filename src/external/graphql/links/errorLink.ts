@@ -2,7 +2,6 @@ import { onError } from '@apollo/client/link/error'
 import translateError from '@/helpers/translateError'
 import NetworkError from '@/services/errors/connectionError'
 import InternalError from '@/services/errors/internalError'
-import makeAccessTokenStorage from '@/external/factories/storage/auth/makeAccessTokenStorage'
 import makeRefreshTokenStorage from '@/external/factories/storage/auth/makeRefreshTokenStorage'
 import { authVar } from '../reactiveVars/authVar'
 import { popoverVar } from '../reactiveVars/popoverVar'
@@ -16,7 +15,6 @@ const errorLink = onError(({ networkError, graphQLErrors }) => {
       if (errorCode === '401' && isTokenError) {
         authVar.logout()
 
-        const accessToken = makeAccessTokenStorage()
         const refreshToken = makeRefreshTokenStorage()
 
         const wasPreviouslyLoggedIn = !!refreshToken.get()
@@ -26,9 +24,6 @@ const errorLink = onError(({ networkError, graphQLErrors }) => {
             'error'
           )
         }
-
-        accessToken.reset()
-        refreshToken.reset()
 
         return
       }
