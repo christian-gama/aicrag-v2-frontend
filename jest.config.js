@@ -14,7 +14,7 @@ module.exports = {
   maxWorkers: '75%',
   resetMocks: true,
   roots: ['<rootDir>/src'],
-  setupFilesAfterEnv: ['<rootDir>/tests/config/jestDom.ts'],
+  setupFilesAfterEnv: ['<rootDir>/tests/config/setupFilesAfterEnv.ts'],
   testEnvironment: 'jsdom',
   transform: {
     '^.+\\.tsx?$': ['babel-jest', { configFile: './babel-jest.config.js' }]
