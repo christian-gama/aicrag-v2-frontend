@@ -15,15 +15,15 @@ const ForgotPasswordCard: React.FC = ({ children }) => {
 
   return (
     <Background gradient>
-      <div className={style.forgotPasswordWrapper}>
+      <div className={style.forgotPasswordCardWrapper}>
         <Card roundness={width <= 520 ? 'none' : 'md'}>
           <div
-            className={style.forgotPassword}
+            className={style.forgotPasswordCard}
             style={assignInlineVars(style.windowDimensionVars, {
               height: `${height}px`
             })}
           >
-            <header className={style.forgotPasswordHeader}>
+            <header className={style.forgotPasswordCardHeader}>
               <nav>
                 <Link to="/entry/sign-in" aria-label="Voltar">
                   <BackIcon />

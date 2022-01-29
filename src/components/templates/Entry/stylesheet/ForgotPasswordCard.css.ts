@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css'
 import { breakpoints } from '@/components/_settings/breakpoints.css'
 import { windowDimensionVars } from './EntryCard.css'
 
-export const forgotPassword = style({
+export const forgotPasswordCard = style({
   height: '40rem',
   position: 'relative',
   width: '60rem',
@@ -21,7 +21,7 @@ export const forgotPassword = style({
   }
 })
 
-export const forgotPasswordWrapper = style({
+export const forgotPasswordCardWrapper = style({
   left: '50%',
   position: 'absolute',
   top: '50%',
@@ -36,7 +36,7 @@ export const forgotPasswordWrapper = style({
   }
 })
 
-export const forgotPasswordHeader = style({
+export const forgotPasswordCardHeader = style({
   alignItems: 'center',
   display: 'grid',
   gridTemplateColumns: 'max-content 1fr',
