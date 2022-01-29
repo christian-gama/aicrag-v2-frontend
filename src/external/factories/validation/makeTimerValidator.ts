@@ -1,11 +1,8 @@
-import Builder from '../../builders/validatorBuilder'
+import validators from '@/external/helpers/validators'
 import ValidatorComposite from '../../composites/validatorComposite'
 
 const makeTimerValidator = (): ValidatorComposite => {
-  return ValidatorComposite.build([
-    ...Builder.field('hour').required().isNumber().max(23).build(),
-    ...Builder.field('minute').required().isNumber().max(59).build()
-  ])
+  return ValidatorComposite.build([...validators.hour, ...validators.minute])
 }
 
 export default makeTimerValidator

@@ -1,10 +1,8 @@
-import Builder from '../../builders/validatorBuilder'
+import validators from '@/external/helpers/validators'
 import ValidatorComposite from '../../composites/validatorComposite'
 
 const makeForgotPasswordValidator = (): ValidatorComposite => {
-  return ValidatorComposite.build([
-    ...Builder.field('email').required().isEmail().build()
-  ])
+  return ValidatorComposite.build([...validators.email])
 }
 
 export default makeForgotPasswordValidator

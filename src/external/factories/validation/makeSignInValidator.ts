@@ -1,11 +1,8 @@
-import Builder from '../../builders/validatorBuilder'
+import validators from '@/external/helpers/validators'
 import ValidatorComposite from '../../composites/validatorComposite'
 
 const makeSignInValidator = (): ValidatorComposite => {
-  return ValidatorComposite.build([
-    ...Builder.field('email').required().isEmail().build(),
-    ...Builder.field('password').required().minLength(6).maxLength(32).build()
-  ])
+  return ValidatorComposite.build([...validators.email, ...validators.password])
 }
 
 export default makeSignInValidator
