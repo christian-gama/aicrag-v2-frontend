@@ -7,12 +7,6 @@ export const signInForm = style({
   alignItems: 'center'
 })
 
-export const signInFormButtonWrapper = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '4rem'
-})
-
 export const signInFormInputWrapper = style({
   display: 'flex',
   flexDirection: 'column',

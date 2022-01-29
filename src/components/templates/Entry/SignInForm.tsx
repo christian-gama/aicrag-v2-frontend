@@ -58,16 +58,14 @@ const SignInForm: React.FC = () => {
           />
         </div>
 
-        <div className={style.signInFormButtonWrapper}>
-          <Button
-            loading={state.form.isSubmitting}
-            style={{ size: 'lg' }}
-            testid="submit-button"
-            type="submit"
-          >
-            Acessar
-          </Button>
-        </div>
+        <Button
+          loading={state.form.isSubmitting}
+          style={{ size: 'lg' }}
+          testid="submit-button"
+          type="submit"
+        >
+          Acessar
+        </Button>
 
         <div className={style.signInFormForgotPasswordWrapper}>
           <Link to="/entry/forgot-password">Esqueceu sua senha?</Link>

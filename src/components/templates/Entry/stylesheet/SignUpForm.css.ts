@@ -6,11 +6,6 @@ export const signUpForm = style({
   alignItems: 'center'
 })
 
-export const signUpFormButtonWrapper = style({
-  display: 'flex',
-  flexDirection: 'column'
-})
-
 export const signUpFormInputWrapper = style({
   display: 'flex',
   flexDirection: 'column',

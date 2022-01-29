@@ -57,17 +57,15 @@ const ForgotPasswordForm: React.FC = () => {
           />
         </div>
 
-        <div className={style.forgotPasswordFormButtonWrapper}>
-          <Button
-            loading={state.form.isSubmitting && !isOnCountdown}
-            disabled={isOnCountdown}
-            style={{ size: 'lg' }}
-            testid="submit-button"
-            type="submit"
-          >
-            {isOnCountdown ? `${timeLeftInSeconds} s` : 'Resetar senha'}
-          </Button>
-        </div>
+        <Button
+          loading={state.form.isSubmitting && !isOnCountdown}
+          disabled={isOnCountdown}
+          style={{ size: 'lg' }}
+          testid="submit-button"
+          type="submit"
+        >
+          {isOnCountdown ? `${timeLeftInSeconds} s` : 'Resetar senha'}
+        </Button>
       </div>
     </ControlForm>
   )

@@ -9,7 +9,7 @@ export const entryCard = style({
   position: 'relative',
   padding: '3.6rem 5rem',
   width: '60rem',
-  height: '65rem',
+  height: '68rem',
 
   '@media': {
     [breakpoints.tablet]: {
