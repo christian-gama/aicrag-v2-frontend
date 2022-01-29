@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import useWindowDimensions from '@/components/_hooks/useWindowDimensions'
 import Background from '@/components/atoms/Background'
 import Card from '@/components/atoms/Card'
+import Center from '@/components/utils/Center'
 import Divider from '@/components/utils/Divider'
 import BackIcon from '@/components/utils/icons/BackIcon'
 import H2 from '@/components/utils/texts/H2'
@@ -15,7 +16,7 @@ const ForgotPasswordCard: React.FC = ({ children }) => {
 
   return (
     <Background gradient>
-      <div className={style.forgotPasswordCardWrapper}>
+      <Center stickMobile>
         <Card roundness={width <= 520 ? 'none' : 'md'}>
           <div
             className={style.forgotPasswordCard}
@@ -46,7 +47,7 @@ const ForgotPasswordCard: React.FC = ({ children }) => {
             <main>{children}</main>
           </div>
         </Card>
-      </div>
+      </Center>
     </Background>
   )
 }

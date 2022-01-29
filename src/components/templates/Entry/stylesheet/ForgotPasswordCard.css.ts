@@ -21,21 +21,6 @@ export const forgotPasswordCard = style({
   }
 })
 
-export const forgotPasswordCardWrapper = style({
-  left: '50%',
-  position: 'absolute',
-  top: '50%',
-  transform: 'translate(-50%, -50%)',
-
-  '@media': {
-    [breakpoints.mobile]: {
-      left: '0%',
-      top: '0%',
-      transform: 'translate(0%, 0%)'
-    }
-  }
-})
-
 export const forgotPasswordCardHeader = style({
   alignItems: 'center',
   display: 'grid',

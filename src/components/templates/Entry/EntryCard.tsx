@@ -4,6 +4,7 @@ import useWindowDimensions from '@/components/_hooks/useWindowDimensions'
 import Background from '@/components/atoms/Background'
 import Card from '@/components/atoms/Card'
 import Menu from '@/components/molecules/Menu'
+import Center from '@/components/utils/Center'
 import LogoIcon from '@/components/utils/icons/LogoIcon'
 import * as style from './stylesheet'
 
@@ -12,7 +13,7 @@ const EntryCard: React.FC = ({ children }) => {
 
   return (
     <Background gradient>
-      <div className={style.entryCardWrapper} data-testid="entry-card">
+      <Center stickMobile>
         <Card roundness={width <= 520 ? 'none' : 'md'}>
           <div
             className={style.entryCard}
@@ -42,7 +43,7 @@ const EntryCard: React.FC = ({ children }) => {
             <main>{children}</main>
           </div>
         </Card>
-      </div>
+      </Center>
     </Background>
   )
 }

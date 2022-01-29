@@ -47,18 +47,3 @@ export const entryCardHeader = style({
   alignItems: 'center',
   marginBottom: '3.6rem'
 })
-
-export const entryCardWrapper = style({
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-
-  '@media': {
-    [breakpoints.mobile]: {
-      top: '0%',
-      left: '0%',
-      transform: 'translate(0%, 0%)'
-    }
-  }
-})
