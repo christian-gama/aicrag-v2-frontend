@@ -6,6 +6,7 @@ import ControlForm from '@/components/organisms/Control/ControlForm'
 import ControlInput from '@/components/organisms/Control/ControlInput'
 import Center from '@/components/utils/Center'
 import LoadingSpinnerIcon from '@/components/utils/icons/LoadingSpinnerIcon'
+import makeResetPasswordValidation from '@/external/factories/validation/makeResetPasswordValidation'
 import {
   useResetPasswordMutation,
   useVerifyResetPasswordTokenQuery
@@ -59,6 +60,7 @@ const ResetPasswordForm: React.FC = () => {
   return (
     <div data-testid="reset-password">
       <ControlForm
+        validator={makeResetPasswordValidation()}
         loading={state.form.isSubmitting}
         submitHandler={submitHandler}
       >
@@ -79,15 +81,13 @@ const ResetPasswordForm: React.FC = () => {
             />
           </div>
 
-          <div>
-            <Button
-              loading={state.form.isSubmitting}
-              style={{ size: 'lg' }}
-              type="submit"
-            >
-              Resetar senha
-            </Button>
-          </div>
+          <Button
+            loading={state.form.isSubmitting}
+            style={{ size: 'lg' }}
+            type="submit"
+          >
+            Resetar senha
+          </Button>
         </div>
       </ControlForm>
     </div>
