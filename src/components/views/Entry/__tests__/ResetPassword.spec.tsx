@@ -1,8 +1,7 @@
 import { cleanup, screen } from '@testing-library/react'
 import React from 'react'
-import { act } from 'react-dom/test-utils'
 import renderWithProviders from '@/tests/helpers/renderWithProviders'
-import sleep from '@/tests/helpers/sleep'
+import waitFetch from '@/tests/helpers/waitFetch'
 import verifyResetPasswordTokenMock from '@/tests/mocks/queries/verifyResetPasswordToken.mock'
 import ResetPassword from '../ResetPassword'
 
@@ -15,11 +14,7 @@ describe('ResetPassword', () => {
     renderWithProviders(<ResetPassword />, {
       apolloMocks: [verifyResetPasswordTokenMock()]
     })
-
-    await act(async () => {
-      await sleep()
-    })
-
+    await waitFetch()
     const button = screen.getByRole('button', {
       name: /resetar senha/i
     })

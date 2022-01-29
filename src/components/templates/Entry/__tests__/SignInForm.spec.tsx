@@ -1,11 +1,10 @@
 import { cleanup, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import { act } from 'react-dom/test-utils'
 import { authVar } from '@/external/graphql/reactiveVars/authVar'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
 import renderWithProviders from '@/tests/helpers/renderWithProviders'
-import sleep from '@/tests/helpers/sleep'
+import waitFetch from '@/tests/helpers/waitFetch'
 import loginMock from '@/tests/mocks/queries/login.mock'
 import variablesMock from '@/tests/mocks/variables.mock'
 import SignInForm from '../SignInForm'
@@ -37,10 +36,7 @@ describe('SignInForm', () => {
     userEvent.type(email, variablesMock.email)
     userEvent.type(password, variablesMock.password)
     fireEvent.submit(form)
-
-    await act(async () => {
-      await sleep()
-    })
+    await waitFetch()
 
     expect(form).toBeInTheDocument()
   })
@@ -56,10 +52,7 @@ describe('SignInForm', () => {
     userEvent.type(email, variablesMock.email)
     userEvent.type(password, variablesMock.password)
     fireEvent.submit(form)
-
-    await act(async () => {
-      await sleep()
-    })
+    await waitFetch()
 
     expect(partialLoginSpy).toHaveBeenCalled()
   })
@@ -75,10 +68,7 @@ describe('SignInForm', () => {
     userEvent.type(email, variablesMock.email)
     userEvent.type(password, variablesMock.password)
     fireEvent.submit(form)
-
-    await act(async () => {
-      await sleep()
-    })
+    await waitFetch()
 
     expect(loginSpy).toHaveBeenCalled()
   })
@@ -95,10 +85,7 @@ describe('SignInForm', () => {
     userEvent.type(email, variablesMock.email)
     userEvent.type(password, variablesMock.password)
     fireEvent.submit(form)
-
-    await act(async () => {
-      await sleep()
-    })
+    await waitFetch()
 
     expect(loginSpy).not.toHaveBeenCalled()
     expect(partialLoginSpy).not.toHaveBeenCalled()

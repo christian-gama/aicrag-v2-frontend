@@ -1,7 +1,7 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import { act } from 'react-dom/test-utils'
+import advanceTimer from '@/tests/helpers/advanceTimer'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
 import Popover from '../Popover'
 
@@ -77,9 +77,7 @@ describe('Popover', () => {
     render(<Popover isOpen message="" type="success" duration={duration} />)
     const popover = screen.getByTestId('popover')
 
-    act(() => {
-      jest.advanceTimersByTime(10000)
-    })
+    advanceTimer()
 
     expect(popover).not.toBeInTheDocument()
   })
@@ -88,9 +86,7 @@ describe('Popover', () => {
     const onClose = jest.fn()
     render(<Popover isOpen message="" type="success" onClose={onClose} />)
 
-    act(() => {
-      jest.advanceTimersByTime(10000)
-    })
+    advanceTimer()
 
     expect(onClose).toHaveBeenCalledTimes(1)
   })

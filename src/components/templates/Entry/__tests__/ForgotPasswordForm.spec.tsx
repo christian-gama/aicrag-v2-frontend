@@ -1,15 +1,9 @@
-import {
-  act,
-  cleanup,
-  fireEvent,
-  screen,
-  waitFor
-} from '@testing-library/react'
+import { cleanup, fireEvent, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
 import renderWithProviders from '@/tests/helpers/renderWithProviders'
-import sleep from '@/tests/helpers/sleep'
+import waitFetch from '@/tests/helpers/waitFetch'
 import forgotPasswordMock from '@/tests/mocks/queries/forgotPassword.mock'
 import sendRecoverPasswordEmailMock from '@/tests/mocks/queries/sendRecoverPasswordEmail'
 import variablesMock from '@/tests/mocks/variables.mock'
@@ -44,10 +38,7 @@ describe('ForgotPasswordForm', () => {
 
     userEvent.type(email, variablesMock.email)
     fireEvent.submit(forgotPasswordForm)
-
-    await act(async () => {
-      await sleep()
-    })
+    await waitFetch()
 
     await waitFor(() => {
       const countdown = screen.getByRole('button', {

@@ -1,10 +1,9 @@
 import { fireEvent, userEvent } from '@storybook/testing-library'
-import { cleanup, screen, waitFor } from '@testing-library/react'
+import { cleanup, screen } from '@testing-library/react'
 import React from 'react'
-import { act } from 'react-dom/test-utils'
 import OverlayRoot from '@/tests/helpers/overlayRoot'
 import renderWithProviders from '@/tests/helpers/renderWithProviders'
-import sleep from '@/tests/helpers/sleep'
+import waitFetch from '@/tests/helpers/waitFetch'
 import resetPasswordMock from '@/tests/mocks/queries/resetPassword.mock'
 import verifyResetPasswordTokenMock from '@/tests/mocks/queries/verifyResetPasswordToken.mock'
 import variablesMock from '@/tests/mocks/variables.mock'
@@ -32,7 +31,7 @@ describe('ResetPasswordForm', () => {
     renderWithProviders(<ResetPasswordForm />, {
       apolloMocks: [verifyResetPasswordTokenMock()]
     })
-    await waitFor(() => screen.getByTestId('form'))
+    await waitFetch()
     const resetPassword = screen.getByTestId('reset-password')
 
     expect(resetPassword).toBeInTheDocument()
@@ -42,9 +41,7 @@ describe('ResetPasswordForm', () => {
     renderWithProviders(<ResetPasswordForm />, {
       apolloMocks: [verifyResetPasswordTokenMock()]
     })
-    await act(async () => {
-      await sleep()
-    })
+    await waitFetch()
     const form = screen.getByTestId('form')
 
     expect(form).toBeInTheDocument()
@@ -54,19 +51,14 @@ describe('ResetPasswordForm', () => {
     renderWithProviders(<ResetPasswordForm />, {
       apolloMocks: [verifyResetPasswordTokenMock(), resetPasswordMock()]
     })
-    await act(async () => {
-      await sleep()
-    })
+    await waitFetch()
     const form = screen.getByTestId('form')
     const [password, passwordConfirmation] = screen.getAllByTestId('base-input')
 
     userEvent.type(password, variablesMock.password)
     userEvent.type(passwordConfirmation, variablesMock.passwordConfirmation)
     fireEvent.submit(form)
-
-    await act(async () => {
-      await sleep()
-    })
+    await waitFetch()
 
     expect(mockNavigate).toHaveBeenCalled()
   })
@@ -84,10 +76,7 @@ describe('ResetPasswordForm', () => {
     renderWithProviders(<ResetPasswordForm />, {
       apolloMocks: [verifyResetPasswordTokenMock(new Error())]
     })
-
-    await act(async () => {
-      await sleep()
-    })
+    await waitFetch()
 
     expect(mockNavigate).toHaveBeenCalled()
   })
