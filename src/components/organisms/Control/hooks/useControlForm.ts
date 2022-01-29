@@ -1,8 +1,10 @@
-import { useContext, useEffect, ComponentPropsWithRef } from 'react'
-import FormContext from '@/context/models/form/form.context'
-import ControlForm from '../ControlForm'
+import { FormContext } from '@/context/models/form'
+import { ComponentPropsWithRef, useContext, useEffect } from 'react'
+import { ControlForm } from '..'
 
-const useControlForm = (props: ComponentPropsWithRef<typeof ControlForm>) => {
+export const useControlForm = (
+  props: ComponentPropsWithRef<typeof ControlForm>
+) => {
   const { dispatch, state } = useContext(FormContext)
 
   const { error, isValid, data, isResetting, isSubmitting, isSubmitted } =
@@ -138,5 +140,3 @@ const useControlForm = (props: ComponentPropsWithRef<typeof ControlForm>) => {
     data
   }
 }
-
-export default useControlForm

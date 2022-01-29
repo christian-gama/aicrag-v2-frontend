@@ -1,16 +1,15 @@
-import React, { useContext } from 'react'
-import FormContext from '@/context/models/form/form.context'
-import Button from '@/components/atoms/Button'
-import ControlForm from '@/components/organisms/Control/ControlForm'
-import ControlInput from '@/components/organisms/Control/ControlInput'
-import makeSignUpValidator from '@/external/factories/validation/makeSignUpValidator'
+import { useContext } from 'react'
+import { FormContext } from '@/context/models/form'
+import { Button } from '@/components/atoms/Button'
+import { ControlForm, ControlInput } from '@/components/organisms/Control'
+import { makeSignUpValidator } from '@/external/factories/validation'
 import {
-  useSendWelcomeEmailMutation,
-  useSignUpMutation
+  useSignUpMutation,
+  useSendWelcomeEmailMutation
 } from '@/external/graphql/generated'
-import * as style from './stylesheet'
+import * as classes from './stylesheet'
 
-const SignUpForm: React.FC = () => {
+export const SignUpForm: React.FC = () => {
   const [signUp] = useSignUpMutation()
   const [sendWelcomeEmail] = useSendWelcomeEmailMutation()
 
@@ -40,8 +39,8 @@ const SignUpForm: React.FC = () => {
       validator={makeSignUpValidator()}
       submitHandler={onSubmitHandler}
     >
-      <div className={style.signUpForm}>
-        <div className={style.signUpFormInputWrapper}>
+      <div className={classes.signUpForm}>
+        <div className={classes.signUpFormInputWrapper}>
           <ControlInput
             label="Seu nome"
             name="name"
@@ -84,5 +83,3 @@ const SignUpForm: React.FC = () => {
     </ControlForm>
   )
 }
-
-export default SignUpForm

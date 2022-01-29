@@ -1,6 +1,6 @@
-import { cleanup, render, screen } from '@testing-library/react'
+import { render, cleanup, screen } from '@testing-library/react'
+import { ClockIcon } from '..'
 import React from 'react'
-import ClockIcon from '../ClockIcon'
 
 describe('ClockIcon ', () => {
   afterEach(() => {

@@ -1,20 +1,19 @@
-import React from 'react'
-import * as style from './stylesheet'
 import { CloseIconVariants } from './stylesheet'
+import * as classes from './stylesheet'
 
 type CloseIconProps = {
   color?: CloseIconVariants['color']
   size?: CloseIconVariants['size']
 }
 
-const CloseIcon: React.FC<CloseIconProps> = ({ color, size }) => {
-  const closeIconStyle = style.closeIconRecipe({
+export const CloseIcon: React.FC<CloseIconProps> = ({ color, size }) => {
+  const closeIconStyle = classes.closeIconRecipe({
     color,
     size
   })
 
   return (
-    <div className={style.closeIconHitbox}>
+    <div className={classes.closeIconHitbox}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className={closeIconStyle}
@@ -34,5 +33,3 @@ CloseIcon.defaultProps = {
   color: 'primary',
   size: 'md'
 }
-
-export default CloseIcon

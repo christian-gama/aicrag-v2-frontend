@@ -1,19 +1,18 @@
-import React from 'react'
-import * as style from './stylesheet'
 import { BackIconVariants } from './stylesheet'
+import * as classes from './stylesheet'
 
 type BackIconProps = {
   color?: BackIconVariants['color']
   size?: BackIconVariants['size']
 }
 
-const BackIcon: React.FC<BackIconProps> = ({ color, size }) => {
+export const BackIcon: React.FC<BackIconProps> = ({ color, size }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       data-testid="back-icon"
       viewBox="0 0 48 48"
-      className={style.backIconRecipe({
+      className={classes.backIconRecipe({
         color,
         size
       })}
@@ -27,5 +26,3 @@ BackIcon.defaultProps = {
   color: 'primary',
   size: 'sm'
 }
-
-export default BackIcon

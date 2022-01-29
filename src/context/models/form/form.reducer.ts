@@ -1,11 +1,11 @@
 import {
   resetForm,
-  setFormError,
-  setFormIsValid,
-  setFormIsSubmitting,
-  setFormIsSubmitted,
-  setFormIsValidating,
   setFormData,
+  setFormError,
+  setFormIsSubmitted,
+  setFormIsSubmitting,
+  setFormIsValid,
+  setFormIsValidating,
   setFormValidator,
   setIsResetting
 } from './form.actions'
@@ -23,7 +23,7 @@ import {
   FormStates
 } from './protocols/form.model'
 
-const formReducer = (
+export const formReducer = (
   state: FormStates,
   action: FormActionPayload | FormInputActionPayload
 ): FormStates => {
@@ -74,5 +74,3 @@ const formReducer = (
       return setInputValue(state, action)
   }
 }
-
-export default formReducer

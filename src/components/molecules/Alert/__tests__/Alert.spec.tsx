@@ -1,19 +1,16 @@
-import { cleanup, render, screen } from '@testing-library/react'
+import { render, cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
-import OverlayRoot from '@/tests/helpers/overlayRoot'
-import Alert from '../Alert'
+import { OverlayRoot } from '@/tests/helpers'
+import { Alert } from '..'
 
-const mockedFunction = jest.fn()
-jest.mock(
-  '../../../utils/icons/InfoCircleIcon',
-  () =>
-    function mockedComponent (props: any) {
-      mockedFunction(props)
+const mockFunction = jest.fn()
+jest.mock('../../../utils/icons', () => ({
+  InfoCircleIcon: (props: any) => {
+    mockFunction(props)
 
-      return null
-    }
-)
+    return null
+  }
+}))
 
 describe('Alert', () => {
   const overlayRoot = new OverlayRoot()
@@ -101,7 +98,7 @@ describe('Alert', () => {
   it('calls InfoCircleIcon with correct color', () => {
     render(<Alert isOpen title="" message="" type="info" />)
 
-    expect(mockedFunction).toHaveBeenCalledWith({
+    expect(mockFunction).toHaveBeenCalledWith({
       color: 'info'
     })
   })
@@ -109,7 +106,7 @@ describe('Alert', () => {
   it("calls InfoCircleIcon with color equal to info if alert's type is equal to info", () => {
     render(<Alert isOpen title="" message="" type="info" />)
 
-    expect(mockedFunction).toHaveBeenCalledWith({
+    expect(mockFunction).toHaveBeenCalledWith({
       color: expect.stringContaining('info')
     })
   })
@@ -117,7 +114,7 @@ describe('Alert', () => {
   it("calls InfoCircleIcon with color equal to danger if alert's type is equal to danger", () => {
     render(<Alert isOpen title="" message="" type="danger" />)
 
-    expect(mockedFunction).toHaveBeenCalledWith({
+    expect(mockFunction).toHaveBeenCalledWith({
       color: expect.stringContaining('danger')
     })
   })
@@ -125,7 +122,7 @@ describe('Alert', () => {
   it("calls InfoCircleIcon with color equal to warning if alert's type is equal to warning", () => {
     render(<Alert isOpen title="" message="" type="warning" />)
 
-    expect(mockedFunction).toHaveBeenCalledWith({
+    expect(mockFunction).toHaveBeenCalledWith({
       color: expect.stringContaining('warning')
     })
   })

@@ -1,7 +1,5 @@
-import MailerCountdownStorage from '@/services/localStorage/mailerCountdown'
+import { MailerCountdownStorage } from '@/services/localStorage/mailerCountdown'
 
-const makeMailerCountdownStorage = () => {
+export const makeMailerCountdownStorage = () => {
   return new MailerCountdownStorage()
 }
-
-export default makeMailerCountdownStorage

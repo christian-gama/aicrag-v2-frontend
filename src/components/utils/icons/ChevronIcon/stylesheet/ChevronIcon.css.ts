@@ -1,9 +1,8 @@
 import { style, styleVariants } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { vars } from '@/components/_settings/vars.css'
-import { sizeVariants } from '../../common/variants/size.css'
+import { vars } from '@/components/_settings'
+import { sizeVariants } from '../..'
 
-// Styles
 export const chevronIconHitbox = style({
   display: 'flex',
   alignItems: 'center',
@@ -17,7 +16,6 @@ export const chevronIconHitbox = style({
   }
 })
 
-// Variants
 const colorVariants = styleVariants({
   white: {
     fill: vars.colors.white,
@@ -58,7 +56,6 @@ const directionVariants = styleVariants({
   }
 })
 
-// Recipes
 export const chevronIconRecipe = recipe({
   base: {
     transition: 'fill 0.1s ease-in-out, background-color 0.1s ease-in-out'

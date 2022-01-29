@@ -1,4 +1,4 @@
-import getDuration from '../getDuration'
+import { getDuration } from '..'
 
 describe('getDuration', () => {
   it('returns 3 if duration is lesser than 3', () => {

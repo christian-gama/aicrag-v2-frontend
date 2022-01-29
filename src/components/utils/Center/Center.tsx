@@ -1,15 +1,14 @@
-import React from 'react'
-import * as style from './stylesheet'
 import { CenterVariants } from './stylesheet'
+import * as classes from './stylesheet'
 
 type CenterProps = {
   stickMobile?: CenterVariants['stickMobile']
 }
 
-const Center: React.FC<CenterProps> = ({ stickMobile, children }) => {
+export const Center: React.FC<CenterProps> = ({ stickMobile, children }) => {
   return (
     <div
-      className={style.center({
+      className={classes.center({
         stickMobile: !!stickMobile
       })}
       data-testid="center"
@@ -18,5 +17,3 @@ const Center: React.FC<CenterProps> = ({ stickMobile, children }) => {
     </div>
   )
 }
-
-export default Center

@@ -1,9 +1,7 @@
+import { renderWithProviders, waitFetch } from '@/tests/helpers'
+import { verifyResetPasswordTokenMock } from '@/tests/mocks/queries'
 import { cleanup, screen } from '@testing-library/react'
-import React from 'react'
-import renderWithProviders from '@/tests/helpers/renderWithProviders'
-import waitFetch from '@/tests/helpers/waitFetch'
-import verifyResetPasswordTokenMock from '@/tests/mocks/queries/verifyResetPasswordToken.mock'
-import ResetPassword from '../ResetPassword'
+import { ResetPassword } from '..'
 
 describe('ResetPassword', () => {
   afterEach(() => {

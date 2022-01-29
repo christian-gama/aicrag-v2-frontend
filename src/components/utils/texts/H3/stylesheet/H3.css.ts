@@ -1,7 +1,6 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { fillColorVariants } from '@/components/_settings/variants.css'
-import { vars } from '@/components/_settings/vars.css'
-import { baseStyle } from '../../common/base.css'
+import { vars, fillColorVariants } from '@/components/_settings'
+import { baseStyle } from '../../common'
 
 export const h3Recipe = recipe({
   base: [

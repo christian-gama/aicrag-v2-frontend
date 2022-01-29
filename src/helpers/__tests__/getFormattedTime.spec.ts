@@ -1,4 +1,4 @@
-import getFormattedTime from '../getFormattedTime'
+import { getFormattedTime } from '..'
 
 describe('getFormattedTime', () => {
   it('concats 0 if the value is lesser than 10', () => {

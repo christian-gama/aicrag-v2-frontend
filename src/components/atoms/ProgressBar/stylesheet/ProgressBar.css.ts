@@ -1,7 +1,6 @@
 import { keyframes, style } from '@vanilla-extract/css'
 import { vars } from '@/components/_settings/vars.css'
 
-// Keyframes
 const moveGradientAnimation = keyframes({
   from: {
     backgroundPosition: '0 100%'
@@ -28,7 +27,6 @@ const progressAnimation = keyframes({
   }
 })
 
-// Styles
 export const progressBar = style({
   position: 'fixed',
   top: 0,

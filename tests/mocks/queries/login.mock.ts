@@ -1,10 +1,9 @@
 import { MockedResponse } from '@apollo/client/testing'
 import { LoginDocument } from '@/external/graphql/generated'
-import tokenFragmentMock from '../fragments/tokenFragment'
-import userFragmentMock from '../fragments/userFragment.mock'
-import variablesMock from '../variables.mock'
+import { mockVariables } from '..'
+import { tokenFragmentMock, userFragmentMock } from '../fragments'
 
-const loginMock = (
+export const loginMock = (
   input?: {
     email?: string
     password?: string
@@ -17,8 +16,8 @@ const loginMock = (
   request: {
     query: LoginDocument,
     variables: {
-      email: input?.email ?? variablesMock.email,
-      password: input?.password ?? variablesMock.password
+      email: input?.email ?? mockVariables.email,
+      password: input?.password ?? mockVariables.password
     }
   },
   result: {
@@ -27,7 +26,7 @@ const loginMock = (
         options?.typename === 'InactiveAccount'
           ? {
               accessToken: tokenFragmentMock('access'),
-              message: variablesMock.message,
+              message: mockVariables.message,
               __typename: 'InactiveAccount'
             }
           : {
@@ -40,5 +39,3 @@ const loginMock = (
   },
   error: options?.error
 })
-
-export default loginMock

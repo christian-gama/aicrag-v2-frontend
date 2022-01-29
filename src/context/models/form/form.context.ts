@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import React from 'react'
 import {
-  FormInputActionPayload,
+  FormStates,
   FormActionPayload,
-  FormStates
+  FormInputActionPayload
 } from './protocols/form.model'
 
 export const initialFormState: FormStates = {
@@ -26,12 +25,10 @@ export const initialFormState: FormStates = {
   }
 }
 
-const FormContext = React.createContext<{
+export const FormContext = React.createContext<{
   dispatch: (options: FormActionPayload | FormInputActionPayload) => void
   state: FormStates
 }>({
       state: initialFormState,
       dispatch: (options) => {}
     })
-
-export default FormContext

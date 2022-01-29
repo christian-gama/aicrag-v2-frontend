@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
-import { Reducer } from 'react'
-import { calendarReducer } from '@/context/models/calendar/calendar.reducer'
+import { Reducer } from 'redux'
+import { calendarReducer } from '@/context/models/calendar'
 import { RootState } from '@/context/store'
 
 type Store = {
@@ -8,7 +8,7 @@ type Store = {
   preloadedState: Partial<RootState>
 }
 
-const calendarStoreMock: Store = {
+export const calendarStoreMock: Store = {
   reducer: { calendar: calendarReducer },
   preloadedState: {
     calendar: {
@@ -19,5 +19,3 @@ const calendarStoreMock: Store = {
     }
   }
 }
-
-export default calendarStoreMock

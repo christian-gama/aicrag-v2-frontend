@@ -1,8 +1,7 @@
 import { keyframes } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { breakpoints } from '@/components/_settings/breakpoints.css'
+import { breakpoints } from '@/components/_settings'
 
-// Keyframes
 const fromBottomAnimation = keyframes({
   '0%': {
     top: '100%'
@@ -59,7 +58,6 @@ const fromTopAnimation = keyframes({
   }
 })
 
-// Recipes
 export const modalRecipe = recipe({
   base: {
     position: 'absolute',

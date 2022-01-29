@@ -1,6 +1,5 @@
-import { cleanup, render, screen } from '@testing-library/react'
-import React from 'react'
-import InfoCircleIcon from '../InfoCircleIcon'
+import { render, cleanup, screen } from '@testing-library/react'
+import { InfoCircleIcon } from '..'
 
 describe('InfoCircleIcon ', () => {
   afterEach(() => {

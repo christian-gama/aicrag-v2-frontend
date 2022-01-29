@@ -1,6 +1,5 @@
-import React from 'react'
-import * as style from './stylesheet'
 import { ChevronIconVariants } from './stylesheet'
+import * as classes from './stylesheet'
 
 type ChevronIconProps = {
   direction?: NonNullable<ChevronIconVariants['direction']>
@@ -9,13 +8,13 @@ type ChevronIconProps = {
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-const ChevronIcon: React.FC<ChevronIconProps> = ({
+export const ChevronIcon: React.FC<ChevronIconProps> = ({
   direction,
   onClick,
   color,
   size
 }) => {
-  const chevronStyle = style.chevronIconRecipe({
+  const chevronStyle = classes.chevronIconRecipe({
     direction,
     color,
     size
@@ -23,7 +22,7 @@ const ChevronIcon: React.FC<ChevronIconProps> = ({
 
   return (
     <div
-      className={style.chevronIconHitbox}
+      className={classes.chevronIconHitbox}
       data-testid={'chevron-icon'}
       onClick={onClick}
     >
@@ -48,5 +47,3 @@ ChevronIcon.defaultProps = {
   color: 'main',
   size: 'md'
 }
-
-export default ChevronIcon

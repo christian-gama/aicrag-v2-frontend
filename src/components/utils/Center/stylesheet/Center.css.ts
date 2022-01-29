@@ -1,5 +1,5 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { breakpoints } from '@/components/_settings/breakpoints.css'
+import { breakpoints } from '@/components/_settings'
 
 export const center = recipe({
   base: {

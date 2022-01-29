@@ -1,19 +1,18 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
-import React from 'react'
-import * as style from './stylesheet'
 import { horizontalScrollBarVars } from './stylesheet'
+import * as classes from './stylesheet'
 
 type HorizontalScrollBarProps = {
   width?: string
 }
 
-const HorizontalScrollBar: React.FC<HorizontalScrollBarProps> = ({
+export const HorizontalScrollBar: React.FC<HorizontalScrollBarProps> = ({
   children,
   width
 }) => {
   return (
     <div
-      className={style.horizontalScrollBar}
+      className={classes.horizontalScrollBar}
       data-testid="horizontal-scroll-bar"
       style={assignInlineVars(horizontalScrollBarVars, {
         width: width!
@@ -27,5 +26,3 @@ const HorizontalScrollBar: React.FC<HorizontalScrollBarProps> = ({
 HorizontalScrollBar.defaultProps = {
   width: '100%'
 }
-
-export default HorizontalScrollBar

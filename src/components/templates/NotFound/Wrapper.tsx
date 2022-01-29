@@ -1,12 +1,9 @@
-import React from 'react'
-import * as style from './stylesheet'
+import * as classes from './stylesheet'
 
-const Wrapper: React.FC = ({ children }) => {
+export const Wrapper: React.FC = ({ children }) => {
   return (
-    <div data-testid="wrapper" className={style.wrapper}>
+    <div data-testid="wrapper" className={classes.wrapper}>
       {children}
     </div>
   )
 }
-
-export default Wrapper

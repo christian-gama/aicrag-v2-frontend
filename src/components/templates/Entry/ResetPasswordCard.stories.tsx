@@ -1,7 +1,6 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import React from 'react'
-import { AllProviders } from '@/tests/helpers/renderWithProviders'
-import ResetPasswordCardComponent from './ResetPasswordCard'
+import { AllProviders } from '@/tests/helpers'
+import { ResetPasswordCard as ResetPasswordCardComponent } from './ResetPasswordCard'
 
 export default {
   title: 'templates/entry/Reset Password Card',

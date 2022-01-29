@@ -1,8 +1,7 @@
-import React from 'react'
-import CalendarDayNumber from './CalendarDayNumber'
-import useCalendarDays from './hooks/useCalendarDays'
+import { CalendarDayNumber } from './CalendarDayNumber'
+import { useCalendarDays } from './hooks'
 
-const CalendarDays: React.FC = () => {
+export const CalendarDays: React.FC = () => {
   const { startDate, shouldDayBeDimmed, isDaySelected, pickDateHandler } =
     useCalendarDays()
 
@@ -40,5 +39,3 @@ const CalendarDays: React.FC = () => {
 
   return <>{daysFromCalendar.map((Day) => Day)}</>
 }
-
-export default CalendarDays

@@ -1,4 +1,4 @@
-import InternalError from '../internalError'
+import { InternalError } from '../internalError'
 
 describe('InvalidInputError', () => {
   it('is a class', () => {

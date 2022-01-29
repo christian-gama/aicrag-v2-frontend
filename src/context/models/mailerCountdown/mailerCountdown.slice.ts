@@ -1,11 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { DateTime } from 'luxon'
-import isDateExpired from '@/helpers/isDateExpired'
-import makeMailerCountdownStorage from '@/external/factories/storage/mailerCountdown/makeMailerCountdown'
-import {
-  MailerCountdownStates,
-  SetTimePayload
-} from './protocols/mailerCountdown.model'
+import { isDateExpired } from '@/helpers'
+import { makeMailerCountdownStorage } from '@/external/factories/storage/mailerCountdown'
+import { MailerCountdownStates, SetTimePayload } from './protocols/mailerCountdown.model'
 
 class Countdown {
   defaultTime = 60
@@ -32,10 +29,9 @@ class Countdown {
       : this.defaultTime
   }
 }
-
 const countdown = new Countdown()
 
-const mailerCountdownSlice = createSlice({
+export const mailerCountdownSlice = createSlice({
   name: 'mailerCountdown',
   initialState: countdown.initialState,
   reducers: {
@@ -74,5 +70,3 @@ const mailerCountdownSlice = createSlice({
     }
   }
 })
-
-export default mailerCountdownSlice

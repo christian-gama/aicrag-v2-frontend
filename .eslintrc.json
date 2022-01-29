@@ -19,6 +19,7 @@
   },
   "plugins": ["react", "@typescript-eslint", "import-helpers"],
   "rules": {
+    "react/react-in-jsx-scope": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/consistent-type-assertions": "off",

@@ -8,7 +8,7 @@ export const setFormValidator = (
     ...state,
     form: {
       ...state.form,
-      validator: action.payload.validator!
+      validator: action.payload.validator
     }
   }
 }
@@ -29,21 +29,21 @@ export const setIsResetting = (
 export const resetForm = (): FormStates => {
   return {
     form: {
-      isResetting: true,
-      isSubmitted: false,
-      error: undefined,
+      validator: undefined,
       isSubmitting: false,
-      isValid: false,
       isValidating: false,
-      data: {},
-      validator: undefined
+      isSubmitted: false,
+      isResetting: true,
+      error: undefined,
+      isValid: false,
+      data: {}
     },
     input: {
       currentType: {},
-      error: {},
       isFocused: {},
       isTouched: {},
       isValid: {},
+      error: {},
       value: {}
     }
   }

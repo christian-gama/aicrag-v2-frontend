@@ -1,6 +1,5 @@
-import InvalidFieldError from '@/services/errors/invalidFieldError'
-import IFieldValidation from '@/services/validators/protocols/fieldValidation.model'
-import MaxValidator from '../maxValidator'
+import { InvalidFieldError } from '@/services/errors'
+import { IFieldValidation, MaxValidator } from '..'
 
 const makeSut = (): IFieldValidation => {
   return new MaxValidator('field', 5)

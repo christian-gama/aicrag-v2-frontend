@@ -1,1 +1,1 @@
-export { default } from './InfoCircleIcon'
+export * from './InfoCircleIcon'

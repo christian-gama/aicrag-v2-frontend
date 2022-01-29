@@ -1,4 +1,4 @@
-import capitalize from '../capitalize'
+import { capitalize } from '..'
 
 describe('capitalize', () => {
   it('returns the first letter capitalized', () => {

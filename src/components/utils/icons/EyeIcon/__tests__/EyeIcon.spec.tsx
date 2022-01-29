@@ -1,6 +1,6 @@
-import { cleanup, render, screen } from '@testing-library/react'
+import { render, cleanup, screen } from '@testing-library/react'
+import { EyeIcon } from '..'
 import React from 'react'
-import EyeIcon from '..'
 
 describe('EyeIcon', () => {
   afterEach(() => {

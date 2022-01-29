@@ -1,8 +1,6 @@
-import Maybe from '@/helpers/typescript/maybe.model'
+import { Maybe } from '@/helpers'
 
-interface IFieldValidation {
+export type IFieldValidation = {
   field: string
   validate: (input: object) => Maybe<Error>
 }
-
-export default IFieldValidation

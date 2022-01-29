@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import IValidation from '@/services/validators/protocols/validation.model'
-import { popoverVar } from '@/external/graphql/reactiveVars/popoverVar'
-import ProgressBar from '../../atoms/ProgressBar'
-import useControlForm from './hooks/useControlForm'
+import { useEffect } from 'react'
+import { IValidation } from '@/services/validators'
+import { ProgressBar } from '@/components/atoms/ProgressBar'
+import { popoverVar } from '@/external/graphql/reactiveVars'
+import { useControlForm } from './hooks'
 
 type ControlFormProps = {
   submitHandler: () => Promise<(() => void) | undefined> | Promise<void>
@@ -11,7 +11,7 @@ type ControlFormProps = {
   loading?: boolean
 }
 
-const ControlForm: React.FC<ControlFormProps> = ({
+export const ControlForm: React.FC<ControlFormProps> = ({
   successMessage,
   submitHandler,
   validator,
@@ -50,5 +50,3 @@ const ControlForm: React.FC<ControlFormProps> = ({
     </>
   )
 }
-
-export default ControlForm

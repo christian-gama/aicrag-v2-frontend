@@ -1,7 +1,7 @@
-import React from 'react'
-import LoadingSpinnerIcon from '../../utils/icons/LoadingSpinnerIcon'
-import * as styles from './stylesheet'
+
+import { LoadingSpinnerIcon } from '@/components/utils/icons'
 import { ButtonVariants } from './stylesheet'
+import * as classes from './stylesheet'
 
 type ButtonProps = {
   type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type']
@@ -18,7 +18,7 @@ type ButtonProps = {
   ) => void
 }
 
-const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
   children,
   disabled,
   loading,
@@ -27,7 +27,7 @@ const Button: React.FC<ButtonProps> = ({
   style,
   type
 }) => {
-  const buttonStyle = styles.buttonRecipe({
+  const buttonStyle = classes.buttonRecipe({
     ...style,
     disabled: !!disabled
   })
@@ -74,5 +74,3 @@ const Button: React.FC<ButtonProps> = ({
     </button>
   )
 }
-
-export default Button

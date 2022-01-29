@@ -1,5 +1,4 @@
-import React from 'react'
-import * as style from './stylesheet'
+import * as classes from './stylesheet'
 
 type CalendarTimerInputProps = {
   onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void
@@ -9,7 +8,7 @@ type CalendarTimerInputProps = {
   value: string
 }
 
-const CalendarTimerInput: React.FC<CalendarTimerInputProps> = ({
+export const CalendarTimerInput: React.FC<CalendarTimerInputProps> = ({
   onKeyDown,
   onChange,
   onBlur,
@@ -18,7 +17,7 @@ const CalendarTimerInput: React.FC<CalendarTimerInputProps> = ({
 }) => {
   return (
     <input
-      className={style.calendarTimerInput}
+      className={classes.calendarTimerInput}
       data-testid={`calendar-${name}`}
       name={`calendar-${name}`}
       id={`calendar-${name}`}
@@ -30,5 +29,3 @@ const CalendarTimerInput: React.FC<CalendarTimerInputProps> = ({
     />
   )
 }
-
-export default CalendarTimerInput

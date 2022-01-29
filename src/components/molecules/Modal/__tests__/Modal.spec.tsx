@@ -1,8 +1,7 @@
-import OverlayRoot from '@/tests/helpers/overlayRoot'
-import { cleanup, render, screen } from '@testing-library/react'
+import { render, cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
-import Modal from '..'
+import { Modal } from '..'
+import { OverlayRoot } from '@/tests/helpers'
 
 describe('Modal', () => {
   const overlayRoot = new OverlayRoot()

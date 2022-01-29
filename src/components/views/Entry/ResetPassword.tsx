@@ -1,9 +1,10 @@
-import React from 'react'
-import FormProvider from '@/context/models/form/form.provider'
-import ResetPasswordCard from '@/components/templates/Entry/ResetPasswordCard'
-import ResetPasswordForm from '@/components/templates/Entry/ResetPasswordForm'
+import { FormProvider } from '@/context/models/form'
+import {
+  ResetPasswordCard,
+  ResetPasswordForm
+} from '@/components/templates/Entry'
 
-const ResetPassword: React.FC = () => {
+export const ResetPassword: React.FC = () => {
   return (
     <div data-testid="reset-password">
       <ResetPasswordCard>
@@ -14,5 +15,3 @@ const ResetPassword: React.FC = () => {
     </div>
   )
 }
-
-export default ResetPassword

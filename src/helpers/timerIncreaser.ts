@@ -1,6 +1,6 @@
-import getFormattedTime from './getFormattedTime'
+import { getFormattedTime } from './getFormattedTime'
 
-const timerIncreaser = (config: {
+export const timerIncreaser = (config: {
   type: 'hour' | 'minute'
   prevTime: string
   increase: boolean
@@ -41,5 +41,3 @@ const timerIncreaser = (config: {
 
   return getFormattedTime(nextTime)
 }
-
-export default timerIncreaser

@@ -1,6 +1,5 @@
-import { cleanup, render, screen } from '@testing-library/react'
-import React from 'react'
-import HorizontalScrollBar from '../HorizontalScrollBar'
+import { render, cleanup, screen } from '@testing-library/react'
+import { HorizontalScrollBar } from '..'
 
 describe('HorizontalScrollBar ', () => {
   afterEach(() => {

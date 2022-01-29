@@ -1,6 +1,5 @@
-import InvalidFieldError from '@/services/errors/invalidFieldError'
-import IFieldValidation from '@/services/validators/protocols/fieldValidation.model'
-import CompareFieldsValidator from '../compareFieldsValidator'
+import { InvalidFieldError } from '@/services/errors'
+import { IFieldValidation, CompareFieldsValidator } from '..'
 
 const makeSut = (): IFieldValidation => {
   return new CompareFieldsValidator('field', 'fieldToCompare')

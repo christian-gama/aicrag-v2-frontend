@@ -1,7 +1,9 @@
-import { useState, useEffect, ComponentPropsWithoutRef } from 'react'
-import Backdrop from '../Backdrop'
+import { ComponentPropsWithoutRef, useState, useEffect } from 'react'
+import { Backdrop } from '..'
 
-const useBackdrop = (props: ComponentPropsWithoutRef<typeof Backdrop>) => {
+export const useBackdrop = (
+  props: ComponentPropsWithoutRef<typeof Backdrop>
+) => {
   const [isOpenState, setIsOpenState] = useState(false)
 
   useEffect(() => {
@@ -42,5 +44,3 @@ const useBackdrop = (props: ComponentPropsWithoutRef<typeof Backdrop>) => {
     dismissOnClickHandler
   }
 }
-
-export default useBackdrop

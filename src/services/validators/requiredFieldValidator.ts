@@ -1,8 +1,8 @@
-import Maybe from '@/helpers/typescript/maybe.model'
-import InvalidFieldError from '../errors/invalidFieldError'
-import IFieldValidation from './protocols/fieldValidation.model'
+import { Maybe } from '@/helpers'
+import { InvalidFieldError } from '../errors'
+import { IFieldValidation } from './protocols/fieldValidation.model'
 
-class RequiredFieldValidator implements IFieldValidation {
+export class RequiredFieldValidator implements IFieldValidation {
   constructor (readonly field: string) {}
 
   validate (input: Record<string, any>): Maybe<Error> {
@@ -13,5 +13,3 @@ class RequiredFieldValidator implements IFieldValidation {
     }
   }
 }
-
-export default RequiredFieldValidator

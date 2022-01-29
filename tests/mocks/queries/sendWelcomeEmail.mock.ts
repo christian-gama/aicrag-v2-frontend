@@ -1,8 +1,8 @@
-import { MockedResponse } from '@apollo/client/testing'
 import { SendWelcomeEmailDocument } from '@/external/graphql/generated'
-import variablesMock from '../variables.mock'
+import { MockedResponse } from '@apollo/client/testing'
+import { mockVariables } from '..'
 
-const sendWelcomeEmailMock = (
+export const sendWelcomeEmailMock = (
   input?: {
     email?: string
   },
@@ -11,7 +11,7 @@ const sendWelcomeEmailMock = (
   request: {
     query: SendWelcomeEmailDocument,
     variables: {
-      email: input?.email ?? variablesMock.email
+      email: input?.email ?? mockVariables.email
     }
   },
   result: {
@@ -21,5 +21,3 @@ const sendWelcomeEmailMock = (
   },
   error
 })
-
-export default sendWelcomeEmailMock

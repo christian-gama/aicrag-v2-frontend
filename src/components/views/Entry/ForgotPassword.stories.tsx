@@ -1,9 +1,10 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import React from 'react'
-import { AllProviders } from '@/tests/helpers/renderWithProviders'
-import forgotPasswordMock from '@/tests/mocks/queries/forgotPassword.mock'
-import sendRecoverPasswordEmailMock from '@/tests/mocks/queries/sendRecoverPasswordEmail'
-import ForgotPasswordComponent from './ForgotPassword'
+import { AllProviders } from '@/tests/helpers'
+import {
+  forgotPasswordMock,
+  sendRecoverPasswordEmailMock
+} from '@/tests/mocks/queries'
+import { ForgotPassword as ForgotPasswordComponent } from './ForgotPassword'
 
 export default {
   title: 'views/entry/Forgot Password',

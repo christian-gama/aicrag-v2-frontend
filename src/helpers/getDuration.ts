@@ -1,4 +1,7 @@
-const getDuration = (message: string | string[], minDuration: number) => {
+export const getDuration = (
+  message: string | string[],
+  minDuration: number
+) => {
   const multiplier = 0.1
 
   if (Array.isArray(message)) {
@@ -15,5 +18,3 @@ const getDuration = (message: string | string[], minDuration: number) => {
 
   return duration < minDuration ? minDuration : duration
 }
-
-export default getDuration

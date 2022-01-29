@@ -1,4 +1,4 @@
-import { mailerCountdownActions } from '../mailerCountdown.actions'
+import { mailerCountdownActions } from '..'
 
 export type MailerCountdownStates = {
   timeLeftInSeconds: number

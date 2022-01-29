@@ -1,5 +1,5 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { fillColorVariants } from '@/components/_settings/variants.css'
+import { fillColorVariants } from '@/components/_settings'
 
 export const logoIconRecipe = recipe({
   variants: {

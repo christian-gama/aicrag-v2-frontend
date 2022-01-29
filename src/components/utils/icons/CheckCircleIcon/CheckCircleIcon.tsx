@@ -1,5 +1,4 @@
-import React from 'react'
-import * as style from './stylesheet'
+import * as classes from './stylesheet'
 import { CheckCircleIconVariants } from './stylesheet'
 
 type CheckCircleIconProps = {
@@ -7,8 +6,11 @@ type CheckCircleIconProps = {
   size?: CheckCircleIconVariants['size']
 }
 
-const CheckCircleIcon: React.FC<CheckCircleIconProps> = ({ color, size }) => {
-  const checkIconStyle = style.checkCircleIconRecipe({
+export const CheckCircleIcon: React.FC<CheckCircleIconProps> = ({
+  color,
+  size
+}) => {
+  const checkIconStyle = classes.checkCircleIconRecipe({
     color,
     size
   })
@@ -32,5 +34,3 @@ CheckCircleIcon.defaultProps = {
   color: 'primary',
   size: 'md'
 }
-
-export default CheckCircleIcon

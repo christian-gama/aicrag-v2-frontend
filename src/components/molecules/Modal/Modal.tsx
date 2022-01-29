@@ -1,8 +1,7 @@
-import React from 'react'
-import Card from '../../atoms/Card/Card'
-import Backdrop from '../../utils/Backdrop'
-import * as style from './stylesheet'
+import { Card } from '@/components/atoms/Card'
+import { Backdrop } from '@/components/utils/Backdrop'
 import { ModalRecipeVariants } from './stylesheet'
+import * as classes from './stylesheet'
 
 type ModalProps = {
   direction?: ModalRecipeVariants['direction']
@@ -10,13 +9,13 @@ type ModalProps = {
   isOpen?: boolean
 }
 
-const Modal: React.FC<ModalProps> = ({
+export const Modal: React.FC<ModalProps> = ({
   direction,
   children,
   onDismiss,
   isOpen
 }) => {
-  const modalStyle = style.modalRecipe({
+  const modalStyle = classes.modalRecipe({
     direction
   })
 
@@ -32,5 +31,3 @@ const Modal: React.FC<ModalProps> = ({
 Modal.defaultProps = {
   direction: 'top'
 }
-
-export default Modal

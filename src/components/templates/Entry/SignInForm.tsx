@@ -1,15 +1,14 @@
-import React, { useContext } from 'react'
-import FormContext from '@/context/models/form/form.context'
-import Button from '@/components/atoms/Button'
-import ControlForm from '@/components/organisms/Control/ControlForm'
-import ControlInput from '@/components/organisms/Control/ControlInput'
-import Link from '@/components/utils/texts/Link'
-import makeSignInValidator from '@/external/factories/validation/makeSignInValidator'
+import { useContext } from 'react'
+import { FormContext } from '@/context/models/form'
+import { Button } from '@/components/atoms/Button'
+import { ControlForm, ControlInput } from '@/components/organisms/Control'
+import { Link } from '@/components/utils/texts/Link'
+import { makeSignInValidator } from '@/external/factories/validation'
 import { useLoginMutation } from '@/external/graphql/generated'
-import { authVar } from '@/external/graphql/reactiveVars/authVar'
-import * as style from './stylesheet'
+import { authVar } from '@/external/graphql/reactiveVars'
+import * as classes from './stylesheet'
 
-const SignInForm: React.FC = () => {
+export const SignInForm: React.FC = () => {
   const [login, { data }] = useLoginMutation()
 
   const { state } = useContext(FormContext)
@@ -40,8 +39,8 @@ const SignInForm: React.FC = () => {
       validator={makeSignInValidator()}
       loading={state.form.isSubmitting}
     >
-      <div className={style.signInForm}>
-        <div className={style.signInFormInputWrapper}>
+      <div className={classes.signInForm}>
+        <div className={classes.signInFormInputWrapper}>
           <ControlInput
             autoComplete="username"
             label="Seu email"
@@ -67,12 +66,10 @@ const SignInForm: React.FC = () => {
           Acessar
         </Button>
 
-        <div className={style.signInFormForgotPasswordWrapper}>
+        <div className={classes.signInFormForgotPasswordWrapper}>
           <Link to="/entry/forgot-password">Esqueceu sua senha?</Link>
         </div>
       </div>
     </ControlForm>
   )
 }
-
-export default SignInForm

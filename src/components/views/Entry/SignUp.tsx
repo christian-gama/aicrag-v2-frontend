@@ -1,9 +1,7 @@
-import React from 'react'
-import FormProvider from '@/context/models/form/form.provider'
-import SignUpForm from '@/components/templates/Entry/SignUpForm'
-import EntryCard from '../../templates/Entry/EntryCard'
+import { FormProvider } from '@/context/models/form'
+import { EntryCard, SignUpForm } from '@/components/templates/Entry'
 
-const SignUp: React.FC = () => {
+export const SignUp: React.FC = () => {
   return (
     <div data-testid="sign-up">
       <EntryCard>
@@ -14,5 +12,3 @@ const SignUp: React.FC = () => {
     </div>
   )
 }
-
-export default SignUp

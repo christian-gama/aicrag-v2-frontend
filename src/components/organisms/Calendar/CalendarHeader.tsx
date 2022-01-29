@@ -1,14 +1,12 @@
 import { DateTime } from 'luxon'
-import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import writeMonthYear from '@/helpers/writeMonthYear'
-import { calendarActions } from '@/context/models/calendar/calendar.actions'
-import { CalendarStates } from '@/context/models/calendar/protocols/calendar.model'
+import { writeMonthYear } from '@/helpers'
+import { calendarActions, CalendarStates } from '@/context/models/calendar'
 import { RootState, AppDispatch } from '@/context/store'
-import ChevronIcon from '../../utils/icons/ChevronIcon'
-import * as style from './stylesheet'
+import { ChevronIcon } from '@/components/utils/icons'
+import * as classes from './stylesheet'
 
-const CalendarHeader: React.FC = () => {
+export const CalendarHeader: React.FC = () => {
   const { setCalendarDate } = calendarActions
 
   const calendarDate = useSelector<RootState, CalendarStates['calendarDate']>(
@@ -33,7 +31,7 @@ const CalendarHeader: React.FC = () => {
   }
 
   return (
-    <div className={style.calendarHeader} data-testid="calendar-header">
+    <div className={classes.calendarHeader} data-testid="calendar-header">
       <ChevronIcon
         onClick={handlePreviousMonth}
         direction="left"
@@ -41,7 +39,7 @@ const CalendarHeader: React.FC = () => {
       />
 
       <span
-        className={style.calendarHeaderDate}
+        className={classes.calendarHeaderDate}
         data-testid="calendar-header-date"
       >
         {writeMonthYear(
@@ -54,5 +52,3 @@ const CalendarHeader: React.FC = () => {
     </div>
   )
 }
-
-export default CalendarHeader

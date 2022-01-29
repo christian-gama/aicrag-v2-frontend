@@ -1,7 +1,7 @@
-import Maybe from '@/helpers/typescript/maybe.model'
-import IValidation from '@/services/validators/protocols/validation.model'
+import { Maybe } from '@/helpers'
+import { IValidation } from '@/services/validators'
 
-const makeValidationMock = (
+export const makeMockValidation = (
   spyFn: (field: string, input: Record<string, any>) => Maybe<string>
 ): IValidation => {
   class ValidatorMock implements IValidation {
@@ -12,5 +12,3 @@ const makeValidationMock = (
 
   return new ValidatorMock()
 }
-
-export default makeValidationMock

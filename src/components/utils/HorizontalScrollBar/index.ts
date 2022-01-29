@@ -1,1 +1,1 @@
-export { default } from './HorizontalScrollBar'
+export * from './HorizontalScrollBar'

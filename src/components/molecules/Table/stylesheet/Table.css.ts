@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { vars } from '@/components/_settings/vars.css'
+import { vars } from '@/components/_settings'
 
 export const tableStyle = style({
   fontFamily: vars.font.p.fontFamily,

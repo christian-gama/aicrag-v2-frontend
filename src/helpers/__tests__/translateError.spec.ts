@@ -1,4 +1,4 @@
-import translateError from '../translateError'
+import { translateError } from '..'
 
 describe('translateError', () => {
   it('returns the same error when it is not a string', () => {

@@ -1,16 +1,14 @@
-import React from 'react'
-import useWindowDimensions from '@/components/_hooks/useWindowDimensions'
-import LogoIcon from '@/components/utils/icons/LogoIcon'
-import * as style from './stylesheet'
 
-const Left: React.FC = () => {
+import { useWindowDimensions } from '@/components/_hooks'
+import { LogoIcon } from '@/components/utils/icons'
+import * as classes from './stylesheet'
+
+export const Left: React.FC = () => {
   const { width } = useWindowDimensions()
 
   return (
-    <div className={style.left}>
+    <div className={classes.left}>
       <LogoIcon size={width <= 520 ? 'md' : 'lg'} color="white" />
     </div>
   )
 }
-
-export default Left

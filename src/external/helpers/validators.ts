@@ -1,30 +1,28 @@
-import Builder from '../builders/validatorBuilder'
+import { ValidatorBuilder } from '../builders'
 
-const validators = {
-  name: Builder.field('name')
+export const validators = {
+  name: ValidatorBuilder.field('name')
     .required()
     .minLength(1)
     .regex(/^[a-zA-Z\u00C0-\u00FF .']*$/g)
     .build(),
 
-  email: Builder.field('email').required().isEmail().build(),
+  email: ValidatorBuilder.field('email').required().isEmail().build(),
 
-  password: Builder.field('password')
+  password: ValidatorBuilder.field('password')
     .required()
     .minLength(6)
     .maxLength(32)
     .build(),
 
-  passwordConfirmation: Builder.field('passwordConfirmation')
+  passwordConfirmation: ValidatorBuilder.field('passwordConfirmation')
     .required()
     .minLength(6)
     .maxLength(32)
     .sameAs('password')
     .build(),
 
-  hour: Builder.field('hour').required().isNumber().max(23).build(),
+  hour: ValidatorBuilder.field('hour').required().isNumber().max(23).build(),
 
-  minute: Builder.field('minute').required().isNumber().max(59).build()
+  minute: ValidatorBuilder.field('minute').required().isNumber().max(59).build()
 } as const
-
-export default validators

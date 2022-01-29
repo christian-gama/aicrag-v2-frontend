@@ -1,9 +1,9 @@
 import { MockedResponse } from '@apollo/client/testing'
 import { SignUpDocument } from '@/external/graphql/generated'
-import userFragmentMock from '../fragments/userFragment.mock'
-import variablesMock from '../variables.mock'
+import { mockVariables } from '..'
+import { userFragmentMock } from '../fragments'
 
-const signUpMock = (
+export const signUpMock = (
   input?: {
     name?: string
     email?: string
@@ -15,11 +15,11 @@ const signUpMock = (
   request: {
     query: SignUpDocument,
     variables: {
-      name: input?.name ?? variablesMock.name,
-      email: input?.email ?? variablesMock.email,
-      password: input?.password ?? variablesMock.password,
+      name: input?.name ?? mockVariables.name,
+      email: input?.email ?? mockVariables.email,
+      password: input?.password ?? mockVariables.password,
       passwordConfirmation:
-        input?.passwordConfirmation ?? variablesMock.passwordConfirmation
+        input?.passwordConfirmation ?? mockVariables.passwordConfirmation
     }
   },
   result: {
@@ -31,5 +31,3 @@ const signUpMock = (
   },
   error
 })
-
-export default signUpMock

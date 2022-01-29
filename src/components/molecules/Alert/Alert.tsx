@@ -1,16 +1,16 @@
-import React from 'react'
-import capitalize from '@/helpers/capitalize'
-import { FillColorVariants } from '@/components/_settings/variants.css'
+
+import { capitalize } from '@/helpers'
+import { FillColorVariants } from '@/components/_settings'
+import { Button } from '@/components/atoms/Button'
 import { ButtonVariants } from '@/components/atoms/Button/stylesheet'
-import Button from '../../atoms/Button'
-import Card from '../../atoms/Card'
-import InfoCircleIcon from '../../utils/icons/InfoCircleIcon'
-import H4 from '../../utils/texts/H4'
-import P from '../../utils/texts/P'
-import Modal from '../Modal'
-import useAlert from './hooks/useAlert'
-import * as style from './stylesheet'
+import { Card } from '@/components/atoms/Card'
+import { InfoCircleIcon } from '@/components/utils/icons'
+import { H4 } from '@/components/utils/texts/H4'
+import { P } from '@/components/utils/texts/P'
+import { Modal } from '../Modal'
+import { useAlert } from './hooks'
 import { AlertHeaderVariants } from './stylesheet'
+import * as classes from './stylesheet'
 
 type AlertProps = {
   type: AlertHeaderVariants['color']
@@ -20,11 +20,11 @@ type AlertProps = {
   title: string
 } & (AlertWithAction | AlertWithoutAction)
 
-const Alert: React.FC<AlertProps> = (props) => {
+export const Alert: React.FC<AlertProps> = (props) => {
   const mode = props.mode!
   const { cancelHandler, handleAction, isOpen } = useAlert(props)
 
-  const alertHeaderStyle = style.alertHeaderRecipe({
+  const alertHeaderStyle = classes.alertHeaderRecipe({
     color: props.type
   })
 
@@ -57,17 +57,17 @@ const Alert: React.FC<AlertProps> = (props) => {
   return (
     <Modal isOpen={isOpen} onDismiss={props.onCancel}>
       <Card>
-        <div className={style.alert} data-testid="alert">
+        <div className={classes.alert} data-testid="alert">
           <div className={alertHeaderStyle} data-testid="alert-header">
             <InfoCircleIcon color={getIconColor()} />
             <H4 color={getIconColor()}>{capitalize(props.title)}</H4>
           </div>
 
-          <div className={style.alertBody} data-testid="alert-body">
+          <div className={classes.alertBody} data-testid="alert-body">
             <P>{capitalize(props.message)}</P>
           </div>
 
-          <div className={style.alertFooter} data-testid="alert-footer">
+          <div className={classes.alertFooter} data-testid="alert-footer">
             <Button
               onClick={cancelHandler}
               style={{
@@ -106,5 +106,3 @@ type AlertWithoutAction = { mode?: 'cancelOnly' }
 Alert.defaultProps = {
   mode: 'cancelOnly'
 }
-
-export default Alert

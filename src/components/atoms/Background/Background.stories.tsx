@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import Background from './Background'
+import { Background } from './Background'
 
 export default {
   title: 'atoms/Background',

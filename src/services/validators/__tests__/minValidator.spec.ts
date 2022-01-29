@@ -1,6 +1,5 @@
-import InvalidFieldError from '@/services/errors/invalidFieldError'
-import IFieldValidation from '@/services/validators/protocols/fieldValidation.model'
-import MinValidator from '../minValidator'
+import { InvalidFieldError } from '@/services/errors'
+import { IFieldValidation, MinValidator } from '..'
 
 const makeSut = (): IFieldValidation => {
   return new MinValidator('field', 5)

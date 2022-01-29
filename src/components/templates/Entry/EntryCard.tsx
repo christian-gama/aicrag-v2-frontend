@@ -1,14 +1,13 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
-import React from 'react'
-import useWindowDimensions from '@/components/_hooks/useWindowDimensions'
-import Background from '@/components/atoms/Background'
-import Card from '@/components/atoms/Card'
-import Menu from '@/components/molecules/Menu'
-import Center from '@/components/utils/Center'
-import LogoIcon from '@/components/utils/icons/LogoIcon'
-import * as style from './stylesheet'
+import { useWindowDimensions } from '@/components/_hooks'
+import { Background } from '@/components/atoms/Background'
+import { Card } from '@/components/atoms/Card'
+import { Menu } from '@/components/molecules/Menu'
+import { Center } from '@/components/utils/Center'
+import { LogoIcon } from '@/components/utils/icons'
+import * as classes from './stylesheet'
 
-const EntryCard: React.FC = ({ children }) => {
+export const EntryCard: React.FC = ({ children }) => {
   const { width, height } = useWindowDimensions()
 
   return (
@@ -16,16 +15,16 @@ const EntryCard: React.FC = ({ children }) => {
       <Center stickMobile>
         <Card roundness={width <= 520 ? 'none' : 'md'}>
           <div
-            className={style.entryCard}
-            style={assignInlineVars(style.windowDimensionVars, {
+            className={classes.entryCard}
+            style={assignInlineVars(classes.windowDimensionVars, {
               height: `${height}px`
             })}
           >
-            <header className={style.entryCardHeader}>
+            <header className={classes.entryCardHeader}>
               <LogoIcon />
             </header>
 
-            <nav className={style.entryCardMenuWrapper}>
+            <nav className={classes.entryCardMenuWrapper}>
               <Menu
                 buttons={[
                   {
@@ -47,5 +46,3 @@ const EntryCard: React.FC = ({ children }) => {
     </Background>
   )
 }
-
-export default EntryCard

@@ -1,14 +1,12 @@
-import { MockedProvider, MockedResponse } from '@apollo/client/testing'
+import { MockedResponse, MockedProvider } from '@apollo/client/testing'
 import { configureStore } from '@reduxjs/toolkit'
 import { render, RenderOptions } from '@testing-library/react'
-import React from 'react'
 import { Provider } from 'react-redux'
-import { MemoryRouter, Route, Routes } from 'react-router-dom'
-import FormProvider from '@/context/models/form/form.provider'
-import useMailerCountdown from '@/components/_hooks/useMailerCountdown'
-import calendarStoreMock from '../mocks/calendarStore.mock'
-import mailerCountdownMock from '../mocks/mailerCountdown.mock'
-import getPath from './getPath'
+import { MemoryRouter, Routes, Route } from 'react-router-dom'
+import { FormProvider } from '@/context/models/form'
+import { useMailerCountdown } from '@/components/_hooks'
+import { calendarStoreMock, mailerCountdownMock } from '../mocks'
+import { getPath } from './getPath'
 
 type AllProvidersProps = {
   apolloMocks?: Array<MockedResponse<Record<string, any>>>
@@ -56,7 +54,7 @@ type RenderWithProvidersOptions = {
   apolloMocks?: Array<MockedResponse<Record<string, any>>>
 } & RenderOptions
 
-const renderWithProviders = (
+export const renderWithProviders = (
   ui: React.ReactElement,
   options?: RenderWithProvidersOptions
 ) => {
@@ -67,5 +65,3 @@ const renderWithProviders = (
     }
   )
 }
-
-export default renderWithProviders

@@ -1,3 +1,3 @@
-import mailerCountdownSlice from './mailerCountdown.slice'
+import { mailerCountdownSlice } from './mailerCountdown.slice'
 
 export const mailerCountdownActions = mailerCountdownSlice.actions

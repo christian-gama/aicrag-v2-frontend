@@ -1,9 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import React from 'react'
 import { Provider } from 'react-redux'
-import calendarStoreMock from '../../../../tests/mocks/calendarStore.mock'
-import CalendarComponent from './Calendar'
+import { calendarStoreMock } from '@/tests/mocks'
+import { Calendar as CalendarComponent } from './Calendar'
 
 export default {
   title: 'organisms/Calendar',

@@ -1,6 +1,6 @@
-import translateInputName from './translateInputName'
+import { translateInputName } from './translateInputName'
 
-const translateError = (error: any) => {
+export const translateError = (error: any) => {
   if (typeof error !== 'string') return error
 
   return error
@@ -8,5 +8,3 @@ const translateError = (error: any) => {
     .map(translateInputName)
     .join('')
 }
-
-export default translateError

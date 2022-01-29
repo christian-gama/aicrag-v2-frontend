@@ -1,21 +1,21 @@
-import React from 'react'
+
 import { NavLink } from 'react-router-dom'
-import * as style from './stylesheet'
+import * as classes from './stylesheet'
 
 type MenuProps = {
   buttons: Array<{ buttonName: string, to: string, active?: boolean }>
 }
 
-const Menu: React.FC<MenuProps> = ({ buttons }) => {
+export const Menu: React.FC<MenuProps> = ({ buttons }) => {
   return (
-    <div className={style.menu} data-testid="menu">
+    <div className={classes.menu} data-testid="menu">
       {buttons.map(({ buttonName, to, active }, index) => {
         return (
           <NavLink
             data-testid="menu-link"
             key={`${buttonName}-${index}`}
             className={({ isActive }) =>
-              style.menuButtonRecipe({
+              classes.menuButtonRecipe({
                 active: active ?? isActive
               })
             }
@@ -28,5 +28,3 @@ const Menu: React.FC<MenuProps> = ({ buttons }) => {
     </div>
   )
 }
-
-export default Menu

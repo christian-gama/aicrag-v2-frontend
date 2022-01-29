@@ -1,8 +1,6 @@
-import { cleanup, render, screen } from '@testing-library/react'
-import React from 'react'
-import advanceTimer from '@/tests/helpers/advanceTimer'
-import OverlayRoot from '@/tests/helpers/overlayRoot'
-import ProgressBar from '../ProgressBar'
+import { render, cleanup, screen } from '@testing-library/react'
+import { ProgressBar } from '..'
+import { advanceTimer, OverlayRoot } from '@/tests/helpers'
 
 describe('ProgressBar', () => {
   const overlayRoot = new OverlayRoot()

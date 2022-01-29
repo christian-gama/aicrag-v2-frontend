@@ -1,8 +1,6 @@
-import validators from '@/external/helpers/validators'
-import ValidatorComposite from '../../composites/validatorComposite'
+import { ValidatorComposite } from '@/external/composites'
+import { validators } from '@/external/helpers'
 
-const makeForgotPasswordValidator = (): ValidatorComposite => {
+export const makeForgotPasswordValidator = (): ValidatorComposite => {
   return ValidatorComposite.build([...validators.email])
 }
-
-export default makeForgotPasswordValidator

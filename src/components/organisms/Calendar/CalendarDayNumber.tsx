@@ -1,6 +1,5 @@
-import React from 'react'
-import * as style from './stylesheet'
 import { CalendarDayNumberVariants } from './stylesheet'
+import * as classes from './stylesheet'
 
 type CalendarDayNumberProps = {
   selected?: CalendarDayNumberVariants['selected']
@@ -10,7 +9,7 @@ type CalendarDayNumberProps = {
   testid?: string
 }
 
-const CalendarDayNumber: React.FC<CalendarDayNumberProps> = ({
+export const CalendarDayNumber: React.FC<CalendarDayNumberProps> = ({
   dayNumber,
   selected,
   onClick,
@@ -19,7 +18,7 @@ const CalendarDayNumber: React.FC<CalendarDayNumberProps> = ({
 }) => {
   return (
     <span
-      className={style.calendarDayNumberRecipe({
+      className={classes.calendarDayNumberRecipe({
         selected: !!selected,
         dimmed: !!dimmed
       })}
@@ -35,5 +34,3 @@ const CalendarDayNumber: React.FC<CalendarDayNumberProps> = ({
     </span>
   )
 }
-
-export default CalendarDayNumber

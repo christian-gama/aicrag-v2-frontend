@@ -1,12 +1,11 @@
 import { onError } from '@apollo/client/link/error'
-import translateError from '@/helpers/translateError'
-import NetworkError from '@/services/errors/connectionError'
-import InternalError from '@/services/errors/internalError'
-import makeRefreshTokenStorage from '@/external/factories/storage/auth/makeRefreshTokenStorage'
+import { translateError } from '@/helpers'
+import { InternalError, NetworkError } from '@/services/errors'
+import { makeRefreshTokenStorage } from '@/external/factories/storage/auth'
 import { authVar } from '../reactiveVars/authVar'
 import { popoverVar } from '../reactiveVars/popoverVar'
 
-const errorLink = onError(({ networkError, graphQLErrors }) => {
+export const errorLink = onError(({ networkError, graphQLErrors }) => {
   if (graphQLErrors && graphQLErrors.length > 0) {
     for (const error of graphQLErrors) {
       const errorCode = error.extensions.code
@@ -52,5 +51,3 @@ const errorLink = onError(({ networkError, graphQLErrors }) => {
     popoverVar.setPopover(new NetworkError().message, 'error')
   }
 })
-
-export default errorLink

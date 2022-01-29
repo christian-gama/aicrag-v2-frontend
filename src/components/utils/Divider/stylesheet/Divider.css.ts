@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { vars } from '@/components/_settings/vars.css'
+import { vars } from '@/components/_settings'
 
 export const divider = style({
   backgroundColor: vars.colors['gray-100'],

@@ -1,4 +1,4 @@
-class OverlayRoot {
+export class OverlayRoot {
   overlayRoot: HTMLElement | null = null
 
   addOverlayRoot (): void {
@@ -13,5 +13,3 @@ class OverlayRoot {
     }
   }
 }
-
-export default OverlayRoot

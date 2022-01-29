@@ -1,6 +1,5 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import React from 'react'
-import Card from './Card'
+import { Card } from './Card'
 
 export default {
   title: 'atoms/Card',

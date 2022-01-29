@@ -1,7 +1,7 @@
-import validators from '@/external/helpers/validators'
-import ValidatorComposite from '../../composites/validatorComposite'
+import { ValidatorComposite } from '@/external/composites'
+import { validators } from '@/external/helpers'
 
-const makeSignUpValidator = (): ValidatorComposite => {
+export const makeSignUpValidator = (): ValidatorComposite => {
   return ValidatorComposite.build([
     ...validators.name,
     ...validators.email,
@@ -9,5 +9,3 @@ const makeSignUpValidator = (): ValidatorComposite => {
     ...validators.passwordConfirmation
   ])
 }
-
-export default makeSignUpValidator

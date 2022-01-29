@@ -1,8 +1,8 @@
 import { MockedResponse } from '@apollo/client/testing'
 import { VerifyResetPasswordTokenDocument } from '@/external/graphql/generated'
-import variablesMock from '../variables.mock'
+import { mockVariables } from '..'
 
-const verifyResetPasswordTokenMock = (
+export const verifyResetPasswordTokenMock = (
   error?: Error
 ): MockedResponse<Record<string, any>> => ({
   request: {
@@ -11,11 +11,9 @@ const verifyResetPasswordTokenMock = (
   result: {
     data: {
       verifyResetPasswordToken: {
-        accessToken: variablesMock.token
+        accessToken: mockVariables.token
       }
     }
   },
   error
 })
-
-export default verifyResetPasswordTokenMock

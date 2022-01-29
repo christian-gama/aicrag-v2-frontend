@@ -1,4 +1,4 @@
-import timerIncreaser from '../timerIncreaser'
+import { timerIncreaser } from '..'
 
 describe('timerIncreaser', () => {
   describe('hour', () => {

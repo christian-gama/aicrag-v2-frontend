@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { breakpoints } from '@/components/_settings/breakpoints.css'
+import { breakpoints } from '@/components/_settings'
 
 export const calendarBody = style({
   display: 'grid',

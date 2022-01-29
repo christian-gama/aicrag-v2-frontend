@@ -1,18 +1,17 @@
-import React from 'react'
-import Button from '../../atoms/Button'
-import * as style from './stylesheet'
+import { Button } from '@/components/atoms/Button'
+import * as classes from './stylesheet'
 
 type CalendarButtonWrapperProps = {
   onConfirmHandler: () => void
   onCancelHandler: () => void
 }
 
-const CalendarButtonWrapper: React.FC<CalendarButtonWrapperProps> = ({
+export const CalendarButtonWrapper: React.FC<CalendarButtonWrapperProps> = ({
   onConfirmHandler,
   onCancelHandler
 }) => {
   return (
-    <div className={style.calendarButtonWrapper}>
+    <div className={classes.calendarButtonWrapper}>
       <Button
         style={{ mode: 'outlined', size: 'sm', color: 'light' }}
         testid="calendar-cancel-button"
@@ -33,5 +32,3 @@ const CalendarButtonWrapper: React.FC<CalendarButtonWrapperProps> = ({
     </div>
   )
 }
-
-export default CalendarButtonWrapper

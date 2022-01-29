@@ -1,18 +1,15 @@
-import React from 'react'
-import * as style from './stylesheet'
+import * as classes from './stylesheet'
 
-const CalendarWeekday: React.FC = () => {
+export const CalendarWeekday: React.FC = () => {
   const weekdays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']
 
   return (
     <>
       {weekdays.map((weekday) => (
-        <span key={weekday} className={style.calendarWeekday}>
+        <span key={weekday} className={classes.calendarWeekday}>
           {weekday}
         </span>
       ))}
     </>
   )
 }
-
-export default CalendarWeekday

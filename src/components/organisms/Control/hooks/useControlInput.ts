@@ -1,7 +1,7 @@
-import { ComponentPropsWithRef, useContext, useEffect, useState } from 'react'
-import validateInput from '@/helpers/validateInput'
-import FormContext from '@/context/models/form/form.context'
-import ControlInput from '../ControlInput'
+import { FormContext } from '@/context/models/form'
+import { validateInput } from '@/helpers'
+import { ComponentPropsWithRef, useContext, useState, useEffect } from 'react'
+import { ControlInput } from '..'
 
 type ControlInputProps = ComponentPropsWithRef<typeof ControlInput>
 
@@ -15,7 +15,7 @@ type UseControlInput = {
   type: ControlInputProps['type']
 }
 
-const useControlInput = ({
+export const useControlInput = ({
   defaultValue,
   autoFocus,
   onChange,
@@ -155,5 +155,3 @@ const useControlInput = ({
     value
   }
 }
-
-export default useControlInput

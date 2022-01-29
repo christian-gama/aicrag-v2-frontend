@@ -1,20 +1,19 @@
-import React, { useContext } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import FormContext from '@/context/models/form/form.context'
-import Button from '@/components/atoms/Button'
-import ControlForm from '@/components/organisms/Control/ControlForm'
-import ControlInput from '@/components/organisms/Control/ControlInput'
-import Center from '@/components/utils/Center'
-import LoadingSpinnerIcon from '@/components/utils/icons/LoadingSpinnerIcon'
-import makeResetPasswordValidation from '@/external/factories/validation/makeResetPasswordValidation'
+import { useContext } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import { FormContext } from '@/context/models/form'
+import { Button } from '@/components/atoms/Button'
+import { ControlForm, ControlInput } from '@/components/organisms/Control'
+import { Center } from '@/components/utils/Center'
+import { LoadingSpinnerIcon } from '@/components/utils/icons'
+import { makeResetPasswordValidation } from '@/external/factories/validation'
 import {
   useResetPasswordMutation,
   useVerifyResetPasswordTokenQuery
 } from '@/external/graphql/generated'
-import { authVar } from '@/external/graphql/reactiveVars/authVar'
-import * as style from './stylesheet'
+import { authVar } from '@/external/graphql/reactiveVars'
+import * as classes from './stylesheet'
 
-const ResetPasswordForm: React.FC = () => {
+export const ResetPasswordForm: React.FC = () => {
   const { token } = useParams()
   const navigate = useNavigate()
   const { state } = useContext(FormContext)
@@ -62,8 +61,8 @@ const ResetPasswordForm: React.FC = () => {
         loading={state.form.isSubmitting}
         submitHandler={submitHandler}
       >
-        <div className={style.resetPasswordForm}>
-          <div className={style.resetPasswordFormInputWrapper}>
+        <div className={classes.resetPasswordForm}>
+          <div className={classes.resetPasswordFormInputWrapper}>
             <ControlInput
               autoComplete="new-password"
               label="Nova senha"
@@ -91,5 +90,3 @@ const ResetPasswordForm: React.FC = () => {
     </div>
   )
 }
-
-export default ResetPasswordForm

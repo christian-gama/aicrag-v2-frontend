@@ -1,20 +1,19 @@
-import React from 'react'
-import ClockIcon from '../../utils/icons/ClockIcon'
-import CalendarTimerInput from './CalendarTimerInput'
-import useCalendarTimer from './hooks/useCalendarTimer'
-import * as style from './stylesheet'
+import { ClockIcon } from '@/components/utils/icons'
+import { CalendarTimerInput } from './CalendarTimerInput'
+import { useCalendarTimer } from './hooks'
+import * as classes from './stylesheet'
 
-const CalendarTimer: React.FC = () => {
+export const CalendarTimer: React.FC = () => {
   const { hours, minutes, onBlurHandler, onChangeHandler, onKeyDownHandler } =
     useCalendarTimer()
 
   return (
-    <div className={style.calendarTimer} data-testid="calendar-timer">
-      <label htmlFor="calendar-hour" className={style.calendarTimerLabel}>
+    <div className={classes.calendarTimer} data-testid="calendar-timer">
+      <label htmlFor="calendar-hour" className={classes.calendarTimerLabel}>
         <ClockIcon />
       </label>
 
-      <div className={style.calendarTimerContent}>
+      <div className={classes.calendarTimerContent}>
         {
           <>
             <CalendarTimerInput
@@ -38,5 +37,3 @@ const CalendarTimer: React.FC = () => {
     </div>
   )
 }
-
-export default CalendarTimer

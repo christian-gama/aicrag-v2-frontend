@@ -1,6 +1,5 @@
-import InvalidFieldError from '@/services/errors/invalidFieldError'
-import IFieldValidation from '@/services/validators/protocols/fieldValidation.model'
-import RequiredFieldValidator from '../requiredFieldValidator'
+import { InvalidFieldError } from '@/services/errors'
+import { IFieldValidation, RequiredFieldValidator } from '..'
 
 const makeSut = (): IFieldValidation => {
   return new RequiredFieldValidator('field')

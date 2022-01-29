@@ -1,5 +1,5 @@
 import '../src/components/_settings/global.css'
-import addOverlayRoot from './addOverlayRoot'
+import { addOverlayRoot } from './addOverlayRoot'
 
 addOverlayRoot()
 

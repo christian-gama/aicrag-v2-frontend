@@ -1,9 +1,7 @@
 import { styleVariants, style } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { breakpoints } from '@/components/_settings/breakpoints.css'
-import { vars } from '@/components/_settings/vars.css'
+import { breakpoints, vars } from '@/components/_settings'
 
-// Variants
 const colorVariants = styleVariants({
   danger: {},
   info: {},
@@ -72,8 +70,6 @@ const modeVariants = styleVariants({
   outlined: {}
 })
 
-// Compound Variants
-// Cyan
 const containedCyanStyle = style({
   border: 'none',
   backgroundColor: vars.colors['cyan-900'],
@@ -106,7 +102,6 @@ const outlinedCyanStyle = style({
   }
 })
 
-// Warning
 const containedWarningStyle = style({
   border: 'none',
   backgroundColor: vars.colors['warning-500'],
@@ -139,7 +134,6 @@ const outlinedWarningStyle = style({
   }
 })
 
-// Danger
 const containedDangerStyle = style({
   border: 'none',
   backgroundColor: vars.colors['danger-400'],
@@ -172,7 +166,6 @@ const outlinedDangerStyle = style({
   }
 })
 
-// Disabled
 const containedDisabledStyle = style({
   border: 'none',
   backgroundColor: vars.colors['gray-600'],
@@ -197,7 +190,6 @@ const outlinedDisabledStyle = style({
   }
 })
 
-// Info
 const containedInfoStyle = style({
   border: 'none',
   backgroundColor: vars.colors['info-400'],
@@ -230,7 +222,6 @@ const outlinedInfoStyle = style({
   }
 })
 
-// Light
 const containedLightStyle = style({
   border: 'none',
   backgroundColor: vars.colors['gray-50'],
@@ -263,7 +254,6 @@ const outlinedLightStyle = style({
   }
 })
 
-// Recipes
 export const buttonRecipe = recipe({
   base: {
     display: 'flex',
@@ -285,7 +275,6 @@ export const buttonRecipe = recipe({
   },
 
   compoundVariants: [
-    /* ------- CONTAINED ------- */
     {
       variants: {
         mode: 'contained',
@@ -342,7 +331,6 @@ export const buttonRecipe = recipe({
       style: containedDisabledStyle
     },
 
-    /* -------- OUTLINED -------- */
     {
       variants: {
         mode: 'outlined',

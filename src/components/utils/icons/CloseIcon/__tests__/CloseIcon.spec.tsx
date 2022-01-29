@@ -1,6 +1,5 @@
-import { cleanup, render, screen } from '@testing-library/react'
-import React from 'react'
-import CloseIcon from '../CloseIcon'
+import { render, cleanup, screen } from '@testing-library/react'
+import { CloseIcon } from '..'
 
 describe('CloseIcon ', () => {
   afterEach(() => {

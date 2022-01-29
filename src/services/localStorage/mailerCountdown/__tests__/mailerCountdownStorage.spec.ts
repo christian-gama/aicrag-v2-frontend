@@ -1,5 +1,5 @@
 import { DateTime, Settings } from 'luxon'
-import MailerCountdownStorage from '../mailerCountdownStorage'
+import { MailerCountdownStorage } from '..'
 
 const makeSut = () => {
   return new MailerCountdownStorage()

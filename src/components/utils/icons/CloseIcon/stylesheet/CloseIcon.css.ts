@@ -1,9 +1,8 @@
 import { style } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { fillColorVariants } from '@/components/_settings/variants.css'
-import { sizeVariants } from '../../common/variants/size.css'
+import { fillColorVariants } from '@/components/_settings'
+import { sizeVariants } from '../..'
 
-// Styles
 export const closeIconHitbox = style({
   display: 'flex',
   alignItems: 'center',
@@ -17,7 +16,6 @@ export const closeIconHitbox = style({
   }
 })
 
-// Recipes
 export const closeIconRecipe = recipe({
   variants: {
     color: fillColorVariants,

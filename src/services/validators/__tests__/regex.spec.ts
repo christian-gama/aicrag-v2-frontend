@@ -1,6 +1,5 @@
-import InvalidFieldError from '@/services/errors/invalidFieldError'
-import IFieldValidation from '@/services/validators/protocols/fieldValidation.model'
-import Regex from '../regex'
+import { InvalidFieldError } from '@/services/errors'
+import { IFieldValidation, Regex } from '..'
 
 const makeSut = (): IFieldValidation => {
   return new Regex('field', /^[a-z]$/)

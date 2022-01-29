@@ -1,6 +1,5 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import React from 'react'
-import BaseInput from './BaseInput'
+import { BaseInput } from './BaseInput'
 
 export default {
   title: 'atoms/Base Input',
@@ -31,47 +30,47 @@ export const Default: ComponentStoryObj<typeof BaseInput> = {}
 
 export const Playground: ComponentStoryObj<typeof BaseInput> = {
   args: {
-    value: '',
+    validator: { validate: () => undefined },
     isFocused: false,
     isTouched: false,
+    error: undefined,
     isValid: false,
     label: 'Label',
     name: 'label',
     type: 'text',
-    error: undefined,
-    validator: { validate: () => undefined }
+    value: ''
   }
 }
 
 export const WithError: ComponentStoryObj<typeof BaseInput> = {
   args: {
+    validator: { validate: () => 'An error message goes here' },
     error: 'An error message goes here',
     isTouched: true,
     label: 'Label',
-    name: 'label',
     readOnly: true,
+    name: 'label',
     type: 'text',
-    value: '',
-    validator: { validate: () => 'An error message goes here' }
+    value: ''
   }
 }
 
 export const WithIcon: ComponentStoryObj<typeof BaseInput> = {
   args: {
+    icon: () => <div>Icon</div>,
     label: 'Label',
-    name: 'label',
     readOnly: true,
+    name: 'label',
     type: 'text',
-    value: '',
-    icon: () => <div>Icon</div>
+    value: ''
   }
 }
 
 export const WithLabel: ComponentStoryObj<typeof BaseInput> = {
   args: {
     label: 'Label',
-    name: 'label',
     readOnly: true,
+    name: 'label',
     type: 'text',
     value: ''
   }
@@ -79,15 +78,15 @@ export const WithLabel: ComponentStoryObj<typeof BaseInput> = {
 
 export const WithSuccess: ComponentStoryObj<typeof BaseInput> = {
   args: {
+    validator: { validate: () => undefined },
     isFocused: false,
     isTouched: true,
-    isValid: true,
     label: 'Label',
-    name: 'label',
     readOnly: true,
+    isValid: true,
+    name: 'label',
     type: 'text',
-    value: '',
-    validator: { validate: () => undefined }
+    value: ''
   }
 }
 
@@ -97,9 +96,9 @@ export const WithValue: ComponentStoryObj<typeof BaseInput> = {
     isTouched: false,
     isValid: false,
     label: 'Label',
-    name: 'label',
     readOnly: true,
-    type: 'text',
-    value: 'Value'
+    name: 'label',
+    value: 'Value',
+    type: 'text'
   }
 }

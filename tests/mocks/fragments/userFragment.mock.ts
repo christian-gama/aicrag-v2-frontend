@@ -1,4 +1,4 @@
-const userFragmentMock = {
+export const userFragmentMock = {
   user: {
     personal: {
       email: 'any@email.com',
@@ -10,5 +10,3 @@ const userFragmentMock = {
     }
   }
 } as const
-
-export default userFragmentMock

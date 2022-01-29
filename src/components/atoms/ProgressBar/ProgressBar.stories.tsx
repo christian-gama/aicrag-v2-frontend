@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import ProgressBarComponent from './ProgressBar'
+import { ProgressBar as ProgressBarComponent } from './ProgressBar'
 
 export default {
   title: 'atoms/Progress Bar',

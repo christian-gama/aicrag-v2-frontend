@@ -1,15 +1,13 @@
 import { keyframes, styleVariants } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { vars } from '@/components/_settings/vars.css'
+import { vars } from '@/components/_settings'
 
-// Keyframes
 const rotateAnimation = keyframes({
   '0%': { transform: 'rotate(0deg)' },
 
   '100%': { transform: 'rotate(360deg)' }
 })
 
-// Variants
 const colorVariants = styleVariants({
   main: {
     fill: vars.colors['navy-600']
@@ -65,7 +63,6 @@ const speedVariants = styleVariants({
   }
 })
 
-// Recipes
 export const loadingSpinnerIconRecipe = recipe({
   base: {
     display: 'inline-block',

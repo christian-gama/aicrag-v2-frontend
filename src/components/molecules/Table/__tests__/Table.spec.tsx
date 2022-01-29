@@ -1,12 +1,12 @@
-import { cleanup, render, screen } from '@testing-library/react'
-import React, { ComponentPropsWithRef } from 'react'
-import DateData from '../DateData'
-import Table from '../Table'
-import Tbody from '../Tbody'
-import Td from '../Td'
-import Th from '../Th'
-import Thead from '../Thead'
-import Tr from '../Tr'
+import { render, cleanup, screen } from '@testing-library/react'
+import { ComponentPropsWithRef } from 'react'
+import { DateData } from '../DateData'
+import { Table } from '../Table'
+import { Tbody } from '../Tbody'
+import { Td } from '../Td'
+import { Th } from '../Th'
+import { Thead } from '../Thead'
+import { Tr } from '../Tr'
 
 const renderTable = (props?: ComponentPropsWithRef<typeof Table>) => {
   return render(

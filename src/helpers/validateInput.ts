@@ -1,6 +1,6 @@
-import { FormStates } from '@/context/models/form/protocols/form.model'
+import { FormStates } from '@/context/models/form'
 
-const validateInput = (config: {
+export const validateInput = (config: {
   state: FormStates
   name: string
   value: any
@@ -18,5 +18,3 @@ const validateInput = (config: {
     [name]: value
   })
 }
-
-export default validateInput

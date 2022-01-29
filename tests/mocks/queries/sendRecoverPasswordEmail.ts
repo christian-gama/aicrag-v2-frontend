@@ -1,9 +1,9 @@
 import { MockedResponse } from '@apollo/client/testing'
 import { SendRecoverPasswordEmailDocument } from '@/external/graphql/generated'
-import sendEmailFragment from '../fragments/sendEmailFragment'
-import variablesMock from '../variables.mock'
+import { mockVariables } from '..'
+import { sendEmailFragment } from '../fragments'
 
-const sendRecoverPasswordEmailMock = (
+export const sendRecoverPasswordEmailMock = (
   input?: {
     email?: string
   },
@@ -12,7 +12,7 @@ const sendRecoverPasswordEmailMock = (
   request: {
     query: SendRecoverPasswordEmailDocument,
     variables: {
-      email: input?.email ?? variablesMock.email
+      email: input?.email ?? mockVariables.email
     }
   },
   result: {
@@ -22,5 +22,3 @@ const sendRecoverPasswordEmailMock = (
   },
   error
 })
-
-export default sendRecoverPasswordEmailMock

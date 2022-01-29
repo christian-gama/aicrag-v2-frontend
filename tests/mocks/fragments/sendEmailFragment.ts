@@ -1,7 +1,5 @@
-import variablesMock from '../variables.mock'
+import { mockVariables } from '..'
 
-const sendEmailFragment = {
-  message: variablesMock.message
+export const sendEmailFragment = {
+  message: mockVariables.message
 } as const
-
-export default sendEmailFragment

@@ -1,6 +1,5 @@
-import { createGlobalTheme, style } from '@vanilla-extract/css'
-import { breakpoints } from '@/components/_settings/breakpoints.css'
-import { vars } from '@/components/_settings/vars.css'
+import { style, createGlobalTheme } from '@vanilla-extract/css'
+import { vars, breakpoints } from '@/components/_settings'
 
 export const horizontalScrollBarVars = createGlobalTheme(':root', {
   width: '100%'

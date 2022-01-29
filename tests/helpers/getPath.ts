@@ -1,4 +1,4 @@
-const getPath = () => {
+export const getPath = () => {
   const { origin, href, search } = location
   const replacedHref = href.replace(origin, '')
   const replacedSearch = search.replace('?', '')
@@ -7,5 +7,3 @@ const getPath = () => {
 
   return result
 }
-
-export default getPath

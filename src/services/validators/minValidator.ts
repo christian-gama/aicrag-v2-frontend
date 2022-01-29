@@ -1,8 +1,8 @@
-import Maybe from '@/helpers/typescript/maybe.model'
-import InvalidFieldError from '../errors/invalidFieldError'
-import IFieldValidation from './protocols/fieldValidation.model'
+import { Maybe } from '@/helpers'
+import { InvalidFieldError } from '../errors'
+import { IFieldValidation } from './protocols/fieldValidation.model'
 
-class MinValidator implements IFieldValidation {
+export class MinValidator implements IFieldValidation {
   constructor (readonly field: string, private readonly min: number) {}
 
   validate (input: Record<string, any>): Maybe<Error> {
@@ -16,5 +16,3 @@ class MinValidator implements IFieldValidation {
     }
   }
 }
-
-export default MinValidator

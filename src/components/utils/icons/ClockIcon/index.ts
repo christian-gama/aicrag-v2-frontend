@@ -1,1 +1,1 @@
-export { default } from './ClockIcon'
+export * from './ClockIcon'

@@ -1,8 +1,11 @@
 import { ApolloLink } from '@apollo/client'
-import makeAccessTokenStorage from '@/external/factories/storage/auth/makeAccessTokenStorage'
-import makeRefreshTokenStorage from '@/external/factories/storage/auth/makeRefreshTokenStorage'
+import {
+  makeAccessTokenStorage,
+  makeRefreshTokenStorage
+} from '@/external/factories/storage/auth'
+import { authVar } from '../reactiveVars'
 
-const authLink = new ApolloLink((operation, forward) => {
+export const authLink = new ApolloLink((operation, forward) => {
   const accessTokenStorage = makeAccessTokenStorage()
   const refreshTokenStorage = makeRefreshTokenStorage()
 
@@ -30,12 +33,19 @@ const authLink = new ApolloLink((operation, forward) => {
 
       const refreshToken = headers.get('x-refresh-token') as string
       if (refreshToken) {
+        authVar.login()
         refreshTokenStorage.set(refreshToken)
+      }
+
+      if (!accessToken || !refreshToken) {
+        authVar.logout()
+      }
+
+      if (accessToken && !refreshToken) {
+        authVar.partialLogin()
       }
     }
 
     return response
   })
 })
-
-export default authLink

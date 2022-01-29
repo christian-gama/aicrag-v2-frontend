@@ -1,8 +1,6 @@
-import validators from '@/external/helpers/validators'
-import ValidatorComposite from '../../composites/validatorComposite'
+import { ValidatorComposite } from '@/external/composites'
+import { validators } from '@/external/helpers'
 
-const makeTimerValidator = (): ValidatorComposite => {
+export const makeTimerValidator = (): ValidatorComposite => {
   return ValidatorComposite.build([...validators.hour, ...validators.minute])
 }
-
-export default makeTimerValidator

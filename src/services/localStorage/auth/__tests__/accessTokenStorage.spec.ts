@@ -1,4 +1,4 @@
-import AccessTokenStorage from '../accessTokenStorage'
+import { AccessTokenStorage } from '..'
 
 const makeSut = () => {
   return new AccessTokenStorage()

@@ -1,8 +1,7 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import React from 'react'
-import { MemoryRouter, Route, Routes } from 'react-router-dom'
-import arrayFrom from '@/tests/helpers/arrayFrom'
-import MenuComponent from './Menu'
+import { MemoryRouter, Routes, Route } from 'react-router-dom'
+import { arrayFrom } from '@/tests/helpers'
+import { Menu as MenuComponent } from './Menu'
 
 type Args<T extends unknown> = T & {
   buttonsCount: number

@@ -1,7 +1,6 @@
 import { createGlobalTheme, style } from '@vanilla-extract/css'
 import { calc } from '@vanilla-extract/css-utils'
-import { breakpoints } from '@/components/_settings/breakpoints.css'
-import { vars } from '@/components/_settings/vars.css'
+import { vars, breakpoints } from '@/components/_settings'
 
 export const tableRowVars = createGlobalTheme(':root', {
   roundness: '5px',

@@ -1,25 +1,28 @@
-import React from 'react'
 import ReactDOM from 'react-dom'
-import useBackdrop from './hooks/useBackdrop'
-import * as style from './stylesheet'
+import { useBackdrop } from './hooks'
+import * as classes from './stylesheet'
 
 type BackdropProps = {
-  isOpen?: boolean
   onDismiss?: VoidFunction
+  isOpen?: boolean
 }
 
-const Backdrop: React.FC<BackdropProps> = ({ children, isOpen, onDismiss }) => {
+export const Backdrop: React.FC<BackdropProps> = ({
+  onDismiss,
+  children,
+  isOpen
+}) => {
   const { dismissOnClickHandler, isOpenState } = useBackdrop({
+    onDismiss,
     children,
-    isOpen,
-    onDismiss
+    isOpen
   })
 
   const element = isOpenState && (
     <div
-      className={style.backdrop}
-      data-testid="backdrop"
       onClick={dismissOnClickHandler}
+      className={classes.backdrop}
+      data-testid="backdrop"
     >
       {children}
     </div>
@@ -29,5 +32,3 @@ const Backdrop: React.FC<BackdropProps> = ({ children, isOpen, onDismiss }) => {
 
   return ReactDOM.createPortal(element, overlayRoot)
 }
-
-export default Backdrop

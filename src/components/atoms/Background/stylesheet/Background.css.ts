@@ -1,7 +1,6 @@
 import { createGlobalTheme } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { breakpoints } from '@/components/_settings/breakpoints.css'
-import { vars } from '@/components/_settings/vars.css'
+import { breakpoints, vars } from '@/components/_settings'
 
 export const backgroundVars = createGlobalTheme(':root', {
   height: ''

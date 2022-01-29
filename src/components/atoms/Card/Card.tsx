@@ -1,7 +1,6 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
-import React from 'react'
-import * as styles from './stylesheet'
 import { CardVariants } from './stylesheet'
+import * as classes from './stylesheet'
 
 type CardProps = {
   centered?: CardVariants['centered']
@@ -15,14 +14,14 @@ type CardProps = {
   }
 }
 
-const Card: React.FC<CardProps> = ({
+export const Card: React.FC<CardProps> = ({
   transparent,
   roundness,
   centered,
   children,
   style
 }) => {
-  const cardStyle = styles.cardRecipe({
+  const cardClasses = classes.cardRecipe({
     transparent,
     roundness,
     centered
@@ -31,8 +30,8 @@ const Card: React.FC<CardProps> = ({
   return (
     <div
       data-testid="card"
-      className={cardStyle}
-      style={assignInlineVars(styles.cardVars, {
+      className={cardClasses}
+      style={assignInlineVars(classes.cardVars, {
         height: style?.height ?? 'max-content',
         width: style?.width ?? 'max-content',
         padding: style?.padding ?? '0',
@@ -49,5 +48,3 @@ Card.defaultProps = {
   centered: false,
   roundness: 'md'
 }
-
-export default Card

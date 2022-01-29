@@ -1,12 +1,11 @@
 import {
   createGlobalTheme,
+  styleVariants,
   keyframes,
-  style,
-  styleVariants
+  style
 } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { breakpoints } from '@/components/_settings/breakpoints.css'
-import { vars } from '@/components/_settings/vars.css'
+import { vars, breakpoints } from '@/components/_settings'
 
 export const popoverVars = createGlobalTheme(':root', {
   duration: '0.3s'

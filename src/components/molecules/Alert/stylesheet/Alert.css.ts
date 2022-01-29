@@ -1,7 +1,6 @@
-import { style, styleVariants } from '@vanilla-extract/css'
+import { styleVariants, style } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { breakpoints } from '@/components/_settings/breakpoints.css'
-import { vars } from '@/components/_settings/vars.css'
+import { vars, breakpoints } from '@/components/_settings'
 
 const colorVariants = styleVariants({
   danger: {

@@ -1,14 +1,12 @@
 import { DateTime } from 'luxon'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import getFormattedTime from '@/helpers/getFormattedTime'
-import timerIncreaser from '@/helpers/timerIncreaser'
-import { calendarActions } from '@/context/models/calendar/calendar.actions'
-import { CalendarStates } from '@/context/models/calendar/protocols/calendar.model'
+import { getFormattedTime, timerIncreaser } from '@/helpers'
+import { calendarActions, CalendarStates } from '@/context/models/calendar'
 import { AppDispatch, RootState } from '@/context/store'
-import makeTimerValidator from '@/external/factories/validation/makeTimerValidator'
+import { makeTimerValidator } from '@/external/factories/validation'
 
-const useCalendarTimer = () => {
+export const useCalendarTimer = () => {
   const { setSelectedDate } = calendarActions
   const validation = makeTimerValidator()
 
@@ -102,12 +100,10 @@ const useCalendarTimer = () => {
   }
 
   return {
-    hours,
-    minutes,
-    onBlurHandler,
+    onKeyDownHandler,
     onChangeHandler,
-    onKeyDownHandler
+    onBlurHandler,
+    minutes,
+    hours
   }
 }
-
-export default useCalendarTimer

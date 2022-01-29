@@ -1,1 +1,1 @@
-export { default } from './LoadingSpinnerIcon'
+export * from './LoadingSpinnerIcon'

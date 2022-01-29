@@ -1,9 +1,10 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import React from 'react'
-import { AllProviders } from '@/tests/helpers/renderWithProviders'
-import resetPasswordMock from '@/tests/mocks/queries/resetPassword.mock'
-import verifyResetPasswordTokenMock from '@/tests/mocks/queries/verifyResetPasswordToken.mock'
-import ResetPasswordFormComponent from './ResetPasswordForm'
+import { AllProviders } from '@/tests/helpers'
+import {
+  verifyResetPasswordTokenMock,
+  resetPasswordMock
+} from '@/tests/mocks/queries'
+import { ResetPasswordForm as ResetPasswordFormComponent } from './ResetPasswordForm'
 
 export default {
   title: 'templates/Entry/Reset Password Form',

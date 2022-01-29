@@ -1,18 +1,15 @@
-import { cleanup, render, screen } from '@testing-library/react'
+import { render, cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
-import Button from '../Button'
+import { Button } from '../Button'
 
-const mockedFunction = jest.fn()
-jest.mock(
-  '../../../utils/icons/LoadingSpinnerIcon',
-  () =>
-    function mockedComponent (props: any) {
-      mockedFunction(props)
+const mockFunction = jest.fn()
+jest.mock('../../../utils/icons', () => ({
+  LoadingSpinnerIcon: (props: any) => {
+    mockFunction(props)
 
-      return null
-    }
-)
+    return null
+  }
+}))
 
 describe('Button', () => {
   afterEach(() => {
@@ -67,7 +64,7 @@ describe('Button', () => {
   it('calls LoadingSpinner with white color if does not have a mode defined', async () => {
     render(<Button loading />)
 
-    expect(mockedFunction).toHaveBeenCalledWith(
+    expect(mockFunction).toHaveBeenCalledWith(
       expect.objectContaining({
         style: { color: 'white', size: expect.anything() }
       })
@@ -77,7 +74,7 @@ describe('Button', () => {
   it('calls LoadingSpinner with main color if mode is equal to outlined', async () => {
     render(<Button loading style={{ mode: 'outlined' }} />)
 
-    expect(mockedFunction).toHaveBeenCalledWith(
+    expect(mockFunction).toHaveBeenCalledWith(
       expect.objectContaining({
         style: { color: 'main', size: expect.anything() }
       })

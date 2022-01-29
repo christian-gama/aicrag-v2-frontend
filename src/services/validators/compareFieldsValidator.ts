@@ -1,8 +1,8 @@
-import Maybe from '@/helpers/typescript/maybe.model'
-import InvalidFieldError from '../errors/invalidFieldError'
-import IFieldValidation from './protocols/fieldValidation.model'
+import { Maybe } from '@/helpers'
+import { InvalidFieldError } from '../errors'
+import { IFieldValidation } from './protocols/fieldValidation.model'
 
-class CompareFieldsValidator implements IFieldValidation {
+export class CompareFieldsValidator implements IFieldValidation {
   constructor (
     readonly field: string,
     private readonly fieldToCompare: string
@@ -20,5 +20,3 @@ class CompareFieldsValidator implements IFieldValidation {
     }
   }
 }
-
-export default CompareFieldsValidator

@@ -1,7 +1,5 @@
-import RefreshTokenStorage from '@/services/localStorage/auth/refreshTokenStorage'
+import { RefreshTokenStorage } from '@/services/localStorage/auth'
 
-const makeRefreshTokenStorage = () => {
+export const makeRefreshTokenStorage = () => {
   return new RefreshTokenStorage()
 }
-
-export default makeRefreshTokenStorage

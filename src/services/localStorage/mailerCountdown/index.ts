@@ -1,1 +1,1 @@
-export { default } from './mailerCountdownStorage'
+export * from './mailerCountdownStorage'

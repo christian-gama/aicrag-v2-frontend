@@ -1,18 +1,15 @@
-import makeValidationMock from '@/../tests/mocks/validator.mock'
 import {
-  fireEvent,
-  screen,
   act,
   cleanup,
+  fireEvent,
+  screen,
   waitFor
 } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
-import { popoverVar } from '@/external/graphql/reactiveVars/popoverVar'
-import OverlayRoot from '@/tests/helpers/overlayRoot'
-import renderWithProviders from '@/tests/helpers/renderWithProviders'
-import ControlForm from '../ControlForm'
-import ControlInput from '../ControlInput'
+import { popoverVar } from '@/external/graphql/reactiveVars'
+import { OverlayRoot, renderWithProviders } from '@/tests/helpers'
+import { ControlForm, ControlInput } from '..'
+import { makeMockValidation } from '@/tests/mocks'
 
 describe('Control', () => {
   const overlayRoot = new OverlayRoot()
@@ -77,7 +74,7 @@ describe('Control', () => {
       renderWithProviders(
         <ControlForm
           submitHandler={jest.fn()}
-          validator={makeValidationMock(validatorSpy)}
+          validator={makeMockValidation(validatorSpy)}
         >
           <ControlInput name="title" label="Title" defaultValue="Any Value" />
         </ControlForm>
@@ -118,7 +115,7 @@ describe('Control', () => {
       renderWithProviders(
         <ControlForm
           submitHandler={jest.fn()}
-          validator={makeValidationMock(jest.fn().mockReturnValue('any_error'))}
+          validator={makeMockValidation(jest.fn().mockReturnValue('any_error'))}
         >
           <ControlInput name="title" label="Title" />
         </ControlForm>
@@ -176,7 +173,7 @@ describe('Control', () => {
       renderWithProviders(
         <ControlForm
           submitHandler={jest.fn()}
-          validator={makeValidationMock(validateSpy)}
+          validator={makeMockValidation(validateSpy)}
         >
           <ControlInput name="title" label="Title" />
         </ControlForm>
@@ -259,7 +256,7 @@ describe('Control', () => {
         renderWithProviders(
           <ControlForm
             submitHandler={jest.fn()}
-            validator={makeValidationMock(
+            validator={makeMockValidation(
               jest.fn().mockReturnValue('any_error')
             )}
           >
@@ -277,7 +274,7 @@ describe('Control', () => {
         renderWithProviders(
           <ControlForm
             submitHandler={jest.fn()}
-            validator={makeValidationMock(jest.fn())}
+            validator={makeMockValidation(jest.fn())}
           >
             <ControlInput label="Title" name="title" />
           </ControlForm>
@@ -310,7 +307,7 @@ describe('Control', () => {
         renderWithProviders(
           <ControlForm
             submitHandler={jest.fn()}
-            validator={makeValidationMock(
+            validator={makeMockValidation(
               jest.fn().mockReturnValue('any_error')
             )}
           >
@@ -328,7 +325,7 @@ describe('Control', () => {
         renderWithProviders(
           <ControlForm
             submitHandler={jest.fn()}
-            validator={makeValidationMock(
+            validator={makeMockValidation(
               jest.fn().mockReturnValue('any_error')
             )}
           >
@@ -347,7 +344,7 @@ describe('Control', () => {
         renderWithProviders(
           <ControlForm
             submitHandler={jest.fn()}
-            validator={makeValidationMock(jest.fn())}
+            validator={makeMockValidation(jest.fn())}
           >
             <ControlInput label="Title" name="title" />
           </ControlForm>

@@ -1,5 +1,5 @@
 import { createGlobalTheme, style } from '@vanilla-extract/css'
-import { breakpoints } from '@/components/_settings/breakpoints.css'
+import { breakpoints } from '@/components/_settings'
 
 export const windowDimensionVars = createGlobalTheme(':root', {
   height: ''

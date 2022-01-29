@@ -1,17 +1,16 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
-import React from 'react'
 import { Link } from 'react-router-dom'
-import useWindowDimensions from '@/components/_hooks/useWindowDimensions'
-import Background from '@/components/atoms/Background'
-import Card from '@/components/atoms/Card'
-import Center from '@/components/utils/Center'
-import Divider from '@/components/utils/Divider'
-import BackIcon from '@/components/utils/icons/BackIcon'
-import H2 from '@/components/utils/texts/H2'
-import H3 from '@/components/utils/texts/H3'
-import * as style from './stylesheet'
+import { useWindowDimensions } from '@/components/_hooks'
+import { Background } from '@/components/atoms/Background'
+import { Card } from '@/components/atoms/Card'
+import { Center } from '@/components/utils/Center'
+import { Divider } from '@/components/utils/Divider'
+import { BackIcon } from '@/components/utils/icons'
+import { H2 } from '@/components/utils/texts/H2'
+import { H3 } from '@/components/utils/texts/H3'
+import * as classes from './stylesheet'
 
-const ForgotPasswordCard: React.FC = ({ children }) => {
+export const ForgotPasswordCard: React.FC = ({ children }) => {
   const { width, height } = useWindowDimensions()
 
   return (
@@ -19,12 +18,12 @@ const ForgotPasswordCard: React.FC = ({ children }) => {
       <Center stickMobile>
         <Card roundness={width <= 520 ? 'none' : 'md'}>
           <div
-            className={style.forgotPasswordCard}
-            style={assignInlineVars(style.windowDimensionVars, {
+            className={classes.forgotPasswordCard}
+            style={assignInlineVars(classes.windowDimensionVars, {
               height: `${height}px`
             })}
           >
-            <header className={style.forgotPasswordCardHeader}>
+            <header className={classes.forgotPasswordCardHeader}>
               <nav>
                 <Link to="/entry/sign-in" aria-label="Voltar">
                   <BackIcon />
@@ -51,5 +50,3 @@ const ForgotPasswordCard: React.FC = ({ children }) => {
     </Background>
   )
 }
-
-export default ForgotPasswordCard

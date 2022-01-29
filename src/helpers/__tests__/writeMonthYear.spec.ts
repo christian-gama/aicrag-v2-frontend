@@ -1,4 +1,4 @@
-import writeMonthYear from '../writeMonthYear'
+import { writeMonthYear } from '..'
 
 describe('writeMonthYear', () => {
   it('returns the month and year separated by comma', () => {

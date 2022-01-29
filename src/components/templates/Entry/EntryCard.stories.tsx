@@ -1,7 +1,6 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import React from 'react'
-import { AllProviders } from '@/tests/helpers/renderWithProviders'
-import EntryCardComponent from './EntryCard'
+import { AllProviders } from '@/tests/helpers'
+import { EntryCard as EntryCardComponent } from './EntryCard'
 
 export default {
   title: 'templates/entry/Entry Card',

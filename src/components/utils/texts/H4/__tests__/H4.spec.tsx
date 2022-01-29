@@ -1,6 +1,5 @@
-import { cleanup, render, screen } from '@testing-library/react'
-import React from 'react'
-import H4 from '../H4'
+import { render, cleanup, screen } from '@testing-library/react'
+import { H4 } from '..'
 
 describe('H4', () => {
   afterEach(() => {

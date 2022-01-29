@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import Popover from './Popover'
+import { Popover } from './Popover'
 
 export default {
   title: 'molecules/Popover',

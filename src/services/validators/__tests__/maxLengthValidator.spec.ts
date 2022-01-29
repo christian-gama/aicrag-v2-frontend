@@ -1,6 +1,5 @@
-import InvalidFieldError from '@/services/errors/invalidFieldError'
-import IFieldValidation from '@/services/validators/protocols/fieldValidation.model'
-import MaxLengthValidator from '../maxLengthValidator'
+import { InvalidFieldError } from '@/services/errors'
+import { IFieldValidation, MaxLengthValidator } from '..'
 
 const makeSut = (): IFieldValidation => {
   return new MaxLengthValidator('field', 5)

@@ -1,7 +1,6 @@
+import { InvalidFieldError } from '@/services/errors'
 import faker from 'faker'
-import InvalidFieldError from '@/services/errors/invalidFieldError'
-import IFieldValidation from '@/services/validators/protocols/fieldValidation.model'
-import EmailValidator from '../emailValidator'
+import { IFieldValidation, EmailValidator } from '..'
 
 const makeSut = (): IFieldValidation => {
   return new EmailValidator('field')

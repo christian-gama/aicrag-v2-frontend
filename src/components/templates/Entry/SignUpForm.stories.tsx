@@ -1,9 +1,7 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import React from 'react'
-import { AllProviders } from '@/tests/helpers/renderWithProviders'
-import sendWelcomeEmailMock from '@/tests/mocks/queries/sendWelcomeEmail.mock'
-import signUpMock from '@/tests/mocks/queries/signUp.mock'
-import SignUpFormComponent from './SignUpForm'
+import { AllProviders } from '@/tests/helpers'
+import { signUpMock, sendWelcomeEmailMock } from '@/tests/mocks/queries'
+import { SignUpForm as SignUpFormComponent } from './SignUpForm'
 
 export default {
   title: 'templates/Entry/Sign Up Form',

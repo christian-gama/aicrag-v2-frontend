@@ -1,10 +1,12 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { mailerCountdownActions } from '@/context/models/mailerCountdown/mailerCountdown.actions'
-import { MailerCountdownStates } from '@/context/models/mailerCountdown/protocols/mailerCountdown.model'
+import {
+  MailerCountdownStates,
+  mailerCountdownActions
+} from '@/context/models/mailerCountdown'
 import { AppDispatch, RootState } from '@/context/store'
 
-const useMailerCountdown = () => {
+export const useMailerCountdown = () => {
   const dispatch = useDispatch<AppDispatch>()
   const { isOnCountdown, timeLeftInSeconds } = useSelector<
   RootState,
@@ -34,5 +36,3 @@ const useMailerCountdown = () => {
     }
   }, [isOnCountdown])
 }
-
-export default useMailerCountdown

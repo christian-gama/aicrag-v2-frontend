@@ -1,18 +1,15 @@
-import React from 'react'
-import * as style from './stylesheet'
+import * as classes from './stylesheet'
 
 type DateDataProps = {
   primaryDate: string
   secondaryDate: string
 }
 
-const DateData: React.FC<DateDataProps> = ({ primaryDate, secondaryDate }) => {
+export const DateData: React.FC<DateDataProps> = ({ primaryDate, secondaryDate }) => {
   return (
-    <div className={style.dateData} data-testid="table-date-data">
-      <span className={style.dateDataTextPrimary}>{primaryDate}</span>
+    <div className={classes.dateData} data-testid="table-date-data">
+      <span className={classes.dateDataTextPrimary}>{primaryDate}</span>
       <span>{secondaryDate}</span>
     </div>
   )
 }
-
-export default DateData

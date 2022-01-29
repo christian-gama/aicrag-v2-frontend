@@ -1,12 +1,9 @@
-import React from 'react'
-import * as style from './stylesheet'
+import * as classes from './stylesheet'
 
-const Tbody: React.FC = ({ children }) => {
+export const Tbody: React.FC = ({ children }) => {
   return (
-    <tbody className={style.tableBody} data-testid="table-tbody">
+    <tbody className={classes.tableBody} data-testid="table-tbody">
       {children}
     </tbody>
   )
 }
-
-export default Tbody

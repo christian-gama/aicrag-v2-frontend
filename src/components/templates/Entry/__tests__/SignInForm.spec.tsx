@@ -1,13 +1,10 @@
+import { authVar } from '@/external/graphql/reactiveVars'
+import { OverlayRoot, renderWithProviders, waitFetch } from '@/tests/helpers'
+import { mockVariables } from '@/tests/mocks'
+import { loginMock } from '@/tests/mocks/queries'
 import { cleanup, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
-import { authVar } from '@/external/graphql/reactiveVars/authVar'
-import OverlayRoot from '@/tests/helpers/overlayRoot'
-import renderWithProviders from '@/tests/helpers/renderWithProviders'
-import waitFetch from '@/tests/helpers/waitFetch'
-import loginMock from '@/tests/mocks/queries/login.mock'
-import variablesMock from '@/tests/mocks/variables.mock'
-import SignInForm from '../SignInForm'
+import { SignInForm } from '..'
 
 describe('SignInForm', () => {
   const overlayRoot = new OverlayRoot()
@@ -33,8 +30,8 @@ describe('SignInForm', () => {
     const form = screen.getByTestId('form')
     const [email, password] = screen.getAllByTestId('base-input')
 
-    userEvent.type(email, variablesMock.email)
-    userEvent.type(password, variablesMock.password)
+    userEvent.type(email, mockVariables.email)
+    userEvent.type(password, mockVariables.password)
     fireEvent.submit(form)
     await waitFetch()
 
@@ -49,8 +46,8 @@ describe('SignInForm', () => {
     const form = screen.getByTestId('form')
     const [email, password] = screen.getAllByTestId('base-input')
 
-    userEvent.type(email, variablesMock.email)
-    userEvent.type(password, variablesMock.password)
+    userEvent.type(email, mockVariables.email)
+    userEvent.type(password, mockVariables.password)
     fireEvent.submit(form)
     await waitFetch()
 
@@ -65,8 +62,8 @@ describe('SignInForm', () => {
     const form = screen.getByTestId('form')
     const [email, password] = screen.getAllByTestId('base-input')
 
-    userEvent.type(email, variablesMock.email)
-    userEvent.type(password, variablesMock.password)
+    userEvent.type(email, mockVariables.email)
+    userEvent.type(password, mockVariables.password)
     fireEvent.submit(form)
     await waitFetch()
 
@@ -82,8 +79,8 @@ describe('SignInForm', () => {
     const form = screen.getByTestId('form')
     const [email, password] = screen.getAllByTestId('base-input')
 
-    userEvent.type(email, variablesMock.email)
-    userEvent.type(password, variablesMock.password)
+    userEvent.type(email, mockVariables.email)
+    userEvent.type(password, mockVariables.password)
     fireEvent.submit(form)
     await waitFetch()
 

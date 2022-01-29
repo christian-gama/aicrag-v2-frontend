@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
-import Storage from '@/services/localStorage/protocols/storage.model'
+import { Storage } from '../protocols'
 
-class MailerCountdownStorage implements Storage {
+export class MailerCountdownStorage implements Storage {
   get () {
     return localStorage.getItem('mailerCountdown')
   }
@@ -19,5 +19,3 @@ class MailerCountdownStorage implements Storage {
     localStorage.removeItem('mailerCountdown')
   }
 }
-
-export default MailerCountdownStorage

@@ -1,7 +1,6 @@
-import React from 'react'
-import Maybe from '@/helpers/typescript/maybe.model'
-import IValidation from '@/services/validators/protocols/validation.model'
-import BaseInput from '@/components/atoms/BaseInput'
+import { Maybe } from '@/helpers'
+import { IValidation } from '@/services/validators'
+import { BaseInput } from '@/components/atoms/BaseInput'
 
 type Object<T extends unknown> = { [key: string]: T }
 

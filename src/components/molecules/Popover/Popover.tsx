@@ -1,15 +1,17 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
-import React, { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
-import getDuration from '../../../helpers/getDuration'
-import CheckCircleIcon from '../../utils/icons/CheckCircleIcon'
-import CloseIcon from '../../utils/icons/CloseIcon'
-import ErrorIcon from '../../utils/icons/ErrorIcon'
-import InfoCircleIcon from '../../utils/icons/InfoCircleIcon'
-import P from '../../utils/texts/P'
-import PopoverMessageList from './PopoverMessageList'
-import * as style from './stylesheet'
+import { getDuration } from '@/helpers'
+import {
+  CheckCircleIcon,
+  ErrorIcon,
+  InfoCircleIcon
+} from '@/components/utils/icons'
+import { CloseIcon } from '@/components/utils/icons/CloseIcon'
+import { P } from '@/components/utils/texts/P'
+import { PopoverMessageList } from './PopoverMessageList'
 import { PopoverVariants } from './stylesheet'
+import * as classes from './stylesheet'
 
 type PopoverProps = {
   type: PopoverVariants['type']
@@ -20,7 +22,7 @@ type PopoverProps = {
   isOpen?: boolean
 }
 
-const Popover: React.FC<PopoverProps> = ({
+export const Popover: React.FC<PopoverProps> = ({
   minDuration = 3,
   message,
   isOpen,
@@ -57,15 +59,15 @@ const Popover: React.FC<PopoverProps> = ({
     }
   }
 
-  const popoverStyle = style.popoverRecipe({
+  const popoverStyle = classes.popoverRecipe({
     type
   })
 
-  const progressBarStyle = style.progressBarRecipe({
+  const progressBarStyle = classes.progressBarRecipe({
     type
   })
 
-  const progressBarWrapperStyle = style.progressBarWrapperRecipe({
+  const progressBarWrapperStyle = classes.progressBarWrapperRecipe({
     type
   })
 
@@ -75,12 +77,14 @@ const Popover: React.FC<PopoverProps> = ({
 
   return ReactDOM.createPortal(
     <div
-      style={assignInlineVars(style.popoverVars, { duration: `${duration}s` })}
+      style={assignInlineVars(classes.popoverVars, {
+        duration: `${duration}s`
+      })}
       className={popoverStyle}
       data-testid="popover"
     >
-      <div className={style.popoverContent}>
-        <div className={style.popoverTextWrapper}>
+      <div className={classes.popoverContent}>
+        <div className={classes.popoverTextWrapper}>
           {renderIcon()}
           {Array.isArray(message)
             ? (
@@ -92,7 +96,7 @@ const Popover: React.FC<PopoverProps> = ({
         </div>
 
         <div
-          className={style.popoverButtonWrapper}
+          className={classes.popoverButtonWrapper}
           onClick={() => {
             if (onClose) onClose()
             setIsOpenState(false)
@@ -114,5 +118,3 @@ const Popover: React.FC<PopoverProps> = ({
     overlayRoot
   )
 }
-
-export default Popover

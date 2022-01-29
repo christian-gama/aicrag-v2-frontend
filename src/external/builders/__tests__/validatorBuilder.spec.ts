@@ -1,13 +1,15 @@
-import CompareFieldsValidator from '@/services/validators/compareFieldsValidator'
-import EmailValidator from '@/services/validators/emailValidator'
-import IsNumberValidator from '@/services/validators/isNumberValidator'
-import MaxLengthValidator from '@/services/validators/maxLengthValidator'
-import MaxValidator from '@/services/validators/maxValidator'
-import MinLengthValidator from '@/services/validators/minLengthValidator'
-import MinValidator from '@/services/validators/minValidator'
-import Regex from '@/services/validators/regex'
-import RequiredFieldValidator from '@/services/validators/requiredFieldValidator'
-import ValidatorBuilder from '../validatorBuilder'
+import {
+  EmailValidator,
+  IsNumberValidator,
+  MaxValidator,
+  MaxLengthValidator,
+  MinValidator,
+  MinLengthValidator,
+  RequiredFieldValidator,
+  CompareFieldsValidator,
+  Regex
+} from '@/services/validators'
+import { ValidatorBuilder } from '..'
 
 describe('ValidatorBuilder', () => {
   it('returns a new instance when using field method', () => {

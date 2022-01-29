@@ -1,38 +1,23 @@
-import { cleanup, render, screen } from '@testing-library/react'
+import { OverlayRoot, advanceTimer } from '@/tests/helpers'
+import { render, cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
-import advanceTimer from '@/tests/helpers/advanceTimer'
-import OverlayRoot from '@/tests/helpers/overlayRoot'
-import Popover from '../Popover'
+import { Popover } from '..'
 
-const mockedFunction = jest.fn()
-jest.mock(
-  '../../../utils/icons/CheckCircleIcon',
-  () =>
-    function mockedComponent (props: any) {
-      mockedFunction(props)
-
-      return null
-    }
-)
-jest.mock(
-  '../../../utils/icons/ErrorIcon',
-  () =>
-    function mockedComponent (props: any) {
-      mockedFunction(props)
-
-      return null
-    }
-)
-jest.mock(
-  '../../../utils/icons/InfoCircleIcon',
-  () =>
-    function mockedComponent (props: any) {
-      mockedFunction(props)
-
-      return null
-    }
-)
+const mockFunction = jest.fn()
+jest.mock('../../../utils/icons', () => ({
+  CheckCircleIcon: (props: any) => {
+    mockFunction(props)
+    return null
+  },
+  InfoCircleIcon: (props: any) => {
+    mockFunction(props)
+    return null
+  },
+  ErrorIcon: (props: any) => {
+    mockFunction(props)
+    return null
+  }
+}))
 
 describe('Popover', () => {
   const overlayRoot = new OverlayRoot()
@@ -121,7 +106,7 @@ describe('Popover', () => {
   it('calls CheckCircleIcon with correct props if type is success', () => {
     render(<Popover isOpen message="" type="success" />)
 
-    expect(mockedFunction).toHaveBeenCalledWith({
+    expect(mockFunction).toHaveBeenCalledWith({
       color: 'white',
       size: expect.anything()
     })
@@ -130,7 +115,7 @@ describe('Popover', () => {
   it('calls ErrorIcon with correct props if type is error', () => {
     render(<Popover isOpen message="" type="error" />)
 
-    expect(mockedFunction).toHaveBeenCalledWith({
+    expect(mockFunction).toHaveBeenCalledWith({
       color: 'white',
       size: expect.anything()
     })
@@ -139,7 +124,7 @@ describe('Popover', () => {
   it('calls InfoCircleIcon with correct props if type is info', () => {
     render(<Popover isOpen message="" type="info" />)
 
-    expect(mockedFunction).toHaveBeenCalledWith({
+    expect(mockFunction).toHaveBeenCalledWith({
       color: 'white',
       size: expect.anything()
     })

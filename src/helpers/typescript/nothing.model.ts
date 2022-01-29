@@ -1,3 +1,1 @@
-type Nothing = null | undefined
-
-export default Nothing
+export type Nothing = null | undefined

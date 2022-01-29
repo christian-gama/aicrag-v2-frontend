@@ -1,8 +1,8 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { OverlayRoot } from '@/tests/helpers'
+import { fireEvent } from '@testing-library/dom'
+import { render, cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
-import OverlayRoot from '@/tests/helpers/overlayRoot'
-import Backdrop from '..'
+import { Backdrop } from '..'
 
 describe('Backdrop', () => {
   const overlayRoot = new OverlayRoot()

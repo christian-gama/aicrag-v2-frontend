@@ -1,8 +1,5 @@
-import React from 'react'
-import * as style from './stylesheet'
+import * as classes from './stylesheet'
 
-const Divider: React.FC = () => {
-  return <div className={style.divider} data-testid="divider" />
+export const Divider: React.FC = () => {
+  return <div className={classes.divider} data-testid="divider" />
 }
-
-export default Divider

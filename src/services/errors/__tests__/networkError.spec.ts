@@ -1,4 +1,4 @@
-import NetworkError from '../connectionError'
+import { NetworkError } from '..'
 
 describe('InvalidInputError', () => {
   it('is a class', () => {

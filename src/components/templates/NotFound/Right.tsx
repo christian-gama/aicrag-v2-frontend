@@ -1,20 +1,19 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import useWindowDimensions from '@/components/_hooks/useWindowDimensions'
-import Button from '@/components/atoms/Button'
-import H1 from '@/components/utils/texts/H1'
-import H2 from '@/components/utils/texts/H2'
-import H3 from '@/components/utils/texts/H3'
-import H4 from '@/components/utils/texts/H4'
-import * as style from './stylesheet'
+import { useWindowDimensions } from '@/components/_hooks'
+import { Button } from '@/components/atoms/Button'
+import { H1 } from '@/components/utils/texts/H1'
+import { H2 } from '@/components/utils/texts/H2'
+import { H3 } from '@/components/utils/texts/H3'
+import { H4 } from '@/components/utils/texts/H4'
+import * as classes from './stylesheet'
 
-const Right: React.FC = () => {
+export const Right: React.FC = () => {
   const { width } = useWindowDimensions()
   const navigate = useNavigate()
 
   return (
-    <div className={style.right}>
-      <div className={style.textArea}>
+    <div className={classes.right}>
+      <div className={classes.textArea}>
         {width <= 520
           ? (
           <>
@@ -36,7 +35,7 @@ const Right: React.FC = () => {
             )}
       </div>
 
-      <div className={style.buttonArea}>
+      <div className={classes.buttonArea}>
         <Button style={{ size: 'lg' }} onClick={() => navigate('/')}>
           Home
         </Button>
@@ -44,5 +43,3 @@ const Right: React.FC = () => {
     </div>
   )
 }
-
-export default Right

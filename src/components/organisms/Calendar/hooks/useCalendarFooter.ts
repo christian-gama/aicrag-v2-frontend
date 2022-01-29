@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { calendarActions } from '@/context/models/calendar/calendar.actions'
-import { CalendarStates } from '@/context/models/calendar/protocols/calendar.model'
+import { calendarActions, CalendarStates } from '@/context/models/calendar'
 import { AppDispatch, RootState } from '@/context/store'
 
-const useCalendarFooter = () => {
+export const useCalendarFooter = () => {
   const { closeCalendar, saveCalendar, resetCalendar } = calendarActions
 
   const dispatch = useDispatch<AppDispatch>()
@@ -26,5 +25,3 @@ const useCalendarFooter = () => {
     onCancelHandler
   }
 }
-
-export default useCalendarFooter

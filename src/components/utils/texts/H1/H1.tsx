@@ -1,12 +1,12 @@
-import React from 'react'
-import * as style from './stylesheet'
+import { H1RecipeVariants } from './stylesheet'
+import * as classes from './stylesheet'
 
 type H1Props = {
-  color?: style.H1RecipeVariants['color']
+  color?: H1RecipeVariants['color']
 }
 
-const H1: React.FC<H1Props> = ({ children, color }) => {
-  const h1Style = style.h1Recipe({
+export const H1: React.FC<H1Props> = ({ children, color }) => {
+  const h1Style = classes.h1Recipe({
     color
   })
 
@@ -20,5 +20,3 @@ const H1: React.FC<H1Props> = ({ children, color }) => {
 H1.defaultProps = {
   color: 'text'
 }
-
-export default H1

@@ -1,8 +1,7 @@
 import { cleanup, screen } from '@testing-library/react'
-import React from 'react'
-import useWindowDimensions from '@/components/_hooks/useWindowDimensions'
-import renderWithProviders from '@/tests/helpers/renderWithProviders'
-import EntryCard from '../EntryCard'
+import { useWindowDimensions } from '@/components/_hooks'
+import { renderWithProviders } from '@/tests/helpers'
+import { EntryCard } from '..'
 
 jest.mock('../../../_hooks/useWindowDimensions')
 const useWindowDimensionsMock = useWindowDimensions as jest.Mock

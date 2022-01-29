@@ -1,6 +1,5 @@
-import React from 'react'
-import HorizontalScrollBar from '../../utils/HorizontalScrollBar'
-import * as style from './stylesheet'
+import { HorizontalScrollBar } from '@/components/utils/HorizontalScrollBar'
+import * as classes from './stylesheet'
 
 type TableProps = {
   showingUp?: {
@@ -9,23 +8,21 @@ type TableProps = {
   }
 }
 
-const Table: React.FC<TableProps> = ({ children, showingUp }) => {
+export const Table: React.FC<TableProps> = ({ children, showingUp }) => {
   return (
     <>
       {showingUp && (
         <span
-          className={style.tableSpanShowingup}
+          className={classes.tableSpanShowingup}
           data-testid="table-showing-up"
         >{`Mostrando ${showingUp?.current} de ${showingUp.total}`}</span>
       )}
 
       <HorizontalScrollBar>
-        <table className={style.tableStyle} data-testid="table">
+        <table className={classes.tableStyle} data-testid="table">
           {children}
         </table>
       </HorizontalScrollBar>
     </>
   )
 }
-
-export default Table

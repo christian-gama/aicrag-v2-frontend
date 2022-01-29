@@ -1,4 +1,4 @@
-import translateInputName from '../translateInputName'
+import { translateInputName } from '..'
 
 describe('translateInputName', () => {
   it('translates the value', () => {

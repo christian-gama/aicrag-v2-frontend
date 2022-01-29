@@ -1,14 +1,13 @@
-import React from 'react'
-import CalendarButtonWrapper from './CalendarButtonWrapper'
-import CalendarTimer from './CalendarTimer'
-import useCalendarFooter from './hooks/useCalendarFooter'
-import * as style from './stylesheet'
+import { CalendarButtonWrapper } from './CalendarButtonWrapper'
+import { CalendarTimer } from './CalendarTimer'
+import { useCalendarFooter } from './hooks'
+import * as classes from './stylesheet'
 
-const CalendarFooter: React.FC = () => {
+export const CalendarFooter: React.FC = () => {
   const { onCancelHandler, onConfirmHandler } = useCalendarFooter()
 
   return (
-    <div className={style.calendarFooter} data-testid="calendar-footer">
+    <div className={classes.calendarFooter} data-testid="calendar-footer">
       <CalendarTimer />
 
       <CalendarButtonWrapper
@@ -18,5 +17,3 @@ const CalendarFooter: React.FC = () => {
     </div>
   )
 }
-
-export default CalendarFooter

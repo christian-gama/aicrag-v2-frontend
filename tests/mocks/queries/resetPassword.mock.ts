@@ -1,27 +1,25 @@
 import { MockedResponse } from '@apollo/client/testing'
 import { ResetPasswordDocument } from '@/external/graphql/generated'
-import userFragmentMock from '../fragments/userFragment.mock'
-import variablesMock from '../variables.mock'
+import { mockVariables } from '..'
+import { userFragmentMock } from '../fragments'
 
-const resetPasswordMock = (
+export const resetPasswordMock = (
   error?: Error
 ): MockedResponse<Record<string, any>> => ({
   request: {
     query: ResetPasswordDocument,
     variables: {
-      password: variablesMock.password,
-      passwordConfirmation: variablesMock.passwordConfirmation
+      password: mockVariables.password,
+      passwordConfirmation: mockVariables.passwordConfirmation
     }
   },
   result: {
     data: {
       resetPassword: {
-        refreshToken: variablesMock.token,
+        refreshToken: mockVariables.token,
         ...userFragmentMock
       }
     }
   },
   error
 })
-
-export default resetPasswordMock

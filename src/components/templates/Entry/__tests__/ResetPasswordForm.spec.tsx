@@ -1,13 +1,12 @@
-import { fireEvent, userEvent } from '@storybook/testing-library'
-import { cleanup, screen } from '@testing-library/react'
-import React from 'react'
-import OverlayRoot from '@/tests/helpers/overlayRoot'
-import renderWithProviders from '@/tests/helpers/renderWithProviders'
-import waitFetch from '@/tests/helpers/waitFetch'
-import resetPasswordMock from '@/tests/mocks/queries/resetPassword.mock'
-import verifyResetPasswordTokenMock from '@/tests/mocks/queries/verifyResetPasswordToken.mock'
-import variablesMock from '@/tests/mocks/variables.mock'
-import ResetPasswordForm from '../ResetPasswordForm'
+import { cleanup, fireEvent, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { OverlayRoot, renderWithProviders, waitFetch } from '@/tests/helpers'
+import { mockVariables } from '@/tests/mocks'
+import {
+  verifyResetPasswordTokenMock,
+  resetPasswordMock
+} from '@/tests/mocks/queries'
+import { ResetPasswordForm } from '..'
 
 const mockNavigate = jest.fn()
 jest.mock('react-router-dom', () => ({
@@ -55,8 +54,8 @@ describe('ResetPasswordForm', () => {
     const form = screen.getByTestId('form')
     const [password, passwordConfirmation] = screen.getAllByTestId('base-input')
 
-    userEvent.type(password, variablesMock.password)
-    userEvent.type(passwordConfirmation, variablesMock.passwordConfirmation)
+    userEvent.type(password, mockVariables.password)
+    userEvent.type(passwordConfirmation, mockVariables.passwordConfirmation)
     fireEvent.submit(form)
     await waitFetch()
 

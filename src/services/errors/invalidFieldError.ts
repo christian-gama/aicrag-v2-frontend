@@ -1,6 +1,6 @@
-import capitalize from '@/helpers/capitalize'
+import { capitalize } from '@/helpers'
 
-class InvalidFieldError extends Error {
+export class InvalidFieldError extends Error {
   constructor (
     public readonly field: string,
     protected readonly reason: string
@@ -10,5 +10,3 @@ class InvalidFieldError extends Error {
     this.name = 'InvalidInputError'
   }
 }
-
-export default InvalidFieldError

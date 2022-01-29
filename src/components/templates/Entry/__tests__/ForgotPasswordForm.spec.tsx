@@ -1,13 +1,9 @@
 import { cleanup, fireEvent, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
-import OverlayRoot from '@/tests/helpers/overlayRoot'
-import renderWithProviders from '@/tests/helpers/renderWithProviders'
-import waitFetch from '@/tests/helpers/waitFetch'
-import forgotPasswordMock from '@/tests/mocks/queries/forgotPassword.mock'
-import sendRecoverPasswordEmailMock from '@/tests/mocks/queries/sendRecoverPasswordEmail'
-import variablesMock from '@/tests/mocks/variables.mock'
-import ForgotPasswordForm from '../ForgotPasswordForm'
+import { OverlayRoot, renderWithProviders, waitFetch } from '@/tests/helpers'
+import { mockVariables } from '@/tests/mocks'
+import { forgotPasswordMock, sendRecoverPasswordEmailMock } from '@/tests/mocks/queries'
+import { ForgotPasswordForm } from '..'
 
 describe('ForgotPasswordForm', () => {
   const overlayRoot = new OverlayRoot()
@@ -36,7 +32,7 @@ describe('ForgotPasswordForm', () => {
     const inputs = screen.getAllByTestId('base-input')
     const email = inputs[0]
 
-    userEvent.type(email, variablesMock.email)
+    userEvent.type(email, mockVariables.email)
     fireEvent.submit(forgotPasswordForm)
     await waitFetch()
 

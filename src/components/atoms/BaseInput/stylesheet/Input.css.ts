@@ -1,9 +1,7 @@
-import { style, styleVariants } from '@vanilla-extract/css'
+import { styleVariants, style } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { breakpoints } from '@/components/_settings/breakpoints.css'
-import { vars } from '@/components/_settings/vars.css'
+import { vars, breakpoints } from '@/components/_settings'
 
-// Variants
 const inputStateVariants = styleVariants({
   error: {
     boxShadow: `0 0 0 1px ${vars.colors['danger-400']}`,
@@ -67,7 +65,6 @@ const labelStateVariants = styleVariants({
   }
 })
 
-// Styles
 export const input = style({
   display: 'flex',
   flexDirection: 'column',
@@ -102,7 +99,6 @@ export const inputIcon = style({
   backgroundColor: vars.colors.white
 })
 
-// Recipes
 export const inputRecipe = recipe({
   base: {
     border: 'none',

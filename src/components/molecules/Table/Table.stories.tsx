@@ -1,8 +1,6 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import faker from 'faker'
-import React from 'react'
-import arrayFrom from '@/tests/helpers/arrayFrom'
-import randomNumber from '@/tests/helpers/randomNumber'
+import { randomNumber, arrayFrom } from '@/tests/helpers'
 import TableComponent from '.'
 
 const randomCapitalizedWord = () =>

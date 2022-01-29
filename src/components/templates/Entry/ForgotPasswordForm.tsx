@@ -1,20 +1,21 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import FormContext from '@/context/models/form/form.context'
-import { mailerCountdownActions } from '@/context/models/mailerCountdown/mailerCountdown.actions'
-import { MailerCountdownStates } from '@/context/models/mailerCountdown/protocols/mailerCountdown.model'
+import { FormContext } from '@/context/models/form'
+import {
+  mailerCountdownActions,
+  MailerCountdownStates
+} from '@/context/models/mailerCountdown'
 import { AppDispatch, RootState } from '@/context/store'
-import Button from '@/components/atoms/Button'
-import ControlForm from '@/components/organisms/Control/ControlForm'
-import ControlInput from '@/components/organisms/Control/ControlInput'
-import makeForgotPasswordValidator from '@/external/factories/validation/makeForgotPasswordValidation'
+import { Button } from '@/components/atoms/Button'
+import { ControlForm, ControlInput } from '@/components/organisms/Control'
+import { makeForgotPasswordValidator } from '@/external/factories/validation'
 import {
   useForgotPasswordMutation,
   useSendRecoverPasswordEmailMutation
 } from '@/external/graphql/generated'
-import * as style from './stylesheet'
+import * as classes from './stylesheet'
 
-const ForgotPasswordForm: React.FC = () => {
+export const ForgotPasswordForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const { startCountdown } = mailerCountdownActions
   const { isOnCountdown, timeLeftInSeconds } = useSelector<
@@ -46,8 +47,8 @@ const ForgotPasswordForm: React.FC = () => {
       validator={makeForgotPasswordValidator()}
       submitHandler={onSubmitHandler}
     >
-      <div className={style.forgotPasswordForm}>
-        <div className={style.forgotPasswordFormInputWrapper}>
+      <div className={classes.forgotPasswordForm}>
+        <div className={classes.forgotPasswordFormInputWrapper}>
           <ControlInput
             autoComplete="email"
             label="Seu email"
@@ -70,5 +71,3 @@ const ForgotPasswordForm: React.FC = () => {
     </ControlForm>
   )
 }
-
-export default ForgotPasswordForm

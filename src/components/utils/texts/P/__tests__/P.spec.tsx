@@ -1,6 +1,5 @@
-import { cleanup, render, screen } from '@testing-library/react'
-import React from 'react'
-import P from '../P'
+import { render, cleanup, screen } from '@testing-library/react'
+import { P } from '..'
 
 describe('P', () => {
   afterEach(() => {

@@ -1,12 +1,12 @@
-import React from 'react'
-import * as style from './stylesheet'
+import * as classes from './stylesheet'
+import { PRecipeVariants } from './stylesheet'
 
 type PProps = {
-  color?: style.PRecipeVariants['color']
+  color?: PRecipeVariants['color']
 }
 
-const P: React.FC<PProps> = ({ children, color }) => {
-  const pStyle = style.pRecipe({
+export const P: React.FC<PProps> = ({ children, color }) => {
+  const pStyle = classes.pRecipe({
     color
   })
 
@@ -20,5 +20,3 @@ const P: React.FC<PProps> = ({ children, color }) => {
 P.defaultProps = {
   color: 'text'
 }
-
-export default P

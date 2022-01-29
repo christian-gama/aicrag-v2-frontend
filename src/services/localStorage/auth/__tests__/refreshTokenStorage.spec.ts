@@ -1,4 +1,4 @@
-import RefreshTokenStorage from '../refreshTokenStorage'
+import { RefreshTokenStorage } from '..'
 
 const makeSut = () => {
   return new RefreshTokenStorage()

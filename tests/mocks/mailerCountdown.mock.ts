@@ -1,5 +1,5 @@
-import { Reducer } from 'react'
-import { mailerCountdownReducer } from '@/context/models/mailerCountdown/mailerCountdown.reducer'
+import { Reducer } from 'redux'
+import { mailerCountdownReducer } from '@/context/models/mailerCountdown'
 import { RootState } from '@/context/store'
 
 type Store = {
@@ -7,7 +7,7 @@ type Store = {
   preloadedState: Partial<RootState>
 }
 
-const mailerCountdownMock: Store = {
+export const mailerCountdownMock: Store = {
   reducer: { mailerCountdown: mailerCountdownReducer },
   preloadedState: {
     mailerCountdown: {
@@ -16,5 +16,3 @@ const mailerCountdownMock: Store = {
     }
   }
 }
-
-export default mailerCountdownMock

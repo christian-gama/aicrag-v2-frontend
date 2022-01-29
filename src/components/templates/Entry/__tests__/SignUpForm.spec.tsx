@@ -1,14 +1,10 @@
+import { popoverVar } from '@/external/graphql/reactiveVars'
+import { OverlayRoot, renderWithProviders, waitFetch } from '@/tests/helpers'
+import { mockVariables } from '@/tests/mocks'
+import { signUpMock, sendWelcomeEmailMock } from '@/tests/mocks/queries'
 import { cleanup, fireEvent, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
-import { popoverVar } from '@/external/graphql/reactiveVars/popoverVar'
-import OverlayRoot from '@/tests/helpers/overlayRoot'
-import renderWithProviders from '@/tests/helpers/renderWithProviders'
-import waitFetch from '@/tests/helpers/waitFetch'
-import sendWelcomeEmailMock from '@/tests/mocks/queries/sendWelcomeEmail.mock'
-import signUpMock from '@/tests/mocks/queries/signUp.mock'
-import variablesMock from '@/tests/mocks/variables.mock'
-import SignUpForm from '../SignUpForm'
+import { SignUpForm } from '..'
 
 describe('SignUpForm', () => {
   const overlayRoot = new OverlayRoot()
@@ -38,10 +34,10 @@ describe('SignUpForm', () => {
     const [name, email, password, passwordConfirmation] =
       screen.getAllByTestId('base-input')
 
-    userEvent.type(name, variablesMock.name)
-    userEvent.type(email, variablesMock.email)
-    userEvent.type(password, variablesMock.password)
-    userEvent.type(passwordConfirmation, variablesMock.password)
+    userEvent.type(name, mockVariables.name)
+    userEvent.type(email, mockVariables.email)
+    userEvent.type(password, mockVariables.password)
+    userEvent.type(passwordConfirmation, mockVariables.password)
     fireEvent.submit(form)
     await waitFetch()
 

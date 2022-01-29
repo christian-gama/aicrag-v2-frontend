@@ -1,4 +1,4 @@
-import isDateExpired from '../isDateExpired'
+import { isDateExpired } from '..'
 
 describe('isDateExpired', () => {
   it('returns true if date is expired', () => {

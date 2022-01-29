@@ -1,27 +1,28 @@
-import React from 'react'
-import * as styles from './stylesheet'
 import { LoadingSpinnerVariants } from './stylesheet'
+import * as classes from './stylesheet'
 
 type LoadingSpinnerIconProps = {
   style?: {
     color?: LoadingSpinnerVariants['color']
     speed?: LoadingSpinnerVariants['speed']
-    size?: LoadingSpinnerVariants['size']
     space?: LoadingSpinnerVariants['space']
+    size?: LoadingSpinnerVariants['size']
   }
 }
 
-const LoadingSpinnerIcon: React.FC<LoadingSpinnerIconProps> = ({ style }) => {
-  const loadingSpinnerStyle = styles.loadingSpinnerIconRecipe({
+export const LoadingSpinnerIcon: React.FC<LoadingSpinnerIconProps> = ({
+  style
+}) => {
+  const loadingSpinnerStyle = classes.loadingSpinnerIconRecipe({
     ...style
   })
 
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 48 48"
-      className={loadingSpinnerStyle}
       data-testid="loading-spinner-icon"
+      className={loadingSpinnerStyle}
+      viewBox="0 0 48 48"
     >
       <path
         id="spinner-icon"
@@ -39,5 +40,3 @@ LoadingSpinnerIcon.defaultProps = {
     space: 'md'
   }
 }
-
-export default LoadingSpinnerIcon

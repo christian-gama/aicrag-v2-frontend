@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import React from 'react'
-import makeValidationMock from '@/tests/mocks/validator.mock'
-import BaseInput from '../BaseInput'
+import { makeMockValidation } from '@/tests/mocks'
+import { BaseInput } from '../BaseInput'
 
 describe('BaseInput ', () => {
   it('renders correctly', () => {
@@ -15,7 +14,7 @@ describe('BaseInput ', () => {
   it("has an error state if validator is defined, the input is not valid and it's touched", () => {
     render(
       <BaseInput
-        validator={makeValidationMock(jest.fn())}
+        validator={makeMockValidation(jest.fn())}
         label="Any name"
         name="any_name"
         isTouched
@@ -31,7 +30,7 @@ describe('BaseInput ', () => {
   it('has a success state if has a validator and input is valid', () => {
     render(
       <BaseInput
-        validator={makeValidationMock(jest.fn())}
+        validator={makeMockValidation(jest.fn())}
         label="Any name"
         name="any_name"
         isTouched
@@ -60,7 +59,7 @@ describe('BaseInput ', () => {
       <BaseInput
         label="Any name"
         name="any_name"
-        validator={makeValidationMock(jest.fn())}
+        validator={makeMockValidation(jest.fn())}
       />
     )
 

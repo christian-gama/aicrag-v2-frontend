@@ -1,8 +1,7 @@
-import React from 'react'
-import { Navigate, Outlet } from 'react-router-dom'
-import { useAuth } from '../graphql/reactiveVars/authVar'
+import { Outlet, Navigate } from 'react-router-dom'
+import { useAuth } from '../graphql/reactiveVars'
 
-const ProtectedRoute: React.FC = () => {
+export const ProtectedRoute: React.FC = () => {
   const { isAuthenticated, isPartiallyAuthenticated } = useAuth()
 
   return isAuthenticated && !isPartiallyAuthenticated
@@ -13,5 +12,3 @@ const ProtectedRoute: React.FC = () => {
     <Navigate replace to="/entry/sign-in" />
       )
 }
-
-export default ProtectedRoute

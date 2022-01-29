@@ -1,4 +1,4 @@
-import { FormInputActionPayload, FormStates } from './protocols/form.model'
+import { FormStates, FormInputActionPayload } from './protocols/form.model'
 
 export const setInputIsValid = (
   state: FormStates,

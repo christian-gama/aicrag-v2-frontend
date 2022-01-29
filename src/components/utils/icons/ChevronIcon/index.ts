@@ -1,1 +1,1 @@
-export { default } from './ChevronIcon'
+export * from './ChevronIcon'

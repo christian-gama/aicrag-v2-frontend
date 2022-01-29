@@ -1,9 +1,12 @@
-import { render, screen } from '@testing-library/react'
-import React from 'react'
+import { cleanup, render, screen } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
-import Menu from '../Menu'
+import { Menu } from '..'
 
 describe('Menu', () => {
+  afterEach(() => {
+    cleanup()
+  })
+
   it('renders correctly', () => {
     render(<Menu buttons={[]} />, {
       wrapper: BrowserRouter

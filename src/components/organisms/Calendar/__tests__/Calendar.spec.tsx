@@ -1,13 +1,11 @@
-import { screen, cleanup, fireEvent } from '@testing-library/react'
+import { calendarActions } from '@/context/models/calendar'
+import { AppDispatch } from '@/context/store'
+import { renderWithProviders, OverlayRoot } from '@/tests/helpers'
+import { cleanup, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { DateTime } from 'luxon'
-import React from 'react'
 import { useDispatch } from 'react-redux'
-import { calendarActions } from '@/context/models/calendar/calendar.actions'
-import { AppDispatch } from '@/context/store'
-import Calendar from '..'
-import OverlayRoot from '@/tests/helpers/overlayRoot'
-import renderWithProviders from '@/tests/helpers/renderWithProviders'
+import { Calendar } from '..'
 
 const DummyButton = () => {
   const dispatch = useDispatch<AppDispatch>()

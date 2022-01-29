@@ -1,7 +1,6 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import React from 'react'
-import { AllProviders } from '@/tests/helpers/renderWithProviders'
-import ForgotPasswordCardComponent from './ForgotPasswordCard'
+import { AllProviders } from '@/tests/helpers'
+import { ForgotPasswordCard as ForgotPasswordCardComponent } from './ForgotPasswordCard'
 
 export default {
   title: 'templates/entry/Forgot Password Card',

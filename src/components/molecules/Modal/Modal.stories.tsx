@@ -1,8 +1,5 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import { screen, userEvent } from '@storybook/testing-library'
-import React from 'react'
-import sleep from '@/tests/helpers/sleep'
-import Modal from './Modal'
+import { Modal } from './Modal'
 
 export default {
   title: 'molecules/Modal',
@@ -43,11 +40,5 @@ export const WithDismissHandler: ComponentStoryObj<typeof Modal> = {
   args: {
     onDismiss: () =>
       alert('This component was dismissed by clicking on the backdrop.')
-  },
-  play: async () => {
-    await sleep()
-    const backdrop = screen.getByTestId('backdrop')
-
-    await userEvent.click(backdrop)
   }
 }

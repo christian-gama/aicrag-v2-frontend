@@ -1,7 +1,6 @@
-import React from 'react'
-import BaseInput from '../../atoms/BaseInput/BaseInput'
-import EyeIcon from '../../utils/icons/EyeIcon'
-import useControlInput from './hooks/useControlInput'
+import { BaseInput } from '@/components/atoms/BaseInput'
+import { EyeIcon } from '@/components/utils/icons'
+import { useControlInput } from './hooks'
 
 type ControlInputProps = {
   type?: React.ComponentPropsWithRef<typeof BaseInput>['type']
@@ -17,7 +16,7 @@ React.InputHTMLAttributes<HTMLInputElement>,
 /**
  * @description Must be used inside a Form component with FormProvider
  */
-const ControlInput: React.FC<
+export const ControlInput: React.FC<
 Omit<ControlInputProps, 'uniqueFormName' | 'validation'>
 > = ({
   autoComplete,
@@ -91,5 +90,3 @@ Omit<ControlInputProps, 'uniqueFormName' | 'validation'>
     />
   )
 }
-
-export default ControlInput

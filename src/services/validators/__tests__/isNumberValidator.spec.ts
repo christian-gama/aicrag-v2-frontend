@@ -1,6 +1,5 @@
-import InvalidFieldError from '@/services/errors/invalidFieldError'
-import IFieldValidation from '@/services/validators/protocols/fieldValidation.model'
-import IsNumberValidator from '../isNumberValidator'
+import { InvalidFieldError } from '@/services/errors'
+import { IFieldValidation, IsNumberValidator } from '..'
 
 const makeSut = (): IFieldValidation => {
   return new IsNumberValidator('field')

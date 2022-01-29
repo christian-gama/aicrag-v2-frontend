@@ -1,6 +1,6 @@
-import Storage from '@/services/localStorage/protocols/storage.model'
+import { Storage } from '../protocols'
 
-class RefreshTokenStorage implements Storage {
+export class RefreshTokenStorage implements Storage {
   get () {
     return localStorage.getItem('refreshToken')
   }
@@ -13,5 +13,3 @@ class RefreshTokenStorage implements Storage {
     localStorage.removeItem('refreshToken')
   }
 }
-
-export default RefreshTokenStorage

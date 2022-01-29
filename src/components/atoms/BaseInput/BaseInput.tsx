@@ -1,22 +1,20 @@
-import React from 'react'
-import translateError from '@/helpers/translateError'
-import Maybe from '@/helpers/typescript/maybe.model'
-import IValidation from '@/services/validators/protocols/validation.model'
-import * as style from './stylesheet'
+import { Maybe, translateError } from '@/helpers'
+import { IValidation } from '@/services/validators'
+import * as classes from './stylesheet'
 
 type BaseInputProps = {
   type?: 'email' | 'password' | 'text' | 'number' | 'search'
   error?: Maybe<Error['message']>
+  icon?: () => React.ReactNode
   validator?: IValidation
   isFocused?: boolean
   isTouched?: boolean
   isValid?: boolean
   label: string
   name: string
-  icon?: () => React.ReactNode
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>
 
-const BaseInput: React.FC<BaseInputProps> = ({
+export const BaseInput: React.FC<BaseInputProps> = ({
   isFocused,
   isTouched,
   validator,
@@ -29,7 +27,7 @@ const BaseInput: React.FC<BaseInputProps> = ({
   type,
   ...rest
 }) => {
-  const getState = (): style.LabelRecipeVariants['state'] => {
+  const getState = (): classes.LabelRecipeVariants['state'] => {
     if (validator) {
       if (!isValid && isTouched) {
         return 'error'
@@ -43,19 +41,19 @@ const BaseInput: React.FC<BaseInputProps> = ({
     return 'default'
   }
 
-  const labelStyle = style.labelRecipe({
+  const labelStyle = classes.labelRecipe({
     float: !!isFocused || value !== '',
     state: getState()
   })
 
-  const inputStyle = style.inputRecipe({
+  const inputStyle = classes.inputRecipe({
     hasIcon: !!icon || type === 'password',
     state: getState()
   })
 
   return (
-    <div className={style.input} data-testid={'base-input-wrapper'}>
-      <div className={style.inputContent}>
+    <div className={classes.input} data-testid={'base-input-wrapper'}>
+      <div className={classes.inputContent}>
         <label
           data-testid={'base-input-label'}
           htmlFor={name}
@@ -64,7 +62,7 @@ const BaseInput: React.FC<BaseInputProps> = ({
           {label}
         </label>
 
-        <div className={style.inputBox}>
+        <div className={classes.inputBox}>
           <input
             {...rest}
             className={inputStyle}
@@ -77,7 +75,7 @@ const BaseInput: React.FC<BaseInputProps> = ({
           />
 
           {icon && (
-            <div data-testid={'base-input-icon'} className={style.inputIcon}>
+            <div data-testid={'base-input-icon'} className={classes.inputIcon}>
               {icon()}
             </div>
           )}
@@ -85,12 +83,10 @@ const BaseInput: React.FC<BaseInputProps> = ({
       </div>
 
       {error && (
-        <div data-testid={'base-input-error'} className={style.inputError}>
+        <div data-testid={'base-input-error'} className={classes.inputError}>
           {translateError(error)}
         </div>
       )}
     </div>
   )
 }
-
-export default BaseInput

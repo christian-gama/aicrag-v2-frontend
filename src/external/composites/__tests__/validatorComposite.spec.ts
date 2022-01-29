@@ -1,8 +1,6 @@
-import InvalidFieldError from '@/services/errors/invalidFieldError'
-import CompareFieldsValidator from '@/services/validators/compareFieldsValidator'
-import IFieldValidation from '@/services/validators/protocols/fieldValidation.model'
-import RequiredFieldValidator from '@/services/validators/requiredFieldValidator'
-import ValidatorComposite from '../validatorComposite'
+import { InvalidFieldError } from '@/services/errors'
+import { IFieldValidation, RequiredFieldValidator, CompareFieldsValidator } from '@/services/validators'
+import { ValidatorComposite } from '..'
 
 const makeSut = (validators: IFieldValidation[]) => {
   return new ValidatorComposite(validators)

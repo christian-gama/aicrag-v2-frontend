@@ -1,6 +1,5 @@
-import { cleanup, render, screen } from '@testing-library/react'
-import React from 'react'
-import ErrorIcon from '../ErrorIcon'
+import { render, cleanup, screen } from '@testing-library/react'
+import { ErrorIcon } from '..'
 
 describe('ErrorIcon ', () => {
   afterEach(() => {

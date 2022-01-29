@@ -1,4 +1,4 @@
-import InvalidFieldError from '../invalidFieldError'
+import { InvalidFieldError } from '..'
 
 describe('InvalidInputError', () => {
   it('is a class', () => {

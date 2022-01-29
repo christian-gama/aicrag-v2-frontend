@@ -1,8 +1,6 @@
-import variablesMock from '../variables.mock'
+import { mockVariables } from '..'
 
-const tokenFragmentMock = (type: 'access' | 'refresh') =>
+export const tokenFragmentMock = (type: 'access' | 'refresh') =>
   ({
-    [type]: variablesMock.token
+    [type]: mockVariables.token
   } as const)
-
-export default tokenFragmentMock

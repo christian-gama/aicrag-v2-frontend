@@ -1,9 +1,10 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
-import React from 'react'
-import { AllProviders } from '@/tests/helpers/renderWithProviders'
-import resetPasswordMock from '@/tests/mocks/queries/resetPassword.mock'
-import verifyResetPasswordTokenMock from '@/tests/mocks/queries/verifyResetPasswordToken.mock'
-import ResetPasswordComponent from './ResetPassword'
+import { AllProviders } from '@/tests/helpers'
+import {
+  verifyResetPasswordTokenMock,
+  resetPasswordMock
+} from '@/tests/mocks/queries'
+import { ResetPassword as ResetPasswordComponent } from './ResetPassword'
 
 export default {
   title: 'views/entry/Reset Password',
