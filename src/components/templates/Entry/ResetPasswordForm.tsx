@@ -57,6 +57,7 @@ const ResetPasswordForm: React.FC = () => {
   return (
     <div data-testid="reset-password">
       <ControlForm
+        successMessage="Senha alterada com sucesso. Você foi autenticado e redirecionado para a página inicial"
         validator={makeResetPasswordValidation()}
         loading={state.form.isSubmitting}
         submitHandler={submitHandler}
