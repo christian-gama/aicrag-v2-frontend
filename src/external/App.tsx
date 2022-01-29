@@ -2,10 +2,10 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import useMailerCountdown from '@/components/_hooks/useMailerCountdown'
 import Popover from '@/components/molecules/Popover'
-import ResetPasswordForm from '@/components/templates/Entry/ResetPasswordForm'
 import Center from '@/components/utils/Center'
 import LoadingSpinnerIcon from '@/components/utils/icons/LoadingSpinnerIcon'
 import ForgotPassword from '@/components/views/Entry/ForgotPassword'
+import ResetPassword from '@/components/views/Entry/ResetPassword'
 import SignIn from '@/components/views/Entry/SignIn'
 import SignUp from '@/components/views/Entry/SignUp'
 import NotFound from '@/components/views/NotFound'
@@ -36,7 +36,7 @@ const App = () => {
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="sign-in" element={<SignIn />} />
           <Route path="sign-up" element={<SignUp />} />
-          <Route path="reset-password/:token" element={<ResetPasswordForm />} />
+          <Route path="reset-password/:token" element={<ResetPassword />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

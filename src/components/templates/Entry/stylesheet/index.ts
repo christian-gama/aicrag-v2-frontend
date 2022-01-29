@@ -1,5 +1,7 @@
 export * from './EntryCard.css'
 export * from './ForgotPasswordCard.css'
 export * from './ForgotPasswordForm.css'
+export * from './ResetPasswordCard.css'
+export * from './ResetPasswordForm.css'
 export * from './SignInForm.css'
 export * from './SignUpForm.css'
