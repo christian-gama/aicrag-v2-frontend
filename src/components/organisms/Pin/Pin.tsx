@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from '@/components/atoms/Card'
 import { Center } from '@/components/utils/Center'
@@ -6,13 +7,31 @@ import { BackIcon } from '@/components/utils/icons'
 import { H2 } from '@/components/utils/texts/H2'
 import * as classes from './stylesheet'
 
-export const Pin: React.FC = () => {
+type PinProps =
+  | {
+    isPage: true
+    to: string
+  }
+  | {
+    isPage: false
+    isOpen: boolean
+  }
+
+export const Pin: React.FC<PinProps> = (props) => {
+  const [, setIsOpen] = useState(false)
+
   return (
     <Center>
       <Card>
         <div className={classes.pin} data-testid="pin">
           <div className={classes.pinHeader}>
-            <Link to="/" aria-label="Voltar">
+            <Link
+              to={props.isPage ? props.to : ''}
+              aria-label="Voltar"
+              onClick={
+                props.isPage ? undefined : () => setIsOpen((prev) => !prev)
+              }
+            >
               <BackIcon />
             </Link>
 
