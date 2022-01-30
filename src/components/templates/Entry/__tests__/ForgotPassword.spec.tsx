@@ -1,5 +1,6 @@
 import { cleanup, fireEvent, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { useWindowDimensions } from '@/components/_hooks'
 import { OverlayRoot, renderWithProviders, waitFetch } from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
 import {
@@ -8,15 +9,20 @@ import {
 } from '@/tests/mocks/queries'
 import { ForgotPassword } from '..'
 
+jest.mock('../../../_hooks/useWindowDimensions')
+const useWindowDimensionsMock = useWindowDimensions as jest.Mock
+
 describe('ForgotPassword', () => {
   const overlayRoot = new OverlayRoot()
 
   afterEach(() => {
     cleanup()
     overlayRoot.removeOverlayRoot()
+    useWindowDimensionsMock.mockRestore()
   })
 
   beforeEach(() => {
+    useWindowDimensionsMock.mockReturnValue({ width: 520, height: 520 })
     overlayRoot.addOverlayRoot()
   })
 
@@ -46,5 +52,13 @@ describe('ForgotPassword', () => {
 
       expect(countdown).toBeInTheDocument()
     })
+  })
+
+  it('renders with text even with view width lesser or equal to 520', async () => {
+    useWindowDimensionsMock.mockReturnValue({ width: 520 })
+    renderWithProviders(<ForgotPassword />)
+    const text = screen.getByText(/esqueceu/gi)
+
+    expect(text).toBeInTheDocument()
   })
 })

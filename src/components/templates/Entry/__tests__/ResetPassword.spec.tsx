@@ -1,5 +1,6 @@
 import { cleanup, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { useWindowDimensions } from '@/components/_hooks'
 import { OverlayRoot, renderWithProviders, waitFetch } from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
 import {
@@ -14,15 +15,20 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockNavigate
 }))
 
+jest.mock('../../../_hooks/useWindowDimensions')
+const useWindowDimensionsMock = useWindowDimensions as jest.Mock
+
 describe('ResetPassword', () => {
   const overlayRoot = new OverlayRoot()
 
   afterEach(() => {
     cleanup()
     overlayRoot.removeOverlayRoot()
+    useWindowDimensionsMock.mockRestore()
   })
 
   beforeEach(() => {
+    useWindowDimensionsMock.mockReturnValue({ width: 520, height: 520 })
     overlayRoot.addOverlayRoot()
   })
 
@@ -78,5 +84,16 @@ describe('ResetPassword', () => {
     await waitFetch()
 
     expect(mockNavigate).toHaveBeenCalled()
+  })
+
+  it('renders with text even with view width lesser or equal to 520', async () => {
+    useWindowDimensionsMock.mockReturnValue({ width: 520 })
+    renderWithProviders(<ResetPassword />, {
+      apolloMocks: [verifyResetPasswordTokenMock()]
+    })
+    await waitFetch()
+    const text = screen.getByText(/resete/gi)
+
+    expect(text).toBeInTheDocument()
   })
 })
