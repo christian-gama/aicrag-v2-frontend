@@ -19,7 +19,7 @@ export const Router = () => {
         <Route path="sign-in" element={<SignInView />} />
         <Route path="sign-up" element={<SignUpView />} />
         <Route path="reset-password/:token" element={<ResetPasswordView />} />
-        <Route path="confirm-account" element={<ConfirmEmailView />} />
+        <Route path="confirm-email" element={<ConfirmEmailView />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

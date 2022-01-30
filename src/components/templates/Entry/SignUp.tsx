@@ -33,7 +33,7 @@ export const SignUp: React.FC = () => {
       }
     })
 
-    return () => setTimeout(() => navigate('/entry/confirm-account'), 125)
+    return () => setTimeout(() => navigate('/entry/confirm-email'), 125)
   }
 
   return (
