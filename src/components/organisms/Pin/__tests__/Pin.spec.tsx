@@ -50,4 +50,11 @@ describe('Pin', () => {
       to: ''
     })
   })
+
+  it('does not render if isOpen is false', () => {
+    render(<Pin isPage={false} isOpen={false} />)
+    const pin = screen.queryByTestId('pin')
+
+    expect(pin).not.toBeInTheDocument()
+  })
 })
