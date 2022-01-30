@@ -3,7 +3,7 @@ import { ResetPassword, EntryCard } from '@/components/templates/Entry'
 
 export const ResetPasswordView: React.FC = () => {
   return (
-    <div data-testid="reset-password">
+    <div data-testid="reset-password-view">
       <EntryCard style={{ height: '48rem' }}>
         <FormProvider>
           <ResetPassword />
