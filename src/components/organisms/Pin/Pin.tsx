@@ -18,7 +18,9 @@ type PinProps =
   }
 
 export const Pin: React.FC<PinProps> = (props) => {
-  const [, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(props.isPage ? undefined : props.isOpen)
+
+  if (isOpen === false) return null
 
   return (
     <Center>
