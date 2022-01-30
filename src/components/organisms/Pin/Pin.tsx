@@ -28,9 +28,9 @@ export const Pin: React.FC<PinProps> = (props) => {
         <div className={classes.pin} data-testid="pin">
           <div className={classes.pinHeader}>
             <Link
+              onClick={props.isPage ? undefined : () => setIsOpen(false)}
               to={props.isPage ? props.to : ''}
               aria-label="Voltar"
-              onClick={props.isPage ? undefined : () => setIsOpen(false)}
             >
               <BackIcon />
             </Link>
