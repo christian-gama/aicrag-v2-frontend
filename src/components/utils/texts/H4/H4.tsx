@@ -5,6 +5,10 @@ type H4Props = {
   color?: H4RecipeVariants['color']
 }
 
+/**
+ * @fontSize 1.8rem
+ * @fontFamily Open Sans
+ */
 export const H4: React.FC<H4Props> = ({ children, color }) => {
   const h4Style = classes.h4Recipe({
     color

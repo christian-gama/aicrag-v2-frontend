@@ -5,6 +5,10 @@ type H2Props = {
   color?: H2RecipeVariants['color']
 }
 
+/**
+ * @fontSize 3.2rem
+ * @fontFamily Lato
+ */
 export const H2: React.FC<H2Props> = ({ children, color }) => {
   const h2Style = classes.h2Recipe({
     color: color

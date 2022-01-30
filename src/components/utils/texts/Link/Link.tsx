@@ -7,6 +7,10 @@ type LinkProps = {
   type?: LinkVariants['type']
 } & ComponentPropsWithRef<typeof RouterLink>
 
+/**
+ * @fontSize 1.4rem
+ * @fontFamily Open Sans
+ */
 export const Link: React.FC<LinkProps> = ({ type, children, ...rest }) => {
   return (
     <RouterLink className={classes.link({ type })} data-testid="link" {...rest}>

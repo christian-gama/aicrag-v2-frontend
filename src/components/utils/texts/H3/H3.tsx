@@ -4,7 +4,10 @@ import { H3RecipeVariants } from './stylesheet'
 type H3Props = {
   color?: H3RecipeVariants['color']
 }
-
+/**
+ * @fontSize 2.8rem
+ * @fontFamily Open Sans
+ */
 export const H3: React.FC<H3Props> = ({ children, color }) => {
   const h3Style = classes.h3Recipe({
     color
