@@ -43,7 +43,7 @@ describe('SignUp', () => {
     userEvent.type(password, mockVariables.password)
     userEvent.type(passwordConfirmation, mockVariables.password)
     fireEvent.submit(form)
-    await waitFetch(150)
+    await waitFetch(160)
 
     expect(mockNavigate).toHaveBeenCalled()
   })
