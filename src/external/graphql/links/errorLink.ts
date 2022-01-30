@@ -7,41 +7,25 @@ import { popoverVar } from '../reactiveVars/popoverVar'
 
 export const errorLink = onError(({ networkError, graphQLErrors }) => {
   if (graphQLErrors && graphQLErrors.length > 0) {
-    for (const error of graphQLErrors) {
-      const errorCode = error.extensions.code
-      const isTokenError = error.message.match(/token/gi)
+    const error = graphQLErrors[0]
+
+    for (const graphQLError of graphQLErrors) {
+      const errorCode = graphQLError.extensions.code
+      const isTokenError = graphQLError.message.match(/token/gi)
 
       if (errorCode === '401' && isTokenError) {
-        authVar.logout()
-
-        const refreshToken = makeRefreshTokenStorage()
-
-        const wasPreviouslyLoggedIn = !!refreshToken.get()
-        if (wasPreviouslyLoggedIn) {
-          popoverVar.setPopover(
-            'Sua sessão expirou. Por favor, entre novamente',
-            'error'
-          )
-        }
-
-        return
+        return handleUnauthenticatedUser()
       }
     }
 
-    const error = graphQLErrors[0]
-
     const isBadInputError = error.extensions.code === 'BAD_USER_INPUT'
     if (isBadInputError) {
-      popoverVar.setPopover(new InternalError().message, 'error')
-
-      return
+      return popoverVar.setPopover(new InternalError().message, 'error')
     }
 
     const isTokenError = !error.message.includes('token')
     if (isTokenError) {
-      popoverVar.setPopover(translateError(error.message), 'error')
-
-      return
+      return popoverVar.setPopover(translateError(error.message), 'error')
     }
 
     return
@@ -51,3 +35,19 @@ export const errorLink = onError(({ networkError, graphQLErrors }) => {
     popoverVar.setPopover(new NetworkError().message, 'error')
   }
 })
+
+const handleUnauthenticatedUser = () => {
+  const refreshTokenStorage = makeRefreshTokenStorage()
+
+  const wasPreviouslyLoggedIn = !!refreshTokenStorage.get()
+  if (wasPreviouslyLoggedIn) {
+    popoverVar.setPopover(
+      'Sua sessão expirou. Faça o login novamente para continuar usando o sistema',
+      'error'
+    )
+  }
+
+  refreshTokenStorage.reset()
+
+  authVar.logout()
+}

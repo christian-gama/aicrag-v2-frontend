@@ -1,15 +1,15 @@
-import { ApolloLink } from '@apollo/client'
+import { ApolloLink, FetchResult } from '@apollo/client'
 import {
   makeAccessTokenStorage,
   makeRefreshTokenStorage
 } from '@/external/factories/storage/auth'
-import { authVar } from '../reactiveVars'
 
 export const authLink = new ApolloLink((operation, forward) => {
+  const { getContext, setContext } = operation
   const accessTokenStorage = makeAccessTokenStorage()
   const refreshTokenStorage = makeRefreshTokenStorage()
 
-  operation.setContext((prevContext: any) => {
+  const setTokensInResponseHeaders = (prevContext: any) => {
     return {
       ...prevContext,
 
@@ -19,11 +19,12 @@ export const authLink = new ApolloLink((operation, forward) => {
         'x-refresh-token': refreshTokenStorage.get()
       }
     }
-  })
+  }
 
-  return forward(operation).map((response) => {
-    const context = operation.getContext()
-    const headers = context.response.headers
+  const handleTokenStorage = (response: FetchResult) => {
+    const {
+      response: { headers }
+    } = getContext()
 
     if (headers) {
       const accessToken = headers.get('x-access-token') as string
@@ -33,19 +34,14 @@ export const authLink = new ApolloLink((operation, forward) => {
 
       const refreshToken = headers.get('x-refresh-token') as string
       if (refreshToken) {
-        authVar.login()
         refreshTokenStorage.set(refreshToken)
-      }
-
-      if (!accessToken || !refreshToken) {
-        authVar.logout()
-      }
-
-      if (accessToken && !refreshToken) {
-        authVar.partialLogin()
       }
     }
 
     return response
-  })
+  }
+
+  setContext(setTokensInResponseHeaders)
+
+  return forward(operation).map(handleTokenStorage)
 })

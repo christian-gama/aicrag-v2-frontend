@@ -1,8 +1,15 @@
 import { makeVar, useReactiveVar } from '@apollo/client'
+import {
+  makeAccessTokenStorage,
+  makeRefreshTokenStorage
+} from '@/external/factories/storage/auth'
+
+const accessToken = makeAccessTokenStorage().get()
+const refreshToken = makeRefreshTokenStorage().get()
 
 const initialValue = {
-  isAuthenticated: false,
-  isPartiallyAuthenticated: false
+  isAuthenticated: !!accessToken && !!refreshToken,
+  isPartiallyAuthenticated: !!accessToken && !refreshToken
 }
 
 const _authVar = makeVar(initialValue)
