@@ -30,9 +30,7 @@ export const Pin: React.FC<PinProps> = (props) => {
             <Link
               to={props.isPage ? props.to : ''}
               aria-label="Voltar"
-              onClick={
-                props.isPage ? undefined : () => setIsOpen((prev) => !prev)
-              }
+              onClick={props.isPage ? undefined : () => setIsOpen(false)}
             >
               <BackIcon />
             </Link>
