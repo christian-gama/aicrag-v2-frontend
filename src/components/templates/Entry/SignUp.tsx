@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { FormContext } from '@/context/models/form'
 import { Button } from '@/components/atoms/Button'
 import { ControlForm, ControlInput } from '@/components/organisms/Control'
@@ -10,6 +11,7 @@ import {
 import * as classes from './stylesheet'
 
 export const SignUp: React.FC = () => {
+  const navigate = useNavigate()
   const [signUp] = useSignUpMutation()
   const [sendWelcomeEmail] = useSendWelcomeEmailMutation()
 
@@ -30,6 +32,8 @@ export const SignUp: React.FC = () => {
         email: state.form.data.email
       }
     })
+
+    return () => setTimeout(() => navigate('/entry/confirm-account'), 125)
   }
 
   return (
