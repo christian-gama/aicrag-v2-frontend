@@ -19,10 +19,9 @@ describe('EntryCard', () => {
 
   it('renders correctly', () => {
     renderWithProviders(<EntryCard />)
-    const [signIn, signUp] = screen.getAllByRole('link')
+    const card = screen.getByTestId('card')
 
-    expect(signIn).toBeInTheDocument()
-    expect(signUp).toBeInTheDocument()
+    expect(card).toBeInTheDocument()
   })
 
   it('renders with no border if width is lesser or equal to 520', () => {

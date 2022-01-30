@@ -2,12 +2,16 @@ import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { useWindowDimensions } from '@/components/_hooks'
 import { Background } from '@/components/atoms/Background'
 import { Card } from '@/components/atoms/Card'
-import { Menu } from '@/components/molecules/Menu'
 import { Center } from '@/components/utils/Center'
-import { LogoIcon } from '@/components/utils/icons'
 import * as classes from './stylesheet'
 
-export const EntryCard: React.FC = ({ children }) => {
+type EntryCardProps = {
+  style?: {
+    height?: string
+  }
+}
+
+export const EntryCard: React.FC<EntryCardProps> = ({ style, children }) => {
   const { width, height } = useWindowDimensions()
 
   return (
@@ -17,32 +21,24 @@ export const EntryCard: React.FC = ({ children }) => {
           <div
             className={classes.entryCard}
             style={assignInlineVars(classes.windowDimensionVars, {
-              height: `${height}px`
+              height:
+                width <= 520
+                  ? height <= 600
+                    ? '600px'
+                    : `${height}px`
+                  : style!.height!
             })}
           >
-            <header className={classes.entryCardHeader}>
-              <LogoIcon />
-            </header>
-
-            <nav className={classes.entryCardMenuWrapper}>
-              <Menu
-                buttons={[
-                  {
-                    buttonName: 'Entrar',
-                    to: '/entry/sign-in'
-                  },
-                  {
-                    buttonName: 'Cadastrar',
-                    to: '/entry/sign-up'
-                  }
-                ]}
-              />
-            </nav>
-
-            <main>{children}</main>
+            {children}
           </div>
         </Card>
       </Center>
     </Background>
   )
+}
+
+EntryCard.defaultProps = {
+  style: {
+    height: '68rem'
+  }
 }

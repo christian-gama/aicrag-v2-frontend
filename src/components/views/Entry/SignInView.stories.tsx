@@ -1,16 +1,16 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import { AllProviders } from '@/tests/helpers'
 import { loginMock } from '@/tests/mocks/queries'
-import { SignInForm as SignInFormComponent } from './SignInForm'
+import { SignInView as SignInComponent } from './SignInView'
 
 export default {
-  title: 'templates/Entry/Sign In Form',
-  component: SignInFormComponent,
+  title: 'views/Entry/Sign In View',
+  component: SignInComponent,
   decorators: [
     (story) => (
       <AllProviders apolloMocks={[loginMock()]}>{story()}</AllProviders>
     )
   ]
-} as ComponentMeta<typeof SignInFormComponent>
+} as ComponentMeta<typeof SignInComponent>
 
-export const SignInForm: ComponentStoryObj<typeof SignInFormComponent> = {}
+export const SignInView: ComponentStoryObj<typeof SignInComponent> = {}

@@ -1,14 +1,14 @@
 import { renderWithProviders } from '@/tests/helpers'
 import { cleanup, screen } from '@testing-library/react'
-import { SignUp } from '..'
+import { SignUpView } from '..'
 
-describe('SignUp', () => {
+describe('SignUpView', () => {
   afterEach(() => {
     cleanup()
   })
 
   it('renders correctly', () => {
-    renderWithProviders(<SignUp />)
+    renderWithProviders(<SignUpView />)
     const button = screen.getByRole('button', {
       name: /criar conta/i
     })

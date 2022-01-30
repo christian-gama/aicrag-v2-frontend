@@ -6,7 +6,7 @@ import {
   verifyResetPasswordTokenMock,
   resetPasswordMock
 } from '@/tests/mocks/queries'
-import { ResetPasswordForm } from '..'
+import { ResetPassword } from '..'
 
 const mockNavigate = jest.fn()
 jest.mock('react-router-dom', () => ({
@@ -14,7 +14,7 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockNavigate
 }))
 
-describe('ResetPasswordForm', () => {
+describe('ResetPassword', () => {
   const overlayRoot = new OverlayRoot()
 
   afterEach(() => {
@@ -27,7 +27,7 @@ describe('ResetPasswordForm', () => {
   })
 
   it('renders correctly', async () => {
-    renderWithProviders(<ResetPasswordForm />, {
+    renderWithProviders(<ResetPassword />, {
       apolloMocks: [verifyResetPasswordTokenMock()]
     })
     await waitFetch()
@@ -37,7 +37,7 @@ describe('ResetPasswordForm', () => {
   })
 
   it('displays the form if params is valid', async () => {
-    renderWithProviders(<ResetPasswordForm />, {
+    renderWithProviders(<ResetPassword />, {
       apolloMocks: [verifyResetPasswordTokenMock()]
     })
     await waitFetch()
@@ -47,7 +47,7 @@ describe('ResetPasswordForm', () => {
   })
 
   it('submits the form and redirects afterwards', async () => {
-    renderWithProviders(<ResetPasswordForm />, {
+    renderWithProviders(<ResetPassword />, {
       apolloMocks: [verifyResetPasswordTokenMock(), resetPasswordMock()]
     })
     await waitFetch()
@@ -63,7 +63,7 @@ describe('ResetPasswordForm', () => {
   })
 
   it('display loading screen while fetching data', async () => {
-    renderWithProviders(<ResetPasswordForm />, {
+    renderWithProviders(<ResetPassword />, {
       apolloMocks: [verifyResetPasswordTokenMock()]
     })
     const loadingSpinner = screen.getByTestId('loading-spinner-icon')
@@ -72,7 +72,7 @@ describe('ResetPasswordForm', () => {
   })
 
   it('calls navigate on error', async () => {
-    renderWithProviders(<ResetPasswordForm />, {
+    renderWithProviders(<ResetPassword />, {
       apolloMocks: [verifyResetPasswordTokenMock(new Error())]
     })
     await waitFetch()

@@ -1,13 +1,13 @@
 import { style } from '@vanilla-extract/css'
 import { vars } from '@/components/_settings'
 
-export const signInForm = style({
+export const signIn = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center'
 })
 
-export const signInFormInputWrapper = style({
+export const signInInputWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   marginBottom: '6rem',
@@ -15,7 +15,7 @@ export const signInFormInputWrapper = style({
   gap: '3.6rem'
 })
 
-export const signInFormForgotPasswordWrapper = style({
+export const signInFooter = style({
   display: 'flex',
   position: 'absolute',
   bottom: '0',
@@ -25,5 +25,5 @@ export const signInFormForgotPasswordWrapper = style({
   borderRadius: '0 0 5px 5px',
   backgroundColor: vars.colors['gray-50'],
   width: '100%',
-  height: '9rem'
+  height: '10rem'
 })

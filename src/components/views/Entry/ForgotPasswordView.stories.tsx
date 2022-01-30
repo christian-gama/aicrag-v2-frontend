@@ -4,11 +4,11 @@ import {
   forgotPasswordMock,
   sendRecoverPasswordEmailMock
 } from '@/tests/mocks/queries'
-import { ForgotPasswordForm as ForgotPasswordFormComponent } from './ForgotPasswordForm'
+import { ForgotPasswordView as ForgotPasswordComponent } from './ForgotPasswordView'
 
 export default {
-  title: 'templates/Entry/Forgot Password Form',
-  component: ForgotPasswordFormComponent,
+  title: 'views/entry/Forgot Password View',
+  component: ForgotPasswordComponent,
   decorators: [
     (story) => (
       <AllProviders
@@ -18,8 +18,8 @@ export default {
       </AllProviders>
     )
   ]
-} as ComponentMeta<typeof ForgotPasswordFormComponent>
+} as ComponentMeta<typeof ForgotPasswordComponent>
 
-export const ForgotPasswordForm: ComponentStoryObj<
-  typeof ForgotPasswordFormComponent
+export const ForgotPasswordView: ComponentStoryObj<
+  typeof ForgotPasswordComponent
 > = {}

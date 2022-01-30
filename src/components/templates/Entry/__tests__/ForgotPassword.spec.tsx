@@ -2,10 +2,13 @@ import { cleanup, fireEvent, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { OverlayRoot, renderWithProviders, waitFetch } from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
-import { forgotPasswordMock, sendRecoverPasswordEmailMock } from '@/tests/mocks/queries'
-import { ForgotPasswordForm } from '..'
+import {
+  forgotPasswordMock,
+  sendRecoverPasswordEmailMock
+} from '@/tests/mocks/queries'
+import { ForgotPassword } from '..'
 
-describe('ForgotPasswordForm', () => {
+describe('ForgotPassword', () => {
   const overlayRoot = new OverlayRoot()
 
   afterEach(() => {
@@ -18,14 +21,14 @@ describe('ForgotPasswordForm', () => {
   })
 
   it('renders correctly', () => {
-    renderWithProviders(<ForgotPasswordForm />)
+    renderWithProviders(<ForgotPassword />)
     const forgotPasswordForm = screen.getByTestId('form')
 
     expect(forgotPasswordForm).toBeInTheDocument()
   })
 
   it('submits the form', async () => {
-    renderWithProviders(<ForgotPasswordForm />, {
+    renderWithProviders(<ForgotPassword />, {
       apolloMocks: [forgotPasswordMock(), sendRecoverPasswordEmailMock()]
     })
     const forgotPasswordForm = screen.getByTestId('form')

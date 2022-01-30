@@ -1,10 +1,10 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import { AllProviders } from '@/tests/helpers'
 import { signUpMock, sendWelcomeEmailMock } from '@/tests/mocks/queries'
-import { SignUp as SignUpComponent } from './SignUp'
+import { SignUpView as SignUpComponent } from './SignUpView'
 
 export default {
-  title: 'views/Entry/Sign Up',
+  title: 'views/Entry/Sign Up View',
   component: SignUpComponent,
   decorators: [
     (story) => (
@@ -15,4 +15,4 @@ export default {
   ]
 } as ComponentMeta<typeof SignUpComponent>
 
-export const SignUp: ComponentStoryObj<typeof SignUpComponent> = {}
+export const SignUpView: ComponentStoryObj<typeof SignUpComponent> = {}

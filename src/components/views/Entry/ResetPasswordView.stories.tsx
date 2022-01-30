@@ -4,11 +4,11 @@ import {
   verifyResetPasswordTokenMock,
   resetPasswordMock
 } from '@/tests/mocks/queries'
-import { ResetPasswordForm as ResetPasswordFormComponent } from './ResetPasswordForm'
+import { ResetPasswordView as ResetPasswordComponent } from './ResetPasswordView'
 
 export default {
-  title: 'templates/Entry/Reset Password Form',
-  component: ResetPasswordFormComponent,
+  title: 'views/entry/Reset Password View',
+  component: ResetPasswordComponent,
   decorators: [
     (story) => (
       <AllProviders
@@ -18,8 +18,8 @@ export default {
       </AllProviders>
     )
   ]
-} as ComponentMeta<typeof ResetPasswordFormComponent>
+} as ComponentMeta<typeof ResetPasswordComponent>
 
-export const ResetPasswordForm: ComponentStoryObj<
-  typeof ResetPasswordFormComponent
+export const ResetPasswordView: ComponentStoryObj<
+  typeof ResetPasswordComponent
 > = {}

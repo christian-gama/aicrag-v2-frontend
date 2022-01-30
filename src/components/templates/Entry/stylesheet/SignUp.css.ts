@@ -1,12 +1,12 @@
 import { style } from '@vanilla-extract/css'
 
-export const signUpForm = style({
+export const signUp = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center'
 })
 
-export const signUpFormInputWrapper = style({
+export const signUpInputWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   marginBottom: '3.6rem',
