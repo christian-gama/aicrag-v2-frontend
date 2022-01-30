@@ -1,10 +1,15 @@
-import { cleanup, fireEvent, screen, waitFor } from '@testing-library/react'
+import { cleanup, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { popoverVar } from '@/external/graphql/reactiveVars'
 import { OverlayRoot, renderWithProviders, waitFetch } from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
 import { signUpMock, sendWelcomeEmailMock } from '@/tests/mocks/queries'
 import { SignUp } from '..'
+
+const mockNavigate = jest.fn()
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockNavigate
+}))
 
 describe('SignUp', () => {
   const overlayRoot = new OverlayRoot()
@@ -25,8 +30,7 @@ describe('SignUp', () => {
     expect(signInForm).toBeInTheDocument()
   })
 
-  it('submits the form', async () => {
-    const popoverVarSpy = jest.spyOn(popoverVar, 'setPopover')
+  it('submits the form and redirects afterwards', async () => {
     renderWithProviders(<SignUp />, {
       apolloMocks: [signUpMock(), sendWelcomeEmailMock()]
     })
@@ -39,13 +43,8 @@ describe('SignUp', () => {
     userEvent.type(password, mockVariables.password)
     userEvent.type(passwordConfirmation, mockVariables.password)
     fireEvent.submit(form)
-    await waitFetch()
+    await waitFetch(150)
 
-    await waitFor(() =>
-      expect(popoverVarSpy).toHaveBeenCalledWith(
-        expect.stringMatching(/\w/gi),
-        'success'
-      )
-    )
+    expect(mockNavigate).toHaveBeenCalled()
   })
 })
