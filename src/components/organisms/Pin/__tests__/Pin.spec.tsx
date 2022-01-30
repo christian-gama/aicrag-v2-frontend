@@ -18,14 +18,14 @@ describe('Pin', () => {
   })
 
   it('renders correctly', () => {
-    render(<Pin />)
+    render(<Pin isPage to="/" />)
     const pin = screen.getByTestId('pin')
 
     expect(pin).toBeInTheDocument()
   })
 
   it('redirects to the correct page when clicking on Link', () => {
-    render(<Pin />)
+    render(<Pin isPage to="/" />)
     const link = screen.getByText(/backicon/i)
 
     userEvent.click(link)
@@ -34,6 +34,20 @@ describe('Pin', () => {
       children: expect.anything(),
       'aria-label': expect.anything(),
       to: '/'
+    })
+  })
+
+  it("has an onClick instead of To if it's not a page", () => {
+    render(<Pin isPage={false} isOpen />)
+    const link = screen.getByText(/backicon/i)
+
+    userEvent.click(link)
+
+    expect(mockLink).toHaveBeenCalledWith({
+      children: expect.anything(),
+      'aria-label': expect.anything(),
+      onClick: expect.anything(),
+      to: ''
     })
   })
 })
