@@ -1,5 +1,6 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { useWindowDimensions } from '@/components/_hooks'
+import { windowHeightVars } from '@/components/_settings'
 import { Background } from '@/components/atoms/Background'
 import { Card } from '@/components/atoms/Card'
 import { Center } from '@/components/utils/Center'
@@ -20,7 +21,7 @@ export const EntryCard: React.FC<EntryCardProps> = ({ style, children }) => {
         <Card roundness={width <= 520 ? 'none' : 'md'}>
           <div
             className={classes.entryCard}
-            style={assignInlineVars(classes.windowDimensionVars, {
+            style={assignInlineVars(windowHeightVars, {
               height:
                 width <= 520
                   ? height <= 600

@@ -1,14 +1,10 @@
-import { createGlobalTheme, style } from '@vanilla-extract/css'
-import { breakpoints } from '@/components/_settings'
-
-export const windowDimensionVars = createGlobalTheme(':root', {
-  height: ''
-})
+import { style } from '@vanilla-extract/css'
+import { breakpoints, windowHeightVars } from '@/components/_settings'
 
 export const entryCard = style({
   position: 'relative',
   width: '60rem',
-  height: windowDimensionVars.height,
+  height: windowHeightVars.height,
 
   '@media': {
     [breakpoints.tablet]: {
@@ -19,7 +15,7 @@ export const entryCard = style({
       margin: '0 auto',
       width: '100vw',
       height: '100%',
-      minHeight: windowDimensionVars.height
+      minHeight: windowHeightVars.height
     }
   }
 })
