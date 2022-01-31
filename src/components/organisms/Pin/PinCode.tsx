@@ -8,6 +8,10 @@ export const PinCode: React.FC = () => {
   )
 
   const onChangeHandler = (value: string, index: number) => {
+    if (value.length === 5) {
+      return setValues(values.map((_, i) => value.split('')[i]))
+    }
+
     const firstCharacter = value.charAt(0)
     setValues((prev) => prev.map((v, i) => (i === index ? firstCharacter : v)))
   }
