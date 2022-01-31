@@ -51,7 +51,6 @@ export const stepItemRecipe = recipe({
         position: 'absolute',
         transition:
           'border 0.3s ease-in-out, background-color 0.2s ease-in-out',
-        zIndex: '-1',
         content: ''
       }
     }
@@ -64,7 +63,7 @@ export const stepItemRecipe = recipe({
           '&:not(:first-child):before, &:not(:first-child):after': {
             bottom: '100%',
             width: '1px',
-            height: calc.add(stepGapVars.gap, '2px')
+            height: calc.add(stepGapVars.gap, '1px')
           }
         }
       },
@@ -72,7 +71,7 @@ export const stepItemRecipe = recipe({
         selectors: {
           '&:not(:first-child):before, &:not(:first-child):after': {
             right: '100%',
-            width: calc.add(stepGapVars.gap, '2px'),
+            width: calc.add(stepGapVars.gap, '1px'),
             height: '1px'
           }
         }
