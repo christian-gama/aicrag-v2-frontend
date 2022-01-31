@@ -20,5 +20,12 @@ export const sizeVariants = styleVariants({
     minWidth: '2.4rem',
     height: '2.4rem',
     minHeight: '2.4rem'
+  },
+
+  xlg: {
+    width: '2.7rem',
+    minWidth: '2.7rem',
+    height: '2.7rem',
+    minHeight: '2.7rem'
   }
 })
