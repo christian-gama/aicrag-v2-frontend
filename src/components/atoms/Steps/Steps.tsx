@@ -6,10 +6,20 @@ import { StepsVariants, stepGapVars } from './stylesheet'
 type StepsProps = {
   direction?: StepsVariants['direction']
   gap?: string
-  steps: Array<{ label: string, check: StepsVariants['check'] }>
+  steps: Array<{
+    check: StepsVariants['check']
+    label: string
+  }>
 }
 
 export const Steps: React.FC<StepsProps> = ({ gap, direction, steps }) => {
+  const isCurrentStep = (step: typeof steps[0], index: number) => {
+    const previousStep = steps[index - 1]
+    const nextStep = steps[index + 1]
+
+    return !step.check && !!previousStep?.check && !nextStep?.check
+  }
+
   return (
     <div
       style={assignInlineVars(stepGapVars, { gap: gap! })}
@@ -18,7 +28,11 @@ export const Steps: React.FC<StepsProps> = ({ gap, direction, steps }) => {
     >
       {steps.map((step, index) => (
         <div
-          className={classes.stepItemRecipe({ check: step.check, direction })}
+          className={classes.stepItemRecipe({
+            current: isCurrentStep(step, index),
+            check: step.check,
+            direction
+          })}
           key={index}
         >
           {step.check === true && <CheckIcon color="white" size="sm" />}

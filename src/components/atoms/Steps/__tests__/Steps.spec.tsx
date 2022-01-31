@@ -14,7 +14,14 @@ describe('Steps', () => {
   })
 
   it('renders a CheckIcon if stepItem is checked', () => {
-    render(<Steps steps={[{ label: 'Any label', check: true }]} />)
+    render(
+      <Steps
+        steps={[
+          { label: 'Any label', check: true },
+          { label: 'Any label', check: false }
+        ]}
+      />
+    )
     const checkIcon = screen.getByTestId('check-icon')
 
     expect(checkIcon).toBeInTheDocument()
