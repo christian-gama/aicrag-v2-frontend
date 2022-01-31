@@ -1,13 +1,11 @@
 import { useContext } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { FormContext } from '@/context/models/form'
-import { useWindowDimensions } from '@/components/_hooks'
 import { Button } from '@/components/atoms/Button'
 import { ControlForm, ControlInput } from '@/components/organisms/Control'
 import { Center } from '@/components/utils/Center'
 import { Divider } from '@/components/utils/Divider'
 import { LoadingSpinnerIcon } from '@/components/utils/icons'
-import { H2 } from '@/components/utils/texts/H2'
 import { H3 } from '@/components/utils/texts/H3'
 import { makeResetPasswordValidation } from '@/external/factories/validation'
 import {
@@ -18,7 +16,6 @@ import { authVar } from '@/external/graphql/reactiveVars'
 import * as classes from './stylesheet'
 
 export const ResetPassword: React.FC = () => {
-  const { width } = useWindowDimensions()
   const { token } = useParams()
   const navigate = useNavigate()
   const { state } = useContext(FormContext)
@@ -62,13 +59,7 @@ export const ResetPassword: React.FC = () => {
     <>
       <header className={classes.resetPasswordHeader}>
         <div>
-          {width <= 520
-            ? (
-            <H3>Resete a sua senha</H3>
-              )
-            : (
-            <H2>Resete a sua senha</H2>
-              )}
+          <H3>Resete a sua senha</H3>
         </div>
       </header>
 

@@ -1,5 +1,6 @@
+import { calc } from '@vanilla-extract/css-utils'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { vars, fillColorVariants } from '@/components/_settings'
+import { vars, fillColorVariants, breakpoints } from '@/components/_settings'
 import { baseStyle } from '../../common'
 
 export const h2Recipe = recipe({
@@ -7,7 +8,13 @@ export const h2Recipe = recipe({
     baseStyle,
     {
       fontFamily: vars.font.h2.fontFamily,
-      fontSize: vars.font.h2.fontSize
+      fontSize: vars.font.h2.fontSize,
+
+      '@media': {
+        [breakpoints.mobile]: {
+          fontSize: calc.subtract(vars.font.h2.fontSize, '0.4rem')
+        }
+      }
     }
   ],
 

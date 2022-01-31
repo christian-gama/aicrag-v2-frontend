@@ -7,12 +7,10 @@ import {
   MailerCountdownStates
 } from '@/context/models/mailerCountdown'
 import { AppDispatch, RootState } from '@/context/store'
-import { useWindowDimensions } from '@/components/_hooks'
 import { Button } from '@/components/atoms/Button'
 import { ControlForm, ControlInput } from '@/components/organisms/Control'
 import { Divider } from '@/components/utils/Divider'
 import { BackIcon } from '@/components/utils/icons'
-import { H2 } from '@/components/utils/texts/H2'
 import { H3 } from '@/components/utils/texts/H3'
 import { makeForgotPasswordValidator } from '@/external/factories/validation'
 import {
@@ -29,7 +27,6 @@ export const ForgotPassword: React.FC = () => {
   MailerCountdownStates
   >((state) => state.mailerCountdown)
 
-  const { width } = useWindowDimensions()
   const [forgotPassword] = useForgotPasswordMutation()
   const [sendRecoverPasswordEmail] = useSendRecoverPasswordEmailMutation()
 
@@ -58,13 +55,7 @@ export const ForgotPassword: React.FC = () => {
         </nav>
 
         <div>
-          {width <= 520
-            ? (
-            <H3>Esqueceu sua senha?</H3>
-              )
-            : (
-            <H2>Esqueceu sua senha?</H2>
-              )}
+          <H3>Esqueceu sua senha?</H3>
         </div>
       </header>
 
