@@ -81,4 +81,13 @@ describe('Pin', () => {
       steps: expect.anything()
     })
   })
+
+  it('accepts only 1 character per input', async () => {
+    render(<Pin isPage={false} isOpen />)
+    const [input] = screen.getAllByTestId('pin-input')
+
+    userEvent.paste(input, '12345')
+
+    expect(input).toHaveValue('1')
+  })
 })
