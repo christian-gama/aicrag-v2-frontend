@@ -4,6 +4,8 @@ import { breakpoints, windowHeightVars } from '@/components/_settings'
 export const pin = style({
   width: '60rem',
   height: '65rem',
+  display: 'flex',
+  flexDirection: 'column',
 
   '@media': {
     [breakpoints.tablet]: {
@@ -36,7 +38,10 @@ export const pinHeader = style({
 
 export const pinContentWrapper = style({
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  flex: '1',
+  gap: '6.8rem'
 })
 
 export const pinContentMain = style({
@@ -75,6 +80,7 @@ export const pinContentText = style({
 
   '@media': {
     [breakpoints.mobile]: {
+      textAlign: 'center',
       margin: '0 1.2rem',
       padding: '3.8rem 0',
       maxWidth: '40rem'

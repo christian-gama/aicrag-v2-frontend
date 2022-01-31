@@ -10,6 +10,7 @@ import { Divider } from '@/components/utils/Divider'
 import { BackIcon } from '@/components/utils/icons'
 import { H2 } from '@/components/utils/texts/H2'
 import { P } from '@/components/utils/texts/P'
+import { PinCode } from './PinCode'
 import * as classes from './stylesheet'
 
 type PinProps = (
@@ -81,6 +82,8 @@ export const Pin: React.FC<PinProps> = (props) => {
                 </P>
               </div>
             </div>
+
+            <PinCode />
           </div>
         </div>
       </Card>
