@@ -1,5 +1,5 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useWindowDimensions } from '@/components/_hooks'
 import { windowHeightVars } from '@/components/_settings'
@@ -12,7 +12,7 @@ import { H2 } from '@/components/utils/texts/H2'
 import { P } from '@/components/utils/texts/P'
 import * as classes from './stylesheet'
 
-type PinProps =
+type PinProps = (
   | {
     isPage: true
     to: string
@@ -21,10 +21,18 @@ type PinProps =
     isPage: false
     isOpen: boolean
   }
+) & {
+  currentStep?: number
+}
 
 export const Pin: React.FC<PinProps> = (props) => {
   const { height, width } = useWindowDimensions()
   const [isOpen, setIsOpen] = useState(props.isPage ? undefined : props.isOpen)
+  const [currentStep, setCurrentStep] = useState(props.currentStep!)
+
+  useEffect(() => {
+    setCurrentStep(1)
+  }, [])
 
   if (isOpen === false) return null
 
@@ -60,8 +68,8 @@ export const Pin: React.FC<PinProps> = (props) => {
                   direction={width <= 520 ? 'row' : 'column'}
                   gap={width <= 520 ? '14rem' : '7.2rem'}
                   steps={[
-                    { check: true, label: 'Criar conta' },
-                    { check: false, label: 'Confirmar email' }
+                    { check: currentStep >= 1, label: 'Criar conta' },
+                    { check: currentStep >= 2, label: 'Confirmar email' }
                   ]}
                 />
               </div>
@@ -78,4 +86,8 @@ export const Pin: React.FC<PinProps> = (props) => {
       </Card>
     </Center>
   )
+}
+
+Pin.defaultProps = {
+  currentStep: 0
 }
