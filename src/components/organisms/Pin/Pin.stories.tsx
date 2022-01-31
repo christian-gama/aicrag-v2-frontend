@@ -5,6 +5,10 @@ import { Pin } from './Pin'
 export default {
   component: Pin,
   title: 'organisms/Pin',
+  args: {
+    isPage: false,
+    isOpen: true
+  },
   decorators: [
     (story) => (
       <AllProviders>
