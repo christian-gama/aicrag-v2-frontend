@@ -1,5 +1,5 @@
 export class OverlayRoot {
-  overlayRoot: HTMLElement | null = null
+  private overlayRoot: HTMLElement | null = null
 
   addOverlayRoot (): void {
     this.overlayRoot = document.createElement('div')
