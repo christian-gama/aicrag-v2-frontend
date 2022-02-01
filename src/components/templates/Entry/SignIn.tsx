@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { FormContext } from '@/context/models/form'
 import { Button } from '@/components/atoms/Button'
 import { ControlForm, ControlInput } from '@/components/organisms/Control'
@@ -9,6 +10,7 @@ import { authVar } from '@/external/graphql/reactiveVars'
 import * as classes from './stylesheet'
 
 export const SignIn: React.FC = () => {
+  const navigate = useNavigate()
   const [login, { data }] = useLoginMutation()
 
   const { state } = useContext(FormContext)
@@ -25,7 +27,8 @@ export const SignIn: React.FC = () => {
       return authVar.login
     }
 
-    return authVar.partialLogin
+    authVar.partialLogin()
+    return () => navigate('/confirm-email')
   }
 
   return (

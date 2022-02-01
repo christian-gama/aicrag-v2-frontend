@@ -35,7 +35,7 @@ export const SignUp: React.FC = () => {
     })
 
     authVar.partialLogin()
-    return () => setTimeout(() => navigate('/entry/confirm-email'), 125)
+    return () => setTimeout(() => navigate('/confirm-email'), 125)
   }
 
   return (

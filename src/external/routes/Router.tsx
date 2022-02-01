@@ -7,7 +7,11 @@ import {
   ConfirmEmailView
 } from '@/components/views/Entry'
 import { NotFound } from '@/components/views/NotFound'
-import { ProtectedRoute, MustLogoutRoute } from '../proxies'
+import {
+  ProtectedRoute,
+  MustLogoutRoute,
+  PartialProtectedRoute
+} from '../proxies'
 
 export const Router = () => {
   return (
@@ -19,7 +23,10 @@ export const Router = () => {
         <Route path="sign-in" element={<SignInView />} />
         <Route path="sign-up" element={<SignUpView />} />
         <Route path="reset-password/:token" element={<ResetPasswordView />} />
-        <Route path="confirm-email" element={<ConfirmEmailView />} />
+      </Route>
+
+      <Route path="/confirm-email" element={<PartialProtectedRoute />}>
+        <Route path="" element={<ConfirmEmailView />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
