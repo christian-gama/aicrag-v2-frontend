@@ -35,6 +35,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Run codegen
+        run: pnpm codegen
+
       - name: Typecheck
         run: pnpm run typecheck
 
