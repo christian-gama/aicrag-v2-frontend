@@ -1,6 +1,6 @@
 export const breakpoints = {
-  mobile: 'screen and (max-width: 520px)',
-  tablet: 'screen and (max-width: 820px)',
-  desktop: 'screen and (max-width: 1024px)',
-  widescreen: 'screen and (max-width: 1366px)'
+  mobile: 'only screen and (max-width: 520px)',
+  tablet: 'only screen and (max-width: 820px)',
+  desktop: 'only screen and (max-width: 1024px)',
+  widescreen: 'only screen and (max-width: 1366px)'
 }
