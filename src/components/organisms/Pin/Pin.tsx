@@ -78,7 +78,7 @@ export const Pin: React.FC<PinProps> = (props) => {
               <div className={classes.pinContentText}>
                 <P>
                   Foi enviado um código de validação para o seu email. O código
-                  expirará em 10 minutos.
+                  expirará em 15 minutos.
                 </P>
               </div>
             </div>

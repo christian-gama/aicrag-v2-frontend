@@ -1,8 +1,17 @@
-import { FocusEvent, MouseEvent, useState } from 'react'
+import { ApolloError } from '@apollo/client'
+import { FocusEvent, FormEvent, MouseEvent, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { getUserIdByAccessToken } from '@/services/token/getUserIdByToken'
 import { Button } from '@/components/atoms/Button'
+import { useActivateAccountMutation } from '@/external/graphql/generated'
+import { authVar } from '@/external/graphql/reactiveVars'
 import * as classes from './stylesheet'
 
 export const PinCode: React.FC = () => {
+  const navigate = useNavigate()
+  const [activateAccount, { error }] = useActivateAccountMutation()
+  const [isLoading, setIsLoading] = useState(false)
+  const [inputError, setInputError] = useState<ApolloError | undefined>()
   const [values, setValues] = useState<string[]>(
     Array.from({ length: 5 }).fill('', 0, 5) as string[]
   )
@@ -58,6 +67,39 @@ export const PinCode: React.FC = () => {
     inputNavigation(index, key)
   }
 
+  const onSubmitHandler = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setIsLoading(true)
+
+    try {
+      await activateAccount({
+        variables: {
+          activationPin: values.join(''),
+          userId: getUserIdByAccessToken()
+        }
+      })
+
+      setIsLoading(false)
+      authVar.login()
+      navigate('/', { replace: true })
+    } catch (error: any) {
+      setIsLoading(false)
+      setInputError(error)
+    }
+  }
+
+  useEffect(() => {
+    if (error) {
+      setInputError(error)
+    } else {
+      setInputError(undefined)
+    }
+  }, [values, error])
+
+  useEffect(() => {
+    setInputError(undefined)
+  }, [values])
+
   const selectLastChar = ({
     currentTarget
   }: FocusEvent<HTMLInputElement> | MouseEvent<HTMLInputElement>) =>
@@ -66,14 +108,22 @@ export const PinCode: React.FC = () => {
       currentTarget.value.length
     )
 
+  const pinInputClass = classes.pinInput({
+    state: inputError ? 'error' : 'default'
+  })
+
   return (
-    <div className={classes.pinCodeWrapper}>
+    <form
+      className={classes.pinCodeWrapper}
+      onSubmit={onSubmitHandler}
+      data-testid="form"
+    >
       <div className={classes.pinCode}>
         {values.map((value, index) => (
           <input
             onChange={(event) => onChangeHandler(event.target.value, index)}
             onKeyDown={(event) => onKeyPressHandler(event.key, index)}
-            className={classes.pinInput({ state: 'default' })}
+            className={pinInputClass}
             onClick={selectLastChar}
             onFocus={selectLastChar}
             data-testid="pin-input"
@@ -86,7 +136,9 @@ export const PinCode: React.FC = () => {
         ))}
       </div>
 
-      <Button style={{ size: 'lg' }}>Reenviar código</Button>
-    </div>
+      <Button type="submit" style={{ size: 'lg' }} loading={isLoading}>
+        Reenviar código
+      </Button>
+    </form>
   )
 }

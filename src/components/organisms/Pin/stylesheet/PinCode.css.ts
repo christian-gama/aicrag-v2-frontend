@@ -52,6 +52,7 @@ export const pinInput = recipe({
   variants: {
     state: {
       default: {
+        color: vars.colors.black,
         border: `1px solid ${vars.colors.black}`,
 
         ':focus': {
@@ -60,10 +61,11 @@ export const pinInput = recipe({
       },
 
       error: {
-        border: `1px solid ${vars.colors['danger-500']}`,
+        color: vars.colors['danger-400'],
+        border: `1px solid ${vars.colors['danger-400']}`,
 
         ':focus': {
-          border: `2px solid ${vars.colors['danger-500']}`
+          border: `2px solid ${vars.colors['danger-400']}`
         }
       }
     }
