@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css'
 import { recipe } from '@vanilla-extract/recipes'
-import { breakpoints } from '@/components/_settings'
+import { breakpoints, vars } from '@/components/_settings'
 
 export const pinCodeWrapper = style({
   width: '100%',
@@ -25,6 +25,10 @@ export const pinInput = recipe({
     fontFamily: 'Lato',
     fontWeight: '300',
 
+    ':focus': {
+      outline: 'none'
+    },
+
     '@media': {
       [breakpoints.mobile]: {
         width: '5.4rem',
@@ -48,10 +52,20 @@ export const pinInput = recipe({
   variants: {
     state: {
       default: {
-        border: '2px solid #000'
+        border: `1px solid ${vars.colors.black}`,
+
+        ':focus': {
+          border: `2px solid ${vars.colors.black}`
+        }
       },
 
-      error: {}
+      error: {
+        border: `1px solid ${vars.colors['danger-500']}`,
+
+        ':focus': {
+          border: `2px solid ${vars.colors['danger-500']}`
+        }
+      }
     }
   },
 
