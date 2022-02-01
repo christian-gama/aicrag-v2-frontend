@@ -57,7 +57,7 @@ jobs:
           cat .env.staging
 
       - name: Build
-        run: pnpm build
+        run: pnpm build --mode staging
 
       - name: Coveralls
         uses: coverallsapp/github-action@master
