@@ -92,22 +92,9 @@ describe('Pin', () => {
     renderWithProviders(<Pin isPage={false} isOpen />)
     const [input] = screen.getAllByTestId('pin-input')
 
-    userEvent.paste(input, '12345')
+    userEvent.type(input, '123')
 
     expect(input).toHaveValue('1')
-  })
-
-  it('fills all inputs when paste the pin code in an input', () => {
-    renderWithProviders(<Pin isPage={false} isOpen />)
-    const inputs = screen.getAllByTestId('pin-input')
-
-    userEvent.paste(inputs[0], '12345')
-
-    expect(inputs[0]).toHaveValue('1')
-    expect(inputs[1]).toHaveValue('2')
-    expect(inputs[2]).toHaveValue('3')
-    expect(inputs[3]).toHaveValue('4')
-    expect(inputs[4]).toHaveValue('5')
   })
 
   it('does not paste if value length is lesser than 5', () => {
@@ -188,12 +175,10 @@ describe('Pin', () => {
       apolloMocks: [activateAccountMock()]
     })
     const inputs = screen.getAllByTestId('pin-input')
-    const form = screen.getByTestId('form')
     const accessTokenStorage = makeAccessTokenStorage()
 
     accessTokenStorage.set(mockVariables.token)
     userEvent.paste(inputs[0], mockVariables.activationPin)
-    fireEvent.submit(form)
 
     await waitFetch()
 
