@@ -1,7 +1,7 @@
 import { ApolloError } from '@apollo/client'
 import { FocusEvent, FormEvent, MouseEvent, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getUserIdByAccessToken } from '@/services/token/getUserIdByToken'
+import { getUserByToken } from '@/services/token/getUserByToken'
 import { Button } from '@/components/atoms/Button'
 import { useActivateAccountMutation } from '@/external/graphql/generated'
 import { authVar } from '@/external/graphql/reactiveVars'
@@ -76,7 +76,7 @@ export const PinCode: React.FC = () => {
       await activateAccount({
         variables: {
           activationPin: values.join(''),
-          userId: getUserIdByAccessToken()
+          userId: getUserByToken('userId')
         }
       })
 
