@@ -8,6 +8,7 @@ import {
   useSignUpMutation,
   useSendWelcomeEmailMutation
 } from '@/external/graphql/generated'
+import { authVar } from '@/external/graphql/reactiveVars'
 import * as classes from './stylesheet'
 
 export const SignUp: React.FC = () => {
@@ -33,6 +34,7 @@ export const SignUp: React.FC = () => {
       }
     })
 
+    authVar.partialLogin()
     return () => setTimeout(() => navigate('/entry/confirm-email'), 125)
   }
 
