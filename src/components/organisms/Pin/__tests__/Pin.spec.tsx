@@ -5,6 +5,7 @@ import { useWindowDimensions } from '@/components/_hooks'
 import { makeAccessTokenStorage } from '@/external/factories/storage/auth'
 import { renderWithProviders, waitFetch } from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
+import { sendWelcomeEmailMock } from '@/tests/mocks/queries'
 import { activateAccountMock } from '@/tests/mocks/queries/activateAccount.mock'
 
 const mockFunction = jest.fn()
@@ -200,5 +201,33 @@ describe('Pin', () => {
     await waitFetch()
 
     expect(mockFunction).not.toHaveBeenCalled()
+  })
+
+  it('disables button when resend email', () => {
+    renderWithProviders(<Pin isPage to="/" />, {
+      apolloMocks: [sendWelcomeEmailMock()]
+    })
+    const button = screen.getByText(/reenviar/gi)
+    const accessTokenStorage = makeAccessTokenStorage()
+
+    accessTokenStorage.set(mockVariables.token)
+    userEvent.click(button)
+
+    expect(button).toBeDisabled()
+  })
+
+  it('starts a countdown after resending an email', async () => {
+    renderWithProviders(<Pin isPage to="/" />, {
+      apolloMocks: [sendWelcomeEmailMock()]
+    })
+    const button = screen.getByText(/reenviar/gi)
+    const accessTokenStorage = makeAccessTokenStorage()
+
+    accessTokenStorage.set(mockVariables.token)
+    userEvent.click(button)
+
+    await waitFetch()
+
+    expect(button.textContent).toMatch(/\d+/gi)
   })
 })
