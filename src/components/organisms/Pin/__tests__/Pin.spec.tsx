@@ -1,11 +1,17 @@
-import { render, cleanup, screen, fireEvent } from '@testing-library/react'
+import { cleanup, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Pin } from '..'
 import { useWindowDimensions } from '@/components/_hooks'
+import { makeAccessTokenStorage } from '@/external/factories/storage/auth'
+import { renderWithProviders, waitFetch } from '@/tests/helpers'
+import { mockVariables } from '@/tests/mocks'
+import { activateAccountMock } from '@/tests/mocks/queries/activateAccount.mock'
 
+const mockFunction = jest.fn()
 const mockLink = jest.fn()
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockFunction,
   Link: (props: any) => {
     mockLink(props)
 
@@ -13,10 +19,10 @@ jest.mock('react-router-dom', () => ({
   }
 }))
 
-const mockFunction = jest.fn()
+const mockProps = jest.fn()
 jest.mock('../../../atoms/Steps', () => ({
   Steps: (props: any) => {
-    mockFunction(props)
+    mockProps(props)
 
     return <>Steps</>
   }
@@ -36,14 +42,14 @@ describe('Pin', () => {
   })
 
   it('renders correctly', () => {
-    render(<Pin isPage to="/" />)
+    renderWithProviders(<Pin isPage to="/" />)
     const pin = screen.getByTestId('pin')
 
     expect(pin).toBeInTheDocument()
   })
 
   it('redirects to the correct page when clicking on Link', () => {
-    render(<Pin isPage to="/" />)
+    renderWithProviders(<Pin isPage to="/" />)
     const link = screen.getByText(/backicon/i)
 
     userEvent.click(link)
@@ -56,14 +62,14 @@ describe('Pin', () => {
   })
 
   it('does not render if isOpen is false', () => {
-    render(<Pin isPage={false} isOpen={false} />)
+    renderWithProviders(<Pin isPage={false} isOpen={false} />)
     const pin = screen.queryByTestId('pin')
 
     expect(pin).not.toBeInTheDocument()
   })
 
   it('closes when clicks on Link if it is not a page', () => {
-    render(<Pin isPage={false} isOpen />)
+    renderWithProviders(<Pin isPage={false} isOpen />)
     const back = screen.getByTestId('pin-back')
 
     userEvent.click(back)
@@ -73,9 +79,9 @@ describe('Pin', () => {
 
   it('calls Steps with responsive props', () => {
     mockUseWindowDimensions.mockReturnValue({ width: 520, height: 599 })
-    render(<Pin isPage={false} isOpen />)
+    renderWithProviders(<Pin isPage={false} isOpen />)
 
-    expect(mockFunction).toHaveBeenCalledWith({
+    expect(mockProps).toHaveBeenCalledWith({
       direction: 'row',
       gap: '14rem',
       steps: expect.anything()
@@ -83,7 +89,7 @@ describe('Pin', () => {
   })
 
   it('accepts only 1 character per input', () => {
-    render(<Pin isPage={false} isOpen />)
+    renderWithProviders(<Pin isPage={false} isOpen />)
     const [input] = screen.getAllByTestId('pin-input')
 
     userEvent.paste(input, '12345')
@@ -92,7 +98,7 @@ describe('Pin', () => {
   })
 
   it('fills all inputs when paste the pin code in an input', () => {
-    render(<Pin isPage={false} isOpen />)
+    renderWithProviders(<Pin isPage={false} isOpen />)
     const inputs = screen.getAllByTestId('pin-input')
 
     userEvent.paste(inputs[0], '12345')
@@ -105,7 +111,7 @@ describe('Pin', () => {
   })
 
   it('does not paste if value length is lesser than 5', () => {
-    render(<Pin isPage={false} isOpen />)
+    renderWithProviders(<Pin isPage={false} isOpen />)
     const inputs = screen.getAllByTestId('pin-input')
 
     userEvent.paste(inputs[0], '123')
@@ -118,7 +124,7 @@ describe('Pin', () => {
   })
 
   it('focus in the next input when press ArrowRight or Delete', () => {
-    render(<Pin isPage={false} isOpen />)
+    renderWithProviders(<Pin isPage={false} isOpen />)
     const inputs = screen.getAllByTestId('pin-input')
 
     fireEvent.keyDown(inputs[0], { key: 'ArrowRight' })
@@ -128,7 +134,7 @@ describe('Pin', () => {
   })
 
   it('does not focus in the next input if index is equal to 4', () => {
-    render(<Pin isPage={false} isOpen />)
+    renderWithProviders(<Pin isPage={false} isOpen />)
     const inputs = screen.getAllByTestId('pin-input')
 
     userEvent.type(inputs[4], '1')
@@ -137,7 +143,7 @@ describe('Pin', () => {
   })
 
   it('focus in the previous input when press ArrowLeft or Backspace', () => {
-    render(<Pin isPage={false} isOpen />)
+    renderWithProviders(<Pin isPage={false} isOpen />)
     const inputs = screen.getAllByTestId('pin-input')
 
     fireEvent.keyDown(inputs[2], { key: 'ArrowLeft' })
@@ -147,7 +153,7 @@ describe('Pin', () => {
   })
 
   it('does not focus in the previous input if index is equal to 0', () => {
-    render(<Pin isPage={false} isOpen />)
+    renderWithProviders(<Pin isPage={false} isOpen />)
     const inputs = screen.getAllByTestId('pin-input')
 
     fireEvent.keyDown(inputs[0], { key: 'ArrowLeft' })
@@ -156,7 +162,7 @@ describe('Pin', () => {
   })
 
   it('deletes the input value when press Backspace', () => {
-    render(<Pin isPage={false} isOpen />)
+    renderWithProviders(<Pin isPage={false} isOpen />)
     const inputs = screen.getAllByTestId('pin-input')
 
     userEvent.type(inputs[1], '1')
@@ -167,7 +173,7 @@ describe('Pin', () => {
   })
 
   it('focus and delete the previous input value if press Backspace in an empty input', () => {
-    render(<Pin isPage={false} isOpen />)
+    renderWithProviders(<Pin isPage={false} isOpen />)
     const inputs = screen.getAllByTestId('pin-input')
 
     userEvent.type(inputs[0], '1')
@@ -175,5 +181,39 @@ describe('Pin', () => {
 
     expect(inputs[0]).toHaveValue('')
     expect(inputs[0]).toHaveFocus()
+  })
+
+  it('navigates the user back to home page after submitting the form', async () => {
+    renderWithProviders(<Pin isPage to="/" />, {
+      apolloMocks: [activateAccountMock()]
+    })
+    const inputs = screen.getAllByTestId('pin-input')
+    const form = screen.getByTestId('form')
+    const accessTokenStorage = makeAccessTokenStorage()
+
+    accessTokenStorage.set(mockVariables.token)
+    userEvent.paste(inputs[0], mockVariables.activationPin)
+    fireEvent.submit(form)
+
+    await waitFetch()
+
+    expect(mockFunction).toHaveBeenCalledWith('/', { replace: true })
+  })
+
+  it('catches the error if activateAccount throws and should not redirect', async () => {
+    renderWithProviders(<Pin isPage to="/" />, {
+      apolloMocks: [activateAccountMock(undefined, new Error())]
+    })
+    const inputs = screen.getAllByTestId('pin-input')
+    const form = screen.getByTestId('form')
+    const accessTokenStorage = makeAccessTokenStorage()
+
+    accessTokenStorage.set(mockVariables.token)
+    userEvent.paste(inputs[0], mockVariables.activationPin)
+    fireEvent.submit(form)
+
+    await waitFetch()
+
+    expect(mockFunction).not.toHaveBeenCalled()
   })
 })
