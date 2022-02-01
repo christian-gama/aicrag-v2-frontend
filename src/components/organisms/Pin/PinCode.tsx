@@ -16,6 +16,7 @@ export const PinCode: React.FC = () => {
     Array.from({ length: 5 }).fill('', 0, 5) as string[]
   )
 
+  const form = document.querySelector('form') as HTMLFormElement
   const getInput = (index: number) =>
     document.querySelector(`input[data-index="${index}"]`) as HTMLElement
 
@@ -100,6 +101,12 @@ export const PinCode: React.FC = () => {
     setInputError(undefined)
   }, [values])
 
+  useEffect(() => {
+    if (values.join('').length === 5) {
+      form.requestSubmit()
+    }
+  }, [values])
+
   const selectLastChar = ({
     currentTarget
   }: FocusEvent<HTMLInputElement> | MouseEvent<HTMLInputElement>) =>
@@ -136,7 +143,7 @@ export const PinCode: React.FC = () => {
         ))}
       </div>
 
-      <Button type="submit" style={{ size: 'lg' }} loading={isLoading}>
+      <Button disabled={isLoading} style={{ size: 'lg' }} onClick={() => {}}>
         Reenviar código
       </Button>
     </form>
