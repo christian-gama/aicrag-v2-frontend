@@ -2,10 +2,10 @@ name: Deploy to staging
 on:
   pull_request:
     branches:
-      - main
+      - staging
   push:
     branches:
-      - main
+      - staging
 jobs:
   build:
     runs-on: ubuntu-latest
