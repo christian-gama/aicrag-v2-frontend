@@ -1,4 +1,5 @@
 export * from './capitalize'
+export * from './createFilledArray'
 export * from './getDuration'
 export * from './getFormattedTime'
 export * from './isDateExpired'
