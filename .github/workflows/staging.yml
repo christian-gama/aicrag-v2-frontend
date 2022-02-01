@@ -1,0 +1,77 @@
+name: Deploy to staging
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install PNPM
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.27.2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '17.x'
+          cache: 'pnpm'
+
+      - name: Use cache
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run codegen
+        run: pnpm codegen
+        
+      - name: Typecheck
+        run: pnpm run typecheck
+
+      - name: Lint
+        run: pnpm run format:lint
+
+      - name: Test
+        run: pnpm test:ci
+
+      - name: Lint commit message
+        uses: wagoid/commitlint-github-action@v4
+
+      - name: Create .env
+        run: |
+          touch .env.staging
+          echo VITE_API_URL=https://staging-api-aicrag.herokuapp.com/graphql >> .env.staging
+          cat .env.staging
+
+      - name: Build
+        run: pnpm build
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Netlify Actions
+        uses: nwtgck/actions-netlify@v1.2.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          netlify-config-path: ./netlify.toml
+          production-branch: staging
+          publish-dir: './build'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_STAGING_ID }}
+        timeout-minutes: 1
