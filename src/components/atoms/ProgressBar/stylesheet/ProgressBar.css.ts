@@ -32,19 +32,19 @@ export const progressBar = style({
   top: 0,
   boxShadow: vars.shadow.xsm,
   width: '100vw',
-  height: '0.8rem'
+  height: '1rem'
 })
 
 export const progressBarBackground = style({
-  backgroundColor: vars.colors['gray-100'],
+  backgroundColor: vars.colors['gray-50'],
   width: '100%',
   height: '100%'
 })
 
 export const progressBarProgress = style({
-  backgroundImage: `linear-gradient(to right, ${vars.colors['cyan-800']} 0%, ${vars.colors['cyan-300']} 100%)`,
+  backgroundImage: `linear-gradient(to right, ${vars.colors['cyan-600']} 0%, ${vars.colors['cyan-200']} 100%)`,
   backgroundSize: '300% 300%',
   width: '0',
   height: '100%',
-  animation: `${moveGradientAnimation} 1s infinite alternate, ${progressAnimation} 3s linear infinite forwards`
+  animation: `${moveGradientAnimation} 1s infinite alternate, ${progressAnimation} 1.5s linear infinite forwards`
 })

@@ -3,11 +3,12 @@ import { recipe } from '@vanilla-extract/recipes'
 import { breakpoints, vars } from '@/components/_settings'
 
 export const pinCodeWrapper = style({
-  width: '100%',
-  height: '100%',
   display: 'flex',
+  position: 'relative',
   flexDirection: 'column',
-  alignItems: 'center'
+  alignItems: 'center',
+  width: '100%',
+  height: '100%'
 })
 
 export const pinCode = style({
@@ -18,11 +19,11 @@ export const pinCode = style({
 
 export const pinInput = recipe({
   base: {
-    textAlign: 'center',
     width: '6rem',
     height: '9rem',
-    fontSize: '3.2rem',
+    textAlign: 'center',
     fontFamily: 'Lato',
+    fontSize: '3.2rem',
     fontWeight: '300',
 
     ':focus': {
