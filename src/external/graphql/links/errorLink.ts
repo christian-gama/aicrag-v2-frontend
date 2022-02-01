@@ -47,7 +47,5 @@ const handleUnauthenticatedUser = () => {
     )
   }
 
-  refreshTokenStorage.reset()
-
   authVar.logout()
 }

@@ -1,0 +1,5 @@
+query GetAuthentication {
+  getAuthentication {
+    authentication
+  }
+}

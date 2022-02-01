@@ -1,14 +1,30 @@
+import { useEffect } from 'react'
 import { useMailerCountdown } from '@/components/_hooks'
 import { Popover } from '@/components/molecules/Popover'
 import { Center } from '@/components/utils/Center'
 import { LoadingSpinnerIcon } from '@/components/utils/icons'
-import { useGetMeQuery } from './graphql/generated'
-import { usePopoverVar, popoverVar } from './graphql/reactiveVars'
+import { useGetAuthenticationQuery } from './graphql/generated'
+import { usePopoverVar, popoverVar, authVar } from './graphql/reactiveVars'
 import { Router } from './routes'
 
 export const App = () => {
   const { isOpen, message, type } = usePopoverVar()
-  const { loading } = useGetMeQuery()
+  const { loading, data } = useGetAuthenticationQuery()
+
+  useEffect(() => {
+    if (data?.getAuthentication.authentication === 'none') {
+      authVar.logout()
+    }
+
+    if (data?.getAuthentication.authentication === 'partial') {
+      authVar.partialLogin()
+    }
+
+    if (data?.getAuthentication.authentication === 'protected') {
+      authVar.login()
+    }
+  }, [data])
+
   useMailerCountdown()
 
   if (loading) {
