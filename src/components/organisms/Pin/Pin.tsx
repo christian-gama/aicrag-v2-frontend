@@ -3,8 +3,10 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useWindowDimensions } from '@/components/_hooks'
 import { windowHeightVars } from '@/components/_settings'
+import { Background } from '@/components/atoms/Background'
 import { Card } from '@/components/atoms/Card'
 import { Steps } from '@/components/atoms/Steps'
+import { Modal } from '@/components/molecules/Modal'
 import { Center } from '@/components/utils/Center'
 import { Divider } from '@/components/utils/Divider'
 import { BackIcon } from '@/components/utils/icons'
@@ -37,57 +39,61 @@ export const Pin: React.FC<PinProps> = (props) => {
 
   if (isOpen === false) return null
 
+  const Wrapper = props.isPage ? Background : Modal
+
   return (
-    <Center>
-      <Card roundness={width <= 520 ? 'none' : 'md'}>
-        <div
-          style={assignInlineVars(windowHeightVars, {
-            height: height <= 600 ? '600px' : `${height}px`
-          })}
-          className={classes.pin}
-          data-testid="pin"
-        >
-          <div className={classes.pinHeader}>
-            <div
-              onClick={props.isPage ? undefined : () => setIsOpen(false)}
-              data-testid="pin-back"
-            >
-              <Link to={props.isPage ? props.to : ''} aria-label="Voltar">
-                <BackIcon />
-              </Link>
-            </div>
-
-            <H2>Confirme o seu email</H2>
-          </div>
-
-          <Divider />
-
-          <div className={classes.pinContentWrapper}>
-            <div className={classes.pinContentMain}>
-              <div className={classes.pinContentSteps}>
-                <Steps
-                  direction={width <= 520 ? 'row' : 'column'}
-                  gap={width <= 520 ? '14rem' : '7.2rem'}
-                  steps={[
-                    { check: currentStep >= 1, label: 'Criar conta' },
-                    { check: currentStep >= 2, label: 'Confirmar email' }
-                  ]}
-                />
+    <Wrapper gradient isOpen>
+      <Center>
+        <Card roundness={width <= 520 ? 'none' : 'md'}>
+          <div
+            style={assignInlineVars(windowHeightVars, {
+              height: height <= 600 ? '600px' : `${height}px`
+            })}
+            className={classes.pin}
+            data-testid="pin"
+          >
+            <div className={classes.pinHeader}>
+              <div
+                onClick={props.isPage ? undefined : () => setIsOpen(false)}
+                data-testid="pin-back"
+              >
+                <Link to={props.isPage ? props.to : ''} aria-label="Voltar">
+                  <BackIcon />
+                </Link>
               </div>
 
-              <div className={classes.pinContentText}>
-                <P>
-                  Foi enviado um código de validação para o seu email. O código
-                  expirará em 15 minutos.
-                </P>
-              </div>
+              <H2>Confirme o seu email</H2>
             </div>
 
-            <PinCode />
+            <Divider />
+
+            <div className={classes.pinContentWrapper}>
+              <div className={classes.pinContentMain}>
+                <div className={classes.pinContentSteps}>
+                  <Steps
+                    direction={width <= 520 ? 'row' : 'column'}
+                    gap={width <= 520 ? '14rem' : '7.2rem'}
+                    steps={[
+                      { check: currentStep >= 1, label: 'Criar conta' },
+                      { check: currentStep >= 2, label: 'Confirmar email' }
+                    ]}
+                  />
+                </div>
+
+                <div className={classes.pinContentText}>
+                  <P>
+                    Foi enviado um código de validação para o seu email. O
+                    código expirará em 15 minutos.
+                  </P>
+                </div>
+              </div>
+
+              <PinCode setStepsHandler={setCurrentStep} />
+            </div>
           </div>
-        </div>
-      </Card>
-    </Center>
+        </Card>
+      </Center>
+    </Wrapper>
   )
 }
 

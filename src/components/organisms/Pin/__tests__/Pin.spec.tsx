@@ -3,7 +3,8 @@ import userEvent from '@testing-library/user-event'
 import { Pin } from '..'
 import { useWindowDimensions } from '@/components/_hooks'
 import { makeAccessTokenStorage } from '@/external/factories/storage/auth'
-import { renderWithProviders, waitFetch } from '@/tests/helpers'
+import { popoverVar } from '@/external/graphql/reactiveVars'
+import { OverlayRoot, renderWithProviders, waitFetch } from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
 import { sendWelcomeEmailMock } from '@/tests/mocks/queries'
 import { activateAccountMock } from '@/tests/mocks/queries/activateAccount.mock'
@@ -33,12 +34,16 @@ jest.mock('../../../_hooks/useWindowDimensions')
 const mockUseWindowDimensions = useWindowDimensions as jest.Mock
 
 describe('Pin', () => {
+  const overlayRoot = new OverlayRoot()
+
   afterEach(() => {
     cleanup()
     mockUseWindowDimensions.mockReset()
+    overlayRoot.removeOverlayRoot()
   })
 
   beforeEach(() => {
+    overlayRoot.addOverlayRoot()
     mockUseWindowDimensions.mockReturnValue({ width: 1920, height: 1080 })
   })
 
@@ -171,10 +176,11 @@ describe('Pin', () => {
     expect(inputs[0]).toHaveFocus()
   })
 
-  it('navigates the user back to home page after submitting the form', async () => {
+  it('logs the user in after submitting the form', async () => {
     renderWithProviders(<Pin isPage to="/" />, {
       apolloMocks: [activateAccountMock()]
     })
+    const popoverSpy = jest.spyOn(popoverVar, 'setPopover')
     const inputs = screen.getAllByTestId('pin-input')
     const accessTokenStorage = makeAccessTokenStorage()
 
@@ -183,13 +189,14 @@ describe('Pin', () => {
 
     await waitFetch()
 
-    expect(mockFunction).toHaveBeenCalledWith('/', { replace: true })
+    expect(popoverSpy).toHaveBeenCalled()
   })
 
   it('catches the error if activateAccount throws and should not redirect', async () => {
     renderWithProviders(<Pin isPage to="/" />, {
       apolloMocks: [activateAccountMock(undefined, new Error())]
     })
+    const popoverSpy = jest.spyOn(popoverVar, 'setPopover')
     const inputs = screen.getAllByTestId('pin-input')
     const form = screen.getByTestId('form')
     const accessTokenStorage = makeAccessTokenStorage()
@@ -200,7 +207,7 @@ describe('Pin', () => {
 
     await waitFetch()
 
-    expect(mockFunction).not.toHaveBeenCalled()
+    expect(popoverSpy).not.toHaveBeenCalled()
   })
 
   it('disables button when resend email', () => {

@@ -1,7 +1,14 @@
 import { ApolloError } from '@apollo/client'
-import { FocusEvent, FormEvent, MouseEvent, useEffect, useState } from 'react'
+import {
+  Dispatch,
+  FocusEvent,
+  FormEvent,
+  MouseEvent,
+  SetStateAction,
+  useEffect,
+  useState
+} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import { getUserByToken } from '@/services/token/getUserByToken'
 import {
   mailerCountdownActions,
@@ -13,11 +20,13 @@ import {
   useActivateAccountMutation,
   useSendWelcomeEmailMutation
 } from '@/external/graphql/generated'
-import { authVar } from '@/external/graphql/reactiveVars'
+import { authVar, popoverVar } from '@/external/graphql/reactiveVars'
 import * as classes from './stylesheet'
 
-export const PinCode: React.FC = () => {
-  const navigate = useNavigate()
+type PinCodeProps = {
+  setStepsHandler: Dispatch<SetStateAction<number>>
+}
+export const PinCode: React.FC<PinCodeProps> = ({ setStepsHandler }) => {
   const [activateAccount, { error }] = useActivateAccountMutation()
   const [sendWelcome] = useSendWelcomeEmailMutation()
   const [isLoading, setIsLoading] = useState(false)
@@ -97,9 +106,16 @@ export const PinCode: React.FC = () => {
         }
       })
 
+      popoverVar.setPopover(
+        'Conta verificada com sucesso. Você está sendo redirecionado para a página inicial',
+        'success'
+      )
+
       setIsLoading(false)
+      setStepsHandler((step) => step + 1)
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+
       authVar.login()
-      navigate('/', { replace: true })
     } catch (error: any) {
       setIsLoading(false)
       setInputError(error)
