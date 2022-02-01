@@ -1,32 +1,36 @@
-import { cleanup, render, screen } from '@testing-library/react'
-import React from 'react'
-import ProgressBar from '../ProgressBar'
-import ProgressBarProps from '../ProgressBar.model'
-
-const makeSut = (props: ProgressBarProps) => {
-  return render(<ProgressBar {...props} />)
-}
+import { render, cleanup, screen } from '@testing-library/react'
+import { ProgressBar } from '..'
+import { advanceTimer, OverlayRoot } from '@/tests/helpers'
 
 describe('ProgressBar', () => {
-  afterAll(() => {
+  const overlayRoot = new OverlayRoot()
+
+  afterEach(() => {
     cleanup()
+    overlayRoot.removeOverlayRoot()
   })
 
-  beforeAll(() => {
-    const container = document.createElement('div')
-    container.setAttribute('id', 'overlay-root')
-    document.body.appendChild(container)
+  beforeEach(() => {
+    overlayRoot.addOverlayRoot()
   })
 
-  it('should render when passing loading prop as true', () => {
-    makeSut({ loading: true })
+  it('renders correctly', () => {
+    render(<ProgressBar loading />)
+    const progressBar = screen.getByTestId('progress-bar')
 
-    expect(screen.getByTestId('progress-bar')).toBeInTheDocument()
+    expect(progressBar).toBeInTheDocument()
   })
 
-  it('should not render when passing loading prop as false', () => {
-    makeSut({ loading: false })
+  it('dismiss when loading prop was true and then becomes false', async () => {
+    jest.useFakeTimers()
+    const { rerender } = render(<ProgressBar loading={true} />)
+    const progressBar = screen.getByTestId('progress-bar')
 
-    expect(screen.queryByTestId('progress-bar')).not.toBeInTheDocument()
+    expect(progressBar).toBeInTheDocument()
+
+    rerender(<ProgressBar loading={false} />)
+    advanceTimer()
+
+    expect(progressBar).not.toBeInTheDocument()
   })
 })

@@ -1,15 +1,17 @@
-import NetworkError from '../connectionError'
+import { NetworkError } from '..'
 
 describe('InvalidInputError', () => {
-  it('should be a class', () => {
+  it('is a class', () => {
     expect(typeof NetworkError).toBe('function')
   })
 
-  it('should extend Error', () => {
+  it('extends Error', () => {
     expect(NetworkError.prototype instanceof Error).toBe(true)
   })
 
-  it('should have a message', () => {
-    expect(new NetworkError().message).toBe('Houve um erro inesperado de conexão')
+  it('has a message', () => {
+    expect(new NetworkError().message).toBe(
+      'Houve um erro inesperado de conexão'
+    )
   })
 })

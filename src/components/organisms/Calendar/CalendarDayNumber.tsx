@@ -1,27 +1,36 @@
-import React from 'react'
-import CalendarDayNumberProps from './protocols/CalendarDayNumber.model'
-import * as style from './stylesheet'
+import { CalendarDayNumberVariants } from './stylesheet'
+import * as classes from './stylesheet'
 
-const CalendarDayNumber: React.FC<CalendarDayNumberProps> = (props) => {
-  const { dimmed, onClick, selected, testid, dayNumber } = props
+type CalendarDayNumberProps = {
+  selected?: CalendarDayNumberVariants['selected']
+  dimmed?: CalendarDayNumberVariants['dimmed']
+  onClick?: (dayNumber: number) => void
+  dayNumber: number
+  testid?: string
+}
 
+export const CalendarDayNumber: React.FC<CalendarDayNumberProps> = ({
+  dayNumber,
+  selected,
+  onClick,
+  dimmed,
+  testid
+}) => {
   return (
     <span
-      data-testid={testid}
-      className={style.calendarDayNumberRecipe({
+      className={classes.calendarDayNumberRecipe({
         selected: !!selected,
         dimmed: !!dimmed
       })}
-      data-selected={selected}
       onClick={() => {
         if (onClick && !dimmed) {
           onClick(dayNumber)
         }
       }}
+      data-selected={selected}
+      data-testid={testid}
     >
       {dayNumber}
     </span>
   )
 }
-
-export default CalendarDayNumber

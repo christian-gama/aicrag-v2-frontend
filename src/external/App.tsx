@@ -1,37 +1,53 @@
-import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { useGetMeQuery } from '@/services/api'
-import Popover from '@/components/molecules/Popover'
-import SignIn from '@/components/views/Entry/SignIn'
-import SignUp from '@/components/views/Entry/SignUp'
-import { errorVar, useErrorVar } from './graphql/reactiveVars/errorVar'
-import MustLogoutRoute from './proxies/MustLogoutRoute'
-import ProtectedRoute from './proxies/ProtectedRoute'
+import { useEffect } from 'react'
+import { useMailerCountdown } from '@/components/_hooks'
+import { Popover } from '@/components/molecules/Popover'
+import { Center } from '@/components/utils/Center'
+import { LoadingSpinnerIcon } from '@/components/utils/icons'
+import { useGetAuthenticationQuery } from './graphql/generated'
+import { usePopoverVar, popoverVar, authVar } from './graphql/reactiveVars'
+import { Router } from './routes'
 
-const App = () => {
-  const { isOpen, message } = useErrorVar()
-  useGetMeQuery()
+export const App = () => {
+  const { isOpen, message, type } = usePopoverVar()
+  const { loading, data } = useGetAuthenticationQuery()
+
+  useEffect(() => {
+    if (data?.getAuthentication.authentication === 'none') {
+      authVar.logout()
+    }
+
+    if (data?.getAuthentication.authentication === 'partial') {
+      authVar.partialLogin()
+    }
+
+    if (data?.getAuthentication.authentication === 'protected') {
+      authVar.login()
+    }
+  }, [data])
+
+  useMailerCountdown()
+
+  if (loading) {
+    return (
+      <Center>
+        <LoadingSpinnerIcon style={{ size: 'lg' }} />
+      </Center>
+    )
+  }
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<ProtectedRoute />} />
-          <Route path="/entry" element={<MustLogoutRoute />}>
-            <Route path="sign-in" element={<SignIn />} />
-            <Route path="sign-up" element={<SignUp />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <Router />
 
       <Popover
-        type="error"
+        type={type}
         isOpen={isOpen}
-        message={message ?? 'Algo deu errado, tente novamente mais tarde'}
-        onClose={errorVar.reset}
+        message={message ?? ''}
+        onClose={() => {
+          popoverVar.onClose?.()
+          popoverVar.reset()
+        }}
       />
     </>
   )
 }
-
-export default App

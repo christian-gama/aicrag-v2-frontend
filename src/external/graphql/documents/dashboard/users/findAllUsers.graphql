@@ -7,7 +7,17 @@ query FindAllUsers(
   $role: String
   $sort: String
 ) {
-  findAllUsers(query: { email: $email, id: $id, limit: $limit, name: $name, page: $page, role: $role, sort: $sort }) {
+  findAllUsers(
+    query: {
+      email: $email
+      id: $id
+      limit: $limit
+      name: $name
+      page: $page
+      role: $role
+      sort: $sort
+    }
+  ) {
     count
     displaying
     documents {

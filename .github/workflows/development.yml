@@ -15,24 +15,37 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: actions/cache@v2
+      - name: Install PNPM
+        uses: pnpm/action-setup@v2.0.1
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          version: 6.27.2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: '17.x'
+          cache: 'pnpm'
+
+      - name: Use cache
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Install dependencies
-        run: yarn
+        run: pnpm install
+
+      - name: Run codegen
+        run: pnpm codegen
+
+      - name: Typecheck
+        run: pnpm run typecheck
 
       - name: Lint
-        run: yarn lint
+        run: pnpm run format:lint
 
       - name: Test
-        run: yarn test:ci
+        run: pnpm run test:ci
 
       - name: Lint commit message
         uses: wagoid/commitlint-github-action@v4

@@ -1,14 +1,11 @@
 import {
   resetForm,
-  setFormError,
-  setFormIsValid,
-  setFormIsDirty,
-  setFormIsChanging,
-  setIsFocused,
-  setFormIsSubmitting,
-  setFormIsSubmitted,
-  setFormIsValidating,
   setFormData,
+  setFormError,
+  setFormIsSubmitted,
+  setFormIsSubmitting,
+  setFormIsValid,
+  setFormIsValidating,
   setFormValidator,
   setIsResetting
 } from './form.actions'
@@ -20,9 +17,16 @@ import {
   setInputIsValid,
   setInputValue
 } from './input.actions'
-import { FormActionPayload, FormInputActionPayload, FormStates } from './protocols/form.model'
+import {
+  FormActionPayload,
+  FormInputActionPayload,
+  FormStates
+} from './protocols/form.model'
 
-const formReducer = (state: FormStates, action: FormActionPayload | FormInputActionPayload): FormStates => {
+export const formReducer = (
+  state: FormStates,
+  action: FormActionPayload | FormInputActionPayload
+): FormStates => {
   switch (action.type) {
     case 'FORM/RESET_FORM':
       return resetForm()
@@ -35,15 +39,6 @@ const formReducer = (state: FormStates, action: FormActionPayload | FormInputAct
 
     case 'FORM/SET_IS_VALID':
       return setFormIsValid(state, action)
-
-    case 'FORM/SET_IS_DIRTY':
-      return setFormIsDirty(state, action)
-
-    case 'FORM/SET_IS_CHANGING':
-      return setFormIsChanging(state, action)
-
-    case 'FORM/SET_IS_FOCUSED':
-      return setIsFocused(state, action)
 
     case 'FORM/SET_IS_SUBMITTING':
       return setFormIsSubmitting(state, action)
@@ -79,5 +74,3 @@ const formReducer = (state: FormStates, action: FormActionPayload | FormInputAct
       return setInputValue(state, action)
   }
 }
-
-export default formReducer

@@ -1,80 +1,260 @@
-import render from '@/../tests/config/renderWithProvider'
-import calendarStoreMock from '@/../tests/mocks/calendarStore.mock'
-import { calendarActions } from '@/context/models/calendar/calendar.actions'
+import { calendarActions } from '@/context/models/calendar'
 import { AppDispatch } from '@/context/store'
-import { screen, fireEvent } from '@testing-library/react'
-import React from 'react'
+import { renderWithProviders, OverlayRoot } from '@/tests/helpers'
+import { cleanup, screen, fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { DateTime } from 'luxon'
 import { useDispatch } from 'react-redux'
-import Calendar from '..'
+import { Calendar } from '..'
 
 const DummyButton = () => {
   const dispatch = useDispatch<AppDispatch>()
 
-  const openCalendarHandler = () => {
-    dispatch(calendarActions.openCalendar())
-  }
-
-  const closeCalendarHandler = () => {
-    dispatch(calendarActions.closeCalendar())
-  }
-
   return (
     <div>
-      <button onClick={openCalendarHandler} data-testid="open-button">
-        OpenCalendar
+      <button
+        onClick={() => dispatch(calendarActions.openCalendar())}
+        data-testid="open-button"
+      >
+        Open Calendar
       </button>
-      <button onClick={closeCalendarHandler} data-testid="close-button">
-        CloseCalendar
+      <button
+        onClick={() => dispatch(calendarActions.closeCalendar())}
+        data-testid="close-button"
+      >
+        Close Calendar
       </button>
     </div>
   )
 }
 
-const makeSut = (): void => {
-  render(
+const renderWithButton = (): void => {
+  renderWithProviders(
     <div>
       <DummyButton />
-      <Calendar previousDate={Date.now()} />
-    </div>,
-    { ...calendarStoreMock }
+      <Calendar
+        previousDate={DateTime.local(2022, 1, 1, 0, 0, 0, 0).toMillis()}
+      />
+    </div>
   )
 }
 
 describe('Calendar', () => {
-  beforeAll(() => {
-    const container = document.createElement('div')
-    container.setAttribute('id', 'overlay-root')
-    document.body.appendChild(container)
+  const overlayRoot = new OverlayRoot()
+  const getDateByIndex = (index: number) =>
+    screen.getByTestId('calendar-body').childNodes[index]
+
+  afterEach(() => {
+    cleanup()
+    overlayRoot.removeOverlayRoot()
   })
 
-  it('should render the calendar', () => {
-    makeSut()
+  beforeEach(() => {
+    overlayRoot.addOverlayRoot()
+  })
 
+  it('renders correctly', () => {
+    renderWithButton()
     const calendarContainer = screen.getByTestId('calendar-wrapper')
 
     expect(calendarContainer).toBeInTheDocument()
   })
 
-  it('should close the calendar if click on backdrop', () => {
-    makeSut()
-
+  it('closes if click on backdrop', () => {
+    renderWithButton()
     const backdrop = screen.getByTestId('backdrop')
-    backdrop.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+
+    userEvent.click(backdrop)
 
     expect(backdrop).not.toBeInTheDocument()
   })
 
-  it('should open the calendar using the openCalendar action if the calendar is not open', () => {
-    makeSut()
+  it('opens when dispatching openCalendar action', () => {
+    renderWithButton()
+    const calendarContainer = () => screen.queryByTestId('calendar-wrapper')
+    const calendarButton = (state: 'open' | 'close') =>
+      screen.getByTestId(`${state}-button`)
 
-    let calendarContainer = screen.getByTestId('calendar-wrapper')
-    const closeCalendarButton = screen.getByTestId('close-button')
-    fireEvent.click(closeCalendarButton)
-    expect(calendarContainer).not.toBeInTheDocument()
+    // Close
+    userEvent.click(calendarButton('close'))
 
-    const openCalendarButton = screen.getByTestId('open-button')
-    fireEvent.click(openCalendarButton)
-    calendarContainer = screen.getByTestId('calendar-wrapper')
-    expect(calendarContainer).toBeInTheDocument()
+    expect(calendarContainer()).not.toBeInTheDocument()
+
+    // Open
+    userEvent.click(calendarButton('open'))
+
+    expect(calendarContainer()).toBeInTheDocument()
+  })
+
+  it('renders the correct days based on 2022-01-01T00:00:00.000Z', () => {
+    renderWithButton()
+
+    expect(getDateByIndex(7)).toHaveTextContent('26')
+    expect(getDateByIndex(20)).toHaveTextContent('8')
+    expect(getDateByIndex(27)).toHaveTextContent('15')
+    expect(getDateByIndex(48)).toHaveTextContent('5')
+  })
+
+  it('picks a date when clicking on a day', () => {
+    renderWithButton()
+    const day = screen.getByTestId('day-2022-01-01')
+
+    userEvent.click(day)
+
+    expect(day).toHaveAttribute('data-selected', 'true')
+  })
+
+  it('does not pick a dimmed day when clicking on it', () => {
+    renderWithButton()
+    const day = screen.getByTestId('day-2021-12-26')
+
+    userEvent.click(day)
+
+    expect(day.hasAttribute('data-selected')).toBeFalsy()
+  })
+
+  it('renders the correct date heading', () => {
+    renderWithButton()
+    const heading = screen.getByTestId('calendar-header-date')
+
+    expect(heading).toHaveTextContent(/^jan.*, 2022/gi)
+  })
+
+  it('skips to previous month when clicking on ChevronIcon from the left', () => {
+    renderWithButton()
+    const chevronIcons = screen.getAllByTestId('chevron-icon')
+
+    userEvent.click(chevronIcons[0])
+
+    expect(getDateByIndex(7)).toHaveTextContent('28')
+    expect(getDateByIndex(20)).toHaveTextContent('11')
+    expect(getDateByIndex(27)).toHaveTextContent('18')
+    expect(getDateByIndex(48)).toHaveTextContent('8')
+  })
+
+  it('skips to next month when clicking on ChevronIcon from the right', () => {
+    renderWithButton()
+    const chevronIcons = screen.getAllByTestId('chevron-icon')
+
+    userEvent.click(chevronIcons[1])
+
+    expect(getDateByIndex(7)).toHaveTextContent('30')
+    expect(getDateByIndex(20)).toHaveTextContent('12')
+    expect(getDateByIndex(27)).toHaveTextContent('19')
+    expect(getDateByIndex(48)).toHaveTextContent('12')
+  })
+
+  it('closes the calendar when clicking on confirm button', () => {
+    renderWithButton()
+    const confirmButton = screen.getByTestId('calendar-confirm-button')
+
+    userEvent.click(confirmButton)
+
+    expect(confirmButton).not.toBeInTheDocument()
+  })
+
+  it('closes when clicking on cancel button', () => {
+    renderWithButton()
+    const cancelButton = screen.getByTestId('calendar-cancel-button')
+
+    userEvent.click(cancelButton)
+
+    expect(cancelButton).not.toBeInTheDocument()
+  })
+
+  it('renders all the week days (short)', () => {
+    renderWithButton()
+
+    expect(getDateByIndex(0)).toHaveTextContent('Dom')
+    expect(getDateByIndex(3)).toHaveTextContent('Qua')
+    expect(getDateByIndex(6)).toHaveTextContent('Sab')
+  })
+
+  describe('Timer', () => {
+    describe('when triggers onChange', () => {
+      it('updates the hour input value if value is valid', () => {
+        renderWithButton()
+        const hourInput = screen.getByTestId('calendar-hour')
+
+        userEvent.type(hourInput, '{backspace}{backspace}a1')
+
+        expect(hourInput).toHaveValue('01')
+      })
+
+      it('updates the minute input value if value is valid', () => {
+        renderWithButton()
+        const minuteInput = screen.getByTestId('calendar-minute')
+
+        userEvent.type(minuteInput, '{backspace}{backspace}a1')
+
+        expect(minuteInput).toHaveValue('01')
+      })
+    })
+
+    describe('when triggers onBlur', () => {
+      it('updates the hour input value if value is valid', () => {
+        renderWithButton()
+        const hourInput = screen.getByTestId('calendar-hour')
+
+        userEvent.type(hourInput, '{backspace}{backspace}a1')
+        fireEvent.blur(hourInput)
+
+        expect(hourInput).toHaveValue('01')
+      })
+
+      it('updates the minute input value if value is valid', () => {
+        renderWithButton()
+        const minuteInput = screen.getByTestId('calendar-minute')
+
+        userEvent.type(minuteInput, '{backspace}{backspace}a1')
+        fireEvent.blur(minuteInput)
+
+        expect(minuteInput).toHaveValue('01')
+      })
+    })
+
+    describe('when triggers  arrowUp', () => {
+      it('increases the value of hour', () => {
+        renderWithButton()
+        const hourInput = screen.getByTestId('calendar-hour')
+
+        userEvent.type(hourInput, '{backspace}{backspace}a23')
+        fireEvent.keyDown(hourInput, { key: 'ArrowUp' })
+
+        expect(hourInput).toHaveValue('00')
+      })
+
+      it('increases the value of minute', () => {
+        renderWithButton()
+        const minuteInput = screen.getByTestId('calendar-minute')
+
+        userEvent.type(minuteInput, '{backspace}{backspace}a59')
+        fireEvent.keyDown(minuteInput, { key: 'ArrowUp' })
+
+        expect(minuteInput).toHaveValue('00')
+      })
+    })
+
+    describe('when triggers arrowDown', () => {
+      it('decreases the value of hour', () => {
+        renderWithButton()
+        const hourInput = screen.getByTestId('calendar-hour')
+
+        userEvent.type(hourInput, '{backspace}{backspace}a0')
+        fireEvent.keyDown(hourInput, { key: 'ArrowDown' })
+
+        expect(hourInput).toHaveValue('23')
+      })
+
+      it('decreases the value of hour', () => {
+        renderWithButton()
+        const minuteInput = screen.getByTestId('calendar-minute')
+
+        userEvent.type(minuteInput, '{backspace}{backspace}a0')
+        fireEvent.keyDown(minuteInput, { key: 'ArrowDown' })
+
+        expect(minuteInput).toHaveValue('59')
+      })
+    })
   })
 })

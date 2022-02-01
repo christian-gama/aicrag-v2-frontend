@@ -1,38 +1,55 @@
-import { cleanup, render, screen, waitForElementToBeRemoved } from '@testing-library/react'
-import React from 'react'
-import Popover from '../Popover'
-import PopoverProps from '../protocols/Popover.model'
+import { OverlayRoot, advanceTimer } from '@/tests/helpers'
+import { render, cleanup, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { Popover } from '..'
 
-const makeSut = (props: PopoverProps) => {
-  render(<Popover isOpen={props.isOpen ?? true} {...props} />)
-}
+const mockFunction = jest.fn()
+jest.mock('../../../utils/icons', () => ({
+  CheckCircleIcon: (props: any) => {
+    mockFunction(props)
+    return null
+  },
+  InfoCircleIcon: (props: any) => {
+    mockFunction(props)
+    return null
+  },
+  ErrorIcon: (props: any) => {
+    mockFunction(props)
+    return null
+  }
+}))
 
 describe('Popover', () => {
+  const overlayRoot = new OverlayRoot()
+
   afterEach(() => {
     cleanup()
+    overlayRoot.removeOverlayRoot()
   })
 
-  beforeAll(() => {
-    const container = document.createElement('div')
-    container.setAttribute('id', 'overlay-root')
-    document.body.appendChild(container)
+  beforeEach(() => {
+    jest.useFakeTimers()
+    overlayRoot.addOverlayRoot()
   })
 
-  it('should render PopoverMessageList if message is an array', () => {
+  it('renders correctly', () => {
+    render(<Popover isOpen message={[]} type="success" />)
+    const popover = screen.getByTestId('popover')
+
+    expect(popover).toBeInTheDocument()
+  })
+
+  it('renders the message from messages array', () => {
     const messages = ['message 1', 'message 2']
+    render(<Popover isOpen message={messages} type="success" />)
 
-    makeSut({ message: messages, type: 'success' })
-
-    const popoverList = screen.queryByTestId('popover-list')
-
-    expect(popoverList).toBeInTheDocument()
+    expect(screen.getByText(messages[0])).toBeInTheDocument()
+    expect(screen.getByText(messages[1])).toBeInTheDocument()
   })
 
-  it('should render the message without a list if message is a string', () => {
+  it('renders the message without a list if message is a string', () => {
     const message = 'message'
-
-    makeSut({ message, type: 'success' })
-
+    render(<Popover isOpen message={message} type="success" />)
     const popoverList = screen.queryByTestId('popover-list')
     const text = screen.getByText(message)
 
@@ -40,50 +57,76 @@ describe('Popover', () => {
     expect(text).toBeInTheDocument()
   })
 
-  it('should last the duration passed through props', async () => {
-    const duration = 0.1
-
-    makeSut({ message: 'message', type: 'info', duration })
-
+  it('lasts the duration passed through props', async () => {
+    const duration = 10
+    render(<Popover isOpen message="" type="success" duration={duration} />)
     const popover = screen.getByTestId('popover')
 
-    await waitForElementToBeRemoved(popover, { timeout: duration * 1250 })
+    advanceTimer()
 
     expect(popover).not.toBeInTheDocument()
   })
 
-  it('should call onClose when the duration is passed through props', async () => {
-    const duration = 0.1
+  it('calls onClose when the time expires', async () => {
     const onClose = jest.fn()
+    render(<Popover isOpen message="" type="success" onClose={onClose} />)
 
-    makeSut({ message: 'message', type: 'info', duration, onClose })
-
-    const popover = screen.getByTestId('popover')
-
-    await waitForElementToBeRemoved(popover, { timeout: duration * 1250 })
+    advanceTimer()
 
     expect(onClose).toHaveBeenCalledTimes(1)
   })
 
-  it('should close Popover if click on close button', () => {
-    const message = 'message'
-
-    makeSut({ message, type: 'error' })
-
+  it('calls onClose when click on close button', () => {
+    const onClose = jest.fn()
+    render(<Popover isOpen message="" type="success" onClose={onClose} />)
     const closeButton = screen.getByTestId('popover-close-wrapper')
 
-    closeButton.click()
+    userEvent.click(closeButton)
 
+    expect(onClose).toHaveBeenCalledTimes(1)
+  })
+
+  it('closes if click on close button', () => {
+    render(<Popover isOpen message="" type="success" />)
+    const closeButton = screen.getByTestId('popover-close-wrapper')
+    const popover = screen.getByTestId('popover')
+
+    userEvent.click(closeButton)
+
+    expect(popover).not.toBeInTheDocument()
+  })
+
+  it('does not render if isOpen is false', () => {
+    render(<Popover message="" type="success" />)
     const popover = screen.queryByTestId('popover')
 
     expect(popover).not.toBeInTheDocument()
   })
 
-  it('should not render if isOpen is false', () => {
-    makeSut({ isOpen: false, message: '', type: 'success' })
+  it('calls CheckCircleIcon with correct props if type is success', () => {
+    render(<Popover isOpen message="" type="success" />)
 
-    const popover = screen.queryByTestId('popover')
+    expect(mockFunction).toHaveBeenCalledWith({
+      color: 'white',
+      size: expect.anything()
+    })
+  })
 
-    expect(popover).not.toBeInTheDocument()
+  it('calls ErrorIcon with correct props if type is error', () => {
+    render(<Popover isOpen message="" type="error" />)
+
+    expect(mockFunction).toHaveBeenCalledWith({
+      color: 'white',
+      size: expect.anything()
+    })
+  })
+
+  it('calls InfoCircleIcon with correct props if type is info', () => {
+    render(<Popover isOpen message="" type="info" />)
+
+    expect(mockFunction).toHaveBeenCalledWith({
+      color: 'white',
+      size: expect.anything()
+    })
   })
 })

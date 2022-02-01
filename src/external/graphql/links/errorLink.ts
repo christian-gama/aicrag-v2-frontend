@@ -1,53 +1,51 @@
-import translateError from '@/helpers/translateError'
 import { onError } from '@apollo/client/link/error'
-import NetworkError from '@/services/errors/connectionError'
-import InternalError from '@/services/errors/internalError'
-import makeAccessTokenStorage from '@/external/factories/storage/auth/makeAccessTokenStorage'
-import makeRefreshTokenStorage from '@/external/factories/storage/auth/makeRefreshTokenStorage'
-import { auth } from '../reactiveVars/auth'
-import { errorVar } from '../reactiveVars/errorVar'
+import { translateError } from '@/helpers'
+import { InternalError, NetworkError } from '@/services/errors'
+import { makeRefreshTokenStorage } from '@/external/factories/storage/auth'
+import { authVar } from '../reactiveVars/authVar'
+import { popoverVar } from '../reactiveVars/popoverVar'
 
-const errorLink = onError(({ networkError, graphQLErrors }) => {
+export const errorLink = onError(({ networkError, graphQLErrors }) => {
   if (graphQLErrors && graphQLErrors.length > 0) {
-    for (const error of graphQLErrors) {
-      const errorCode = error.extensions.code
+    const error = graphQLErrors[0]
 
-      if (errorCode === '401' && error.message.match(/token/gi)) {
-        auth.logout()
+    for (const graphQLError of graphQLErrors) {
+      const errorCode = graphQLError.extensions.code
+      const isTokenError = graphQLError.message.match(/token/gi)
 
-        const accessToken = makeAccessTokenStorage()
-        const refreshToken = makeRefreshTokenStorage()
-
-        const wasPreviouslyLoggedIn = !!refreshToken.get()
-        if (wasPreviouslyLoggedIn) {
-          errorVar.setError('Sua sessão expirou. Por favor, entre novamente')
-        }
-
-        accessToken.reset()
-        refreshToken.reset()
-
-        return
+      if (errorCode === '401' && isTokenError) {
+        return handleUnauthenticatedUser()
       }
     }
 
-    if (graphQLErrors[0].extensions.code === 'BAD_USER_INPUT') {
-      errorVar.setError(new InternalError().message)
-
-      return
+    const isBadInputError = error.extensions.code === 'BAD_USER_INPUT'
+    if (isBadInputError) {
+      return popoverVar.setPopover(new InternalError().message, 'error')
     }
 
-    if (!graphQLErrors[0].message.includes('token')) {
-      errorVar.setError(translateError(graphQLErrors[0].message))
-
-      return
+    const isTokenError = !error.message.includes('token')
+    if (isTokenError) {
+      return popoverVar.setPopover(translateError(error.message), 'error')
     }
 
     return
   }
 
   if (networkError) {
-    errorVar.setError(new NetworkError().message)
+    popoverVar.setPopover(new NetworkError().message, 'error')
   }
 })
 
-export default errorLink
+const handleUnauthenticatedUser = () => {
+  const refreshTokenStorage = makeRefreshTokenStorage()
+
+  const wasPreviouslyLoggedIn = !!refreshTokenStorage.get()
+  if (wasPreviouslyLoggedIn) {
+    popoverVar.setPopover(
+      'Sua sessão expirou. Faça o login novamente para continuar usando o sistema',
+      'error'
+    )
+  }
+
+  authVar.logout()
+}

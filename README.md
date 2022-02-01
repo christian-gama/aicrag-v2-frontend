@@ -9,8 +9,6 @@ As this is my first personal project ever, you may find some stuffs that you dis
 
 > ### Principles I've used
 
-- Composition Over Inheritance
-- Dependency Inversion Principle (DIP)
 - Don't Repeat Yourself (DRY)
 - Keep It Simple, Silly (KISS)
 - Separation of Concerns (SOC)
@@ -34,13 +32,23 @@ As this is my first personal project ever, you may find some stuffs that you dis
 
 > ### Libraries and tools I've used
 
+- Apollo Client / GraphQL
+- Babel
+- Commit Lint
 - Docker
 - Eslint
 - Faker
 - Husky
-- Jest
-- Lint Staged
+- Jest / Testing Library
+- Lint-staged
+- Luxon
+- PNPM
 - Prettier
+- React
+- React Router
+- Redux
 - Rimraf
+- Storybook
 - Typescript
-- YARN
+- Vanilla Extract
+- Vite

@@ -1,55 +1,52 @@
-import React from 'react'
-import Popover from '@/components/molecules/Popover'
-import ProgressBar from '../../atoms/ProgressBar'
-import useControlForm from './hooks/useControlForm'
-import ControlFormProps from './protocols/ControlForm.model'
+import { useEffect } from 'react'
+import { IValidation } from '@/services/validators'
+import { ProgressBar } from '@/components/atoms/ProgressBar'
+import { popoverVar } from '@/external/graphql/reactiveVars'
+import { useControlForm } from './hooks'
 
-const ControlForm: React.FC<ControlFormProps> = (props) => {
-  const {
-    error,
-    isErrorPopoverOpen,
-    isSubmitted,
-    isSubmitting,
-    isSuccessPopoverOpen,
-    isValid,
-    onCloseErrorPopover,
-    onCloseSuccessPopover,
-    onSubmitHandler
-  } = useControlForm(props)
+type ControlFormProps = {
+  submitHandler: () => Promise<(() => void) | undefined> | Promise<void>
+  validator?: IValidation
+  successMessage?: string
+  loading?: boolean
+}
 
+export const ControlForm: React.FC<ControlFormProps> = ({
+  successMessage,
+  submitHandler,
+  validator,
+  children,
+  loading
+}) => {
+  const { onSubmitHandler, isSubmitting, isSubmitted, isValid, error } =
+    useControlForm({
+      successMessage,
+      submitHandler,
+      validator,
+      children,
+      loading
+    })
+
+  useEffect(() => {
+    if (!isValid && error) {
+      popoverVar.setPopover(error, 'error')
+    }
+
+    if (!error && isValid && isSubmitted) {
+      if (successMessage) popoverVar.setPopover(successMessage, 'success')
+    }
+  }, [successMessage, isSubmitted, isValid, error])
   return (
     <>
-      <form onSubmit={onSubmitHandler} data-testid="form">
-        {props.children}
+      <form
+        onSubmit={onSubmitHandler}
+        data-testid="form"
+        data-loading={loading ?? isSubmitting}
+      >
+        {children}
       </form>
 
-      {!isValid && error && (
-        <Popover
-          onClose={
-            /* istanbul ignore next */
-            onCloseErrorPopover
-          }
-          isOpen={isErrorPopoverOpen}
-          message={error}
-          type="error"
-        />
-      )}
-
-      {isValid && !error && isSubmitted && (
-        <Popover
-          onClose={
-            /* istanbul ignore next */
-            onCloseSuccessPopover
-          }
-          isOpen={isSuccessPopoverOpen}
-          message={props.successMessage ?? 'Formulário bem sucedido'}
-          type="success"
-        />
-      )}
-
-      {<ProgressBar loading={props.loading ?? isSubmitting} />}
+      {<ProgressBar loading={loading ?? isSubmitting} />}
     </>
   )
 }
-
-export default ControlForm

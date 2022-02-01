@@ -1,12 +1,9 @@
-import React from 'react'
-import * as style from './stylesheet'
+import * as classes from './stylesheet'
 
-const Tr: React.FC = (props) => {
+export const Tr: React.FC = ({ children }) => {
   return (
-    <tr className={style.tableRow} data-testid="table-tr">
-      {props.children}
+    <tr className={classes.tableRow} data-testid="table-tr">
+      {children}
     </tr>
   )
 }
-
-export default Tr

@@ -1,8 +1,7 @@
 import { styleVariants, createGlobalTheme } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { vars } from '@/components/_settings/vars.css'
+import { vars } from '@/components/_settings'
 
-// Variants
 const centeredVariants = styleVariants({
   true: {
     position: 'absolute',
@@ -45,22 +44,22 @@ const transparentVariants = styleVariants({
 })
 
 export const cardVars = createGlobalTheme(':root', {
-  height: 'max-content',
   margin: '0',
   padding: '0',
-  width: 'max-content'
+  width: 'max-content',
+  height: 'max-content'
 })
 
-// Recipes
 export const cardRecipe = recipe({
   base: {
-    boxShadow: vars.shadow.sm,
-    height: cardVars.height,
     margin: cardVars.margin,
-    maxWidth: cardVars.width,
-    minWidth: cardVars.width,
+    boxShadow: vars.shadow.sm,
     padding: cardVars.padding,
-    width: cardVars.width
+    width: cardVars.width,
+    minWidth: cardVars.width,
+    maxWidth: cardVars.width,
+    height: cardVars.height,
+    overflow: 'hidden'
   },
 
   variants: {

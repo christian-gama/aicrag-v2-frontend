@@ -1,21 +1,24 @@
 import { style } from '@vanilla-extract/css'
-import { vars } from '@/components/_settings/vars.css'
+import { vars } from '@/components/_settings'
 
 export const tableStyle = style({
   fontFamily: vars.font.p.fontFamily,
-  fontSize: vars.font.p.fontSize,
-  margin: '0 auto'
+  fontSize: vars.font.p.fontSize
 })
 
 export const tableCell = style({
-  display: 'flex',
+  position: 'relative',
   height: '100%',
-  alignItems: 'center'
+  overflow: 'hidden',
+  textAlign: 'start',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+  msTextOverflow: 'ellipsis'
 })
 
 export const tableSpanShowingup = style({
   display: 'block',
-  fontSize: vars.font.hint.fontSize,
+  marginBottom: '0.8rem',
   fontFamily: vars.font.hint.fontFamily,
-  marginBottom: '0.8rem'
+  fontSize: vars.font.hint.fontSize
 })

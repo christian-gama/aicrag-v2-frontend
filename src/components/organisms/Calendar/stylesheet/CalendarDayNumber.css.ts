@@ -1,15 +1,15 @@
 import { styleVariants } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { vars } from '@/components/_settings/vars.css'
+import { vars } from '@/components/_settings'
 
 const selected = styleVariants({
   true: {
     border: `2px solid ${vars.colors['cyan-600']}`,
 
     ':hover': {
-      cursor: 'default',
+      border: `2px solid ${vars.colors['cyan-400']}`,
       backgroundColor: vars.colors.white,
-      border: `2px solid ${vars.colors['cyan-400']}`
+      cursor: 'default'
     }
   }
 })
@@ -23,8 +23,8 @@ const dimmed = styleVariants({
     color: vars.colors.text.default,
     selectors: {
       '&:hover': {
-        cursor: 'pointer',
-        backgroundColor: vars.colors['gray-50']
+        backgroundColor: vars.colors['gray-50'],
+        cursor: 'pointer'
       }
     }
   }
@@ -32,18 +32,20 @@ const dimmed = styleVariants({
 
 export const calendarDayNumberRecipe = recipe({
   base: {
-    alignItems: 'center',
-    borderRadius: '16px',
     display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '16px',
     fontFamily: vars.font.hint.fontFamily,
-    fontSize: vars.font.hint.fontSize,
-    justifyContent: 'center'
+    fontSize: vars.font.hint.fontSize
   },
 
   variants: {
-    dimmed,
-    selected
+    selected,
+    dimmed
   }
 })
 
-export type CalendarDayNumberVariants = NonNullable<RecipeVariants<typeof calendarDayNumberRecipe>>
+export type CalendarDayNumberVariants = NonNullable<
+RecipeVariants<typeof calendarDayNumberRecipe>
+>

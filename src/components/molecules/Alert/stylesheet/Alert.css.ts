@@ -1,9 +1,8 @@
-import { style, styleVariants } from '@vanilla-extract/css'
+import { styleVariants, style } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { breakpoints } from '@/components/_settings/breakpoints.css'
-import { vars } from '@/components/_settings/vars.css'
+import { vars, breakpoints } from '@/components/_settings'
 
-export const colorVariants = styleVariants({
+const colorVariants = styleVariants({
   danger: {
     backgroundColor: vars.colors['danger-50']
   },
@@ -12,13 +11,13 @@ export const colorVariants = styleVariants({
     backgroundColor: vars.colors['info-50']
   },
 
-  default: {
-    backgroundColor: vars.colors['gray-50']
+  warning: {
+    backgroundColor: vars.colors['warning-50']
   }
 })
 
 export const padding = style({
-  padding: '2rem 3.5rem',
+  padding: '2rem 2.8rem',
 
   '@media': {
     [breakpoints.mobile]: {
@@ -43,10 +42,10 @@ export const alert = style({
 export const alertBody = style([
   padding,
   {
-    textAlign: 'justify',
-    hyphens: 'auto',
+    width: '100%',
     minHeight: '12rem',
-    width: '100%'
+    textAlign: 'justify',
+    hyphens: 'auto'
   }
 ])
 
@@ -54,9 +53,10 @@ export const alertFooter = style([
   padding,
   {
     display: 'flex',
-    justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    width: '100%'
+    justifyContent: 'flex-end',
+    width: '100%',
+    gap: '0.8rem'
   }
 ])
 
@@ -64,12 +64,12 @@ export const alertHeaderRecipe = recipe({
   base: [
     padding,
     {
+      display: 'flex',
       alignItems: 'center',
       borderRadius: '5px 5px 0 0',
-      display: 'flex',
-      gap: '1.6rem',
-      height: '7rem',
       width: '100%',
+      height: '7rem',
+      gap: '1.6rem',
 
       '@media': {
         [breakpoints.mobile]: {
@@ -84,8 +84,10 @@ export const alertHeaderRecipe = recipe({
   },
 
   defaultVariants: {
-    color: 'default'
+    color: 'warning'
   }
 })
 
-export type AlertHeaderVariants = NonNullable<RecipeVariants<typeof alertHeaderRecipe>>
+export type AlertHeaderVariants = NonNullable<
+RecipeVariants<typeof alertHeaderRecipe>
+>

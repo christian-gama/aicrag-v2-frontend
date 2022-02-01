@@ -1,11 +1,11 @@
-import RefreshTokenStorage from '../refreshTokenStorage'
+import { RefreshTokenStorage } from '..'
 
 const makeSut = () => {
   return new RefreshTokenStorage()
 }
 
 describe('refreshTokenStorage', () => {
-  it('should return null if no token is stored', () => {
+  it('returns null if no token is stored', () => {
     const sut = makeSut()
 
     const refreshToken = sut.get()
@@ -13,7 +13,7 @@ describe('refreshTokenStorage', () => {
     expect(refreshToken).toBeNull()
   })
 
-  it('should return token if token is stored', () => {
+  it('returns a token if token is stored', () => {
     const sut = makeSut()
     const refreshToken = 'any_token'
     sut.set(refreshToken)
@@ -23,7 +23,7 @@ describe('refreshTokenStorage', () => {
     expect(result).toBe(refreshToken)
   })
 
-  it('should remove token if reset is called', () => {
+  it('removes the token if reset is called', () => {
     const sut = makeSut()
     const refreshToken = 'any_token'
     sut.set(refreshToken)

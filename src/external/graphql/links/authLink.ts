@@ -1,12 +1,15 @@
-import { ApolloLink } from '@apollo/client'
-import makeAccessTokenStorage from '@/external/factories/storage/auth/makeAccessTokenStorage'
-import makeRefreshTokenStorage from '@/external/factories/storage/auth/makeRefreshTokenStorage'
+import { ApolloLink, FetchResult } from '@apollo/client'
+import {
+  makeAccessTokenStorage,
+  makeRefreshTokenStorage
+} from '@/external/factories/storage/auth'
 
-const authLink = new ApolloLink((operation, forward) => {
+export const authLink = new ApolloLink((operation, forward) => {
+  const { getContext, setContext } = operation
   const accessTokenStorage = makeAccessTokenStorage()
   const refreshTokenStorage = makeRefreshTokenStorage()
 
-  operation.setContext((prevContext: any) => {
+  const setTokensInResponseHeaders = (prevContext: any) => {
     return {
       ...prevContext,
 
@@ -16,11 +19,12 @@ const authLink = new ApolloLink((operation, forward) => {
         'x-refresh-token': refreshTokenStorage.get()
       }
     }
-  })
+  }
 
-  return forward(operation).map((response) => {
-    const context = operation.getContext()
-    const headers = context.response.headers
+  const handleTokenStorage = (response: FetchResult) => {
+    const {
+      response: { headers }
+    } = getContext()
 
     if (headers) {
       const accessToken = headers.get('x-access-token') as string
@@ -35,7 +39,9 @@ const authLink = new ApolloLink((operation, forward) => {
     }
 
     return response
-  })
-})
+  }
 
-export default authLink
+  setContext(setTokensInResponseHeaders)
+
+  return forward(operation).map(handleTokenStorage)
+})

@@ -1,34 +1,30 @@
-import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import MenuProps from './protocols/Menu.model'
-import * as style from './stylesheet'
 
-const Menu: React.FC<MenuProps> = (props) => {
-  const location = useLocation()
+import { NavLink } from 'react-router-dom'
+import * as classes from './stylesheet'
 
+type MenuProps = {
+  buttons: Array<{ buttonName: string, to: string, active?: boolean }>
+}
+
+export const Menu: React.FC<MenuProps> = ({ buttons }) => {
   return (
-    <div className={style.menu} data-testid="menu">
-      {props.buttons.map(({ buttonName, to }, index) => {
-        const isActive = location.pathname.replace(props.url, '').includes(to.toLowerCase())
-
-        const menuButtonStyle = style.menuButtonRecipe({
-          active: isActive
-        })
-
+    <div className={classes.menu} data-testid="menu">
+      {buttons.map(({ buttonName, to, active }, index) => {
         return (
-          <Link
+          <NavLink
+            data-testid="menu-link"
             key={`${buttonName}-${index}`}
-            to={`${props.url}${to.toLowerCase()}`}
-            className={menuButtonStyle}
-            data-active={isActive}
-            data-testid={`menu-link-${buttonName.toLowerCase()}`}
+            className={({ isActive }) =>
+              classes.menuButtonRecipe({
+                active: active ?? isActive
+              })
+            }
+            to={to.toLowerCase()}
           >
             {buttonName}
-          </Link>
+          </NavLink>
         )
       })}
     </div>
   )
 }
-
-export default Menu

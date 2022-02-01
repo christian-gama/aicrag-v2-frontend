@@ -1,6 +1,6 @@
-import Storage from '@/services/localStorage/protocols/storage.model'
+import { Storage } from '../protocols'
 
-class AccessTokenStorage implements Storage {
+export class AccessTokenStorage implements Storage {
   get () {
     return localStorage.getItem('accessToken')
   }
@@ -13,5 +13,3 @@ class AccessTokenStorage implements Storage {
     localStorage.removeItem('accessToken')
   }
 }
-
-export default AccessTokenStorage

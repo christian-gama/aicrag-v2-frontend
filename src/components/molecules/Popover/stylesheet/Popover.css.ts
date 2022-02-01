@@ -1,7 +1,11 @@
-import { createGlobalTheme, keyframes, style, styleVariants } from '@vanilla-extract/css'
+import {
+  createGlobalTheme,
+  styleVariants,
+  keyframes,
+  style
+} from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { breakpoints } from '@/components/_settings/breakpoints.css'
-import { vars } from '@/components/_settings/vars.css'
+import { vars, breakpoints } from '@/components/_settings'
 
 export const popoverVars = createGlobalTheme(':root', {
   duration: '0.3s'
@@ -63,15 +67,15 @@ const progressAnimation = keyframes({
 
 // Styles
 export const popoverTextWrapper = style({
-  alignItems: 'center',
   display: 'flex',
-  gap: '2.4rem',
+  alignItems: 'center',
   marginRight: '1.6rem',
+  paddingTop: '1.6rem',
+  paddingBottom: '1.6rem',
+  width: '100%',
   maxWidth: '80%',
   minHeight: '7.6rem',
-  paddingBottom: '1.6rem',
-  paddingTop: '1.6rem',
-  width: '100%',
+  gap: '2.4rem',
 
   '@media': {
     [breakpoints.mobile]: {
@@ -82,12 +86,12 @@ export const popoverTextWrapper = style({
 })
 
 export const popoverButtonWrapper = style({
-  alignItems: 'center',
   display: 'flex',
+  alignItems: 'center',
   justifyContent: 'center',
+  borderLeft: `1px solid ${vars.colors.white}`,
   width: '8rem',
   height: '5.2rem',
-  borderLeft: `1px solid ${vars.colors.white}`,
 
   '@media': {
     [breakpoints.mobile]: {
@@ -97,13 +101,13 @@ export const popoverButtonWrapper = style({
 })
 
 export const popoverContent = style({
-  alignItems: 'center',
   display: 'flex',
-  height: '100%',
+  position: 'relative',
+  alignItems: 'center',
   justifyContent: 'space-between',
   paddingLeft: '2.4rem',
-  position: 'relative',
   width: '100%',
+  height: '100%',
 
   '@media': {
     [breakpoints.mobile]: {
@@ -115,33 +119,33 @@ export const popoverContent = style({
 // Recipes
 export const popoverRecipe = recipe({
   base: {
-    alignItems: 'center',
-    animationDuration: '0.3s',
-    animationFillMode: 'forwards',
-    animationName: showUpAnimation,
-    animationTimingFunction: 'ease-in-out',
-    borderRadius: '5px',
-    boxShadow: vars.shadow.sm,
     display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    maxWidth: '52rem',
-    minWidth: '40rem',
-    overflow: 'hidden',
     position: 'fixed',
     right: '1.6rem',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: '5',
+    borderRadius: '5px',
+    boxShadow: vars.shadow.sm,
+    minWidth: '40rem',
+    maxWidth: '52rem',
+    overflow: 'hidden',
+    animationName: showUpAnimation,
+    animationDuration: '0.3s',
+    animationTimingFunction: 'ease-in-out',
+    animationFillMode: 'forwards',
     WebkitAnimationFillMode: 'forwards',
     WebkitAnimationName: showUpAnimation,
-    zIndex: '5',
 
     '@media': {
       [breakpoints.mobile]: {
         right: '0',
         left: '0',
         margin: '0 auto',
-        maxWidth: '96vw',
+        width: '96vw',
         minWidth: '0',
-        width: '96vw'
+        maxWidth: '96vw'
       }
     }
   },
@@ -165,11 +169,11 @@ export const popoverRecipe = recipe({
 
 export const progressBarRecipe = recipe({
   base: {
-    animationDuration: popoverVars.duration,
-    animationFillMode: 'forwards',
+    height: '100%',
     animationName: progressAnimation,
+    animationDuration: popoverVars.duration,
     animationTimingFunction: 'linear',
-    height: '100%'
+    animationFillMode: 'forwards'
   },
 
   variants: {
@@ -179,8 +183,8 @@ export const progressBarRecipe = recipe({
 
 export const progressBarWrapperRecipe = recipe({
   base: {
-    height: '0.4rem',
-    width: '100%'
+    width: '100%',
+    height: '0.4rem'
   },
 
   variants: {
@@ -189,5 +193,9 @@ export const progressBarWrapperRecipe = recipe({
 })
 
 export type PopoverVariants = NonNullable<RecipeVariants<typeof popoverRecipe>>
-export type ProgressBarVariants = NonNullable<RecipeVariants<typeof progressBarRecipe>>
-export type ProgressBarWrapperVariants = NonNullable<RecipeVariants<typeof progressBarWrapperRecipe>>
+export type ProgressBarVariants = NonNullable<
+RecipeVariants<typeof progressBarRecipe>
+>
+export type ProgressBarWrapperVariants = NonNullable<
+RecipeVariants<typeof progressBarWrapperRecipe>
+>

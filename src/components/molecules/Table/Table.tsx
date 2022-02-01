@@ -1,25 +1,28 @@
-import React from 'react'
-import HorizontalScrollBar from '../../atoms/HorizontalScrollBar'
-import TableProps from './protocols/Table.model'
-import * as style from './stylesheet'
+import { HorizontalScrollBar } from '@/components/utils/HorizontalScrollBar'
+import * as classes from './stylesheet'
 
-const Table: React.FC<TableProps> = (props) => {
+type TableProps = {
+  showingUp?: {
+    current: number
+    total: number
+  }
+}
+
+export const Table: React.FC<TableProps> = ({ children, showingUp }) => {
   return (
     <>
-      {props.showingUp && (
+      {showingUp && (
         <span
-          className={style.tableSpanShowingup}
+          className={classes.tableSpanShowingup}
           data-testid="table-showing-up"
-        >{`Mostrando ${props.showingUp?.current} de ${props.showingUp.total}`}</span>
+        >{`Mostrando ${showingUp?.current} de ${showingUp.total}`}</span>
       )}
 
       <HorizontalScrollBar>
-        <table className={style.tableStyle} data-testid="table">
-          {props.children}
+        <table className={classes.tableStyle} data-testid="table">
+          {children}
         </table>
       </HorizontalScrollBar>
     </>
   )
 }
-
-export default Table

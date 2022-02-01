@@ -1,3 +1,3 @@
-import calendarSlice from './calendar.slice'
+import { calendarSlice } from './calendar.slice'
 
 export const calendarActions = calendarSlice.actions

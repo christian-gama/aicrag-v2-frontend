@@ -1,14 +1,13 @@
 import { styleVariants, style } from '@vanilla-extract/css'
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
-import { breakpoints } from '@/components/_settings/breakpoints.css'
-import { vars } from '@/components/_settings/vars.css'
+import { breakpoints, vars } from '@/components/_settings'
 
-// Variants
 const colorVariants = styleVariants({
   danger: {},
   info: {},
   light: {},
-  cyan: {}
+  cyan: {},
+  warning: {}
 })
 
 const disabledVariants = styleVariants({
@@ -71,15 +70,13 @@ const modeVariants = styleVariants({
   outlined: {}
 })
 
-// Compound Variants
-// Cyan
 const containedCyanStyle = style({
-  backgroundColor: vars.colors['cyan-600'],
-  color: vars.colors.white,
   border: 'none',
+  backgroundColor: vars.colors['cyan-900'],
+  color: vars.colors.white,
 
   ':hover': {
-    backgroundColor: vars.colors['cyan-900'],
+    backgroundColor: vars.colors['cyan-700'],
     cursor: 'pointer'
   },
 
@@ -89,15 +86,15 @@ const containedCyanStyle = style({
 })
 
 const outlinedCyanStyle = style({
+  border: `1px solid ${vars.colors['cyan-900']}`,
   backgroundColor: vars.colors.transparent,
-  border: `1px solid ${vars.colors['cyan-600']}`,
-  color: vars.colors['cyan-600'],
+  color: vars.colors['cyan-900'],
 
   ':hover': {
-    backgroundColor: vars.colors['cyan-600'],
     border: 'none',
-    color: vars.colors.white,
-    cursor: 'pointer'
+    backgroundColor: vars.colors['cyan-900'],
+    cursor: 'pointer',
+    color: vars.colors.white
   },
 
   ':focus': {
@@ -105,11 +102,42 @@ const outlinedCyanStyle = style({
   }
 })
 
-// Danger
+const containedWarningStyle = style({
+  border: 'none',
+  backgroundColor: vars.colors['warning-500'],
+  color: vars.colors.white,
+
+  ':hover': {
+    backgroundColor: vars.colors['warning-800'],
+    cursor: 'pointer'
+  },
+
+  ':focus': {
+    boxShadow: `0 0 1px 4px ${vars.colors['warning-100']}`
+  }
+})
+
+const outlinedWarningStyle = style({
+  border: `1px solid ${vars.colors['warning-800']}`,
+  backgroundColor: vars.colors.transparent,
+  color: vars.colors['warning-800'],
+
+  ':hover': {
+    border: 'none',
+    backgroundColor: vars.colors['warning-800'],
+    cursor: 'pointer',
+    color: vars.colors.white
+  },
+
+  ':focus': {
+    boxShadow: `0 0 1px 4px ${vars.colors['warning-100']}`
+  }
+})
+
 const containedDangerStyle = style({
+  border: 'none',
   backgroundColor: vars.colors['danger-400'],
   color: vars.colors.white,
-  border: 'none',
 
   ':hover': {
     backgroundColor: vars.colors['danger-700'],
@@ -122,15 +150,15 @@ const containedDangerStyle = style({
 })
 
 const outlinedDangerStyle = style({
-  backgroundColor: vars.colors.transparent,
   border: `1px solid ${vars.colors['danger-400']}`,
+  backgroundColor: vars.colors.transparent,
   color: vars.colors['danger-400'],
 
   ':hover': {
-    backgroundColor: vars.colors['danger-400'],
     border: 'none',
-    color: vars.colors.white,
-    cursor: 'pointer'
+    backgroundColor: vars.colors['danger-400'],
+    cursor: 'pointer',
+    color: vars.colors.white
   },
 
   ':focus': {
@@ -138,11 +166,10 @@ const outlinedDangerStyle = style({
   }
 })
 
-// Disabled
 const containedDisabledStyle = style({
+  border: 'none',
   backgroundColor: vars.colors['gray-600'],
   color: vars.colors.white,
-  border: 'none',
 
   ':hover': {
     backgroundColor: vars.colors['gray-600'],
@@ -151,23 +178,22 @@ const containedDisabledStyle = style({
 })
 
 const outlinedDisabledStyle = style({
-  backgroundColor: vars.colors.transparent,
   border: `1px solid ${vars.colors['gray-600']}`,
+  backgroundColor: vars.colors.transparent,
   color: vars.colors['gray-600'],
 
   ':hover': {
-    backgroundColor: vars.colors.transparent,
     border: `1px solid ${vars.colors['gray-600']}`,
-    color: vars.colors['gray-600'],
-    cursor: 'not-allowed'
+    backgroundColor: vars.colors.transparent,
+    cursor: 'not-allowed',
+    color: vars.colors['gray-600']
   }
 })
 
-// Info
 const containedInfoStyle = style({
+  border: 'none',
   backgroundColor: vars.colors['info-400'],
   color: vars.colors.white,
-  border: 'none',
 
   ':hover': {
     backgroundColor: vars.colors['info-900'],
@@ -180,15 +206,15 @@ const containedInfoStyle = style({
 })
 
 const outlinedInfoStyle = style({
-  backgroundColor: vars.colors.transparent,
   border: `1px solid ${vars.colors['info-400']}`,
+  backgroundColor: vars.colors.transparent,
   color: vars.colors['info-400'],
 
   ':hover': {
-    backgroundColor: vars.colors['info-400'],
     border: 'none',
-    color: vars.colors.white,
-    cursor: 'pointer'
+    backgroundColor: vars.colors['info-400'],
+    cursor: 'pointer',
+    color: vars.colors.white
   },
 
   ':focus': {
@@ -196,11 +222,10 @@ const outlinedInfoStyle = style({
   }
 })
 
-// Light
 const containedLightStyle = style({
+  border: 'none',
   backgroundColor: vars.colors['gray-50'],
   color: vars.colors.text.default,
-  border: 'none',
 
   ':hover': {
     backgroundColor: vars.colors['gray-100'],
@@ -213,15 +238,15 @@ const containedLightStyle = style({
 })
 
 const outlinedLightStyle = style({
+  border: `1px solid ${vars.colors.text.default}`,
   backgroundColor: vars.colors.transparent,
-  border: `1px solid ${vars.colors['gray-900']}`,
   color: vars.colors.text.default,
 
   ':hover': {
-    backgroundColor: vars.colors['gray-100'],
     border: 'none',
-    color: vars.colors.text.dark,
-    cursor: 'pointer'
+    backgroundColor: vars.colors['gray-100'],
+    cursor: 'pointer',
+    color: vars.colors.text.dark
   },
 
   ':focus': {
@@ -229,17 +254,17 @@ const outlinedLightStyle = style({
   }
 })
 
-// Recipes
 export const buttonRecipe = recipe({
   base: {
-    alignItems: 'center',
-    borderRadius: '5px',
     display: 'flex',
-    fontFamily: vars.font.button.fontFamily,
-    fontSize: vars.font.button.fontSize,
+    alignItems: 'center',
     justifyContent: 'center',
+    transition:
+      'background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out',
+    borderRadius: '5px',
     textTransform: vars.font.button.textTransform,
-    transition: 'background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out'
+    fontFamily: vars.font.button.fontFamily,
+    fontSize: vars.font.button.fontSize
   },
 
   variants: {
@@ -250,7 +275,6 @@ export const buttonRecipe = recipe({
   },
 
   compoundVariants: [
-    /* ------- CONTAINED ------- */
     {
       variants: {
         mode: 'contained',
@@ -259,6 +283,16 @@ export const buttonRecipe = recipe({
       },
 
       style: containedCyanStyle
+    },
+
+    {
+      variants: {
+        mode: 'contained',
+        color: 'warning',
+        disabled: false
+      },
+
+      style: containedWarningStyle
     },
 
     {
@@ -297,7 +331,6 @@ export const buttonRecipe = recipe({
       style: containedDisabledStyle
     },
 
-    /* -------- OUTLINED -------- */
     {
       variants: {
         mode: 'outlined',
@@ -306,6 +339,16 @@ export const buttonRecipe = recipe({
       },
 
       style: outlinedCyanStyle
+    },
+
+    {
+      variants: {
+        mode: 'outlined',
+        color: 'warning',
+        disabled: false
+      },
+
+      style: outlinedWarningStyle
     },
 
     {

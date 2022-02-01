@@ -1,16 +1,10 @@
-import CompareFieldsValidator from '@/services/validators/compareFieldsValidator'
-import EmailValidator from '@/services/validators/emailValidator'
-import IsNumberValidator from '@/services/validators/isNumberValidator'
-import MaxLengthValidator from '@/services/validators/maxLengthValidator'
-import MaxValidator from '@/services/validators/maxValidator'
-import MinLengthValidator from '@/services/validators/minLengthValidator'
-import MinValidator from '@/services/validators/minValidator'
-import IFieldValidation from '@/services/validators/protocols/fieldValidation.model'
-import Regex from '@/services/validators/regex'
-import RequiredFieldValidator from '@/services/validators/requiredFieldValidator'
+import { IFieldValidation, RequiredFieldValidator, EmailValidator, MinValidator, Regex, MaxValidator, MinLengthValidator, MaxLengthValidator, IsNumberValidator, CompareFieldsValidator } from '@/services/validators'
 
-class ValidatorBuilder {
-  private constructor (private readonly field: string, private readonly validations: IFieldValidation[]) {}
+export class ValidatorBuilder {
+  private constructor (
+    private readonly field: string,
+    private readonly validations: IFieldValidation[]
+  ) {}
 
   static field (field: string): ValidatorBuilder {
     return new ValidatorBuilder(field, [])
@@ -74,5 +68,3 @@ class ValidatorBuilder {
     return this.validations
   }
 }
-
-export default ValidatorBuilder

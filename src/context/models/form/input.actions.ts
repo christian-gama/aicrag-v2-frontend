@@ -1,6 +1,9 @@
-import { FormInputActionPayload, FormStates } from './protocols/form.model'
+import { FormStates, FormInputActionPayload } from './protocols/form.model'
 
-export const setInputIsValid = (state: FormStates, action: FormInputActionPayload): FormStates => {
+export const setInputIsValid = (
+  state: FormStates,
+  action: FormInputActionPayload
+): FormStates => {
   return {
     ...state,
     input: {
@@ -13,7 +16,10 @@ export const setInputIsValid = (state: FormStates, action: FormInputActionPayloa
   }
 }
 
-export const setInputIsTouched = (state: FormStates, action: FormInputActionPayload): FormStates => {
+export const setInputIsTouched = (
+  state: FormStates,
+  action: FormInputActionPayload
+): FormStates => {
   return {
     ...state,
     input: {
@@ -26,7 +32,10 @@ export const setInputIsTouched = (state: FormStates, action: FormInputActionPayl
   }
 }
 
-export const setInputIsFocused = (state: FormStates, action: FormInputActionPayload): FormStates => {
+export const setInputIsFocused = (
+  state: FormStates,
+  action: FormInputActionPayload
+): FormStates => {
   return {
     ...state,
     input: {
@@ -39,7 +48,10 @@ export const setInputIsFocused = (state: FormStates, action: FormInputActionPayl
   }
 }
 
-export const setInputValue = (state: FormStates, action: FormInputActionPayload): FormStates => {
+export const setInputValue = (
+  state: FormStates,
+  action: FormInputActionPayload
+): FormStates => {
   return {
     ...state,
     input: {
@@ -52,7 +64,10 @@ export const setInputValue = (state: FormStates, action: FormInputActionPayload)
   }
 }
 
-export const setInputError = (state: FormStates, action: FormInputActionPayload): FormStates => {
+export const setInputError = (
+  state: FormStates,
+  action: FormInputActionPayload
+): FormStates => {
   return {
     ...state,
     input: {
@@ -65,7 +80,10 @@ export const setInputError = (state: FormStates, action: FormInputActionPayload)
   }
 }
 
-export const setInputCurrentType = (state: FormStates, action: FormInputActionPayload): FormStates => {
+export const setInputCurrentType = (
+  state: FormStates,
+  action: FormInputActionPayload
+): FormStates => {
   return {
     ...state,
     input: {

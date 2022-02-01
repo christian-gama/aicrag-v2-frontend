@@ -1,5 +1,5 @@
-mutation ActivateAccount($activationPin: String!, $email: EmailAddress!) {
-  activateAccount(input: { email: $email, activationPin: $activationPin }) {
+mutation ActivateAccount($activationPin: String!, $userId: UUID!) {
+  activateAccount(input: { userId: $userId, activationPin: $activationPin }) {
     accessToken
     refreshToken
     user {

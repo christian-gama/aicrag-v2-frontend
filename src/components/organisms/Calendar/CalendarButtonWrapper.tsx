@@ -1,16 +1,20 @@
-import React from 'react'
-import Button from '../../atoms/Button'
-import CalendarButtonWrapperProps from './protocols/CalendarButtonWrapper.model'
-import * as style from './stylesheet'
+import { Button } from '@/components/atoms/Button'
+import * as classes from './stylesheet'
 
-const CalendarButtonWrapper: React.FC<CalendarButtonWrapperProps> = (props) => {
-  const { onCancelHandler, onConfirmHandler } = props
+type CalendarButtonWrapperProps = {
+  onConfirmHandler: () => void
+  onCancelHandler: () => void
+}
 
+export const CalendarButtonWrapper: React.FC<CalendarButtonWrapperProps> = ({
+  onConfirmHandler,
+  onCancelHandler
+}) => {
   return (
-    <div className={style.calendarButtonWrapper}>
+    <div className={classes.calendarButtonWrapper}>
       <Button
-        testid="calendar-cancel-button"
         style={{ mode: 'outlined', size: 'sm', color: 'light' }}
+        testid="calendar-cancel-button"
         onClick={onCancelHandler}
       >
         Cancelar
@@ -18,11 +22,13 @@ const CalendarButtonWrapper: React.FC<CalendarButtonWrapperProps> = (props) => {
 
       <span style={{ marginLeft: '1.2rem' }} />
 
-      <Button testid="calendar-confirm-button" style={{ mode: 'contained', size: 'sm' }} onClick={onConfirmHandler}>
+      <Button
+        style={{ mode: 'contained', size: 'sm' }}
+        testid="calendar-confirm-button"
+        onClick={onConfirmHandler}
+      >
         Salvar
       </Button>
     </div>
   )
 }
-
-export default CalendarButtonWrapper

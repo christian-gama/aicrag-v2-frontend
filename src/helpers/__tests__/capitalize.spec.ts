@@ -1,15 +1,17 @@
-import capitalize from '../capitalize'
+import { capitalize } from '..'
 
 describe('capitalize', () => {
-  it('should capitalize the first letter', () => {
+  it('returns the first letter capitalized', () => {
     const value = 'test'
+
     const result = capitalize(value)
 
     expect(result).toBe('Test')
   })
 
-  it('should lowercase the rest of the letters', () => {
+  it('returns the rest of the letters as lowercase', () => {
     const value = 'TEST'
+
     const result = capitalize(value)
 
     expect(result).toBe('Test')

@@ -1,8 +1,8 @@
-import React, { useReducer } from 'react'
-import FormContext, { initialFormState } from './form.context'
-import formReducer from './form.reducer'
+import { useReducer } from 'react'
+import { initialFormState, FormContext } from './form.context'
+import { formReducer } from './form.reducer'
 
-const FormProvider: React.FC = (props) => {
+export const FormProvider: React.FC = (props) => {
   const [state, dispatch] = useReducer(formReducer, initialFormState)
 
   return (
@@ -16,5 +16,3 @@ const FormProvider: React.FC = (props) => {
     </FormContext.Provider>
   )
 }
-
-export default FormProvider

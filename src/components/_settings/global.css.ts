@@ -20,23 +20,26 @@ menu, nav, output, ruby, section, summary,
 time, mark, audio, video`,
   {
     margin: '0',
-    padding: '0',
     border: '0',
-    fontSize: '100%',
+    padding: '0',
+    verticalAlign: 'baseline',
     font: 'inherit',
-    verticalAlign: 'baseline'
+    fontSize: '100%'
   }
 )
 
 globalStyle('html', {
-  fontSize: '10px',
   lineHeight: '1.5',
-  fontFamily: 'Open Sans, sans-serif'
+  fontFamily: 'Open Sans, sans-serif',
+  fontSize: '10px'
 })
 
-globalStyle('article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section', {
-  display: 'block'
-})
+globalStyle(
+  'article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section',
+  {
+    display: 'block'
+  }
+)
 
 globalStyle('ol, ul', {
   listStyle: 'none'

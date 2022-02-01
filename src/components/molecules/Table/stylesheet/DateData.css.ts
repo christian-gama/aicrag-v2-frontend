@@ -1,19 +1,18 @@
 import { style } from '@vanilla-extract/css'
 import { calc } from '@vanilla-extract/css-utils'
-import { breakpoints } from '@/components/_settings/breakpoints.css'
-import { vars } from '@/components/_settings/vars.css'
+import { vars, breakpoints } from '@/components/_settings'
 import { tableRowVars } from './TableRow.css'
 
 export const dateData = style({
-  alignItems: 'center',
-  backgroundColor: vars.colors['snow-600'],
-  borderRadius: `${tableRowVars.roundness} 0 0 ${tableRowVars.roundness}`,
   display: 'flex',
   flexDirection: 'column',
-  height: '100%',
+  alignItems: 'center',
   justifyContent: 'center',
   marginLeft: calc.negate(tableRowVars.row.horizontalPadding),
+  borderRadius: `${tableRowVars.roundness} 0 0 ${tableRowVars.roundness}`,
+  backgroundColor: vars.colors['snow-600'],
   width: '75%',
+  height: '100%',
 
   '@media': {
     [breakpoints.mobile]: {
@@ -24,13 +23,13 @@ export const dateData = style({
 })
 
 export const dateDataTextPrimary = style({
-  fontSize: '2.4rem',
   lineHeight: '1.2',
+  fontSize: '2.4rem',
 
   '@media': {
     [breakpoints.mobile]: {
-      fontSize: '2rem',
-      lineHeight: '1.2'
+      lineHeight: '1.2',
+      fontSize: '2rem'
     }
   }
 })

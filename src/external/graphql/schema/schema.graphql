@@ -18,7 +18,7 @@ type ActivateAccount {
 
 input ActivateAccountInput {
   activationPin: String!
-  email: EmailAddress!
+  userId: UUID!
 }
 
 type ActiveAccount {
@@ -162,6 +162,10 @@ enum GetAllInvoicesType {
   both
 }
 
+type GetAuthentication {
+  authentication: String!
+}
+
 type GetInvoiceByMonth {
   count: Int!
   displaying: Int!
@@ -269,6 +273,7 @@ type Query {
   findAllUsers(query: FindAllUsersQueries!): FindAllUsers!
   findOneTask(param: FindOneTaskParam!): FindOneTask!
   getAllInvoices(query: GetAllInvoicesQueries!): GetAllInvoices!
+  getAuthentication: GetAuthentication!
   getInvoiceByMonth(query: GetInvoiceByMonthQueries!): GetInvoiceByMonth!
   getMe: GetMe!
   verifyResetPasswordToken(param: VerifyResetPasswordTokenInput!): VerifyResetPasswordToken!

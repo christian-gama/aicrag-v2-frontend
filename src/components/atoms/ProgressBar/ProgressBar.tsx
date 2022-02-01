@@ -1,45 +1,41 @@
-import React, { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
-import ProgressBarProps from './ProgressBar.model'
-import * as style from './stylesheet'
+import * as classes from './stylesheet'
 
-const ProgressBar: React.FC<ProgressBarProps> = (props) => {
+type ProgressBarProps = {
+  loading?: boolean
+}
+
+export const ProgressBar: React.FC<ProgressBarProps> = ({ loading }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    if (props.loading && !isOpen) {
+    if (loading && !isOpen) {
       setIsOpen(true)
     }
-  }, [props.loading])
+  }, [loading])
 
   useEffect(() => {
-    if (props.loading && !isOpen) {
-      setIsOpen(true)
-    }
-  }, [props.loading])
-
-  useEffect(() => {
-    if (!props.loading && isOpen) {
-      /* istanbul ignore next */
+    if (!loading && isOpen) {
       const timer = setTimeout(() => {
         setIsOpen(false)
       }, 1250)
 
       return () => clearTimeout(timer)
     }
-  }, [props.loading])
+  }, [loading])
 
   if (!isOpen) return null
 
+  const overlayRoot = document.getElementById('overlay-root') as HTMLElement
+
   return ReactDOM.createPortal(
-    <div className={style.progressBar} data-testid="progress-bar">
-      <div className={style.progressBarBackground}>
-        <div className={style.progressBarProgress} data-testid="progress" />
+    <div className={classes.progressBar} data-testid="progress-bar">
+      <div className={classes.progressBarBackground}>
+        <div className={classes.progressBarProgress} data-testid="progress" />
       </div>
     </div>,
 
-    document.querySelector('#overlay-root') as HTMLElement
+    overlayRoot
   )
 }
-
-export default ProgressBar

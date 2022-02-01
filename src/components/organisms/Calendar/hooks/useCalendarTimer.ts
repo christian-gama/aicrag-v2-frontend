@@ -1,22 +1,26 @@
-import getFormattedTime from '@/helpers/getFormattedTime'
-import timerIncreaser from '@/helpers/timerIncreaser'
 import { DateTime } from 'luxon'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { calendarActions } from '@/context/models/calendar/calendar.actions'
-import { CalendarStates } from '@/context/models/calendar/protocols/calendar.model'
+import { getFormattedTime, timerIncreaser } from '@/helpers'
+import { calendarActions, CalendarStates } from '@/context/models/calendar'
 import { AppDispatch, RootState } from '@/context/store'
-import makeTimerValidator from '@/external/factories/validation/makeTimerValidator'
+import { makeTimerValidator } from '@/external/factories/validation'
 
-const useCalendarTimer = () => {
+export const useCalendarTimer = () => {
   const { setSelectedDate } = calendarActions
   const validation = makeTimerValidator()
 
   const dispatch = useDispatch<AppDispatch>()
-  const selectedDate = useSelector<RootState, CalendarStates['selectedDate']>((state) => state.calendar.selectedDate)
+  const selectedDate = useSelector<RootState, CalendarStates['selectedDate']>(
+    (state) => state.calendar.selectedDate
+  )
 
-  const [hours, setHours] = useState(getFormattedTime(DateTime.fromMillis(selectedDate).hour))
-  const [minutes, setMinutes] = useState(getFormattedTime(DateTime.fromMillis(selectedDate).minute))
+  const [hours, setHours] = useState(
+    getFormattedTime(DateTime.fromMillis(selectedDate).hour)
+  )
+  const [minutes, setMinutes] = useState(
+    getFormattedTime(DateTime.fromMillis(selectedDate).minute)
+  )
 
   useEffect(() => {
     const transformedTime = DateTime.fromMillis(selectedDate)
@@ -44,10 +48,14 @@ const useCalendarTimer = () => {
 
     switch (name) {
       case 'calendar-hour':
-        return !validation.validate('hour', { hour: value }) ? setHours(value) : undefined
+        return !validation.validate('hour', { hour: value })
+          ? setHours(value)
+          : undefined
 
       case 'calendar-minute':
-        return !validation.validate('minute', { minute: value }) ? setMinutes(value) : undefined
+        return !validation.validate('minute', { minute: value })
+          ? setMinutes(value)
+          : undefined
     }
   }
 
@@ -57,23 +65,45 @@ const useCalendarTimer = () => {
     switch (event.key) {
       case 'ArrowUp':
         return name === 'calendar-hour'
-          ? setHours((prevHours) => timerIncreaser({ increase: true, prevTime: prevHours, type: 'hour' }))
-          : setMinutes((prevMinutes) => timerIncreaser({ increase: true, prevTime: prevMinutes, type: 'minute' }))
+          ? setHours((prevHours) =>
+            timerIncreaser({
+              prevTime: prevHours,
+              increase: true,
+              type: 'hour'
+            })
+          )
+          : setMinutes((prevMinutes) =>
+            timerIncreaser({
+              prevTime: prevMinutes,
+              increase: true,
+              type: 'minute'
+            })
+          )
 
       case 'ArrowDown':
         return name === 'calendar-hour'
-          ? setHours((prevHours) => timerIncreaser({ increase: false, prevTime: prevHours, type: 'hour' }))
-          : setMinutes((prevMinutes) => timerIncreaser({ increase: false, prevTime: prevMinutes, type: 'minute' }))
+          ? setHours((prevHours) =>
+            timerIncreaser({
+              prevTime: prevHours,
+              increase: false,
+              type: 'hour'
+            })
+          )
+          : setMinutes((prevMinutes) =>
+            timerIncreaser({
+              prevTime: prevMinutes,
+              increase: false,
+              type: 'minute'
+            })
+          )
     }
   }
 
   return {
-    hours,
-    minutes,
-    onBlurHandler,
+    onKeyDownHandler,
     onChangeHandler,
-    onKeyDownHandler
+    onBlurHandler,
+    minutes,
+    hours
   }
 }
-
-export default useCalendarTimer

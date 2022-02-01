@@ -1,4 +1,4 @@
-const translateInputName = (inputName: string): string => {
+export const translateInputName = (inputName: string): string => {
   switch (inputName.toLowerCase()) {
     case 'name':
       return 'Nome'
@@ -16,5 +16,3 @@ const translateInputName = (inputName: string): string => {
       return inputName
   }
 }
-
-export default translateInputName

@@ -9,7 +9,14 @@ mutation UpdateTask(
 ) {
   updateTask(
     param: { id: $id }
-    input: { commentary: $commentary, date: $date, duration: $duration, status: $status, taskId: $taskId, type: $type }
+    input: {
+      commentary: $commentary
+      date: $date
+      duration: $duration
+      status: $status
+      taskId: $taskId
+      type: $type
+    }
   ) {
     ... on UpdateTaskHasChanges {
       task {

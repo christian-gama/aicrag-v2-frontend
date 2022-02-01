@@ -1,12 +1,7 @@
-import { ApolloClient, InMemoryCache, HttpLink, from } from '@apollo/client'
-import authLink from '../links/authLink'
-import authErrorLink from '../links/errorLink'
+import { ApolloClient, from, InMemoryCache } from '@apollo/client'
+import { authLink, errorLink, httpLink } from '../links'
 
-const link = from([authErrorLink, authLink, new HttpLink({ uri: import.meta.env.VITE_API_URL })])
-
-const apolloClient = new ApolloClient({
-  cache: new InMemoryCache(),
-  link
+export const apolloClient = new ApolloClient({
+  link: from([errorLink, authLink, httpLink]),
+  cache: new InMemoryCache()
 })
-
-export default apolloClient

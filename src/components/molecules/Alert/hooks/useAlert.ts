@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react'
-import AlertProps from '../protocols/Alert.model'
+import { ComponentPropsWithoutRef, useState, useEffect } from 'react'
+import { Alert } from '..'
 
-const useAlert = (props: AlertProps) => {
+export const useAlert = (props: ComponentPropsWithoutRef<typeof Alert>) => {
   const [isOpen, setIsOpen] = useState(!!props.isOpen)
 
   useEffect(() => {
     setIsOpen(!!props.isOpen)
   }, [props.isOpen])
 
-  /* istanbul ignore next */
   const handleAction = () => {
-    if (props.mode === 'actionAndCancel') {
-      props.onAction()
-    }
+    // @ts-expect-error
+    props.onAction()
+
+    setIsOpen(false)
   }
 
   const cancelHandler = () => {
@@ -27,5 +27,3 @@ const useAlert = (props: AlertProps) => {
     isOpen
   }
 }
-
-export default useAlert

@@ -1,8 +1,7 @@
-import Maybe from '@/helpers/typescript/maybe.model'
-import IFieldValidation from '@/services/validators/protocols/fieldValidation.model'
-import IValidation from '@/services/validators/protocols/validation.model'
+import { Maybe } from '@/helpers'
+import { IValidation, IFieldValidation } from '@/services/validators'
 
-class ValidatorComposite implements IValidation {
+export class ValidatorComposite implements IValidation {
   constructor (private readonly validators: IFieldValidation[]) {}
 
   static build (validators: IFieldValidation[]): ValidatorComposite {
@@ -10,7 +9,9 @@ class ValidatorComposite implements IValidation {
   }
 
   validate (field: string, input: Record<string, any>): Maybe<Error['message']> {
-    const validators = this.validators.filter((validator) => validator.field === field)
+    const validators = this.validators.filter(
+      (validator) => validator.field === field
+    )
 
     for (const validator of validators) {
       const error = validator.validate(input)
@@ -21,5 +22,3 @@ class ValidatorComposite implements IValidation {
     }
   }
 }
-
-export default ValidatorComposite

@@ -1,21 +1,30 @@
-import capitalize from '@/helpers/capitalize'
-import React from 'react'
-import { FillColorVariants } from '@/components/_settings/variants.css'
-import { ButtonVariants } from '@/components/atoms/Button/stylesheet'
-import Button from '../../atoms/Button'
-import Card from '../../atoms/Card'
-import InfoCircleIcon from '../../atoms/icons/InfoCircleIcon'
-import H4 from '../../atoms/texts/H4'
-import P from '../../atoms/texts/P'
-import Modal from '../Modal'
-import useAlert from './hooks/useAlert'
-import AlertProps from './protocols/Alert.model'
-import * as style from './stylesheet'
 
-const Alert: React.FC<AlertProps> = (props) => {
+import { capitalize } from '@/helpers'
+import { FillColorVariants } from '@/components/_settings'
+import { Button } from '@/components/atoms/Button'
+import { ButtonVariants } from '@/components/atoms/Button/stylesheet'
+import { Card } from '@/components/atoms/Card'
+import { InfoCircleIcon } from '@/components/utils/icons'
+import { H4 } from '@/components/utils/texts/H4'
+import { P } from '@/components/utils/texts/P'
+import { Modal } from '../Modal'
+import { useAlert } from './hooks'
+import { AlertHeaderVariants } from './stylesheet'
+import * as classes from './stylesheet'
+
+type AlertProps = {
+  type: AlertHeaderVariants['color']
+  onCancel?: () => void
+  isOpen?: boolean
+  message: string
+  title: string
+} & (AlertWithAction | AlertWithoutAction)
+
+export const Alert: React.FC<AlertProps> = (props) => {
+  const mode = props.mode!
   const { cancelHandler, handleAction, isOpen } = useAlert(props)
 
-  const alertHeaderStyle = style.alertHeaderRecipe({
+  const alertHeaderStyle = classes.alertHeaderRecipe({
     color: props.type
   })
 
@@ -28,7 +37,7 @@ const Alert: React.FC<AlertProps> = (props) => {
         return 'danger'
 
       default:
-        return 'dark'
+        return 'warningDarker'
     }
   }
 
@@ -41,37 +50,41 @@ const Alert: React.FC<AlertProps> = (props) => {
         return 'danger'
 
       default:
-        return 'cyan'
+        return 'warning'
     }
   }
 
   return (
     <Modal isOpen={isOpen} onDismiss={props.onCancel}>
       <Card>
-        <div className={style.alert} data-testid="alert">
+        <div className={classes.alert} data-testid="alert">
           <div className={alertHeaderStyle} data-testid="alert-header">
             <InfoCircleIcon color={getIconColor()} />
             <H4 color={getIconColor()}>{capitalize(props.title)}</H4>
           </div>
 
-          <div className={style.alertBody} data-testid="alert-body">
+          <div className={classes.alertBody} data-testid="alert-body">
             <P>{capitalize(props.message)}</P>
           </div>
 
-          <div className={style.alertFooter} data-testid="alert-footer">
+          <div className={classes.alertFooter} data-testid="alert-footer">
             <Button
               onClick={cancelHandler}
-              style={{ mode: 'outlined', size: 'sm', color: getButtonColor() }}
+              style={{
+                mode: 'outlined',
+                size: 'sm',
+                color: mode === 'cancelOnly' ? getButtonColor() : 'light'
+              }}
               testid="alert-cancel-button"
             >
-              {props.mode === 'cancelOnly' ? 'Voltar' : 'Cancelar'}
+              {mode === 'cancelOnly' ? 'Voltar' : 'Cancelar'}
             </Button>
 
             {props.mode === 'actionAndCancel' && (
               <Button
-                onClick={handleAction}
                 style={{ color: getButtonColor(), size: 'sm' }}
                 testid="alert-action-button"
+                onClick={handleAction}
               >
                 {props.actionName}
               </Button>
@@ -83,4 +96,13 @@ const Alert: React.FC<AlertProps> = (props) => {
   )
 }
 
-export default Alert
+type AlertWithAction = {
+  mode: 'actionAndCancel'
+  onAction: () => void
+  actionName: string
+}
+type AlertWithoutAction = { mode?: 'cancelOnly' }
+
+Alert.defaultProps = {
+  mode: 'cancelOnly'
+}

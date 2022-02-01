@@ -1,7 +1,5 @@
-type Storage = {
+export type Storage = {
+  set: (value: string) => void
   get: () => string | null
   reset: () => void
-  set: (value: string) => void
 }
-
-export default Storage

@@ -1,11 +1,6 @@
-import Builder from '../../builders/validatorBuilder'
-import ValidatorComposite from '../../composites/validatorComposite'
+import { ValidatorComposite } from '@/external/composites'
+import { validators } from '@/external/helpers'
 
-const makeTimerValidator = (): ValidatorComposite => {
-  return ValidatorComposite.build([
-    ...Builder.field('hour').required().isNumber().max(23).build(),
-    ...Builder.field('minute').required().isNumber().max(59).build()
-  ])
+export const makeTimerValidator = (): ValidatorComposite => {
+  return ValidatorComposite.build([...validators.hour, ...validators.minute])
 }
-
-export default makeTimerValidator

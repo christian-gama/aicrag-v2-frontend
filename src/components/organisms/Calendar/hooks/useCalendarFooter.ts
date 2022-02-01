@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { calendarActions } from '@/context/models/calendar/calendar.actions'
-import { CalendarStates } from '@/context/models/calendar/protocols/calendar.model'
+import { calendarActions, CalendarStates } from '@/context/models/calendar'
 import { AppDispatch, RootState } from '@/context/store'
 
-const useCalendarFooter = () => {
+export const useCalendarFooter = () => {
   const { closeCalendar, saveCalendar, resetCalendar } = calendarActions
 
   const dispatch = useDispatch<AppDispatch>()
-  const selectedDate = useSelector<RootState, CalendarStates['selectedDate']>((state) => state.calendar.selectedDate)
-  const previousDate = useSelector<RootState, CalendarStates['previousDate']>((state) => state.calendar.previousDate)
+  const { selectedDate, previousDate } = useSelector<RootState, CalendarStates>(
+    (state) => state.calendar
+  )
 
   const onCancelHandler = (): void => {
     dispatch(resetCalendar(previousDate))
@@ -21,9 +21,7 @@ const useCalendarFooter = () => {
   }
 
   return {
-    onCancelHandler,
-    onConfirmHandler
+    onConfirmHandler,
+    onCancelHandler
   }
 }
-
-export default useCalendarFooter

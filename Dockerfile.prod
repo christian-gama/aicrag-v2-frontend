@@ -2,11 +2,14 @@
 # Build
 FROM node:17-alpine as builder
 WORKDIR /usr/aicrag
+RUN npm install -g pnpm
+RUN pnpm add -g pnpm
 COPY ./package.json .
-COPY ./yarn.lock .
-RUN yarn install --prod --network-timeout=10000
+COPY ./pnpm-lock.yaml .
+COPY ./.npmrc .
+RUN pnpm install --production --unsafe-perm
 COPY ./ ./
-RUN yarn build
+RUN pnpm build
 
 ############
 # Production

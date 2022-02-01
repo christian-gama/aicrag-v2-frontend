@@ -1,29 +1,50 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
-import React from 'react'
-import CardProps from './protocols/Card.model'
-import * as style from './stylesheet'
+import { CardVariants } from './stylesheet'
+import * as classes from './stylesheet'
 
-const Card: React.FC<CardProps> = (props) => {
-  const cardStyle = style.cardRecipe({
-    centered: props.centered,
-    roundness: props.roundness,
-    transparent: props.transparent
+type CardProps = {
+  centered?: CardVariants['centered']
+  roundness?: CardVariants['roundness']
+  transparent?: CardVariants['transparent']
+  style?: {
+    padding?: string
+    height?: string
+    margin?: string
+    width?: string
+  }
+}
+
+export const Card: React.FC<CardProps> = ({
+  transparent,
+  roundness,
+  centered,
+  children,
+  style
+}) => {
+  const cardClasses = classes.cardRecipe({
+    transparent,
+    roundness,
+    centered
   })
 
   return (
     <div
       data-testid="card"
-      className={cardStyle}
-      style={assignInlineVars(style.cardVars, {
-        height: props.style?.height ?? 'max-content',
-        margin: props.style?.height ?? '0',
-        padding: props.style?.padding ?? '0',
-        width: props.style?.width ?? 'max-content'
+      className={cardClasses}
+      style={assignInlineVars(classes.cardVars, {
+        height: style?.height ?? 'max-content',
+        width: style?.width ?? 'max-content',
+        padding: style?.padding ?? '0',
+        margin: style?.margin ?? '0'
       })}
     >
-      {props.children}
+      {children}
     </div>
   )
 }
 
-export default Card
+Card.defaultProps = {
+  transparent: false,
+  centered: false,
+  roundness: 'md'
+}

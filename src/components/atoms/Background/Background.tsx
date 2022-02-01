@@ -1,25 +1,31 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
-import React from 'react'
-import useWindowDimensions from '@/components/_hooks/useWindowDimensions'
-import BackgroundProps from './protocols/Background.model'
-import { backgroundRecipe, backgroundVars } from './stylesheet'
+import { useWindowDimensions } from '@/components/_hooks'
+import * as classes from './stylesheet'
+import { BackgroundVariants } from './stylesheet'
 
-const Background: React.FC<BackgroundProps> = (props) => {
+type BackgroundProps = {
+  gradient?: BackgroundVariants['gradient']
+}
+
+export const Background: React.FC<BackgroundProps> = ({
+  children,
+  gradient
+}) => {
   const { height } = useWindowDimensions()
 
-  const backgroundStyle = backgroundRecipe({
-    gradient: !!props.gradient
+  const backgroundStyle = classes.backgroundRecipe({
+    gradient: !!gradient
   })
 
   return (
     <div
+      style={assignInlineVars(classes.backgroundVars, {
+        height: `${height}px`
+      })}
       className={backgroundStyle}
       data-testid="background"
-      style={assignInlineVars(backgroundVars, { height: `${height}px` })}
     >
-      {props.children}
+      {children}
     </div>
   )
 }
-
-export default Background

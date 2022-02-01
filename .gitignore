@@ -11,6 +11,7 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
+.pnpm-debug.log
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -178,11 +179,13 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,node,windows
-build
-
 # Vite
 .DS_Store
+.env.development
+*.local
+build
 dist
 dist-ssr
-*.local
-.env.development
+
+# GraphQL
+generated

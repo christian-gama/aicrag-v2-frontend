@@ -1,105 +1,129 @@
-import { cleanup, render, screen } from '@testing-library/react'
-import React from 'react'
-import Alert from '..'
+import { render, cleanup, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { OverlayRoot } from '@/tests/helpers'
+import { Alert } from '..'
 
-const makeSut = (config: React.ComponentProps<typeof Alert>) => {
-  render(<Alert {...config} />)
-}
+const mockFunction = jest.fn()
+jest.mock('../../../utils/icons', () => ({
+  InfoCircleIcon: (props: any) => {
+    mockFunction(props)
+
+    return null
+  }
+}))
 
 describe('Alert', () => {
-  beforeAll(() => {
-    const container = document.createElement('div')
-    container.setAttribute('id', 'overlay-root')
-    document.body.appendChild(container)
-  })
+  const overlayRoot = new OverlayRoot()
 
   afterEach(() => {
     cleanup()
+    overlayRoot.removeOverlayRoot()
   })
 
-  it('should render both cancel and action buttons if mode is equal to "actionAndCancel"', () => {
-    makeSut({
-      actionName: 'action',
-      isOpen: true,
-      message: 'message',
-      mode: 'actionAndCancel',
-      onAction: jest.fn(),
-      title: 'title',
-      type: 'danger'
-    })
-
-    expect(screen.getByTestId('alert-action-button')).toBeTruthy()
-    expect(screen.getByTestId('alert-cancel-button')).toBeTruthy()
+  beforeEach(() => {
+    overlayRoot.addOverlayRoot()
   })
 
-  it('should render only cancel button if mode is equal to "cancelOnly"', () => {
-    makeSut({
-      isOpen: true,
-      message: 'message',
-      mode: 'cancelOnly',
-      title: 'title',
-      type: 'info'
-    })
+  it('renders correctly', () => {
+    render(<Alert isOpen title="" message="" type="info" />)
+    const alert = screen.getByTestId('alert')
 
-    expect(screen.getByTestId('alert-cancel-button')).toBeTruthy()
-    expect(screen.queryByTestId('alert-action-button')).toBeNull()
+    expect(alert).toBeInTheDocument()
   })
 
-  it('should dismiss the alert if click on action button', () => {
+  it('renders an action button if mode is actionAndCancel', () => {
+    render(
+      <Alert
+        mode="actionAndCancel"
+        onAction={() => {}}
+        actionName="action"
+        type="info"
+        message=""
+        title=""
+        isOpen
+      />
+    )
+    const actionButton = screen.getByRole('button', { name: 'action' })
+
+    expect(actionButton).toBeInTheDocument()
+  })
+
+  it('calls onAction when click on action button', () => {
     const onAction = jest.fn()
-    makeSut({
-      actionName: 'action',
-      isOpen: true,
-      message: 'message',
-      mode: 'actionAndCancel',
-      onAction,
-      title: 'title',
-      type: 'danger'
-    })
+    render(
+      <Alert
+        mode="actionAndCancel"
+        onAction={onAction}
+        actionName="action"
+        type="info"
+        message=""
+        title=""
+        isOpen
+      />
+    )
+    const actionButton = screen.getByRole('button', { name: 'action' })
 
-    const actionButton = screen.getByTestId('alert-action-button')
-    actionButton.click()
+    userEvent.click(actionButton)
 
-    const alert = screen.getByTestId('alert')
-
-    setTimeout(() => {
-      expect(alert).toBeNull()
-    })
+    expect(onAction).toHaveBeenCalled()
   })
 
-  it('should dismiss the alert if click on cancel button', () => {
-    makeSut({
-      isOpen: true,
-      message: 'message',
-      mode: 'cancelOnly',
-      title: 'title',
-      type: 'default'
-    })
-
-    const cancelButton = screen.getByTestId('alert-cancel-button')
-    cancelButton.click()
-
+  it('closes if click on cancel button', () => {
+    render(<Alert type="info" message="" title="" isOpen />)
+    const cancelButton = screen.getByRole('button', { name: /voltar/gi })
     const alert = screen.getByTestId('alert')
 
-    setTimeout(() => {
-      expect(alert).toBeNull()
-    })
+    userEvent.click(cancelButton)
+
+    expect(alert).not.toBeInTheDocument()
   })
 
-  it('should call onCancel when clicking on cancel button if it is defined', () => {
+  it('calls onCancel when click on cancel button', () => {
     const onCancel = jest.fn()
-    makeSut({
-      isOpen: true,
-      message: 'message',
-      mode: 'cancelOnly',
-      onCancel,
-      title: 'title',
-      type: 'default'
-    })
+    render(<Alert onCancel={onCancel} type="info" message="" title="" isOpen />)
+    const cancelButton = screen.getByRole('button', { name: /voltar/gi })
 
-    const cancelButton = screen.getByTestId('alert-cancel-button')
     cancelButton.click()
 
-    expect(onCancel).toHaveBeenCalledTimes(1)
+    expect(onCancel).toHaveBeenCalled()
+  })
+
+  it('has a single button if mode is cancelOnly', () => {
+    render(<Alert mode="cancelOnly" type="info" message="" title="" isOpen />)
+    const cancelButtons = screen.getAllByRole('button')
+
+    expect(cancelButtons).toHaveLength(1)
+  })
+
+  it('calls InfoCircleIcon with correct color', () => {
+    render(<Alert isOpen title="" message="" type="info" />)
+
+    expect(mockFunction).toHaveBeenCalledWith({
+      color: 'info'
+    })
+  })
+
+  it("calls InfoCircleIcon with color equal to info if alert's type is equal to info", () => {
+    render(<Alert isOpen title="" message="" type="info" />)
+
+    expect(mockFunction).toHaveBeenCalledWith({
+      color: expect.stringContaining('info')
+    })
+  })
+
+  it("calls InfoCircleIcon with color equal to danger if alert's type is equal to danger", () => {
+    render(<Alert isOpen title="" message="" type="danger" />)
+
+    expect(mockFunction).toHaveBeenCalledWith({
+      color: expect.stringContaining('danger')
+    })
+  })
+
+  it("calls InfoCircleIcon with color equal to warning if alert's type is equal to warning", () => {
+    render(<Alert isOpen title="" message="" type="warning" />)
+
+    expect(mockFunction).toHaveBeenCalledWith({
+      color: expect.stringContaining('warning')
+    })
   })
 })

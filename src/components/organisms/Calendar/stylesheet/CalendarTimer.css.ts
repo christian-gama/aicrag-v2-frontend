@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { breakpoints } from '@/components/_settings/breakpoints.css'
+import { breakpoints } from '@/components/_settings'
 
 export const calendarTimer = style({
   display: 'flex',
@@ -13,12 +13,12 @@ export const calendarTimer = style({
 })
 
 export const calendarTimerContent = style({
-  alignItems: 'center',
-  borderRadius: '5px',
   display: 'flex',
-  height: '3.2rem',
+  alignItems: 'center',
   marginLeft: '1rem',
-  width: '13rem'
+  borderRadius: '5px',
+  width: '13rem',
+  height: '3.2rem'
 })
 
 export const calendarTimerLabel = style({

@@ -1,42 +1,57 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
-import React, { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
-import getDuration from '../../../helpers/getDuration'
-import CheckIcon from '../../atoms/icons/CheckCircleIcon'
-import CloseIcon from '../../atoms/icons/CloseIcon'
-import ErrorIcon from '../../atoms/icons/ErrorIcon'
-import InfoCircleIcon from '../../atoms/icons/InfoCircleIcon'
-import P from '../../atoms/texts/P'
-import PopoverMessageList from './PopoverMessageList'
-import PopoverProps from './protocols/Popover.model'
-import * as style from './stylesheet'
+import { getDuration } from '@/helpers'
+import {
+  CheckCircleIcon,
+  ErrorIcon,
+  InfoCircleIcon
+} from '@/components/utils/icons'
+import { CloseIcon } from '@/components/utils/icons/CloseIcon'
+import { P } from '@/components/utils/texts/P'
+import { PopoverMessageList } from './PopoverMessageList'
+import { PopoverVariants } from './stylesheet'
+import * as classes from './stylesheet'
 
-const Popover: React.FC<PopoverProps> = (props) => {
-  const { message, type } = props
-  const duration = props.duration ?? getDuration(message)
+type PopoverProps = {
+  type: PopoverVariants['type']
+  message: string | string[]
+  minDuration?: number
+  onClose?: () => void
+  duration?: number
+  isOpen?: boolean
+}
 
-  const [isOpen, setIsOpen] = useState(!!props.isOpen)
+export const Popover: React.FC<PopoverProps> = ({
+  minDuration = 3,
+  message,
+  isOpen,
+  onClose,
+  type,
+  duration = getDuration(message, minDuration)
+}) => {
+  const [isOpenState, setIsOpenState] = useState(!!isOpen)
 
   useEffect(() => {
-    setIsOpen(!!props.isOpen)
-  }, [props.isOpen])
+    setIsOpenState(!!isOpen)
+  }, [isOpen])
 
   useEffect(() => {
-    if (props.isOpen) {
+    if (isOpenState) {
       const timer = setTimeout(() => {
-        setIsOpen(false)
+        setIsOpenState(false)
 
-        if (props.onClose) props.onClose()
+        if (onClose) onClose()
       }, duration * 1000)
 
       return () => clearTimeout(timer)
     }
-  }, [props.isOpen])
+  }, [isOpenState])
 
   const renderIcon = () => {
     switch (type) {
       case 'success':
-        return <CheckIcon color="white" size="md" />
+        return <CheckCircleIcon color="white" size="md" />
       case 'error':
         return <ErrorIcon color="white" size="md" />
       case 'info':
@@ -44,48 +59,62 @@ const Popover: React.FC<PopoverProps> = (props) => {
     }
   }
 
-  const popoverStyle = style.popoverRecipe({
+  const popoverStyle = classes.popoverRecipe({
     type
   })
 
-  const progressBarStyle = style.progressBarRecipe({
+  const progressBarStyle = classes.progressBarRecipe({
     type
   })
 
-  const progressBarWrapperStyle = style.progressBarWrapperRecipe({
+  const progressBarWrapperStyle = classes.progressBarWrapperRecipe({
     type
   })
 
-  if (!isOpen) return null
+  if (!isOpenState) return null
+
+  const overlayRoot = document.getElementById('overlay-root') as HTMLElement
 
   return ReactDOM.createPortal(
     <div
+      style={assignInlineVars(classes.popoverVars, {
+        duration: `${duration}s`
+      })}
       className={popoverStyle}
-      style={assignInlineVars(style.popoverVars, { duration: `${duration}s` })}
       data-testid="popover"
     >
-      <div className={style.popoverContent}>
-        <div className={style.popoverTextWrapper}>
+      <div className={classes.popoverContent}>
+        <div className={classes.popoverTextWrapper}>
           {renderIcon()}
-          {Array.isArray(message) ? <PopoverMessageList messages={message} /> : <P color="white">{message}</P>}
+          {Array.isArray(message)
+            ? (
+            <PopoverMessageList messages={message} />
+              )
+            : (
+            <P color="white">{message}</P>
+              )}
         </div>
 
         <div
-          className={style.popoverButtonWrapper}
-          onClick={() => setIsOpen(false)}
+          className={classes.popoverButtonWrapper}
+          onClick={() => {
+            if (onClose) onClose()
+            setIsOpenState(false)
+          }}
           data-testid="popover-close-wrapper"
         >
           <CloseIcon color="white" size="sm" />
         </div>
       </div>
 
-      <div className={progressBarWrapperStyle} data-testid="popover-progress-bar-wrapper">
+      <div
+        className={progressBarWrapperStyle}
+        data-testid="popover-progress-bar-wrapper"
+      >
         <div className={progressBarStyle} data-testid="popover-progress-bar" />
       </div>
     </div>,
 
-    document.querySelector('#overlay-root') as HTMLElement
+    overlayRoot
   )
 }
-
-export default Popover

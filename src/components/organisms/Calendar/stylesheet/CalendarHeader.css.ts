@@ -1,16 +1,15 @@
 import { style } from '@vanilla-extract/css'
-import { breakpoints } from '@/components/_settings/breakpoints.css'
-import { vars } from '@/components/_settings/vars.css'
+import { vars, breakpoints } from '@/components/_settings'
 
 export const calendarHeader = style({
   display: 'flex',
-  justifyContent: 'space-between',
   alignItems: 'center',
+  justifyContent: 'space-between',
+  borderRadius: '5px 5px 0 0',
+  backgroundColor: vars.colors['navy-600'],
+  padding: '1.8rem',
   width: '100%',
   height: '6rem',
-  padding: '1.8rem',
-  backgroundColor: vars.colors['navy-600'],
-  borderRadius: '5px 5px 0 0',
 
   '@media': {
     [breakpoints.mobile]: {

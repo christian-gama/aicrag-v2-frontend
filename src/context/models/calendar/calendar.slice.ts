@@ -9,7 +9,7 @@ const initialCalendarState: CalendarStates = {
   previousDate: DateTime.now().toMillis()
 }
 
-const calendarSlice = createSlice({
+export const calendarSlice = createSlice({
   name: 'calendar',
   initialState: initialCalendarState,
   reducers: {
@@ -42,5 +42,3 @@ const calendarSlice = createSlice({
     }
   }
 })
-
-export default calendarSlice

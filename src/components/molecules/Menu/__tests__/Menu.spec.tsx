@@ -1,33 +1,36 @@
-import { render, screen } from '@testing-library/react'
-import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Menu from '../Menu'
-import MenuProps from '../protocols/Menu.model'
-
-const makeSut = (props: MenuProps) => {
-  return render(
-    <>
-      <BrowserRouter>
-        <Routes location={'/'}>
-          <Route path={'/'} element={<Menu {...props} />} />
-        </Routes>
-      </BrowserRouter>
-    </>
-  )
-}
+import { cleanup, render, screen } from '@testing-library/react'
+import { BrowserRouter } from 'react-router-dom'
+import { Menu } from '..'
 
 describe('Menu', () => {
-  it('should have the correct href', () => {
-    const buttons = [
-      { buttonName: 'Home', to: 'Home' },
-      { buttonName: 'About', to: 'About' },
-      { buttonName: 'Contact', to: 'Contact' }
-    ]
-    const url = '/teste/url/'
-    makeSut({ buttons, url })
+  afterEach(() => {
+    cleanup()
+  })
 
-    const link = screen.getByTestId('menu-link-home')
+  it('renders correctly', () => {
+    render(<Menu buttons={[]} />, {
+      wrapper: BrowserRouter
+    })
+    const menu = screen.getByTestId('menu')
 
-    expect(link).toHaveAttribute('href', '/teste/url/home')
+    expect(menu).toBeInTheDocument()
+  })
+
+  it('has an active button if set button as active', () => {
+    render(
+      <Menu
+        buttons={[
+          { buttonName: 'Button', to: '/', active: true },
+          { buttonName: 'Button 2', to: '/', active: false }
+        ]}
+      />,
+      {
+        wrapper: BrowserRouter
+      }
+    )
+    const links = screen.getAllByTestId('menu-link')
+
+    expect(links[0].className).toMatch(/active_true/gi)
+    expect(links[1].className).toMatch(/active_false/gi)
   })
 })

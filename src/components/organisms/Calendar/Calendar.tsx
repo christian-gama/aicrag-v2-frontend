@@ -1,20 +1,24 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { calendarActions } from '@/context/models/calendar/calendar.actions'
+import { calendarActions } from '@/context/models/calendar'
 import { AppDispatch, RootState } from '@/context/store'
-import Modal from '../../molecules/Modal/Modal'
-import CalendarBody from './CalendarBody'
-import CalendarFooter from './CalendarFooter'
-import CalendarHeader from './CalendarHeader'
-import CalendarProps from './protocols/Calendar.model'
-import * as style from './stylesheet'
+import { Modal } from '@/components/molecules/Modal'
+import { CalendarBody } from './CalendarBody'
+import { CalendarFooter } from './CalendarFooter'
+import { CalendarHeader } from './CalendarHeader'
+import * as classes from './stylesheet'
 
-const Calendar: React.FC<CalendarProps> = (props) => {
+type CalendarProps = {
+  previousDate: number
+}
+
+export const Calendar: React.FC<CalendarProps> = ({ previousDate }) => {
   const { resetCalendar, closeCalendar } = calendarActions
-  const { previousDate } = props
 
   const dispatch = useDispatch<AppDispatch>()
-  const isCalendarOpen = useSelector<RootState, boolean>((state) => state.calendar.isCalendarOpen)
+  const isCalendarOpen = useSelector<RootState, boolean>(
+    (state) => state.calendar.isCalendarOpen
+  )
 
   useEffect(() => {
     dispatch(resetCalendar(previousDate))
@@ -28,7 +32,7 @@ const Calendar: React.FC<CalendarProps> = (props) => {
       }}
       isOpen={isCalendarOpen}
     >
-      <div className={style.calendar} data-testid="calendar-wrapper">
+      <div className={classes.calendar} data-testid="calendar-wrapper">
         <CalendarHeader />
 
         <CalendarBody />
@@ -38,5 +42,3 @@ const Calendar: React.FC<CalendarProps> = (props) => {
     </Modal>
   )
 }
-
-export default Calendar
