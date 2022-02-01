@@ -16,7 +16,7 @@ export const PinCode: React.FC<PinCodeProps> = ({ setStepsHandler }) => {
     selectLastChar,
     isOnCountdown,
     inputError,
-    isLoading,
+    formState,
     values
   } = usePinCode({ setStepsHandler })
 
@@ -49,10 +49,10 @@ export const PinCode: React.FC<PinCodeProps> = ({ setStepsHandler }) => {
       <div className={classes.pinCode}>{mappedInputs}</div>
 
       <Button
-        loading={isLoading}
-        style={{ size: 'lg' }}
+        disabled={isOnCountdown || formState.isSubmitted}
+        loading={formState.isLoading}
         onClick={resendEmailHandler}
-        disabled={isOnCountdown}
+        style={{ size: 'lg' }}
       >
         {isOnCountdown ? `${timeLeftInSeconds} s` : 'Reenviar email'}
       </Button>

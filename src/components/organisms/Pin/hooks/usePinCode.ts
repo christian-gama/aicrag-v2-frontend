@@ -28,7 +28,10 @@ export const usePinCode = ({
 }: ComponentPropsWithRef<typeof PinCode>) => {
   const [activateAccount, { error }] = useActivateAccountMutation()
   const [sendWelcome] = useSendWelcomeEmailMutation()
-  const [isLoading, setIsLoading] = useState(false)
+  const [formState, setFormState] = useState({
+    isLoading: false,
+    isSubmitted: false
+  })
   const [inputError, setInputError] = useState<Maybe<ApolloError>>()
   const [values, setValues] = useState(createFilledArray(5, ''))
 
@@ -93,7 +96,7 @@ export const usePinCode = ({
 
   const onSubmitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setIsLoading(true)
+    setFormState((formStates) => ({ ...formStates, isLoading: true }))
 
     try {
       await activateAccount({
@@ -103,24 +106,23 @@ export const usePinCode = ({
         }
       })
 
-      popoverVar.setPopover(
-        'Conta verificada com sucesso. Você está sendo redirecionado para a página inicial',
-        'success'
-      )
-
-      setIsLoading(false)
+      setFormState({ isSubmitted: true, isLoading: false })
       setStepsHandler((step) => step + 1)
       await new Promise((resolve) => setTimeout(resolve, 1500))
 
+      popoverVar.setPopover(
+        'Conta verificada com sucesso. Você foi redirecionado para a página inicial',
+        'success'
+      )
       authVar.login()
     } catch (error: any) {
-      setIsLoading(false)
+      setFormState((formStates) => ({ ...formStates, isLoading: false }))
       setInputError(error)
     }
   }
 
   const resendEmailHandler = async () => {
-    setIsLoading(true)
+    setFormState((formStates) => ({ ...formStates, isLoading: true }))
 
     try {
       await sendWelcome({
@@ -129,10 +131,10 @@ export const usePinCode = ({
         }
       })
 
-      setIsLoading(false)
+      setFormState((formStates) => ({ ...formStates, isLoading: false }))
       dispatch(startCountdown())
     } catch (error: any) {
-      setIsLoading(false)
+      setFormState((formStates) => ({ ...formStates, isLoading: false }))
       setInputError(error)
     }
   }
@@ -172,7 +174,7 @@ export const usePinCode = ({
     selectLastChar,
     isOnCountdown,
     inputError,
-    isLoading,
+    formState,
     values
   }
 }
