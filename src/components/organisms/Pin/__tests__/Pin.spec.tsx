@@ -3,7 +3,6 @@ import userEvent from '@testing-library/user-event'
 import { Pin } from '..'
 import { useWindowDimensions } from '@/components/_hooks'
 import { makeAccessTokenStorage } from '@/external/factories/storage/auth'
-import { popoverVar } from '@/external/graphql/reactiveVars'
 import { OverlayRoot, renderWithProviders, waitFetch } from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
 import { sendWelcomeEmailMock } from '@/tests/mocks/queries'
@@ -176,11 +175,11 @@ describe('Pin', () => {
     expect(inputs[0]).toHaveFocus()
   })
 
-  it('logs the user in after submitting the form', async () => {
+  it('disables the button when form is submitted', async () => {
     renderWithProviders(<Pin isPage to="/" />, {
       apolloMocks: [activateAccountMock()]
     })
-    const popoverSpy = jest.spyOn(popoverVar, 'setPopover')
+    const button = screen.getByRole('button', { name: /reenviar/i })
     const inputs = screen.getAllByTestId('pin-input')
     const accessTokenStorage = makeAccessTokenStorage()
 
@@ -189,14 +188,14 @@ describe('Pin', () => {
 
     await waitFetch()
 
-    expect(popoverSpy).toHaveBeenCalled()
+    expect(button).toBeDisabled()
   })
 
-  it('catches the error if activateAccount throws and should not redirect', async () => {
+  it('catches the error if activateAccount throws and should not disable the button', async () => {
     renderWithProviders(<Pin isPage to="/" />, {
       apolloMocks: [activateAccountMock(undefined, new Error())]
     })
-    const popoverSpy = jest.spyOn(popoverVar, 'setPopover')
+    const button = screen.getByRole('button', { name: /reenviar/i })
     const inputs = screen.getAllByTestId('pin-input')
     const form = screen.getByTestId('form')
     const accessTokenStorage = makeAccessTokenStorage()
@@ -207,7 +206,7 @@ describe('Pin', () => {
 
     await waitFetch()
 
-    expect(popoverSpy).not.toHaveBeenCalled()
+    expect(button).not.toBeDisabled()
   })
 
   it('disables button when resend email', () => {
