@@ -29,7 +29,10 @@ export const usePinCode = ({
   const [activateAccount, { error }] = useActivateAccountMutation()
   const [sendWelcome] = useSendWelcomeEmailMutation()
   const [formState, setFormState] = useState({
-    isLoading: false,
+    isLoading: {
+      activateAccount: false,
+      sendWelcome: false
+    },
     isSubmitted: false
   })
   const [inputError, setInputError] = useState<Maybe<ApolloError>>()
@@ -96,7 +99,13 @@ export const usePinCode = ({
 
   const onSubmitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setFormState((formStates) => ({ ...formStates, isLoading: true }))
+    setFormState((formStates) => ({
+      isSubmitted: false,
+      isLoading: {
+        ...formStates.isLoading,
+        activateAccount: true
+      }
+    }))
 
     try {
       await activateAccount({
@@ -106,7 +115,13 @@ export const usePinCode = ({
         }
       })
 
-      setFormState({ isSubmitted: true, isLoading: false })
+      setFormState((formStates) => ({
+        isSubmitted: true,
+        isLoading: {
+          ...formStates.isLoading,
+          activateAccount: false
+        }
+      }))
       setStepsHandler((step) => step + 1)
       await new Promise((resolve) => setTimeout(resolve, 1500))
 
@@ -116,13 +131,25 @@ export const usePinCode = ({
       )
       authVar.login()
     } catch (error: any) {
-      setFormState((formStates) => ({ ...formStates, isLoading: false }))
+      setFormState((formStates) => ({
+        isSubmitted: false,
+        isLoading: {
+          ...formStates.isLoading,
+          activateAccount: false
+        }
+      }))
       setInputError(error)
     }
   }
 
   const resendEmailHandler = async () => {
-    setFormState((formStates) => ({ ...formStates, isLoading: true }))
+    setFormState((formStates) => ({
+      ...formStates,
+      isLoading: {
+        ...formStates.isLoading,
+        sendWelcome: true
+      }
+    }))
 
     try {
       await sendWelcome({
@@ -131,10 +158,22 @@ export const usePinCode = ({
         }
       })
 
-      setFormState((formStates) => ({ ...formStates, isLoading: false }))
+      setFormState((formStates) => ({
+        ...formStates,
+        isLoading: {
+          ...formStates.isLoading,
+          sendWelcome: false
+        }
+      }))
       dispatch(startCountdown())
     } catch (error: any) {
-      setFormState((formStates) => ({ ...formStates, isLoading: false }))
+      setFormState((formStates) => ({
+        ...formStates,
+        isLoading: {
+          ...formStates.isLoading,
+          sendWelcome: false
+        }
+      }))
       setInputError(error)
     }
   }

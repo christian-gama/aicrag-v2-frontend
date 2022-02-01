@@ -19,7 +19,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ loading }) => {
     if (!loading && isOpen) {
       const timer = setTimeout(() => {
         setIsOpen(false)
-      }, 1250)
+      }, 500)
 
       return () => clearTimeout(timer)
     }

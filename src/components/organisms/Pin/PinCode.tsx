@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
 import { Button } from '@/components/atoms/Button'
+import { ProgressBar } from '@/components/atoms/ProgressBar'
 import { usePinCode } from './hooks/usePinCode'
 import * as classes from './stylesheet'
 
@@ -41,21 +42,29 @@ export const PinCode: React.FC<PinCodeProps> = ({ setStepsHandler }) => {
   ))
 
   return (
-    <form
-      className={classes.pinCodeWrapper}
-      onSubmit={onSubmitHandler}
-      data-testid="form"
-    >
-      <div className={classes.pinCode}>{mappedInputs}</div>
-
-      <Button
-        disabled={isOnCountdown || formState.isSubmitted}
-        loading={formState.isLoading}
-        onClick={resendEmailHandler}
-        style={{ size: 'lg' }}
+    <>
+      <form
+        className={classes.pinCodeWrapper}
+        onSubmit={onSubmitHandler}
+        data-testid="form"
       >
-        {isOnCountdown ? `${timeLeftInSeconds} s` : 'Reenviar email'}
-      </Button>
-    </form>
+        <div className={classes.pinCode}>{mappedInputs}</div>
+
+        <Button
+          disabled={
+            isOnCountdown ||
+            formState.isSubmitted ||
+            formState.isLoading.activateAccount
+          }
+          loading={formState.isLoading.sendWelcome}
+          onClick={resendEmailHandler}
+          style={{ size: 'lg' }}
+        >
+          {isOnCountdown ? `${timeLeftInSeconds} s` : 'Reenviar email'}
+        </Button>
+      </form>
+
+      <ProgressBar loading={formState.isLoading.activateAccount} />
+    </>
   )
 }

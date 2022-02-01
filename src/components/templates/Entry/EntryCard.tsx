@@ -23,11 +23,11 @@ export const EntryCard: React.FC<EntryCardProps> = ({ style, children }) => {
             className={classes.entryCard}
             style={assignInlineVars(windowHeightVars, {
               height:
-                width <= 520
-                  ? height <= 600
-                    ? '600px'
-                    : `${height}px`
-                  : style!.height!
+                height <= 600
+                  ? '600px'
+                  : width <= 520
+                    ? `${height}px`
+                    : style!.height!
             })}
           >
             {children}
