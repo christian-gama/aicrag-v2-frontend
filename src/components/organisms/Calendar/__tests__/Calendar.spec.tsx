@@ -117,7 +117,7 @@ describe('Calendar', () => {
     renderWithButton()
     const heading = screen.getByTestId('calendar-header-date')
 
-    expect(heading).toHaveTextContent('Janeiro, 2022')
+    expect(heading).toHaveTextContent(/^jan.*, 2022/gi)
   })
 
   it('skips to previous month when clicking on ChevronIcon from the left', () => {
