@@ -1,20 +1,37 @@
 import { ApolloError } from '@apollo/client'
 import { FocusEvent, FormEvent, MouseEvent, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getUserByToken } from '@/services/token/getUserByToken'
+import {
+  mailerCountdownActions,
+  MailerCountdownStates
+} from '@/context/models/mailerCountdown'
+import { AppDispatch, RootState } from '@/context/store'
 import { Button } from '@/components/atoms/Button'
-import { useActivateAccountMutation } from '@/external/graphql/generated'
+import {
+  useActivateAccountMutation,
+  useSendWelcomeEmailMutation
+} from '@/external/graphql/generated'
 import { authVar } from '@/external/graphql/reactiveVars'
 import * as classes from './stylesheet'
 
 export const PinCode: React.FC = () => {
   const navigate = useNavigate()
   const [activateAccount, { error }] = useActivateAccountMutation()
+  const [sendWelcome] = useSendWelcomeEmailMutation()
   const [isLoading, setIsLoading] = useState(false)
   const [inputError, setInputError] = useState<ApolloError | undefined>()
   const [values, setValues] = useState<string[]>(
     Array.from({ length: 5 }).fill('', 0, 5) as string[]
   )
+
+  const dispatch = useDispatch<AppDispatch>()
+  const { isOnCountdown, timeLeftInSeconds } = useSelector<
+  RootState,
+  MailerCountdownStates
+  >((state) => state.mailerCountdown)
+  const { startCountdown } = mailerCountdownActions
 
   const form = document.querySelector('form') as HTMLFormElement
   const getInput = (index: number) =>
@@ -89,6 +106,24 @@ export const PinCode: React.FC = () => {
     }
   }
 
+  const resendEmailHandler = async () => {
+    setIsLoading(true)
+
+    try {
+      await sendWelcome({
+        variables: {
+          email: getUserByToken('email')
+        }
+      })
+
+      setIsLoading(false)
+      dispatch(startCountdown())
+    } catch (error: any) {
+      setIsLoading(false)
+      setInputError(error)
+    }
+  }
+
   useEffect(() => {
     if (error) {
       setInputError(error)
@@ -143,8 +178,13 @@ export const PinCode: React.FC = () => {
         ))}
       </div>
 
-      <Button disabled={isLoading} style={{ size: 'lg' }} onClick={() => {}}>
-        Reenviar código
+      <Button
+        loading={isLoading}
+        style={{ size: 'lg' }}
+        onClick={resendEmailHandler}
+        disabled={isOnCountdown}
+      >
+        {isOnCountdown ? `${timeLeftInSeconds} s` : 'Reenviar email'}
       </Button>
     </form>
   )
