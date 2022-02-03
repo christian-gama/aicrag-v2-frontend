@@ -1,16 +1,13 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { useWindowDimensions } from '@/components/_hooks'
 import { windowHeightVars } from '@/components/_settings'
 import { Background } from '@/components/atoms/Background'
 import { Card } from '@/components/atoms/Card'
 import { Steps } from '@/components/atoms/Steps'
 import { Modal } from '@/components/molecules/Modal'
+import { NavHeader } from '@/components/molecules/NavHeader'
 import { Center } from '@/components/utils/Center'
-import { Divider } from '@/components/utils/Divider'
-import { BackIcon } from '@/components/utils/icons'
-import { H2 } from '@/components/utils/texts/H2'
 import { P } from '@/components/utils/texts/P'
 import { PinCode } from './PinCode'
 import * as classes from './stylesheet'
@@ -18,7 +15,7 @@ import * as classes from './stylesheet'
 type PinProps = (
   | {
     isPage: true
-    to: string
+    to?: string
   }
   | {
     isPage: false
@@ -52,20 +49,11 @@ export const Pin: React.FC<PinProps> = (props) => {
             className={classes.pin}
             data-testid="pin"
           >
-            <div className={classes.pinHeader}>
-              <div
-                onClick={props.isPage ? undefined : () => setIsOpen(false)}
-                data-testid="pin-back"
-              >
-                <Link to={props.isPage ? props.to : ''} aria-label="Voltar">
-                  <BackIcon />
-                </Link>
-              </div>
-
-              <H2>Confirme o seu email</H2>
-            </div>
-
-            <Divider />
+            <NavHeader
+              backHandler={props.isPage ? undefined : () => setIsOpen(false)}
+              to={props.isPage ? props.to : ''}
+              title="Confirme o seu email"
+            />
 
             <div className={classes.pinContentWrapper}>
               <div className={classes.pinContentMain}>

@@ -11,18 +11,16 @@ export default {
   },
   decorators: [
     (story) => (
-      <AllProviders>
-        <div
-          style={{
-            backgroundColor: '#555',
-            width: '100vw',
-            height: '100vh',
-            padding: '1.2rem'
-          }}
-        >
-          {story()}
-        </div>
-      </AllProviders>
+      <div
+        style={{
+          backgroundColor: '#555',
+          width: '100vw',
+          height: '100vh',
+          padding: '1.2rem'
+        }}
+      >
+        <AllProviders>{story()}</AllProviders>
+      </div>
     )
   ]
 } as ComponentMeta<typeof Pin>

@@ -75,7 +75,7 @@ describe('Pin', () => {
 
   it('closes when clicks on Link if it is not a page', () => {
     renderWithProviders(<Pin isPage={false} isOpen />)
-    const back = screen.getByTestId('pin-back')
+    const back = screen.getByTestId('nav-header-back')
 
     userEvent.click(back)
 
