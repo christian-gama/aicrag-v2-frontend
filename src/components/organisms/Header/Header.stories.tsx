@@ -1,5 +1,6 @@
 import { ComponentStoryObj, ComponentMeta } from '@storybook/react'
 import { makeAccessTokenStorage } from '@/external/factories/storage/auth'
+import { AllProviders } from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
 import { Header as HeaderComponent } from './Header'
 
@@ -14,7 +15,7 @@ export default {
       const accessTokenStorage = makeAccessTokenStorage()
       accessTokenStorage.set(mockVariables.token)
 
-      return story()
+      return <AllProviders>{story()}</AllProviders>
     }
   ]
 } as ComponentMeta<typeof HeaderComponent>
