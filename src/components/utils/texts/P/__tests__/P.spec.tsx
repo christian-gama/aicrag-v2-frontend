@@ -12,4 +12,11 @@ describe('P', () => {
 
     expect(p).toBeInTheDocument()
   })
+
+  it('renders as bold', () => {
+    render(<P bold />)
+    const strong = screen.getByTestId('strong')
+
+    expect(strong).toBeInTheDocument()
+  })
 })
