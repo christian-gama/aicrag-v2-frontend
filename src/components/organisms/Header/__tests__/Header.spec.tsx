@@ -1,10 +1,14 @@
+import { cleanup, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { makeAccessTokenStorage } from '@/external/factories/storage/auth'
 import { authVar } from '@/external/graphql/reactiveVars'
 import { OverlayRoot, renderWithProviders } from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
-import { cleanup, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import { Header } from '..'
+import { useWindowDimensions } from '../../../_hooks'
+
+jest.mock('../../../_hooks/useWindowDimensions')
+const useWindowDimensionsMock = useWindowDimensions as jest.Mock
 
 describe('Header', () => {
   const accessTokenStorage = makeAccessTokenStorage()
@@ -17,6 +21,7 @@ describe('Header', () => {
   })
 
   beforeEach(() => {
+    useWindowDimensionsMock.mockReturnValue({ width: 1920, height: 1080 })
     accessTokenStorage.set(mockVariables.token)
     overlayRoot.addOverlayRoot()
   })
@@ -82,5 +87,13 @@ describe('Header', () => {
     userEvent.click(backIcon)
 
     expect(screen.queryByTestId('about')).not.toBeInTheDocument()
+  })
+
+  it('renders the MenuIcon if width is equal or lesser to 820', () => {
+    useWindowDimensionsMock.mockReturnValue({ width: 820, height: 1080 })
+    renderWithProviders(<Header pageName="" />)
+    const menuHamburguer = screen.getByTestId('menu-icon')
+
+    expect(menuHamburguer).toBeInTheDocument()
   })
 })
