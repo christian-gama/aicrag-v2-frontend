@@ -1,5 +1,5 @@
-import { OverlayRoot } from '@/tests/helpers'
-import { render, cleanup, screen } from '@testing-library/react'
+import { OverlayRoot, renderWithProviders } from '@/tests/helpers'
+import { cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Help } from '..'
 
@@ -16,15 +16,15 @@ describe('Help', () => {
   })
 
   it('renders correctly', () => {
-    render(<Help isOpen />)
+    renderWithProviders(<Help isOpen />)
     const help = screen.getByTestId('help')
 
     expect(help).toBeInTheDocument()
   })
 
-  it('closes the Help modal when clicking on CloseIcon', () => {
-    render(<Help isOpen />)
-    const closeIcon = screen.getByTestId('help-close')
+  it('closes the Help modal when clicking on BackIcon', () => {
+    renderWithProviders(<Help isOpen />)
+    const closeIcon = screen.getByTestId('nav-header-back')
     const help = screen.queryByTestId('help')
 
     userEvent.click(closeIcon)
