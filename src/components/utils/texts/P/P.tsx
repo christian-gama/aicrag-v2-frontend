@@ -5,14 +5,13 @@ import { PRecipeVariants, pVars } from './stylesheet'
 type PProps = {
   color?: PRecipeVariants['color']
   margin?: string
-  bold?: boolean
 }
 
 /**
  * @fontSize 1.6rem
  * @fontFamily Open Sans
  */
-export const P: React.FC<PProps> = ({ children, color, bold, margin }) => {
+export const P: React.FC<PProps> = ({ children, color, margin }) => {
   const pStyle = classes.pRecipe({
     color
   })
@@ -23,7 +22,7 @@ export const P: React.FC<PProps> = ({ children, color, bold, margin }) => {
       className={pStyle}
       data-testid="p"
     >
-      {bold ? <strong data-testid="strong">{children}</strong> : children}
+      {children}
     </p>
   )
 }
