@@ -1,6 +1,8 @@
 import { makeAccessTokenStorage } from '@/external/factories/storage/auth'
+import { authVar } from '@/external/graphql/reactiveVars'
 import { mockVariables } from '@/tests/mocks'
 import { render, cleanup, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { Header } from '..'
 
 describe('Header', () => {
@@ -34,5 +36,15 @@ describe('Header', () => {
     const userName = screen.getByText(mockVariables.name)
 
     expect(userName).toBeInTheDocument()
+  })
+
+  it('logs the user out when click on LogoutIcon', () => {
+    const logoutSpy = jest.spyOn(authVar, 'logout')
+    render(<Header pageName="" />)
+    const logoutIcon = screen.getByTestId('logout-icon')
+
+    userEvent.click(logoutIcon)
+
+    expect(logoutSpy).toHaveBeenCalled()
   })
 })
