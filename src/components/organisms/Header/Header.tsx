@@ -1,5 +1,6 @@
 import { formatName } from '@/helpers'
 import { getUserByToken } from '@/services/token/getUserByToken'
+import { LogoutIcon } from '@/components/utils/icons/LogoutIcon'
 import * as classes from './stylesheet'
 
 type HeaderProps = {
@@ -13,6 +14,7 @@ export const Header: React.FC<HeaderProps> = ({ pageName }) => {
     <div className={classes.header} data-testid="header">
       {pageName}
       {userName}
+      <LogoutIcon />
     </div>
   )
 }
