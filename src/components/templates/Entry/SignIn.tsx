@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { formatName } from '@/helpers'
 import { FormContext } from '@/context/models/form'
 import { Button } from '@/components/atoms/Button'
 import { ControlForm, ControlInput } from '@/components/organisms/Control'
@@ -36,7 +37,9 @@ export const SignIn: React.FC = () => {
       <ControlForm
         successMessage={
           data?.login?.__typename === 'ActiveAccount'
-            ? `Boas-vindas, ${data.login.user.personal.name}! Seu login foi efetuado com sucesso`
+            ? `Boas-vindas, ${formatName(
+                data.login.user.personal.name
+              )}! Seu login foi efetuado com sucesso`
             : undefined
         }
         submitHandler={onSubmitHandler}
