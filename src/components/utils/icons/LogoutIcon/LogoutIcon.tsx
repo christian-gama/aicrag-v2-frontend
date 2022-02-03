@@ -1,4 +1,3 @@
-import { authVar } from '@/external/graphql/reactiveVars'
 import * as classes from './stylesheet'
 import { LogoutIconVariants } from './stylesheet'
 
@@ -7,15 +6,10 @@ type LogouIconProps = {
 }
 
 export const LogoutIcon: React.FC<LogouIconProps> = ({ color }) => {
-  const onClickHandler = () => {
-    authVar.logout()
-  }
-
   return (
     <div
       className={classes.logoutIconWrapper({ color })}
       data-testid="logout-icon"
-      onClick={onClickHandler}
     >
       <svg
         className={classes.logoutIconRecipe({
