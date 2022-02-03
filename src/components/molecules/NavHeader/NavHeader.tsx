@@ -14,13 +14,19 @@ export const NavHeader: React.FC<NavHeaderProps> = (props) => {
   return (
     <>
       <div className={classes.navHeader} data-testid="nav-header">
-        <div onClick={props.backHandler} data-testid="nav-header-back">
+        <div
+          className={classes.navHeaderBack}
+          data-testid="nav-header-back"
+          onClick={props.backHandler}
+        >
           <Link to={props.to ?? ''} aria-label="Voltar">
             <BackIcon />
           </Link>
         </div>
 
-        <H2>{props.title}</H2>
+        <div className={classes.navHeaderTitle}>
+          <H2>{props.title}</H2>
+        </div>
       </div>
 
       <Divider />
