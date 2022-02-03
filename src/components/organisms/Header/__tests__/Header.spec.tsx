@@ -1,7 +1,6 @@
 import { cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { makeAccessTokenStorage } from '@/external/factories/storage/auth'
-import { authVar } from '@/external/graphql/reactiveVars'
 import { OverlayRoot, renderWithProviders } from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
 import { Header } from '..'
@@ -49,14 +48,14 @@ describe('Header', () => {
     expect(userName).toBeInTheDocument()
   })
 
-  it('logs the user out when click on LogoutIcon', () => {
-    const logoutSpy = jest.spyOn(authVar, 'logout')
+  it('renders Alert when click on LogoutIcon', () => {
     renderWithProviders(<Header pageName="" />)
     const logoutIcon = screen.getByTestId('logout-icon')
+    const alert = () => screen.getByTestId('alert')
 
     userEvent.click(logoutIcon)
 
-    expect(logoutSpy).toHaveBeenCalled()
+    expect(alert()).toBeInTheDocument()
   })
 
   it('opens the About modal when clicking on QuestionIcon', () => {

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { formatName } from '@/helpers'
 import { getUserByToken } from '@/services/token/getUserByToken'
 import { useWindowDimensions } from '@/components/_hooks'
+import { Alert } from '@/components/molecules/Alert'
 import { BackIcon } from '@/components/utils/icons'
 import { LogoutIcon } from '@/components/utils/icons/LogoutIcon'
 import { MenuIcon } from '@/components/utils/icons/MenuIcon'
@@ -19,20 +20,11 @@ type HeaderProps = {
 }
 
 export const Header: React.FC<HeaderProps> = ({ pageName, backHandler }) => {
-  const { width } = useWindowDimensions()
   const [isAboutOpen, setIsAboutOpen] = useState(false)
+  const [isAlertOpen, setIsAlertOpen] = useState(false)
+  const { width } = useWindowDimensions()
+
   const userName = formatName(getUserByToken('name')!)
-  const onLogoutHandler = () => {
-    authVar.logout()
-  }
-
-  const onAboutHandler = () => {
-    setIsAboutOpen(true)
-  }
-
-  const onDismissHandler = () => {
-    setIsAboutOpen(false)
-  }
 
   const renderMenu = () => {
     if (width <= 820) {
@@ -50,11 +42,11 @@ export const Header: React.FC<HeaderProps> = ({ pageName, backHandler }) => {
             <SettingsIcon />
           </div>
 
-          <div onClick={onAboutHandler}>
+          <div onClick={() => setIsAboutOpen(true)}>
             <QuestionIcon />
           </div>
 
-          <div onClick={onLogoutHandler}>
+          <div onClick={() => setIsAlertOpen(true)}>
             <LogoutIcon />
           </div>
         </div>
@@ -80,7 +72,20 @@ export const Header: React.FC<HeaderProps> = ({ pageName, backHandler }) => {
         <div className={classes.headerRight}>{renderMenu()}</div>
       </div>
 
-      <About isOpen={isAboutOpen} dismissHandler={onDismissHandler} />
+      <Alert
+        message="Você tem certeza de que quer fazer logout? Sua sessão será encerrada após confirmar."
+        onCancel={() => setIsAlertOpen(false)}
+        title="Uma confirmação é necessária"
+        onAction={authVar.logout}
+        mode="actionAndCancel"
+        isOpen={isAlertOpen}
+        actionName="Logout"
+        type="warning"
+      />
+      <About
+        isOpen={isAboutOpen}
+        dismissHandler={() => setIsAboutOpen(false)}
+      />
     </>
   )
 }
