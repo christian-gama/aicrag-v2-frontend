@@ -72,4 +72,15 @@ describe('Header', () => {
 
     expect(backHandler).toHaveBeenCalled()
   })
+
+  it('closes the About modal when clicking on backIcon from NavHeader', async () => {
+    renderWithProviders(<Header pageName="" />)
+    const questionIcon = screen.getByTestId('question-icon')
+
+    userEvent.click(questionIcon)
+    const backIcon = screen.getByTestId('nav-header-back')
+    userEvent.click(backIcon)
+
+    expect(screen.queryByTestId('about')).not.toBeInTheDocument()
+  })
 })

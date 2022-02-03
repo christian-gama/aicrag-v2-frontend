@@ -27,6 +27,10 @@ export const Header: React.FC<HeaderProps> = ({ pageName, backHandler }) => {
     setIsAboutOpen(true)
   }
 
+  const onDismissHandler = () => {
+    setIsAboutOpen(false)
+  }
+
   return (
     <>
       <div className={classes.header} data-testid="header">
@@ -63,7 +67,7 @@ export const Header: React.FC<HeaderProps> = ({ pageName, backHandler }) => {
         </div>
       </div>
 
-      <About isOpen={isAboutOpen} />
+      <About isOpen={isAboutOpen} dismissHandler={onDismissHandler} />
     </>
   )
 }

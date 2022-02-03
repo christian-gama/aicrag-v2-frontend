@@ -9,9 +9,10 @@ import * as classes from './stylesheet'
 
 type AboutProps = {
   isOpen?: boolean
+  dismissHandler?: () => void
 }
 
-export const About: React.FC<AboutProps> = ({ isOpen }) => {
+export const About: React.FC<AboutProps> = ({ isOpen, dismissHandler }) => {
   const { width } = useWindowDimensions()
   const [isModalOpen, setIsModalOpen] = useState(isOpen)
 
@@ -21,10 +22,11 @@ export const About: React.FC<AboutProps> = ({ isOpen }) => {
 
   const onCloseHandler = () => {
     setIsModalOpen(false)
+    dismissHandler?.()
   }
 
   return (
-    <Modal isOpen={isModalOpen}>
+    <Modal isOpen={isModalOpen} onDismiss={dismissHandler}>
       <Center stickMobile>
         <Card roundness={width <= 520 ? 'none' : 'md'}>
           <div className={classes.about} data-testid="about">

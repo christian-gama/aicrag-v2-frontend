@@ -31,4 +31,14 @@ describe('About', () => {
 
     expect(about).not.toBeInTheDocument()
   })
+
+  it('calls dismissHandler if defined', () => {
+    const dismissHandler = jest.fn()
+    renderWithProviders(<About dismissHandler={dismissHandler} isOpen />)
+    const closeIcon = screen.getByTestId('nav-header-back')
+
+    userEvent.click(closeIcon)
+
+    expect(dismissHandler).toHaveBeenCalled()
+  })
 })
