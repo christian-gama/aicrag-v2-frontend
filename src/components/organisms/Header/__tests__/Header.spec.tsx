@@ -37,7 +37,9 @@ describe('Header', () => {
 
   it('renders the user name', () => {
     renderWithProviders(<Header pageName="" />)
-    const userName = screen.getByText(mockVariables.name)
+    const userName = screen.getByText(
+      RegExp(`^Olá, ${mockVariables.name}!$`, 'gi')
+    )
 
     expect(userName).toBeInTheDocument()
   })
@@ -59,5 +61,15 @@ describe('Header', () => {
     userEvent.click(questionIcon)
 
     expect(screen.getByTestId('about')).toBeInTheDocument()
+  })
+
+  it('renders a BackIcon if has backHandler defined', () => {
+    const backHandler = jest.fn()
+    renderWithProviders(<Header pageName="" backHandler={backHandler} />)
+    const backIcon = screen.getByTestId('back-icon')
+
+    userEvent.click(backIcon)
+
+    expect(backHandler).toHaveBeenCalled()
   })
 })
