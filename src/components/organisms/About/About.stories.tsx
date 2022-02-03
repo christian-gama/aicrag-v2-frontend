@@ -1,14 +1,14 @@
 import { ComponentStoryObj, ComponentMeta } from '@storybook/react'
 import { AllProviders } from '@/tests/helpers'
-import { Help as HelpComponent } from './Help'
+import { About as AboutComponent } from './About'
 
 export default {
-  component: HelpComponent,
-  title: 'organisms/Help',
+  component: AboutComponent,
+  title: 'organisms/About',
   args: {
     isOpen: true
   },
   decorators: [(story) => <AllProviders>{story()}</AllProviders>]
-} as ComponentMeta<typeof HelpComponent>
+} as ComponentMeta<typeof AboutComponent>
 
-export const Help: ComponentStoryObj<typeof HelpComponent> = {}
+export const About: ComponentStoryObj<typeof AboutComponent> = {}

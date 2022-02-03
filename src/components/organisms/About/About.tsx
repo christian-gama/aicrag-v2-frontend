@@ -7,11 +7,11 @@ import { Center } from '@/components/utils/Center'
 import { P } from '@/components/utils/texts/P'
 import * as classes from './stylesheet'
 
-type HelpProps = {
+type AboutProps = {
   isOpen?: boolean
 }
 
-export const Help: React.FC<HelpProps> = ({ isOpen }) => {
+export const About: React.FC<AboutProps> = ({ isOpen }) => {
   const { width } = useWindowDimensions()
   const [isModalOpen, setIsModalOpen] = useState(isOpen)
 
@@ -23,12 +23,12 @@ export const Help: React.FC<HelpProps> = ({ isOpen }) => {
     <Modal isOpen={isModalOpen}>
       <Center stickMobile>
         <Card roundness={width <= 520 ? 'none' : 'md'}>
-          <div className={classes.help} data-testid="help">
-            <div className={classes.helpNavHeaderWrapper}>
+          <div className={classes.about} data-testid="about">
+            <div className={classes.aboutNavHeaderWrapper}>
               <NavHeader backHandler={onCloseHandler} title="Sobre" />
             </div>
 
-            <div className={classes.helpTextWrapper}>
+            <div className={classes.aboutTextWrapper}>
               <P>
                 Salve seus registros de áudios transcritos ou corrigidos e
                 usufra de vantagens como: checar o valor a receber no mês, ver a
@@ -49,7 +49,7 @@ export const Help: React.FC<HelpProps> = ({ isOpen }) => {
               </P>
             </div>
 
-            <div className={classes.helpFooter}>
+            <div className={classes.aboutFooter}>
               <P>© 2022 Copyright Aicrag. Todos os direitos reservados.</P>
             </div>
           </div>

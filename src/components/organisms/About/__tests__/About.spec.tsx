@@ -1,9 +1,9 @@
 import { OverlayRoot, renderWithProviders } from '@/tests/helpers'
 import { cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Help } from '..'
+import { About } from '..'
 
-describe('Help', () => {
+describe('About', () => {
   const overlayRoot = new OverlayRoot()
 
   afterEach(() => {
@@ -16,19 +16,19 @@ describe('Help', () => {
   })
 
   it('renders correctly', () => {
-    renderWithProviders(<Help isOpen />)
-    const help = screen.getByTestId('help')
+    renderWithProviders(<About isOpen />)
+    const about = screen.getByTestId('about')
 
-    expect(help).toBeInTheDocument()
+    expect(about).toBeInTheDocument()
   })
 
-  it('closes the Help modal when clicking on BackIcon', () => {
-    renderWithProviders(<Help isOpen />)
+  it('closes the about modal when clicking on BackIcon', () => {
+    renderWithProviders(<About isOpen />)
     const closeIcon = screen.getByTestId('nav-header-back')
-    const help = screen.queryByTestId('help')
+    const about = screen.queryByTestId('about')
 
     userEvent.click(closeIcon)
 
-    expect(help).not.toBeInTheDocument()
+    expect(about).not.toBeInTheDocument()
   })
 })

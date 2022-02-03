@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css'
 import { breakpoints, vars } from '@/components/_settings'
 
-export const help = style({
+export const about = style({
   position: 'relative',
   padding: '0.8rem 0',
   width: '50rem',
@@ -35,7 +35,7 @@ export const help = style({
   }
 })
 
-export const helpTextWrapper = style({
+export const aboutTextWrapper = style({
   padding: '4rem',
   paddingBottom: '0',
   textAlign: 'justify',
@@ -48,7 +48,7 @@ export const helpTextWrapper = style({
   }
 })
 
-export const helpFooter = style({
+export const aboutFooter = style({
   padding: '4rem',
   textAlign: 'center',
   fontWeight: 'bold',
@@ -60,7 +60,7 @@ export const helpFooter = style({
   }
 })
 
-export const helpNavHeaderWrapper = style({
+export const aboutNavHeaderWrapper = style({
   position: 'sticky',
   top: 0,
   left: 0,
