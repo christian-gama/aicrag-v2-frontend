@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useWindowDimensions } from '@/components/_hooks'
 import { Card } from '@/components/atoms/Card'
 import { Modal } from '@/components/molecules/Modal'
@@ -14,6 +14,10 @@ type AboutProps = {
 export const About: React.FC<AboutProps> = ({ isOpen }) => {
   const { width } = useWindowDimensions()
   const [isModalOpen, setIsModalOpen] = useState(isOpen)
+
+  useEffect(() => {
+    setIsModalOpen(isOpen)
+  }, [isOpen])
 
   const onCloseHandler = () => {
     setIsModalOpen(false)
