@@ -10,7 +10,7 @@ describe('LogoutIcon', () => {
 
   it('renders correctly', () => {
     render(<LogoutIcon />)
-    const logout = screen.getByTestId('logout')
+    const logout = screen.getByTestId('logout-icon')
 
     expect(logout).toBeInTheDocument()
   })
@@ -18,7 +18,7 @@ describe('LogoutIcon', () => {
   it('calls logout when clicking on icon', () => {
     const logoutSpy = jest.spyOn(authVar, 'logout')
     render(<LogoutIcon />)
-    const logout = screen.getByTestId('logout')
+    const logout = screen.getByTestId('logout-icon')
 
     userEvent.click(logout)
 
