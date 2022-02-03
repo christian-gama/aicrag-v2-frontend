@@ -7,9 +7,16 @@ describe('Header', () => {
   })
 
   it('renders correctly', () => {
-    render(<Header />)
+    render(<Header pageName="" />)
     const header = screen.getByTestId('header')
 
     expect(header).toBeInTheDocument()
+  })
+
+  it('renders the page name', () => {
+    render(<Header pageName="Any name" />)
+    const pageName = screen.getByText(/any name/gi)
+
+    expect(pageName).toBeInTheDocument()
   })
 })
