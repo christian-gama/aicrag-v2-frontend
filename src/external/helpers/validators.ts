@@ -31,7 +31,7 @@ export const validators = {
     .max(59)
     .build(),
 
-  questionId: ValidatorBuilder.field('questionId').maxLength(120).build(),
+  taskId: ValidatorBuilder.field('taskId').maxLength(120).build(),
 
   duration: ValidatorBuilder.field('duration')
     .isNumber()
