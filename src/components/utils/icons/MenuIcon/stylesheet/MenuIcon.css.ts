@@ -13,7 +13,7 @@ export const menuIconWrapper = style({
 })
 
 export const menuIcon = style({
-  width: '2.7rem',
+  width: '2.4rem',
   fill: vars.colors['navy-500'],
 
   ':hover': {

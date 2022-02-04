@@ -12,4 +12,11 @@ describe('MenuIcon', () => {
 
     expect(menuIcon).toBeInTheDocument()
   })
+
+  it('renders correctly with isOpen as true', () => {
+    render(<MenuIcon isOpen />)
+    const menuIcon = screen.getByTestId('menu-icon')
+
+    expect(menuIcon).toBeInTheDocument()
+  })
 })
