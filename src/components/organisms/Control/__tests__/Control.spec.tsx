@@ -6,9 +6,10 @@ import {
   waitFor
 } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { DateTime } from 'luxon'
 import { popoverVar } from '@/external/graphql/reactiveVars'
-import { OverlayRoot, renderWithProviders } from '@/tests/helpers'
-import { ControlForm, ControlInput } from '..'
+import { MockDate, OverlayRoot, renderWithProviders } from '@/tests/helpers'
+import { ControlDateInput, ControlForm, ControlInput } from '..'
 import { makeMockValidation } from '@/tests/mocks'
 
 describe('Control', () => {
@@ -188,7 +189,7 @@ describe('Control', () => {
     })
   })
 
-  describe('Input', () => {
+  describe('BaseInput', () => {
     it('starts as readOnly', () => {
       renderWithProviders(
         <ControlForm submitHandler={jest.fn()}>
@@ -398,6 +399,42 @@ describe('Control', () => {
 
         expect(input).not.toHaveAttribute('readOnly')
       })
+    })
+  })
+
+  describe('BaseDateInput', () => {
+    it('starts as readOnly', () => {
+      renderWithProviders(
+        <ControlForm submitHandler={jest.fn()}>
+          <ControlDateInput label="Title" name="title" />
+        </ControlForm>
+      )
+      const input = screen.getByTestId('base-date-input')
+
+      expect(input).toHaveAttribute('readOnly')
+    })
+
+    it('picks a date from calendar and display it in input', () => {
+      const mockDate = new MockDate(2022, 1, 1, 0, 0)
+      mockDate.mock()
+      renderWithProviders(
+        <ControlForm submitHandler={jest.fn()}>
+          <ControlDateInput
+            label="Title"
+            name="title"
+            defaultDate={DateTime.now().toMillis()}
+          />
+        </ControlForm>
+      )
+      const input = screen.getByTestId('base-date-input')
+      const calendarDay = () => screen.getByTestId('15/01/2022 00:00')
+
+      userEvent.click(input)
+      userEvent.click(calendarDay())
+
+      expect(input).toHaveValue('15/01/2022 00:00')
+
+      mockDate.reset()
     })
   })
 })
