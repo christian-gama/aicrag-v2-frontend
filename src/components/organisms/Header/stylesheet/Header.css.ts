@@ -3,10 +3,17 @@ import { breakpoints, vars } from '@/components/_settings'
 
 export const header = style({
   display: 'flex',
+  gridArea: 'header',
   alignItems: 'center',
   justifyContent: 'space-between',
   backgroundColor: vars.colors['navy-500'],
-  height: '12rem'
+  height: '12rem',
+
+  '@media': {
+    [breakpoints.mobile]: {
+      height: '14rem'
+    }
+  }
 })
 
 export const headerLeft = style({
@@ -15,8 +22,12 @@ export const headerLeft = style({
   marginLeft: '9rem',
 
   '@media': {
+    [breakpoints.widescreen]: {
+      marginLeft: '6.2rem'
+    },
+
     [breakpoints.desktop]: {
-      marginLeft: '7rem'
+      marginLeft: '3.2rem'
     },
 
     [breakpoints.tablet]: {
@@ -30,25 +41,37 @@ export const headerLeft = style({
 })
 
 export const headerBackIcon = style({
+  marginRight: '4.4rem',
+
   ':hover': {
     cursor: 'pointer'
-  }
-})
-
-export const headerPageName = style({
-  marginLeft: '4.4rem',
+  },
 
   '@media': {
     [breakpoints.desktop]: {
-      marginLeft: '4rem'
+      marginRight: '4rem'
+    },
+
+    [breakpoints.desktop]: {
+      marginRight: '3.2rem'
     },
 
     [breakpoints.tablet]: {
-      marginLeft: '2.4rem'
+      marginRight: '2.4rem'
     },
 
     [breakpoints.mobile]: {
-      marginLeft: '2rem'
+      marginRight: '0rem'
+    }
+  }
+})
+export const headerPageName = style({
+  maxWidth: '36rem',
+
+  '@media': {
+    [breakpoints.mobile]: {
+      maxWidth: '18rem',
+      transform: 'scale(0.75)'
     }
   }
 })
@@ -60,8 +83,12 @@ export const headerRight = style({
   marginRight: '9rem',
 
   '@media': {
+    [breakpoints.widescreen]: {
+      marginRight: '6.2rem'
+    },
+
     [breakpoints.desktop]: {
-      marginRight: '7rem'
+      marginRight: '3.2rem'
     },
 
     [breakpoints.tablet]: {
@@ -79,7 +106,7 @@ export const headerUserName = style({
 
   '@media': {
     [breakpoints.desktop]: {
-      marginLeft: '3.6rem'
+      marginRight: '2rem'
     }
   }
 })

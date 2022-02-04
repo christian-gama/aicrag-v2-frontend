@@ -60,7 +60,7 @@ export const Header: React.FC<HeaderProps> = ({ pageName, backHandler }) => {
         <div className={classes.headerLeft}>
           {backHandler && (
             <div className={classes.headerBackIcon} onClick={backHandler}>
-              <BackIcon color="white" />
+              <BackIcon color="white" size="md" />
             </div>
           )}
 
@@ -74,7 +74,10 @@ export const Header: React.FC<HeaderProps> = ({ pageName, backHandler }) => {
 
       <Alert
         message="Você tem certeza de que quer fazer logout? Sua sessão será encerrada após confirmar."
-        onCancel={() => setIsAlertOpen(false)}
+        onCancel={
+          /* istanbul ignore next */
+          () => setIsAlertOpen(false)
+        }
         title="Uma confirmação é necessária"
         onAction={authVar.logout}
         mode="actionAndCancel"
