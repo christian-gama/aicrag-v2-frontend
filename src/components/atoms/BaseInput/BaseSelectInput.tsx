@@ -2,13 +2,15 @@ import * as classes from './stylesheet'
 
 type BaseSelectInputProps = {
   options: Array<{ value: string, label: string }>
-  onChange?: () => void
+  defaultValue?: string
+  onChange?: (event: any) => void
   value?: string
   label: string
   name: string
 }
 
 export const BaseSelectInput: React.FC<BaseSelectInputProps> = ({
+  defaultValue,
   onChange,
   options,
   label,
@@ -38,9 +40,10 @@ export const BaseSelectInput: React.FC<BaseSelectInputProps> = ({
 
         <div className={classes.inputBox}>
           <select
-            onChange={onChange}
             data-testid={'base-select-input'}
+            defaultValue={defaultValue}
             className={inputStyle}
+            onChange={onChange}
             value={value}
             name={name}
             id={name}
