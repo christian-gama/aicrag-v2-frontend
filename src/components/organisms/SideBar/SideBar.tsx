@@ -7,7 +7,7 @@ import * as classes from './stylesheet'
 
 export const SideBar: React.FC = () => {
   return (
-    <div className={classes.sideBar} data-testid="side-bar">
+    <nav className={classes.sideBar} data-testid="side-bar">
       <div className={classes.sideBarTop}>
         <div className={classes.sideBarLogoWrapper}>
           <div className={classes.sideBarLogo}>
@@ -17,7 +17,7 @@ export const SideBar: React.FC = () => {
           </div>
         </div>
 
-        <div className={classes.sideBarButtonGroup}>
+        <ul className={classes.sideBarButtonGroup}>
           <SideBarButton Icon={<SideBarIcon name="newTask" />} to="/">
             Nova tarefa
           </SideBarButton>
@@ -29,14 +29,14 @@ export const SideBar: React.FC = () => {
           <SideBarButton Icon={<SideBarIcon name="invoice" />} to="/invoice">
             Fatura
           </SideBarButton>
-        </div>
+        </ul>
       </div>
 
-      <div className={classes.sideBarFooter}>
+      <footer className={classes.sideBarFooter}>
         <P color="primary">
           © 2021 Copyright Aicrag.Todos os direitos reservados.
         </P>
-      </div>
-    </div>
+      </footer>
+    </nav>
   )
 }

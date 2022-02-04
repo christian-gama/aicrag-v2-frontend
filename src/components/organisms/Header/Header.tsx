@@ -56,7 +56,7 @@ export const Header: React.FC<HeaderProps> = ({ pageName, backHandler }) => {
 
   return (
     <>
-      <div className={classes.header} data-testid="header">
+      <header className={classes.header} data-testid="header">
         <div className={classes.headerLeft}>
           {backHandler && (
             <div className={classes.headerBackIcon} onClick={backHandler}>
@@ -70,7 +70,7 @@ export const Header: React.FC<HeaderProps> = ({ pageName, backHandler }) => {
         </div>
 
         <div className={classes.headerRight}>{renderMenu()}</div>
-      </div>
+      </header>
 
       <Alert
         message="Você tem certeza de que quer fazer logout? Sua sessão será encerrada após confirmar."
@@ -85,6 +85,7 @@ export const Header: React.FC<HeaderProps> = ({ pageName, backHandler }) => {
         actionName="Logout"
         type="warning"
       />
+
       <About
         isOpen={isAboutOpen}
         dismissHandler={() => setIsAboutOpen(false)}

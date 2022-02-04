@@ -24,10 +24,10 @@ export const SideBarButton: React.FC<SideBarButtonProps> = ({
       data-active={isLinkActive}
       to={to}
     >
-      <div className={classes.sideBarButtonLeft}>
+      <li className={classes.sideBarButtonLeft}>
         {Icon}
         <span className={classes.sideBarButtonNavLink}>{children}</span>
-      </div>
+      </li>
 
       <div className={classes.sideBarButtonChevron}>
         <ChevronIcon size="xsm" color="primary" />
