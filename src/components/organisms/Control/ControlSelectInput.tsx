@@ -3,6 +3,7 @@ import { useControlSelectInput } from './hooks'
 
 type ControlSelectInputProps = {
   options: Array<{ value: string, label: string }>
+  onChange?: () => void
   defaultValue: string
   label: string
   name: string
@@ -13,12 +14,14 @@ type ControlSelectInputProps = {
  */
 export const ControlSelectInput: React.FC<ControlSelectInputProps> = ({
   defaultValue,
+  onChange,
   options,
   label,
   name
 }: ControlSelectInputProps) => {
   const { onChangeHandler, value } = useControlSelectInput({
     defaultValue,
+    onChange,
     name
   })
 

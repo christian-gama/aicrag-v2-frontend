@@ -492,5 +492,25 @@ describe('Control', () => {
 
       expect(input).toHaveValue('any_name')
     })
+
+    it('calls onChange if its defined', () => {
+      const onChangeSpy = jest.fn()
+      renderWithProviders(
+        <ControlSelectInput
+          onChange={onChangeSpy}
+          options={[
+            { label: 'any_name', value: 'any_name' },
+            { label: 'any_name2', value: 'any_name2' }
+          ]}
+          defaultValue="any_name2"
+          label="Any name"
+          name="any_name"
+        />
+      )
+      const input = screen.getByTestId('base-select-input')
+      userEvent.selectOptions(input, 'any_name')
+
+      expect(onChangeSpy).toHaveBeenCalled()
+    })
   })
 })

@@ -6,11 +6,13 @@ type ControlSelectInputProps = ComponentPropsWithRef<typeof ControlSelectInput>
 
 type UseControlSelectInput = {
   defaultValue?: ControlSelectInputProps['defaultValue']
+  onChange?: ControlSelectInputProps['onChange']
   name: ControlSelectInputProps['name']
 }
 
 export const useControlSelectInput = ({
   defaultValue,
+  onChange,
   name
 }: UseControlSelectInput) => {
   const { dispatch, state } = useContext(FormContext)
@@ -59,7 +61,7 @@ export const useControlSelectInput = ({
   const onChangeHandler = (event: any) => {
     const value = event.target.value
 
-    console.log(value)
+    onChange?.()
 
     dispatch({
       type: 'INPUT/SET_IS_TOUCHED',
@@ -74,8 +76,6 @@ export const useControlSelectInput = ({
       payload: { value: { [name]: value } }
     })
   }
-
-  console.log(state.form.data)
 
   return {
     onChangeHandler,
