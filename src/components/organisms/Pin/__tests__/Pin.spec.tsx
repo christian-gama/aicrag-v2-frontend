@@ -197,14 +197,12 @@ describe('Pin', () => {
     })
     const button = screen.getByRole('button', { name: /reenviar/i })
     const inputs = screen.getAllByTestId('pin-input')
-    const form = screen.getByTestId('form')
     const accessTokenStorage = makeAccessTokenStorage()
 
     accessTokenStorage.set(mockVariables.token)
     userEvent.paste(inputs[0], mockVariables.activationPin)
-    fireEvent.submit(form)
 
-    await waitFetch()
+    await waitFetch(120)
 
     expect(button).not.toBeDisabled()
   })

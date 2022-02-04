@@ -1,7 +1,11 @@
+import { useWindowDimensions } from '@/components/_hooks'
 import { OverlayRoot, renderWithProviders } from '@/tests/helpers'
 import { cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { About } from '..'
+
+jest.mock('../../../_hooks/useWindowDimensions')
+const useWindowDimensionsMock = useWindowDimensions as jest.Mock
 
 describe('About', () => {
   const overlayRoot = new OverlayRoot()
@@ -13,6 +17,7 @@ describe('About', () => {
 
   beforeEach(() => {
     overlayRoot.addOverlayRoot()
+    useWindowDimensionsMock.mockReturnValue({ width: 1920, height: 1080 })
   })
 
   it('renders correctly', () => {
@@ -40,5 +45,13 @@ describe('About', () => {
     userEvent.click(closeIcon)
 
     expect(dismissHandler).toHaveBeenCalled()
+  })
+
+  it('renders Card without border if width is equal or lesser to 520', () => {
+    useWindowDimensionsMock.mockReturnValue({ width: 520, height: 1080 })
+    renderWithProviders(<About isOpen />)
+    const card = screen.getByTestId('card')
+
+    expect(card.className).toMatch(/roundness_none/gi)
   })
 })
