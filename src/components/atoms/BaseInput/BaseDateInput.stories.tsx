@@ -12,7 +12,6 @@ export const Default: ComponentStoryObj<typeof BaseDateInput> = {}
 export const Playground: ComponentStoryObj<typeof BaseDateInput> = {
   args: {
     isFocused: false,
-    isTouched: false,
     label: 'Label',
     name: 'label',
     value: ''

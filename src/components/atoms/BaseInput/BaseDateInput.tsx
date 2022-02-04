@@ -2,15 +2,20 @@ import { CalendarIcon } from '@/components/utils/icons/CalendarIcon'
 import * as classes from './stylesheet'
 
 type BaseDateInputProps = {
+  onFocus?: () => void
+  autoFocus?: boolean
   isFocused?: boolean
-  isTouched?: boolean
+  onBlur?: () => void
   value?: string
   label: string
   name: string
 }
 
 export const BaseDateInput: React.FC<BaseDateInputProps> = ({
+  autoFocus,
   isFocused,
+  onFocus,
+  onBlur,
   label,
   value,
   name
@@ -40,6 +45,9 @@ export const BaseDateInput: React.FC<BaseDateInputProps> = ({
           <input
             data-testid={'base-date-input'}
             className={inputStyle}
+            autoFocus={autoFocus}
+            onFocus={onFocus}
+            onBlur={onBlur}
             placeholder=" "
             value={value}
             name={name}
