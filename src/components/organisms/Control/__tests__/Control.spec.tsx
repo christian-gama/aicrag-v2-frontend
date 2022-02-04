@@ -9,7 +9,12 @@ import userEvent from '@testing-library/user-event'
 import { DateTime } from 'luxon'
 import { popoverVar } from '@/external/graphql/reactiveVars'
 import { MockDate, OverlayRoot, renderWithProviders } from '@/tests/helpers'
-import { ControlDateInput, ControlForm, ControlInput } from '..'
+import {
+  ControlDateInput,
+  ControlForm,
+  ControlInput,
+  ControlSelectInput
+} from '..'
 import { makeMockValidation } from '@/tests/mocks'
 
 describe('Control', () => {
@@ -435,6 +440,57 @@ describe('Control', () => {
       expect(input).toHaveValue('15/01/2022 00:00')
 
       mockDate.reset()
+    })
+  })
+
+  describe('BaseSelectInput', () => {
+    it('renders correctly', () => {
+      renderWithProviders(
+        <ControlSelectInput
+          options={[{ label: 'any_name', value: 'any_name' }]}
+          defaultValue="any_name"
+          label="Any name"
+          name="any_name"
+        />
+      )
+      const input = screen.getByTestId('base-select-input')
+
+      expect(input).toBeInTheDocument()
+    })
+
+    it('displays the default value correctly', () => {
+      renderWithProviders(
+        <ControlSelectInput
+          options={[
+            { label: 'any_name', value: 'any_name' },
+            { label: 'any_name2', value: 'any_name2' }
+          ]}
+          defaultValue="any_name2"
+          label="Any name"
+          name="any_name"
+        />
+      )
+      const input = screen.getByTestId('base-select-input')
+
+      expect(input).toHaveValue('any_name2')
+    })
+
+    it('changes the value', () => {
+      renderWithProviders(
+        <ControlSelectInput
+          options={[
+            { label: 'any_name', value: 'any_name' },
+            { label: 'any_name2', value: 'any_name2' }
+          ]}
+          defaultValue="any_name2"
+          label="Any name"
+          name="any_name"
+        />
+      )
+      const input = screen.getByTestId('base-select-input')
+      userEvent.selectOptions(input, 'any_name')
+
+      expect(input).toHaveValue('any_name')
     })
   })
 })
