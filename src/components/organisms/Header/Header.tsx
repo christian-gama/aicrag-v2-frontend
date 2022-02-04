@@ -7,11 +7,11 @@ import { BackIcon } from '@/components/utils/icons'
 import { LogoutIcon } from '@/components/utils/icons/LogoutIcon'
 import { MenuIcon } from '@/components/utils/icons/MenuIcon'
 import { QuestionIcon } from '@/components/utils/icons/QuestionIcon'
-import { SettingsIcon } from '@/components/utils/icons/SettingsIcon'
 import { H1 } from '@/components/utils/texts/H1'
 import { P } from '@/components/utils/texts/P'
 import { authVar } from '@/external/graphql/reactiveVars'
 import { About } from '../About'
+import { HeaderMenu } from './HeaderMenu'
 import * as classes from './stylesheet'
 
 type HeaderProps = {
@@ -21,6 +21,7 @@ type HeaderProps = {
 
 export const Header: React.FC<HeaderProps> = ({ pageName, backHandler }) => {
   const [isAboutOpen, setIsAboutOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isAlertOpen, setIsAlertOpen] = useState(false)
   const { width } = useWindowDimensions()
 
@@ -28,7 +29,20 @@ export const Header: React.FC<HeaderProps> = ({ pageName, backHandler }) => {
 
   const renderMenu = () => {
     if (width <= 820) {
-      return <MenuIcon />
+      return (
+        <>
+          <div onClick={() => setIsMenuOpen((isMenuOpen) => !isMenuOpen)}>
+            <MenuIcon isOpen={isMenuOpen} />
+          </div>
+
+          <HeaderMenu
+            setIsAboutOpen={setIsAboutOpen}
+            setIsAlertOpen={setIsAlertOpen}
+            isOpen={isMenuOpen}
+            userName={userName}
+          />
+        </>
+      )
     }
 
     return (
@@ -38,10 +52,6 @@ export const Header: React.FC<HeaderProps> = ({ pageName, backHandler }) => {
         </div>
 
         <div className={classes.headerIconGroup}>
-          <div>
-            <SettingsIcon />
-          </div>
-
           <div onClick={() => setIsAboutOpen(true)}>
             <QuestionIcon />
           </div>

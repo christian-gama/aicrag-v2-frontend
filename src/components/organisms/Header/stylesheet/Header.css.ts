@@ -102,11 +102,11 @@ export const headerRight = style({
 })
 
 export const headerUserName = style({
-  marginRight: '4.4rem',
+  marginRight: '2.8rem',
 
   '@media': {
     [breakpoints.desktop]: {
-      marginRight: '2rem'
+      marginRight: '1.2rem'
     }
   }
 })
@@ -115,11 +115,11 @@ export const headerIconGroup = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  width: '16rem',
+  width: '12rem',
 
   '@media': {
     [breakpoints.desktop]: {
-      width: '15rem'
+      width: '10rem'
     }
   }
 })
