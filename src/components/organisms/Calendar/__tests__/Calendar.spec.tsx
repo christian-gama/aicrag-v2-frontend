@@ -97,7 +97,7 @@ describe('Calendar', () => {
 
   it('picks a date when clicking on a day', () => {
     renderWithButton()
-    const day = screen.getByTestId('day-2022-01-01')
+    const day = screen.getByTestId('01/01/2022 00:00')
 
     userEvent.click(day)
 
@@ -106,7 +106,7 @@ describe('Calendar', () => {
 
   it('does not pick a dimmed day when clicking on it', () => {
     renderWithButton()
-    const day = screen.getByTestId('day-2021-12-26')
+    const day = screen.getByTestId('26/12/2021 00:00')
 
     userEvent.click(day)
 
