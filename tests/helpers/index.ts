@@ -1,6 +1,7 @@
 export * from './advanceTimer'
 export * from './arrayFrom'
 export * from './getPath'
+export * from './mockDate'
 export * from './overlayRoot'
 export * from './randomNumber'
 export * from './renderWithProviders'
