@@ -3,15 +3,15 @@ import { InvalidFieldError } from '@/services/errors'
 import { IFieldValidation, TestValidator } from '..'
 
 const makeSut = (
-  fn: (input: Record<string, any>) => Maybe<InvalidFieldError>
+  fn: (field: string, input: Record<string, any>) => Maybe<InvalidFieldError>
 ): IFieldValidation => {
   return new TestValidator('field', fn)
 }
 
 describe('test', () => {
   it('returns an InvalidFieldError if fn returns an error', () => {
-    const sut = makeSut((input) => {
-      return new InvalidFieldError('field', 'error')
+    const sut = makeSut((field, input) => {
+      return new InvalidFieldError(field, 'error')
     })
     const input = { field: '123' }
 
@@ -21,10 +21,10 @@ describe('test', () => {
   })
 
   it('returns undefined if validation succeds', () => {
-    const sut = makeSut((input) => {
+    const sut = makeSut((field, input) => {
       return input.field === 'a'
         ? undefined
-        : new InvalidFieldError('field', 'error')
+        : new InvalidFieldError(field, 'error')
     })
     const input = { field: 'a' }
 
