@@ -1,3 +1,4 @@
+import { InvalidFieldError } from '@/services/errors'
 import { ValidatorBuilder } from '../builders'
 
 export const validators = {
@@ -24,5 +25,27 @@ export const validators = {
 
   hour: ValidatorBuilder.field('hour').required().isNumber().max(23).build(),
 
-  minute: ValidatorBuilder.field('minute').required().isNumber().max(59).build()
+  minute: ValidatorBuilder.field('minute')
+    .required()
+    .isNumber()
+    .max(59)
+    .build(),
+
+  questionId: ValidatorBuilder.field('questionId').maxLength(120).build(),
+
+  duration: ValidatorBuilder.field('duration')
+    .isNumber()
+    .min(0)
+    .test((field, input) => {
+      if (input.type === 'TX' && input.duration > 30) {
+        return new InvalidFieldError(field, 'deve ter no máximo 30 minutos')
+      }
+
+      if (input.type === 'QA' && input.duration > 2.5) {
+        return new InvalidFieldError(field, 'deve ter no máximo 2,5 minutos')
+      }
+    })
+    .build(),
+
+  commentary: ValidatorBuilder.field('commentary').maxLength(400).build()
 } as const
