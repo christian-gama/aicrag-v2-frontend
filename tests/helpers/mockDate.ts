@@ -4,11 +4,11 @@ export class MockDate {
   private readonly local: DateTime
 
   constructor (
-    public year: number,
-    public month: number,
-    public day: number,
-    public hour: number,
-    public minute: number
+    private readonly year: number,
+    private readonly month: number,
+    private readonly day: number,
+    private readonly hour: number,
+    private readonly minute: number
   ) {
     this.local = DateTime.local(
       this.year,
