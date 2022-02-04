@@ -1,9 +1,10 @@
 import { ValidatorComposite } from '@/external/composites'
 import { validators } from '@/external/helpers'
 
-export const makeResetPasswordValidation = (): ValidatorComposite => {
+export const makeTaskValidation = (): ValidatorComposite => {
   return ValidatorComposite.build([
-    ...validators.password,
-    ...validators.passwordConfirmation
+    ...validators.questionId,
+    ...validators.duration,
+    ...validators.commentary
   ])
 }
