@@ -36,6 +36,7 @@ export const CalendarHeader: React.FC = () => {
         onClick={handlePreviousMonth}
         direction="left"
         color="white"
+        size="sm"
       />
 
       <span
@@ -48,7 +49,12 @@ export const CalendarHeader: React.FC = () => {
         )}
       </span>
 
-      <ChevronIcon color="white" direction="right" onClick={handleNextMonth} />
+      <ChevronIcon
+        size="sm"
+        color="white"
+        direction="right"
+        onClick={handleNextMonth}
+      />
     </div>
   )
 }

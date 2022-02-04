@@ -9,7 +9,7 @@ export const calendarHeader = style({
   backgroundColor: vars.colors['navy-600'],
   padding: '1.8rem',
   width: '100%',
-  height: '6rem',
+  height: '7.2rem',
 
   '@media': {
     [breakpoints.mobile]: {
