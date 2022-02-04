@@ -60,7 +60,7 @@ const fromTopAnimation = keyframes({
 
 export const modalRecipe = recipe({
   base: {
-    position: 'absolute',
+    position: 'fixed',
     transform: 'translate(-50%, -50%)',
     zIndex: '11',
     animationDuration: '0.3s',
