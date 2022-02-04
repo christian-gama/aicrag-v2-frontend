@@ -9,7 +9,7 @@ export default {
   },
   argTypes: {
     type: {
-      options: ['text', 'email', 'password', 'number', 'search'],
+      options: ['text', 'email', 'password', 'number', 'search', 'textArea'],
       control: { type: 'select' }
     },
     error: {

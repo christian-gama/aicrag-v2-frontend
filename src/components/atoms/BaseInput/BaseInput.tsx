@@ -3,7 +3,7 @@ import { IValidation } from '@/services/validators'
 import * as classes from './stylesheet'
 
 type BaseInputProps = {
-  type?: 'email' | 'password' | 'text' | 'number' | 'search'
+  type?: 'email' | 'password' | 'text' | 'number' | 'search' | 'textArea'
   error?: Maybe<Error['message']>
   icon?: () => React.ReactNode
   validator?: IValidation
@@ -48,8 +48,47 @@ export const BaseInput: React.FC<BaseInputProps> = ({
 
   const inputStyle = classes.inputRecipe({
     hasIcon: !!icon || type === 'password',
+    textArea: type === 'textArea',
     state: getState()
   })
+
+  const renderInput = () => {
+    if (type === 'textArea') {
+      return (
+        <textarea
+          onChange={rest.onChange as any}
+          onFocus={rest.onFocus as any}
+          data-testid={'base-textarea-input'}
+          onBlur={rest.onBlur as any}
+          className={inputStyle}
+          value={value}
+          name={name}
+          id={name}
+        />
+      )
+    }
+
+    return (
+      <>
+        <input
+          {...rest}
+          className={inputStyle}
+          data-testid={'base-input'}
+          id={name}
+          name={name}
+          type={type}
+          value={value}
+          placeholder=" "
+        />
+
+        {icon && (
+          <div data-testid={'base-input-icon'} className={classes.inputIcon}>
+            {icon()}
+          </div>
+        )}
+      </>
+    )
+  }
 
   return (
     <div className={classes.input} data-testid={'base-input-wrapper'}>
@@ -62,24 +101,7 @@ export const BaseInput: React.FC<BaseInputProps> = ({
           {label}
         </label>
 
-        <div className={classes.inputBox}>
-          <input
-            {...rest}
-            className={inputStyle}
-            data-testid={'base-input'}
-            id={name}
-            name={name}
-            type={type}
-            value={value}
-            placeholder=" "
-          />
-
-          {icon && (
-            <div data-testid={'base-input-icon'} className={classes.inputIcon}>
-              {icon()}
-            </div>
-          )}
-        </div>
+        <div className={classes.inputBox}>{renderInput()}</div>
       </div>
 
       {error && (
