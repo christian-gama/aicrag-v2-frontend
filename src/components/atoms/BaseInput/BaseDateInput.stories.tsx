@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import { BaseDateInput } from './BaseDateInput'
 
 export default {
-  title: 'atoms/Base Date Input',
+  title: 'atoms/Inputs/Base Date Input',
   component: BaseDateInput,
   decorators: [(story) => <div style={{ width: '500px' }}>{story()}</div>]
 } as ComponentMeta<typeof BaseDateInput>

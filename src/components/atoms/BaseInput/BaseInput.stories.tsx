@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import { BaseInput } from './BaseInput'
 
 export default {
-  title: 'atoms/Base Input',
+  title: 'atoms/Inputs/Base Input',
   component: BaseInput,
   args: {
     type: 'text'
