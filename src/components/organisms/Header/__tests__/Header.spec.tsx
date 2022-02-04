@@ -91,8 +91,45 @@ describe('Header', () => {
   it('renders the MenuIcon if width is equal or lesser to 820', () => {
     useWindowDimensionsMock.mockReturnValue({ width: 820, height: 1080 })
     renderWithProviders(<Header pageName="" />)
-    const menuHamburguer = screen.getByTestId('menu-icon')
+    const menuIcon = screen.getByTestId('menu-icon')
 
-    expect(menuHamburguer).toBeInTheDocument()
+    expect(menuIcon).toBeInTheDocument()
+  })
+
+  it('opens the menu when click on HeaderMenu with a width lesser or equal to 820', () => {
+    useWindowDimensionsMock.mockReturnValue({ width: 820, height: 1080 })
+    renderWithProviders(<Header pageName="" />)
+    const menuIcon = screen.getByTestId('menu-icon')
+    const headerMenu = () => screen.getByTestId('header-menu')
+
+    userEvent.click(menuIcon)
+
+    expect(headerMenu()).toBeInTheDocument()
+  })
+
+  it('opens About when clicking on about-item with a width lesser or equal to 820', () => {
+    useWindowDimensionsMock.mockReturnValue({ width: 820, height: 1080 })
+    renderWithProviders(<Header pageName="" />)
+    const menuIcon = screen.getByTestId('menu-icon')
+    const aboutItem = () => screen.getByTestId('about-item')
+    const about = () => screen.getByTestId('about')
+
+    userEvent.click(menuIcon)
+    userEvent.click(aboutItem())
+
+    expect(about()).toBeInTheDocument()
+  })
+
+  it('opens Alert when clicking on logout-item with a width lesser or equal to 820', () => {
+    useWindowDimensionsMock.mockReturnValue({ width: 820, height: 1080 })
+    renderWithProviders(<Header pageName="" />)
+    const menuIcon = screen.getByTestId('menu-icon')
+    const logoutItem = () => screen.getByTestId('logout-item')
+    const alert = () => screen.getByTestId('alert')
+
+    userEvent.click(menuIcon)
+    userEvent.click(logoutItem())
+
+    expect(alert()).toBeInTheDocument()
   })
 })
