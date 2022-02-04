@@ -35,6 +35,16 @@ const colorVariants = styleVariants({
         fill: vars.colors['cyan-600']
       }
     }
+  },
+
+  primary: {
+    fill: vars.colors['navy-500'],
+
+    selectors: {
+      [`${chevronIconHitbox}:hover &`]: {
+        fill: vars.colors['navy-500']
+      }
+    }
   }
 })
 

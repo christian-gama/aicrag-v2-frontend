@@ -1,5 +1,6 @@
 import { render, cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { useWindowDimensions } from '@/components/_hooks'
 import { OverlayRoot } from '@/tests/helpers'
 import { Alert } from '..'
 
@@ -12,6 +13,9 @@ jest.mock('../../../utils/icons', () => ({
   }
 }))
 
+jest.mock('../../../_hooks/useWindowDimensions')
+const useWindowDimensionsMock = useWindowDimensions as jest.Mock
+
 describe('Alert', () => {
   const overlayRoot = new OverlayRoot()
 
@@ -22,6 +26,7 @@ describe('Alert', () => {
 
   beforeEach(() => {
     overlayRoot.addOverlayRoot()
+    useWindowDimensionsMock.mockReturnValue({ width: 1920, height: 1080 })
   })
 
   it('renders correctly', () => {
@@ -125,5 +130,13 @@ describe('Alert', () => {
     expect(mockFunction).toHaveBeenCalledWith({
       color: expect.stringContaining('warning')
     })
+  })
+
+  it('renders Card with no border if width is lesser or equal to 520', () => {
+    useWindowDimensionsMock.mockReturnValue({ width: 520, height: 1080 })
+    render(<Alert isOpen title="" message="" type="info" />)
+    const card = screen.getByTestId('card')
+
+    expect(card.className).toMatch(/roundness_none/gi)
   })
 })

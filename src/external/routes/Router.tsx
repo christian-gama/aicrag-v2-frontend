@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import { Layout } from '@/components/templates/Layout'
 import {
   ForgotPasswordView,
   SignInView,
@@ -16,7 +17,32 @@ import {
 export const Router = () => {
   return (
     <Routes>
-      <Route path="/" element={<ProtectedRoute />} />
+      <Route path="/" element={<ProtectedRoute />}>
+        <Route
+          path=""
+          element={
+            <Layout pageName="Nova tarefa">
+              <></>
+            </Layout>
+          }
+        />
+        <Route
+          path="account"
+          element={
+            <Layout pageName="Minha conta">
+              <></>
+            </Layout>
+          }
+        />
+        <Route
+          path="invoice"
+          element={
+            <Layout pageName="Faturas">
+              <></>
+            </Layout>
+          }
+        />
+      </Route>
 
       <Route path="/entry" element={<MustLogoutRoute />}>
         <Route path="forgot-password" element={<ForgotPasswordView />} />

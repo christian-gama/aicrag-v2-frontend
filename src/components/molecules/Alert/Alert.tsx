@@ -1,5 +1,5 @@
-
 import { capitalize } from '@/helpers'
+import { useWindowDimensions } from '@/components/_hooks'
 import { FillColorVariants } from '@/components/_settings'
 import { Button } from '@/components/atoms/Button'
 import { ButtonVariants } from '@/components/atoms/Button/stylesheet'
@@ -23,6 +23,7 @@ type AlertProps = {
 export const Alert: React.FC<AlertProps> = (props) => {
   const mode = props.mode!
   const { cancelHandler, handleAction, isOpen } = useAlert(props)
+  const { width } = useWindowDimensions()
 
   const alertHeaderStyle = classes.alertHeaderRecipe({
     color: props.type
@@ -56,7 +57,7 @@ export const Alert: React.FC<AlertProps> = (props) => {
 
   return (
     <Modal isOpen={isOpen} onDismiss={props.onCancel}>
-      <Card>
+      <Card roundness={width <= 520 ? 'none' : 'md'}>
         <div className={classes.alert} data-testid="alert">
           <div className={alertHeaderStyle} data-testid="alert-header">
             <InfoCircleIcon color={getIconColor()} />

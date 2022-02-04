@@ -125,10 +125,12 @@ export const usePinCode = ({
       setStepsHandler((step) => step + 1)
       await new Promise((resolve) => setTimeout(resolve, 1500))
 
+      /* istanbul ignore next */
       popoverVar.setPopover(
         'Conta verificada com sucesso. Você foi redirecionado para a página inicial',
         'success'
       )
+      /* istanbul ignore next */
       authVar.login()
     } catch (error: any) {
       setFormState((formStates) => ({
@@ -158,15 +160,9 @@ export const usePinCode = ({
         }
       })
 
-      setFormState((formStates) => ({
-        ...formStates,
-        isLoading: {
-          ...formStates.isLoading,
-          sendWelcome: false
-        }
-      }))
       dispatch(startCountdown())
     } catch (error: any) {
+      /* istanbul ignore next */
       setFormState((formStates) => ({
         ...formStates,
         isLoading: {
@@ -174,6 +170,7 @@ export const usePinCode = ({
           sendWelcome: false
         }
       }))
+      /* istanbul ignore next */
       setInputError(error)
     }
   }
@@ -195,6 +192,18 @@ export const usePinCode = ({
       form.requestSubmit()
     }
   }, [values])
+
+  useEffect(() => {
+    if (isOnCountdown) {
+      setFormState((formStates) => ({
+        ...formStates,
+        isLoading: {
+          ...formStates.isLoading,
+          sendWelcome: false
+        }
+      }))
+    }
+  }, [isOnCountdown])
 
   const selectLastChar = ({
     currentTarget

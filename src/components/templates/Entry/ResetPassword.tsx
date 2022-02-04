@@ -2,11 +2,10 @@ import { useContext } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { FormContext } from '@/context/models/form'
 import { Button } from '@/components/atoms/Button'
+import { NavHeader } from '@/components/molecules/NavHeader'
 import { ControlForm, ControlInput } from '@/components/organisms/Control'
 import { Center } from '@/components/utils/Center'
-import { Divider } from '@/components/utils/Divider'
 import { LoadingSpinnerIcon } from '@/components/utils/icons'
-import { H3 } from '@/components/utils/texts/H3'
 import { makeResetPasswordValidation } from '@/external/factories/validation'
 import {
   useResetPasswordMutation,
@@ -57,13 +56,7 @@ export const ResetPassword: React.FC = () => {
 
   return (
     <>
-      <header className={classes.resetPasswordHeader}>
-        <div>
-          <H3>Resete a sua senha</H3>
-        </div>
-      </header>
-
-      <Divider />
+      <NavHeader to="/" title="Resete a sua senha" />
 
       <main>
         <div data-testid="reset-password">

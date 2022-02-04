@@ -1,31 +1,23 @@
 import { styleVariants } from '@vanilla-extract/css'
 
 export const sizeVariants = styleVariants({
+  xsm: {
+    width: '0.9rem'
+  },
+
   sm: {
-    width: '1.6rem',
-    minWidth: '1.6rem',
-    height: '1.6rem',
-    minHeight: '1.6rem'
+    width: '1.6rem'
   },
 
   md: {
-    width: '2rem',
-    minWidth: '2rem',
-    height: '2rem',
-    minHeight: '2rem'
+    width: '2rem'
   },
 
   lg: {
-    width: '2.4rem',
-    minWidth: '2.4rem',
-    height: '2.4rem',
-    minHeight: '2.4rem'
+    width: '2.4rem'
   },
 
   xlg: {
-    width: '2.7rem',
-    minWidth: '2.7rem',
-    height: '2.7rem',
-    minHeight: '2.7rem'
+    width: '2.7rem'
   }
 })
