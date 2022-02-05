@@ -60,6 +60,7 @@ export const ForgotPassword: React.FC = () => {
                 name="email"
                 type="email"
                 autoFocus
+                required
               />
             </div>
 

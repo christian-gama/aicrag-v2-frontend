@@ -49,11 +49,12 @@ export const SignUp: React.FC = () => {
         <div className={classes.signUp}>
           <div className={classes.signUpInputWrapper}>
             <ControlInput
+              autoComplete="name"
               label="Seu nome"
               name="name"
               type="text"
               autoFocus
-              autoComplete="name"
+              required
             />
 
             <ControlInput
@@ -61,6 +62,7 @@ export const SignUp: React.FC = () => {
               label="Seu email"
               name="email"
               type="email"
+              required
             />
 
             <ControlInput
@@ -68,6 +70,7 @@ export const SignUp: React.FC = () => {
               label="Sua senha"
               name="password"
               type="password"
+              required
             />
 
             <ControlInput
@@ -75,6 +78,7 @@ export const SignUp: React.FC = () => {
               autoComplete="new-password"
               label="Confirme sua senha"
               type="password"
+              required
             />
           </div>
 

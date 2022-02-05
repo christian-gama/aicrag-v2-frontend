@@ -54,6 +54,7 @@ export const SignIn: React.FC = () => {
               name="email"
               type="email"
               autoFocus
+              required
             />
 
             <ControlInput
@@ -61,6 +62,7 @@ export const SignIn: React.FC = () => {
               label="Sua senha"
               name="password"
               type="password"
+              required
             />
           </div>
 

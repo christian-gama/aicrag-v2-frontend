@@ -73,6 +73,7 @@ export const ResetPassword: React.FC = () => {
                   label="Nova senha"
                   name="password"
                   type="password"
+                  required
                 />
 
                 <ControlInput
@@ -80,6 +81,7 @@ export const ResetPassword: React.FC = () => {
                   autoComplete="new-password"
                   name="passwordConfirmation"
                   type="password"
+                  required
                 />
               </div>
 
