@@ -9,6 +9,7 @@ import {
 } from '@/components/views/Entry'
 import { NewTaskView } from '@/components/views/NewTask'
 import { NotFound } from '@/components/views/NotFound'
+import { UpdateTaskView } from '@/components/views/UpdateTask'
 import {
   ProtectedRoute,
   MustLogoutRoute,
@@ -28,14 +29,18 @@ export const Router = () => {
             </Layout>
           }
         />
-        <Route
-          path="invoice"
-          element={
-            <Layout pageName="Faturas">
-              <></>
-            </Layout>
-          }
-        />
+
+        <Route path="invoice">
+          <Route
+            path=""
+            element={
+              <Layout pageName="Faturas">
+                <></>
+              </Layout>
+            }
+          />
+          <Route path="task/:id" element={<UpdateTaskView />} />
+        </Route>
       </Route>
 
       <Route path="/entry" element={<MustLogoutRoute />}>
