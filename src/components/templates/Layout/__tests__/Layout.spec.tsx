@@ -31,8 +31,8 @@ describe('Layout', () => {
     expect(layout).toBeInTheDocument()
   })
 
-  it('renders Card without border if width is equal or lesser to 1024', () => {
-    useWindowDimensionsMock.mockReturnValue({ width: 1024, height: 1080 })
+  it('renders Card without border and correct padding if width is equal or lesser to 520', () => {
+    useWindowDimensionsMock.mockReturnValue({ width: 520, height: 1080 })
     renderWithProviders(<Layout pageName="" />)
     const card = screen.getByTestId('card')
 

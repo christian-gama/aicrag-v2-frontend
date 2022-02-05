@@ -48,6 +48,14 @@ describe('Header', () => {
     expect(userName).toBeInTheDocument()
   })
 
+  it('renders the user name with a smile face if there is no access token', () => {
+    accessTokenStorage.reset()
+    renderWithProviders(<Header pageName="" />)
+    const userName = screen.getByText('Olá, :)!')
+
+    expect(userName).toBeInTheDocument()
+  })
+
   it('renders Alert when click on LogoutIcon', () => {
     renderWithProviders(<Header pageName="" />)
     const logoutIcon = screen.getByTestId('logout-icon')
