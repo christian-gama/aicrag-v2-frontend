@@ -62,7 +62,7 @@ export const modalRecipe = recipe({
   base: {
     position: 'fixed',
     transform: 'translate(-50%, -50%)',
-    zIndex: '11',
+    zIndex: '110',
     animationDuration: '0.3s',
     animationTimingFunction: 'ease',
     animationIterationCount: '1',

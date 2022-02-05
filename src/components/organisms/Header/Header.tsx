@@ -25,7 +25,7 @@ export const Header: React.FC<HeaderProps> = ({ pageName, backHandler }) => {
   const [isAlertOpen, setIsAlertOpen] = useState(false)
   const { width } = useWindowDimensions()
 
-  const userName = formatName(getUserByToken('name')!)
+  const userName = formatName(getUserByToken('name') ?? ':)')
 
   const renderMenu = () => {
     if (width <= 820) {

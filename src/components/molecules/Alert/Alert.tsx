@@ -65,7 +65,7 @@ export const Alert: React.FC<AlertProps> = (props) => {
           </div>
 
           <div className={classes.alertBody} data-testid="alert-body">
-            <P>{capitalize(props.message)}</P>
+            <P>{props.message}</P>
           </div>
 
           <div className={classes.alertFooter} data-testid="alert-footer">

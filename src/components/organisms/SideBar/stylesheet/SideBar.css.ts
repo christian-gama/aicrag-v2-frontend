@@ -26,7 +26,8 @@ export const sideBar = style({
       position: 'fixed',
       bottom: 0,
       width: '100vw',
-      height: '5.6rem'
+      height: '5.6rem',
+      zIndex: 10
     }
   }
 })

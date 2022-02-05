@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css'
 
 export const backdrop = style({
   position: 'fixed',
-  zIndex: '10',
+  zIndex: '100',
   backgroundColor: 'rgba(0, 0, 0, 0.5)',
   width: '100vw',
   height: '100vh',

@@ -11,6 +11,7 @@ export const headerMenu = style({
   boxShadow: vars.shadow.sm,
   backgroundColor: vars.colors.white,
   width: '100vw',
+  zIndex: 10,
 
   '@media': {
     [breakpoints.mobile]: {
