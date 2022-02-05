@@ -1,6 +1,6 @@
 import { FormProvider } from '@/context/models/form'
 import { Layout } from '@/components/templates/Layout'
-import { NewTask } from '@/components/templates/NewTask'
+import { NewTask } from '@/components/templates/Task'
 
 export const NewTaskView: React.FC = () => {
   return (

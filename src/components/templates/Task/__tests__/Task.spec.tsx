@@ -8,10 +8,11 @@ import {
   renderWithProviders,
   waitFetch
 } from '@/tests/helpers'
-import { mockVariables } from '@/tests/mocks'
+import { makeMockValidation, mockVariables } from '@/tests/mocks'
 import { createTaskMock } from '@/tests/mocks/queries'
 
-describe('NewTask', () => {
+describe('Task', () => {
+  let Task: any
   let NewTask: any
   const accessTokenStorage = makeAccessTokenStorage()
   const mockDate = new MockDate(2022, 1, 1, 0, 0)
@@ -40,17 +41,30 @@ describe('NewTask', () => {
 
     // Imports dinamically so it can have the date mocked, as it's using DefaultProps
     NewTask = (await import('../NewTask')).NewTask
+    Task = (await import('../Task')).Task
   })
 
   it('renders correctly', () => {
-    renderWithProviders(<NewTask />)
+    renderWithProviders(
+      <Task
+        validator={makeMockValidation(jest.fn())}
+        submitHandler={async () => jest.fn}
+        renderButtons={jest.fn()}
+      />
+    )
     const newTask = screen.getByTestId('new-task')
 
     expect(newTask).toBeInTheDocument()
   })
 
   it('changes the duration to 2.4 minutes when change type to QA', () => {
-    renderWithProviders(<NewTask />)
+    renderWithProviders(
+      <Task
+        validator={makeMockValidation(jest.fn())}
+        submitHandler={async () => jest.fn}
+        renderButtons={jest.fn()}
+      />
+    )
 
     userEvent.selectOptions(type(), 'QA')
 
@@ -58,25 +72,33 @@ describe('NewTask', () => {
   })
 
   it('changes the duration to 30 minutes when change type to TX', () => {
-    renderWithProviders(<NewTask />)
+    renderWithProviders(
+      <Task
+        validator={makeMockValidation(jest.fn())}
+        submitHandler={async () => jest.fn}
+        renderButtons={jest.fn()}
+      />
+    )
 
     userEvent.selectOptions(type(), 'TX')
 
     expect(duration()).toHaveValue(30)
   })
 
-  it('submits the form', async () => {
-    const popoverSpy = jest.spyOn(popoverVar, 'setPopover')
-    renderWithProviders(<NewTask />, { apolloMocks: [createTaskMock()] })
-    const form = screen.getByTestId('form')
+  describe('NewTask', () => {
+    it('submits the form', async () => {
+      const popoverSpy = jest.spyOn(popoverVar, 'setPopover')
+      renderWithProviders(<NewTask />, { apolloMocks: [createTaskMock()] })
+      const form = screen.getByTestId('form')
 
-    userEvent.type(taskId(), mockVariables.taskId)
-    userEvent.type(commentary(), mockVariables.commentary)
-    userEvent.selectOptions(type(), mockVariables.type)
-    userEvent.selectOptions(status(), mockVariables.status)
-    fireEvent.submit(form)
-    await waitFetch()
+      userEvent.type(taskId(), mockVariables.taskId)
+      userEvent.type(commentary(), mockVariables.commentary)
+      userEvent.selectOptions(type(), mockVariables.type)
+      userEvent.selectOptions(status(), mockVariables.status)
+      fireEvent.submit(form)
+      await waitFetch()
 
-    expect(popoverSpy).toHaveBeenCalledWith(expect.anything(), 'success')
+      expect(popoverSpy).toHaveBeenCalledWith(expect.anything(), 'success')
+    })
   })
 })

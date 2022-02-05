@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css'
 import { breakpoints } from '@/components/_settings'
 
-export const newTask = style({
+export const task = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -15,7 +15,7 @@ export const newTask = style({
   }
 })
 
-export const newTaskForm = style({
+export const taskForm = style({
   display: 'grid',
   gridTemplateAreas: `
   "taskId      taskId     "
@@ -58,7 +58,7 @@ export const newTaskForm = style({
   }
 })
 
-export const newTaskButtonGroup = style({
+export const taskButtonGroup = style({
   display: 'flex',
   gridArea: 'buttonGroup',
   alignItems: 'center',

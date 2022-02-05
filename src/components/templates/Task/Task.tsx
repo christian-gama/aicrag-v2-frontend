@@ -1,20 +1,25 @@
 import { useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { IValidation } from '@/services/validators'
 import { FormContext } from '@/context/models/form'
-import { Button } from '@/components/atoms/Button'
 import {
   ControlDateInput,
   ControlForm,
   ControlInput,
   ControlSelectInput
 } from '@/components/organisms/Control'
-import { makeTaskValidation } from '@/external/factories/validation'
-import { useCreateTaskMutation } from '@/external/graphql/generated'
-import { popoverVar } from '@/external/graphql/reactiveVars'
 import * as classes from './stylesheet'
 
-export const NewTask: React.FC = () => {
-  const navigate = useNavigate()
+type TaskProps = {
+  submitHandler: () => Promise<() => void | void>
+  renderButtons: () => JSX.Element
+  validator: IValidation
+}
+
+export const Task: React.FC<TaskProps> = ({
+  submitHandler,
+  validator,
+  renderButtons
+}) => {
   const { dispatch, state } = useContext(FormContext)
   const { data } = state.form
 
@@ -24,26 +29,6 @@ export const NewTask: React.FC = () => {
     ) as HTMLSelectElement
 
     return type.value === 'TX' ? '30' : '2.4'
-  }
-
-  const [createTask] = useCreateTaskMutation()
-
-  const submitHandler = async () => {
-    await createTask({
-      variables: {
-        commentary: data.commentary,
-        duration: +data.duration,
-        status: data.status,
-        taskId: data.taskId,
-        date: data.date,
-        type: data.type
-      }
-    })
-
-    return () => {
-      navigate('/invoice')
-      popoverVar.setPopover('Tarefa criada com sucesso', 'success')
-    }
   }
 
   const updateDurationOnChange = () => {
@@ -62,12 +47,9 @@ export const NewTask: React.FC = () => {
   }
 
   return (
-    <div className={classes.newTask} data-testid="new-task">
-      <ControlForm
-        validator={makeTaskValidation()}
-        submitHandler={submitHandler}
-      >
-        <div className={classes.newTaskForm}>
+    <div className={classes.task} data-testid="new-task">
+      <ControlForm validator={validator} submitHandler={submitHandler}>
+        <div className={classes.taskForm}>
           <div style={{ gridArea: 'taskId' }}>
             <ControlInput label="Identificação" name="taskId" autoFocus />
           </div>
@@ -122,13 +104,7 @@ export const NewTask: React.FC = () => {
             />
           </div>
 
-          <div className={classes.newTaskButtonGroup}>
-            <Button style={{ mode: 'outlined', color: 'light' }}>
-              Cancelar
-            </Button>
-
-            <Button type="submit">Salvar</Button>
-          </div>
+          <div className={classes.taskButtonGroup}>{renderButtons()}</div>
         </div>
       </ControlForm>
     </div>
