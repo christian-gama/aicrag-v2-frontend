@@ -8,6 +8,7 @@ export const header = style({
   justifyContent: 'space-between',
   backgroundColor: vars.colors['navy-500'],
   height: '12rem',
+  boxShadow: vars.shadow.sm,
 
   '@media': {
     [breakpoints.mobile]: {

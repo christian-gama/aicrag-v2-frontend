@@ -32,8 +32,8 @@ export const layoutCard = style({
 
   '@media': {
     [breakpoints.desktop]: {
-      margin: '0.5rem 0',
-      minHeight: 'calc(100vh - 12rem - 0.5rem - 5.6rem)'
+      margin: '0.6rem 0 6.6rem 0',
+      minHeight: '100%'
     }
   }
 })
