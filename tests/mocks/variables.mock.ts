@@ -1,11 +1,19 @@
+import { DateTime } from 'luxon'
+
 export const mockVariables = {
-  activationPin: '1a2b3',
-  email: 'cricks@gmail.com',
-  message: 'Any message',
-  name: 'Cricks',
-  password: '123123',
-  passwordConfirmation: '123123',
   userId: '365bed07-1485-4d61-9343-58100aafdf1c',
+  passwordConfirmation: '123123',
+  date: DateTime.local(2022, 1, 1, 0, 0, 0).toJSDate().toISOString(),
+  commentary: 'Any commentary',
+  email: 'cricks@gmail.com',
+  activationPin: '1a2b3',
+  message: 'Any message',
+  status: 'completed',
+  password: '123123',
+  taskId: 'Any id',
+  name: 'Cricks',
+  duration: 30,
+  type: 'TX',
   token:
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW5jeSI6IkJSTCIsImVtYWlsIjoiY3JpY2tzQGdtYWlsLmNvbSIsIm5hbWUiOiJDcmlja3MiLCJ1c2VySWQiOiIzNjViZWQwNy0xNDg1LTRkNjEtOTM0My01ODEwMGFhZmRmMWMiLCJpYXQiOjE2NDM3MDI4NjUsImV4cCI6MTY0MzcwMzQ2NX0.KmFH7gADMAwisGZpnav1isy3HgLnQ39PKSpoL_FSZbo'
 } as const
