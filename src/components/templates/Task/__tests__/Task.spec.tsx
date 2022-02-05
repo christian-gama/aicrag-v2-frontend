@@ -9,14 +9,29 @@ import {
   waitFetch
 } from '@/tests/helpers'
 import { makeMockValidation, mockVariables } from '@/tests/mocks'
-import { createTaskMock } from '@/tests/mocks/queries'
+import {
+  createTaskMock,
+  deleteTaskMock,
+  findOneTaskMock,
+  updateTaskMock
+} from '@/tests/mocks/queries'
+
+const mockFunction = jest.fn()
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: () => ({
+    id: mockVariables.id
+  }),
+  useNavigate: () => mockFunction
+}))
 
 describe('Task', () => {
-  let Task: any
-  let NewTask: any
   const accessTokenStorage = makeAccessTokenStorage()
   const mockDate = new MockDate(2022, 1, 1, 0, 0)
   const overlayRoot = new OverlayRoot()
+  let UpdateTask: any
+  let NewTask: any
+  let Task: any
 
   const getElement = (selector: string) =>
     screen.getByTestId('new-task').querySelector(selector) as HTMLElement
@@ -40,6 +55,7 @@ describe('Task', () => {
     mockDate.mock()
 
     // Imports dinamically so it can have the date mocked, as it's using DefaultProps
+    UpdateTask = (await import('../UpdateTask')).UpdateTask
     NewTask = (await import('../NewTask')).NewTask
     Task = (await import('../Task')).Task
   })
@@ -99,6 +115,62 @@ describe('Task', () => {
       await waitFetch()
 
       expect(popoverSpy).toHaveBeenCalledWith(expect.anything(), 'success')
+    })
+  })
+
+  describe('UpdateTask', () => {
+    it('submits the form', async () => {
+      const popoverSpy = jest.spyOn(popoverVar, 'setPopover')
+      renderWithProviders(<UpdateTask />, { apolloMocks: [updateTaskMock()] })
+      const form = screen.getByTestId('form')
+
+      userEvent.type(taskId(), mockVariables.taskId)
+      userEvent.type(commentary(), mockVariables.commentary)
+      userEvent.selectOptions(type(), mockVariables.type)
+      userEvent.selectOptions(status(), mockVariables.status)
+      fireEvent.submit(form)
+      await waitFetch()
+
+      expect(popoverSpy).toHaveBeenCalledWith(expect.anything(), 'success')
+    })
+
+    it('deletes the task', async () => {
+      const popoverSpy = jest.spyOn(popoverVar, 'setPopover')
+      renderWithProviders(<UpdateTask />, {
+        apolloMocks: [findOneTaskMock(), deleteTaskMock()]
+      })
+      const deleteButton = screen.getByRole('button', { name: /deletar/i })
+      const deleteAction = () => screen.getByTestId('alert-action-button')
+
+      userEvent.click(deleteButton)
+      userEvent.click(deleteAction())
+      await waitFetch()
+
+      expect(popoverSpy).toHaveBeenCalled()
+    })
+
+    it('closes the Alert when clicking on cancel', async () => {
+      renderWithProviders(<UpdateTask />, {
+        apolloMocks: [findOneTaskMock(), deleteTaskMock()]
+      })
+      const deleteButton = screen.getByRole('button', { name: /deletar/i })
+      const cancelAction = () => screen.getByTestId('alert-cancel-button')
+      const alert = () => screen.queryByTestId('alert')
+
+      userEvent.click(deleteButton)
+      userEvent.click(cancelAction())
+      await waitFetch()
+
+      expect(alert()).not.toBeInTheDocument()
+    })
+
+    it('navigates to /invoice page on data loading error', async () => {
+      renderWithProviders(<UpdateTask />, {
+        apolloMocks: [findOneTaskMock(new Error())]
+      })
+      await waitFetch()
+
+      expect(mockFunction).toHaveBeenCalled()
     })
   })
 })
