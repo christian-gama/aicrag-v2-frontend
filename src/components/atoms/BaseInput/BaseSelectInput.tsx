@@ -24,6 +24,7 @@ export const BaseSelectInput: React.FC<BaseSelectInputProps> = ({
 
   const inputStyle = classes.inputRecipe({
     state: 'default',
+    textArea: false,
     hasIcon: false
   })
 

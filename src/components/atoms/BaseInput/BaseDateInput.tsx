@@ -27,6 +27,7 @@ export const BaseDateInput: React.FC<BaseDateInputProps> = ({
 
   const inputStyle = classes.inputRecipe({
     state: 'default',
+    textArea: false,
     hasIcon: true
   })
 
