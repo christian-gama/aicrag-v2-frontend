@@ -5,7 +5,6 @@ export const task = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  marginTop: '5rem',
   width: '100%',
 
   '@media': {
