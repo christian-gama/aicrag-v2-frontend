@@ -1,5 +1,7 @@
 query GetAuthentication {
   getAuthentication {
+    accessToken
     authentication
+    refreshToken
   }
 }
