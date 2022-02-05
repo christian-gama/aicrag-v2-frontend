@@ -7,6 +7,7 @@ import {
   ResetPasswordView,
   ConfirmEmailView
 } from '@/components/views/Entry'
+import { NewTaskView } from '@/components/views/NewTask'
 import { NotFound } from '@/components/views/NotFound'
 import {
   ProtectedRoute,
@@ -18,14 +19,7 @@ export const Router = () => {
   return (
     <Routes>
       <Route path="/" element={<ProtectedRoute />}>
-        <Route
-          path=""
-          element={
-            <Layout pageName="Nova tarefa">
-              <></>
-            </Layout>
-          }
-        />
+        <Route path="" element={<NewTaskView />} />
         <Route
           path="account"
           element={
