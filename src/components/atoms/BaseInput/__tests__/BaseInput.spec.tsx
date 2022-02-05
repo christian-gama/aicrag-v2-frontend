@@ -11,7 +11,24 @@ describe('BaseInput ', () => {
     expect(baseInput).toBeInTheDocument()
   })
 
-  it("has an error state if validator is defined, the input is not valid and it's touched", () => {
+  it("has an error state if validator is defined, the input is not valid, it's required and it's touched", () => {
+    render(
+      <BaseInput
+        validator={makeMockValidation(jest.fn())}
+        label="Any name"
+        name="any_name"
+        isTouched
+        required
+      />
+    )
+
+    const baseInput = screen.getByTestId('base-input')
+
+    expect(baseInput.className).toMatch(/state_error/gi)
+    expect(baseInput.className).not.toMatch(/state_success/gi)
+  })
+
+  it("has a default state if has a validator, it's not valid, its touched but it's not required", () => {
     render(
       <BaseInput
         validator={makeMockValidation(jest.fn())}
@@ -23,11 +40,30 @@ describe('BaseInput ', () => {
 
     const baseInput = screen.getByTestId('base-input')
 
-    expect(baseInput.className).toMatch(/state_error/gi)
+    expect(baseInput.className).toMatch(/state_default/gi)
+    expect(baseInput.className).not.toMatch(/state_error/gi)
     expect(baseInput.className).not.toMatch(/state_success/gi)
   })
 
   it('has a success state if has a validator and input is valid', () => {
+    render(
+      <BaseInput
+        validator={makeMockValidation(jest.fn())}
+        label="Any name"
+        name="any_name"
+        isTouched
+        isValid
+        required
+      />
+    )
+
+    const baseInput = screen.getByTestId('base-input')
+
+    expect(baseInput.className).toMatch(/state_success/gi)
+    expect(baseInput.className).not.toMatch(/state_error/gi)
+  })
+
+  it("has a default state if has a validator, input is valid and it's not required", () => {
     render(
       <BaseInput
         validator={makeMockValidation(jest.fn())}
@@ -40,7 +76,8 @@ describe('BaseInput ', () => {
 
     const baseInput = screen.getByTestId('base-input')
 
-    expect(baseInput.className).toMatch(/state_success/gi)
+    expect(baseInput.className).toMatch(/state_default/gi)
+    expect(baseInput.className).not.toMatch(/state_success/gi)
     expect(baseInput.className).not.toMatch(/state_error/gi)
   })
 

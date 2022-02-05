@@ -5,7 +5,7 @@ import { ControlSelectInput } from '..'
 type ControlSelectInputProps = ComponentPropsWithRef<typeof ControlSelectInput>
 
 type UseControlSelectInput = {
-  defaultValue?: ControlSelectInputProps['defaultValue']
+  defaultValue: ControlSelectInputProps['defaultValue']
   onChange?: ControlSelectInputProps['onChange']
   name: ControlSelectInputProps['name']
 }
@@ -45,7 +45,7 @@ export const useControlSelectInput = ({
       type: 'INPUT/SET_VALUE',
       payload: {
         value: {
-          [name]: defaultValue ?? ''
+          [name]: defaultValue
         }
       }
     })
@@ -54,7 +54,7 @@ export const useControlSelectInput = ({
   useEffect(() => {
     dispatch({
       type: 'FORM/SET_FORM_DATA',
-      payload: { data: { [name]: defaultValue ?? '' } }
+      payload: { data: { [name]: defaultValue } }
     })
   }, [isResetting])
 

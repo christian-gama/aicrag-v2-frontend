@@ -91,6 +91,10 @@ export const useControlInput = ({
       payload: { isTouched: { [name]: true } }
     })
     dispatch({
+      type: 'INPUT/SET_IS_VALID',
+      payload: { isValid: { [name]: !error } }
+    })
+    dispatch({
       type: 'INPUT/SET_ERROR',
       payload: { error: { [name]: error } }
     })

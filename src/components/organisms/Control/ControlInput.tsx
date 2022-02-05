@@ -6,11 +6,21 @@ type ControlInputProps = {
   type?: React.ComponentPropsWithRef<typeof BaseInput>['type']
   icon?: React.ReactElement
   defaultValue?: string
+  required?: boolean
   label: string
   name: string
 } & Pick<
 React.InputHTMLAttributes<HTMLInputElement>,
-'autoFocus' | 'onBlur' | 'onChange' | 'onFocus' | 'autoComplete'
+| 'autoComplete'
+| 'autoFocus'
+| 'maxLength'
+| 'minLength'
+| 'onChange'
+| 'onFocus'
+| 'onBlur'
+| 'max'
+| 'min'
+| 'step'
 >
 
 /**
@@ -21,14 +31,20 @@ Omit<ControlInputProps, 'uniqueFormName' | 'validation'>
 > = ({
   autoComplete,
   defaultValue,
+  maxLength,
+  minLength,
   autoFocus,
+  required,
   onChange,
   onFocus,
   onBlur,
   label,
   icon,
   name,
-  type
+  step,
+  type,
+  max,
+  min
 }: ControlInputProps) => {
   const {
     showPasswordHandler,
@@ -69,9 +85,15 @@ Omit<ControlInputProps, 'uniqueFormName' | 'validation'>
       readOnly={isReadOnly}
       autoFocus={autoFocus}
       validator={validator}
+      maxLength={maxLength}
+      minLength={minLength}
+      required={required}
       error={error[name]}
       label={label}
       name={name}
+      step={step}
+      min={min}
+      max={max}
       icon={
         shouldRenderIcon
           ? () => (

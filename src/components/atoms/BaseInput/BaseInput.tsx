@@ -9,15 +9,18 @@ type BaseInputProps = {
   validator?: IValidation
   isFocused?: boolean
   isTouched?: boolean
+  required?: boolean
   isValid?: boolean
+  value?: string
   label: string
   name: string
-} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'value'>
 
 export const BaseInput: React.FC<BaseInputProps> = ({
   isFocused,
   isTouched,
   validator,
+  required,
   isValid,
   error,
   label,
@@ -30,10 +33,19 @@ export const BaseInput: React.FC<BaseInputProps> = ({
   const getState = (): classes.LabelRecipeVariants['state'] => {
     if (validator) {
       if (!isValid && isTouched) {
+        if (!required && !value) {
+          return 'default'
+        }
+
+        console.log(required, value)
         return 'error'
       }
 
       if (isValid) {
+        if (!required && !value) {
+          return 'default'
+        }
+
         return 'success'
       }
     }
@@ -56,10 +68,12 @@ export const BaseInput: React.FC<BaseInputProps> = ({
     if (type === 'textArea') {
       return (
         <textarea
+          data-testid={'base-textarea-input'}
           onChange={rest.onChange as any}
           onFocus={rest.onFocus as any}
-          data-testid={'base-textarea-input'}
           onBlur={rest.onBlur as any}
+          maxLength={rest.maxLength}
+          minLength={rest.minLength}
           className={inputStyle}
           value={value}
           name={name}

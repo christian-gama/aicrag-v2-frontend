@@ -258,7 +258,7 @@ describe('Control', () => {
     })
 
     describe('when triggers onBlur', () => {
-      it('has an error state if value is invalid', () => {
+      it("has an error state if value is invalid and it's required", () => {
         renderWithProviders(
           <ControlForm
             submitHandler={jest.fn()}
@@ -266,7 +266,7 @@ describe('Control', () => {
               jest.fn().mockReturnValue('any_error')
             )}
           >
-            <ControlInput label="Title" name="title" />
+            <ControlInput label="Title" name="title" required />
           </ControlForm>
         )
         const input = screen.getByTestId('base-input')
