@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { useIsComponentMounted } from '@/components/_hooks'
 import { ChevronIcon } from '@/components/utils/icons'
 import * as classes from './stylesheet'
 
@@ -14,11 +15,12 @@ export const SideBarButton: React.FC<SideBarButtonProps> = ({
   to
 }) => {
   const [isLinkActive, setIsLinkActive] = useState(false)
+  const { isMounted } = useIsComponentMounted()
 
   return (
     <NavLink
       className={({ isActive }) => {
-        setTimeout(() => setIsLinkActive(isActive))
+        setTimeout(() => isMounted && setIsLinkActive(isActive))
         return classes.sideBarButtonRecipe({ isActive })
       }}
       data-active={isLinkActive}
