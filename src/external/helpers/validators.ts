@@ -34,6 +34,7 @@ export const validators = {
   taskId: ValidatorBuilder.field('taskId').maxLength(120).build(),
 
   duration: ValidatorBuilder.field('duration')
+    .required()
     .isNumber()
     .min(0)
     .test((field, input) => {
