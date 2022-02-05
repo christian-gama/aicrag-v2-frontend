@@ -15,7 +15,6 @@ export const tableRowVars = createGlobalTheme(':root', {
 export const tableRow = style({
   display: 'grid',
   gridTemplateColumns: 'repeat(auto-fit, minmax(16%, 1fr))',
-  alignContent: 'center',
   alignItems: 'center',
   transition: 'transform 0.2s ease-in-out',
   marginTop: calc.divide(tableRowVars.row.height, 6),

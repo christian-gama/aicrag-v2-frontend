@@ -2,7 +2,7 @@ import { style, createGlobalTheme } from '@vanilla-extract/css'
 import { vars, breakpoints } from '@/components/_settings'
 
 export const horizontalScrollBarVars = createGlobalTheme(':root', {
-  width: '100%'
+  width: 'max-content'
 })
 
 export const horizontalScrollBar = style({
@@ -18,7 +18,7 @@ export const horizontalScrollBar = style({
   },
 
   '::-webkit-scrollbar-track': {
-    backgroundColor: vars.colors['gray-100']
+    backgroundColor: vars.colors['gray-50']
   },
 
   '::-webkit-scrollbar-thumb': {

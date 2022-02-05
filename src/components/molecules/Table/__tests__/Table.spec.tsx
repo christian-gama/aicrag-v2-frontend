@@ -56,12 +56,4 @@ describe('Table', () => {
     expect(tds[0]).toBeInTheDocument()
     expect(tds[1]).toBeInTheDocument()
   })
-
-  it('displays the correct showing up count', () => {
-    renderTable({ showingUp: { current: 1, total: 10 } })
-    const showingUp = screen.getByTestId('table-showing-up')
-
-    expect(showingUp).toBeInTheDocument()
-    expect(showingUp.textContent).toBe('Mostrando 1 de 10')
-  })
 })

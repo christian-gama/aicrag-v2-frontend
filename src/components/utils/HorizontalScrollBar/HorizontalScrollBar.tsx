@@ -24,5 +24,5 @@ export const HorizontalScrollBar: React.FC<HorizontalScrollBarProps> = ({
 }
 
 HorizontalScrollBar.defaultProps = {
-  width: '100%'
+  width: 'max-content'
 }
