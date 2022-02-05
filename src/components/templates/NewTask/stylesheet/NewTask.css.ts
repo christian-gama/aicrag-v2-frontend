@@ -1,16 +1,15 @@
 import { style } from '@vanilla-extract/css'
 
 export const newTask = style({
-  marginTop: '5rem',
   display: 'flex',
-  justifyContent: 'center',
   alignItems: 'center',
+  justifyContent: 'center',
+  marginTop: '5rem',
   width: '100%'
 })
 
 export const newTaskForm = style({
   display: 'grid',
-  width: '90rem',
   gridTemplateAreas: `
   "taskId      taskId     "
   "date        type       "
@@ -18,13 +17,15 @@ export const newTaskForm = style({
   "commentary  commentary "
   "buttonGroup buttonGroup"
   `,
+  gridTemplateColumns: '1fr 1fr',
+  width: '90rem',
   gap: '4rem 10rem'
 })
 
 export const newTaskButtonGroup = style({
-  gridArea: 'buttonGroup',
   display: 'flex',
-  justifyContent: 'center',
+  gridArea: 'buttonGroup',
   alignItems: 'center',
+  justifyContent: 'center',
   gap: '1.2rem'
 })
