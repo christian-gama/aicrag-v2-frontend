@@ -37,7 +37,6 @@ export const BaseInput: React.FC<BaseInputProps> = ({
           return 'default'
         }
 
-        console.log(required, value)
         return 'error'
       }
 
