@@ -9,6 +9,7 @@ import {
   waitFetch
 } from '@/tests/helpers'
 import { makeMockValidation, mockVariables } from '@/tests/mocks'
+import { taskFragmentMock } from '@/tests/mocks/fragments'
 import {
   createTaskMock,
   deleteTaskMock,
@@ -171,6 +172,54 @@ describe('Task', () => {
       await waitFetch()
 
       expect(mockFunction).toHaveBeenCalled()
+    })
+
+    it('has value in USD if currency is USD', async () => {
+      ;(taskFragmentMock as any).task.user.settings.currency = 'USD'
+      window.fetch = jest.fn().mockImplementation(async () => ({
+        json: () => ({
+          USDBRL: { ask: 5 }
+        })
+      }))
+      renderWithProviders(<UpdateTask />, {
+        apolloMocks: [findOneTaskMock()]
+      })
+      const value = () => screen.getByText(/\$ 32\.5/i)
+      await waitFetch()
+
+      expect(value()).toBeInTheDocument()
+    })
+
+    it('has value in BRL if currency is BRL', async () => {
+      ;(taskFragmentMock as any).task.user.settings.currency = 'BRL'
+      window.fetch = jest.fn().mockImplementation(async () => ({
+        json: () => ({
+          USDBRL: { ask: 5 }
+        })
+      }))
+      renderWithProviders(<UpdateTask />, {
+        apolloMocks: [findOneTaskMock()]
+      })
+      const value = () => screen.getByText(/r\$ 162\.5/i)
+      await waitFetch(100)
+
+      expect(value()).toBeInTheDocument()
+    })
+
+    it('has a correct value even if getBrlFromUsd throws', async () => {
+      ;(taskFragmentMock as any).task.user.settings.currency = 'BRL'
+      window.fetch = jest.fn().mockImplementation(async () => ({
+        json: () => {
+          throw new Error()
+        }
+      }))
+      renderWithProviders(<UpdateTask />, {
+        apolloMocks: [findOneTaskMock()]
+      })
+      const value = () => screen.getByText(/r\$ 162\.5/i)
+      await waitFetch()
+
+      expect(value()).toBeInTheDocument()
     })
   })
 })
