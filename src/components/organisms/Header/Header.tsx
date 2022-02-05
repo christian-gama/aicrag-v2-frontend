@@ -15,8 +15,8 @@ import { HeaderMenu } from './HeaderMenu'
 import * as classes from './stylesheet'
 
 type HeaderProps = {
-  pageName: string
   backHandler?: () => void
+  pageName: string
 }
 
 export const Header: React.FC<HeaderProps> = ({ pageName, backHandler }) => {

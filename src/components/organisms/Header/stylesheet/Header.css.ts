@@ -62,6 +62,10 @@ export const headerBackIcon = style({
     },
 
     [breakpoints.mobile]: {
+      marginRight: '1.6rem'
+    },
+
+    [breakpoints.smallMobile]: {
       marginRight: '0rem'
     }
   }
@@ -71,6 +75,15 @@ export const headerPageName = style({
 
   '@media': {
     [breakpoints.mobile]: {
+      maxWidth: '21rem',
+      transform: 'scale(0.90)'
+    },
+
+    [breakpoints.smallMobile]: {
+      transform: 'scale(0.85)'
+    },
+
+    [breakpoints.smallestMobile]: {
       maxWidth: '18rem',
       transform: 'scale(0.75)'
     }
