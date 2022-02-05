@@ -1,8 +1,9 @@
 import { style } from '@vanilla-extract/css'
-import { breakpoints } from '@/components/_settings'
+import { breakpoints, vars } from '@/components/_settings'
 
 export const task = style({
   display: 'flex',
+  flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
@@ -63,4 +64,22 @@ export const taskButtonGroup = style({
   alignItems: 'center',
   justifyContent: 'center',
   gap: '1.2rem'
+})
+
+export const taskValue = style({
+  alignSelf: 'flex-end',
+  marginBottom: '1.2rem'
+})
+
+export const taskValueText = style({
+  fontSize: vars.font.p.fontSize,
+  fontFamily: vars.font.p.fontFamily,
+  color: vars.colors['cyan-700']
+})
+
+export const taskValuePrice = style({
+  fontSize: vars.font.p.fontSize,
+  fontFamily: vars.font.p.fontFamily,
+  color: vars.colors.text.default,
+  marginLeft: '0.8rem'
 })

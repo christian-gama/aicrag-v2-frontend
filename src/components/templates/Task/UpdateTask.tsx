@@ -11,12 +11,15 @@ import {
   useUpdateTaskMutation
 } from '@/external/graphql/generated'
 import { popoverVar } from '@/external/graphql/reactiveVars'
+import { getBrlFromUsd } from '@/external/vendors/getBrlFromUsd'
 import { Task } from './Task'
 
 export const UpdateTask: React.FC = () => {
   const navigate = useNavigate()
   const { id } = useParams()
   const [isAlertOpen, setIsAlertOpen] = useState(false)
+  const [taskValue, setTaskValue] = useState(0)
+  const [BRLQuote, setBRLQuote] = useState(5)
 
   const [updateTask] = useUpdateTaskMutation()
   const [deleteTask] = useDeleteTaskMutation()
@@ -112,12 +115,38 @@ export const UpdateTask: React.FC = () => {
     </>
   )
 
+  useEffect(() => {
+    let convertedValue = 0
+
+    if (data) {
+      const task = data.findOneTask.task
+      const value = task.usd
+
+      if (task.user.settings.currency === 'BRL') {
+        convertedValue = +(BRLQuote * value).toFixed(2)
+      } else {
+        convertedValue = +value.toFixed(2)
+      }
+    }
+
+    setTaskValue(convertedValue)
+  }, [data, BRLQuote])
+
+  useEffect(() => {
+    getBrlFromUsd()
+      .then((brlQuote) => setBRLQuote(brlQuote))
+      .catch(() => setBRLQuote(5))
+  }, [])
+
   return (
     <>
       <Task
         validator={makeTaskValidation()}
         submitHandler={submitHandler}
         renderButtons={renderButtons}
+        value={`${
+          data?.findOneTask.task.user.settings.currency === 'BRL' ? 'R$' : '$'
+        } ${taskValue}`}
       />
 
       <Alert

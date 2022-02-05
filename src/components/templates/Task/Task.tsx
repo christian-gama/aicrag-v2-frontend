@@ -12,13 +12,15 @@ import * as classes from './stylesheet'
 type TaskProps = {
   submitHandler: () => Promise<() => void | void>
   renderButtons: () => JSX.Element
+  value?: string
   validator: IValidation
 }
 
 export const Task: React.FC<TaskProps> = ({
   submitHandler,
+  renderButtons,
   validator,
-  renderButtons
+  value
 }) => {
   const { dispatch, state } = useContext(FormContext)
   const { data } = state.form
@@ -48,6 +50,12 @@ export const Task: React.FC<TaskProps> = ({
 
   return (
     <div className={classes.task} data-testid="new-task">
+      {value && (
+        <div className={classes.taskValue}>
+          <span className={classes.taskValueText}>Valor:</span>
+          <span className={classes.taskValuePrice}>{value}</span>
+        </div>
+      )}
       <ControlForm validator={validator} submitHandler={submitHandler}>
         <div className={classes.taskForm}>
           <div style={{ gridArea: 'taskId' }}>
