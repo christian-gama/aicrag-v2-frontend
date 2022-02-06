@@ -1,13 +1,14 @@
 import { style, createGlobalTheme } from '@vanilla-extract/css'
 import { vars, breakpoints } from '@/components/_settings'
 
-export const horizontalScrollBarVars = createGlobalTheme(':root', {
-  width: 'max-content'
+export const widthBreakpoints = createGlobalTheme(':root', {
+  desktop: '92vw',
+  widescreen: '67vw',
+  default: '100%'
 })
 
 export const horizontalScrollBar = style({
-  width: horizontalScrollBarVars.width,
-  maxWidth: horizontalScrollBarVars.width,
+  width: widthBreakpoints.default,
   paddingBottom: '1.6rem',
   msOverflowX: 'auto',
   overflowX: 'auto',
@@ -27,15 +28,16 @@ export const horizontalScrollBar = style({
   },
 
   '@media': {
+    [breakpoints.widescreen]: {
+      width: widthBreakpoints.widescreen
+    },
+
     [breakpoints.desktop]: {
-      overflowX: 'auto',
-      whiteSpace: 'nowrap'
+      width: widthBreakpoints.desktop
     },
 
     [breakpoints.mobile]: {
-      paddingBottom: '1.2rem',
-      overflowX: 'auto',
-      whiteSpace: 'nowrap'
+      paddingBottom: '1.2rem'
     }
   }
 })

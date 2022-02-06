@@ -1,28 +1,30 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
-import { horizontalScrollBarVars } from './stylesheet'
 import * as classes from './stylesheet'
+import { widthBreakpoints } from './stylesheet'
 
 type HorizontalScrollBarProps = {
-  width?: string
+  breakpoints: {
+    widescreen: string
+    default: string
+    desktop: string
+  }
 }
 
 export const HorizontalScrollBar: React.FC<HorizontalScrollBarProps> = ({
-  children,
-  width
+  breakpoints,
+  children
 }) => {
   return (
     <div
       className={classes.horizontalScrollBar}
       data-testid="horizontal-scroll-bar"
-      style={assignInlineVars(horizontalScrollBarVars, {
-        width: width!
+      style={assignInlineVars(widthBreakpoints, {
+        widescreen: breakpoints.widescreen,
+        default: breakpoints.default,
+        desktop: breakpoints.desktop
       })}
     >
       {children}
     </div>
   )
-}
-
-HorizontalScrollBar.defaultProps = {
-  width: 'max-content'
 }
