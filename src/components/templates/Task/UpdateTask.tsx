@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { FormContext } from '@/context/models/form'
+import { useGetTaskValue } from '@/components/_hooks'
 import { Button } from '@/components/atoms/Button'
 import { Alert } from '@/components/molecules/Alert'
 import { makeTaskValidation } from '@/external/factories/validation'
@@ -11,15 +12,13 @@ import {
   useUpdateTaskMutation
 } from '@/external/graphql/generated'
 import { popoverVar } from '@/external/graphql/reactiveVars'
-import { getBrlFromUsd } from '@/external/vendors/getBrlFromUsd'
 import { Task } from './Task'
 
 export const UpdateTask: React.FC = () => {
   const navigate = useNavigate()
   const { id } = useParams()
   const [isAlertOpen, setIsAlertOpen] = useState(false)
-  const [taskValue, setTaskValue] = useState(0)
-  const [BRLQuote, setBRLQuote] = useState(5)
+  const { currency, getTaskValue } = useGetTaskValue(0)
 
   const [updateTask] = useUpdateTaskMutation()
   const [deleteTask] = useDeleteTaskMutation()
@@ -29,7 +28,6 @@ export const UpdateTask: React.FC = () => {
       navigate('/invoice')
     }
   })
-
   const { dispatch, state } = useContext(FormContext)
   const { form } = state
 
@@ -102,6 +100,8 @@ export const UpdateTask: React.FC = () => {
     }
   }
 
+  if (!data) return null
+
   const renderButtons = () => (
     <>
       <Button
@@ -115,28 +115,7 @@ export const UpdateTask: React.FC = () => {
     </>
   )
 
-  useEffect(() => {
-    let convertedValue = 0
-
-    if (data) {
-      const task = data.findOneTask.task
-      const value = task.usd
-
-      if (task.user.settings.currency === 'BRL') {
-        convertedValue = +(BRLQuote * value).toFixed(2)
-      } else {
-        convertedValue = +value.toFixed(2)
-      }
-    }
-
-    setTaskValue(convertedValue)
-  }, [data, BRLQuote])
-
-  useEffect(() => {
-    getBrlFromUsd()
-      .then((brlQuote) => setBRLQuote(brlQuote))
-      .catch(() => setBRLQuote(5))
-  }, [])
+  const task = data.findOneTask.task
 
   return (
     <>
@@ -144,9 +123,7 @@ export const UpdateTask: React.FC = () => {
         validator={makeTaskValidation()}
         submitHandler={submitHandler}
         renderButtons={renderButtons}
-        value={`${
-          data?.findOneTask.task.user.settings.currency === 'BRL' ? 'R$' : '$'
-        } ${taskValue}`}
+        value={`${currency === 'BRL' ? 'R$' : '$'} ${getTaskValue(task.usd)}`}
       />
 
       <Alert

@@ -1,5 +1,6 @@
 import { cleanup, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import jwtDecode from 'jwt-decode'
 import { makeAccessTokenStorage } from '@/external/factories/storage/auth'
 import { popoverVar } from '@/external/graphql/reactiveVars'
 import {
@@ -9,7 +10,6 @@ import {
   waitFetch
 } from '@/tests/helpers'
 import { makeMockValidation, mockVariables } from '@/tests/mocks'
-import { taskFragmentMock } from '@/tests/mocks/fragments'
 import {
   createTaskMock,
   deleteTaskMock,
@@ -25,6 +25,9 @@ jest.mock('react-router-dom', () => ({
   }),
   useNavigate: () => mockFunction
 }))
+
+jest.mock('jwt-decode')
+const jwtDecodeMock = jwtDecode as jest.Mock
 
 describe('Task', () => {
   const accessTokenStorage = makeAccessTokenStorage()
@@ -46,6 +49,7 @@ describe('Task', () => {
   afterEach(() => {
     overlayRoot.removeOverlayRoot()
     accessTokenStorage.reset()
+    jest.restoreAllMocks()
     mockDate.reset()
     cleanup()
   })
@@ -54,6 +58,7 @@ describe('Task', () => {
     accessTokenStorage.set(mockVariables.token)
     overlayRoot.addOverlayRoot()
     mockDate.mock()
+    jwtDecodeMock.mockReturnValue({ currency: 'BRL' })
 
     // Imports dinamically so it can have the date mocked, as it's using DefaultProps
     UpdateTask = (await import('../UpdateTask')).UpdateTask
@@ -122,7 +127,10 @@ describe('Task', () => {
   describe('UpdateTask', () => {
     it('submits the form', async () => {
       const popoverSpy = jest.spyOn(popoverVar, 'setPopover')
-      renderWithProviders(<UpdateTask />, { apolloMocks: [updateTaskMock()] })
+      renderWithProviders(<UpdateTask />, {
+        apolloMocks: [findOneTaskMock(), updateTaskMock()]
+      })
+      await waitFetch()
       const form = screen.getByTestId('form')
 
       userEvent.type(taskId(), mockVariables.taskId)
@@ -130,7 +138,7 @@ describe('Task', () => {
       userEvent.selectOptions(type(), mockVariables.type)
       userEvent.selectOptions(status(), mockVariables.status)
       fireEvent.submit(form)
-      await waitFetch()
+      await waitFetch(100)
 
       expect(popoverSpy).toHaveBeenCalledWith(expect.anything(), 'success')
     })
@@ -140,6 +148,7 @@ describe('Task', () => {
       renderWithProviders(<UpdateTask />, {
         apolloMocks: [findOneTaskMock(), deleteTaskMock()]
       })
+      await waitFetch()
       const deleteButton = screen.getByRole('button', { name: /deletar/i })
       const deleteAction = () => screen.getByTestId('alert-action-button')
 
@@ -154,6 +163,7 @@ describe('Task', () => {
       renderWithProviders(<UpdateTask />, {
         apolloMocks: [findOneTaskMock(), deleteTaskMock()]
       })
+      await waitFetch()
       const deleteButton = screen.getByRole('button', { name: /deletar/i })
       const cancelAction = () => screen.getByTestId('alert-cancel-button')
       const alert = () => screen.queryByTestId('alert')
@@ -175,7 +185,7 @@ describe('Task', () => {
     })
 
     it('has value in USD if currency is USD', async () => {
-      ;(taskFragmentMock as any).task.user.settings.currency = 'USD'
+      jwtDecodeMock.mockReturnValue({ currency: 'USD' })
       window.fetch = jest.fn().mockImplementation(async () => ({
         json: () => ({
           USDBRL: { ask: 5 }
@@ -191,7 +201,7 @@ describe('Task', () => {
     })
 
     it('has value in BRL if currency is BRL', async () => {
-      ;(taskFragmentMock as any).task.user.settings.currency = 'BRL'
+      jwtDecodeMock.mockReturnValue({ currency: 'BRL' })
       window.fetch = jest.fn().mockImplementation(async () => ({
         json: () => ({
           USDBRL: { ask: 5 }
@@ -207,7 +217,6 @@ describe('Task', () => {
     })
 
     it('has a correct value even if getBrlFromUsd throws', async () => {
-      ;(taskFragmentMock as any).task.user.settings.currency = 'BRL'
       window.fetch = jest.fn().mockImplementation(async () => ({
         json: () => {
           throw new Error()
