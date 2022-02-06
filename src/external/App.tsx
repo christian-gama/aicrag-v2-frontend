@@ -10,6 +10,7 @@ import { Router } from './routes'
 export const App = () => {
   const { isOpen, message, type } = usePopoverVar()
   const { loading, data } = useGetAuthenticationQuery()
+  useMailerCountdown()
 
   useEffect(() => {
     if (data?.getAuthentication.authentication === 'none') {
@@ -24,8 +25,6 @@ export const App = () => {
       authVar.login()
     }
   }, [data])
-
-  useMailerCountdown()
 
   if (loading) {
     return (
