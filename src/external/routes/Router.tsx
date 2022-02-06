@@ -8,6 +8,7 @@ import {
   ConfirmEmailView
 } from '@/components/views/Entry'
 import { InvoiceView } from '@/components/views/Invoice'
+import { InvoiceDetailsView } from '@/components/views/InvoiceDetails'
 import { NewTaskView } from '@/components/views/NewTask'
 import { NotFound } from '@/components/views/NotFound'
 import { UpdateTaskView } from '@/components/views/UpdateTask'
@@ -33,6 +34,7 @@ export const Router = () => {
 
         <Route path="invoice">
           <Route path="" element={<InvoiceView />} />
+          <Route path=":year/:month" element={<InvoiceDetailsView />} />
           <Route path="task/:id" element={<UpdateTaskView />} />
         </Route>
       </Route>
