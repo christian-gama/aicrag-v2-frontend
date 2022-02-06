@@ -4,13 +4,7 @@ import { breakpoints, vars } from '@/components/_settings'
 export const task = style({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr 1fr',
-  width: '100%',
-
-  '@media': {
-    [breakpoints.mobile]: {
-      marginTop: '3.2rem'
-    }
-  }
+  width: '100%'
 })
 
 export const taskFormWrapper = style({
@@ -34,6 +28,7 @@ export const taskForm = style({
 
   '@media': {
     [breakpoints.widescreen]: {
+      width: '61vw',
       gap: '4rem 0.8rem'
     },
 

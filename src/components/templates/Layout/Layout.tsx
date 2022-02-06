@@ -26,7 +26,7 @@ export const Layout: React.FC<LayoutProps> = ({
           <Card
             roundness={width <= 1024 ? 'none' : 'md'}
             style={{
-              padding: width <= 520 ? '2rem' : '5rem',
+              padding: width <= 1024 ? '3.2rem 1.2rem' : '5rem',
               height: '100%',
               width: '100%'
             }}
