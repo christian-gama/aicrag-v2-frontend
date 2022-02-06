@@ -133,12 +133,12 @@ describe('Task', () => {
       await waitFetch()
       const form = screen.getByTestId('form')
 
-      userEvent.type(taskId(), mockVariables.taskId)
-      userEvent.type(commentary(), mockVariables.commentary)
+      fireEvent.change(taskId(), mockVariables.taskId)
+      fireEvent.change(commentary(), mockVariables.commentary)
       userEvent.selectOptions(type(), mockVariables.type)
       userEvent.selectOptions(status(), mockVariables.status)
       fireEvent.submit(form)
-      await waitFetch(100)
+      await waitFetch()
 
       expect(popoverSpy).toHaveBeenCalledWith(expect.anything(), 'success')
     })

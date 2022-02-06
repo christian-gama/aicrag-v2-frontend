@@ -48,7 +48,7 @@ export const Invoice: React.FC = () => {
 
               <Table.Td justifyContent="flex-end">
                 <Link
-                  to={`/invoices/${invoice.date.year.toString()}&${invoice.date.month.toString()}`}
+                  to={`/invoice/${invoice.date.year.toString()}/${invoice.date.month.toString()}`}
                 >
                   Detalhes
                 </Link>

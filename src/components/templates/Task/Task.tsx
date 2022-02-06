@@ -61,7 +61,7 @@ export const Task: React.FC<TaskProps> = ({
         <ControlForm validator={validator} submitHandler={submitHandler}>
           <div className={classes.taskForm}>
             <div style={{ gridArea: 'taskId' }}>
-              <ControlInput label="Identificação" name="taskId" autoFocus />
+              <ControlInput label="Identificação" name="taskId" />
             </div>
 
             <div style={{ gridArea: 'date' }}>

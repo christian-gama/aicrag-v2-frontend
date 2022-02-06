@@ -25,7 +25,7 @@ export const UpdateTask: React.FC = () => {
   const { data } = useFindOneTaskQuery({
     variables: { id },
     onError: () => {
-      navigate('/invoice')
+      navigate('-1')
     }
   })
   const { dispatch, state } = useContext(FormContext)
@@ -41,34 +41,43 @@ export const UpdateTask: React.FC = () => {
       'type'
     ] as const
 
-    inputs.forEach((input) => {
-      dispatch({
-        type: 'INPUT/SET_VALUE',
-        payload: {
-          value: {
-            [input]:
-              input === 'date'
-                ? DateTime.fromISO(data?.findOneTask.task[input].full).toFormat(
-                  'dd/MM/yyyy HH:mm'
-                )
-                : data?.findOneTask.task[input].toString() ?? ''
-          }
-        }
-      })
+    if (data) {
+      const {
+        findOneTask: { task }
+      } = data
 
-      dispatch({
-        type: 'FORM/SET_FORM_DATA',
-        payload: {
-          data: {
-            [input]:
-              input === 'date'
-                ? data?.findOneTask.task[input].full
-                : data?.findOneTask.task[input]
+      inputs.forEach((input) => {
+        dispatch({
+          type: 'INPUT/SET_VALUE',
+          payload: {
+            value: {
+              [input]:
+                input === 'date'
+                  ? DateTime.fromISO(task[input].full).toFormat(
+                    'dd/MM/yyyy HH:mm'
+                  )
+                  : task[input].toString() ?? ''
+            }
           }
-        }
+        })
+
+        dispatch({
+          type: 'FORM/SET_FORM_DATA',
+          payload: {
+            data: {
+              [input]: input === 'date' ? task[input].full : task[input]
+            }
+          }
+        })
       })
-    })
-  }, [data])
+    }
+  }, [data, form.isResetting])
+
+  if (!data) return null
+
+  const {
+    findOneTask: { task }
+  } = data
 
   const deleteTaskHandler = async () => {
     await deleteTask({
@@ -77,7 +86,7 @@ export const UpdateTask: React.FC = () => {
       }
     })
 
-    navigate('/invoice')
+    navigate(-1)
     popoverVar.setPopover('Tarefa deletada com sucesso', 'success')
   }
 
@@ -95,12 +104,10 @@ export const UpdateTask: React.FC = () => {
     })
 
     return () => {
-      navigate('/invoice')
+      navigate(-1)
       popoverVar.setPopover('Tarefa atualizada com sucesso', 'success')
     }
   }
-
-  if (!data) return null
 
   const renderButtons = () => (
     <>
@@ -114,8 +121,6 @@ export const UpdateTask: React.FC = () => {
       <Button type="submit">Atualizar</Button>
     </>
   )
-
-  const task = data.findOneTask.task
 
   return (
     <>

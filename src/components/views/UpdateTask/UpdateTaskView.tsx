@@ -8,10 +8,7 @@ export const UpdateTaskView: React.FC = () => {
 
   return (
     <div data-testid="update-task-view">
-      <Layout
-        pageName="Atualizar tarefa"
-        backHandler={() => navigate('/invoice')}
-      >
+      <Layout pageName="Atualizar tarefa" backHandler={() => navigate(-1)}>
         <FormProvider>
           <UpdateTask />
         </FormProvider>
