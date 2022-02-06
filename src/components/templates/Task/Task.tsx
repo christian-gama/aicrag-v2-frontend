@@ -56,65 +56,68 @@ export const Task: React.FC<TaskProps> = ({
           <span className={classes.taskValuePrice}>{value}</span>
         </div>
       )}
-      <ControlForm validator={validator} submitHandler={submitHandler}>
-        <div className={classes.taskForm}>
-          <div style={{ gridArea: 'taskId' }}>
-            <ControlInput label="Identificação" name="taskId" autoFocus />
-          </div>
 
-          <div style={{ gridArea: 'date' }}>
-            <ControlDateInput label="Data de conclusão" name="date" />
-          </div>
+      <div className={classes.taskFormWrapper}>
+        <ControlForm validator={validator} submitHandler={submitHandler}>
+          <div className={classes.taskForm}>
+            <div style={{ gridArea: 'taskId' }}>
+              <ControlInput label="Identificação" name="taskId" autoFocus />
+            </div>
 
-          <div style={{ gridArea: 'type' }}>
-            <ControlSelectInput
-              onChange={updateDurationOnChange}
-              defaultValue="TX"
-              label="Tipo"
-              name="type"
-              options={[
-                { label: 'Transcrição', value: 'TX' },
-                { label: 'Correção', value: 'QA' }
-              ]}
-            />
-          </div>
+            <div style={{ gridArea: 'date' }}>
+              <ControlDateInput label="Data de conclusão" name="date" />
+            </div>
 
-          <div style={{ gridArea: 'duration' }}>
-            <ControlInput
-              defaultValue={data.type === 'TX' ? '30' : '2.4'}
-              max={data.type === 'TX' ? '30' : '2.5'}
-              label="Duração"
-              name="duration"
-              type="number"
-              step={0.1}
-              min={0.1}
-              required
-            />
-          </div>
+            <div style={{ gridArea: 'type' }}>
+              <ControlSelectInput
+                onChange={updateDurationOnChange}
+                defaultValue="TX"
+                label="Tipo"
+                name="type"
+                options={[
+                  { label: 'Transcrição', value: 'TX' },
+                  { label: 'Correção', value: 'QA' }
+                ]}
+              />
+            </div>
 
-          <div style={{ gridArea: 'status' }}>
-            <ControlSelectInput
-              defaultValue="completed"
-              label="Status"
-              name="status"
-              options={[
-                { label: 'Completo', value: 'completed' },
-                { label: 'Em progresso', value: 'in_progress' }
-              ]}
-            />
-          </div>
+            <div style={{ gridArea: 'duration' }}>
+              <ControlInput
+                defaultValue={data.type === 'TX' ? '30' : '2.4'}
+                max={data.type === 'TX' ? '30' : '2.5'}
+                label="Duração"
+                name="duration"
+                type="number"
+                step={0.1}
+                min={0.1}
+                required
+              />
+            </div>
 
-          <div style={{ gridArea: 'commentary' }}>
-            <ControlInput
-              label="Observação"
-              name="commentary"
-              type="textArea"
-            />
-          </div>
+            <div style={{ gridArea: 'status' }}>
+              <ControlSelectInput
+                defaultValue="completed"
+                label="Status"
+                name="status"
+                options={[
+                  { label: 'Completo', value: 'completed' },
+                  { label: 'Em progresso', value: 'in_progress' }
+                ]}
+              />
+            </div>
 
-          <div className={classes.taskButtonGroup}>{renderButtons()}</div>
-        </div>
-      </ControlForm>
+            <div style={{ gridArea: 'commentary' }}>
+              <ControlInput
+                label="Observação"
+                name="commentary"
+                type="textArea"
+              />
+            </div>
+
+            <div className={classes.taskButtonGroup}>{renderButtons()}</div>
+          </div>
+        </ControlForm>
+      </div>
     </div>
   )
 }

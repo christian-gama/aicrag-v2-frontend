@@ -2,10 +2,8 @@ import { style } from '@vanilla-extract/css'
 import { breakpoints, vars } from '@/components/_settings'
 
 export const task = style({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr 1fr',
   width: '100%',
 
   '@media': {
@@ -15,7 +13,12 @@ export const task = style({
   }
 })
 
+export const taskFormWrapper = style({
+  gridColumn: '2/3'
+})
+
 export const taskForm = style({
+  gridColumn: 'taskForm',
   display: 'grid',
   gridTemplateAreas: `
   "taskId      taskId     "
@@ -40,6 +43,7 @@ export const taskForm = style({
     },
 
     [breakpoints.tablet]: {
+      width: '90vw',
       gridTemplateAreas: `
       "taskId      taskId     "
       "date        date       "
@@ -52,7 +56,6 @@ export const taskForm = style({
     },
 
     [breakpoints.smallMobile]: {
-      width: '95vw',
       gap: '3.2rem 1.2rem'
     }
   }
@@ -67,7 +70,8 @@ export const taskButtonGroup = style({
 })
 
 export const taskValue = style({
-  alignSelf: 'flex-end',
+  gridColumn: '2/3',
+  justifySelf: 'end',
   marginBottom: '1.2rem'
 })
 
