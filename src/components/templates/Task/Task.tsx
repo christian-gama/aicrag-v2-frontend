@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { IValidation } from '@/services/validators'
 import { FormContext } from '@/context/models/form'
 import {
@@ -47,6 +47,10 @@ export const Task: React.FC<TaskProps> = ({
       }
     })
   }
+
+  useEffect(() => {
+    updateDurationOnChange()
+  }, [data.type])
 
   return (
     <div className={classes.task} data-testid="new-task">
