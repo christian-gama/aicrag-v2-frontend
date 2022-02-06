@@ -43,17 +43,17 @@ export const InvoiceDetails: React.FC = () => {
           {documents.map((invoice, index) => (
             <Table.Tr key={index}>
               <DateData
-                primaryDate={getFormattedMonth(invoice.date.day)}
-                secondaryDate={invoice.date.month.toString()}
+                primaryDate={invoice.date.day.toString()}
+                secondaryDate={getFormattedMonth(invoice.date.month)}
               />
 
-              <Table.Td>{invoice.duration}</Table.Td>
+              <Table.Td>{`${invoice.duration} min`}</Table.Td>
 
               <Table.Td>{`${currency === 'BRL' ? 'R$' : '$'} ${getTaskValue(
                 invoice.usd
               )}`}</Table.Td>
 
-              <Table.Td>{invoice.taskId}</Table.Td>
+              <Table.Td>{invoice.taskId || '--'}</Table.Td>
 
               <Table.Td justifyContent="flex-end">
                 <Link to={`/invoice/task/${invoice.id.toString() as string}`}>
