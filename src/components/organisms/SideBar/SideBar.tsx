@@ -27,7 +27,7 @@ export const SideBar: React.FC = () => {
           </SideBarButton>
 
           <SideBarButton Icon={<SideBarIcon name="invoice" />} to="/invoice">
-            Fatura
+            Faturas
           </SideBarButton>
         </ul>
       </div>
