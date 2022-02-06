@@ -23,6 +23,7 @@ describe('Control', () => {
   afterEach(() => {
     cleanup()
     overlayRoot.removeOverlayRoot()
+    jest.restoreAllMocks()
   })
 
   beforeEach(() => {

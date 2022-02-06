@@ -28,7 +28,6 @@ export const ControlSelectInput: React.FC<ControlSelectInputProps> = ({
   return (
     <>
       <BaseSelectInput
-        defaultValue={value[name] ?? undefined}
         onChange={onChangeHandler}
         value={value[name] ?? ''}
         options={options}
