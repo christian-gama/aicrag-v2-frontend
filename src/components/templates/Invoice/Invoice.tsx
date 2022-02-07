@@ -14,7 +14,7 @@ import { useRefetchInvoice } from '@/external/graphql/reactiveVars'
 export const Invoice: React.FC = () => {
   const { currency, getTaskValue } = useGetTaskValue(0)
   const { data, refetch, loading } = useGetAllInvoicesQuery({
-    variables: { type: GetAllInvoicesType.Both }
+    variables: { type: GetAllInvoicesType.Both, sort: '-date.year,-date.month' }
   })
 
   useRefetchInvoice('allInvoices', refetch)

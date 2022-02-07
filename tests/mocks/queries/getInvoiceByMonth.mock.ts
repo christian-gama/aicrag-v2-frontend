@@ -12,8 +12,9 @@ export const getInvoiceByMonthMock = (
     query: GetInvoiceByMonthDocument,
     variables: {
       type: GetInvoiceByMonthType.Both,
-      month: 1,
-      year: 2022
+      sort: '-date.month,-date.day',
+      year: 2022,
+      month: 1
     }
   },
   result: {

@@ -19,7 +19,8 @@ export const InvoiceDetails: React.FC = () => {
     variables: {
       type: GetInvoiceByMonthType.Both,
       month: month!,
-      year: year!
+      year: year!,
+      sort: '-date.month,-date.day'
     }
   })
 

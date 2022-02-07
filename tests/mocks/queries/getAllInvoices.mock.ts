@@ -9,7 +9,7 @@ export const getAllInvoicesMock = (
 ): MockedResponse<Record<string, any>> => ({
   request: {
     query: GetAllInvoicesDocument,
-    variables: { type: GetAllInvoicesType.Both }
+    variables: { type: GetAllInvoicesType.Both, sort: '-date.year,-date.month' }
   },
   result: {
     data: {
