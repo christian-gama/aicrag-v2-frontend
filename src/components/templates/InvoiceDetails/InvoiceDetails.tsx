@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getFormattedMonth } from '@/helpers/getFormattedMonth'
 import { useGetTaskValue } from '@/components/_hooks'
@@ -5,26 +6,38 @@ import Table from '@/components/molecules/Table'
 import { DateData } from '@/components/molecules/Table/DateData'
 import { Link } from '@/components/utils/texts/Link'
 import {
+  GetInvoiceByMonthQuery,
   GetInvoiceByMonthType,
   useGetInvoiceByMonthQuery
 } from '@/external/graphql/generated'
+import { useRefetchInvoice } from '@/external/graphql/reactiveVars'
 
 export const InvoiceDetails: React.FC = () => {
   const { month, year } = useParams()
+  const [invoice, setInvoice] = useState<GetInvoiceByMonthQuery | undefined>()
   const { currency, getTaskValue } = useGetTaskValue(0)
-  const { data } = useGetInvoiceByMonthQuery({
+  const { refetch } = useGetInvoiceByMonthQuery({
     variables: {
       type: GetInvoiceByMonthType.Both,
       month: month!,
       year: year!
+    },
+    onCompleted: (data) => {
+      setInvoice(data)
     }
   })
 
-  if (!data) return null
+  const { data } = useRefetchInvoice('allInvoices', refetch)
+
+  useEffect(() => {
+    setInvoice(data)
+  }, [data])
+
+  if (!invoice) return null
 
   const {
     getInvoiceByMonth: { count, displaying, documents }
-  } = data
+  } = invoice
 
   return (
     <div data-testid="invoice-details">

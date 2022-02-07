@@ -11,7 +11,7 @@ import {
   useFindOneTaskQuery,
   useUpdateTaskMutation
 } from '@/external/graphql/generated'
-import { popoverVar } from '@/external/graphql/reactiveVars'
+import { popoverVar, refetchInvoiceVar } from '@/external/graphql/reactiveVars'
 import { Task } from './Task'
 
 export const UpdateTask: React.FC = () => {
@@ -86,6 +86,7 @@ export const UpdateTask: React.FC = () => {
       }
     })
 
+    refetchInvoiceVar.refetch()
     navigate(-1)
     popoverVar.setPopover('Tarefa deletada com sucesso', 'success')
   }
@@ -104,6 +105,7 @@ export const UpdateTask: React.FC = () => {
     })
 
     return () => {
+      refetchInvoiceVar.refetch()
       navigate(-1)
       popoverVar.setPopover('Tarefa atualizada com sucesso', 'success')
     }

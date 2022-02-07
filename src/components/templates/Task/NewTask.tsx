@@ -4,7 +4,7 @@ import { FormContext } from '@/context/models/form'
 import { Button } from '@/components/atoms/Button'
 import { makeTaskValidation } from '@/external/factories/validation'
 import { useCreateTaskMutation } from '@/external/graphql/generated'
-import { popoverVar } from '@/external/graphql/reactiveVars'
+import { popoverVar, refetchInvoiceVar } from '@/external/graphql/reactiveVars'
 import { Task } from './Task'
 
 export const NewTask: React.FC = () => {
@@ -27,6 +27,7 @@ export const NewTask: React.FC = () => {
     })
 
     return () => {
+      refetchInvoiceVar.refetch()
       navigate('/invoice')
       popoverVar.setPopover('Tarefa criada com sucesso', 'success')
     }
