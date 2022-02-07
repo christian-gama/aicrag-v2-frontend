@@ -56,7 +56,7 @@ export const UpdateTask: React.FC = () => {
                   ? DateTime.fromISO(task[input].full).toFormat(
                     'dd/MM/yyyy HH:mm'
                   )
-                  : task[input].toString() ?? ''
+                  : task[input].toString()
             }
           }
         })

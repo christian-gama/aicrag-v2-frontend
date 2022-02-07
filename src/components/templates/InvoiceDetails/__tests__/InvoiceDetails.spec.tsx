@@ -1,6 +1,7 @@
 import { makeAccessTokenStorage } from '@/external/factories/storage/auth'
 import { OverlayRoot, renderWithProviders, waitFetch } from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
+import { taskFragmentMock } from '@/tests/mocks/fragments'
 import { getInvoiceByMonthMock } from '@/tests/mocks/queries'
 import { cleanup, screen } from '@testing-library/react'
 import jwtDecode from 'jwt-decode'
@@ -69,6 +70,35 @@ describe('InvoiceDetails', () => {
     })
     await waitFetch()
     const invoiceDetails = screen.getByText(/^R\$ 162.5$/)
+
+    expect(invoiceDetails).toBeInTheDocument()
+  })
+
+  it('renders task id with -- if there is no task id', async () => {
+    renderWithProviders(<InvoiceDetails />, {
+      apolloMocks: [
+        {
+          ...getInvoiceByMonthMock(),
+          result: {
+            data: {
+              getInvoiceByMonth: {
+                count: 1,
+                displaying: 1,
+                page: 1,
+                documents: [
+                  {
+                    ...taskFragmentMock.task,
+                    taskId: ''
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    })
+    await waitFetch()
+    const invoiceDetails = screen.getByText(/^--$/)
 
     expect(invoiceDetails).toBeInTheDocument()
   })
