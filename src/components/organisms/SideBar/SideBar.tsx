@@ -34,7 +34,7 @@ export const SideBar: React.FC = () => {
 
       <footer className={classes.sideBarFooter}>
         <P color="primary">
-          © 2021 Copyright Aicrag.Todos os direitos reservados.
+          © 2022 Copyright Aicrag.Todos os direitos reservados.
         </P>
       </footer>
     </nav>
