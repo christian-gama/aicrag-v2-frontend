@@ -7,7 +7,7 @@ describe('LoadingSkeleton', () => {
   })
 
   it('renders correctly', () => {
-    render(<LoadingSkeleton columns={3} rows={3} />)
+    render(<LoadingSkeleton columns={3} amount={3} />)
     const loadingSkeleton = screen.getByTestId('loading-skeleton')
 
     expect(loadingSkeleton).toBeInTheDocument()

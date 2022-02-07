@@ -8,7 +8,7 @@ export default {
     width: '75%',
     gap: '2.8rem',
     columns: 3,
-    rows: 3
+    amount: 5
   }
 } as ComponentMeta<typeof LoadingSkeleton>
 

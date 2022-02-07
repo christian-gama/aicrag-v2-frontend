@@ -16,11 +16,11 @@ const gradientAnimation = keyframes({
 })
 
 export const loadingSkeletonVars = createGlobalTheme(':root', {
-  width: '100%',
   columns: '1',
-  gap: '1',
   marginTop: '0',
-  marginBottom: '0'
+  marginBottom: '0',
+  width: '100%',
+  gap: '1'
 })
 
 export const loadingSkeleton = style({
@@ -36,10 +36,56 @@ export const loadingSkeleton = style({
 })
 
 export const loadingSkeletonColumn = style({
+  borderRadius: '0.1rem',
   backgroundImage: vars.colors.gradient.gray,
-  backgroundSize: '200% 100%',
+  backgroundSize: '300% 100%',
   width: '100%',
-  height: '2.8rem',
-  borderRadius: '0.2rem',
-  animation: `${gradientAnimation} 1.2s ease-in-out infinite`
+  height: '2rem',
+  animation: `${gradientAnimation} 0.75s ease infinite`,
+
+  selectors: {
+    '&:nth-child(1)': {
+      gridColumn: '1 / -1'
+    },
+
+    '&:nth-child(2)': {
+      gridColumn: '1 / 2'
+    },
+
+    '&:nth-child(3)': {
+      gridColumn: '2 / -1'
+    },
+
+    '&:nth-child(4)': {
+      gridColumn: '1 / -1'
+    },
+
+    '&:nth-child(5)': {
+      gridColumn: '1 / 2'
+    },
+
+    '&:nth-child(6)': {
+      gridColumn: '2 / 3'
+    },
+
+    '&:nth-child(7)': {
+      gridColumn: '3 / -1'
+    },
+
+    '&:nth-child(8)': {
+      gridColumn: '1 / 3'
+    },
+
+    '&:nth-child(9)': {
+      gridColumn: '2 / -1'
+    },
+
+    '&:nth-child(10)': {
+      gridColumn: '1 / -1'
+    },
+
+    '&:nth-child(11)': {
+      gridColumn: '2 / 3'
+    }
+  }
 })

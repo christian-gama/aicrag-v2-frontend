@@ -142,7 +142,7 @@ const colors = {
 
   gradient: {
     primary: 'linear-gradient(to bottom right, #0c7580 0%, #03112a 100%)',
-    gray: 'linear-gradient(to bottom right, #f5f6f6 0%, #d6d9db 100%)'
+    gray: 'linear-gradient(to bottom right, #f5f6f6 0%, #e6e8e9 100%)'
   }
 }
 

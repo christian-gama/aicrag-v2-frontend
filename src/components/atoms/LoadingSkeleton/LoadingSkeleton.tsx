@@ -1,5 +1,4 @@
 import { assignInlineVars } from '@vanilla-extract/dynamic'
-import { arrayFrom } from '@/tests/helpers'
 import * as classes from './stylesheet'
 import { loadingSkeletonVars } from './stylesheet'
 
@@ -8,7 +7,7 @@ type LoadingSkeletonProps = {
   marginTop?: string
   columns: number
   width?: string
-  rows: number
+  amount: number
   gap?: string
 }
 
@@ -18,7 +17,7 @@ export const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({
   columns,
   width,
   gap,
-  rows
+  amount
 }) => {
   return (
     <div
@@ -32,7 +31,7 @@ export const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({
         gap: gap!
       })}
     >
-      {arrayFrom(rows * columns - 2).map((_, rowIndex) => (
+      {Array.from({ length: amount }).map((_, rowIndex) => (
         <div key={rowIndex} className={classes.loadingSkeletonColumn} />
       ))}
     </div>
