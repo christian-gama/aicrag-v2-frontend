@@ -1,9 +1,11 @@
 import { ComponentStoryObj, ComponentMeta } from '@storybook/react'
-import { NewTaskView } from './NewTaskView'
+import { AllProviders } from '@/tests/helpers'
+import { NewTaskView as NewTaskViewComponent } from './NewTaskView'
 
 export default {
-  component: NewTaskView,
-  title: 'NewTaskView'
-} as ComponentMeta<typeof NewTaskView>
+  component: NewTaskViewComponent,
+  title: 'views/New Task View',
+  decorators: [(story) => <AllProviders>{story()}</AllProviders>]
+} as ComponentMeta<typeof NewTaskViewComponent>
 
-export const Default: ComponentStoryObj<typeof NewTaskView> = {}
+export const NewTaskView: ComponentStoryObj<typeof NewTaskViewComponent> = {}
