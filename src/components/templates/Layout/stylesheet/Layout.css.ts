@@ -29,6 +29,7 @@ export const layoutCard = style({
   gridArea: 'main',
   margin: '2rem',
   minHeight: 'calc(100vh - 12rem - 2rem - 2rem)',
+  height: '100%',
 
   '@media': {
     [breakpoints.desktop]: {
