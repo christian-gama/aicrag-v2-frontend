@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { getFormattedMonth } from '@/helpers/getFormattedMonth'
 import { useGetTaskValue } from '@/components/_hooks'
 import { LoadingSkeleton } from '@/components/atoms/LoadingSkeleton'
@@ -17,16 +16,10 @@ export const Invoice: React.FC = () => {
   const { data, refetch, loading } = useGetAllInvoicesQuery({
     variables: { type: GetAllInvoicesType.Both }
   })
-  const { invoiceData, setInvoiceData } = useRefetchInvoice(
-    'allInvoices',
-    refetch
-  )
 
-  useEffect(() => {
-    setInvoiceData(data)
-  }, [data])
+  useRefetchInvoice('allInvoices', refetch)
 
-  if (loading || (!invoiceData && data)) {
+  if (loading) {
     return (
       <LoadingSkeleton
         marginTop="5rem"
@@ -38,13 +31,13 @@ export const Invoice: React.FC = () => {
     )
   }
 
-  if (!data || !invoiceData || invoiceData.getAllInvoices.count === 0) {
+  if (!data || data.getAllInvoices.count === 0) {
     return <NoContent />
   }
 
   const {
     getAllInvoices: { count, displaying, documents }
-  } = invoiceData
+  } = data
 
   return (
     <div data-testid="invoice">

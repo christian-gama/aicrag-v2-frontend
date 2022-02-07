@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { getFormattedMonth } from '@/helpers/getFormattedMonth'
 import { useGetTaskValue } from '@/components/_hooks'
@@ -24,13 +23,9 @@ export const InvoiceDetails: React.FC = () => {
     }
   })
 
-  const { invoiceData, setInvoiceData } = useRefetchInvoice('invoice', refetch)
+  useRefetchInvoice('invoice', refetch)
 
-  useEffect(() => {
-    setInvoiceData(data)
-  }, [data])
-
-  if (loading || (!invoiceData && data)) {
+  if (loading) {
     return (
       <LoadingSkeleton
         marginTop="5rem"
@@ -42,11 +37,11 @@ export const InvoiceDetails: React.FC = () => {
     )
   }
 
-  if (!invoiceData || !invoiceData.getInvoiceByMonth.count) return <NoContent />
+  if (!data || !data.getInvoiceByMonth.count) return <NoContent />
 
   const {
     getInvoiceByMonth: { count, displaying, documents }
-  } = invoiceData
+  } = data
 
   return (
     <div data-testid="invoice-details">
