@@ -45,13 +45,6 @@ export const useControlRadioInput = ({ value, name }: UseControlRadioInput) => {
     })
   }, [isResetting])
 
-  useEffect(() => {
-    dispatch({
-      type: 'FORM/SET_FORM_DATA',
-      payload: { data: { [name]: value } }
-    })
-  }, [isResetting])
-
   const onChangeHandler = async (event: any) => {
     const value = event.target.value
 
