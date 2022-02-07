@@ -1,7 +1,8 @@
 import { makeVar, useReactiveVar } from '@apollo/client'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { InternalError } from '@/services/errors'
 import { popoverVar } from '.'
+import { GetAllInvoicesQuery, GetInvoiceByMonthQuery } from '../generated'
 
 const initialValue = {
   shouldRefetch: { invoice: false, allInvoices: false }
@@ -33,17 +34,28 @@ export const refetchInvoiceVar = {
 
 export const useShouldRefetch = () => useReactiveVar(_refetchInvoiceVar)
 
-export const useRefetchInvoice = (
-  type: 'invoice' | 'allInvoices',
+type InvoiceType = 'invoice' | 'allInvoices'
+
+type WhichInvoiceType<T extends InvoiceType> = T extends 'invoice'
+  ? GetInvoiceByMonthQuery | undefined
+  : GetAllInvoicesQuery | undefined
+
+type InvoiceState<T extends InvoiceType> = [
+  WhichInvoiceType<T>,
+  Dispatch<SetStateAction<WhichInvoiceType<T>>>
+]
+
+export const useRefetchInvoice = <T extends InvoiceType>(
+  type: T,
   refetch: () => Promise<any>
 ) => {
   const { shouldRefetch } = useShouldRefetch()
-  const [data, setData] = useState()
+  const [invoiceData, setInvoiceData] = useState() as InvoiceState<T>
 
   useEffect(() => {
     if (shouldRefetch[type]) {
       refetch()
-        .then((res) => setData(res.data))
+        .then((res) => setInvoiceData(res.data))
         .catch(() =>
           popoverVar.setPopover(new InternalError().message, 'error')
         )
@@ -52,5 +64,5 @@ export const useRefetchInvoice = (
     refetchInvoiceVar.reset(type)
   }, [shouldRefetch[type]])
 
-  return { data }
+  return { invoiceData, setInvoiceData }
 }
