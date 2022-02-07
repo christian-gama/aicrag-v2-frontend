@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { FormContext } from '@/context/models/form'
 import { useGetTaskValue } from '@/components/_hooks'
 import { Button } from '@/components/atoms/Button'
+import { LoadingSkeleton } from '@/components/atoms/LoadingSkeleton'
 import { Alert } from '@/components/molecules/Alert'
 import { makeTaskValidation } from '@/external/factories/validation'
 import {
@@ -22,7 +23,7 @@ export const UpdateTask: React.FC = () => {
 
   const [updateTask] = useUpdateTaskMutation()
   const [deleteTask] = useDeleteTaskMutation()
-  const { data } = useFindOneTaskQuery({
+  const { data, loading } = useFindOneTaskQuery({
     variables: { id },
     onError: () => {
       navigate('-1')
@@ -72,6 +73,18 @@ export const UpdateTask: React.FC = () => {
       })
     }
   }, [data, form.isResetting])
+
+  if (loading) {
+    return (
+      <LoadingSkeleton
+        marginTop="5rem"
+        gap="6.2rem"
+        columns={3}
+        width="70%"
+        amount={5}
+      />
+    )
+  }
 
   if (!data) return null
 

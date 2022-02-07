@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { getFormattedMonth } from '@/helpers/getFormattedMonth'
 import { useGetTaskValue } from '@/components/_hooks'
+import { LoadingSkeleton } from '@/components/atoms/LoadingSkeleton'
 import { NoContent } from '@/components/molecules/NoContent'
 import Table from '@/components/molecules/Table'
 import { DateData } from '@/components/molecules/Table/DateData'
@@ -15,7 +16,7 @@ import { useRefetchInvoice } from '@/external/graphql/reactiveVars'
 export const InvoiceDetails: React.FC = () => {
   const { month, year } = useParams()
   const { currency, getTaskValue } = useGetTaskValue(0)
-  const { data, refetch } = useGetInvoiceByMonthQuery({
+  const { data, refetch, loading } = useGetInvoiceByMonthQuery({
     variables: {
       type: GetInvoiceByMonthType.Both,
       month: month!,
@@ -28,6 +29,18 @@ export const InvoiceDetails: React.FC = () => {
   useEffect(() => {
     setInvoiceData(data)
   }, [data])
+
+  if (loading || (!invoiceData && data)) {
+    return (
+      <LoadingSkeleton
+        marginTop="5rem"
+        gap="2.4rem"
+        columns={4}
+        width="70%"
+        amount={7}
+      />
+    )
+  }
 
   if (!invoiceData || !invoiceData.getInvoiceByMonth.count) return <NoContent />
 

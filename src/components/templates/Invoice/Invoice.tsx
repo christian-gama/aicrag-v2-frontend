@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { getFormattedMonth } from '@/helpers/getFormattedMonth'
 import { useGetTaskValue } from '@/components/_hooks'
+import { LoadingSkeleton } from '@/components/atoms/LoadingSkeleton'
 import { NoContent } from '@/components/molecules/NoContent'
 import Table from '@/components/molecules/Table'
 import { DateData } from '@/components/molecules/Table/DateData'
@@ -13,7 +14,7 @@ import { useRefetchInvoice } from '@/external/graphql/reactiveVars'
 
 export const Invoice: React.FC = () => {
   const { currency, getTaskValue } = useGetTaskValue(0)
-  const { data, refetch } = useGetAllInvoicesQuery({
+  const { data, refetch, loading } = useGetAllInvoicesQuery({
     variables: { type: GetAllInvoicesType.Both }
   })
   const { invoiceData, setInvoiceData } = useRefetchInvoice(
@@ -25,7 +26,21 @@ export const Invoice: React.FC = () => {
     setInvoiceData(data)
   }, [data])
 
-  if (!invoiceData || !invoiceData.getAllInvoices.count) return <NoContent />
+  if (loading || (!invoiceData && data)) {
+    return (
+      <LoadingSkeleton
+        marginTop="5rem"
+        gap="2.4rem"
+        columns={4}
+        width="70%"
+        amount={7}
+      />
+    )
+  }
+
+  if (!data || !invoiceData || invoiceData.getAllInvoices.count === 0) {
+    return <NoContent />
+  }
 
   const {
     getAllInvoices: { count, displaying, documents }
