@@ -57,14 +57,14 @@ export const useControlInput = ({
       type: 'INPUT/SET_VALUE',
       payload: { value: { [name]: defaultValue ?? '' } }
     })
-  }, [isResetting])
+  }, [isResetting, defaultValue])
 
   useEffect(() => {
     dispatch({
       type: 'FORM/SET_FORM_DATA',
       payload: { data: { [name]: value[name] } }
     })
-  }, [isResetting])
+  }, [isResetting, value])
 
   const showPasswordHandler = (): void => {
     currentType[name] === 'password'
