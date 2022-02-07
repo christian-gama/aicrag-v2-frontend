@@ -2,14 +2,14 @@ import { createGlobalTheme, style } from '@vanilla-extract/css'
 import { vars } from '@/components/_settings'
 
 export const tableWrapper = style({
-  position: 'relative'
+  display: 'grid',
+  position: 'relative',
+  gridTemplateColumns: '1fr 1fr 1fr',
+  marginTop: '3.2rem'
 })
 
 export const tableContentWrapper = style({
-  position: 'absolute',
-  top: '3.2rem',
-  left: '50%',
-  transform: 'translateX(-50%)'
+  gridColumn: '2/3'
 })
 
 export const tableCellVar = createGlobalTheme(':root', {
