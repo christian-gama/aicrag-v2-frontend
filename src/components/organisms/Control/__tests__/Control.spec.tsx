@@ -13,6 +13,7 @@ import {
   ControlDateInput,
   ControlForm,
   ControlInput,
+  ControlRadioInput,
   ControlSelectInput
 } from '..'
 import { makeMockValidation } from '@/tests/mocks'
@@ -195,7 +196,7 @@ describe('Control', () => {
     })
   })
 
-  describe('BaseInput', () => {
+  describe('ControlInput', () => {
     it('starts as readOnly', () => {
       renderWithProviders(
         <ControlForm submitHandler={jest.fn()}>
@@ -408,7 +409,7 @@ describe('Control', () => {
     })
   })
 
-  describe('BaseDateInput', () => {
+  describe('ControlDateInput', () => {
     it('starts as readOnly', () => {
       renderWithProviders(
         <ControlForm submitHandler={jest.fn()}>
@@ -444,7 +445,7 @@ describe('Control', () => {
     })
   })
 
-  describe('BaseSelectInput', () => {
+  describe('ControlSelectInput', () => {
     it('renders correctly', () => {
       renderWithProviders(
         <ControlSelectInput
@@ -512,6 +513,28 @@ describe('Control', () => {
       userEvent.selectOptions(input, 'any_name')
 
       expect(onChangeSpy).toHaveBeenCalled()
+    })
+  })
+
+  describe('ControlRadioInput', () => {
+    it('renders correctly', () => {
+      renderWithProviders(
+        <ControlRadioInput value="any_name" label="Any name" name="any_name" />
+      )
+      const input = screen.getByTestId('base-radio-input')
+
+      expect(input).toBeInTheDocument()
+    })
+
+    it('has input marked as check', () => {
+      renderWithProviders(
+        <ControlRadioInput value="any_name" label="Any name" name="any_name" />
+      )
+      const input = screen.getByTestId('base-radio-input')
+
+      userEvent.click(input)
+
+      expect(input).toBeChecked()
     })
   })
 })
