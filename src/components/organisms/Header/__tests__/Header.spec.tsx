@@ -1,6 +1,6 @@
 import { cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { makeAccessTokenStorage } from '@/external/factories/storage/auth'
+import { authVar } from '@/external/graphql/reactiveVars'
 import { OverlayRoot, renderWithProviders } from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
 import { Header } from '..'
@@ -10,19 +10,26 @@ jest.mock('../../../_hooks/useWindowDimensions')
 const useWindowDimensionsMock = useWindowDimensions as jest.Mock
 
 describe('Header', () => {
-  const accessTokenStorage = makeAccessTokenStorage()
   const overlayRoot = new OverlayRoot()
 
   afterEach(() => {
     cleanup()
-    accessTokenStorage.reset()
     overlayRoot.removeOverlayRoot()
   })
 
   beforeEach(() => {
     useWindowDimensionsMock.mockReturnValue({ width: 1920, height: 1080 })
-    accessTokenStorage.set(mockVariables.token)
     overlayRoot.addOverlayRoot()
+    authVar.setUser({
+      personal: {
+        email: mockVariables.email,
+        id: mockVariables.uuid,
+        name: mockVariables.name
+      },
+      settings: {
+        currency: 'BRL'
+      }
+    })
   })
 
   it('renders correctly', () => {
@@ -49,7 +56,7 @@ describe('Header', () => {
   })
 
   it('renders the user name with a smile face if there is no access token', () => {
-    accessTokenStorage.reset()
+    authVar.logout()
     renderWithProviders(<Header pageName="" />)
     const userName = screen.getByText('Olá, :)!')
 

@@ -1,21 +1,30 @@
-import { makeAccessTokenStorage } from '@/external/factories/storage/auth'
+import { authVar } from '@/external/graphql/reactiveVars'
 import { renderWithProviders, waitFetch } from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
 import { getAllInvoicesMock } from '@/tests/mocks/queries'
 import { cleanup, screen } from '@testing-library/react'
-import jwtDecode from 'jwt-decode'
 import { Invoice } from '..'
 
-jest.mock('jwt-decode')
-const jwtDecodeMock = jwtDecode as jest.Mock
-
 describe('Invoice', () => {
+  const setCurrency = (currency: 'BRL' | 'USD') =>
+    authVar.setUser({
+      personal: {
+        email: mockVariables.email,
+        id: mockVariables.uuid,
+        name: mockVariables.name
+      },
+      settings: {
+        currency
+      }
+    })
+
   afterEach(() => {
     cleanup()
+    authVar.logout()
   })
 
   beforeEach(() => {
-    jwtDecodeMock.mockReturnValue({ currency: 'BRL' })
+    setCurrency('BRL')
   })
 
   it('renders correctly', async () => {
@@ -37,14 +46,12 @@ describe('Invoice', () => {
   })
 
   it('renders a table with the correct currency symbol', async () => {
-    makeAccessTokenStorage().set(mockVariables.token)
-    jwtDecodeMock.mockImplementation(() => ({ currency: 'BRL' }))
-
+    setCurrency('USD')
     renderWithProviders(<Invoice />, {
       apolloMocks: [getAllInvoicesMock()]
     })
     await waitFetch()
-    const currency = screen.getAllByText(/^R\$ 50$/i)[0]
+    const currency = screen.getAllByText(/^\$ 10$/i)[0]
 
     expect(currency).toBeInTheDocument()
   })

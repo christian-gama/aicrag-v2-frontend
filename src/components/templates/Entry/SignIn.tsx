@@ -22,9 +22,9 @@ export const SignIn: React.FC = () => {
       }
     })
 
-    const typename = data?.login?.__typename
-    if (typename === 'ActiveAccount') {
-      return authVar.login
+    const loginData = data?.login
+    if (loginData?.__typename === 'ActiveAccount') {
+      return () => authVar.login(loginData.user)
     }
 
     authVar.partialLogin()

@@ -1,8 +1,6 @@
 import { cleanup, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import jwtDecode from 'jwt-decode'
-import { makeAccessTokenStorage } from '@/external/factories/storage/auth'
-import { popoverVar } from '@/external/graphql/reactiveVars'
+import { authVar, popoverVar } from '@/external/graphql/reactiveVars'
 import {
   MockDate,
   OverlayRoot,
@@ -26,11 +24,18 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockFunction
 }))
 
-jest.mock('jwt-decode')
-const jwtDecodeMock = jwtDecode as jest.Mock
-
 describe('Task', () => {
-  const accessTokenStorage = makeAccessTokenStorage()
+  const setCurrency = (currency: 'BRL' | 'USD') =>
+    authVar.setUser({
+      personal: {
+        email: mockVariables.email,
+        id: mockVariables.uuid,
+        name: mockVariables.name
+      },
+      settings: {
+        currency
+      }
+    })
   const mockDate = new MockDate(2022, 1, 1, 0, 0)
   const overlayRoot = new OverlayRoot()
   let UpdateTask: any
@@ -48,17 +53,15 @@ describe('Task', () => {
 
   afterEach(() => {
     overlayRoot.removeOverlayRoot()
-    accessTokenStorage.reset()
     jest.restoreAllMocks()
     mockDate.reset()
     cleanup()
   })
 
   beforeEach(async () => {
-    accessTokenStorage.set(mockVariables.token)
     overlayRoot.addOverlayRoot()
+    setCurrency('BRL')
     mockDate.mock()
-    jwtDecodeMock.mockReturnValue({ currency: 'BRL' })
 
     // Imports dinamically so it can have the date mocked, as it's using DefaultProps
     UpdateTask = (await import('../UpdateTask')).UpdateTask
@@ -185,7 +188,7 @@ describe('Task', () => {
     })
 
     it('has value in USD if currency is USD', async () => {
-      jwtDecodeMock.mockReturnValue({ currency: 'USD' })
+      setCurrency('USD')
       window.fetch = jest.fn().mockImplementation(async () => ({
         json: () => ({
           USDBRL: { ask: 5 }
@@ -201,7 +204,6 @@ describe('Task', () => {
     })
 
     it('has value in BRL if currency is BRL', async () => {
-      jwtDecodeMock.mockReturnValue({ currency: 'BRL' })
       window.fetch = jest.fn().mockImplementation(async () => ({
         json: () => ({
           USDBRL: { ask: 5 }

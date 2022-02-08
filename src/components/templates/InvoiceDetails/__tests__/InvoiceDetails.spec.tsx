@@ -1,12 +1,10 @@
-import { makeAccessTokenStorage } from '@/external/factories/storage/auth'
-import { popoverVar } from '@/external/graphql/reactiveVars'
+import { authVar, popoverVar } from '@/external/graphql/reactiveVars'
 import { OverlayRoot, renderWithProviders, waitFetch } from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
 import { taskFragmentMock } from '@/tests/mocks/fragments'
 import { deleteTaskMock, getInvoiceByMonthMock } from '@/tests/mocks/queries'
 import { cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import jwtDecode from 'jwt-decode'
 import { InvoiceDetails } from '..'
 
 jest.mock('react-router-dom', () => ({
@@ -17,19 +15,29 @@ jest.mock('react-router-dom', () => ({
   })
 }))
 
-jest.mock('jwt-decode')
-const jwtDecodeMock = jwtDecode as jest.Mock
-
 describe('InvoiceDetails', () => {
+  const setCurrency = (currency: 'BRL' | 'USD') =>
+    authVar.setUser({
+      personal: {
+        email: mockVariables.email,
+        id: mockVariables.uuid,
+        name: mockVariables.name
+      },
+      settings: {
+        currency
+      }
+    })
   const overlayRoot = new OverlayRoot()
 
   afterEach(() => {
     cleanup()
     overlayRoot.removeOverlayRoot()
+    authVar.logout()
   })
 
   beforeEach(() => {
     overlayRoot.addOverlayRoot()
+    setCurrency('BRL')
   })
 
   it('renders correctly', async () => {
@@ -53,8 +61,7 @@ describe('InvoiceDetails', () => {
   })
 
   it('renders the correct value if currency is equal to USD', async () => {
-    makeAccessTokenStorage().set(mockVariables.token)
-    jwtDecodeMock.mockReturnValue({ currency: 'USD' })
+    setCurrency('USD')
     renderWithProviders(<InvoiceDetails />, {
       apolloMocks: [getInvoiceByMonthMock()]
     })
@@ -65,8 +72,6 @@ describe('InvoiceDetails', () => {
   })
 
   it('renders the correct value if currency is equal to BRL', async () => {
-    makeAccessTokenStorage().set(mockVariables.token)
-    jwtDecodeMock.mockReturnValue({ currency: 'BRL' })
     renderWithProviders(<InvoiceDetails />, {
       apolloMocks: [getInvoiceByMonthMock()]
     })

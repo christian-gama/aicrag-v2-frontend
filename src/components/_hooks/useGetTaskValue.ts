@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
-import { getUserByToken } from '@/services/token/getUserByToken'
+import { useAuth } from '@/external/graphql/reactiveVars'
 import { getBrlFromUsd } from '@/external/vendors/getBrlFromUsd'
 
 export const useGetTaskValue = (value: number) => {
+  const { user } = useAuth()
   const [taskValue, setTaskValue] = useState(value)
   const [BRLQuote, setBRLQuote] = useState(5)
 
-  const currency = getUserByToken('currency') as 'BRL' | 'USD' | null
+  const currency = user.settings.currency
 
   const getTaskValue = (value?: number) => {
     if (currency === 'BRL') {

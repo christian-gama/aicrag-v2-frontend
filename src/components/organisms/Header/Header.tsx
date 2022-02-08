@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { formatName } from '@/helpers'
-import { getUserByToken } from '@/services/token/getUserByToken'
 import { useWindowDimensions } from '@/components/_hooks'
 import { Alert } from '@/components/molecules/Alert'
 import { BackIcon } from '@/components/utils/icons'
@@ -9,7 +8,7 @@ import { MenuIcon } from '@/components/utils/icons/MenuIcon'
 import { QuestionIcon } from '@/components/utils/icons/QuestionIcon'
 import { H1 } from '@/components/utils/texts/H1'
 import { P } from '@/components/utils/texts/P'
-import { authVar } from '@/external/graphql/reactiveVars'
+import { authVar, useAuth } from '@/external/graphql/reactiveVars'
 import { About } from '../About'
 import { HeaderMenu } from './HeaderMenu'
 import * as classes from './stylesheet'
@@ -20,12 +19,13 @@ type HeaderProps = {
 }
 
 export const Header: React.FC<HeaderProps> = ({ pageName, backHandler }) => {
+  const { user } = useAuth()
   const [isAboutOpen, setIsAboutOpen] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isAlertOpen, setIsAlertOpen] = useState(false)
   const { width } = useWindowDimensions()
 
-  const userName = formatName(getUserByToken('name') ?? ':)')
+  const userName = formatName(user.personal.name ?? ':)')
 
   const renderMenu = () => {
     if (width <= 820) {

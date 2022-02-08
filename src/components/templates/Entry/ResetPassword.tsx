@@ -40,7 +40,7 @@ export const ResetPassword: React.FC = () => {
   }
 
   const submitHandler = async () => {
-    await resetPassword({
+    const { data } = await resetPassword({
       variables: {
         password: state.form.data.password,
         passwordConfirmation: state.form.data.passwordConfirmation
@@ -50,7 +50,7 @@ export const ResetPassword: React.FC = () => {
     return () => {
       navigate('/')
 
-      authVar.login()
+      authVar.login(data!.resetPassword.user)
     }
   }
 

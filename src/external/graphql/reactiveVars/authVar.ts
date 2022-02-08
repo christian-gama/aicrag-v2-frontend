@@ -1,4 +1,5 @@
 import { makeVar, useReactiveVar } from '@apollo/client'
+import { getUserByToken } from '@/services/token/getUserByToken'
 import {
   makeAccessTokenStorage,
   makeRefreshTokenStorage
@@ -9,27 +10,56 @@ const refreshToken = makeRefreshTokenStorage()
 
 const initialValue = {
   isAuthenticated: !!accessToken.get() && !!refreshToken.get(),
-  isPartiallyAuthenticated: !!accessToken.get() && !refreshToken.get()
+  isPartiallyAuthenticated: !!accessToken.get() && !refreshToken.get(),
+  user: {
+    personal: {
+      email: getUserByToken('email') as string,
+      id: getUserByToken('userId') as string,
+      name: getUserByToken('name') as string
+    },
+    settings: {
+      currency: getUserByToken('currency') as string
+    }
+  }
 }
 
 const _authVar = makeVar(initialValue)
 
 export const authVar = {
-  login: () => {
-    _authVar({ isAuthenticated: true, isPartiallyAuthenticated: false })
+  login: (user: typeof initialValue['user']) => {
+    _authVar({
+      isPartiallyAuthenticated: false,
+      isAuthenticated: true,
+      user
+    })
   },
 
   partialLogin: () => {
     refreshToken.reset()
 
-    _authVar({ isAuthenticated: false, isPartiallyAuthenticated: true })
+    _authVar({
+      isPartiallyAuthenticated: true,
+      user: initialValue.user,
+      isAuthenticated: false
+    })
   },
 
   logout: () => {
     accessToken.reset()
     refreshToken.reset()
 
-    _authVar({ isAuthenticated: false, isPartiallyAuthenticated: false })
+    _authVar({
+      isPartiallyAuthenticated: false,
+      user: initialValue.user,
+      isAuthenticated: false
+    })
+  },
+
+  setUser: (user: typeof initialValue['user']) => {
+    _authVar({
+      ..._authVar(),
+      user
+    })
   }
 }
 

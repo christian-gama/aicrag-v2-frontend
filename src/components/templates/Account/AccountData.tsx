@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { useEffect, useState } from 'react'
-import { InternalError } from '@/services/errors'
 import { useForm } from '@/context/models/form'
 import { Button } from '@/components/atoms/Button'
-import { LoadingSkeleton } from '@/components/atoms/LoadingSkeleton'
 import {
   ControlForm,
   ControlInput,
@@ -12,43 +10,33 @@ import {
 import { Pin } from '@/components/organisms/Pin'
 import { P } from '@/components/utils/texts/P'
 import {
-  useGetMeQuery,
   UserCurrency,
   useSendEmailPinMutation,
   useUpdateEmailByPinMutation,
   useUpdateMeMutation
 } from '@/external/graphql/generated'
-import { popoverVar, refetchInvoiceVar } from '@/external/graphql/reactiveVars'
+import {
+  authVar,
+  popoverVar,
+  refetchInvoiceVar,
+  useAuth
+} from '@/external/graphql/reactiveVars'
 import * as classes from './stylesheet'
 
 export const AccountData: React.FC = () => {
+  const { user } = useAuth()
   const [updateMe] = useUpdateMeMutation()
   const {
     state: { form }
   } = useForm<{ currency: UserCurrency, email: string, name: string }>()
-  const { data, refetch, loading } = useGetMeQuery()
   const [sendEmailPin] = useSendEmailPinMutation()
   const [updateEmailByPin, { error }] = useUpdateEmailByPinMutation()
-  const [checked, setChecked] = useState(data?.getMe.user.settings.currency)
+  const [checked, setChecked] = useState(user.settings.currency)
   const [isPinOpen, setIsPinOpen] = useState(false)
 
   useEffect(() => {
-    if (form.isSubmitted) {
-      refetch().catch(() =>
-        popoverVar.setPopover(new InternalError().message, 'error')
-      )
-    }
-  }, [form.isSubmitted])
-
-  useEffect(() => {
-    setChecked(data?.getMe.user.settings.currency)
-  }, [data])
-
-  if (!data || loading) return <LoadingSkeleton amount={4} columns={4} />
-
-  const {
-    getMe: { user }
-  } = data
+    setChecked(user.settings.currency)
+  }, [user])
 
   const isCurrencySame = form.data.currency === user.settings.currency
   const isEmailSame = form.data.email === user.personal.email
@@ -68,19 +56,18 @@ export const AccountData: React.FC = () => {
     }
 
     if (data) {
-      const hasChanges = data.updateMe.__typename === 'UpdateMeHasChanges'
-
       if (
-        hasChanges &&
+        data.updateMe.__typename === 'UpdateMeHasChanges' &&
         (!isNameSame || (!isCurrencySame && form.data.currency))
       ) {
+        authVar.setUser(data.updateMe.user)
         popoverVar.setPopover(
           'Seus dados foram atualizados com sucesso',
           'success'
         )
       }
 
-      if (!hasChanges) {
+      if (data.updateMe.__typename === 'UpdateMeNoChanges') {
         popoverVar.setPopover(
           'Você não fez nenhuma alteração, portanto seus dados não foram alterados ',
           'info'

@@ -18,7 +18,7 @@ export const ConfirmEmailView: React.FC = () => {
         'success'
       )
 
-      authVar.login()
+      authVar.login(data.activateAccount.user)
     }
   }, [data])
 
