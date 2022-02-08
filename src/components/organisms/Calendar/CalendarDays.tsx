@@ -15,7 +15,7 @@ export const CalendarDays: React.FC = () => {
       if (shouldDayBeDimmed(date, day, week)) {
         daysFromCalendar.push(
           <CalendarDayNumber
-            testid={`day-${date.toISODate()}`}
+            testid={date.toFormat('dd/MM/yyyy HH:mm')}
             dayNumber={date.day}
             key={date.toISO()}
             dimmed
@@ -28,7 +28,7 @@ export const CalendarDays: React.FC = () => {
       daysFromCalendar.push(
         <CalendarDayNumber
           onClick={() => pickDateHandler(date.day)}
-          testid={`day-${date.toISODate()}`}
+          testid={date.toFormat('dd/MM/yyyy HH:mm')}
           selected={isDaySelected(date)}
           dayNumber={date.day}
           key={date.toISO()}

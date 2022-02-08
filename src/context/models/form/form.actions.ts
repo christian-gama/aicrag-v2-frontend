@@ -1,116 +1,120 @@
-import { FormStates, FormActionPayload } from './protocols/form.model'
+import { useContext } from 'react'
+import { Maybe } from '@/helpers'
+import { IValidation } from '@/services/validators'
+import {
+  FormActionPayload,
+  FormContext,
+  FormInputActionPayload,
+  FormStates
+} from '.'
 
-export const setFormValidator = (
-  state: FormStates,
-  action: FormActionPayload
-) => {
+export const useForm = <
+  T extends { [key: string]: string | number | string[] | undefined }
+>() => {
+  const { dispatch, state } = useContext<{
+    dispatch: (options: FormActionPayload | FormInputActionPayload) => void
+    state: FormStates<T>
+  }>(FormContext)
+
   return {
-    ...state,
-    form: {
-      ...state.form,
-      validator: action.payload.validator
-    }
-  }
-}
+    state,
+    formActions: {
+      setFormValidator: (validator: Maybe<IValidation>) =>
+        dispatch({
+          type: 'FORM/SET_VALIDATOR',
+          payload: { validator }
+        }),
 
-export const setIsResetting = (
-  state: FormStates,
-  action: FormActionPayload
-) => {
-  return {
-    ...state,
-    form: {
-      ...state.form,
-      isResetting: action.payload.isResetting!
-    }
-  }
-}
+      setFormIsResetting: (isResetting: boolean) =>
+        dispatch({
+          type: 'FORM/SET_IS_RESETTING',
+          payload: { isResetting }
+        }),
 
-export const resetForm = (): FormStates => {
-  return {
-    form: {
-      validator: undefined,
-      isSubmitting: false,
-      isValidating: false,
-      isSubmitted: false,
-      isResetting: true,
-      error: undefined,
-      isValid: false,
-      data: {}
-    },
-    input: {
-      currentType: {},
-      isFocused: {},
-      isTouched: {},
-      isValid: {},
-      error: {},
-      value: {}
-    }
-  }
-}
+      resetForm: () => dispatch({ type: 'FORM/RESET_FORM', payload: {} }),
 
-export const setFormError = (
-  state: FormStates,
-  action: FormActionPayload
-): FormStates => {
-  return {
-    ...state,
-    form: {
-      ...state.form,
-      error: action.payload.error
-    }
-  }
-}
+      setFormError: (error: Maybe<string>) =>
+        dispatch({
+          type: 'FORM/SET_ERROR',
+          payload: {
+            error
+          }
+        }),
 
-export const setFormIsValid = (
-  state: FormStates,
-  action: FormActionPayload
-): FormStates => {
-  return { ...state, form: { ...state.form, isValid: action.payload.isValid! } }
-}
+      setFormIsValid: (isValid: boolean) =>
+        dispatch({
+          type: 'FORM/SET_IS_VALID',
+          payload: { isValid }
+        }),
 
-export const setFormIsSubmitting = (
-  state: FormStates,
-  action: FormActionPayload
-): FormStates => {
-  return {
-    ...state,
-    form: { ...state.form, isSubmitting: action.payload.isSubmitting! }
-  }
-}
+      setFormIsSubmitting: (isSubmitting: boolean) =>
+        dispatch({
+          type: 'FORM/SET_IS_SUBMITTING',
+          payload: { isSubmitting }
+        }),
 
-export const setFormIsSubmitted = (
-  state: FormStates,
-  action: FormActionPayload
-): FormStates => {
-  return {
-    ...state,
-    form: { ...state.form, isSubmitted: action.payload.isSubmitted! }
-  }
-}
+      setFormIsSubmitted: (isSubmitted: boolean) =>
+        dispatch({
+          type: 'FORM/SET_IS_SUBMITTED',
+          payload: { isSubmitted }
+        }),
 
-export const setFormIsValidating = (
-  state: FormStates,
-  action: FormActionPayload
-): FormStates => {
-  return {
-    ...state,
-    form: { ...state.form, isValidating: action.payload.isValidating! }
-  }
-}
+      setFormIsValidating: (isValidating: boolean) =>
+        dispatch({
+          type: 'FORM/SET_IS_VALIDATING',
+          payload: { isValidating }
+        }),
 
-export const setFormData = (
-  state: FormStates,
-  action: FormActionPayload
-): FormStates => {
-  return {
-    ...state,
-    form: {
-      ...state.form,
-      data: {
-        ...state.form.data,
-        ...action.payload.data!
-      }
+      setFormData: <U extends keyof T>(name: U, value: T[U]) =>
+        dispatch({
+          type: 'FORM/SET_FORM_DATA',
+          payload: { data: { [name]: value } }
+        }),
+
+      setInputIsValid: <U extends keyof T>(name: U, isValid: boolean) =>
+        dispatch({
+          type: 'INPUT/SET_IS_VALID',
+          payload: { isValid: { [name]: isValid } }
+        }),
+
+      setInputIsTouched: <U extends keyof T>(name: U, isTouched: boolean) =>
+        dispatch({
+          type: 'INPUT/SET_IS_TOUCHED',
+          payload: { isTouched: { [name]: isTouched } }
+        }),
+
+      setInputIsFocused: <U extends keyof T>(name: U, isFocused: boolean) =>
+        dispatch({
+          type: 'INPUT/SET_IS_FOCUSED',
+          payload: { isFocused: { [name]: isFocused } }
+        }),
+
+      setInputValue: <U extends keyof T>(name: U, value: T[U]) =>
+        dispatch({
+          type: 'INPUT/SET_VALUE',
+          payload: { value: { [name]: value } }
+        }),
+
+      setInputError: <U extends keyof T>(name: U, error: Maybe<string>) =>
+        dispatch({
+          type: 'INPUT/SET_ERROR',
+          payload: { error: { [name]: error } }
+        }),
+
+      setInputCurrentType: <U extends keyof T>(
+        name: U,
+        currentType:
+        | 'number'
+        | 'email'
+        | 'password'
+        | 'text'
+        | 'search'
+        | 'textArea'
+      ) =>
+        dispatch({
+          type: 'INPUT/SET_CURRENT_TYPE',
+          payload: { currentType: { [name]: currentType } }
+        })
     }
   }
 }

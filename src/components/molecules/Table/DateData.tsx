@@ -5,11 +5,16 @@ type DateDataProps = {
   secondaryDate: string
 }
 
-export const DateData: React.FC<DateDataProps> = ({ primaryDate, secondaryDate }) => {
+export const DateData: React.FC<DateDataProps> = ({
+  primaryDate,
+  secondaryDate
+}) => {
   return (
-    <div className={classes.dateData} data-testid="table-date-data">
-      <span className={classes.dateDataTextPrimary}>{primaryDate}</span>
-      <span>{secondaryDate}</span>
-    </div>
+    <td className={classes.tableCell} data-testid="table-td">
+      <div className={classes.dateData} data-testid="table-date-data">
+        <span className={classes.dateDataTextPrimary}>{primaryDate}</span>
+        <span>{secondaryDate}</span>
+      </div>
+    </td>
   )
 }

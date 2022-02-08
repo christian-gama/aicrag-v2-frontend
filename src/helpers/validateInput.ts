@@ -1,20 +1,19 @@
 import { FormStates } from '@/context/models/form'
 
-export const validateInput = (config: {
-  state: FormStates
+type ValidationInput = {
   name: string
   value: any
-}) => {
-  const {
-    state: {
-      form: { validator, data }
-    },
-    value,
-    name
-  } = config
+  state: FormStates<any>
+}
 
-  return validator?.validate(name, {
+export const validateInput = ({
+  name,
+  value,
+  state: {
+    form: { validator, data }
+  }
+}: ValidationInput) =>
+  validator?.validate(name, {
     ...data,
     [name]: value
   })
-}

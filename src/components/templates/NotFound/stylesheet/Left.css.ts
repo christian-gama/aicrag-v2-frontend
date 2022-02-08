@@ -5,7 +5,7 @@ export const left = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundImage: vars.colors.gradient,
+  backgroundImage: vars.colors.gradient.primary,
   width: '50vw',
   height: '100vh',
 

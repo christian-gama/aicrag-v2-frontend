@@ -32,11 +32,12 @@ export const CalendarHeader: React.FC = () => {
 
   return (
     <div className={classes.calendarHeader} data-testid="calendar-header">
-      <ChevronIcon
+      <div
+        className={`${classes.calendarHeaderChevron} ${classes.calendarHeaderChevronLeft}`}
         onClick={handlePreviousMonth}
-        direction="left"
-        color="white"
-      />
+      >
+        <ChevronIcon direction="left" color="white" size="xsm" />
+      </div>
 
       <span
         className={classes.calendarHeaderDate}
@@ -48,7 +49,12 @@ export const CalendarHeader: React.FC = () => {
         )}
       </span>
 
-      <ChevronIcon color="white" direction="right" onClick={handleNextMonth} />
+      <div
+        className={`${classes.calendarHeaderChevron} ${classes.calendarHeaderChevronRight}`}
+        onClick={handleNextMonth}
+      >
+        <ChevronIcon size="xsm" color="white" direction="right" />
+      </div>
     </div>
   )
 }

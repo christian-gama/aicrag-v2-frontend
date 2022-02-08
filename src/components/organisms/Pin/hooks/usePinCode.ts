@@ -3,14 +3,8 @@ import {
   mailerCountdownActions
 } from '@/context/models/mailerCountdown'
 import { AppDispatch, RootState } from '@/context/store'
-import {
-  useActivateAccountMutation,
-  useSendWelcomeEmailMutation
-} from '@/external/graphql/generated'
-import { popoverVar, authVar } from '@/external/graphql/reactiveVars'
 import { Maybe } from '@/helpers'
 import { createFilledArray } from '@/helpers/createFilledArray'
-import { getUserByToken } from '@/services/token/getUserByToken'
 import { ApolloError } from '@apollo/client'
 import {
   ComponentPropsWithRef,
@@ -24,14 +18,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { PinCode } from '..'
 
 export const usePinCode = ({
-  setStepsHandler
+  setStepsHandler,
+  mailerHandler,
+  submitHandler,
+  error
 }: ComponentPropsWithRef<typeof PinCode>) => {
-  const [activateAccount, { error }] = useActivateAccountMutation()
-  const [sendWelcome] = useSendWelcomeEmailMutation()
   const [formState, setFormState] = useState({
     isLoading: {
-      activateAccount: false,
-      sendWelcome: false
+      submitHandler: false,
+      mailerHandler: false
     },
     isSubmitted: false
   })
@@ -103,39 +98,28 @@ export const usePinCode = ({
       isSubmitted: false,
       isLoading: {
         ...formStates.isLoading,
-        activateAccount: true
+        submitHandler: true
       }
     }))
 
     try {
-      await activateAccount({
-        variables: {
-          activationPin: values.join(''),
-          userId: getUserByToken('userId')
-        }
-      })
+      await submitHandler(values.join(''))
 
       setFormState((formStates) => ({
         isSubmitted: true,
         isLoading: {
           ...formStates.isLoading,
-          activateAccount: false
+          submitHandler: false
         }
       }))
       setStepsHandler((step) => step + 1)
       await new Promise((resolve) => setTimeout(resolve, 1500))
-
-      popoverVar.setPopover(
-        'Conta verificada com sucesso. Você foi redirecionado para a página inicial',
-        'success'
-      )
-      authVar.login()
     } catch (error: any) {
       setFormState((formStates) => ({
         isSubmitted: false,
         isLoading: {
           ...formStates.isLoading,
-          activateAccount: false
+          submitHandler: false
         }
       }))
       setInputError(error)
@@ -147,33 +131,24 @@ export const usePinCode = ({
       ...formStates,
       isLoading: {
         ...formStates.isLoading,
-        sendWelcome: true
+        mailerHandler: true
       }
     }))
 
     try {
-      await sendWelcome({
-        variables: {
-          email: getUserByToken('email')
-        }
-      })
+      await mailerHandler()
 
-      setFormState((formStates) => ({
-        ...formStates,
-        isLoading: {
-          ...formStates.isLoading,
-          sendWelcome: false
-        }
-      }))
       dispatch(startCountdown())
     } catch (error: any) {
+      /* istanbul ignore next */
       setFormState((formStates) => ({
         ...formStates,
         isLoading: {
           ...formStates.isLoading,
-          sendWelcome: false
+          mailerHandler: false
         }
       }))
+      /* istanbul ignore next */
       setInputError(error)
     }
   }
@@ -195,6 +170,18 @@ export const usePinCode = ({
       form.requestSubmit()
     }
   }, [values])
+
+  useEffect(() => {
+    if (isOnCountdown) {
+      setFormState((formStates) => ({
+        ...formStates,
+        isLoading: {
+          ...formStates.isLoading,
+          mailerHandler: false
+        }
+      }))
+    }
+  }, [isOnCountdown])
 
   const selectLastChar = ({
     currentTarget

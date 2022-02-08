@@ -5,7 +5,7 @@ import {
   FormInputActionPayload
 } from './protocols/form.model'
 
-export const initialFormState: FormStates = {
+export const initialFormState: FormStates<any> = {
   form: {
     isSubmitting: false,
     isValidating: false,
@@ -27,7 +27,7 @@ export const initialFormState: FormStates = {
 
 export const FormContext = React.createContext<{
   dispatch: (options: FormActionPayload | FormInputActionPayload) => void
-  state: FormStates
+  state: FormStates<any>
 }>({
       state: initialFormState,
       dispatch: (options) => {}

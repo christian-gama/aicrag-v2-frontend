@@ -1,6 +1,6 @@
-import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { FormContext } from '@/context/models/form'
+import { formatName } from '@/helpers'
+import { useForm } from '@/context/models/form'
 import { Button } from '@/components/atoms/Button'
 import { ControlForm, ControlInput } from '@/components/organisms/Control'
 import { Link } from '@/components/utils/texts/Link'
@@ -13,7 +13,7 @@ export const SignIn: React.FC = () => {
   const navigate = useNavigate()
   const [login, { data }] = useLoginMutation()
 
-  const { state } = useContext(FormContext)
+  const { state } = useForm<{ email: string, password: string }>()
   const onSubmitHandler = async () => {
     const { data } = await login({
       variables: {
@@ -22,9 +22,9 @@ export const SignIn: React.FC = () => {
       }
     })
 
-    const typename = data?.login?.__typename
-    if (typename === 'ActiveAccount') {
-      return authVar.login
+    const loginData = data?.login
+    if (loginData?.__typename === 'ActiveAccount') {
+      return () => authVar.login(loginData.user)
     }
 
     authVar.partialLogin()
@@ -36,7 +36,9 @@ export const SignIn: React.FC = () => {
       <ControlForm
         successMessage={
           data?.login?.__typename === 'ActiveAccount'
-            ? `Boas-vindas, ${data.login.user.personal.name}! Seu login foi efetuado com sucesso`
+            ? `Boas-vindas, ${formatName(
+                data.login.user.personal.name
+              )}! Seu login foi efetuado com sucesso`
             : undefined
         }
         submitHandler={onSubmitHandler}
@@ -51,6 +53,7 @@ export const SignIn: React.FC = () => {
               name="email"
               type="email"
               autoFocus
+              required
             />
 
             <ControlInput
@@ -58,6 +61,7 @@ export const SignIn: React.FC = () => {
               label="Sua senha"
               name="password"
               type="password"
+              required
             />
           </div>
 

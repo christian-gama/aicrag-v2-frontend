@@ -1,3 +1,4 @@
+import { ApolloError } from '@apollo/client'
 import { Dispatch, SetStateAction } from 'react'
 import { Button } from '@/components/atoms/Button'
 import { ProgressBar } from '@/components/atoms/ProgressBar'
@@ -6,8 +7,16 @@ import * as classes from './stylesheet'
 
 type PinCodeProps = {
   setStepsHandler: Dispatch<SetStateAction<number>>
+  submitHandler: (pin: string) => Promise<void>
+  mailerHandler: () => Promise<void>
+  error?: ApolloError
 }
-export const PinCode: React.FC<PinCodeProps> = ({ setStepsHandler }) => {
+export const PinCode: React.FC<PinCodeProps> = ({
+  setStepsHandler,
+  submitHandler,
+  mailerHandler,
+  error
+}) => {
   const {
     resendEmailHandler,
     onKeyPressHandler,
@@ -19,7 +28,7 @@ export const PinCode: React.FC<PinCodeProps> = ({ setStepsHandler }) => {
     inputError,
     formState,
     values
-  } = usePinCode({ setStepsHandler })
+  } = usePinCode({ setStepsHandler, submitHandler, mailerHandler, error })
 
   const pinInputClass = classes.pinInput({
     state: inputError ? 'error' : 'default'
@@ -54,9 +63,9 @@ export const PinCode: React.FC<PinCodeProps> = ({ setStepsHandler }) => {
           disabled={
             isOnCountdown ||
             formState.isSubmitted ||
-            formState.isLoading.activateAccount
+            formState.isLoading.submitHandler
           }
-          loading={formState.isLoading.sendWelcome}
+          loading={formState.isLoading.mailerHandler}
           onClick={resendEmailHandler}
           style={{ size: 'lg' }}
         >
@@ -64,7 +73,7 @@ export const PinCode: React.FC<PinCodeProps> = ({ setStepsHandler }) => {
         </Button>
       </form>
 
-      <ProgressBar loading={formState.isLoading.activateAccount} />
+      <ProgressBar loading={formState.isLoading.submitHandler} />
     </>
   )
 }

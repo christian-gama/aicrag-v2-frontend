@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "main": "index.js",
   "author": "Christian Gama <christiangama.dev@gmail.com>",
   "license": "MIT",

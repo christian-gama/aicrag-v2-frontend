@@ -1,6 +1,36 @@
 export const breakpoints = {
-  mobile: 'screen and (max-width: 520px)',
-  tablet: 'screen and (max-width: 820px)',
-  desktop: 'screen and (max-width: 1024px)',
-  widescreen: 'screen and (max-width: 1366px)'
+  /**
+   * @maxWidth 350px
+   */
+  smallestMobile: 'only screen and (max-width: 350px)',
+
+  /**
+   * @maxWidth 400px
+   */
+  smallMobile: 'only screen and (max-width: 400px)',
+
+  /**
+   * @maxWidth 520px
+   */
+  mobile: 'only screen and (max-width: 520px)',
+
+  /**
+   * @maxWidth 820px
+   */
+  tablet: 'only screen and (max-width: 820px)',
+
+  /**
+   * @maxWidth 920px
+   */
+  largeTablet: 'only screen and (max-width: 920px)',
+
+  /**
+   * @maxWidth 1024px
+   */
+  desktop: 'only screen and (max-width: 1024px)',
+
+  /**
+   * @maxWidth 1366px
+   */
+  widescreen: 'only screen and (max-width: 1366px)'
 }

@@ -1,4 +1,5 @@
 import { Table } from './Table'
+import { TPagination } from './TablePagination'
 import { Tbody } from './Tbody'
 import { Td } from './Td'
 import { Th } from './Th'
@@ -11,5 +12,6 @@ export default {
   Th,
   Tr,
   Tbody,
-  Td
+  Td,
+  TPagination
 }

@@ -1,4 +1,5 @@
-import { DateTime, Settings } from 'luxon'
+import { MockDate } from '@/tests/helpers'
+import { DateTime } from 'luxon'
 import { MailerCountdownStorage } from '..'
 
 const makeSut = () => {
@@ -6,17 +7,24 @@ const makeSut = () => {
 }
 
 describe('mailerCountdownStoragepec', () => {
+  const mockDate = new MockDate(2021, 6, 1, 23, 0)
+
+  afterEach(() => {
+    mockDate.reset()
+  })
+
+  beforeEach(() => {
+    mockDate.mock()
+  })
+
   it('returns null if no expire date is stored', () => {
     const sut = makeSut()
-
     const expireDate = sut.get()
 
     expect(expireDate).toBeNull()
   })
 
   it('returns an expire date if it is stored', () => {
-    const expectedNow = DateTime.local(2021, 6, 1, 23, 0, 0)
-    Settings.now = () => expectedNow.toMillis()
     const sut = makeSut()
     const timeLeftInSeconds = '60'
     sut.set(timeLeftInSeconds)

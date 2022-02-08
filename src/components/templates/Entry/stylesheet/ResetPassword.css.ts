@@ -1,21 +1,6 @@
 import { style } from '@vanilla-extract/css'
 import { breakpoints } from '@/components/_settings'
 
-export const resetPasswordHeader = style({
-  alignItems: 'center',
-  display: 'flex',
-  height: '14rem',
-  justifyContent: 'center',
-  padding: '0 4rem',
-
-  '@media': {
-    [breakpoints.mobile]: {
-      height: '12rem',
-      padding: '0 0.8rem'
-    }
-  }
-})
-
 export const resetPassword = style({
   display: 'flex',
   flexDirection: 'column',

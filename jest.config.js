@@ -12,7 +12,6 @@ module.exports = {
   ],
   coverageDirectory: 'coverage',
   maxWorkers: '75%',
-  resetMocks: true,
   roots: ['<rootDir>/src'],
   setupFilesAfterEnv: ['<rootDir>/tests/config/setupFilesAfterEnv.ts'],
   testEnvironment: 'jsdom',

@@ -7,7 +7,7 @@ export const calendarFooter = style({
   justifyContent: 'space-between',
   borderRadius: '0 0 5px 5px',
   backgroundColor: vars.colors['gray-50'],
-  padding: '1.8rem',
+  padding: '2.8rem 2rem',
   width: '100%',
 
   '@media': {

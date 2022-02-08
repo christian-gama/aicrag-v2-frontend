@@ -163,7 +163,9 @@ enum GetAllInvoicesType {
 }
 
 type GetAuthentication {
+  accessToken: JWT
   authentication: String!
+  refreshToken: JWT
 }
 
 type GetInvoiceByMonth {

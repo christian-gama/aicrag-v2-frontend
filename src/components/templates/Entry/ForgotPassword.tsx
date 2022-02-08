@@ -1,17 +1,13 @@
-import { useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { FormContext } from '@/context/models/form'
+import { useForm } from '@/context/models/form'
 import {
   mailerCountdownActions,
   MailerCountdownStates
 } from '@/context/models/mailerCountdown'
 import { AppDispatch, RootState } from '@/context/store'
 import { Button } from '@/components/atoms/Button'
+import { NavHeader } from '@/components/molecules/NavHeader'
 import { ControlForm, ControlInput } from '@/components/organisms/Control'
-import { Divider } from '@/components/utils/Divider'
-import { BackIcon } from '@/components/utils/icons'
-import { H3 } from '@/components/utils/texts/H3'
 import { makeForgotPasswordValidator } from '@/external/factories/validation'
 import {
   useForgotPasswordMutation,
@@ -30,7 +26,7 @@ export const ForgotPassword: React.FC = () => {
   const [forgotPassword] = useForgotPasswordMutation()
   const [sendRecoverPasswordEmail] = useSendRecoverPasswordEmailMutation()
 
-  const { state } = useContext(FormContext)
+  const { state } = useForm<{ email: string }>()
   const onSubmitHandler = async () => {
     await forgotPassword({
       variables: { email: state.form.data.email }
@@ -47,19 +43,7 @@ export const ForgotPassword: React.FC = () => {
 
   return (
     <>
-      <header className={classes.forgotPasswordHeader}>
-        <nav>
-          <Link to="/entry/sign-in" aria-label="Voltar">
-            <BackIcon />
-          </Link>
-        </nav>
-
-        <div>
-          <H3>Esqueceu sua senha?</H3>
-        </div>
-      </header>
-
-      <Divider />
+      <NavHeader to="/entry/sign-in" title="Esqueceu sua senha?" />
 
       <main>
         <ControlForm
@@ -75,6 +59,7 @@ export const ForgotPassword: React.FC = () => {
                 name="email"
                 type="email"
                 autoFocus
+                required
               />
             </div>
 

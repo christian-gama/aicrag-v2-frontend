@@ -2,14 +2,14 @@ import { ComponentMeta, ComponentStoryObj } from '@storybook/react'
 import { BaseInput } from './BaseInput'
 
 export default {
-  title: 'atoms/Base Input',
+  title: 'atoms/Inputs/Base Input',
   component: BaseInput,
   args: {
     type: 'text'
   },
   argTypes: {
     type: {
-      options: ['text', 'email', 'password', 'number', 'search'],
+      options: ['text', 'email', 'password', 'number', 'search', 'textArea'],
       control: { type: 'select' }
     },
     error: {

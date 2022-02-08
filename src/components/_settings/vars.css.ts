@@ -1,10 +1,10 @@
 import { createGlobalTheme } from '@vanilla-extract/css'
 
 const shadow = {
-  xsm: '0px 2px 4px rgba(0, 0, 0, 0.15)',
-  sm: '0px 5px 10px rgba(0, 0, 0, 0.15)',
-  md: '0px 12px 25px rgba(0, 0, 0, 0.075)',
-  lg: '0px 10px 30px rgba(0, 0, 0, 0.175)'
+  xsm: '0px 2px 4px rgba(0, 0, 0, 0.2)',
+  sm: '0px 5px 10px rgba(0, 0, 0, 0.2)',
+  md: '0px 12px 25px rgba(0, 0, 0, 0.1)',
+  lg: '0px 10px 30px rgba(0, 0, 0, 0.3)'
 }
 
 const font = {
@@ -140,7 +140,10 @@ const colors = {
   'warning-800': '#FF7B00',
   'warning-900': '#FF6A00',
 
-  gradient: 'linear-gradient(to bottom right, #0c7580 0%, #03112a 100%)'
+  gradient: {
+    primary: 'linear-gradient(to bottom right, #0c7580 0%, #03112a 100%)',
+    gray: 'linear-gradient(to bottom right, #f5f6f6 0%, #e6e8e9 100%)'
+  }
 }
 
 export const vars = createGlobalTheme(':root', {

@@ -1,12 +1,10 @@
-import { useContext } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { FormContext } from '@/context/models/form'
+import { useForm } from '@/context/models/form'
 import { Button } from '@/components/atoms/Button'
+import { NavHeader } from '@/components/molecules/NavHeader'
 import { ControlForm, ControlInput } from '@/components/organisms/Control'
 import { Center } from '@/components/utils/Center'
-import { Divider } from '@/components/utils/Divider'
 import { LoadingSpinnerIcon } from '@/components/utils/icons'
-import { H3 } from '@/components/utils/texts/H3'
 import { makeResetPasswordValidation } from '@/external/factories/validation'
 import {
   useResetPasswordMutation,
@@ -18,7 +16,8 @@ import * as classes from './stylesheet'
 export const ResetPassword: React.FC = () => {
   const { token } = useParams()
   const navigate = useNavigate()
-  const { state } = useContext(FormContext)
+  const { state } =
+    useForm<{ password: string, passwordConfirmation: string }>()
   const [resetPassword] = useResetPasswordMutation()
   const { error, loading } = useVerifyResetPasswordTokenQuery({
     variables: {
@@ -41,7 +40,7 @@ export const ResetPassword: React.FC = () => {
   }
 
   const submitHandler = async () => {
-    await resetPassword({
+    const { data } = await resetPassword({
       variables: {
         password: state.form.data.password,
         passwordConfirmation: state.form.data.passwordConfirmation
@@ -51,19 +50,13 @@ export const ResetPassword: React.FC = () => {
     return () => {
       navigate('/')
 
-      authVar.login()
+      authVar.login(data!.resetPassword.user)
     }
   }
 
   return (
     <>
-      <header className={classes.resetPasswordHeader}>
-        <div>
-          <H3>Resete a sua senha</H3>
-        </div>
-      </header>
-
-      <Divider />
+      <NavHeader to="/" title="Resete a sua senha" />
 
       <main>
         <div data-testid="reset-password">
@@ -80,6 +73,7 @@ export const ResetPassword: React.FC = () => {
                   label="Nova senha"
                   name="password"
                   type="password"
+                  required
                 />
 
                 <ControlInput
@@ -87,6 +81,7 @@ export const ResetPassword: React.FC = () => {
                   autoComplete="new-password"
                   name="passwordConfirmation"
                   type="password"
+                  required
                 />
               </div>
 

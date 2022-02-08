@@ -9,4 +9,4 @@ export const userFragmentMock = {
       currency: 'BRL'
     }
   }
-} as const
+}

@@ -1,4 +1,3 @@
-import { Card } from '@/components/atoms/Card'
 import { Backdrop } from '@/components/utils/Backdrop'
 import { ModalRecipeVariants } from './stylesheet'
 import * as classes from './stylesheet'
@@ -22,7 +21,7 @@ export const Modal: React.FC<ModalProps> = ({
   return (
     <Backdrop isOpen={isOpen} onDismiss={onDismiss}>
       <div className={modalStyle} data-testid="modal">
-        <Card>{children}</Card>
+        {children}
       </div>
     </Backdrop>
   )

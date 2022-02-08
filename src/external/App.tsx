@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { getUserByToken } from '@/services/token/getUserByToken'
 import { useMailerCountdown } from '@/components/_hooks'
 import { Popover } from '@/components/molecules/Popover'
 import { Center } from '@/components/utils/Center'
@@ -10,6 +11,7 @@ import { Router } from './routes'
 export const App = () => {
   const { isOpen, message, type } = usePopoverVar()
   const { loading, data } = useGetAuthenticationQuery()
+  useMailerCountdown()
 
   useEffect(() => {
     if (data?.getAuthentication.authentication === 'none') {
@@ -21,11 +23,18 @@ export const App = () => {
     }
 
     if (data?.getAuthentication.authentication === 'protected') {
-      authVar.login()
+      authVar.login({
+        personal: {
+          email: getUserByToken('email')!,
+          id: getUserByToken('userId')!,
+          name: getUserByToken('name')!
+        },
+        settings: {
+          currency: getUserByToken('currency')!
+        }
+      })
     }
   }, [data])
-
-  useMailerCountdown()
 
   if (loading) {
     return (

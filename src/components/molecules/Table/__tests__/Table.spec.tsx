@@ -10,26 +10,26 @@ import { Tr } from '../Tr'
 
 const renderTable = (props?: ComponentPropsWithRef<typeof Table>) => {
   return render(
-    <Table {...props}>
-      <Thead>
-        <Tr>
-          <Th>Header 1</Th>
-        </Tr>
-      </Thead>
+    <div>
+      <Table {...props}>
+        <Thead>
+          <Tr>
+            <Th>Header 1</Th>
+          </Tr>
+        </Thead>
 
-      <Tbody>
-        <Tr>
-          <Td>Cell 1</Td>
-        </Tr>
-        <Tr>
-          <Td>
+        <Tbody>
+          <Tr>
+            <Td>Cell 1</Td>
+          </Tr>
+          <Tr>
             <DateData primaryDate="12" secondaryDate="2020">
               Cell 1
             </DateData>
-          </Td>
-        </Tr>
-      </Tbody>
-    </Table>
+          </Tr>
+        </Tbody>
+      </Table>
+    </div>
   )
 }
 
@@ -39,13 +39,17 @@ describe('Table', () => {
   })
 
   it('renders correctly', () => {
-    renderTable()
+    renderTable({
+      pagination: <div data-testid="pagination" />,
+      showingUp: { current: 1, total: 1 }
+    })
     const table = screen.getByTestId('table')
     const thead = screen.getByTestId('table-thead')
     const tbody = screen.getByTestId('table-tbody')
     const trs = screen.getAllByTestId('table-tr')
     const th = screen.getByTestId('table-th')
     const tds = screen.getAllByTestId('table-td')
+    const pagination = screen.getByTestId('pagination')
 
     expect(table).toBeInTheDocument()
     expect(thead).toBeInTheDocument()
@@ -55,13 +59,13 @@ describe('Table', () => {
     expect(th).toBeInTheDocument()
     expect(tds[0]).toBeInTheDocument()
     expect(tds[1]).toBeInTheDocument()
+    expect(pagination).toBeInTheDocument()
   })
 
-  it('displays the correct showing up count', () => {
-    renderTable({ showingUp: { current: 1, total: 10 } })
-    const showingUp = screen.getByTestId('table-showing-up')
+  it('does not render pagination', () => {
+    renderTable()
+    const pagination = screen.queryByTestId('pagination')
 
-    expect(showingUp).toBeInTheDocument()
-    expect(showingUp.textContent).toBe('Mostrando 1 de 10')
+    expect(pagination).not.toBeInTheDocument()
   })
 })

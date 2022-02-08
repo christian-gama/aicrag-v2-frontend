@@ -1,6 +1,5 @@
-import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { FormContext } from '@/context/models/form'
+import { useForm } from '@/context/models/form'
 import { Button } from '@/components/atoms/Button'
 import { ControlForm, ControlInput } from '@/components/organisms/Control'
 import { makeSignUpValidator } from '@/external/factories/validation'
@@ -16,7 +15,12 @@ export const SignUp: React.FC = () => {
   const [signUp] = useSignUpMutation()
   const [sendWelcomeEmail] = useSendWelcomeEmailMutation()
 
-  const { state } = useContext(FormContext)
+  const { state } = useForm<{
+    passwordConfirmation: string
+    password: string
+    email: string
+    name: string
+  }>()
 
   const onSubmitHandler = async () => {
     await signUp({
@@ -49,11 +53,12 @@ export const SignUp: React.FC = () => {
         <div className={classes.signUp}>
           <div className={classes.signUpInputWrapper}>
             <ControlInput
+              autoComplete="name"
               label="Seu nome"
               name="name"
               type="text"
               autoFocus
-              autoComplete="name"
+              required
             />
 
             <ControlInput
@@ -61,6 +66,7 @@ export const SignUp: React.FC = () => {
               label="Seu email"
               name="email"
               type="email"
+              required
             />
 
             <ControlInput
@@ -68,6 +74,7 @@ export const SignUp: React.FC = () => {
               label="Sua senha"
               name="password"
               type="password"
+              required
             />
 
             <ControlInput
@@ -75,6 +82,7 @@ export const SignUp: React.FC = () => {
               autoComplete="new-password"
               label="Confirme sua senha"
               type="password"
+              required
             />
           </div>
 

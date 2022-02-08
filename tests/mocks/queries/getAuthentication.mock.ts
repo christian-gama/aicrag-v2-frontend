@@ -1,5 +1,6 @@
 import { MockedResponse } from '@apollo/client/testing'
 import { GetAuthenticationDocument } from '@/external/graphql/generated'
+import { mockVariables } from '..'
 
 export const getAuthenticationMock = (
   authentication: 'partial' | 'protected' | 'none' = 'none',
@@ -11,6 +12,8 @@ export const getAuthenticationMock = (
   result: {
     data: {
       getAuthentication: {
+        refreshToken: mockVariables.token,
+        accessToken: mockVariables.token,
         authentication
       }
     }

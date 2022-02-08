@@ -34,6 +34,29 @@ const inputHasIconVariants = styleVariants({
   }
 })
 
+const textAreaVariants = styleVariants({
+  true: {
+    resize: 'none',
+    height: '10rem',
+
+    '@media': {
+      [breakpoints.tablet]: {
+        height: '13rem'
+      }
+    }
+  },
+
+  false: {
+    height: '4.8rem',
+
+    '@media': {
+      [breakpoints.tablet]: {
+        height: '4.4rem'
+      }
+    }
+  }
+})
+
 const labelFloatVariants = styleVariants({
   true: {
     top: '0',
@@ -108,7 +131,6 @@ export const inputRecipe = recipe({
     width: '100%',
     minWidth: '100%',
     maxWidth: '100%',
-    height: '4.8rem',
     color: vars.colors.text.default,
     fontFamily: vars.font.p.fontFamily,
     fontSize: vars.font.p.fontSize,
@@ -121,18 +143,13 @@ export const inputRecipe = recipe({
       '&:autofill': {
         background: vars.colors.white
       }
-    },
-
-    '@media': {
-      [breakpoints.mobile]: {
-        height: '4.4rem'
-      }
     }
   },
 
   variants: {
     state: inputStateVariants,
-    hasIcon: inputHasIconVariants
+    hasIcon: inputHasIconVariants,
+    textArea: textAreaVariants
   }
 })
 

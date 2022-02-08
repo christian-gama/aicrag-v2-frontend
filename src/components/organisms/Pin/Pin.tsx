@@ -1,16 +1,14 @@
+import { ApolloError } from '@apollo/client'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { useWindowDimensions } from '@/components/_hooks'
 import { windowHeightVars } from '@/components/_settings'
 import { Background } from '@/components/atoms/Background'
 import { Card } from '@/components/atoms/Card'
 import { Steps } from '@/components/atoms/Steps'
 import { Modal } from '@/components/molecules/Modal'
+import { NavHeader } from '@/components/molecules/NavHeader'
 import { Center } from '@/components/utils/Center'
-import { Divider } from '@/components/utils/Divider'
-import { BackIcon } from '@/components/utils/icons'
-import { H2 } from '@/components/utils/texts/H2'
 import { P } from '@/components/utils/texts/P'
 import { PinCode } from './PinCode'
 import * as classes from './stylesheet'
@@ -18,20 +16,33 @@ import * as classes from './stylesheet'
 type PinProps = (
   | {
     isPage: true
-    to: string
+    to?: string
   }
   | {
-    isPage: false
+    isPage?: false
     isOpen: boolean
   }
 ) & {
+  submitHandler: (pin: string) => Promise<void>
+  mailerHandler: () => Promise<void>
   currentStep?: number
+  stepName: string
+  error?: ApolloError
+  dismissHandler?: () => void
 }
 
 export const Pin: React.FC<PinProps> = (props) => {
   const { height, width } = useWindowDimensions()
   const [isOpen, setIsOpen] = useState(props.isPage ? undefined : props.isOpen)
   const [currentStep, setCurrentStep] = useState(props.currentStep!)
+
+  useEffect(() => {
+    setIsOpen(props.isPage ? undefined : props.isOpen)
+  }, [props.isPage, (props as any).isOpen])
+
+  useEffect(() => {
+    if (!isOpen) props.dismissHandler?.()
+  }, [isOpen])
 
   useEffect(() => {
     setCurrentStep(1)
@@ -42,7 +53,7 @@ export const Pin: React.FC<PinProps> = (props) => {
   const Wrapper = props.isPage ? Background : Modal
 
   return (
-    <Wrapper gradient isOpen>
+    <Wrapper gradient isOpen onDismiss={props.dismissHandler}>
       <Center>
         <Card roundness={width <= 520 ? 'none' : 'md'}>
           <div
@@ -52,20 +63,11 @@ export const Pin: React.FC<PinProps> = (props) => {
             className={classes.pin}
             data-testid="pin"
           >
-            <div className={classes.pinHeader}>
-              <div
-                onClick={props.isPage ? undefined : () => setIsOpen(false)}
-                data-testid="pin-back"
-              >
-                <Link to={props.isPage ? props.to : ''} aria-label="Voltar">
-                  <BackIcon />
-                </Link>
-              </div>
-
-              <H2>Confirme o seu email</H2>
-            </div>
-
-            <Divider />
+            <NavHeader
+              backHandler={props.isPage ? undefined : () => setIsOpen(false)}
+              to={props.isPage ? props.to : ''}
+              title="Confirme o seu email"
+            />
 
             <div className={classes.pinContentWrapper}>
               <div className={classes.pinContentMain}>
@@ -74,7 +76,7 @@ export const Pin: React.FC<PinProps> = (props) => {
                     direction={width <= 520 ? 'row' : 'column'}
                     gap={width <= 520 ? '14rem' : '7.2rem'}
                     steps={[
-                      { check: currentStep >= 1, label: 'Criar conta' },
+                      { check: currentStep >= 1, label: props.stepName },
                       { check: currentStep >= 2, label: 'Confirmar email' }
                     ]}
                   />
@@ -88,7 +90,12 @@ export const Pin: React.FC<PinProps> = (props) => {
                 </div>
               </div>
 
-              <PinCode setStepsHandler={setCurrentStep} />
+              <PinCode
+                submitHandler={props.submitHandler}
+                mailerHandler={props.mailerHandler}
+                setStepsHandler={setCurrentStep}
+                error={props.error}
+              />
             </div>
           </div>
         </Card>

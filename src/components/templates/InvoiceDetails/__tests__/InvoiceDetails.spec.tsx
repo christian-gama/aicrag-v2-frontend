@@ -1,0 +1,160 @@
+import { authVar, popoverVar } from '@/external/graphql/reactiveVars'
+import { OverlayRoot, renderWithProviders, waitFetch } from '@/tests/helpers'
+import { mockVariables } from '@/tests/mocks'
+import { taskFragmentMock } from '@/tests/mocks/fragments'
+import { deleteTaskMock, getInvoiceByMonthMock } from '@/tests/mocks/queries'
+import { cleanup, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { InvoiceDetails } from '..'
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: () => ({
+    month: 1,
+    year: 2022
+  })
+}))
+
+describe('InvoiceDetails', () => {
+  const setCurrency = (currency: 'BRL' | 'USD') =>
+    authVar.setUser({
+      personal: {
+        email: mockVariables.email,
+        id: mockVariables.uuid,
+        name: mockVariables.name
+      },
+      settings: {
+        currency
+      }
+    })
+  const overlayRoot = new OverlayRoot()
+
+  afterEach(() => {
+    cleanup()
+    overlayRoot.removeOverlayRoot()
+    authVar.logout()
+  })
+
+  beforeEach(() => {
+    overlayRoot.addOverlayRoot()
+    setCurrency('BRL')
+  })
+
+  it('renders correctly', async () => {
+    renderWithProviders(<InvoiceDetails />, {
+      apolloMocks: [getInvoiceByMonthMock()]
+    })
+    await waitFetch()
+    const invoiceDetails = screen.getByTestId('invoice-details')
+
+    expect(invoiceDetails).toBeInTheDocument()
+  })
+
+  it('renders null if does not receive data', async () => {
+    renderWithProviders(<InvoiceDetails />, {
+      apolloMocks: [getInvoiceByMonthMock(new Error())]
+    })
+    await waitFetch()
+    const invoiceDetails = screen.queryByTestId('invoice-details')
+
+    expect(invoiceDetails).not.toBeInTheDocument()
+  })
+
+  it('renders the correct value if currency is equal to USD', async () => {
+    setCurrency('USD')
+    renderWithProviders(<InvoiceDetails />, {
+      apolloMocks: [getInvoiceByMonthMock()]
+    })
+    await waitFetch()
+    const invoiceDetails = screen.getAllByText(/^\$ 32.5$/)[0]
+
+    expect(invoiceDetails).toBeInTheDocument()
+  })
+
+  it('renders the correct value if currency is equal to BRL', async () => {
+    renderWithProviders(<InvoiceDetails />, {
+      apolloMocks: [getInvoiceByMonthMock()]
+    })
+    await waitFetch()
+    const invoiceDetails = screen.getAllByText(/^R\$ 162.5$/)[0]
+
+    expect(invoiceDetails).toBeInTheDocument()
+  })
+
+  it('renders task id with -- if there is no task id', async () => {
+    renderWithProviders(<InvoiceDetails />, {
+      apolloMocks: [
+        {
+          ...getInvoiceByMonthMock(),
+          result: {
+            data: {
+              getInvoiceByMonth: {
+                count: 1,
+                displaying: 1,
+                page: '1 of 1',
+                documents: [
+                  {
+                    ...taskFragmentMock.task,
+                    taskId: ''
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    })
+    await waitFetch()
+    const invoiceDetails = screen.getAllByText(/^--$/)[0]
+
+    expect(invoiceDetails).toBeInTheDocument()
+  })
+
+  it('deletes the task', async () => {
+    const popoverSpy = jest.spyOn(popoverVar, 'setPopover')
+    renderWithProviders(<InvoiceDetails />, {
+      apolloMocks: [
+        getInvoiceByMonthMock(),
+        deleteTaskMock({ id: mockVariables.uuid })
+      ]
+    })
+    await waitFetch()
+    const deleteButton = screen.getAllByTestId('trash-icon')[0]
+    const deleteAction = () => screen.getByTestId('alert-action-button')
+
+    userEvent.click(deleteButton)
+    userEvent.click(deleteAction())
+    await waitFetch()
+
+    expect(popoverSpy).toHaveBeenCalled()
+  })
+
+  it('closes the Alert when clicking on cancel', async () => {
+    renderWithProviders(<InvoiceDetails />, {
+      apolloMocks: [getInvoiceByMonthMock(), deleteTaskMock()]
+    })
+    await waitFetch()
+    const deleteButton = screen.getAllByTestId('trash-icon')[0]
+    const cancelAction = () => screen.getByTestId('alert-cancel-button')
+    const alert = () => screen.queryByTestId('alert')
+
+    userEvent.click(deleteButton)
+    userEvent.click(cancelAction())
+    await waitFetch()
+
+    expect(alert()).not.toBeInTheDocument()
+  })
+
+  it('changes to the next page when click on nextPage', async () => {
+    renderWithProviders(<InvoiceDetails />, {
+      apolloMocks: [getInvoiceByMonthMock()]
+    })
+    await waitFetch()
+    const nextPage = screen.getByTestId('pagination-action-next')
+
+    userEvent.click(nextPage)
+    await waitFetch()
+
+    expect(nextPage).not.toBeInTheDocument()
+  })
+})

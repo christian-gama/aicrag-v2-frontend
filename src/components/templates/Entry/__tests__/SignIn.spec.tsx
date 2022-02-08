@@ -12,6 +12,7 @@ describe('SignIn', () => {
   afterEach(() => {
     cleanup()
     overlayRoot.removeOverlayRoot()
+    jest.restoreAllMocks()
   })
 
   beforeEach(() => {

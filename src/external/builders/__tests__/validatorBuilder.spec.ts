@@ -7,7 +7,8 @@ import {
   MinLengthValidator,
   RequiredFieldValidator,
   CompareFieldsValidator,
-  Regex
+  Regex,
+  TestValidator
 } from '@/services/validators'
 import { ValidatorBuilder } from '..'
 
@@ -19,6 +20,10 @@ describe('ValidatorBuilder', () => {
   })
 
   it('returns an array including all chained methods', () => {
+    const fn = (field: string, input: Record<string, any>) => {
+      return undefined
+    }
+
     const result = ValidatorBuilder.field('any_field')
       .isEmail()
       .isNumber()
@@ -29,6 +34,7 @@ describe('ValidatorBuilder', () => {
       .required()
       .sameAs('another_field')
       .regex(/^[a-z]$/)
+      .test(fn)
       .build()
 
     expect(result).toStrictEqual([
@@ -40,7 +46,8 @@ describe('ValidatorBuilder', () => {
       new MinLengthValidator('any_field', 1),
       new RequiredFieldValidator('any_field'),
       new CompareFieldsValidator('any_field', 'another_field'),
-      new Regex('any_field', /^[a-z]$/)
+      new Regex('any_field', /^[a-z]$/),
+      new TestValidator('any_field', fn)
     ])
   })
 })

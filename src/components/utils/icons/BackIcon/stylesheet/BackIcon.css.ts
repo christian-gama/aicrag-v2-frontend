@@ -36,7 +36,7 @@ const sizeVariants = styleVariants({
 
     '@media': {
       [breakpoints.mobile]: {
-        width: '3.6rem'
+        width: '4rem'
       }
     }
   }

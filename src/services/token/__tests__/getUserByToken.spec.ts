@@ -9,7 +9,7 @@ describe('getUserIdByToken', () => {
 
     const userId = getUserByToken('userId')
 
-    expect(userId).toBe(mockVariables.userId)
+    expect(userId).toBe(mockVariables.uuid)
   })
 
   it('returns null if accessToken is null', () => {

@@ -1,4 +1,18 @@
-import { IFieldValidation, RequiredFieldValidator, EmailValidator, MinValidator, Regex, MaxValidator, MinLengthValidator, MaxLengthValidator, IsNumberValidator, CompareFieldsValidator } from '@/services/validators'
+import { Maybe } from '@/helpers'
+import { InvalidFieldError } from '@/services/errors'
+import {
+  IFieldValidation,
+  RequiredFieldValidator,
+  EmailValidator,
+  MinValidator,
+  Regex,
+  MaxValidator,
+  MinLengthValidator,
+  MaxLengthValidator,
+  IsNumberValidator,
+  CompareFieldsValidator,
+  TestValidator
+} from '@/services/validators'
 
 export class ValidatorBuilder {
   private constructor (
@@ -60,6 +74,14 @@ export class ValidatorBuilder {
 
   sameAs (field: string): ValidatorBuilder {
     this.validations.push(new CompareFieldsValidator(this.field, field))
+
+    return this
+  }
+
+  test (
+    fn: (field: string, input: Record<string, any>) => Maybe<InvalidFieldError>
+  ): ValidatorBuilder {
+    this.validations.push(new TestValidator(this.field, fn))
 
     return this
   }

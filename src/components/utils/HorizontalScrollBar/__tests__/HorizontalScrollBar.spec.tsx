@@ -7,7 +7,11 @@ describe('HorizontalScrollBar ', () => {
   })
 
   it('renders correctly', () => {
-    render(<HorizontalScrollBar />)
+    render(
+      <HorizontalScrollBar
+        breakpoints={{ default: '100%', desktop: '100%', widescreen: '100%' }}
+      />
+    )
     const horizontalScrollBar = screen.getByTestId('horizontal-scroll-bar')
 
     expect(horizontalScrollBar).toBeInTheDocument()

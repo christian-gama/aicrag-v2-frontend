@@ -6,9 +6,16 @@ import {
   waitFor
 } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { DateTime } from 'luxon'
 import { popoverVar } from '@/external/graphql/reactiveVars'
-import { OverlayRoot, renderWithProviders } from '@/tests/helpers'
-import { ControlForm, ControlInput } from '..'
+import { MockDate, OverlayRoot, renderWithProviders } from '@/tests/helpers'
+import {
+  ControlDateInput,
+  ControlForm,
+  ControlInput,
+  ControlRadioInput,
+  ControlSelectInput
+} from '..'
 import { makeMockValidation } from '@/tests/mocks'
 
 describe('Control', () => {
@@ -17,6 +24,7 @@ describe('Control', () => {
   afterEach(() => {
     cleanup()
     overlayRoot.removeOverlayRoot()
+    jest.restoreAllMocks()
   })
 
   beforeEach(() => {
@@ -188,7 +196,7 @@ describe('Control', () => {
     })
   })
 
-  describe('Input', () => {
+  describe('ControlInput', () => {
     it('starts as readOnly', () => {
       renderWithProviders(
         <ControlForm submitHandler={jest.fn()}>
@@ -252,7 +260,7 @@ describe('Control', () => {
     })
 
     describe('when triggers onBlur', () => {
-      it('has an error state if value is invalid', () => {
+      it("has an error state if value is invalid and it's required", () => {
         renderWithProviders(
           <ControlForm
             submitHandler={jest.fn()}
@@ -260,7 +268,7 @@ describe('Control', () => {
               jest.fn().mockReturnValue('any_error')
             )}
           >
-            <ControlInput label="Title" name="title" />
+            <ControlInput label="Title" name="title" required />
           </ControlForm>
         )
         const input = screen.getByTestId('base-input')
@@ -398,6 +406,145 @@ describe('Control', () => {
 
         expect(input).not.toHaveAttribute('readOnly')
       })
+    })
+  })
+
+  describe('ControlDateInput', () => {
+    it('starts as readOnly', () => {
+      renderWithProviders(
+        <ControlForm submitHandler={jest.fn()}>
+          <ControlDateInput label="Title" name="title" />
+        </ControlForm>
+      )
+      const input = screen.getByTestId('base-date-input')
+
+      expect(input).toHaveAttribute('readOnly')
+    })
+
+    it('picks a date from calendar and display it in input', () => {
+      const mockDate = new MockDate(2022, 1, 1, 0, 0)
+      mockDate.mock()
+      renderWithProviders(
+        <ControlForm submitHandler={jest.fn()}>
+          <ControlDateInput
+            label="Title"
+            name="title"
+            defaultDate={DateTime.now().toMillis()}
+          />
+        </ControlForm>
+      )
+      const input = screen.getByTestId('base-date-input')
+      const calendarDay = () => screen.getByTestId('15/01/2022 00:00')
+
+      userEvent.click(input)
+      userEvent.click(calendarDay())
+
+      expect(input).toHaveValue('15/01/2022 00:00')
+
+      mockDate.reset()
+    })
+  })
+
+  describe('ControlSelectInput', () => {
+    it('renders correctly', () => {
+      renderWithProviders(
+        <ControlSelectInput
+          options={[{ label: 'any_name', value: 'any_name' }]}
+          defaultValue="any_name"
+          label="Any name"
+          name="any_name"
+        />
+      )
+      const input = screen.getByTestId('base-select-input')
+
+      expect(input).toBeInTheDocument()
+    })
+
+    it('displays the default value correctly', () => {
+      renderWithProviders(
+        <ControlSelectInput
+          options={[
+            { label: 'any_name', value: 'any_name' },
+            { label: 'any_name2', value: 'any_name2' }
+          ]}
+          defaultValue="any_name2"
+          label="Any name"
+          name="any_name"
+        />
+      )
+      const input = screen.getByTestId('base-select-input')
+
+      expect(input).toHaveValue('any_name2')
+    })
+
+    it('changes the value', () => {
+      renderWithProviders(
+        <ControlSelectInput
+          options={[
+            { label: 'any_name', value: 'any_name' },
+            { label: 'any_name2', value: 'any_name2' }
+          ]}
+          defaultValue="any_name2"
+          label="Any name"
+          name="any_name"
+        />
+      )
+      const input = screen.getByTestId('base-select-input')
+      userEvent.selectOptions(input, 'any_name')
+
+      expect(input).toHaveValue('any_name')
+    })
+
+    it('calls onChange if its defined', () => {
+      const onChangeSpy = jest.fn()
+      renderWithProviders(
+        <ControlSelectInput
+          onChange={onChangeSpy}
+          options={[
+            { label: 'any_name', value: 'any_name' },
+            { label: 'any_name2', value: 'any_name2' }
+          ]}
+          defaultValue="any_name2"
+          label="Any name"
+          name="any_name"
+        />
+      )
+      const input = screen.getByTestId('base-select-input')
+      userEvent.selectOptions(input, 'any_name')
+
+      expect(onChangeSpy).toHaveBeenCalled()
+    })
+  })
+
+  describe('ControlRadioInput', () => {
+    it('renders correctly', () => {
+      renderWithProviders(
+        <ControlRadioInput
+          onChange={jest.fn()}
+          value="any_name"
+          label="Any name"
+          name="any_name"
+        />
+      )
+      const input = screen.getByTestId('base-radio-input')
+
+      expect(input).toBeInTheDocument()
+    })
+
+    it('has input marked as check', () => {
+      renderWithProviders(
+        <ControlRadioInput
+          onChange={jest.fn()}
+          value="any_name"
+          label="Any name"
+          name="any_name"
+        />
+      )
+      const input = screen.getByTestId('base-radio-input')
+
+      userEvent.click(input)
+
+      expect(input).toBeChecked()
     })
   })
 })

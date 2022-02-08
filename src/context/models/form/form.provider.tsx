@@ -1,5 +1,6 @@
 import { useReducer } from 'react'
-import { initialFormState, FormContext } from './form.context'
+import { FormContext } from '.'
+import { initialFormState } from './form.context'
 import { formReducer } from './form.reducer'
 
 export const FormProvider: React.FC = (props) => {
