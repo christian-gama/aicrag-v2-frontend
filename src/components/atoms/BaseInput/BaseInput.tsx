@@ -4,6 +4,7 @@ import * as classes from './stylesheet'
 
 type BaseInputProps = {
   type?: 'email' | 'password' | 'text' | 'number' | 'search' | 'textArea'
+  value?: string | number | string[] | undefined
   error?: Maybe<Error['message']>
   icon?: () => React.ReactNode
   validator?: IValidation
@@ -11,7 +12,6 @@ type BaseInputProps = {
   isTouched?: boolean
   required?: boolean
   isValid?: boolean
-  value?: string
   label: string
   name: string
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'value'>

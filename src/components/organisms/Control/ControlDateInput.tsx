@@ -16,7 +16,6 @@ export const ControlDateInput: React.FC<ControlDateInputProps> = ({
   defaultDate,
   autoFocus,
   label,
-
   name
 }: ControlDateInputProps) => {
   const { isFocused, onBlurHandler, onFocusHandler, value } =

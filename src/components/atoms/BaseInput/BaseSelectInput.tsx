@@ -2,9 +2,9 @@ import * as classes from './stylesheet'
 
 type BaseSelectInputProps = {
   options: Array<{ value: string, label: string }>
-  defaultValue?: string
+  value?: string | number | string[] | undefined
   onChange?: (event: any) => void
-  value?: string
+  defaultValue?: string
   label: string
   name: string
 }

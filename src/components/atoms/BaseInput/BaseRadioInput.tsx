@@ -1,9 +1,9 @@
 import * as classes from './stylesheet'
 
 type BaseRadioInputProps = {
+  value: string | number | string[] | undefined
   onChange?: (event: any) => void
   checked?: boolean
-  value: string
   label: string
   name: string
 }

@@ -21,7 +21,7 @@ export type FormStates = {
     isFocused: Object<boolean>
     isTouched: Object<boolean>
     isValid: Object<boolean>
-    value: Object<string>
+    value: Object<string | number | string[] | undefined>
   }
 }
 

@@ -1,8 +1,8 @@
 import { calendarActions, CalendarStates } from '@/context/models/calendar'
-import { FormContext } from '@/context/models/form'
+import { useForm } from '@/context/models/form'
 import { AppDispatch, RootState } from '@/context/store'
 import { DateTime } from 'luxon'
-import { ComponentPropsWithRef, useContext, useEffect } from 'react'
+import { ComponentPropsWithRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ControlDateInput } from '..'
 
@@ -25,78 +25,52 @@ export const useControlDateInput = ({
   )
   const { openCalendar } = calendarActions
 
-  const { dispatch, state } = useContext(FormContext)
-
-  const { isResetting } = state.form
-  const { isFocused, value } = state.input
+  const {
+    formActions: {
+      setInputCurrentType,
+      setInputIsFocused,
+      setInputIsTouched,
+      setInputIsValid,
+      setInputError,
+      setInputValue,
+      setFormData
+    },
+    state: {
+      form: { isResetting },
+      input: { isFocused, value }
+    }
+  } = useForm()
 
   useEffect(() => {
-    dispatch({
-      type: 'INPUT/SET_CURRENT_TYPE',
-      payload: { currentType: { [name]: 'text' } }
-    })
-    dispatch({
-      type: 'INPUT/SET_ERROR',
-      payload: { error: { [name]: undefined } }
-    })
-    dispatch({
-      type: 'INPUT/SET_IS_FOCUSED',
-      payload: { isFocused: { [name]: !!autoFocus } }
-    })
-    dispatch({
-      type: 'INPUT/SET_IS_TOUCHED',
-      payload: { isTouched: { [name]: false } }
-    })
-    dispatch({
-      type: 'INPUT/SET_IS_VALID',
-      payload: { isValid: { [name]: true } }
-    })
-    dispatch({
-      type: 'INPUT/SET_VALUE',
-      payload: {
-        value: {
-          [name]: DateTime.fromMillis(defaultDate!).toFormat('dd/MM/yyyy HH:mm')
-        }
-      }
-    })
+    setInputIsFocused(name, !!autoFocus)
+    setInputCurrentType(name, 'text')
+    setInputError(name, undefined)
+    setInputIsTouched(name, false)
+    setInputIsValid(name, true)
+    setInputValue(
+      name,
+      DateTime.fromMillis(defaultDate!).toFormat('dd/MM/yyyy HH:mm')
+    )
   }, [isResetting])
 
   useEffect(() => {
-    dispatch({
-      type: 'FORM/SET_FORM_DATA',
-      payload: { data: { [name]: new Date(defaultDate!).toISOString()! } }
-    })
+    setFormData(name, new Date(defaultDate!).toISOString()!)
   }, [isResetting])
 
   useEffect(() => {
     const value = DateTime.fromMillis(selectedDate).toFormat('dd/MM/yyyy HH:mm')
 
-    dispatch({
-      type: 'FORM/SET_FORM_DATA',
-      payload: { data: { [name]: new Date(selectedDate).toISOString()! } }
-    })
-    dispatch({
-      type: 'INPUT/SET_VALUE',
-      payload: { value: { [name]: value } }
-    })
+    setFormData(name, new Date(selectedDate).toISOString()!)
+    setInputValue(name, value)
   }, [selectedDate])
 
   const onBlurHandler = () => {
-    dispatch({
-      type: 'INPUT/SET_IS_FOCUSED',
-      payload: { isFocused: { [name]: false } }
-    })
-    dispatch({
-      type: 'INPUT/SET_IS_TOUCHED',
-      payload: { isTouched: { [name]: true } }
-    })
+    setInputIsFocused(name, false)
+    setInputIsTouched(name, true)
   }
 
   const onFocusHandler = () => {
-    dispatch({
-      type: 'INPUT/SET_IS_FOCUSED',
-      payload: { isFocused: { [name]: true } }
-    })
+    setInputIsFocused(name, true)
 
     reduxDispatch(openCalendar())
   }

@@ -1,6 +1,6 @@
-import { FormContext } from '@/context/models/form'
+import { useForm } from '@/context/models/form'
 import { validateInput } from '@/helpers'
-import { ComponentPropsWithRef, useContext, useState, useEffect } from 'react'
+import { ComponentPropsWithRef, useState, useEffect } from 'react'
 import { ControlInput } from '..'
 
 type ControlInputProps = ComponentPropsWithRef<typeof ControlInput>
@@ -24,84 +24,53 @@ export const useControlInput = ({
   name,
   type
 }: UseControlInput) => {
-  const { dispatch, state } = useContext(FormContext)
-
-  const { validator, isResetting } = state.form
-  const { isTouched, currentType, error, isFocused, isValid, value } =
-    state.input
+  const {
+    formActions: {
+      setInputCurrentType,
+      setInputIsFocused,
+      setInputIsTouched,
+      setInputIsValid,
+      setInputError,
+      setInputValue,
+      setFormData
+    },
+    state
+  } = useForm()
+  const {
+    form: { validator, isResetting },
+    input: { isTouched, currentType, error, isFocused, isValid, value }
+  } = state
 
   const [isReadOnly, setIsReadOnly] = useState(true)
 
   useEffect(() => {
-    dispatch({
-      type: 'INPUT/SET_CURRENT_TYPE',
-      payload: { currentType: { [name]: type ?? 'text' } }
-    })
-    dispatch({
-      type: 'INPUT/SET_ERROR',
-      payload: { error: { [name]: undefined } }
-    })
-    dispatch({
-      type: 'INPUT/SET_IS_FOCUSED',
-      payload: { isFocused: { [name]: !!autoFocus } }
-    })
-    dispatch({
-      type: 'INPUT/SET_IS_TOUCHED',
-      payload: { isTouched: { [name]: false } }
-    })
-    dispatch({
-      type: 'INPUT/SET_IS_VALID',
-      payload: { isValid: { [name]: false } }
-    })
-    dispatch({
-      type: 'INPUT/SET_VALUE',
-      payload: { value: { [name]: defaultValue ?? '' } }
-    })
+    setInputCurrentType(name, type ?? 'text')
+    setInputError(name, undefined)
+    setInputIsFocused(name, !!autoFocus)
+    setInputIsTouched(name, false)
+    setInputIsValid(name, false)
+    setInputValue(name, defaultValue ?? '')
   }, [isResetting, defaultValue])
 
   useEffect(() => {
-    dispatch({
-      type: 'FORM/SET_FORM_DATA',
-      payload: { data: { [name]: value[name] } }
-    })
+    setFormData(name, value[name])
   }, [isResetting, value])
 
   const showPasswordHandler = (): void => {
     currentType[name] === 'password'
-      ? dispatch({
-        type: 'INPUT/SET_CURRENT_TYPE',
-        payload: { currentType: { [name]: 'text' } }
-      })
-      : dispatch({
-        type: 'INPUT/SET_CURRENT_TYPE',
-        payload: { currentType: { [name]: 'password' } }
-      })
+      ? setInputCurrentType(name, 'text')
+      : setInputCurrentType(name, 'password')
   }
 
   const onBlurHandler = (event: React.FocusEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value
     const error = validateInput({ state, name, value })
 
-    dispatch({
-      type: 'INPUT/SET_IS_FOCUSED',
-      payload: { isFocused: { [name]: false } }
-    })
-    dispatch({
-      type: 'INPUT/SET_IS_TOUCHED',
-      payload: { isTouched: { [name]: true } }
-    })
-    dispatch({
-      type: 'INPUT/SET_IS_VALID',
-      payload: { isValid: { [name]: !error } }
-    })
-    dispatch({
-      type: 'INPUT/SET_ERROR',
-      payload: { error: { [name]: error } }
-    })
-    dispatch({
-      type: 'FORM/SET_FORM_DATA',
-      payload: { data: { [name]: value } }
-    })
+    setInputIsFocused(name, false)
+    setInputIsTouched(name, true)
+    setInputIsValid(name, !error)
+    setInputError(name, error)
+    setFormData(name, value)
 
     if (onBlur) onBlur(event)
   }
@@ -110,24 +79,12 @@ export const useControlInput = ({
     const value = event.target.value
     const error = validateInput({ state, name, value })
 
-    dispatch({
-      type: 'INPUT/SET_VALUE',
-      payload: { value: { [name]: value } }
-    })
-    dispatch({
-      type: 'INPUT/SET_IS_VALID',
-      payload: { isValid: { [name]: !error } }
-    })
-    dispatch({
-      type: 'FORM/SET_FORM_DATA',
-      payload: { data: { [name]: value } }
-    })
+    setInputValue(name, value)
+    setInputIsValid(name, !error)
+    setFormData(name, value)
 
     if (isTouched[name]) {
-      dispatch({
-        type: 'INPUT/SET_ERROR',
-        payload: { error: { [name]: error } }
-      })
+      setInputError(name, error)
     }
 
     if (onChange) onChange(event)
@@ -136,10 +93,7 @@ export const useControlInput = ({
   const onFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
     setIsReadOnly(false)
 
-    dispatch({
-      type: 'INPUT/SET_IS_FOCUSED',
-      payload: { isFocused: { [name]: true } }
-    })
+    setInputIsFocused(name, true)
 
     if (onFocus) onFocus(event)
   }

@@ -1,5 +1,5 @@
-import { ComponentPropsWithRef, useContext, useEffect } from 'react'
-import { FormContext } from '@/context/models/form'
+import { ComponentPropsWithRef, useEffect } from 'react'
+import { useForm } from '@/context/models/form'
 import { ControlSelectInput } from '..'
 
 type ControlSelectInputProps = ComponentPropsWithRef<typeof ControlSelectInput>
@@ -15,66 +15,45 @@ export const useControlSelectInput = ({
   onChange,
   name
 }: UseControlSelectInput) => {
-  const { dispatch, state } = useContext(FormContext)
+  const {
+    formActions: {
+      setInputCurrentType,
+      setInputIsFocused,
+      setInputIsTouched,
+      setInputIsValid,
+      setInputError,
+      setInputValue,
+      setFormData
+    },
+    state
+  } = useForm()
 
-  const { isResetting } = state.form
-  const { value } = state.input
+  const {
+    form: { isResetting },
+    input: { value }
+  } = state
 
   useEffect(() => {
-    dispatch({
-      type: 'INPUT/SET_CURRENT_TYPE',
-      payload: { currentType: { [name]: 'text' } }
-    })
-    dispatch({
-      type: 'INPUT/SET_ERROR',
-      payload: { error: { [name]: undefined } }
-    })
-    dispatch({
-      type: 'INPUT/SET_IS_FOCUSED',
-      payload: { isFocused: { [name]: false } }
-    })
-    dispatch({
-      type: 'INPUT/SET_IS_TOUCHED',
-      payload: { isTouched: { [name]: false } }
-    })
-    dispatch({
-      type: 'INPUT/SET_IS_VALID',
-      payload: { isValid: { [name]: true } }
-    })
-    dispatch({
-      type: 'INPUT/SET_VALUE',
-      payload: {
-        value: {
-          [name]: defaultValue
-        }
-      }
-    })
+    setInputCurrentType(name, 'text')
+    setInputError(name, undefined)
+    setInputIsFocused(name, false)
+    setInputIsTouched(name, false)
+    setInputIsValid(name, true)
+    setInputValue(name, defaultValue)
   }, [isResetting])
 
   useEffect(() => {
-    dispatch({
-      type: 'FORM/SET_FORM_DATA',
-      payload: { data: { [name]: defaultValue } }
-    })
-  }, [isResetting])
+    setFormData(name, defaultValue)
+  }, [isResetting, defaultValue])
 
   const onChangeHandler = (event: any) => {
     const value = event.target.value
 
     onChange?.()
 
-    dispatch({
-      type: 'INPUT/SET_IS_TOUCHED',
-      payload: { isTouched: { [name]: true } }
-    })
-    dispatch({
-      type: 'FORM/SET_FORM_DATA',
-      payload: { data: { [name]: value } }
-    })
-    dispatch({
-      type: 'INPUT/SET_VALUE',
-      payload: { value: { [name]: value } }
-    })
+    setInputIsTouched(name, true)
+    setFormData(name, value)
+    setInputValue(name, value)
   }
 
   return {

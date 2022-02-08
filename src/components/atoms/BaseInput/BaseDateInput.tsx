@@ -6,7 +6,7 @@ type BaseDateInputProps = {
   autoFocus?: boolean
   isFocused?: boolean
   onBlur?: () => void
-  value?: string
+  value?: string | number | string[] | undefined
   label: string
   name: string
 }
