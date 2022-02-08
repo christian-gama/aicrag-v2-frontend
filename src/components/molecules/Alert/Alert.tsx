@@ -99,7 +99,7 @@ export const Alert: React.FC<AlertProps> = (props) => {
 
 type AlertWithAction = {
   mode: 'actionAndCancel'
-  onAction: () => void
+  onAction: (id: any) => Promise<void> | void
   actionName: string
 }
 type AlertWithoutAction = { mode?: 'cancelOnly' }
