@@ -44,6 +44,7 @@ export const ConfirmEmailView: React.FC = () => {
       <Pin
         mailerHandler={mailerHandler}
         submitHandler={submitHandler}
+        stepName="Criar conta"
         to="/entry/sign-in"
         isPage
       />

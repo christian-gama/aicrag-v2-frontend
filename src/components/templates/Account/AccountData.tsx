@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { useEffect, useState } from 'react'
 import { InternalError } from '@/services/errors'
 import { useForm } from '@/context/models/form'
@@ -8,10 +9,13 @@ import {
   ControlInput,
   ControlRadioInput
 } from '@/components/organisms/Control'
+import { Pin } from '@/components/organisms/Pin'
 import { P } from '@/components/utils/texts/P'
 import {
   useGetMeQuery,
   UserCurrency,
+  useSendEmailPinMutation,
+  useUpdateEmailByPinMutation,
   useUpdateMeMutation
 } from '@/external/graphql/generated'
 import { popoverVar, refetchInvoiceVar } from '@/external/graphql/reactiveVars'
@@ -23,7 +27,10 @@ export const AccountData: React.FC = () => {
     state: { form }
   } = useForm<{ currency: UserCurrency, email: string, name: string }>()
   const { data, refetch, loading } = useGetMeQuery()
+  const [sendEmailPin] = useSendEmailPinMutation()
+  const [updateEmailByPin, { error }] = useUpdateEmailByPinMutation()
   const [checked, setChecked] = useState(data?.getMe.user.settings.currency)
+  const [isPinOpen, setIsPinOpen] = useState(false)
 
   useEffect(() => {
     if (form.isSubmitted) {
@@ -43,22 +50,60 @@ export const AccountData: React.FC = () => {
     getMe: { user }
   } = data
 
+  const isCurrencySame = form.data.currency === user.settings.currency
+  const isEmailSame = form.data.email === user.personal.email
+  const isNameSame = form.data.name === user.personal.name
+
   const submitHandler = async () => {
-    await updateMe({
+    const { data } = await updateMe({
       variables: {
-        currency:
-          form.data.currency === user.settings.currency
-            ? undefined
-            : form.data.currency,
-
-        email:
-          form.data.email === user.personal.email ? undefined : form.data.email,
-
-        name: form.data.name === user.personal.name ? undefined : form.data.name
+        currency: isCurrencySame ? undefined : form.data.currency,
+        email: isEmailSame ? undefined : form.data.email,
+        name: isNameSame ? undefined : form.data.name
       }
     })
 
+    if (form.data.email !== user.personal.email) {
+      setIsPinOpen(true)
+    }
+
+    if (data) {
+      const hasChanges = data.updateMe.__typename === 'UpdateMeHasChanges'
+
+      if (
+        hasChanges &&
+        (!isNameSame || (!isCurrencySame && form.data.currency))
+      ) {
+        popoverVar.setPopover(
+          'Seus dados foram atualizados com sucesso',
+          'success'
+        )
+      }
+
+      if (!hasChanges) {
+        popoverVar.setPopover(
+          'Você não fez nenhuma alteração, portanto seus dados não foram alterados ',
+          'info'
+        )
+      }
+    }
+
     refetchInvoiceVar.refetch()
+  }
+
+  const submitPinHandler = async (pin: string) => {
+    await updateEmailByPin({
+      variables: {
+        emailPin: pin
+      }
+    })
+
+    setIsPinOpen(false)
+    popoverVar.setPopover('Email atualizado com sucesso', 'success')
+  }
+
+  const mailerHandler = async () => {
+    await sendEmailPin({ variables: { email: user.personal.email } })
   }
 
   return (
@@ -109,6 +154,15 @@ export const AccountData: React.FC = () => {
           </div>
         </ControlForm>
       </div>
+
+      <Pin
+        dismissHandler={() => setIsPinOpen(false)}
+        submitHandler={submitPinHandler}
+        mailerHandler={mailerHandler}
+        stepName="Alterar email"
+        isOpen={isPinOpen}
+        error={error}
+      />
     </div>
   )
 }

@@ -14,7 +14,8 @@ type PinCodeProps = {
 export const PinCode: React.FC<PinCodeProps> = ({
   setStepsHandler,
   submitHandler,
-  mailerHandler
+  mailerHandler,
+  error
 }) => {
   const {
     resendEmailHandler,
@@ -27,7 +28,7 @@ export const PinCode: React.FC<PinCodeProps> = ({
     inputError,
     formState,
     values
-  } = usePinCode({ setStepsHandler, submitHandler, mailerHandler })
+  } = usePinCode({ setStepsHandler, submitHandler, mailerHandler, error })
 
   const pinInputClass = classes.pinInput({
     state: inputError ? 'error' : 'default'

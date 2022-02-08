@@ -1,3 +1,4 @@
+import { ApolloError } from '@apollo/client'
 import { cleanup, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Pin } from '..'
@@ -49,7 +50,13 @@ describe('Pin', () => {
 
   it('renders correctly', () => {
     renderWithProviders(
-      <Pin mailerHandler={jest.fn()} submitHandler={jest.fn()} isPage to="/" />
+      <Pin
+        mailerHandler={jest.fn()}
+        submitHandler={jest.fn()}
+        stepName=""
+        isPage
+        to="/"
+      />
     )
     const pin = screen.getByTestId('pin')
 
@@ -58,7 +65,13 @@ describe('Pin', () => {
 
   it('redirects to the correct page when clicking on Link', () => {
     renderWithProviders(
-      <Pin mailerHandler={jest.fn()} submitHandler={jest.fn()} isPage to="/" />
+      <Pin
+        mailerHandler={jest.fn()}
+        submitHandler={jest.fn()}
+        stepName=""
+        isPage
+        to="/"
+      />
     )
     const link = screen.getByText(/backicon/i)
 
@@ -78,6 +91,7 @@ describe('Pin', () => {
         submitHandler={jest.fn()}
         isPage={false}
         isOpen={false}
+        stepName=""
       />
     )
     const pin = screen.queryByTestId('pin')
@@ -91,6 +105,7 @@ describe('Pin', () => {
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
         isPage={false}
+        stepName=""
         isOpen
       />
     )
@@ -108,6 +123,7 @@ describe('Pin', () => {
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
         isPage={false}
+        stepName=""
         isOpen
       />
     )
@@ -125,6 +141,7 @@ describe('Pin', () => {
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
         isPage={false}
+        stepName=""
         isOpen
       />
     )
@@ -141,6 +158,7 @@ describe('Pin', () => {
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
         isPage={false}
+        stepName=""
         isOpen
       />
     )
@@ -161,6 +179,7 @@ describe('Pin', () => {
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
         isPage={false}
+        stepName=""
         isOpen
       />
     )
@@ -178,6 +197,7 @@ describe('Pin', () => {
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
         isPage={false}
+        stepName=""
         isOpen
       />
     )
@@ -194,6 +214,7 @@ describe('Pin', () => {
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
         isPage={false}
+        stepName=""
         isOpen
       />
     )
@@ -211,6 +232,7 @@ describe('Pin', () => {
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
         isPage={false}
+        stepName=""
         isOpen
       />
     )
@@ -227,6 +249,7 @@ describe('Pin', () => {
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
         isPage={false}
+        stepName=""
         isOpen
       />
     )
@@ -245,6 +268,7 @@ describe('Pin', () => {
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
         isPage={false}
+        stepName=""
         isOpen
       />
     )
@@ -259,7 +283,13 @@ describe('Pin', () => {
 
   it('disables the button when form is submitted', async () => {
     renderWithProviders(
-      <Pin mailerHandler={jest.fn()} submitHandler={jest.fn()} isPage to="/" />
+      <Pin
+        mailerHandler={jest.fn()}
+        submitHandler={jest.fn()}
+        stepName=""
+        isPage
+        to="/"
+      />
     )
     const button = screen.getByRole('button', { name: /reenviar/i })
     const inputs = screen.getAllByTestId('pin-input')
@@ -276,12 +306,14 @@ describe('Pin', () => {
   it('catches the error if submitHandler throws and should not disable the button', async () => {
     renderWithProviders(
       <Pin
+        error={new ApolloError({})}
+        mailerHandler={jest.fn()}
+        stepName=""
+        isPage
+        to="/"
         submitHandler={jest.fn(() => {
           throw new Error()
         })}
-        mailerHandler={jest.fn()}
-        isPage
-        to="/"
       />
     )
     const button = screen.getByRole('button', { name: /reenviar/i })
@@ -298,7 +330,13 @@ describe('Pin', () => {
 
   it('disables button when resend email', () => {
     renderWithProviders(
-      <Pin mailerHandler={jest.fn()} submitHandler={jest.fn()} isPage to="/" />
+      <Pin
+        mailerHandler={jest.fn()}
+        submitHandler={jest.fn()}
+        stepName=""
+        isPage
+        to="/"
+      />
     )
     const button = screen.getByText(/reenviar/gi)
     const accessTokenStorage = makeAccessTokenStorage()
@@ -311,7 +349,13 @@ describe('Pin', () => {
 
   it('starts a countdown after resending an email', async () => {
     renderWithProviders(
-      <Pin mailerHandler={jest.fn()} submitHandler={jest.fn()} isPage to="/" />
+      <Pin
+        mailerHandler={jest.fn()}
+        submitHandler={jest.fn()}
+        stepName=""
+        isPage
+        to="/"
+      />
     )
     const button = screen.getByText(/reenviar/gi)
     const accessTokenStorage = makeAccessTokenStorage()

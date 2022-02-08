@@ -19,20 +19,30 @@ type PinProps = (
     to?: string
   }
   | {
-    isPage: false
+    isPage?: false
     isOpen: boolean
   }
 ) & {
   submitHandler: (pin: string) => Promise<void>
   mailerHandler: () => Promise<void>
   currentStep?: number
+  stepName: string
   error?: ApolloError
+  dismissHandler?: () => void
 }
 
 export const Pin: React.FC<PinProps> = (props) => {
   const { height, width } = useWindowDimensions()
   const [isOpen, setIsOpen] = useState(props.isPage ? undefined : props.isOpen)
   const [currentStep, setCurrentStep] = useState(props.currentStep!)
+
+  useEffect(() => {
+    setIsOpen(props.isPage ? undefined : props.isOpen)
+  }, [props.isPage, (props as any).isOpen])
+
+  useEffect(() => {
+    if (!isOpen) props.dismissHandler?.()
+  }, [isOpen])
 
   useEffect(() => {
     setCurrentStep(1)
@@ -43,7 +53,7 @@ export const Pin: React.FC<PinProps> = (props) => {
   const Wrapper = props.isPage ? Background : Modal
 
   return (
-    <Wrapper gradient isOpen>
+    <Wrapper gradient isOpen onDismiss={props.dismissHandler}>
       <Center>
         <Card roundness={width <= 520 ? 'none' : 'md'}>
           <div
@@ -66,7 +76,7 @@ export const Pin: React.FC<PinProps> = (props) => {
                     direction={width <= 520 ? 'row' : 'column'}
                     gap={width <= 520 ? '14rem' : '7.2rem'}
                     steps={[
-                      { check: currentStep >= 1, label: 'Criar conta' },
+                      { check: currentStep >= 1, label: props.stepName },
                       { check: currentStep >= 2, label: 'Confirmar email' }
                     ]}
                   />
@@ -84,6 +94,7 @@ export const Pin: React.FC<PinProps> = (props) => {
                 submitHandler={props.submitHandler}
                 mailerHandler={props.mailerHandler}
                 setStepsHandler={setCurrentStep}
+                error={props.error}
               />
             </div>
           </div>
