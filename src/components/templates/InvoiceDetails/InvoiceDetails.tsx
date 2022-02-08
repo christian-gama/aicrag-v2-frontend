@@ -1,26 +1,40 @@
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getFormattedMonth } from '@/helpers/getFormattedMonth'
 import { useGetTaskValue } from '@/components/_hooks'
 import { LoadingSkeleton } from '@/components/atoms/LoadingSkeleton'
+import { Alert } from '@/components/molecules/Alert'
 import { NoContent } from '@/components/molecules/NoContent'
 import Table from '@/components/molecules/Table'
 import { DateData } from '@/components/molecules/Table/DateData'
+import { PenIcon } from '@/components/utils/icons/PenIcon'
+import { TrashIcon } from '@/components/utils/icons/TrashIcon'
 import { Link } from '@/components/utils/texts/Link'
 import {
   GetInvoiceByMonthType,
+  useDeleteTaskMutation,
   useGetInvoiceByMonthQuery
 } from '@/external/graphql/generated'
-import { useRefetchInvoice } from '@/external/graphql/reactiveVars'
+import {
+  popoverVar,
+  refetchInvoiceVar,
+  useRefetchInvoice
+} from '@/external/graphql/reactiveVars'
+import * as classes from './stylesheet'
 
 export const InvoiceDetails: React.FC = () => {
+  const [isAlertOpen, setIsAlertOpen] = useState(false)
+  const [deleteTask] = useDeleteTaskMutation()
   const { month, year } = useParams()
   const { currency, getTaskValue } = useGetTaskValue(0)
+  const [deleteTaskHandler, setDeleteTaskHandler] =
+    useState<() => Promise<void>>()
   const { data, refetch, loading } = useGetInvoiceByMonthQuery({
     variables: {
       type: GetInvoiceByMonthType.Both,
       month: month!,
       year: year!,
-      sort: '-date.month,-date.day'
+      sort: '-date.month,-date.day,-logs.createdAt'
     }
   })
 
@@ -43,6 +57,18 @@ export const InvoiceDetails: React.FC = () => {
   const {
     getInvoiceByMonth: { count, displaying, documents }
   } = data
+
+  const onDeleteTaskHandler = async (id: string) => {
+    await deleteTask({
+      variables: {
+        id
+      }
+    })
+
+    setIsAlertOpen(false)
+    refetchInvoiceVar.refetch()
+    popoverVar.setPopover('Tarefa deletada com sucesso', 'success')
+  }
 
   return (
     <div data-testid="invoice-details">
@@ -74,14 +100,48 @@ export const InvoiceDetails: React.FC = () => {
               <Table.Td>{invoice.taskId || '--'}</Table.Td>
 
               <Table.Td justifyContent="flex-end">
-                <Link to={`/invoice/task/${invoice.id.toString() as string}`}>
-                  Detalhes
-                </Link>
+                <div className={classes.invoiceDetailsActionCell}>
+                  <div
+                    className={classes.invoiceDetailsType({
+                      type: invoice.type as 'TX' | 'QA'
+                    })}
+                  >
+                    {invoice.type}
+                  </div>
+
+                  <Link to={`/invoice/task/${invoice.id.toString() as string}`}>
+                    <PenIcon />
+                  </Link>
+
+                  <div
+                    onClick={() => {
+                      setDeleteTaskHandler(() =>
+                        onDeleteTaskHandler.bind(null, invoice.id)
+                      )
+
+                      setIsAlertOpen(true)
+                    }}
+                    className={classes.invoiceDetailsTrash}
+                  >
+                    <TrashIcon />
+                  </div>
+                </div>
               </Table.Td>
             </Table.Tr>
           ))}
         </Table.Tbody>
       </Table.Main>
+
+      <Alert
+        message="Você está prestes a deletar uma tarefa e essa ação é irreversível. Você tem certeza de que quer continuar?"
+        onCancel={() => setIsAlertOpen(false)}
+        title="Uma confirmação é necessária"
+        onAction={deleteTaskHandler!}
+        mode="actionAndCancel"
+        actionName="Deletar"
+        isOpen={isAlertOpen}
+        type="danger"
+      />
     </div>
   )
 }
