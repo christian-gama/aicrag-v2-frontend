@@ -519,7 +519,12 @@ describe('Control', () => {
   describe('ControlRadioInput', () => {
     it('renders correctly', () => {
       renderWithProviders(
-        <ControlRadioInput value="any_name" label="Any name" name="any_name" />
+        <ControlRadioInput
+          onChange={jest.fn()}
+          value="any_name"
+          label="Any name"
+          name="any_name"
+        />
       )
       const input = screen.getByTestId('base-radio-input')
 
@@ -528,7 +533,12 @@ describe('Control', () => {
 
     it('has input marked as check', () => {
       renderWithProviders(
-        <ControlRadioInput value="any_name" label="Any name" name="any_name" />
+        <ControlRadioInput
+          onChange={jest.fn()}
+          value="any_name"
+          label="Any name"
+          name="any_name"
+        />
       )
       const input = screen.getByTestId('base-radio-input')
 

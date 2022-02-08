@@ -5,11 +5,16 @@ import { ControlRadioInput } from '..'
 type ControlRadioInputProps = ComponentPropsWithRef<typeof ControlRadioInput>
 
 type UseControlRadioInput = {
+  onChange: ControlRadioInputProps['onChange']
   value: ControlRadioInputProps['value']
   name: ControlRadioInputProps['name']
 }
 
-export const useControlRadioInput = ({ value, name }: UseControlRadioInput) => {
+export const useControlRadioInput = ({
+  onChange,
+  value,
+  name
+}: UseControlRadioInput) => {
   const { dispatch, state } = useContext(FormContext)
 
   const { isResetting } = state.form
@@ -46,6 +51,7 @@ export const useControlRadioInput = ({ value, name }: UseControlRadioInput) => {
   }, [isResetting])
 
   const onChangeHandler = async (event: any) => {
+    onChange(event)
     const value = event.target.value
 
     dispatch({
