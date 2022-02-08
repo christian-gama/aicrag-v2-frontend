@@ -77,7 +77,7 @@ describe('AccountData', () => {
   })
 
   it('does not submit currency if value is equal to user settings currency ', async () => {
-    ;(userFragmentMock as any).user.settings.currency = 'BRL'
+    userFragmentMock.user.settings.currency = 'BRL'
     const refetchSpy = jest.spyOn(refetchInvoiceVar, 'refetch')
     renderWithProviders(<AccountData />, {
       apolloMocks: [getMeMock(), updateMeMock({ currency: undefined })]
@@ -100,7 +100,7 @@ describe('AccountData', () => {
   })
 
   it('submits only currency as BRL', async () => {
-    ;(userFragmentMock as any).user.settings.currency = 'BRL'
+    userFragmentMock.user.settings.currency = 'BRL'
     const refetchSpy = jest.spyOn(refetchInvoiceVar, 'refetch')
     renderWithProviders(<AccountData />, {
       apolloMocks: [getMeMock(), updateMeMock({ currency: 'USD' })]
@@ -119,7 +119,7 @@ describe('AccountData', () => {
   })
 
   it('submits only currency as USD', async () => {
-    ;(userFragmentMock as any).user.settings.currency = 'USD'
+    userFragmentMock.user.settings.currency = 'USD'
     const refetchSpy = jest.spyOn(refetchInvoiceVar, 'refetch')
     renderWithProviders(<AccountData />, {
       apolloMocks: [getMeMock(), updateMeMock({ currency: 'BRL' })]
@@ -138,7 +138,7 @@ describe('AccountData', () => {
   })
 
   it('checks the correct radio input', async () => {
-    ;(userFragmentMock as any).user.settings.currency = 'USD'
+    userFragmentMock.user.settings.currency = 'USD'
     renderWithProviders(<AccountData />, {
       apolloMocks: [getMeMock(), updateMeMock({ name: 'other name' })]
     })

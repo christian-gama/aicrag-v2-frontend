@@ -23,4 +23,4 @@ export const taskFragmentMock = {
     usd: (+mockVariables.duration / 60) * 65,
     ...userFragmentMock
   }
-} as const
+}

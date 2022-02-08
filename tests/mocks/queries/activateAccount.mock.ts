@@ -13,8 +13,8 @@ export const activateAccountMock = (
   request: {
     query: ActivateAccountDocument,
     variables: {
-      userId: input?.userId ?? mockVariables.userId,
-      activationPin: input?.activationPin ?? mockVariables.activationPin
+      userId: input?.userId ?? mockVariables.uuid,
+      activationPin: input?.activationPin ?? mockVariables.pin
     }
   },
   result: {

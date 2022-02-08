@@ -1,3 +1,4 @@
+import { ApolloError } from '@apollo/client'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { useEffect, useState } from 'react'
 import { useWindowDimensions } from '@/components/_hooks'
@@ -22,7 +23,10 @@ type PinProps = (
     isOpen: boolean
   }
 ) & {
+  submitHandler: (pin: string) => Promise<void>
+  mailerHandler: () => Promise<void>
   currentStep?: number
+  error?: ApolloError
 }
 
 export const Pin: React.FC<PinProps> = (props) => {
@@ -76,7 +80,11 @@ export const Pin: React.FC<PinProps> = (props) => {
                 </div>
               </div>
 
-              <PinCode setStepsHandler={setCurrentStep} />
+              <PinCode
+                submitHandler={props.submitHandler}
+                mailerHandler={props.mailerHandler}
+                setStepsHandler={setCurrentStep}
+              />
             </div>
           </div>
         </Card>

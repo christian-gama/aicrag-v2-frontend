@@ -9,7 +9,7 @@ export const updateEmailByPin = (
   request: {
     query: UpdateEmailByPinDocument,
     variables: {
-      emailPin: mockVariables.activationPin
+      emailPin: mockVariables.pin
     }
   },
   result: {
