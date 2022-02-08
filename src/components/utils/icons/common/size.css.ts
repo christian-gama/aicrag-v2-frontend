@@ -1,6 +1,11 @@
 import { styleVariants } from '@vanilla-extract/css'
 
 export const sizeVariants = styleVariants({
+  xxsm: {
+    width: '0.5rem',
+    minWidth: '0.5rem'
+  },
+
   xsm: {
     width: '0.9rem',
     minWidth: '0.9rem'
