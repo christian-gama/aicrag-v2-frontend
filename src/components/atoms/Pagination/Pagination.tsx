@@ -27,7 +27,9 @@ export const Pagination: React.FC<PaginationProps> = ({
         <ChevronIcon direction="left" size="xsm" color="white" />
       </div>
 
-      <div className={classes.paginationPage}>{currentPage}</div>
+      <div className={classes.paginationPage} data-testid="pagination-page">
+        {currentPage}
+      </div>
 
       <div
         data-testid="pagination-action-next"
