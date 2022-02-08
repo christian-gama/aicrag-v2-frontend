@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { Layout } from '@/components/templates/Layout'
+import { AccountDataView } from '@/components/views/Account'
 import {
   ForgotPasswordView,
   SignInView,
@@ -23,14 +23,9 @@ export const Router = () => {
     <Routes>
       <Route path="/" element={<ProtectedRoute />}>
         <Route path="" element={<NewTaskView />} />
-        <Route
-          path="account"
-          element={
-            <Layout pageName="Minha conta">
-              <></>
-            </Layout>
-          }
-        />
+        <Route path="account">
+          <Route path="" element={<AccountDataView />} />
+        </Route>
 
         <Route path="invoice">
           <Route path="" element={<InvoiceView />} />
