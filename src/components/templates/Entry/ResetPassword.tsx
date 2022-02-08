@@ -1,6 +1,5 @@
-import { useContext } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { FormContext } from '@/context/models/form'
+import { useForm } from '@/context/models/form'
 import { Button } from '@/components/atoms/Button'
 import { NavHeader } from '@/components/molecules/NavHeader'
 import { ControlForm, ControlInput } from '@/components/organisms/Control'
@@ -17,7 +16,8 @@ import * as classes from './stylesheet'
 export const ResetPassword: React.FC = () => {
   const { token } = useParams()
   const navigate = useNavigate()
-  const { state } = useContext(FormContext)
+  const { state } =
+    useForm<{ password: string, passwordConfirmation: string }>()
   const [resetPassword] = useResetPasswordMutation()
   const { error, loading } = useVerifyResetPasswordTokenQuery({
     variables: {

@@ -5,9 +5,9 @@ import {
 } from './protocols/form.model'
 
 export const formReducer = (
-  state: FormStates,
+  state: FormStates<any>,
   action: FormActionPayload | FormInputActionPayload
-): FormStates => {
+): FormStates<any> => {
   switch (action.type) {
     case 'FORM/RESET_FORM':
       return {
@@ -80,7 +80,7 @@ export const formReducer = (
           ...state.form,
           data: {
             ...state.form.data,
-            ...action.payload.data!
+            ...action.payload.data
           }
         }
       }

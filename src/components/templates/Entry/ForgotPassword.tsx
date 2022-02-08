@@ -1,6 +1,5 @@
-import { useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { FormContext } from '@/context/models/form'
+import { useForm } from '@/context/models/form'
 import {
   mailerCountdownActions,
   MailerCountdownStates
@@ -27,7 +26,7 @@ export const ForgotPassword: React.FC = () => {
   const [forgotPassword] = useForgotPasswordMutation()
   const [sendRecoverPasswordEmail] = useSendRecoverPasswordEmailMutation()
 
-  const { state } = useContext(FormContext)
+  const { state } = useForm<{ email: string }>()
   const onSubmitHandler = async () => {
     await forgotPassword({
       variables: { email: state.form.data.email }

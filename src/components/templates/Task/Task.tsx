@@ -1,12 +1,13 @@
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import { IValidation } from '@/services/validators'
-import { FormContext } from '@/context/models/form'
+import { useForm } from '@/context/models/form'
 import {
   ControlDateInput,
   ControlForm,
   ControlInput,
   ControlSelectInput
 } from '@/components/organisms/Control'
+import { TaskType } from '@/external/graphql/generated'
 import * as classes from './stylesheet'
 
 type TaskProps = {
@@ -22,7 +23,10 @@ export const Task: React.FC<TaskProps> = ({
   validator,
   value
 }) => {
-  const { dispatch, state } = useContext(FormContext)
+  const {
+    formActions: { setFormData, setInputValue },
+    state
+  } = useForm<{ duration: string, type: TaskType }>()
   const { data } = state.form
 
   const getDuration = () => {
@@ -34,18 +38,8 @@ export const Task: React.FC<TaskProps> = ({
   }
 
   const updateDurationOnChange = () => {
-    dispatch({
-      type: 'FORM/SET_FORM_DATA',
-      payload: {
-        data: { duration: getDuration() }
-      }
-    })
-    dispatch({
-      type: 'INPUT/SET_VALUE',
-      payload: {
-        value: { duration: getDuration() }
-      }
-    })
+    setFormData('duration', getDuration())
+    setInputValue('duration', getDuration())
   }
 
   useEffect(() => {

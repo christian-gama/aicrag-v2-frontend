@@ -1,12 +1,20 @@
 import { useContext } from 'react'
 import { Maybe } from '@/helpers'
 import { IValidation } from '@/services/validators'
-import { FormContext } from '.'
+import {
+  FormActionPayload,
+  FormContext,
+  FormInputActionPayload,
+  FormStates
+} from '.'
 
 export const useForm = <
   T extends { [key: string]: string | number | string[] | undefined }
 >() => {
-  const { dispatch, state } = useContext(FormContext)
+  const { dispatch, state } = useContext<{
+    dispatch: (options: FormActionPayload | FormInputActionPayload) => void
+    state: FormStates<T>
+  }>(FormContext)
 
   return {
     state,

@@ -4,7 +4,9 @@ import { BaseInput } from '@/components/atoms/BaseInput'
 
 type Object<T extends unknown> = { [key: string]: T }
 
-export type FormStates = {
+export type FormStates<
+  T extends { [key: string]: string | number | string[] | undefined }
+> = {
   form: {
     validator?: IValidation
     isSubmitting: boolean
@@ -12,7 +14,7 @@ export type FormStates = {
     error: Maybe<string>
     isSubmitted: boolean
     isResetting: boolean
-    data: Object<any>
+    data: T
     isValid: boolean
   }
   input: {
@@ -58,7 +60,7 @@ export type FormActionPayload = {
   | 'FORM/SET_ERROR'
 
   payload: Partial<{
-    [key in keyof FormStates['form']]: FormStates['form'][key]
+    [key in keyof FormStates<any>['form']]: FormStates<any>['form'][key]
   }>
 }
 
@@ -71,6 +73,6 @@ export type FormInputActionPayload = {
   | 'INPUT/SET_ERROR'
   | 'INPUT/SET_VALUE'
   payload: Partial<{
-    [key in keyof FormStates['input']]: FormStates['input'][key]
+    [key in keyof FormStates<any>['input']]: FormStates<any>['input'][key]
   }>
 }

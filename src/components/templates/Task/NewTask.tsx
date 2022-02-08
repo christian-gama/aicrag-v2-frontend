@@ -1,15 +1,25 @@
-import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { FormContext } from '@/context/models/form'
+import { useForm } from '@/context/models/form'
 import { Button } from '@/components/atoms/Button'
 import { makeTaskValidation } from '@/external/factories/validation'
-import { useCreateTaskMutation } from '@/external/graphql/generated'
+import {
+  TaskStatus,
+  TaskType,
+  useCreateTaskMutation
+} from '@/external/graphql/generated'
 import { popoverVar, refetchInvoiceVar } from '@/external/graphql/reactiveVars'
 import { Task } from './Task'
 
 export const NewTask: React.FC = () => {
   const navigate = useNavigate()
-  const { state } = useContext(FormContext)
+  const { state } = useForm<{
+    commentary: string
+    status: TaskStatus
+    duration: string
+    taskId: string
+    type: TaskType
+    date: string
+  }>()
   const { data } = state.form
 
   const [createTask] = useCreateTaskMutation()

@@ -1,13 +1,15 @@
 import { DateTime } from 'luxon'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { FormContext } from '@/context/models/form'
+import { useForm } from '@/context/models/form'
 import { useGetTaskValue } from '@/components/_hooks'
 import { Button } from '@/components/atoms/Button'
 import { LoadingSkeleton } from '@/components/atoms/LoadingSkeleton'
 import { Alert } from '@/components/molecules/Alert'
 import { makeTaskValidation } from '@/external/factories/validation'
 import {
+  TaskStatus,
+  TaskType,
   useDeleteTaskMutation,
   useFindOneTaskQuery,
   useUpdateTaskMutation
@@ -29,18 +31,28 @@ export const UpdateTask: React.FC = () => {
       navigate('-1')
     }
   })
-  const { dispatch, state } = useContext(FormContext)
+  const {
+    formActions: { setInputValue, setFormData },
+    state
+  } = useForm<{
+    commentary: string
+    status: TaskStatus
+    duration: string
+    taskId: string
+    type: TaskType
+    date: string
+  }>()
   const { form } = state
 
   useEffect(() => {
-    const inputs = [
+    const inputs: Array<keyof typeof state.form.data> = [
       'commentary',
       'duration',
       'taskId',
       'status',
       'date',
       'type'
-    ] as const
+    ]
 
     if (data) {
       const {
@@ -48,28 +60,13 @@ export const UpdateTask: React.FC = () => {
       } = data
 
       inputs.forEach((input) => {
-        dispatch({
-          type: 'INPUT/SET_VALUE',
-          payload: {
-            value: {
-              [input]:
-                input === 'date'
-                  ? DateTime.fromISO(task[input].full).toFormat(
-                    'dd/MM/yyyy HH:mm'
-                  )
-                  : task[input].toString()
-            }
-          }
-        })
-
-        dispatch({
-          type: 'FORM/SET_FORM_DATA',
-          payload: {
-            data: {
-              [input]: input === 'date' ? task[input].full : task[input]
-            }
-          }
-        })
+        setFormData(input, input === 'date' ? task[input].full : task[input])
+        setInputValue(
+          input,
+          input === 'date'
+            ? DateTime.fromISO(task[input].full).toFormat('dd/MM/yyyy HH:mm')
+            : task[input].toString()
+        )
       })
     }
   }, [data, form.isResetting])

@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { InternalError } from '@/services/errors'
-import { FormContext } from '@/context/models/form'
+import { useForm } from '@/context/models/form'
 import { Button } from '@/components/atoms/Button'
 import { LoadingSkeleton } from '@/components/atoms/LoadingSkeleton'
 import {
@@ -21,7 +21,7 @@ export const AccountData: React.FC = () => {
   const [updateMe] = useUpdateMeMutation()
   const {
     state: { form }
-  } = useContext(FormContext)
+  } = useForm<{ currency: UserCurrency, email: string, name: string }>()
   const { data, refetch, loading } = useGetMeQuery()
   const [checked, setChecked] = useState(data?.getMe.user.settings.currency)
 

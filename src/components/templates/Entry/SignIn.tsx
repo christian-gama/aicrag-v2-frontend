@@ -1,7 +1,6 @@
-import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { formatName } from '@/helpers'
-import { FormContext } from '@/context/models/form'
+import { useForm } from '@/context/models/form'
 import { Button } from '@/components/atoms/Button'
 import { ControlForm, ControlInput } from '@/components/organisms/Control'
 import { Link } from '@/components/utils/texts/Link'
@@ -14,7 +13,7 @@ export const SignIn: React.FC = () => {
   const navigate = useNavigate()
   const [login, { data }] = useLoginMutation()
 
-  const { state } = useContext(FormContext)
+  const { state } = useForm<{ email: string, password: string }>()
   const onSubmitHandler = async () => {
     const { data } = await login({
       variables: {
