@@ -1,14 +1,20 @@
 import { HorizontalScrollBar } from '@/components/utils/HorizontalScrollBar'
 import * as classes from './stylesheet'
+import { TPagination } from './TablePagination'
 
 type TableProps = {
   showingUp?: {
     current: number
     total: number
   }
+  pagination?: JSX.Element
 }
 
-export const Table: React.FC<TableProps> = ({ children, showingUp }) => {
+export const Table: React.FC<TableProps> = ({
+  children,
+  showingUp,
+  pagination
+}) => {
   return (
     <div className={classes.tableWrapper}>
       <div className={classes.tableContentWrapper}>
@@ -27,6 +33,8 @@ export const Table: React.FC<TableProps> = ({ children, showingUp }) => {
           </table>
         </HorizontalScrollBar>
       </div>
+
+      {pagination && <TPagination>{pagination}</TPagination>}
     </div>
   )
 }
