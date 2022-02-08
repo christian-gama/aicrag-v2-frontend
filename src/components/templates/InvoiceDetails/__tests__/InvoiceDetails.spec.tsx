@@ -59,7 +59,7 @@ describe('InvoiceDetails', () => {
       apolloMocks: [getInvoiceByMonthMock()]
     })
     await waitFetch()
-    const invoiceDetails = screen.getByText(/^\$ 32.5$/)
+    const invoiceDetails = screen.getAllByText(/^\$ 32.5$/)[0]
 
     expect(invoiceDetails).toBeInTheDocument()
   })
@@ -71,7 +71,7 @@ describe('InvoiceDetails', () => {
       apolloMocks: [getInvoiceByMonthMock()]
     })
     await waitFetch()
-    const invoiceDetails = screen.getByText(/^R\$ 162.5$/)
+    const invoiceDetails = screen.getAllByText(/^R\$ 162.5$/)[0]
 
     expect(invoiceDetails).toBeInTheDocument()
   })
@@ -86,7 +86,7 @@ describe('InvoiceDetails', () => {
               getInvoiceByMonth: {
                 count: 1,
                 displaying: 1,
-                page: 1,
+                page: '1 of 1',
                 documents: [
                   {
                     ...taskFragmentMock.task,
@@ -100,7 +100,7 @@ describe('InvoiceDetails', () => {
       ]
     })
     await waitFetch()
-    const invoiceDetails = screen.getByText(/^--$/)
+    const invoiceDetails = screen.getAllByText(/^--$/)[0]
 
     expect(invoiceDetails).toBeInTheDocument()
   })
@@ -114,7 +114,7 @@ describe('InvoiceDetails', () => {
       ]
     })
     await waitFetch()
-    const deleteButton = screen.getByTestId('trash-icon')
+    const deleteButton = screen.getAllByTestId('trash-icon')[0]
     const deleteAction = () => screen.getByTestId('alert-action-button')
 
     userEvent.click(deleteButton)
@@ -129,7 +129,7 @@ describe('InvoiceDetails', () => {
       apolloMocks: [getInvoiceByMonthMock(), deleteTaskMock()]
     })
     await waitFetch()
-    const deleteButton = screen.getByTestId('trash-icon')
+    const deleteButton = screen.getAllByTestId('trash-icon')[0]
     const cancelAction = () => screen.getByTestId('alert-cancel-button')
     const alert = () => screen.queryByTestId('alert')
 
@@ -138,5 +138,18 @@ describe('InvoiceDetails', () => {
     await waitFetch()
 
     expect(alert()).not.toBeInTheDocument()
+  })
+
+  it('changes to the next page when click on nextPage', async () => {
+    renderWithProviders(<InvoiceDetails />, {
+      apolloMocks: [getInvoiceByMonthMock()]
+    })
+    await waitFetch()
+    const nextPage = screen.getByTestId('pagination-action-next')
+
+    userEvent.click(nextPage)
+    await waitFetch()
+
+    expect(nextPage).not.toBeInTheDocument()
   })
 })

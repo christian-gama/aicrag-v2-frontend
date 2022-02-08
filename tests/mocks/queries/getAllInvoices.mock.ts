@@ -3,6 +3,7 @@ import {
   GetAllInvoicesDocument,
   GetAllInvoicesType
 } from '@/external/graphql/generated'
+import { arrayFrom } from '@/tests/helpers'
 
 export const getAllInvoicesMock = (
   error?: Error
@@ -10,26 +11,26 @@ export const getAllInvoicesMock = (
   request: {
     query: GetAllInvoicesDocument,
     variables: {
+      sort: '-date.year,-date.month,-logs.createdAt',
       type: GetAllInvoicesType.Both,
-      sort: '-date.year,-date.month,-logs.createdAt'
+      limit: '12',
+      page: '1'
     }
   },
   result: {
     data: {
       getAllInvoices: {
-        count: 1,
-        displaying: 1,
-        page: 1,
-        documents: [
-          {
-            date: {
-              month: 0,
-              year: 2022
-            },
-            tasks: 1,
-            totalUsd: 10
-          }
-        ]
+        count: 12,
+        displaying: 6,
+        page: '1 of 2',
+        documents: arrayFrom(12).map(() => ({
+          date: {
+            month: 0,
+            year: 2022
+          },
+          tasks: 1,
+          totalUsd: 10
+        }))
       }
     }
   },

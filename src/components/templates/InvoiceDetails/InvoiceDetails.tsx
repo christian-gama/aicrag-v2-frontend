@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { getPages } from '@/helpers'
 import { getFormattedMonth } from '@/helpers/getFormattedMonth'
-import { useGetTaskValue } from '@/components/_hooks'
+import { useGetTaskValue, usePagination } from '@/components/_hooks'
 import { LoadingSkeleton } from '@/components/atoms/LoadingSkeleton'
+import { Pagination } from '@/components/atoms/Pagination'
 import { Alert } from '@/components/molecules/Alert'
 import { NoContent } from '@/components/molecules/NoContent'
 import Table from '@/components/molecules/Table'
@@ -29,16 +31,29 @@ export const InvoiceDetails: React.FC = () => {
   const { currency, getTaskValue } = useGetTaskValue(0)
   const [deleteTaskHandler, setDeleteTaskHandler] =
     useState<() => Promise<void>>()
+  const {
+    previousPageHandler,
+    nextPageHandler,
+    setTotalPages,
+    currentPage,
+    totalPages
+  } = usePagination()
   const { data, refetch, loading } = useGetInvoiceByMonthQuery({
     variables: {
+      sort: '-date.month,-date.day,-logs.createdAt',
       type: GetInvoiceByMonthType.Both,
+      page: currentPage.toString(),
       month: month!,
-      year: year!,
-      sort: '-date.month,-date.day,-logs.createdAt'
+      year: year!
     }
   })
-
   useRefetchInvoice('invoice', refetch)
+
+  useEffect(() => {
+    if (data) {
+      setTotalPages(getPages(data.getInvoiceByMonth.page).totalPages)
+    }
+  }, [data])
 
   if (loading) {
     return (
@@ -72,7 +87,17 @@ export const InvoiceDetails: React.FC = () => {
 
   return (
     <div data-testid="invoice-details">
-      <Table.Main showingUp={{ current: displaying, total: count }}>
+      <Table.Main
+        showingUp={{ current: displaying, total: count }}
+        pagination={
+          <Pagination
+            previousPageHandler={previousPageHandler}
+            nextPageHandler={nextPageHandler}
+            currentPage={currentPage}
+            totalPages={totalPages}
+          />
+        }
+      >
         <Table.Thead>
           <Table.Tr>
             <Table.Th>Data</Table.Th>

@@ -1,6 +1,9 @@
+import { useEffect } from 'react'
+import { getPages } from '@/helpers'
 import { getFormattedMonth } from '@/helpers/getFormattedMonth'
-import { useGetTaskValue } from '@/components/_hooks'
+import { useGetTaskValue, usePagination } from '@/components/_hooks'
 import { LoadingSkeleton } from '@/components/atoms/LoadingSkeleton'
+import { Pagination } from '@/components/atoms/Pagination'
 import { NoContent } from '@/components/molecules/NoContent'
 import Table from '@/components/molecules/Table'
 import { DateData } from '@/components/molecules/Table/DateData'
@@ -13,14 +16,28 @@ import { useRefetchInvoice } from '@/external/graphql/reactiveVars'
 
 export const Invoice: React.FC = () => {
   const { currency, getTaskValue } = useGetTaskValue(0)
+  const {
+    previousPageHandler,
+    nextPageHandler,
+    setTotalPages,
+    currentPage,
+    totalPages
+  } = usePagination()
   const { data, refetch, loading } = useGetAllInvoicesQuery({
     variables: {
+      sort: '-date.year,-date.month,-logs.createdAt',
       type: GetAllInvoicesType.Both,
-      sort: '-date.year,-date.month,-logs.createdAt'
+      page: currentPage.toString(),
+      limit: '12'
     }
   })
-
   useRefetchInvoice('allInvoices', refetch)
+
+  useEffect(() => {
+    if (data) {
+      setTotalPages(getPages(data.getAllInvoices.page).totalPages)
+    }
+  }, [data])
 
   if (loading) {
     return (
@@ -44,7 +61,17 @@ export const Invoice: React.FC = () => {
 
   return (
     <div data-testid="invoice">
-      <Table.Main showingUp={{ current: displaying, total: count }}>
+      <Table.Main
+        showingUp={{ current: displaying, total: count }}
+        pagination={
+          <Pagination
+            previousPageHandler={previousPageHandler}
+            nextPageHandler={nextPageHandler}
+            currentPage={currentPage}
+            totalPages={totalPages}
+          />
+        }
+      >
         <Table.Thead>
           <Table.Tr>
             <Table.Th>Período</Table.Th>

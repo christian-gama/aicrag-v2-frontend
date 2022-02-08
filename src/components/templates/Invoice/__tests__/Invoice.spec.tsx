@@ -44,7 +44,7 @@ describe('Invoice', () => {
       apolloMocks: [getAllInvoicesMock()]
     })
     await waitFetch()
-    const currency = screen.getByText(/^R\$ 50$/i)
+    const currency = screen.getAllByText(/^R\$ 50$/i)[0]
 
     expect(currency).toBeInTheDocument()
   })

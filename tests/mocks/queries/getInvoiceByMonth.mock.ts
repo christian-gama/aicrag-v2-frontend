@@ -3,6 +3,7 @@ import {
   GetInvoiceByMonthDocument,
   GetInvoiceByMonthType
 } from '@/external/graphql/generated'
+import { arrayFrom } from '@/tests/helpers'
 import { taskFragmentMock } from '../fragments'
 
 export const getInvoiceByMonthMock = (
@@ -11,23 +12,20 @@ export const getInvoiceByMonthMock = (
   request: {
     query: GetInvoiceByMonthDocument,
     variables: {
-      type: GetInvoiceByMonthType.Both,
       sort: '-date.month,-date.day,-logs.createdAt',
+      type: GetInvoiceByMonthType.Both,
       year: 2022,
-      month: 1
+      month: 1,
+      page: '1'
     }
   },
   result: {
     data: {
       getInvoiceByMonth: {
-        count: 1,
-        displaying: 1,
-        page: 1,
-        documents: [
-          {
-            ...taskFragmentMock.task
-          }
-        ]
+        count: 40,
+        displaying: 20,
+        page: '1 of 2',
+        documents: arrayFrom(40).map(() => taskFragmentMock.task)
       }
     }
   },
