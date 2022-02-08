@@ -12,7 +12,7 @@ export const taskFragmentMock = {
       year: new Date(Date.parse(mockVariables.date)).getFullYear()
     },
     duration: mockVariables.duration,
-    id: mockVariables.taskId,
+    id: mockVariables.uuid,
     logs: {
       createdAt: mockVariables.date,
       updatedAt: null
