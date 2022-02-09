@@ -64,7 +64,10 @@ export const UpdateTask: React.FC = () => {
         setInputValue(
           input,
           input === 'date'
-            ? DateTime.fromISO(task[input].full).toFormat('dd/MM/yyyy HH:mm')
+            ? DateTime.fromFormat(
+              task[input].full?.replace(/(T|Z)/gi, ' ').trim() ?? '',
+              'yyyy-MM-dd HH:mm:ss.SSS'
+            ).toFormat('dd/MM/yyyy HH:mm')
             : task[input].toString()
         )
       })

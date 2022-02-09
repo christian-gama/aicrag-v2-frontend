@@ -31,9 +31,7 @@ describe('mailerCountdownStoragepec', () => {
 
     const result = sut.get()
 
-    expect(result).toBe(
-      DateTime.now().plus({ seconds: 60 }).toJSDate().toISOString()
-    )
+    expect(result).toBe(DateTime.now().plus({ seconds: 60 }).toISO())
   })
 
   it('removes the expire date if reset is called', () => {
