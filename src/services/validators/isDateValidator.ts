@@ -11,5 +11,18 @@ export class IsDateValidator implements IFieldValidation {
     if (isNaN(Date.parse(fieldValue))) {
       return new InvalidFieldError(this.field, 'deve ser uma data válida')
     }
+
+    const dateArray = fieldValue
+      .split('-')
+      .join(' ')
+      .split('T')
+      .join(' ')
+      .split(':')
+      .join(' ')
+      .split('.')
+      .join(' ')
+      .split(' ')
+
+    if (dateArray.length < 7 || dateArray.length > 9) { return new InvalidFieldError(this.field, 'deve ser uma data válida') }
   }
 }
