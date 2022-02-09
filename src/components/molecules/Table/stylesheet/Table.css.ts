@@ -1,5 +1,5 @@
 import { createGlobalTheme, style } from '@vanilla-extract/css'
-import { vars } from '@/components/_settings'
+import { breakpoints, vars } from '@/components/_settings'
 
 export const tableWrapper = style({
   display: 'grid',
@@ -21,7 +21,13 @@ export const tableContent = style({
   margin: '0 0.4rem',
   width: '90rem',
   fontFamily: vars.font.p.fontFamily,
-  fontSize: vars.font.p.fontSize
+  fontSize: vars.font.p.fontSize,
+
+  '@media': {
+    [breakpoints.widescreen]: {
+      width: '80rem'
+    }
+  }
 })
 
 export const tableCell = style({

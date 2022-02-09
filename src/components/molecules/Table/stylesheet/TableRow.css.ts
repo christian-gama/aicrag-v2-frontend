@@ -37,6 +37,13 @@ export const tableRow = style({
   },
 
   '@media': {
+    [breakpoints.widescreen]: {
+      gap: '1.2rem',
+      minWidth: '80rem',
+      width: '80rem',
+      maxWidth: '80rem'
+    },
+
     [breakpoints.mobile]: {
       marginTop: '1rem',
       padding: '0 2.4rem',

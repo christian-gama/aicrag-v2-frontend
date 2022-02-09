@@ -7,7 +7,7 @@ export const calendarTimer = style({
 
   '@media': {
     [breakpoints.mobile]: {
-      marginBottom: '3.2rem'
+      display: 'none'
     }
   }
 })

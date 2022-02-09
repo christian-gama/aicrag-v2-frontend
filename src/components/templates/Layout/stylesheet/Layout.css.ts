@@ -12,7 +12,7 @@ export const layout = style({
 
   '@media': {
     [breakpoints.widescreen]: {
-      gridTemplateColumns: '25rem 1fr'
+      gridTemplateColumns: '27rem 1fr'
     },
 
     [breakpoints.desktop]: {
@@ -29,12 +29,20 @@ export const layoutCard = style({
   gridArea: 'main',
   margin: '2rem',
   minHeight: 'calc(100vh - 12rem - 2rem - 2rem)',
-  height: '100%',
 
   '@media': {
+    [breakpoints.widescreen]: {
+      margin: '1.2rem',
+      minHeight: 'calc(100vh - 12rem - 1.2rem - 1.2rem)'
+    },
+
     [breakpoints.desktop]: {
       margin: '0.6rem 0 6.6rem 0',
-      minHeight: 'calc(100vh - 13.2rem - 5.6rem)'
+      minHeight: 'calc(100vh - 13.6rem - 5.6rem)'
+    },
+
+    [breakpoints.mobile]: {
+      minHeight: 'calc(100vh - 15.6rem - 5.6rem)'
     }
   }
 })

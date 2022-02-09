@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css'
+import { breakpoints } from '@/components/_settings'
 
 export const signUp = style({
   display: 'flex',
@@ -11,5 +12,17 @@ export const signUpInputWrapper = style({
   flexDirection: 'column',
   marginBottom: '3.6rem',
   width: '100%',
-  gap: '2rem'
+  gap: '2rem',
+
+  '@media': {
+    [breakpoints.widescreen]: {
+      marginBottom: '2.4rem',
+      gap: '1.6rem'
+    },
+
+    [breakpoints.mobile]: {
+      marginBottom: '3.6rem',
+      gap: '2rem'
+    }
+  }
 })

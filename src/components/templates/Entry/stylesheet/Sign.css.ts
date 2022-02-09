@@ -5,7 +5,12 @@ export const signMenuWrapper = style({
   marginBottom: '3.2rem',
 
   '@media': {
+    [breakpoints.widescreen]: {
+      marginBottom: '2rem'
+    },
+
     [breakpoints.mobile]: {
+      marginBottom: '3.2rem',
       width: '100vw',
       marginLeft: '-1.6rem',
       marginRight: '-1.6rem'
@@ -15,23 +20,36 @@ export const signMenuWrapper = style({
 
 export const signHeader = style({
   display: 'flex',
-  gap: '1rem',
   width: '100%',
   justifyContent: 'center',
   alignItems: 'center',
-  marginBottom: '3.6rem'
+  marginBottom: '3.6rem',
+
+  '@media': {
+    [breakpoints.widescreen]: {
+      marginBottom: '2rem'
+    },
+
+    [breakpoints.mobile]: {
+      marginBottom: '3.6rem'
+    }
+  }
 })
 
 export const signWrapper = style({
   padding: '3.6rem 5rem',
 
   '@media': {
+    [breakpoints.widescreen]: {
+      padding: '2rem 3.6rem'
+    },
+
     [breakpoints.tablet]: {
-      padding: '2rem 2.8rem'
+      padding: '2.4rem 2.8rem'
     },
 
     [breakpoints.mobile]: {
-      padding: '1.2rem 1.6rem'
+      padding: '2.4rem 1.6rem'
     }
   }
 })
