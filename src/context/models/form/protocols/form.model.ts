@@ -1,4 +1,4 @@
-import { Maybe } from '@/helpers'
+import { Boolean, Maybe, Optional, String } from '@/helpers'
 import { IValidation } from '@/services/validators'
 import { BaseInput } from '@/components/atoms/BaseInput'
 
@@ -19,11 +19,11 @@ export type FormStates<
   }
   input: {
     currentType: Object<React.ComponentPropsWithRef<typeof BaseInput>['type']>
-    error: Object<Maybe<string>>
-    isFocused: Object<boolean>
-    isTouched: Object<boolean>
-    isValid: Object<boolean>
-    value: Object<string | number | string[] | undefined>
+    error: Optional<String<T>>
+    isFocused: Boolean<T>
+    isTouched: Boolean<T>
+    isValid: Boolean<T>
+    value: T
   }
 }
 

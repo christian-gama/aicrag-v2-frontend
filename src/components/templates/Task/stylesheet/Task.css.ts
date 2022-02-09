@@ -11,6 +11,12 @@ export const taskFormWrapper = style({
   gridColumn: '2/3'
 })
 
+export const taskFormInputCounter = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-end'
+})
+
 export const taskForm = style({
   gridColumn: 'taskForm',
   display: 'grid',
