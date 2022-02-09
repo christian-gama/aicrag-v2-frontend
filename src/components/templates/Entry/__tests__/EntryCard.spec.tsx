@@ -1,15 +1,15 @@
-import { cleanup, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { useWindowDimensions } from '@/components/_hooks'
-import { renderWithProviders } from '@/tests/helpers'
+import { renderWithProviders, setupTests } from '@/tests/helpers'
 import { EntryCard } from '..'
 
 jest.mock('../../../_hooks/useWindowDimensions')
 const useWindowDimensionsMock = useWindowDimensions as jest.Mock
 
 describe('EntryCard', () => {
-  afterEach(() => {
-    cleanup()
+  setupTests()
 
+  afterEach(() => {
     useWindowDimensionsMock.mockRestore()
   })
 
@@ -17,17 +17,17 @@ describe('EntryCard', () => {
     useWindowDimensionsMock.mockReturnValue({ width: 520, height: 520 })
   })
 
-  it('renders correctly', () => {
+  it('renders correctly', async () => {
     useWindowDimensionsMock.mockReturnValue({ width: 1920, height: 1080 })
-    renderWithProviders(<EntryCard />)
+    await renderWithProviders(<EntryCard />)
     const card = screen.getByTestId('card')
 
     expect(card).toBeInTheDocument()
   })
 
-  it('renders with no border if width is lesser or equal to 520', () => {
+  it('renders with no border if width is lesser or equal to 520', async () => {
     useWindowDimensionsMock.mockReturnValue({ width: 520, height: 768 })
-    renderWithProviders(<EntryCard />)
+    await renderWithProviders(<EntryCard />)
     const card = screen.getByTestId('card')
 
     expect(card.className).toMatch(/roundness_none/gi)

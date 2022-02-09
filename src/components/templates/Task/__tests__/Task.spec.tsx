@@ -1,10 +1,12 @@
 import { cleanup, fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { authVar, popoverVar } from '@/external/graphql/reactiveVars'
+import { popoverVar } from '@/external/graphql/reactiveVars'
 import {
+  formUtils,
   MockDate,
-  OverlayRoot,
   renderWithProviders,
+  setupTests,
+  setUser,
   waitFetch
 } from '@/tests/helpers'
 import { makeMockValidation, mockVariables } from '@/tests/mocks'
@@ -25,19 +27,8 @@ jest.mock('react-router-dom', () => ({
 }))
 
 describe('Task', () => {
-  const setCurrency = (currency: 'BRL' | 'USD') =>
-    authVar.setUser({
-      personal: {
-        email: mockVariables.email,
-        id: mockVariables.uuid,
-        name: mockVariables.name
-      },
-      settings: {
-        currency
-      }
-    })
+  setupTests()
   const mockDate = new MockDate(2022, 1, 1, 0, 0)
-  const overlayRoot = new OverlayRoot()
   let UpdateTask: any
   let NewTask: any
   let Task: any
@@ -52,15 +43,12 @@ describe('Task', () => {
   const type = () => getElement('select[name="type"]')
 
   afterEach(() => {
-    overlayRoot.removeOverlayRoot()
-    jest.restoreAllMocks()
     mockDate.reset()
     cleanup()
   })
 
   beforeEach(async () => {
-    overlayRoot.addOverlayRoot()
-    setCurrency('BRL')
+    setUser()
     mockDate.mock()
 
     // Imports dinamically so it can have the date mocked, as it's using DefaultProps
@@ -69,8 +57,8 @@ describe('Task', () => {
     Task = (await import('../Task')).Task
   })
 
-  it('renders correctly', () => {
-    renderWithProviders(
+  it('renders correctly', async () => {
+    await renderWithProviders(
       <Task
         validator={makeMockValidation(jest.fn())}
         submitHandler={async () => jest.fn}
@@ -82,8 +70,8 @@ describe('Task', () => {
     expect(newTask).toBeInTheDocument()
   })
 
-  it('changes the duration to 2.4 minutes when change type to QA', () => {
-    renderWithProviders(
+  it('changes the duration to 2.4 minutes when change type to QA', async () => {
+    await renderWithProviders(
       <Task
         validator={makeMockValidation(jest.fn())}
         submitHandler={async () => jest.fn}
@@ -96,8 +84,8 @@ describe('Task', () => {
     expect(duration()).toHaveValue(2.4)
   })
 
-  it('changes the duration to 30 minutes when change type to TX', () => {
-    renderWithProviders(
+  it('changes the duration to 30 minutes when change type to TX', async () => {
+    await renderWithProviders(
       <Task
         validator={makeMockValidation(jest.fn())}
         submitHandler={async () => jest.fn}
@@ -113,15 +101,15 @@ describe('Task', () => {
   describe('NewTask', () => {
     it('submits the form', async () => {
       const popoverSpy = jest.spyOn(popoverVar, 'setPopover')
-      renderWithProviders(<NewTask />, { apolloMocks: [createTaskMock()] })
-      const form = screen.getByTestId('form')
+      await renderWithProviders(<NewTask />, {
+        apolloMocks: [createTaskMock()]
+      })
 
       userEvent.type(taskId(), mockVariables.taskId)
       userEvent.type(commentary(), mockVariables.commentary)
       userEvent.selectOptions(type(), mockVariables.type)
       userEvent.selectOptions(status(), mockVariables.status)
-      fireEvent.submit(form)
-      await waitFetch()
+      await formUtils.submitForm()
 
       expect(popoverSpy).toHaveBeenCalledWith(expect.anything(), 'success')
     })
@@ -130,28 +118,24 @@ describe('Task', () => {
   describe('UpdateTask', () => {
     it('submits the form', async () => {
       const popoverSpy = jest.spyOn(popoverVar, 'setPopover')
-      renderWithProviders(<UpdateTask />, {
+      await renderWithProviders(<UpdateTask />, {
         apolloMocks: [findOneTaskMock(), updateTaskMock()]
       })
-      await waitFetch()
-      const form = screen.getByTestId('form')
 
       fireEvent.change(taskId(), mockVariables.taskId)
       fireEvent.change(commentary(), mockVariables.commentary)
       userEvent.selectOptions(type(), mockVariables.type)
       userEvent.selectOptions(status(), mockVariables.status)
-      fireEvent.submit(form)
-      await waitFetch()
+      await formUtils.submitForm()
 
       expect(popoverSpy).toHaveBeenCalledWith(expect.anything(), 'success')
     })
 
     it('deletes the task', async () => {
       const popoverSpy = jest.spyOn(popoverVar, 'setPopover')
-      renderWithProviders(<UpdateTask />, {
+      await renderWithProviders(<UpdateTask />, {
         apolloMocks: [findOneTaskMock(), deleteTaskMock()]
       })
-      await waitFetch()
       const deleteButton = screen.getByRole('button', { name: /deletar/i })
       const deleteAction = () => screen.getByTestId('alert-action-button')
 
@@ -163,7 +147,7 @@ describe('Task', () => {
     })
 
     it('closes the Alert when clicking on cancel', async () => {
-      renderWithProviders(<UpdateTask />, {
+      await renderWithProviders(<UpdateTask />, {
         apolloMocks: [findOneTaskMock(), deleteTaskMock()]
       })
       await waitFetch()
@@ -179,7 +163,7 @@ describe('Task', () => {
     })
 
     it('navigates to /invoice page on data loading error', async () => {
-      renderWithProviders(<UpdateTask />, {
+      await renderWithProviders(<UpdateTask />, {
         apolloMocks: [findOneTaskMock(new Error())]
       })
       await waitFetch()
@@ -188,17 +172,16 @@ describe('Task', () => {
     })
 
     it('has value in USD if currency is USD', async () => {
-      setCurrency('USD')
+      setUser({ currency: 'USD' })
       window.fetch = jest.fn().mockImplementation(async () => ({
         json: () => ({
           USDBRL: { ask: 5 }
         })
       }))
-      renderWithProviders(<UpdateTask />, {
+      await renderWithProviders(<UpdateTask />, {
         apolloMocks: [findOneTaskMock()]
       })
       const value = () => screen.getByText(/\$ 32\.5/i)
-      await waitFetch()
 
       expect(value()).toBeInTheDocument()
     })
@@ -209,11 +192,10 @@ describe('Task', () => {
           USDBRL: { ask: 5 }
         })
       }))
-      renderWithProviders(<UpdateTask />, {
+      await renderWithProviders(<UpdateTask />, {
         apolloMocks: [findOneTaskMock()]
       })
       const value = () => screen.getByText(/r\$ 162\.5/i)
-      await waitFetch(100)
 
       expect(value()).toBeInTheDocument()
     })
@@ -224,11 +206,10 @@ describe('Task', () => {
           throw new Error()
         }
       }))
-      renderWithProviders(<UpdateTask />, {
+      await renderWithProviders(<UpdateTask />, {
         apolloMocks: [findOneTaskMock()]
       })
       const value = () => screen.getByText(/r\$ 162\.5/i)
-      await waitFetch()
 
       expect(value()).toBeInTheDocument()
     })

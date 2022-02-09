@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import { FormProvider } from '@/context/models/form'
 import { useMailerCountdown } from '@/components/_hooks'
+import { waitFetch } from '.'
 import { calendarStoreMock, mailerCountdownMock } from '../mocks'
 import { getPath } from './getPath'
 
@@ -54,14 +55,18 @@ type RenderWithProvidersOptions = {
   apolloMocks?: Array<MockedResponse<Record<string, any>>>
 } & RenderOptions
 
-export const renderWithProviders = (
+export const renderWithProviders = async (
   ui: React.ReactElement,
   options?: RenderWithProvidersOptions
 ) => {
-  return render(
+  const renderResult = render(
     <AllProviders apolloMocks={options?.apolloMocks}>{ui}</AllProviders>,
     {
       ...options
     }
   )
+
+  await waitFetch()
+
+  return renderResult
 }

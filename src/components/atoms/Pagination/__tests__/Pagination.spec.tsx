@@ -1,10 +1,9 @@
-import { render, cleanup, screen } from '@testing-library/react'
+import { setupTests } from '@/tests/helpers'
+import { render, screen } from '@testing-library/react'
 import { Pagination } from '..'
 
 describe('Pagination', () => {
-  afterEach(() => {
-    cleanup()
-  })
+  setupTests()
 
   it('renders correctly', () => {
     render(

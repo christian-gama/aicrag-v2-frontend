@@ -1,5 +1,5 @@
-import { OverlayRoot, renderWithProviders } from '@/tests/helpers'
-import { cleanup, screen } from '@testing-library/react'
+import { renderWithProviders, setupTests } from '@/tests/helpers'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { InvoiceDetailsView } from '..'
 
@@ -10,26 +10,17 @@ jest.mock('react-router-dom', () => ({
 }))
 
 describe('InvoiceDetailsView', () => {
-  const overlayRoot = new OverlayRoot()
+  setupTests()
 
-  afterEach(() => {
-    cleanup()
-    overlayRoot.removeOverlayRoot()
-  })
-
-  beforeEach(() => {
-    overlayRoot.addOverlayRoot()
-  })
-
-  it('renders correctly', () => {
-    renderWithProviders(<InvoiceDetailsView />)
+  it('renders correctly', async () => {
+    await renderWithProviders(<InvoiceDetailsView />)
     const invoiceDetailsView = screen.getByTestId('invoice-details-view')
 
     expect(invoiceDetailsView).toBeInTheDocument()
   })
 
-  it('should navigate back to invoice page when clicking on backIcon', () => {
-    renderWithProviders(<InvoiceDetailsView />)
+  it('should navigate back to invoice page when clicking on backIcon', async () => {
+    await renderWithProviders(<InvoiceDetailsView />)
     const backIcon = screen.getByTestId('back-icon')
 
     userEvent.click(backIcon)

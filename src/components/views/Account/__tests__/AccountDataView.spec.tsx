@@ -14,8 +14,8 @@ describe('AccountDataView', () => {
     overlayRoot.addOverlayRoot()
   })
 
-  it('renders correctly', () => {
-    renderWithProviders(<AccountDataView />)
+  it('renders correctly', async () => {
+    await renderWithProviders(<AccountDataView />)
     const accountDataView = screen.getByTestId('account-data-view')
 
     expect(accountDataView).toBeInTheDocument()

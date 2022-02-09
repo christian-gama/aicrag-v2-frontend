@@ -1,21 +1,12 @@
-import { OverlayRoot, renderWithProviders } from '@/tests/helpers'
-import { cleanup, screen } from '@testing-library/react'
+import { renderWithProviders, setupTests } from '@/tests/helpers'
+import { screen } from '@testing-library/react'
 import { InvoiceView } from '..'
 
 describe('InvoiceView', () => {
-  const overlayRoot = new OverlayRoot()
+  setupTests()
 
-  afterEach(() => {
-    overlayRoot.removeOverlayRoot()
-    cleanup()
-  })
-
-  beforeEach(() => {
-    overlayRoot.addOverlayRoot()
-  })
-
-  it('renders correctly', () => {
-    renderWithProviders(<InvoiceView />)
+  it('renders correctly', async () => {
+    await renderWithProviders(<InvoiceView />)
     const invoiceView = screen.getByTestId('invoice-view')
 
     expect(invoiceView).toBeInTheDocument()

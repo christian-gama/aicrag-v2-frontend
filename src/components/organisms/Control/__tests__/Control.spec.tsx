@@ -1,14 +1,13 @@
-import {
-  act,
-  cleanup,
-  fireEvent,
-  screen,
-  waitFor
-} from '@testing-library/react'
+import { fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { DateTime } from 'luxon'
 import { popoverVar } from '@/external/graphql/reactiveVars'
-import { MockDate, OverlayRoot, renderWithProviders } from '@/tests/helpers'
+import {
+  formUtils,
+  MockDate,
+  renderWithProviders,
+  setupTests
+} from '@/tests/helpers'
 import {
   ControlDateInput,
   ControlForm,
@@ -19,67 +18,50 @@ import {
 import { makeMockValidation } from '@/tests/mocks'
 
 describe('Control', () => {
-  const overlayRoot = new OverlayRoot()
-
-  afterEach(() => {
-    cleanup()
-    overlayRoot.removeOverlayRoot()
-    jest.restoreAllMocks()
-  })
-
-  beforeEach(() => {
-    overlayRoot.addOverlayRoot()
-  })
+  setupTests()
 
   describe('Form', () => {
-    it('renders correctly', () => {
-      renderWithProviders(
+    it('renders correctly', async () => {
+      await renderWithProviders(
         <ControlForm submitHandler={jest.fn()}>
           <ControlInput name="title" label="Title" />
         </ControlForm>
       )
-      const form = screen.getByTestId('form')
 
-      expect(form).toBeInTheDocument()
+      expect(formUtils.form).toBeInTheDocument()
     })
 
     it('calls submitHandler when submit', async () => {
       const submitHandlerSpy = jest.fn().mockReturnValue(Promise.resolve())
-      renderWithProviders(
+      await renderWithProviders(
         <ControlForm submitHandler={submitHandlerSpy}>
           <ControlInput name="title" label="Title" />
         </ControlForm>
       )
-      const form = screen.getByTestId('form')
 
-      act(() => {
-        fireEvent.submit(form)
-      })
+      await formUtils.submitForm()
 
-      await waitFor(() => expect(submitHandlerSpy).toHaveBeenCalled())
+      expect(submitHandlerSpy).toHaveBeenCalled()
     })
 
     it('calls postSubmitFn after submiting', async () => {
       const postSubmitFnSpy = jest.fn()
       const submitHandlerSpy = jest.fn().mockReturnValue(postSubmitFnSpy)
-      renderWithProviders(
+      await renderWithProviders(
         <ControlForm submitHandler={submitHandlerSpy}>
           <ControlInput name="title" label="Title" />
         </ControlForm>
       )
-      const form = screen.getByTestId('form')
 
-      act(() => {
-        fireEvent.submit(form)
-      })
+      await formUtils.submitForm()
 
-      await waitFor(() => expect(submitHandlerSpy).toHaveBeenCalled())
-      await waitFor(() => expect(postSubmitFnSpy).toHaveBeenCalled())
+      expect(submitHandlerSpy).toHaveBeenCalled()
+      expect(postSubmitFnSpy).toHaveBeenCalled()
     })
 
     it('calls validator when submit with the correct data', async () => {
       const validatorSpy = jest.fn()
-      renderWithProviders(
+      await renderWithProviders(
         <ControlForm
           submitHandler={jest.fn()}
           validator={makeMockValidation(validatorSpy)}
@@ -87,40 +69,32 @@ describe('Control', () => {
           <ControlInput name="title" label="Title" defaultValue="Any Value" />
         </ControlForm>
       )
-      const form = screen.getByTestId('form')
 
-      act(() => {
-        fireEvent.submit(form)
+      await formUtils.submitForm()
+
+      expect(validatorSpy).toHaveBeenCalledWith('title', {
+        title: 'Any Value'
       })
-
-      await waitFor(() =>
-        expect(validatorSpy).toHaveBeenCalledWith('title', {
-          title: 'Any Value'
-        })
-      )
     })
 
     it('catches if submitHandler throws', async () => {
       const submitHandlerSpy = jest.fn().mockImplementation(() => {
         throw new Error()
       })
-      renderWithProviders(
+      await renderWithProviders(
         <ControlForm submitHandler={submitHandlerSpy}>
           <ControlInput name="title" label="Title" />
         </ControlForm>
       )
-      const form = screen.getByTestId('form')
 
-      act(() => {
-        fireEvent.submit(form)
-      })
+      await formUtils.submitForm()
 
-      await waitFor(() => expect(submitHandlerSpy).toHaveBeenCalled())
+      expect(submitHandlerSpy).toHaveBeenCalled()
     })
 
-    it('calls setPopover with the correct data if validation fails with an empty form', () => {
+    it('calls setPopover with the correct data if validation fails with an empty form', async () => {
       const setPopoverSpy = jest.spyOn(popoverVar, 'setPopover')
-      renderWithProviders(
+      await renderWithProviders(
         <ControlForm
           submitHandler={jest.fn()}
           validator={makeMockValidation(jest.fn().mockReturnValue('any_error'))}
@@ -128,11 +102,8 @@ describe('Control', () => {
           <ControlInput name="title" label="Title" />
         </ControlForm>
       )
-      const form = screen.getByTestId('form')
 
-      act(() => {
-        fireEvent.submit(form)
-      })
+      await formUtils.submitForm()
 
       expect(setPopoverSpy).toHaveBeenCalledWith(
         'Não foi possível continuar, pois há erros que precisam ser corrigidos',
@@ -142,43 +113,35 @@ describe('Control', () => {
 
     it('calls setPopover with the correct data if validation succeeds', async () => {
       const setPopoverSpy = jest.spyOn(popoverVar, 'setPopover')
-      renderWithProviders(
+      await renderWithProviders(
         <ControlForm submitHandler={jest.fn()} successMessage="Success message">
           <ControlInput name="title" label="Title" />
         </ControlForm>
       )
-      const form = screen.getByTestId('form')
 
-      act(() => {
-        fireEvent.submit(form)
-      })
+      await formUtils.submitForm()
 
-      await waitFor(() =>
-        expect(setPopoverSpy).toHaveBeenCalledWith('Success message', 'success')
-      )
+      expect(setPopoverSpy).toHaveBeenCalledWith('Success message', 'success')
     })
 
     it('stops the loading state when catches an error', async () => {
       const submitHandlerSpy = jest.fn().mockImplementation(() => {
         throw new Error()
       })
-      renderWithProviders(
+      await renderWithProviders(
         <ControlForm submitHandler={submitHandlerSpy}>
           <ControlInput name="title" label="Title" />
         </ControlForm>
       )
-      const form = screen.getByTestId('form')
 
-      act(() => {
-        fireEvent.submit(form)
-      })
+      await formUtils.submitForm()
 
-      await waitFor(() => expect(form).toHaveAttribute('data-loading', 'false'))
+      expect(formUtils.form).toHaveAttribute('data-loading', 'false')
     })
 
     it('stops the loading state when validation fails', async () => {
       const validateSpy = jest.fn().mockReturnValue('any_error')
-      renderWithProviders(
+      await renderWithProviders(
         <ControlForm
           submitHandler={jest.fn()}
           validator={makeMockValidation(validateSpy)}
@@ -186,19 +149,16 @@ describe('Control', () => {
           <ControlInput name="title" label="Title" />
         </ControlForm>
       )
-      const form = screen.getByTestId('form')
 
-      act(() => {
-        fireEvent.submit(form)
-      })
+      await formUtils.submitForm()
 
-      await waitFor(() => expect(form).toHaveAttribute('data-loading', 'false'))
+      expect(formUtils.form).toHaveAttribute('data-loading', 'false')
     })
   })
 
   describe('ControlInput', () => {
-    it('starts as readOnly', () => {
-      renderWithProviders(
+    it('starts as readOnly', async () => {
+      await renderWithProviders(
         <ControlForm submitHandler={jest.fn()}>
           <ControlInput label="Title" name="title" />
         </ControlForm>
@@ -208,8 +168,8 @@ describe('Control', () => {
       expect(input).toHaveAttribute('readOnly')
     })
 
-    it('displays an icon if icon is defined', () => {
-      renderWithProviders(
+    it('displays an icon if icon is defined', async () => {
+      await renderWithProviders(
         <ControlForm submitHandler={jest.fn()}>
           <ControlInput
             icon={<div data-testid="icon">Icon</div>}
@@ -223,8 +183,8 @@ describe('Control', () => {
       expect(icon).toBeInTheDocument()
     })
 
-    it('toggles the eye icon when clicking on it', () => {
-      renderWithProviders(
+    it('toggles the eye icon when clicking on it', async () => {
+      await renderWithProviders(
         <ControlForm submitHandler={jest.fn()}>
           <ControlInput type="password" label="Title" name="title" />
         </ControlForm>
@@ -244,7 +204,7 @@ describe('Control', () => {
     })
 
     it('starts with password type and changes to text when click on eye icon', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <ControlForm submitHandler={jest.fn()}>
           <ControlInput type="password" label="Title" name="title" />
         </ControlForm>
@@ -260,8 +220,8 @@ describe('Control', () => {
     })
 
     describe('when triggers onBlur', () => {
-      it("has an error state if value is invalid and it's required", () => {
-        renderWithProviders(
+      it("has an error state if value is invalid and it's required", async () => {
+        await renderWithProviders(
           <ControlForm
             submitHandler={jest.fn()}
             validator={makeMockValidation(
@@ -278,8 +238,8 @@ describe('Control', () => {
         expect(input.className).toMatch(/state_error/gi)
       })
 
-      it('has a success state if value is valid and not empty', () => {
-        renderWithProviders(
+      it('has a success state if value is valid and not empty', async () => {
+        await renderWithProviders(
           <ControlForm
             submitHandler={jest.fn()}
             validator={makeMockValidation(jest.fn())}
@@ -295,9 +255,9 @@ describe('Control', () => {
         expect(input.className).toMatch(/state_success/gi)
       })
 
-      it('calls onBlur function', () => {
+      it('calls onBlur function', async () => {
         const onBlurSpy = jest.fn()
-        renderWithProviders(
+        await renderWithProviders(
           <ControlForm submitHandler={jest.fn()}>
             <ControlInput label="Title" name="title" onBlur={onBlurSpy} />
           </ControlForm>
@@ -311,8 +271,8 @@ describe('Control', () => {
     })
 
     describe('when triggers onChange', () => {
-      it('has a default state even if value is invalid but it was did not blur yet', () => {
-        renderWithProviders(
+      it('has a default state even if value is invalid but it was did not blur yet', async () => {
+        await renderWithProviders(
           <ControlForm
             submitHandler={jest.fn()}
             validator={makeMockValidation(
@@ -329,8 +289,8 @@ describe('Control', () => {
         expect(input.className).toMatch(/state_default/gi)
       })
 
-      it('has an error state if field was already touched and has an invalid value', () => {
-        renderWithProviders(
+      it('has an error state if field was already touched and has an invalid value', async () => {
+        await renderWithProviders(
           <ControlForm
             submitHandler={jest.fn()}
             validator={makeMockValidation(
@@ -348,8 +308,8 @@ describe('Control', () => {
         expect(input.className).toMatch(/state_error/gi)
       })
 
-      it('has a success state if value is valid', () => {
-        renderWithProviders(
+      it('has a success state if value is valid', async () => {
+        await renderWithProviders(
           <ControlForm
             submitHandler={jest.fn()}
             validator={makeMockValidation(jest.fn())}
@@ -364,9 +324,9 @@ describe('Control', () => {
         expect(input.className).toMatch(/state_success/gi)
       })
 
-      it('calls onChange function', () => {
+      it('calls onChange function', async () => {
         const onChangeSpy = jest.fn()
-        renderWithProviders(
+        await renderWithProviders(
           <ControlForm submitHandler={jest.fn()}>
             <ControlInput label="Title" name="title" onChange={onChangeSpy} />
           </ControlForm>
@@ -380,9 +340,9 @@ describe('Control', () => {
     })
 
     describe('when triggers onFocus', () => {
-      it('calls onFocus function', () => {
+      it('calls onFocus function', async () => {
         const onFocusSpy = jest.fn()
-        renderWithProviders(
+        await renderWithProviders(
           <ControlForm submitHandler={jest.fn()}>
             <ControlInput label="Title" name="title" onFocus={onFocusSpy} />
           </ControlForm>
@@ -394,8 +354,8 @@ describe('Control', () => {
         expect(onFocusSpy).toHaveBeenCalled()
       })
 
-      it('removes the readOnly attribute', () => {
-        renderWithProviders(
+      it('removes the readOnly attribute', async () => {
+        await renderWithProviders(
           <ControlForm submitHandler={jest.fn()}>
             <ControlInput label="Title" name="title" />
           </ControlForm>
@@ -410,8 +370,8 @@ describe('Control', () => {
   })
 
   describe('ControlDateInput', () => {
-    it('starts as readOnly', () => {
-      renderWithProviders(
+    it('starts as readOnly', async () => {
+      await renderWithProviders(
         <ControlForm submitHandler={jest.fn()}>
           <ControlDateInput label="Title" name="title" />
         </ControlForm>
@@ -421,10 +381,10 @@ describe('Control', () => {
       expect(input).toHaveAttribute('readOnly')
     })
 
-    it('picks a date from calendar and display it in input', () => {
+    it('picks a date from calendar and display it in input', async () => {
       const mockDate = new MockDate(2022, 1, 1, 0, 0)
       mockDate.mock()
-      renderWithProviders(
+      await renderWithProviders(
         <ControlForm submitHandler={jest.fn()}>
           <ControlDateInput
             label="Title"
@@ -446,8 +406,8 @@ describe('Control', () => {
   })
 
   describe('ControlSelectInput', () => {
-    it('renders correctly', () => {
-      renderWithProviders(
+    it('renders correctly', async () => {
+      await renderWithProviders(
         <ControlSelectInput
           options={[{ label: 'any_name', value: 'any_name' }]}
           defaultValue="any_name"
@@ -460,8 +420,8 @@ describe('Control', () => {
       expect(input).toBeInTheDocument()
     })
 
-    it('displays the default value correctly', () => {
-      renderWithProviders(
+    it('displays the default value correctly', async () => {
+      await renderWithProviders(
         <ControlSelectInput
           options={[
             { label: 'any_name', value: 'any_name' },
@@ -477,8 +437,8 @@ describe('Control', () => {
       expect(input).toHaveValue('any_name2')
     })
 
-    it('changes the value', () => {
-      renderWithProviders(
+    it('changes the value', async () => {
+      await renderWithProviders(
         <ControlSelectInput
           options={[
             { label: 'any_name', value: 'any_name' },
@@ -495,9 +455,9 @@ describe('Control', () => {
       expect(input).toHaveValue('any_name')
     })
 
-    it('calls onChange if its defined', () => {
+    it('calls onChange if its defined', async () => {
       const onChangeSpy = jest.fn()
-      renderWithProviders(
+      await renderWithProviders(
         <ControlSelectInput
           onChange={onChangeSpy}
           options={[
@@ -517,8 +477,8 @@ describe('Control', () => {
   })
 
   describe('ControlRadioInput', () => {
-    it('renders correctly', () => {
-      renderWithProviders(
+    it('renders correctly', async () => {
+      await renderWithProviders(
         <ControlRadioInput
           onChange={jest.fn()}
           value="any_name"
@@ -531,8 +491,8 @@ describe('Control', () => {
       expect(input).toBeInTheDocument()
     })
 
-    it('has input marked as check', () => {
-      renderWithProviders(
+    it('has input marked as check', async () => {
+      await renderWithProviders(
         <ControlRadioInput
           onChange={jest.fn()}
           value="any_name"

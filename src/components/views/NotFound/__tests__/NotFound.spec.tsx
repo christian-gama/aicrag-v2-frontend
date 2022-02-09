@@ -1,14 +1,12 @@
-import { renderWithProviders } from '@/tests/helpers'
-import { cleanup, screen } from '@testing-library/react'
+import { renderWithProviders, setupTests } from '@/tests/helpers'
+import { screen } from '@testing-library/react'
 import { NotFound } from '..'
 
 describe('NotFound', () => {
-  afterEach(() => {
-    cleanup()
-  })
+  setupTests()
 
-  it('renders correctly', () => {
-    renderWithProviders(<NotFound />)
+  it('renders correctly', async () => {
+    await renderWithProviders(<NotFound />)
     const notFoundView = screen.getByTestId('not-found')
 
     expect(notFoundView).toBeInTheDocument()

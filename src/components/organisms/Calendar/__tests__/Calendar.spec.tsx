@@ -1,7 +1,7 @@
 import { calendarActions } from '@/context/models/calendar'
 import { AppDispatch } from '@/context/store'
-import { renderWithProviders, OverlayRoot } from '@/tests/helpers'
-import { cleanup, screen, fireEvent } from '@testing-library/react'
+import { renderWithProviders, setupTests } from '@/tests/helpers'
+import { screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { DateTime } from 'luxon'
 import { useDispatch } from 'react-redux'
@@ -28,8 +28,8 @@ const DummyButton = () => {
   )
 }
 
-const renderWithButton = (): void => {
-  renderWithProviders(
+const renderWithButton = async (): Promise<void> => {
+  await renderWithProviders(
     <div>
       <DummyButton />
       <Calendar
@@ -40,28 +40,20 @@ const renderWithButton = (): void => {
 }
 
 describe('Calendar', () => {
-  const overlayRoot = new OverlayRoot()
+  setupTests()
+
   const getDateByIndex = (index: number) =>
     screen.getByTestId('calendar-body').childNodes[index]
 
-  afterEach(() => {
-    cleanup()
-    overlayRoot.removeOverlayRoot()
-  })
-
-  beforeEach(() => {
-    overlayRoot.addOverlayRoot()
-  })
-
-  it('renders correctly', () => {
-    renderWithButton()
+  it('renders correctly', async () => {
+    await renderWithButton()
     const calendarContainer = screen.getByTestId('calendar-wrapper')
 
     expect(calendarContainer).toBeInTheDocument()
   })
 
-  it('closes if click on backdrop', () => {
-    renderWithButton()
+  it('closes if click on backdrop', async () => {
+    await renderWithButton()
     const backdrop = screen.getByTestId('backdrop')
 
     userEvent.click(backdrop)
@@ -69,25 +61,25 @@ describe('Calendar', () => {
     expect(backdrop).not.toBeInTheDocument()
   })
 
-  it('opens when dispatching openCalendar action', () => {
-    renderWithButton()
+  it('opens when dispatching openCalendar action', async () => {
+    await renderWithButton()
     const calendarContainer = () => screen.queryByTestId('calendar-wrapper')
     const calendarButton = (state: 'open' | 'close') =>
       screen.getByTestId(`${state}-button`)
 
-    // Close
+    // Close assertions
     userEvent.click(calendarButton('close'))
 
     expect(calendarContainer()).not.toBeInTheDocument()
 
-    // Open
+    // Open assertions
     userEvent.click(calendarButton('open'))
 
     expect(calendarContainer()).toBeInTheDocument()
   })
 
-  it('renders the correct days based on 2022-01-01T00:00:00.000Z', () => {
-    renderWithButton()
+  it('renders the correct days based on 2022-01-01T00:00:00.000Z', async () => {
+    await renderWithButton()
 
     expect(getDateByIndex(7)).toHaveTextContent('26')
     expect(getDateByIndex(20)).toHaveTextContent('8')
@@ -95,8 +87,8 @@ describe('Calendar', () => {
     expect(getDateByIndex(48)).toHaveTextContent('5')
   })
 
-  it('picks a date when clicking on a day', () => {
-    renderWithButton()
+  it('picks a date when clicking on a day', async () => {
+    await renderWithButton()
     const day = screen.getByTestId('01/01/2022 00:00')
 
     userEvent.click(day)
@@ -104,8 +96,8 @@ describe('Calendar', () => {
     expect(day).toHaveAttribute('data-selected', 'true')
   })
 
-  it('does not pick a dimmed day when clicking on it', () => {
-    renderWithButton()
+  it('does not pick a dimmed day when clicking on it', async () => {
+    await renderWithButton()
     const day = screen.getByTestId('26/12/2021 00:00')
 
     userEvent.click(day)
@@ -113,15 +105,15 @@ describe('Calendar', () => {
     expect(day.hasAttribute('data-selected')).toBeFalsy()
   })
 
-  it('renders the correct date heading', () => {
-    renderWithButton()
+  it('renders the correct date heading', async () => {
+    await renderWithButton()
     const heading = screen.getByTestId('calendar-header-date')
 
     expect(heading).toHaveTextContent(/^jan.*, 2022/gi)
   })
 
-  it('skips to previous month when clicking on ChevronIcon from the left', () => {
-    renderWithButton()
+  it('skips to previous month when clicking on ChevronIcon from the left', async () => {
+    await renderWithButton()
     const chevronIcons = screen.getAllByTestId('chevron-icon')
 
     userEvent.click(chevronIcons[0])
@@ -132,8 +124,8 @@ describe('Calendar', () => {
     expect(getDateByIndex(48)).toHaveTextContent('8')
   })
 
-  it('skips to next month when clicking on ChevronIcon from the right', () => {
-    renderWithButton()
+  it('skips to next month when clicking on ChevronIcon from the right', async () => {
+    await renderWithButton()
     const chevronIcons = screen.getAllByTestId('chevron-icon')
 
     userEvent.click(chevronIcons[1])
@@ -144,8 +136,8 @@ describe('Calendar', () => {
     expect(getDateByIndex(48)).toHaveTextContent('12')
   })
 
-  it('closes the calendar when clicking on confirm button', () => {
-    renderWithButton()
+  it('closes the calendar when clicking on confirm button', async () => {
+    await renderWithButton()
     const confirmButton = screen.getByTestId('calendar-confirm-button')
 
     userEvent.click(confirmButton)
@@ -153,8 +145,8 @@ describe('Calendar', () => {
     expect(confirmButton).not.toBeInTheDocument()
   })
 
-  it('closes when clicking on cancel button', () => {
-    renderWithButton()
+  it('closes when clicking on cancel button', async () => {
+    await renderWithButton()
     const cancelButton = screen.getByTestId('calendar-cancel-button')
 
     userEvent.click(cancelButton)
@@ -162,8 +154,8 @@ describe('Calendar', () => {
     expect(cancelButton).not.toBeInTheDocument()
   })
 
-  it('renders all the week days (short)', () => {
-    renderWithButton()
+  it('renders all the week days (short)', async () => {
+    await renderWithButton()
 
     expect(getDateByIndex(0)).toHaveTextContent('Dom')
     expect(getDateByIndex(3)).toHaveTextContent('Qua')
@@ -172,8 +164,8 @@ describe('Calendar', () => {
 
   describe('Timer', () => {
     describe('when triggers onChange', () => {
-      it('updates the hour input value if value is valid', () => {
-        renderWithButton()
+      it('updates the hour input value if value is valid', async () => {
+        await renderWithButton()
         const hourInput = screen.getByTestId('calendar-hour')
 
         userEvent.type(hourInput, '{backspace}{backspace}a1')
@@ -181,8 +173,8 @@ describe('Calendar', () => {
         expect(hourInput).toHaveValue('01')
       })
 
-      it('updates the minute input value if value is valid', () => {
-        renderWithButton()
+      it('updates the minute input value if value is valid', async () => {
+        await renderWithButton()
         const minuteInput = screen.getByTestId('calendar-minute')
 
         userEvent.type(minuteInput, '{backspace}{backspace}a1')
@@ -192,8 +184,8 @@ describe('Calendar', () => {
     })
 
     describe('when triggers onBlur', () => {
-      it('updates the hour input value if value is valid', () => {
-        renderWithButton()
+      it('updates the hour input value if value is valid', async () => {
+        await renderWithButton()
         const hourInput = screen.getByTestId('calendar-hour')
 
         userEvent.type(hourInput, '{backspace}{backspace}a1')
@@ -202,8 +194,8 @@ describe('Calendar', () => {
         expect(hourInput).toHaveValue('01')
       })
 
-      it('updates the minute input value if value is valid', () => {
-        renderWithButton()
+      it('updates the minute input value if value is valid', async () => {
+        await renderWithButton()
         const minuteInput = screen.getByTestId('calendar-minute')
 
         userEvent.type(minuteInput, '{backspace}{backspace}a1')
@@ -214,8 +206,8 @@ describe('Calendar', () => {
     })
 
     describe('when triggers  arrowUp', () => {
-      it('increases the value of hour', () => {
-        renderWithButton()
+      it('increases the value of hour', async () => {
+        await renderWithButton()
         const hourInput = screen.getByTestId('calendar-hour')
 
         userEvent.type(hourInput, '{backspace}{backspace}a23')
@@ -224,8 +216,8 @@ describe('Calendar', () => {
         expect(hourInput).toHaveValue('00')
       })
 
-      it('increases the value of minute', () => {
-        renderWithButton()
+      it('increases the value of minute', async () => {
+        await renderWithButton()
         const minuteInput = screen.getByTestId('calendar-minute')
 
         userEvent.type(minuteInput, '{backspace}{backspace}a59')
@@ -236,8 +228,8 @@ describe('Calendar', () => {
     })
 
     describe('when triggers arrowDown', () => {
-      it('decreases the value of hour', () => {
-        renderWithButton()
+      it('decreases the value of hour', async () => {
+        await renderWithButton()
         const hourInput = screen.getByTestId('calendar-hour')
 
         userEvent.type(hourInput, '{backspace}{backspace}a0')
@@ -246,8 +238,8 @@ describe('Calendar', () => {
         expect(hourInput).toHaveValue('23')
       })
 
-      it('decreases the value of hour', () => {
-        renderWithButton()
+      it('decreases the value of hour', async () => {
+        await renderWithButton()
         const minuteInput = screen.getByTestId('calendar-minute')
 
         userEvent.type(minuteInput, '{backspace}{backspace}a0')

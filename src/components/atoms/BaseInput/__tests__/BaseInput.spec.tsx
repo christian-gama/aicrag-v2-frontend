@@ -5,7 +5,6 @@ import { BaseInput } from '../BaseInput'
 describe('BaseInput ', () => {
   it('renders correctly', () => {
     render(<BaseInput label="Any name" name="any_name" />)
-
     const baseInput = screen.getByTestId('base-input')
 
     expect(baseInput).toBeInTheDocument()
@@ -21,7 +20,6 @@ describe('BaseInput ', () => {
         required
       />
     )
-
     const baseInput = screen.getByTestId('base-input')
 
     expect(baseInput.className).toMatch(/state_error/gi)
@@ -37,7 +35,6 @@ describe('BaseInput ', () => {
         isTouched
       />
     )
-
     const baseInput = screen.getByTestId('base-input')
 
     expect(baseInput.className).toMatch(/state_default/gi)

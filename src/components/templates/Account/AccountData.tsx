@@ -56,24 +56,22 @@ export const AccountData: React.FC = () => {
       setIsPinOpen(true)
     }
 
-    if (data) {
-      if (
-        data.updateMe.__typename === 'UpdateMeHasChanges' &&
-        (!isNameSame || (!isCurrencySame && form.data.currency))
-      ) {
-        authVar.setUser(data.updateMe.user)
-        popoverVar.setPopover(
-          'Seus dados foram atualizados com sucesso',
-          'success'
-        )
-      }
+    if (
+      data?.updateMe.__typename === 'UpdateMeHasChanges' &&
+      (!isNameSame || (!isCurrencySame && form.data.currency))
+    ) {
+      authVar.setUser(data.updateMe.user)
+      popoverVar.setPopover(
+        'Seus dados foram atualizados com sucesso',
+        'success'
+      )
+    }
 
-      if (data.updateMe.__typename === 'UpdateMeNoChanges') {
-        popoverVar.setPopover(
-          'Você não fez nenhuma alteração, portanto seus dados não foram alterados ',
-          'info'
-        )
-      }
+    if (data?.updateMe.__typename === 'UpdateMeNoChanges') {
+      popoverVar.setPopover(
+        'Você não fez nenhuma alteração, portanto seus dados não foram alterados ',
+        'info'
+      )
     }
 
     refetchInvoiceVar.refetch()

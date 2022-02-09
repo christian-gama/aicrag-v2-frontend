@@ -1,11 +1,10 @@
-import { cleanup, render, screen } from '@testing-library/react'
+import { setupTests } from '@/tests/helpers'
+import { render, screen } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
 import { Menu } from '..'
 
 describe('Menu', () => {
-  afterEach(() => {
-    cleanup()
-  })
+  setupTests()
 
   it('renders correctly', () => {
     render(<Menu buttons={[]} />, {

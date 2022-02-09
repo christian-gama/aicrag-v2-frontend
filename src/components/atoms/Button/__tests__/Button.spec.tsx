@@ -1,5 +1,6 @@
-import { render, cleanup, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { setupTests } from '@/tests/helpers'
 import { Button } from '../Button'
 
 const mockFunction = jest.fn()
@@ -12,9 +13,7 @@ jest.mock('../../../utils/icons', () => ({
 }))
 
 describe('Button', () => {
-  afterEach(() => {
-    cleanup()
-  })
+  setupTests()
 
   it('renders correctly', () => {
     render(<Button />)

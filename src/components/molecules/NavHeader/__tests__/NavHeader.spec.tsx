@@ -1,14 +1,12 @@
-import { renderWithProviders } from '@/tests/helpers'
-import { cleanup, screen } from '@testing-library/react'
+import { renderWithProviders, setupTests } from '@/tests/helpers'
+import { screen } from '@testing-library/react'
 import { NavHeader } from '..'
 
 describe('NavHeader', () => {
-  afterEach(() => {
-    cleanup()
-  })
+  setupTests()
 
-  it('renders correctly', () => {
-    renderWithProviders(<NavHeader title="" />)
+  it('renders correctly', async () => {
+    await renderWithProviders(<NavHeader title="" />)
     const navHeader = screen.getByTestId('nav-header')
 
     expect(navHeader).toBeInTheDocument()
