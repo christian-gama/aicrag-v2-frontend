@@ -9,8 +9,7 @@ export class MailerCountdownStorage implements Storage {
   set (timeLeftinSeconds: string) {
     const expiresAt = DateTime.now()
       .plus({ seconds: Number(timeLeftinSeconds) })
-      .toJSDate()
-      .toISOString()
+      .toISO()
 
     localStorage.setItem('mailerCountdown', expiresAt)
   }

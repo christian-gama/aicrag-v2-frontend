@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 
 export const mockVariables = {
-  date: DateTime.local(2022, 1, 1, 0, 0, 0).toJSDate().toISOString(),
+  date: DateTime.local(2022, 1, 1, 0, 0, 0).toISO(),
   uuid: '365bed07-1485-4d61-9343-58100aafdf1c',
   id: '365bed07-1485-4d61-9343-58100aafdf1c',
   passwordConfirmation: '123123',

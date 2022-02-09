@@ -54,13 +54,13 @@ export const useControlDateInput = ({
   }, [isResetting])
 
   useEffect(() => {
-    setFormData(name, new Date(defaultDate!).toISOString()!)
+    setFormData(name, DateTime.fromMillis(defaultDate!).toISO()!)
   }, [isResetting])
 
   useEffect(() => {
     const value = DateTime.fromMillis(selectedDate).toFormat('dd/MM/yyyy HH:mm')
 
-    setFormData(name, new Date(selectedDate).toISOString()!)
+    setFormData(name, DateTime.fromMillis(selectedDate).toISO()!)
     setInputValue(name, value)
   }, [selectedDate])
 
