@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css'
+import { globalStyle, style } from '@vanilla-extract/css'
 import { breakpoints, vars } from '@/components/_settings'
 
 export const task = style({
@@ -12,9 +12,7 @@ export const taskFormWrapper = style({
 })
 
 export const taskFormInputCounter = style({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-end'
+  position: 'relative'
 })
 
 export const taskForm = style({
@@ -87,4 +85,14 @@ export const taskValuePrice = style({
   fontFamily: vars.font.p.fontFamily,
   color: vars.colors.text.default,
   marginLeft: '0.8rem'
+})
+
+globalStyle(`${taskForm} > div`, {
+  position: 'relative'
+})
+
+globalStyle(`${taskForm} div output`, {
+  position: 'absolute',
+  right: '0',
+  top: '92%'
 })

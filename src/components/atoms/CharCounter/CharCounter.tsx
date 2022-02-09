@@ -17,9 +17,9 @@ export const CharCounter: React.FC<CharCounterProps> = ({
   }, [value])
 
   return (
-    <div
+    <output
       className={classes.charCounter({ isValid: valueLength <= maxLength })}
       data-testid="char-counter"
-    >{`${maxLength - valueLength}/${maxLength}`}</div>
+    >{`${maxLength - valueLength}/${maxLength}`}</output>
   )
 }

@@ -64,10 +64,7 @@ export const Task: React.FC<TaskProps> = ({
       <div className={classes.taskFormWrapper}>
         <ControlForm validator={validator} submitHandler={submitHandler}>
           <div className={classes.taskForm}>
-            <div
-              className={classes.taskFormInputCounter}
-              style={{ gridArea: 'taskId' }}
-            >
+            <div style={{ gridArea: 'taskId' }}>
               <ControlInput label="Identificação" name="taskId" />
 
               {!state.input.error.taskId && (
