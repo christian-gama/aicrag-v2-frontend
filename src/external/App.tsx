@@ -4,13 +4,14 @@ import { useMailerCountdown } from '@/components/_hooks'
 import { Popover } from '@/components/molecules/Popover'
 import { Center } from '@/components/utils/Center'
 import { LoadingSpinnerIcon } from '@/components/utils/icons'
-import { useGetAuthenticationQuery } from './graphql/generated'
+import { useGetAuthenticationQuery, useGetMeQuery } from './graphql/generated'
 import { usePopoverVar, popoverVar, authVar } from './graphql/reactiveVars'
 import { Router } from './routes'
 
 export const App = () => {
   const { isOpen, message, type } = usePopoverVar()
   const { loading, data } = useGetAuthenticationQuery()
+  const { data: getMeData, loading: loadingGetMe } = useGetMeQuery()
   useMailerCountdown()
 
   useEffect(() => {
@@ -25,18 +26,21 @@ export const App = () => {
     if (data?.getAuthentication.authentication === 'protected') {
       authVar.login({
         personal: {
-          email: getUserByToken('email')!,
-          id: getUserByToken('userId')!,
-          name: getUserByToken('name')!
+          email:
+            getMeData?.getMe.user.personal.email ?? getUserByToken('email')!,
+          id: getMeData?.getMe.user.personal.id ?? getUserByToken('userId')!,
+          name: getMeData?.getMe.user.personal.name ?? getUserByToken('name')!
         },
         settings: {
-          currency: getUserByToken('currency')!
+          currency:
+            getMeData?.getMe.user.settings.currency ??
+            getUserByToken('currency')!
         }
       })
     }
-  }, [data])
+  }, [data, getMeData])
 
-  if (loading) {
+  if (loading || loadingGetMe) {
     return (
       <Center>
         <LoadingSpinnerIcon style={{ size: 'lg' }} />
