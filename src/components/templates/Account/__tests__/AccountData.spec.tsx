@@ -1,4 +1,4 @@
-import { refetchInvoiceVar } from '@/external/graphql/reactiveVars'
+import { popoverVar, refetchInvoiceVar } from '@/external/graphql/reactiveVars'
 import {
   formUtils,
   renderWithProviders,
@@ -11,6 +11,10 @@ import { AccountData } from '..'
 
 describe('AccountData', () => {
   setupTests()
+  const getRadioInput = (name: RegExp) =>
+    screen.getByRole('radio', {
+      name
+    })
 
   beforeEach(() => {
     setUser()
@@ -31,11 +35,12 @@ describe('AccountData', () => {
 
     await formUtils.submitForm()
 
-    expect(refetchSpy).toHaveBeenCalled()
+    expect(refetchSpy).not.toHaveBeenCalled()
   })
 
   it('submits only email', async () => {
     const refetchSpy = jest.spyOn(refetchInvoiceVar, 'refetch')
+    const setPopoverSpy = jest.spyOn(popoverVar, 'setPopover')
     await renderWithProviders(<AccountData />, {
       apolloMocks: [updateMeMock({ email: 'other@email.com' })]
     })
@@ -46,11 +51,13 @@ describe('AccountData', () => {
     fireEvent.change(emailInput, { target: { value: 'other@email.com' } })
     await formUtils.submitForm()
 
-    expect(refetchSpy).toHaveBeenCalled()
+    expect(setPopoverSpy).not.toHaveBeenCalled()
+    expect(refetchSpy).not.toHaveBeenCalled()
   })
 
   it('submits only name', async () => {
     const refetchSpy = jest.spyOn(refetchInvoiceVar, 'refetch')
+    const setPopoverSpy = jest.spyOn(popoverVar, 'setPopover')
     await renderWithProviders(<AccountData />, {
       apolloMocks: [updateMeMock({ name: 'other name' })]
     })
@@ -61,56 +68,51 @@ describe('AccountData', () => {
     fireEvent.change(nameInput, { target: { value: 'other name' } })
     await formUtils.submitForm()
 
+    expect(setPopoverSpy).toHaveBeenCalledWith(expect.anything(), 'success')
     expect(refetchSpy).toHaveBeenCalled()
   })
 
   it('does not submit currency if value is equal to user settings currency ', async () => {
     const refetchSpy = jest.spyOn(refetchInvoiceVar, 'refetch')
+    const setPopoverSpy = jest.spyOn(popoverVar, 'setPopover')
     await renderWithProviders(<AccountData />, {
       apolloMocks: [updateMeMock({ currency: undefined }, 'UpdateMeNoChanges')]
     })
-    const realRadioInput = screen.getByRole('radio', {
-      name: /real/i
-    })
-    const usdRadioInput = screen.getByRole('radio', {
-      name: /dólar/i
-    })
 
-    fireEvent.click(usdRadioInput)
-    fireEvent.click(realRadioInput)
+    fireEvent.click(getRadioInput(/dólar/i))
+    fireEvent.click(getRadioInput(/real/i))
     await formUtils.submitForm()
 
-    expect(refetchSpy).toHaveBeenCalled()
+    expect(setPopoverSpy).toHaveBeenCalledWith(expect.anything(), 'info')
+    expect(refetchSpy).not.toHaveBeenCalled()
   })
 
   it('submits only currency as BRL', async () => {
     const refetchSpy = jest.spyOn(refetchInvoiceVar, 'refetch')
+    const setPopoverSpy = jest.spyOn(popoverVar, 'setPopover')
     await renderWithProviders(<AccountData />, {
       apolloMocks: [updateMeMock({ currency: 'USD' })]
     })
-    const usdRadioInput = screen.getByRole('radio', {
-      name: /dólar/i
-    })
 
-    fireEvent.click(usdRadioInput)
+    fireEvent.click(getRadioInput(/dólar/i))
     await formUtils.submitForm()
 
+    expect(setPopoverSpy).toHaveBeenCalledWith(expect.anything(), 'success')
     expect(refetchSpy).toHaveBeenCalled()
   })
 
   it('submits only currency as USD', async () => {
-    setUser({ currency: 'USD' })
     const refetchSpy = jest.spyOn(refetchInvoiceVar, 'refetch')
+    const setPopoverSpy = jest.spyOn(popoverVar, 'setPopover')
+    setUser({ currency: 'USD' })
     await renderWithProviders(<AccountData />, {
       apolloMocks: [getMeMock(), updateMeMock({ currency: 'BRL' })]
     })
-    const realRadioInput = screen.getByRole('radio', {
-      name: /real/i
-    })
 
-    fireEvent.click(realRadioInput)
+    fireEvent.click(getRadioInput(/real/i))
     await formUtils.submitForm()
 
+    expect(setPopoverSpy).toHaveBeenCalledWith(expect.anything(), 'success')
     expect(refetchSpy).toHaveBeenCalled()
   })
 
@@ -119,14 +121,8 @@ describe('AccountData', () => {
     await renderWithProviders(<AccountData />, {
       apolloMocks: [getMeMock(), updateMeMock({ name: 'other name' })]
     })
-    const brlRadioInput = screen.getByRole('radio', {
-      name: /real/i
-    })
-    const usdRadioInput = screen.getByRole('radio', {
-      name: /dólar/i
-    })
 
-    expect(brlRadioInput).not.toBeChecked()
-    expect(usdRadioInput).toBeChecked()
+    expect(getRadioInput(/real/i)).not.toBeChecked()
+    expect(getRadioInput(/dólar/i)).toBeChecked()
   })
 })

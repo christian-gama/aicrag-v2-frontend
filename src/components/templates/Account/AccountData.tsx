@@ -26,55 +26,56 @@ import * as classes from './stylesheet'
 
 export const AccountData: React.FC = () => {
   const { user } = useAuth()
+  const [checked, setChecked] = useState(user.settings.currency)
+  const [isPinOpen, setIsPinOpen] = useState(false)
+  const [updateEmailByPin, { error }] = useUpdateEmailByPinMutation()
+  const [sendEmailPin] = useSendEmailPinMutation()
   const [updateMe] = useUpdateMeMutation()
   const {
     state: { form }
   } = useForm<{ currency: UserCurrency, email: string, name: string }>()
-  const [sendEmailPin] = useSendEmailPinMutation()
-  const [updateEmailByPin, { error }] = useUpdateEmailByPinMutation()
-  const [checked, setChecked] = useState(user.settings.currency)
-  const [isPinOpen, setIsPinOpen] = useState(false)
 
   useEffect(() => {
     setChecked(user.settings.currency)
   }, [user])
 
-  const isCurrencySame = form.data.currency === user.settings.currency
-  const isEmailSame = form.data.email === user.personal.email
-  const isNameSame = form.data.name === user.personal.name
+  const isSameCurrency = form.data.currency === user.settings.currency
+  const isSameEmail = form.data.email === user.personal.email
+  const isSameName = form.data.name === user.personal.name
 
   const submitHandler = async () => {
     const { data } = await updateMe({
       variables: {
-        currency: isCurrencySame ? undefined : form.data.currency,
-        email: isEmailSame ? undefined : form.data.email,
-        name: isNameSame ? undefined : form.data.name
+        currency: isSameCurrency ? undefined : form.data.currency,
+        email: isSameEmail ? undefined : form.data.email,
+        name: isSameName ? undefined : form.data.name
       }
     })
 
-    if (form.data.email !== user.personal.email) {
+    if (!isSameEmail) {
       setIsPinOpen(true)
     }
 
-    if (
-      data?.updateMe.__typename === 'UpdateMeHasChanges' &&
-      (!isNameSame || (!isCurrencySame && form.data.currency))
-    ) {
+    const hasChanges = data?.updateMe.__typename === 'UpdateMeHasChanges'
+    const hasNoChanges = data?.updateMe.__typename === 'UpdateMeNoChanges'
+    const hasValidCurrency = !isSameCurrency && form.data.currency
+
+    if (hasChanges && (!isSameName || hasValidCurrency)) {
+      // @ts-expect-error
       authVar.setUser(data.updateMe.user)
+      refetchInvoiceVar.refetch()
       popoverVar.setPopover(
         'Seus dados foram atualizados com sucesso',
         'success'
       )
     }
 
-    if (data?.updateMe.__typename === 'UpdateMeNoChanges') {
+    if (hasNoChanges) {
       popoverVar.setPopover(
         'Você não fez nenhuma alteração, portanto seus dados não foram alterados ',
         'info'
       )
     }
-
-    refetchInvoiceVar.refetch()
   }
 
   const submitPinHandler = async (pin: string) => {

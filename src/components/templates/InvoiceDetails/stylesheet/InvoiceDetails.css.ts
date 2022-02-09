@@ -9,8 +9,8 @@ export const invoiceDetailsType = recipe({
     justifyContent: 'center',
     marginBottom: '0.5rem',
     borderRadius: '50%',
-    width: '3.2rem',
-    height: '3.2rem',
+    width: '3.4rem',
+    height: '3.4rem',
     fontFamily: vars.font.hint.fontFamily,
     fontSize: vars.font.hint.fontSize,
     color: vars.colors.white,
@@ -20,11 +20,11 @@ export const invoiceDetailsType = recipe({
   variants: {
     type: {
       TX: {
-        backgroundColor: '#a16e00'
+        backgroundColor: '#13C8A0'
       },
 
       QA: {
-        backgroundColor: '#bf19b1'
+        backgroundColor: '#EF476F'
       }
     }
   }
