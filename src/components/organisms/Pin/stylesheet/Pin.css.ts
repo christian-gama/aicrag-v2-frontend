@@ -9,6 +9,7 @@ export const pin = style({
 
   '@media': {
     [breakpoints.widescreen]: {
+      width: '54rem',
       height: '57.6rem'
     },
 
@@ -32,12 +33,7 @@ export const pinContentWrapper = style({
 
   '@media': {
     [breakpoints.widescreen]: {
-      width: '54rem',
       gap: '1.2rem'
-    },
-
-    [breakpoints.tablet]: {
-      width: '50rem'
     },
 
     [breakpoints.mobile]: {
