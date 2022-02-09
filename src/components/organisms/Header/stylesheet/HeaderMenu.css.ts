@@ -3,7 +3,7 @@ import { breakpoints, vars } from '@/components/_settings'
 
 export const headerMenu = style({
   display: 'flex',
-  position: 'fixed',
+  position: 'absolute',
   top: '12.5rem',
   left: '0',
   flexDirection: 'column',
@@ -19,6 +19,7 @@ export const headerMenu = style({
     }
   }
 })
+
 export const headerMenuItemSettings = style({
   display: 'flex',
   flexDirection: 'column',

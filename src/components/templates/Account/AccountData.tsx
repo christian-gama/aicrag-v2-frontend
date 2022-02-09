@@ -9,6 +9,7 @@ import {
 } from '@/components/organisms/Control'
 import { Pin } from '@/components/organisms/Pin'
 import { P } from '@/components/utils/texts/P'
+import { makeAccountDataValidator } from '@/external/factories/validation'
 import {
   UserCurrency,
   useSendEmailPinMutation,
@@ -96,19 +97,23 @@ export const AccountData: React.FC = () => {
   return (
     <div className={classes.accountData} data-testid="account-data">
       <div>
-        <ControlForm submitHandler={submitHandler}>
+        <ControlForm
+          submitHandler={submitHandler}
+          validator={makeAccountDataValidator()}
+        >
           <div className={classes.accountDataForm}>
             <ControlInput
               defaultValue={user.personal.name}
               label="Seu nome"
               name="name"
-              autoFocus
+              required
             />
 
             <ControlInput
               defaultValue={user.personal.email}
               label="Seu email"
               name="email"
+              required
             />
 
             <div className={classes.accountDataPreferences}>

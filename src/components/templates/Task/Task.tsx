@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { IValidation } from '@/services/validators'
 import { useForm } from '@/context/models/form'
+import { CharCounter } from '@/components/atoms/CharCounter'
 import {
   ControlDateInput,
   ControlForm,
@@ -26,7 +27,12 @@ export const Task: React.FC<TaskProps> = ({
   const {
     formActions: { setFormData, setInputValue },
     state
-  } = useForm<{ duration: string, type: TaskType }>()
+  } = useForm<{
+    duration: string
+    type: TaskType
+    taskId: string
+    commentary: string
+  }>()
   const { data } = state.form
 
   const getDuration = () => {
@@ -60,6 +66,13 @@ export const Task: React.FC<TaskProps> = ({
           <div className={classes.taskForm}>
             <div style={{ gridArea: 'taskId' }}>
               <ControlInput label="Identificação" name="taskId" />
+
+              {!state.input.error.taskId && (
+                <CharCounter
+                  maxLength={120}
+                  value={state.form.data.taskId ?? ''}
+                />
+              )}
             </div>
 
             <div style={{ gridArea: 'date' }}>
@@ -104,12 +117,22 @@ export const Task: React.FC<TaskProps> = ({
               />
             </div>
 
-            <div style={{ gridArea: 'commentary' }}>
+            <div
+              className={classes.taskFormInputCounter}
+              style={{ gridArea: 'commentary' }}
+            >
               <ControlInput
                 label="Observação"
                 name="commentary"
                 type="textArea"
               />
+
+              {!state.input.error.commentary && (
+                <CharCounter
+                  maxLength={400}
+                  value={state.form.data.commentary ?? ''}
+                />
+              )}
             </div>
 
             <div className={classes.taskButtonGroup}>{renderButtons()}</div>

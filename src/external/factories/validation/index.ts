@@ -1,3 +1,4 @@
+export * from './makeAccountDataValidator'
 export * from './makeForgotPasswordValidation'
 export * from './makeResetPasswordValidation'
 export * from './makeSignInValidator'
