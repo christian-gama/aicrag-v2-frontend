@@ -25,7 +25,7 @@ export const EntryCard: React.FC<EntryCardProps> = ({ style, children }) => {
               height:
                 width <= 520
                   ? `${height}px`
-                  : width <= 1367
+                  : width <= 1368
                     ? '57.6rem'
                     : style!.height!
             })}

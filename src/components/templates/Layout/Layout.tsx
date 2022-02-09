@@ -24,7 +24,7 @@ export const Layout: React.FC<LayoutProps> = ({
         <Header pageName={pageName} backHandler={backHandler} />
         <div className={classes.layoutCard}>
           <Card
-            roundness={width <= 1024 ? 'none' : 'md'}
+            roundness={width <= 1025 ? 'none' : 'md'}
             style={{
               padding:
                 width <= 1025
