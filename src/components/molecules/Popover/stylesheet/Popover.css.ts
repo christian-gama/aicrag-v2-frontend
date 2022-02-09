@@ -11,7 +11,6 @@ export const popoverVars = createGlobalTheme(':root', {
   duration: '0.3s'
 })
 
-// Variants
 const progressBarWrapperTypeVariants = styleVariants({
   success: {
     backgroundColor: vars.colors['success-200']
@@ -40,7 +39,6 @@ const progressBarTypeVariants = styleVariants({
   }
 })
 
-// Keyframes
 const showUpAnimation = keyframes({
   '0%': {
     bottom: '-50%'
@@ -51,7 +49,7 @@ const showUpAnimation = keyframes({
   },
 
   '100%': {
-    bottom: '1.6rem'
+    bottom: '0.7rem'
   }
 })
 
@@ -65,7 +63,6 @@ const progressAnimation = keyframes({
   }
 })
 
-// Styles
 export const popoverTextWrapper = style({
   display: 'flex',
   alignItems: 'center',
@@ -116,12 +113,11 @@ export const popoverContent = style({
   }
 })
 
-// Recipes
 export const popoverRecipe = recipe({
   base: {
     display: 'flex',
     position: 'fixed',
-    right: '1.6rem',
+    right: '0.7rem',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',

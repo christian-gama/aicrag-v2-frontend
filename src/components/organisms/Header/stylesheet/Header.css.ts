@@ -6,9 +6,9 @@ export const header = style({
   gridArea: 'header',
   alignItems: 'center',
   justifyContent: 'space-between',
+  boxShadow: vars.shadow.sm,
   backgroundColor: vars.colors['navy-500'],
   height: '12rem',
-  boxShadow: vars.shadow.sm,
 
   '@media': {
     [breakpoints.mobile]: {
@@ -72,11 +72,16 @@ export const headerBackIcon = style({
 })
 export const headerPageName = style({
   maxWidth: '36rem',
+  wordWrap: 'break-word',
 
   '@media': {
+    [breakpoints.tablet]: {
+      transform: 'scale(0.93)'
+    },
+
     [breakpoints.mobile]: {
-      maxWidth: '21rem',
-      transform: 'scale(0.90)'
+      transform: 'scale(0.90)',
+      maxWidth: '17rem'
     },
 
     [breakpoints.smallMobile]: {
@@ -84,8 +89,8 @@ export const headerPageName = style({
     },
 
     [breakpoints.smallestMobile]: {
-      maxWidth: '18rem',
-      transform: 'scale(0.75)'
+      transform: 'scale(0.75)',
+      maxWidth: '18rem'
     }
   }
 })

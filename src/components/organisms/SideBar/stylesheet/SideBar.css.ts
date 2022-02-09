@@ -19,7 +19,7 @@ export const sideBar = style({
 
   '@media': {
     [breakpoints.widescreen]: {
-      width: '25rem'
+      width: '27rem'
     },
 
     [breakpoints.desktop]: {

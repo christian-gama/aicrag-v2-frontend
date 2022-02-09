@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { vars, breakpoints } from '@/components/_settings'
+import { breakpoints, vars } from '@/components/_settings'
 
 export const calendarFooter = style({
   display: 'flex',
@@ -12,7 +12,7 @@ export const calendarFooter = style({
 
   '@media': {
     [breakpoints.mobile]: {
-      flexDirection: 'column'
+      justifyContent: 'center'
     }
   }
 })

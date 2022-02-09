@@ -12,7 +12,10 @@ import { Task } from './Task'
 
 export const NewTask: React.FC = () => {
   const navigate = useNavigate()
-  const { state } = useForm<{
+  const {
+    formActions: { resetForm },
+    state
+  } = useForm<{
     commentary: string
     status: TaskStatus
     duration: string
@@ -45,7 +48,9 @@ export const NewTask: React.FC = () => {
 
   const renderButtons = () => (
     <>
-      <Button style={{ mode: 'outlined', color: 'light' }}>Cancelar</Button>
+      <Button style={{ mode: 'outlined', color: 'light' }} onClick={resetForm}>
+        Cancelar
+      </Button>
 
       <Button type="submit">Salvar</Button>
     </>

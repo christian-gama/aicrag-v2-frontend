@@ -1,8 +1,8 @@
+import { cleanup, screen } from '@testing-library/react'
 import { useWindowDimensions } from '@/components/_hooks'
 import { makeAccessTokenStorage } from '@/external/factories/storage/auth'
 import { OverlayRoot, renderWithProviders } from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
-import { cleanup, screen } from '@testing-library/react'
 import { Layout } from '..'
 
 jest.mock('../../../_hooks/useWindowDimensions')
@@ -13,6 +13,7 @@ describe('Layout', () => {
   const overlayRoot = new OverlayRoot()
 
   afterEach(() => {
+    jest.resetAllMocks()
     cleanup()
     overlayRoot.removeOverlayRoot()
     accessTokenStorage.reset()
@@ -31,8 +32,16 @@ describe('Layout', () => {
     expect(layout).toBeInTheDocument()
   })
 
-  it('renders Card without border and correct padding if width is equal or lesser to 520', () => {
-    useWindowDimensionsMock.mockReturnValue({ width: 520, height: 1080 })
+  it('renders with the correct height if width is lesser or equal to 1368', () => {
+    useWindowDimensionsMock.mockReturnValue({ width: 1368, height: 768 })
+    renderWithProviders(<Layout pageName="" />)
+    const layout = screen.getByTestId('layout')
+
+    expect(layout).toBeInTheDocument()
+  })
+
+  it('renders Card without border and correct padding if width is equal or lesser to 1025', () => {
+    useWindowDimensionsMock.mockReturnValue({ width: 1025, height: 768 })
     renderWithProviders(<Layout pageName="" />)
     const card = screen.getByTestId('card')
 

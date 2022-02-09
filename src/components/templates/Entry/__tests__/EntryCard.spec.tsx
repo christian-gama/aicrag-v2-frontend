@@ -18,6 +18,7 @@ describe('EntryCard', () => {
   })
 
   it('renders correctly', () => {
+    useWindowDimensionsMock.mockReturnValue({ width: 1920, height: 1080 })
     renderWithProviders(<EntryCard />)
     const card = screen.getByTestId('card')
 
@@ -25,7 +26,7 @@ describe('EntryCard', () => {
   })
 
   it('renders with no border if width is lesser or equal to 520', () => {
-    useWindowDimensionsMock.mockReturnValue({ width: 520 })
+    useWindowDimensionsMock.mockReturnValue({ width: 520, height: 768 })
     renderWithProviders(<EntryCard />)
     const card = screen.getByTestId('card')
 

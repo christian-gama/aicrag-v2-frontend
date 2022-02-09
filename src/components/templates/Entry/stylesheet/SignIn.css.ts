@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { vars } from '@/components/_settings'
+import { breakpoints, vars } from '@/components/_settings'
 
 export const signIn = style({
   display: 'flex',
@@ -12,7 +12,17 @@ export const signInInputWrapper = style({
   flexDirection: 'column',
   marginBottom: '6rem',
   width: '100%',
-  gap: '3.6rem'
+  gap: '3.6rem',
+
+  '@media': {
+    [breakpoints.widescreen]: {
+      marginBottom: '4rem'
+    },
+
+    [breakpoints.mobile]: {
+      marginBottom: '6rem'
+    }
+  }
 })
 
 export const signInFooter = style({
@@ -25,5 +35,11 @@ export const signInFooter = style({
   borderRadius: '0 0 5px 5px',
   backgroundColor: vars.colors['gray-50'],
   width: '100%',
-  height: '10rem'
+  height: '10rem',
+
+  '@media': {
+    [breakpoints.mobile]: {
+      height: '10.8rem'
+    }
+  }
 })

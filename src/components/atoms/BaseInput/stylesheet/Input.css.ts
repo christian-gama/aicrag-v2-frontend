@@ -50,7 +50,7 @@ const textAreaVariants = styleVariants({
     height: '4.8rem',
 
     '@media': {
-      [breakpoints.tablet]: {
+      [breakpoints.widescreen]: {
         height: '4.4rem'
       }
     }

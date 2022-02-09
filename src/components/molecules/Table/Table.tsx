@@ -26,7 +26,11 @@ export const Table: React.FC<TableProps> = ({
         )}
 
         <HorizontalScrollBar
-          breakpoints={{ default: '100%', desktop: '92vw', widescreen: '67vw' }}
+          breakpoints={{
+            default: '100%',
+            desktop: '79.8vw',
+            widescreen: '59.1vw'
+          }}
         >
           <table className={classes.tableContent} data-testid="table">
             {children}

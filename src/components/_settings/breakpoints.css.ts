@@ -25,12 +25,12 @@ export const breakpoints = {
   largeTablet: 'only screen and (max-width: 920px)',
 
   /**
-   * @maxWidth 1024px
+   * @maxWidth 1025px
    */
-  desktop: 'only screen and (max-width: 1024px)',
+  desktop: 'only screen and (max-width: 1025px)',
 
   /**
-   * @maxWidth 1366px
+   * @maxWidth 1368px
    */
-  widescreen: 'only screen and (max-width: 1366px)'
+  widescreen: 'only screen and (max-width: 1368px)'
 }

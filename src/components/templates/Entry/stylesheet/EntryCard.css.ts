@@ -7,6 +7,10 @@ export const entryCard = style({
   height: windowHeightVars.height,
 
   '@media': {
+    [breakpoints.widescreen]: {
+      width: '54rem'
+    },
+
     [breakpoints.tablet]: {
       width: '50rem'
     },
