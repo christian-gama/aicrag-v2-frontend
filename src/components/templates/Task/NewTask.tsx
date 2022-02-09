@@ -49,7 +49,7 @@ export const NewTask: React.FC = () => {
   const renderButtons = () => (
     <>
       <Button style={{ mode: 'outlined', color: 'light' }} onClick={resetForm}>
-        Cancelar
+        Resetar
       </Button>
 
       <Button type="submit">Salvar</Button>

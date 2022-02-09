@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon'
 import { BaseDateInput } from '@/components/atoms/BaseInput'
 import { Calendar } from '../Calendar'
 import { useControlDateInput } from './hooks'
@@ -18,7 +17,7 @@ export const ControlDateInput: React.FC<ControlDateInputProps> = ({
   label,
   name
 }: ControlDateInputProps) => {
-  const { isFocused, onBlurHandler, onFocusHandler, value } =
+  const { isFocused, onBlurHandler, onFocusHandler, value, currentDate } =
     useControlDateInput({
       defaultDate,
       autoFocus,
@@ -37,11 +36,7 @@ export const ControlDateInput: React.FC<ControlDateInputProps> = ({
         name={name}
       />
 
-      <Calendar previousDate={defaultDate!} />
+      <Calendar previousDate={currentDate} />
     </>
   )
-}
-
-ControlDateInput.defaultProps = {
-  defaultDate: DateTime.now().toMillis()
 }
