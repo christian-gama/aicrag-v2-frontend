@@ -14,7 +14,17 @@ export const pinCodeWrapper = style({
 export const pinCode = style({
   display: 'flex',
   justifyContent: 'center',
-  marginBottom: '4.8rem'
+  marginBottom: '4.8rem',
+
+  '@media': {
+    [breakpoints.widescreen]: {
+      marginBottom: '3.6rem'
+    },
+
+    [breakpoints.mobile]: {
+      marginBottom: '4.8rem'
+    }
+  }
 })
 
 export const pinInput = recipe({

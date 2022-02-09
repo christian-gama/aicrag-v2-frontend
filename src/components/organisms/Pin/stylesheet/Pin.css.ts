@@ -8,6 +8,10 @@ export const pin = style({
   flexDirection: 'column',
 
   '@media': {
+    [breakpoints.widescreen]: {
+      height: '57.6rem'
+    },
+
     [breakpoints.tablet]: {
       width: '50rem'
     },
@@ -24,7 +28,17 @@ export const pinContentWrapper = style({
   flexDirection: 'column',
   justifyContent: 'space-between',
   flex: '1',
-  gap: '6.8rem'
+  gap: '6.8rem',
+
+  '@media': {
+    [breakpoints.widescreen]: {
+      gap: '1.2rem'
+    },
+
+    [breakpoints.mobile]: {
+      gap: '6.8rem'
+    }
+  }
 })
 
 export const pinContentMain = style({
