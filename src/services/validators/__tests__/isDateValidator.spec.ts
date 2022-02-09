@@ -25,4 +25,15 @@ describe('isDateValidator', () => {
 
     expect(result).toBeUndefined()
   })
+
+  it('returns InvalidParamError if its not in the correct format', () => {
+    const sut = makeSut()
+    const input = { field: new Date().toString() }
+
+    const result = sut.validate(input)
+
+    expect(result).toStrictEqual(
+      new InvalidFieldError('field', 'deve ser uma data válida')
+    )
+  })
 })
