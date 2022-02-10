@@ -1,6 +1,5 @@
 import '@/components/_settings/global.css'
 import { ApolloProvider } from '@apollo/client'
-
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
