@@ -1,5 +1,6 @@
-import { cleanup, fireEvent, screen } from '@testing-library/react'
+import { fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { makeTaskTypeStorage } from '@/external/factories/storage/task'
 import { popoverVar } from '@/external/graphql/reactiveVars'
 import {
   formUtils,
@@ -28,6 +29,7 @@ jest.mock('react-router-dom', () => ({
 
 describe('Task', () => {
   setupTests()
+  const taskTypeStorage = makeTaskTypeStorage()
   const mockDate = new MockDate(2022, 1, 1, 0, 0)
   let UpdateTask: any
   let NewTask: any
@@ -43,8 +45,8 @@ describe('Task', () => {
   const type = () => getElement('select[name="type"]')
 
   afterEach(() => {
+    taskTypeStorage.reset()
     mockDate.reset()
-    cleanup()
   })
 
   beforeEach(async () => {
@@ -96,6 +98,19 @@ describe('Task', () => {
     userEvent.selectOptions(type(), 'TX')
 
     expect(duration()).toHaveValue(30)
+  })
+
+  it('starts with the type saved on the taskTypeStorage', async () => {
+    taskTypeStorage.set('QA')
+    await renderWithProviders(
+      <Task
+        validator={makeMockValidation(jest.fn())}
+        renderButtons={jest.fn()}
+        submitHandler={jest.fn()}
+      />
+    )
+
+    expect(type()).toHaveValue('QA')
   })
 
   describe('NewTask', () => {
