@@ -94,13 +94,13 @@ export const AccountData: React.FC = () => {
   }
 
   return (
-    <div className={classes.accountData} data-testid="account-data">
+    <div data-testid="account-data">
       <div>
         <ControlForm
           submitHandler={submitHandler}
           validator={makeAccountDataValidator()}
         >
-          <div className={classes.accountDataForm}>
+          <div className={classes.accountForm}>
             <ControlInput
               defaultValue={user.personal.name}
               label="Seu nome"
@@ -138,7 +138,7 @@ export const AccountData: React.FC = () => {
             </div>
           </div>
 
-          <div className={classes.accountDataButton}>
+          <div className={classes.accountButton}>
             <Button type="submit" loading={form.isSubmitting}>
               Salvar
             </Button>

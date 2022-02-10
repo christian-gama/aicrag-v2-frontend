@@ -32,6 +32,7 @@ export const useControlDateInput = ({
       setInputIsFocused,
       setInputIsTouched,
       setInputIsValid,
+      setFormIsDirty,
       setInputError,
       setInputValue,
       setFormData
@@ -73,6 +74,7 @@ export const useControlDateInput = ({
   const onBlurHandler = () => {
     setInputIsFocused(name, false)
     setInputIsTouched(name, true)
+    setFormIsDirty(true)
   }
 
   const onFocusHandler = () => {

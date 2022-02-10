@@ -20,6 +20,7 @@ export const useControlRadioInput = ({
       setInputIsTouched,
       setInputIsFocused,
       setInputIsValid,
+      setFormIsDirty,
       setInputError,
       setInputValue,
       setFormData
@@ -44,6 +45,7 @@ export const useControlRadioInput = ({
     setInputIsTouched(name, true)
     setInputValue(name, value)
     setFormData(name, value)
+    setFormIsDirty(true)
   }
 
   return {

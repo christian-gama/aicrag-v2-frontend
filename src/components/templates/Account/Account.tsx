@@ -10,7 +10,7 @@ export const Account: React.FC = ({ children }) => {
             buttons={[
               {
                 buttonName: 'Dados',
-                to: '/account'
+                to: '/account/data'
               },
               {
                 buttonName: 'Segurança',

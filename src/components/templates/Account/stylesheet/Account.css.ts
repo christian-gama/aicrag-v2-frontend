@@ -1,6 +1,18 @@
 import { style } from '@vanilla-extract/css'
 import { breakpoints } from '@/components/_settings'
 
+export const accountButton = style({
+  marginTop: '7rem',
+  display: 'flex',
+  justifyContent: 'center'
+})
+
+export const accountForm = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '4rem'
+})
+
 export const accountWrapper = style({
   display: 'flex',
   justifyContent: 'center',

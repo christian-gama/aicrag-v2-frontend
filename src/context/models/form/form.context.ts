@@ -12,6 +12,7 @@ export const initialFormState: FormStates<any> = {
     isSubmitted: false,
     isResetting: false,
     error: undefined,
+    isDirty: false,
     isValid: false,
     data: {}
   },

@@ -30,6 +30,7 @@ export const useControlInput = ({
       setInputIsFocused,
       setInputIsTouched,
       setInputIsValid,
+      setFormIsDirty,
       setInputError,
       setInputValue,
       setFormData
@@ -67,6 +68,7 @@ export const useControlInput = ({
     const error = validateInput({ state, name, value })
 
     setInputIsFocused(name, false)
+    setFormIsDirty(true)
     setInputIsTouched(name, true)
     setInputIsValid(name, !error)
     setInputError(name, error)

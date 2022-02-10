@@ -14,6 +14,7 @@ export type FormStates<
     error: Maybe<string>
     isSubmitted: boolean
     isResetting: boolean
+    isDirty: boolean
     data: T
     isValid: boolean
   }
@@ -56,6 +57,7 @@ export type FormActionPayload = {
   | 'FORM/SET_FORM_DATA'
   | 'FORM/SET_VALIDATOR'
   | 'FORM/SET_IS_VALID'
+  | 'FORM/SET_IS_DIRTY'
   | 'FORM/RESET_FORM'
   | 'FORM/SET_ERROR'
 

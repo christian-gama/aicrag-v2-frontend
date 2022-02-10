@@ -21,6 +21,7 @@ export const useControlSelectInput = ({
       setInputIsFocused,
       setInputIsTouched,
       setInputIsValid,
+      setFormIsDirty,
       setInputError,
       setInputValue,
       setFormData
@@ -35,11 +36,11 @@ export const useControlSelectInput = ({
 
   useEffect(() => {
     setInputCurrentType(name, 'text')
+    setInputValue(name, defaultValue)
     setInputError(name, undefined)
     setInputIsFocused(name, false)
     setInputIsTouched(name, false)
     setInputIsValid(name, true)
-    setInputValue(name, defaultValue)
   }, [isResetting])
 
   useEffect(() => {
@@ -52,8 +53,9 @@ export const useControlSelectInput = ({
     onChange?.()
 
     setInputIsTouched(name, true)
-    setFormData(name, value)
     setInputValue(name, value)
+    setFormData(name, value)
+    setFormIsDirty(true)
   }
 
   return {

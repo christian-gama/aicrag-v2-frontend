@@ -20,23 +20,18 @@ export const useControlForm = (
       resetForm
     },
     state: {
-      form: { error, isValid, data, isResetting, isSubmitting, isSubmitted }
+      input: { isTouched },
+      form: {
+        error,
+        isValid,
+        data,
+        isResetting,
+        isSubmitting,
+        isSubmitted,
+        isDirty
+      }
     }
   } = useForm()
-
-  useEffect(() => {
-    resetForm()
-  }, [])
-
-  useEffect(() => {
-    if (isResetting) {
-      setFormIsResetting(false)
-    }
-  }, [isResetting])
-
-  useEffect(() => {
-    setFormValidator(props.validator)
-  }, [isResetting])
 
   const onSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     setFormIsSubmitting(true)
@@ -94,6 +89,36 @@ export const useControlForm = (
       setFormIsValid(false)
     }
   }
+
+  useEffect(() => {
+    resetForm()
+  }, [])
+
+  useEffect(() => {
+    if (isResetting) {
+      setFormIsResetting(false)
+    }
+  }, [isResetting])
+
+  useEffect(() => {
+    setFormValidator(props.validator)
+  }, [isResetting])
+
+  useEffect(() => {
+    if (isDirty && props.validator) {
+      for (const name in data) {
+        const error = props.validator.validate(name, data)
+
+        if (error && isTouched[name]) {
+          setInputIsValid(name, false)
+          setInputError(name, error)
+        } else if (isTouched[name]) {
+          setInputIsValid(name, true)
+          setInputError(name, undefined)
+        }
+      }
+    }
+  }, [isDirty, data])
 
   return {
     onSubmitHandler,

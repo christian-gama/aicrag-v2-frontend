@@ -18,6 +18,7 @@ export const formReducer = (
           isSubmitted: false,
           isResetting: true,
           error: undefined,
+          isDirty: false,
           isValid: false,
           data: {}
         },
@@ -91,6 +92,15 @@ export const formReducer = (
         form: {
           ...state.form,
           validator: action.payload.validator
+        }
+      }
+
+    case 'FORM/SET_IS_DIRTY':
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          isDirty: action.payload.isDirty!
         }
       }
 
