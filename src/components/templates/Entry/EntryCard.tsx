@@ -14,7 +14,18 @@ type EntryCardProps = {
 
 export const EntryCard: React.FC<EntryCardProps> = ({ style, children }) => {
   const { width, height } = useWindowDimensions()
-
+  console.log(
+    assignInlineVars(windowHeightVars, {
+      height:
+        width <= 520
+          ? height <= 620
+            ? '620px'
+            : `${height}px`
+          : width <= 1368
+            ? '57.6rem'
+            : style!.height!
+    })
+  )
   return (
     <Background gradient>
       <Center stickMobile>
@@ -24,7 +35,9 @@ export const EntryCard: React.FC<EntryCardProps> = ({ style, children }) => {
             style={assignInlineVars(windowHeightVars, {
               height:
                 width <= 520
-                  ? `${height}px`
+                  ? height <= 620
+                    ? '620px'
+                    : `${height}px`
                   : width <= 1368
                     ? '57.6rem'
                     : style!.height!

@@ -32,4 +32,12 @@ describe('EntryCard', () => {
 
     expect(card.className).toMatch(/roundness_none/gi)
   })
+
+  it('card has a minimun of 620px of height', async () => {
+    useWindowDimensionsMock.mockReturnValue({ width: 520, height: 619 })
+    await renderWithProviders(<EntryCard />)
+    const card = screen.getByTestId('card')
+
+    expect(card.style).toHaveLength(4)
+  })
 })
