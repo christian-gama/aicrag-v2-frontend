@@ -72,11 +72,11 @@ const modeVariants = styleVariants({
 
 const containedCyanStyle = style({
   border: 'none',
-  backgroundColor: vars.colors['cyan-800'],
+  backgroundColor: vars.colors['cyan-900'],
   color: vars.colors.white,
 
   ':hover': {
-    backgroundColor: vars.colors['cyan-700'],
+    backgroundColor: vars.colors['cyan-800'],
     cursor: 'pointer'
   },
 
@@ -86,13 +86,13 @@ const containedCyanStyle = style({
 })
 
 const outlinedCyanStyle = style({
-  border: `1px solid ${vars.colors['cyan-800']}`,
+  border: `1px solid ${vars.colors['cyan-900']}`,
   backgroundColor: vars.colors.transparent,
-  color: vars.colors['cyan-800'],
+  color: vars.colors['cyan-900'],
 
   ':hover': {
     border: 'none',
-    backgroundColor: vars.colors['cyan-800'],
+    backgroundColor: vars.colors['cyan-900'],
     cursor: 'pointer',
     color: vars.colors.white
   },
@@ -264,7 +264,11 @@ export const buttonRecipe = recipe({
     borderRadius: '5px',
     textTransform: vars.font.button.textTransform,
     fontFamily: vars.font.button.fontFamily,
-    fontSize: vars.font.button.fontSize
+    fontSize: vars.font.button.fontSize,
+
+    ':disabled': {
+      cursor: 'not-allowed'
+    }
   },
 
   variants: {

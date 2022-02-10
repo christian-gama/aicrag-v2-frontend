@@ -72,7 +72,7 @@ const colors = {
   'cyan-600': '#1e9aa4',
   'cyan-700': '#19909a',
   'cyan-800': '#148691',
-  'cyan-900': '#095b63',
+  'cyan-900': '#0E737E',
 
   'snow-50': '#fefefe',
   'snow-100': '#fefefc',

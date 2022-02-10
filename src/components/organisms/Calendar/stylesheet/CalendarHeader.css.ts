@@ -5,14 +5,14 @@ export const calendarHeaderChevron = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  transition: 'background-color 0.2s ease-in-out',
   borderRadius: '50%',
   cursor: 'pointer',
   width: '4rem',
   height: '4rem',
-  transition: 'background-color 0.2s ease-in-out',
 
   ':hover': {
-    backgroundColor: vars.colors['navy-400']
+    backgroundColor: vars.colors['cyan-800']
   }
 })
 
@@ -29,7 +29,7 @@ export const calendarHeader = style({
   alignItems: 'center',
   justifyContent: 'space-between',
   borderRadius: '5px 5px 0 0',
-  backgroundColor: vars.colors['navy-600'],
+  backgroundColor: vars.colors['cyan-900'],
   padding: '1.8rem',
   width: '100%',
   height: '7.2rem',

@@ -8,7 +8,6 @@ import {
   ControlRadioInput
 } from '@/components/organisms/Control'
 import { Pin } from '@/components/organisms/Pin'
-import { P } from '@/components/utils/texts/P'
 import { makeAccountDataValidator } from '@/external/factories/validation'
 import {
   UserCurrency,
@@ -116,7 +115,7 @@ export const AccountData: React.FC = () => {
             />
 
             <div className={classes.accountDataPreferences}>
-              <P color="secondaryDarker">Preferências</P>
+              <span>Preferências</span>
 
               <div className={classes.accountDataPreferencesInputs}>
                 <ControlRadioInput

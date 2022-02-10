@@ -27,7 +27,8 @@ export const questionIconWrapper = recipe({
 
 export const questionIconRecipe = recipe({
   base: {
-    width: '1.6rem'
+    width: '1.6rem',
+    transition: 'filter 0.15s ease-in-out'
   },
 
   variants: {
@@ -36,8 +37,10 @@ export const questionIconRecipe = recipe({
         color: vars.colors['cyan-900'],
         fill: vars.colors['cyan-900'],
 
-        ':hover': {
-          filter: 'brightness(130%)'
+        selectors: {
+          [`${questionIconWrapper()}:hover &`]: {
+            filter: 'brightness(140%)'
+          }
         }
       },
 
@@ -45,7 +48,7 @@ export const questionIconRecipe = recipe({
         color: vars.colors.white,
         fill: vars.colors.white,
 
-        ':hover': {
+        [`${questionIconWrapper()}:hover &`]: {
           filter: 'brightness(90%)'
         }
       }

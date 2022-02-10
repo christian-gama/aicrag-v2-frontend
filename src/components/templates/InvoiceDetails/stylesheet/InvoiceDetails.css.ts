@@ -9,12 +9,16 @@ export const invoiceDetailsType = recipe({
     justifyContent: 'center',
     marginBottom: '0.5rem',
     borderRadius: '50%',
-    width: '3.4rem',
-    height: '3.4rem',
+    width: '3.2rem',
+    height: '3.2rem',
     fontFamily: vars.font.hint.fontFamily,
     fontSize: vars.font.hint.fontSize,
     color: vars.colors.white,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+
+    ':hover': {
+      cursor: 'default'
+    }
   },
 
   variants: {
@@ -36,6 +40,34 @@ export const invoiceDetailsActionCell = style({
   justifyContent: 'space-between',
   width: '100%',
   gap: '3.6rem'
+})
+
+export const invoiceDetailsTypeModal = style({
+  display: 'none',
+
+  '@media': {
+    '(hover: hover)': {
+      selectors: {
+        [`${invoiceDetailsType()}:hover &`]: {
+          display: 'flex',
+          position: 'absolute',
+          top: '-2.2rem',
+          left: '1.6rem',
+          alignItems: 'center',
+          justifyContent: 'center',
+          opacity: '0.85',
+          zIndex: '2',
+          backgroundColor: vars.colors.black,
+          padding: '0rem 0.6rem 1rem 0.6rem',
+          width: '12rem',
+          height: '4rem',
+          color: vars.colors.white,
+          clipPath:
+            'polygon(0% 0%, 100% 0%, 100% 75%, 25% 75%, 8% 100%, 9% 75%, 0% 75%)'
+        }
+      }
+    }
+  }
 })
 
 export const invoiceDetailsTrash = style({

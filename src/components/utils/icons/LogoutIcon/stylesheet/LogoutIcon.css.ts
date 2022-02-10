@@ -28,7 +28,8 @@ export const logoutIconWrapper = recipe({
 
 export const logoutIconRecipe = recipe({
   base: {
-    width: '2rem'
+    width: '2rem',
+    transition: 'filter 0.15s ease-in-out'
   },
 
   variants: {
@@ -37,8 +38,10 @@ export const logoutIconRecipe = recipe({
         color: vars.colors['cyan-900'],
         fill: vars.colors['cyan-900'],
 
-        ':hover': {
-          filter: 'brightness(130%)'
+        selectors: {
+          [`${logoutIconWrapper()}:hover &`]: {
+            filter: 'brightness(140%)'
+          }
         }
       },
 
@@ -46,8 +49,10 @@ export const logoutIconRecipe = recipe({
         color: vars.colors.white,
         fill: vars.colors.white,
 
-        ':hover': {
-          filter: 'brightness(90%)'
+        selectors: {
+          [`${logoutIconWrapper()}:hover &`]: {
+            filter: 'brightness(90%)'
+          }
         }
       }
     }

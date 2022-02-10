@@ -29,7 +29,7 @@ export const Table: React.FC<TableProps> = ({
           breakpoints={{
             default: '100%',
             desktop: '79.8vw',
-            widescreen: '59.1vw'
+            widescreen: '59.6vw'
           }}
         >
           <table className={classes.tableContent} data-testid="table">

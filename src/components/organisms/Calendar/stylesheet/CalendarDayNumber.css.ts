@@ -4,12 +4,17 @@ import { vars } from '@/components/_settings'
 
 const selected = styleVariants({
   true: {
-    border: `2px solid ${vars.colors['cyan-600']}`,
+    border: `2px solid ${vars.colors['cyan-500']}`,
 
     ':hover': {
-      border: `2px solid ${vars.colors['cyan-400']}`,
-      backgroundColor: vars.colors.white,
       cursor: 'default'
+    }
+  },
+
+  false: {
+    ':hover': {
+      backgroundColor: vars.colors['gray-50'],
+      cursor: 'pointer'
     }
   }
 })
@@ -20,13 +25,7 @@ const dimmed = styleVariants({
   },
 
   false: {
-    color: vars.colors.text.default,
-    selectors: {
-      '&:hover': {
-        backgroundColor: vars.colors['gray-50'],
-        cursor: 'pointer'
-      }
-    }
+    color: vars.colors.text.default
   }
 })
 
