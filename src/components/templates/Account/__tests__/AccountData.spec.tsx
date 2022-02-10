@@ -3,10 +3,18 @@ import {
   formUtils,
   renderWithProviders,
   setupTests,
-  setUser
+  setUser,
+  waitFetch
 } from '@/tests/helpers'
-import { getMeMock, updateMeMock } from '@/tests/mocks/queries'
+import { mockVariables } from '@/tests/mocks'
+import {
+  getMeMock,
+  sendEmailPinMock,
+  updateEmailByPinMock,
+  updateMeMock
+} from '@/tests/mocks/queries'
 import { fireEvent, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { AccountData } from '..'
 
 describe('AccountData', () => {
@@ -14,6 +22,10 @@ describe('AccountData', () => {
   const getRadioInput = (name: RegExp) =>
     screen.getByRole('radio', {
       name
+    })
+  const emailInput = () =>
+    screen.getByRole('textbox', {
+      name: /seu email/i
     })
 
   beforeEach(() => {
@@ -44,11 +56,8 @@ describe('AccountData', () => {
     await renderWithProviders(<AccountData />, {
       apolloMocks: [updateMeMock({ email: 'other@email.com' })]
     })
-    const emailInput = screen.getByRole('textbox', {
-      name: /seu email/i
-    })
 
-    fireEvent.change(emailInput, { target: { value: 'other@email.com' } })
+    fireEvent.change(emailInput(), { target: { value: 'other@email.com' } })
     await formUtils.submitForm()
 
     expect(setPopoverSpy).not.toHaveBeenCalled()
@@ -124,5 +133,45 @@ describe('AccountData', () => {
 
     expect(getRadioInput(/real/i)).not.toBeChecked()
     expect(getRadioInput(/dólar/i)).toBeChecked()
+  })
+
+  it('updates the email through pin', async () => {
+    const setPopoverSpy = jest.spyOn(popoverVar, 'setPopover')
+    await renderWithProviders(<AccountData />, {
+      apolloMocks: [
+        updateMeMock({ email: 'other@email.com' }),
+        updateEmailByPinMock(),
+        sendEmailPinMock()
+      ]
+    })
+    emailInput()
+    const pinCodeInput = () => screen.getAllByTestId('pin-input')[0]
+
+    fireEvent.change(emailInput(), { target: { value: 'other@email.com' } })
+    await formUtils.submitForm()
+    userEvent.paste(pinCodeInput(), mockVariables.pin)
+    await waitFetch()
+
+    expect(setPopoverSpy).toHaveBeenCalledWith(expect.anything(), 'success')
+  })
+
+  it('resends the email pin', async () => {
+    await renderWithProviders(<AccountData />, {
+      apolloMocks: [
+        updateMeMock({ email: 'other@email.com' }),
+        updateEmailByPinMock(),
+        sendEmailPinMock()
+      ]
+    })
+    emailInput()
+    const resendButton = () => screen.getByText(/reenviar/i)
+    const countdown = () => screen.getByText(/60 s/i)
+
+    fireEvent.change(emailInput(), { target: { value: 'other@email.com' } })
+    await formUtils.submitForm()
+    userEvent.click(resendButton())
+    await waitFetch()
+
+    expect(countdown()).toBeInTheDocument()
   })
 })

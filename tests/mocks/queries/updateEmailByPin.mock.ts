@@ -3,7 +3,7 @@ import { UpdateEmailByPinDocument } from '@/external/graphql/generated'
 import { mockVariables } from '..'
 import { userFragmentMock } from '../fragments'
 
-export const updateEmailByPin = (
+export const updateEmailByPinMock = (
   error?: Error
 ): MockedResponse<Record<string, any>> => ({
   request: {
