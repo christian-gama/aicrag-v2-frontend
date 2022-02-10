@@ -1,5 +1,8 @@
-import { Routes, Route } from 'react-router-dom'
-import { AccountDataView } from '@/components/views/Account'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import {
+  AccountDataView,
+  AccountSecurityView
+} from '@/components/views/Account'
 import {
   ForgotPasswordView,
   SignInView,
@@ -23,8 +26,11 @@ export const Router = () => {
     <Routes>
       <Route path="/" element={<ProtectedRoute />}>
         <Route path="" element={<NewTaskView />} />
-        <Route path="account">
-          <Route path="" element={<AccountDataView />} />
+
+        <Route path="/account">
+          <Route path="" element={<Navigate to={'/account/data'} />} />
+          <Route path="data" element={<AccountDataView />} />
+          <Route path="security" element={<AccountSecurityView />} />
         </Route>
 
         <Route path="invoice">
