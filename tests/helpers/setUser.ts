@@ -14,6 +14,7 @@ export const setUser = (user?: {
       name: user?.name ?? mockVariables.name
     },
     settings: {
+      role: mockVariables.role.user,
       currency: user?.currency ?? 'BRL'
     }
   })

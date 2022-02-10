@@ -32,6 +32,7 @@ export const App = () => {
           name: getMeData?.getMe.user.personal.name ?? getUserByToken('name')!
         },
         settings: {
+          role: getMeData?.getMe.user.settings.role ?? +getUserByToken('role')!,
           currency:
             getMeData?.getMe.user.settings.currency ??
             getUserByToken('currency')!

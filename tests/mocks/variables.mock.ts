@@ -16,6 +16,12 @@ export const mockVariables = {
   pin: '1a2b3',
   duration: 30,
   type: 'TX',
+  role: {
+    admin: 4,
+    moderator: 3,
+    user: 2,
+    guest: 1
+  },
   token:
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW5jeSI6IkJSTCIsImVtYWlsIjoiY3JpY2tzQGdtYWlsLmNvbSIsIm5hbWUiOiJDcmlja3MiLCJ1c2VySWQiOiIzNjViZWQwNy0xNDg1LTRkNjEtOTM0My01ODEwMGFhZmRmMWMiLCJpYXQiOjE2NDM3MDI4NjUsImV4cCI6MTY0MzcwMzQ2NX0.KmFH7gADMAwisGZpnav1isy3HgLnQ39PKSpoL_FSZbo'
 }

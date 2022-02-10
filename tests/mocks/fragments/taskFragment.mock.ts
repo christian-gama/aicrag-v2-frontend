@@ -1,4 +1,3 @@
-import { userFragmentMock } from './userFragment.mock'
 import { mockVariables } from '..'
 
 export const taskFragmentMock = {
@@ -20,7 +19,6 @@ export const taskFragmentMock = {
     status: mockVariables.status,
     taskId: mockVariables.taskId,
     type: mockVariables.type,
-    usd: (+mockVariables.duration / 60) * 65,
-    ...userFragmentMock
+    usd: (+mockVariables.duration / 60) * 65
   }
 }

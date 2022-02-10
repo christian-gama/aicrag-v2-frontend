@@ -2,32 +2,7 @@ query FindAllTasks($limit: String, $page: String, $sort: String) {
   findAllTasks(query: { limit: $limit, page: $page, sort: $sort }) {
     count
     documents {
-      commentary
-      date {
-        day
-        full
-        hours
-        month
-        year
-      }
-      duration
-      id
-      logs {
-        createdAt
-        updatedAt
-      }
-      status
-      taskId
-      type
-      usd
-      user {
-        personal {
-          email
-        }
-        settings {
-          currency
-        }
-      }
+      ...TaskFragment
     }
   }
 }
