@@ -1,18 +1,9 @@
-import { OverlayRoot, renderWithProviders } from '@/tests/helpers'
-import { cleanup, screen } from '@testing-library/react'
+import { renderWithProviders, setupTests } from '@/tests/helpers'
+import { screen } from '@testing-library/react'
 import { AccountDataView } from '..'
 
 describe('AccountDataView', () => {
-  const overlayRoot = new OverlayRoot()
-
-  afterEach(() => {
-    overlayRoot.removeOverlayRoot()
-    cleanup()
-  })
-
-  beforeEach(() => {
-    overlayRoot.addOverlayRoot()
-  })
+  setupTests()
 
   it('renders correctly', async () => {
     await renderWithProviders(<AccountDataView />)
