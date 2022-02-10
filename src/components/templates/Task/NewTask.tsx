@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useForm } from '@/context/models/form'
 import { Button } from '@/components/atoms/Button'
+import { makeTaskTypeStorage } from '@/external/factories/storage/task'
 import { makeTaskValidation } from '@/external/factories/validation'
 import {
   TaskStatus,
@@ -38,6 +39,9 @@ export const NewTask: React.FC = () => {
         type: data.type
       }
     })
+
+    const taskTypeStorage = makeTaskTypeStorage()
+    taskTypeStorage.set(data.type)
 
     return () => {
       refetchInvoiceVar.refetch()

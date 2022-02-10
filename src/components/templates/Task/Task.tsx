@@ -8,6 +8,7 @@ import {
   ControlInput,
   ControlSelectInput
 } from '@/components/organisms/Control'
+import { makeTaskTypeStorage } from '@/external/factories/storage/task'
 import { TaskType } from '@/external/graphql/generated'
 import * as classes from './stylesheet'
 
@@ -34,6 +35,8 @@ export const Task: React.FC<TaskProps> = ({
     commentary: string
   }>()
   const { data } = state.form
+
+  const taskTypeStorage = makeTaskTypeStorage()
 
   const getDuration = () => {
     const type = document.querySelector(
@@ -81,8 +84,8 @@ export const Task: React.FC<TaskProps> = ({
 
             <div style={{ gridArea: 'type' }}>
               <ControlSelectInput
+                defaultValue={taskTypeStorage.get() ?? 'TX'}
                 onChange={updateDurationOnChange}
-                defaultValue="TX"
                 label="Tipo"
                 name="type"
                 options={[
