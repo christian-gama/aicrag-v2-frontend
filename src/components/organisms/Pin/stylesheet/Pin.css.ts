@@ -3,7 +3,7 @@ import { breakpoints, windowHeightVars } from '@/components/_settings'
 
 export const pin = style({
   width: '60rem',
-  height: '65rem',
+  height: '68rem',
   display: 'flex',
   flexDirection: 'column',
 
