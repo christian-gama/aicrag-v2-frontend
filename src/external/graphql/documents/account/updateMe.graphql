@@ -6,14 +6,7 @@ mutation UpdateMe(
   updateMe(input: { currency: $currency, email: $email, name: $name }) {
     ... on UpdateMeHasChanges {
       user {
-        personal {
-          email
-          id
-          name
-        }
-        settings {
-          currency
-        }
+        ...PublicUserFragment
       }
     }
     ... on UpdateMeNoChanges {

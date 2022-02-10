@@ -1,11 +1,10 @@
 import { ApolloError } from '@apollo/client'
-import { cleanup, screen, fireEvent } from '@testing-library/react'
+import { screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Pin } from '..'
 import { useWindowDimensions } from '@/components/_hooks'
-import { makeAccessTokenStorage } from '@/external/factories/storage/auth'
 import { makeMailerCountdownStorage } from '@/external/factories/storage/mailerCountdown'
-import { OverlayRoot, renderWithProviders, waitFetch } from '@/tests/helpers'
+import { renderWithProviders, setupTests, waitFetch } from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
 
 const mockFunction = jest.fn()
@@ -33,23 +32,20 @@ jest.mock('../../../_hooks/useWindowDimensions')
 const mockUseWindowDimensions = useWindowDimensions as jest.Mock
 
 describe('Pin', () => {
+  setupTests()
   const mailerCountdownStorage = makeMailerCountdownStorage()
-  const overlayRoot = new OverlayRoot()
 
   afterEach(() => {
-    cleanup()
     mockUseWindowDimensions.mockReset()
-    overlayRoot.removeOverlayRoot()
     mailerCountdownStorage.reset()
   })
 
   beforeEach(() => {
-    overlayRoot.addOverlayRoot()
     mockUseWindowDimensions.mockReturnValue({ width: 1920, height: 1080 })
   })
 
-  it('renders correctly', () => {
-    renderWithProviders(
+  it('renders correctly', async () => {
+    await renderWithProviders(
       <Pin
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
@@ -63,8 +59,8 @@ describe('Pin', () => {
     expect(pin).toBeInTheDocument()
   })
 
-  it('redirects to the correct page when clicking on Link', () => {
-    renderWithProviders(
+  it('redirects to the correct page when clicking on Link', async () => {
+    await renderWithProviders(
       <Pin
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
@@ -84,8 +80,8 @@ describe('Pin', () => {
     })
   })
 
-  it('does not render if isOpen is false', () => {
-    renderWithProviders(
+  it('does not render if isOpen is false', async () => {
+    await renderWithProviders(
       <Pin
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
@@ -99,8 +95,8 @@ describe('Pin', () => {
     expect(pin).not.toBeInTheDocument()
   })
 
-  it('closes when clicks on Link if it is not a page', () => {
-    renderWithProviders(
+  it('closes when clicks on Link if it is not a page', async () => {
+    await renderWithProviders(
       <Pin
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
@@ -116,9 +112,9 @@ describe('Pin', () => {
     expect(screen.queryByTestId('pin')).not.toBeInTheDocument()
   })
 
-  it('calls Steps with responsive props', () => {
+  it('calls Steps with responsive props', async () => {
     mockUseWindowDimensions.mockReturnValue({ width: 520, height: 599 })
-    renderWithProviders(
+    await renderWithProviders(
       <Pin
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
@@ -135,8 +131,8 @@ describe('Pin', () => {
     })
   })
 
-  it('accepts only 1 character per input', () => {
-    renderWithProviders(
+  it('accepts only 1 character per input', async () => {
+    await renderWithProviders(
       <Pin
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
@@ -152,8 +148,8 @@ describe('Pin', () => {
     expect(input).toHaveValue('1')
   })
 
-  it('does not paste if value length is lesser than 5', () => {
-    renderWithProviders(
+  it('does not paste if value length is lesser than 5', async () => {
+    await renderWithProviders(
       <Pin
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
@@ -173,8 +169,8 @@ describe('Pin', () => {
     expect(inputs[4]).toHaveValue('')
   })
 
-  it('focus in the next input when press ArrowRight or Delete', () => {
-    renderWithProviders(
+  it('focus in the next input when press ArrowRight or Delete', async () => {
+    await renderWithProviders(
       <Pin
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
@@ -191,8 +187,8 @@ describe('Pin', () => {
     expect(inputs[2]).toHaveFocus()
   })
 
-  it('does not focus in the next input if index is equal to 4', () => {
-    renderWithProviders(
+  it('does not focus in the next input if index is equal to 4', async () => {
+    await renderWithProviders(
       <Pin
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
@@ -208,8 +204,8 @@ describe('Pin', () => {
     expect(inputs[4]).toHaveFocus()
   })
 
-  it('focus in the previous input when press ArrowLeft or Backspace', () => {
-    renderWithProviders(
+  it('focus in the previous input when press ArrowLeft or Backspace', async () => {
+    await renderWithProviders(
       <Pin
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
@@ -226,8 +222,8 @@ describe('Pin', () => {
     expect(inputs[0]).toHaveFocus()
   })
 
-  it('does not focus in the previous input if index is equal to 0', () => {
-    renderWithProviders(
+  it('does not focus in the previous input if index is equal to 0', async () => {
+    await renderWithProviders(
       <Pin
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
@@ -243,8 +239,8 @@ describe('Pin', () => {
     expect(inputs[0]).toHaveFocus()
   })
 
-  it('deletes the input value when press Backspace', () => {
-    renderWithProviders(
+  it('deletes the input value when press Backspace', async () => {
+    await renderWithProviders(
       <Pin
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
@@ -262,8 +258,8 @@ describe('Pin', () => {
     expect(inputs[1]).toHaveFocus()
   })
 
-  it('focus and delete the previous input value if press Backspace in an empty input', () => {
-    renderWithProviders(
+  it('focus and delete the previous input value if press Backspace in an empty input', async () => {
+    await renderWithProviders(
       <Pin
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
@@ -282,7 +278,7 @@ describe('Pin', () => {
   })
 
   it('disables the button when form is submitted', async () => {
-    renderWithProviders(
+    await renderWithProviders(
       <Pin
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
@@ -293,18 +289,14 @@ describe('Pin', () => {
     )
     const button = screen.getByRole('button', { name: /reenviar/i })
     const inputs = screen.getAllByTestId('pin-input')
-    const accessTokenStorage = makeAccessTokenStorage()
-
-    accessTokenStorage.set(mockVariables.token)
     userEvent.paste(inputs[0], mockVariables.pin)
-
     await waitFetch()
 
     expect(button).toBeDisabled()
   })
 
   it('catches the error if submitHandler throws and should not disable the button', async () => {
-    renderWithProviders(
+    await renderWithProviders(
       <Pin
         error={new ApolloError({})}
         mailerHandler={jest.fn()}
@@ -318,18 +310,15 @@ describe('Pin', () => {
     )
     const button = screen.getByRole('button', { name: /reenviar/i })
     const inputs = screen.getAllByTestId('pin-input')
-    const accessTokenStorage = makeAccessTokenStorage()
 
-    accessTokenStorage.set(mockVariables.token)
     userEvent.paste(inputs[0], mockVariables.pin)
-
-    await waitFetch(120)
+    await waitFetch()
 
     expect(button).not.toBeDisabled()
   })
 
-  it('disables button when resend email', () => {
-    renderWithProviders(
+  it('disables button when resend email', async () => {
+    await renderWithProviders(
       <Pin
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
@@ -339,16 +328,14 @@ describe('Pin', () => {
       />
     )
     const button = screen.getByText(/reenviar/gi)
-    const accessTokenStorage = makeAccessTokenStorage()
 
-    accessTokenStorage.set(mockVariables.token)
     userEvent.click(button)
 
     expect(button).toBeDisabled()
   })
 
   it('starts a countdown after resending an email', async () => {
-    renderWithProviders(
+    await renderWithProviders(
       <Pin
         mailerHandler={jest.fn()}
         submitHandler={jest.fn()}
@@ -358,11 +345,8 @@ describe('Pin', () => {
       />
     )
     const button = screen.getByText(/reenviar/gi)
-    const accessTokenStorage = makeAccessTokenStorage()
 
-    accessTokenStorage.set(mockVariables.token)
     userEvent.click(button)
-
     await waitFetch()
 
     expect(button.textContent).toMatch(/\d+/gi)

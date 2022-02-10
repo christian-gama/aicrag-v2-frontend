@@ -1,25 +1,20 @@
-import { style } from '@vanilla-extract/css'
-
-export const accountData = style({})
-export const accountDataForm = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '4rem'
-})
-
-export const accountDataButton = style({
-  marginTop: '7rem',
-  display: 'flex',
-  justifyContent: 'center'
-})
+import { globalStyle, style } from '@vanilla-extract/css'
+import { vars } from '@/components/_settings'
 
 export const accountDataPreferences = style({
   display: 'flex',
   flexDirection: 'column',
-  gap: '1.6rem'
+  gap: '1.2rem'
 })
 
 export const accountDataPreferencesInputs = style({
   display: 'flex',
   gap: '10rem'
+})
+
+globalStyle(`${accountDataPreferences} span`, {
+  fontWeight: 'bold',
+  fontSize: vars.font.hint.fontSize,
+  fontFamily: vars.font.hint.fontFamily,
+  color: vars.colors['navy-500']
 })

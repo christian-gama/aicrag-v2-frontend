@@ -41,6 +41,10 @@ export const sideBarLogoWrapper = style({
   height: '18rem',
 
   '@media': {
+    [breakpoints.widescreen]: {
+      height: '15.2rem'
+    },
+
     [breakpoints.desktop]: {
       display: 'none'
     }

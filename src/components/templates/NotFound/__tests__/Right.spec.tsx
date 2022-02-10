@@ -1,4 +1,4 @@
-import { cleanup, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { useWindowDimensions } from '@/components/_hooks'
 import { renderWithProviders } from '@/tests/helpers'
@@ -15,7 +15,6 @@ const useWindowDimensionsMock = useWindowDimensions as jest.Mock
 
 describe('Right', () => {
   afterEach(() => {
-    cleanup()
     useWindowDimensionsMock.mockRestore()
   })
 
@@ -23,8 +22,8 @@ describe('Right', () => {
     useWindowDimensionsMock.mockReturnValue({ width: 521, height: 520 })
   })
 
-  it('renders correctly', () => {
-    renderWithProviders(<Right />)
+  it('renders correctly', async () => {
+    await renderWithProviders(<Right />)
     const text = screen.getByText(/esta página não está disponível/gi)
 
     expect(text).toBeInTheDocument()
@@ -32,7 +31,7 @@ describe('Right', () => {
 
   it('renders with text even with view width lesser or equal to 520', async () => {
     useWindowDimensionsMock.mockReturnValue({ width: 520 })
-    renderWithProviders(<Right />)
+    await renderWithProviders(<Right />)
     const text = screen.getByText(
       /o link que você acessou pode estar quebrado/gi
     )
@@ -40,8 +39,8 @@ describe('Right', () => {
     expect(text).toBeInTheDocument()
   })
 
-  it('calls navigate when clicking on Home button', () => {
-    renderWithProviders(<Right />)
+  it('calls navigate when clicking on Home button', async () => {
+    await renderWithProviders(<Right />)
     const button = screen.getByText(/home/i)
 
     userEvent.click(button)

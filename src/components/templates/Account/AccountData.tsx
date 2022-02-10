@@ -8,7 +8,6 @@ import {
   ControlRadioInput
 } from '@/components/organisms/Control'
 import { Pin } from '@/components/organisms/Pin'
-import { P } from '@/components/utils/texts/P'
 import { makeAccountDataValidator } from '@/external/factories/validation'
 import {
   UserCurrency,
@@ -26,57 +25,56 @@ import * as classes from './stylesheet'
 
 export const AccountData: React.FC = () => {
   const { user } = useAuth()
+  const [checked, setChecked] = useState(user.settings.currency)
+  const [isPinOpen, setIsPinOpen] = useState(false)
+  const [updateEmailByPin, { error }] = useUpdateEmailByPinMutation()
+  const [sendEmailPin] = useSendEmailPinMutation()
   const [updateMe] = useUpdateMeMutation()
   const {
     state: { form }
   } = useForm<{ currency: UserCurrency, email: string, name: string }>()
-  const [sendEmailPin] = useSendEmailPinMutation()
-  const [updateEmailByPin, { error }] = useUpdateEmailByPinMutation()
-  const [checked, setChecked] = useState(user.settings.currency)
-  const [isPinOpen, setIsPinOpen] = useState(false)
 
   useEffect(() => {
     setChecked(user.settings.currency)
   }, [user])
 
-  const isCurrencySame = form.data.currency === user.settings.currency
-  const isEmailSame = form.data.email === user.personal.email
-  const isNameSame = form.data.name === user.personal.name
+  const isSameCurrency = form.data.currency === user.settings.currency
+  const isSameEmail = form.data.email === user.personal.email
+  const isSameName = form.data.name === user.personal.name
 
   const submitHandler = async () => {
     const { data } = await updateMe({
       variables: {
-        currency: isCurrencySame ? undefined : form.data.currency,
-        email: isEmailSame ? undefined : form.data.email,
-        name: isNameSame ? undefined : form.data.name
+        currency: isSameCurrency ? undefined : form.data.currency,
+        email: isSameEmail ? undefined : form.data.email,
+        name: isSameName ? undefined : form.data.name
       }
     })
 
-    if (form.data.email !== user.personal.email) {
+    if (!isSameEmail) {
       setIsPinOpen(true)
     }
 
-    if (data) {
-      if (
-        data.updateMe.__typename === 'UpdateMeHasChanges' &&
-        (!isNameSame || (!isCurrencySame && form.data.currency))
-      ) {
-        authVar.setUser(data.updateMe.user)
-        popoverVar.setPopover(
-          'Seus dados foram atualizados com sucesso',
-          'success'
-        )
-      }
+    const hasChanges = data?.updateMe.__typename === 'UpdateMeHasChanges'
+    const hasNoChanges = data?.updateMe.__typename === 'UpdateMeNoChanges'
+    const hasValidCurrency = !isSameCurrency && form.data.currency
 
-      if (data.updateMe.__typename === 'UpdateMeNoChanges') {
-        popoverVar.setPopover(
-          'Você não fez nenhuma alteração, portanto seus dados não foram alterados ',
-          'info'
-        )
-      }
+    if (hasChanges && (!isSameName || hasValidCurrency)) {
+      // @ts-expect-error
+      authVar.setUser(data.updateMe.user)
+      refetchInvoiceVar.refetch()
+      popoverVar.setPopover(
+        'Seus dados foram atualizados com sucesso',
+        'success'
+      )
     }
 
-    refetchInvoiceVar.refetch()
+    if (hasNoChanges) {
+      popoverVar.setPopover(
+        'Você não fez nenhuma alteração, portanto seus dados não foram alterados ',
+        'info'
+      )
+    }
   }
 
   const submitPinHandler = async (pin: string) => {
@@ -95,13 +93,13 @@ export const AccountData: React.FC = () => {
   }
 
   return (
-    <div className={classes.accountData} data-testid="account-data">
+    <div data-testid="account-data">
       <div>
         <ControlForm
           submitHandler={submitHandler}
           validator={makeAccountDataValidator()}
         >
-          <div className={classes.accountDataForm}>
+          <div className={classes.accountForm}>
             <ControlInput
               defaultValue={user.personal.name}
               label="Seu nome"
@@ -117,7 +115,7 @@ export const AccountData: React.FC = () => {
             />
 
             <div className={classes.accountDataPreferences}>
-              <P color="secondaryDarker">Preferências</P>
+              <span>Preferências</span>
 
               <div className={classes.accountDataPreferencesInputs}>
                 <ControlRadioInput
@@ -139,7 +137,7 @@ export const AccountData: React.FC = () => {
             </div>
           </div>
 
-          <div className={classes.accountDataButton}>
+          <div className={classes.accountButton}>
             <Button type="submit" loading={form.isSubmitting}>
               Salvar
             </Button>

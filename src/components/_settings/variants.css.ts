@@ -16,8 +16,8 @@ export const fillColorVariants = styleVariants({
   },
 
   secondaryDarker: {
-    color: vars.colors['cyan-700'],
-    fill: vars.colors['cyan-700']
+    color: vars.colors['cyan-900'],
+    fill: vars.colors['cyan-900']
   },
   secondary: {
     color: vars.colors['cyan-500'],

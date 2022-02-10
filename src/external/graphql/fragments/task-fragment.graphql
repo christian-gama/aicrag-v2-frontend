@@ -1,0 +1,20 @@
+fragment TaskFragment on Task {
+  commentary
+  date {
+    day
+    full
+    hours
+    month
+    year
+  }
+  duration
+  id
+  logs {
+    createdAt
+    updatedAt
+  }
+  status
+  taskId
+  type
+  usd
+}

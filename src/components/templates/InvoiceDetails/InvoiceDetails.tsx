@@ -131,7 +131,11 @@ export const InvoiceDetails: React.FC = () => {
                       type: invoice.type as 'TX' | 'QA'
                     })}
                   >
-                    {invoice.type}
+                    <span>{invoice.type}</span>
+
+                    <span className={classes.invoiceDetailsTypeModal}>
+                      {invoice.type === 'TX' ? 'Transcrição' : 'Correção'}
+                    </span>
                   </div>
 
                   <Link to={`/invoice/task/${invoice.id.toString() as string}`}>

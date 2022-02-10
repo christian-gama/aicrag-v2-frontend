@@ -8,7 +8,8 @@ export const entryCard = style({
 
   '@media': {
     [breakpoints.widescreen]: {
-      width: '54rem'
+      width: '54rem',
+      height: windowHeightVars.height
     },
 
     [breakpoints.tablet]: {

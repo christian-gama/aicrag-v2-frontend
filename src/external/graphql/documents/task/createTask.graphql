@@ -17,34 +17,7 @@ mutation CreateTask(
     }
   ) {
     task {
-      commentary
-      date {
-        full
-        day
-        hours
-        month
-        year
-      }
-      duration
-      id
-      logs {
-        createdAt
-        updatedAt
-      }
-      status
-      taskId
-      type
-      usd
-      user {
-        personal {
-          name
-          email
-          id
-        }
-        settings {
-          currency
-        }
-      }
+      ...TaskFragment
     }
   }
 }

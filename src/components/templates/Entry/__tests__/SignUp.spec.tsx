@@ -1,6 +1,6 @@
-import { cleanup, fireEvent, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { OverlayRoot, renderWithProviders, waitFetch } from '@/tests/helpers'
+import { formUtils, renderWithProviders, setupTests } from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
 import { signUpMock, sendWelcomeEmailMock } from '@/tests/mocks/queries'
 import { SignUp } from '..'
@@ -12,29 +12,18 @@ jest.mock('react-router-dom', () => ({
 }))
 
 describe('SignUp', () => {
-  const overlayRoot = new OverlayRoot()
+  setupTests()
 
-  afterEach(() => {
-    cleanup()
-    overlayRoot.removeOverlayRoot()
-  })
+  it('renders correctly', async () => {
+    await renderWithProviders(<SignUp />)
 
-  beforeEach(() => {
-    overlayRoot.addOverlayRoot()
-  })
-
-  it('renders correctly', () => {
-    renderWithProviders(<SignUp />)
-    const signInForm = screen.getByTestId('form')
-
-    expect(signInForm).toBeInTheDocument()
+    expect(formUtils.form).toBeInTheDocument()
   })
 
   it('submits the form and redirects afterwards', async () => {
-    renderWithProviders(<SignUp />, {
+    await renderWithProviders(<SignUp />, {
       apolloMocks: [signUpMock(), sendWelcomeEmailMock()]
     })
-    const form = screen.getByTestId('form')
     const [name, email, password, passwordConfirmation] =
       screen.getAllByTestId('base-input')
 
@@ -42,8 +31,7 @@ describe('SignUp', () => {
     userEvent.type(email, mockVariables.email)
     userEvent.type(password, mockVariables.password)
     userEvent.type(passwordConfirmation, mockVariables.password)
-    fireEvent.submit(form)
-    await waitFetch(160)
+    await formUtils.submitForm(180)
 
     expect(mockNavigate).toHaveBeenCalled()
   })

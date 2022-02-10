@@ -1,5 +1,5 @@
-import { OverlayRoot, advanceTimer } from '@/tests/helpers'
-import { render, cleanup, screen } from '@testing-library/react'
+import { advanceTimer, setupTests } from '@/tests/helpers'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Popover } from '..'
 
@@ -9,10 +9,12 @@ jest.mock('../../../utils/icons', () => ({
     mockFunction(props)
     return null
   },
+
   InfoCircleIcon: (props: any) => {
     mockFunction(props)
     return null
   },
+
   ErrorIcon: (props: any) => {
     mockFunction(props)
     return null
@@ -20,16 +22,10 @@ jest.mock('../../../utils/icons', () => ({
 }))
 
 describe('Popover', () => {
-  const overlayRoot = new OverlayRoot()
-
-  afterEach(() => {
-    cleanup()
-    overlayRoot.removeOverlayRoot()
-  })
+  setupTests()
 
   beforeEach(() => {
     jest.useFakeTimers()
-    overlayRoot.addOverlayRoot()
   })
 
   it('renders correctly', () => {
@@ -48,10 +44,20 @@ describe('Popover', () => {
   })
 
   it('renders the message without a list if message is a string', () => {
-    const message = 'message'
+    const message = 'Any message.'
     render(<Popover isOpen message={message} type="success" />)
     const popoverList = screen.queryByTestId('popover-list')
     const text = screen.getByText(message)
+
+    expect(popoverList).not.toBeInTheDocument()
+    expect(text).toBeInTheDocument()
+  })
+
+  it('renders the message with a dot in the end', () => {
+    const message = 'Any message'
+    render(<Popover isOpen message={message} type="success" />)
+    const popoverList = screen.queryByTestId('popover-list')
+    const text = screen.getByText(`${message}.`)
 
     expect(popoverList).not.toBeInTheDocument()
     expect(text).toBeInTheDocument()

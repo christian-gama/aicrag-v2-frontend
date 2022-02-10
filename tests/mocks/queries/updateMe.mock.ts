@@ -1,6 +1,7 @@
 import { MockedResponse } from '@apollo/client/testing'
 import { UpdateMeDocument } from '@/external/graphql/generated'
 import { userFragmentMock } from '../fragments'
+import { mockVariables } from '..'
 
 export const updateMeMock = (
   input?: {
@@ -8,6 +9,7 @@ export const updateMeMock = (
     email?: string
     currency?: 'BRL' | 'USD'
   },
+  typename: 'UpdateMeNoChanges' | 'UpdateMeHasChanges' = 'UpdateMeHasChanges',
   error?: Error
 ): MockedResponse<Record<string, any>> => ({
   request: {
@@ -19,7 +21,12 @@ export const updateMeMock = (
   result: {
     data: {
       updateMe: {
-        ...userFragmentMock
+        __typename: typename,
+        user:
+          typename === 'UpdateMeHasChanges' ? userFragmentMock.user : undefined,
+
+        message:
+          typename === 'UpdateMeNoChanges' ? mockVariables.message : undefined
       }
     }
   },

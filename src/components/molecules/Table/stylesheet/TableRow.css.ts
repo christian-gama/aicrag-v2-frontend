@@ -31,8 +31,12 @@ export const tableRow = style({
 
   selectors: {
     'thead > &': {
-      backgroundColor: vars.colors['navy-500'],
+      backgroundColor: vars.colors['cyan-900'],
       color: vars.colors.white
+    },
+
+    'tbody > &:hover': {
+      transform: 'scale(1.01)'
     }
   },
 

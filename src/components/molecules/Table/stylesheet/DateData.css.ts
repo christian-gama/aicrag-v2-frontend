@@ -10,8 +10,8 @@ export const dateData = style({
   justifyContent: 'center',
   marginLeft: calc.negate(tableRowVars.row.horizontalPadding),
   borderRadius: `${tableRowVars.roundness} 0 0 ${tableRowVars.roundness}`,
-  backgroundColor: vars.colors['snow-600'],
-  width: '75%',
+  backgroundColor: vars.colors['snow-800'],
+  width: '70%',
   height: '100%',
 
   '@media': {

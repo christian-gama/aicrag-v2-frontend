@@ -1,20 +1,11 @@
-import { OverlayRoot } from '@/tests/helpers'
+import { setupTests } from '@/tests/helpers'
 import { fireEvent } from '@testing-library/dom'
-import { render, cleanup, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Backdrop } from '..'
 
 describe('Backdrop', () => {
-  const overlayRoot = new OverlayRoot()
-
-  afterEach(() => {
-    cleanup()
-    overlayRoot.removeOverlayRoot()
-  })
-
-  beforeEach(() => {
-    overlayRoot.addOverlayRoot()
-  })
+  setupTests()
 
   it('renders correctly', () => {
     render(<Backdrop isOpen />)

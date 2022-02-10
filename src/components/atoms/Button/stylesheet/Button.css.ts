@@ -76,7 +76,7 @@ const containedCyanStyle = style({
   color: vars.colors.white,
 
   ':hover': {
-    backgroundColor: vars.colors['cyan-700'],
+    backgroundColor: vars.colors['cyan-800'],
     cursor: 'pointer'
   },
 
@@ -264,7 +264,11 @@ export const buttonRecipe = recipe({
     borderRadius: '5px',
     textTransform: vars.font.button.textTransform,
     fontFamily: vars.font.button.fontFamily,
-    fontSize: vars.font.button.fontSize
+    fontSize: vars.font.button.fontSize,
+
+    ':disabled': {
+      cursor: 'not-allowed'
+    }
   },
 
   variants: {

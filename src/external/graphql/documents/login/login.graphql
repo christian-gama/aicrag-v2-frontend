@@ -4,14 +4,7 @@ mutation Login($email: EmailAddress!, $password: String!) {
       accessToken
       refreshToken
       user {
-        personal {
-          email
-          id
-          name
-        }
-        settings {
-          currency
-        }
+        ...PublicUserFragment
       }
     }
     ... on InactiveAccount {

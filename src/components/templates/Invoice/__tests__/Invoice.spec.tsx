@@ -1,56 +1,43 @@
 import { authVar } from '@/external/graphql/reactiveVars'
-import { renderWithProviders, waitFetch } from '@/tests/helpers'
-import { mockVariables } from '@/tests/mocks'
+import { renderWithProviders, setupTests, setUser } from '@/tests/helpers'
 import { getAllInvoicesMock } from '@/tests/mocks/queries'
-import { cleanup, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { Invoice } from '..'
 
 describe('Invoice', () => {
-  const setCurrency = (currency: 'BRL' | 'USD') =>
-    authVar.setUser({
-      personal: {
-        email: mockVariables.email,
-        id: mockVariables.uuid,
-        name: mockVariables.name
-      },
-      settings: {
-        currency
-      }
-    })
+  setupTests()
 
   afterEach(() => {
-    cleanup()
     authVar.logout()
   })
 
   beforeEach(() => {
-    setCurrency('BRL')
+    setUser({ currency: 'BRL' })
   })
 
   it('renders correctly', async () => {
-    renderWithProviders(<Invoice />, { apolloMocks: [getAllInvoicesMock()] })
-    await waitFetch()
+    await renderWithProviders(<Invoice />, {
+      apolloMocks: [getAllInvoicesMock()]
+    })
     const invoice = screen.getByTestId('invoice')
 
     expect(invoice).toBeInTheDocument()
   })
 
   it('returns null if there is no data', async () => {
-    renderWithProviders(<Invoice />, {
+    await renderWithProviders(<Invoice />, {
       apolloMocks: [getAllInvoicesMock(new Error())]
     })
-    await waitFetch()
     const invoice = screen.queryByTestId('invoice')
 
     expect(invoice).not.toBeInTheDocument()
   })
 
   it('renders a table with the correct currency symbol', async () => {
-    setCurrency('USD')
-    renderWithProviders(<Invoice />, {
+    setUser({ currency: 'USD' })
+    await renderWithProviders(<Invoice />, {
       apolloMocks: [getAllInvoicesMock()]
     })
-    await waitFetch()
     const currency = screen.getAllByText(/^\$ 10$/i)[0]
 
     expect(currency).toBeInTheDocument()

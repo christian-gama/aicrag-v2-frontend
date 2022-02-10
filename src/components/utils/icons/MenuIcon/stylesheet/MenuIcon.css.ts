@@ -14,9 +14,9 @@ export const menuIconWrapper = style({
 
 export const menuIcon = style({
   width: '2.4rem',
-  fill: vars.colors['navy-500'],
+  fill: vars.colors['cyan-900'],
 
   ':hover': {
-    fill: vars.colors['navy-800']
+    fill: vars.colors['cyan-500']
   }
 })

@@ -1,18 +1,9 @@
-import { render, cleanup, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { ProgressBar } from '..'
-import { advanceTimer, OverlayRoot } from '@/tests/helpers'
+import { advanceTimer, setupTests } from '@/tests/helpers'
 
 describe('ProgressBar', () => {
-  const overlayRoot = new OverlayRoot()
-
-  afterEach(() => {
-    cleanup()
-    overlayRoot.removeOverlayRoot()
-  })
-
-  beforeEach(() => {
-    overlayRoot.addOverlayRoot()
-  })
+  setupTests()
 
   it('renders correctly', () => {
     render(<ProgressBar loading />)

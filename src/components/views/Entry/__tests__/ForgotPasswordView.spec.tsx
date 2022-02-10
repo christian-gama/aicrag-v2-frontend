@@ -1,14 +1,12 @@
-import { renderWithProviders } from '@/tests/helpers'
-import { cleanup, screen } from '@testing-library/react'
+import { renderWithProviders, setupTests } from '@/tests/helpers'
+import { screen } from '@testing-library/react'
 import { ForgotPasswordView } from '..'
 
 describe('ForgotPasswordView', () => {
-  afterEach(() => {
-    cleanup()
-  })
+  setupTests()
 
-  it('renders correctly', () => {
-    renderWithProviders(<ForgotPasswordView />)
+  it('renders correctly', async () => {
+    await renderWithProviders(<ForgotPasswordView />)
     const button = screen.getByRole('button', {
       name: /resetar senha/i
     })

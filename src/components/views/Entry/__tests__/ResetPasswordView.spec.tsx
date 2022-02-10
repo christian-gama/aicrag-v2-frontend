@@ -1,18 +1,25 @@
-import { renderWithProviders, waitFetch } from '@/tests/helpers'
+import { renderWithProviders, setupTests } from '@/tests/helpers'
+import { mockVariables } from '@/tests/mocks'
 import { verifyResetPasswordTokenMock } from '@/tests/mocks/queries'
-import { cleanup, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { ResetPasswordView } from '..'
 
-describe('ResetPasswordView', () => {
-  afterEach(() => {
-    cleanup()
+const mockNavigate = jest.fn()
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockNavigate,
+  useParams: () => ({
+    token: mockVariables.token
   })
+}))
+
+describe('ResetPasswordView', () => {
+  setupTests()
 
   it('renders correctly', async () => {
-    renderWithProviders(<ResetPasswordView />, {
+    await renderWithProviders(<ResetPasswordView />, {
       apolloMocks: [verifyResetPasswordTokenMock()]
     })
-    await waitFetch()
     const button = screen.getByRole('button', {
       name: /resetar senha/i
     })

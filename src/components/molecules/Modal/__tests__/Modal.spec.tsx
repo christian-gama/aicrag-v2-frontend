@@ -1,19 +1,10 @@
-import { render, cleanup, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Modal } from '..'
-import { OverlayRoot } from '@/tests/helpers'
+import { setupTests } from '@/tests/helpers'
 
 describe('Modal', () => {
-  const overlayRoot = new OverlayRoot()
-
-  afterEach(() => {
-    cleanup()
-    overlayRoot.removeOverlayRoot()
-  })
-
-  beforeEach(() => {
-    overlayRoot.addOverlayRoot()
-  })
+  setupTests()
 
   it('renders correctly', () => {
     render(<Modal isOpen />)

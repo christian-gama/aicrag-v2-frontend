@@ -1,0 +1,28 @@
+fragment FullUserFragment on FullUser {
+  logs {
+    createdAt
+    lastLoginAt
+    lastSeenAt
+    updatedAt
+  }
+  personal {
+    email
+    id
+    name
+  }
+  settings {
+    accountActivated
+    currency
+    handicap
+    role
+  }
+  temporary {
+    activationPin
+    activationPinExpiration
+    resetPasswordToken
+    tempEmail
+    tempEmailPin
+    tempEmailPinExpiration
+  }
+  tokenVersion
+}

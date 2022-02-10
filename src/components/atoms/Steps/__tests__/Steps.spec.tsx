@@ -1,10 +1,9 @@
-import { render, cleanup, screen } from '@testing-library/react'
+import { setupTests } from '@/tests/helpers'
+import { render, screen } from '@testing-library/react'
 import { Steps } from '..'
 
 describe('Steps', () => {
-  afterEach(() => {
-    cleanup()
-  })
+  setupTests()
 
   it('renders correctly', () => {
     render(<Steps steps={[]} />)

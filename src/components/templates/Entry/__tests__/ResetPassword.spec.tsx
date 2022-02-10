@@ -1,6 +1,6 @@
-import { cleanup, fireEvent, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { OverlayRoot, renderWithProviders, waitFetch } from '@/tests/helpers'
+import { formUtils, renderWithProviders, setupTests } from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
 import {
   verifyResetPasswordTokenMock,
@@ -11,71 +11,68 @@ import { ResetPassword } from '..'
 const mockNavigate = jest.fn()
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockNavigate
+  useNavigate: () => mockNavigate,
+  useParams: () => ({
+    token: mockVariables.token
+  })
 }))
 
 describe('ResetPassword', () => {
-  const overlayRoot = new OverlayRoot()
-
-  afterEach(() => {
-    cleanup()
-    overlayRoot.removeOverlayRoot()
-  })
-
-  beforeEach(() => {
-    overlayRoot.addOverlayRoot()
-  })
+  setupTests()
 
   it('renders correctly', async () => {
-    renderWithProviders(<ResetPassword />, {
+    await renderWithProviders(<ResetPassword />, {
       apolloMocks: [verifyResetPasswordTokenMock()]
     })
-    await waitFetch()
     const resetPassword = screen.getByTestId('reset-password')
 
     expect(resetPassword).toBeInTheDocument()
   })
 
   it('displays the form if params is valid', async () => {
-    renderWithProviders(<ResetPassword />, {
+    await renderWithProviders(<ResetPassword />, {
       apolloMocks: [verifyResetPasswordTokenMock()]
     })
-    await waitFetch()
-    const form = screen.getByTestId('form')
 
-    expect(form).toBeInTheDocument()
+    expect(formUtils.form).toBeInTheDocument()
   })
 
   it('submits the form and redirects afterwards', async () => {
-    renderWithProviders(<ResetPassword />, {
+    await renderWithProviders(<ResetPassword />, {
       apolloMocks: [verifyResetPasswordTokenMock(), resetPasswordMock()]
     })
-    await waitFetch()
-    const form = screen.getByTestId('form')
+
     const [password, passwordConfirmation] = screen.getAllByTestId('base-input')
 
     userEvent.type(password, mockVariables.password)
     userEvent.type(passwordConfirmation, mockVariables.passwordConfirmation)
-    fireEvent.submit(form)
-    await waitFetch()
+    await formUtils.submitForm()
 
     expect(mockNavigate).toHaveBeenCalled()
   })
 
-  it('display loading screen while fetching data', async () => {
-    renderWithProviders(<ResetPassword />, {
-      apolloMocks: [verifyResetPasswordTokenMock()]
-    })
-    const loadingSpinner = screen.getByTestId('loading-spinner-icon')
-
-    expect(loadingSpinner).toBeInTheDocument()
-  })
-
   it('calls navigate on error', async () => {
-    renderWithProviders(<ResetPassword />, {
+    await renderWithProviders(<ResetPassword />, {
       apolloMocks: [verifyResetPasswordTokenMock(new Error())]
     })
-    await waitFetch()
+
+    expect(mockNavigate).toHaveBeenCalled()
+  })
+
+  it('calls navigate if token is invalid', async () => {
+    mockVariables.token = 'invalid-token'
+    await renderWithProviders(<ResetPassword />, {
+      apolloMocks: [verifyResetPasswordTokenMock()]
+    })
+
+    expect(mockNavigate).toHaveBeenCalled()
+  })
+
+  it('calls navigate if token is invalid', async () => {
+    mockVariables.token = 'invalid-token'
+    await renderWithProviders(<ResetPassword />, {
+      apolloMocks: [verifyResetPasswordTokenMock()]
+    })
 
     expect(mockNavigate).toHaveBeenCalled()
   })

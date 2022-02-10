@@ -1,37 +1,39 @@
-import { authVar, refetchInvoiceVar } from '@/external/graphql/reactiveVars'
-import { OverlayRoot, renderWithProviders, waitFetch } from '@/tests/helpers'
+import { popoverVar, refetchInvoiceVar } from '@/external/graphql/reactiveVars'
+import {
+  formUtils,
+  renderWithProviders,
+  setupTests,
+  setUser,
+  waitFetch
+} from '@/tests/helpers'
 import { mockVariables } from '@/tests/mocks'
-import { userFragmentMock } from '@/tests/mocks/fragments'
-import { getMeMock, updateMeMock } from '@/tests/mocks/queries'
-import { cleanup, fireEvent, screen } from '@testing-library/react'
+import {
+  getMeMock,
+  sendEmailPinMock,
+  updateEmailByPinMock,
+  updateMeMock
+} from '@/tests/mocks/queries'
+import { fireEvent, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { AccountData } from '..'
 
 describe('AccountData', () => {
-  const overlayRoot = new OverlayRoot()
-
-  afterEach(() => {
-    cleanup()
-    overlayRoot.removeOverlayRoot()
-    jest.restoreAllMocks()
-  })
+  setupTests()
+  const getRadioInput = (name: RegExp) =>
+    screen.getByRole('radio', {
+      name
+    })
+  const emailInput = () =>
+    screen.getByRole('textbox', {
+      name: /seu email/i
+    })
 
   beforeEach(() => {
-    overlayRoot.addOverlayRoot()
-    authVar.setUser({
-      personal: {
-        email: mockVariables.email,
-        id: mockVariables.uuid,
-        name: mockVariables.name
-      },
-      settings: {
-        currency: 'BRL'
-      }
-    })
+    setUser()
   })
 
   it('renders correctly', async () => {
-    renderWithProviders(<AccountData />)
-    await waitFetch()
+    await renderWithProviders(<AccountData />)
     const accountData = screen.getByTestId('account-data')
 
     expect(accountData).toBeInTheDocument()
@@ -39,149 +41,137 @@ describe('AccountData', () => {
 
   it('submits the form', async () => {
     const refetchSpy = jest.spyOn(refetchInvoiceVar, 'refetch')
-    renderWithProviders(<AccountData />, {
+    await renderWithProviders(<AccountData />, {
       apolloMocks: [updateMeMock()]
     })
-    await waitFetch()
-    const form = screen.getByTestId('form')
 
-    fireEvent.submit(form)
-    await waitFetch()
+    await formUtils.submitForm()
 
-    expect(refetchSpy).toHaveBeenCalled()
+    expect(refetchSpy).not.toHaveBeenCalled()
   })
 
   it('submits only email', async () => {
     const refetchSpy = jest.spyOn(refetchInvoiceVar, 'refetch')
-    renderWithProviders(<AccountData />, {
+    const setPopoverSpy = jest.spyOn(popoverVar, 'setPopover')
+    await renderWithProviders(<AccountData />, {
       apolloMocks: [updateMeMock({ email: 'other@email.com' })]
     })
-    await waitFetch()
-    const form = screen.getByTestId('form')
-    const emailInput = screen.getByRole('textbox', {
-      name: /seu email/i
-    })
 
-    fireEvent.change(emailInput, { target: { value: 'other@email.com' } })
-    fireEvent.submit(form)
-    await waitFetch()
+    fireEvent.change(emailInput(), { target: { value: 'other@email.com' } })
+    await formUtils.submitForm()
 
-    expect(refetchSpy).toHaveBeenCalled()
+    expect(setPopoverSpy).not.toHaveBeenCalled()
+    expect(refetchSpy).not.toHaveBeenCalled()
   })
 
   it('submits only name', async () => {
     const refetchSpy = jest.spyOn(refetchInvoiceVar, 'refetch')
-    renderWithProviders(<AccountData />, {
+    const setPopoverSpy = jest.spyOn(popoverVar, 'setPopover')
+    await renderWithProviders(<AccountData />, {
       apolloMocks: [updateMeMock({ name: 'other name' })]
     })
-    await waitFetch()
-    const form = screen.getByTestId('form')
     const nameInput = screen.getByRole('textbox', {
       name: /seu nome/i
     })
 
     fireEvent.change(nameInput, { target: { value: 'other name' } })
-    fireEvent.submit(form)
-    await waitFetch()
+    await formUtils.submitForm()
 
+    expect(setPopoverSpy).toHaveBeenCalledWith(expect.anything(), 'success')
     expect(refetchSpy).toHaveBeenCalled()
   })
 
   it('does not submit currency if value is equal to user settings currency ', async () => {
-    userFragmentMock.user.settings.currency = 'BRL'
     const refetchSpy = jest.spyOn(refetchInvoiceVar, 'refetch')
-    renderWithProviders(<AccountData />, {
-      apolloMocks: [updateMeMock({ currency: undefined })]
-    })
-    await waitFetch()
-    const form = screen.getByTestId('form')
-    const realRadioInput = screen.getByRole('radio', {
-      name: /real/i
-    })
-    const usdRadioInput = screen.getByRole('radio', {
-      name: /dólar/i
+    const setPopoverSpy = jest.spyOn(popoverVar, 'setPopover')
+    await renderWithProviders(<AccountData />, {
+      apolloMocks: [updateMeMock({ currency: undefined }, 'UpdateMeNoChanges')]
     })
 
-    fireEvent.click(usdRadioInput)
-    fireEvent.click(realRadioInput)
-    fireEvent.submit(form)
-    await waitFetch()
+    fireEvent.click(getRadioInput(/dólar/i))
+    fireEvent.click(getRadioInput(/real/i))
+    await formUtils.submitForm()
 
-    expect(refetchSpy).toHaveBeenCalled()
+    expect(setPopoverSpy).toHaveBeenCalledWith(expect.anything(), 'info')
+    expect(refetchSpy).not.toHaveBeenCalled()
   })
 
   it('submits only currency as BRL', async () => {
-    userFragmentMock.user.settings.currency = 'BRL'
     const refetchSpy = jest.spyOn(refetchInvoiceVar, 'refetch')
-    renderWithProviders(<AccountData />, {
+    const setPopoverSpy = jest.spyOn(popoverVar, 'setPopover')
+    await renderWithProviders(<AccountData />, {
       apolloMocks: [updateMeMock({ currency: 'USD' })]
     })
-    await waitFetch()
-    const form = screen.getByTestId('form')
-    const usdRadioInput = screen.getByRole('radio', {
-      name: /dólar/i
-    })
 
-    fireEvent.click(usdRadioInput)
-    fireEvent.submit(form)
-    await waitFetch()
+    fireEvent.click(getRadioInput(/dólar/i))
+    await formUtils.submitForm()
 
+    expect(setPopoverSpy).toHaveBeenCalledWith(expect.anything(), 'success')
     expect(refetchSpy).toHaveBeenCalled()
   })
 
   it('submits only currency as USD', async () => {
-    userFragmentMock.user.settings.currency = 'USD'
-    authVar.setUser({
-      personal: {
-        email: mockVariables.email,
-        id: mockVariables.uuid,
-        name: mockVariables.name
-      },
-      settings: {
-        currency: 'USD'
-      }
-    })
     const refetchSpy = jest.spyOn(refetchInvoiceVar, 'refetch')
-    renderWithProviders(<AccountData />, {
+    const setPopoverSpy = jest.spyOn(popoverVar, 'setPopover')
+    setUser({ currency: 'USD' })
+    await renderWithProviders(<AccountData />, {
       apolloMocks: [getMeMock(), updateMeMock({ currency: 'BRL' })]
     })
-    await waitFetch()
-    const form = screen.getByTestId('form')
-    const realRadioInput = screen.getByRole('radio', {
-      name: /real/i
-    })
 
-    fireEvent.click(realRadioInput)
-    fireEvent.submit(form)
-    await waitFetch()
+    fireEvent.click(getRadioInput(/real/i))
+    await formUtils.submitForm()
 
+    expect(setPopoverSpy).toHaveBeenCalledWith(expect.anything(), 'success')
     expect(refetchSpy).toHaveBeenCalled()
   })
 
   it('checks the correct radio input', async () => {
-    userFragmentMock.user.settings.currency = 'USD'
-    authVar.setUser({
-      personal: {
-        email: mockVariables.email,
-        id: mockVariables.uuid,
-        name: mockVariables.name
-      },
-      settings: {
-        currency: 'USD'
-      }
-    })
-    renderWithProviders(<AccountData />, {
+    setUser({ currency: 'USD' })
+    await renderWithProviders(<AccountData />, {
       apolloMocks: [getMeMock(), updateMeMock({ name: 'other name' })]
     })
-    await waitFetch()
-    const brlRadioInput = screen.getByRole('radio', {
-      name: /real/i
-    })
-    const usdRadioInput = screen.getByRole('radio', {
-      name: /dólar/i
-    })
 
-    expect(brlRadioInput).not.toBeChecked()
-    expect(usdRadioInput).toBeChecked()
+    expect(getRadioInput(/real/i)).not.toBeChecked()
+    expect(getRadioInput(/dólar/i)).toBeChecked()
+  })
+
+  it('updates the email through pin', async () => {
+    const setPopoverSpy = jest.spyOn(popoverVar, 'setPopover')
+    await renderWithProviders(<AccountData />, {
+      apolloMocks: [
+        updateMeMock({ email: 'other@email.com' }),
+        updateEmailByPinMock(),
+        sendEmailPinMock()
+      ]
+    })
+    emailInput()
+    const pinCodeInput = () => screen.getAllByTestId('pin-input')[0]
+
+    fireEvent.change(emailInput(), { target: { value: 'other@email.com' } })
+    await formUtils.submitForm()
+    userEvent.paste(pinCodeInput(), mockVariables.pin)
+    await waitFetch()
+
+    expect(setPopoverSpy).toHaveBeenCalledWith(expect.anything(), 'success')
+  })
+
+  it('resends the email pin', async () => {
+    await renderWithProviders(<AccountData />, {
+      apolloMocks: [
+        updateMeMock({ email: 'other@email.com' }),
+        updateEmailByPinMock(),
+        sendEmailPinMock()
+      ]
+    })
+    emailInput()
+    const resendButton = () => screen.getByText(/reenviar/i)
+    const countdown = () => screen.getByText(/60 s/i)
+
+    fireEvent.change(emailInput(), { target: { value: 'other@email.com' } })
+    await formUtils.submitForm()
+    userEvent.click(resendButton())
+    await waitFetch()
+
+    expect(countdown()).toBeInTheDocument()
   })
 })

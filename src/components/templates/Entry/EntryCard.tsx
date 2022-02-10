@@ -9,6 +9,7 @@ import * as classes from './stylesheet'
 type EntryCardProps = {
   style?: {
     height?: string
+    responveHeight?: string
   }
 }
 
@@ -24,9 +25,11 @@ export const EntryCard: React.FC<EntryCardProps> = ({ style, children }) => {
             style={assignInlineVars(windowHeightVars, {
               height:
                 width <= 520
-                  ? `${height}px`
+                  ? height <= 620
+                    ? '620px'
+                    : `${height}px`
                   : width <= 1368
-                    ? '57.6rem'
+                    ? style?.responveHeight ?? style!.height!
                     : style!.height!
             })}
           >
@@ -40,6 +43,7 @@ export const EntryCard: React.FC<EntryCardProps> = ({ style, children }) => {
 
 EntryCard.defaultProps = {
   style: {
-    height: '68rem'
+    height: '68rem',
+    responveHeight: '57.6rem'
   }
 }

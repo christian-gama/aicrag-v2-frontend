@@ -2,7 +2,7 @@ import { calendarActions, CalendarStates } from '@/context/models/calendar'
 import { useForm } from '@/context/models/form'
 import { AppDispatch, RootState } from '@/context/store'
 import { DateTime } from 'luxon'
-import { ComponentPropsWithRef, useEffect } from 'react'
+import { ComponentPropsWithRef, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ControlDateInput } from '..'
 
@@ -19,6 +19,7 @@ export const useControlDateInput = ({
   autoFocus,
   name
 }: UseControlDateInput) => {
+  const [currentDate, setCurrentDate] = useState(DateTime.now().toMillis())
   const reduxDispatch = useDispatch<AppDispatch>()
   const { selectedDate } = useSelector<RootState, CalendarStates>(
     (state) => state.calendar
@@ -31,6 +32,7 @@ export const useControlDateInput = ({
       setInputIsFocused,
       setInputIsTouched,
       setInputIsValid,
+      setFormIsDirty,
       setInputError,
       setInputValue,
       setFormData
@@ -42,6 +44,11 @@ export const useControlDateInput = ({
   } = useForm()
 
   useEffect(() => {
+    if (defaultDate) setCurrentDate(defaultDate)
+    else setCurrentDate(DateTime.now().toMillis())
+  }, [defaultDate, isResetting])
+
+  useEffect(() => {
     setInputIsFocused(name, !!autoFocus)
     setInputCurrentType(name, 'text')
     setInputError(name, undefined)
@@ -49,12 +56,12 @@ export const useControlDateInput = ({
     setInputIsValid(name, true)
     setInputValue(
       name,
-      DateTime.fromMillis(defaultDate!).toFormat('dd/MM/yyyy HH:mm')
+      DateTime.fromMillis(currentDate).toFormat('dd/MM/yyyy HH:mm')
     )
   }, [isResetting])
 
   useEffect(() => {
-    setFormData(name, DateTime.fromMillis(defaultDate!).toISO()!)
+    setFormData(name, DateTime.fromMillis(currentDate).toISO()!)
   }, [isResetting])
 
   useEffect(() => {
@@ -67,6 +74,7 @@ export const useControlDateInput = ({
   const onBlurHandler = () => {
     setInputIsFocused(name, false)
     setInputIsTouched(name, true)
+    setFormIsDirty(true)
   }
 
   const onFocusHandler = () => {
@@ -78,6 +86,7 @@ export const useControlDateInput = ({
   return {
     onFocusHandler,
     onBlurHandler,
+    currentDate,
     isFocused,
     value
   }

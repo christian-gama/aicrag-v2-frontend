@@ -3,14 +3,7 @@ mutation ActivateAccount($activationPin: String!, $userId: UUID!) {
     accessToken
     refreshToken
     user {
-      personal {
-        email
-        id
-        name
-      }
-      settings {
-        currency
-      }
+      ...PublicUserFragment
     }
   }
 }

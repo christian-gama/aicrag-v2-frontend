@@ -21,25 +21,7 @@ query FindAllUsers(
     count
     displaying
     documents {
-      logs {
-        createdAt
-        lastLoginAt
-        lastSeenAt
-        updatedAt
-      }
-      personal {
-        email
-        id
-        name
-        password
-      }
-      settings {
-        accountActivated
-        currency
-        handicap
-        role
-      }
-      tokenVersion
+      ...FullUserFragment
     }
     page
   }

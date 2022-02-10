@@ -1,7 +1,21 @@
 query GetAuthentication {
   getAuthentication {
-    accessToken
-    authentication
-    refreshToken
+    ... on GetAuthenticationProtected {
+      accessToken
+      authentication
+      refreshToken
+      user {
+        ...PublicUserFragment
+      }
+    }
+
+    ... on GetAuthenticationPartial {
+      accessToken
+      authentication
+    }
+
+    ... on GetAuthenticationNone {
+      authentication
+    }
   }
 }

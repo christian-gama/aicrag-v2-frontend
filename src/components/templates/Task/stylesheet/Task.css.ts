@@ -94,5 +94,5 @@ globalStyle(`${taskForm} > div`, {
 globalStyle(`${taskForm} div output`, {
   position: 'absolute',
   right: '0',
-  top: '92%'
+  top: '95%'
 })

@@ -1,5 +1,6 @@
-import { render, cleanup, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { ComponentPropsWithRef } from 'react'
+import { setupTests } from '@/tests/helpers'
 import { DateData } from '../DateData'
 import { Table } from '../Table'
 import { Tbody } from '../Tbody'
@@ -34,9 +35,7 @@ const renderTable = (props?: ComponentPropsWithRef<typeof Table>) => {
 }
 
 describe('Table', () => {
-  afterEach(() => {
-    cleanup()
-  })
+  setupTests()
 
   it('renders correctly', () => {
     renderTable({

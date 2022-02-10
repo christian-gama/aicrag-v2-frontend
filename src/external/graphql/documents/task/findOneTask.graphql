@@ -19,16 +19,6 @@ query FindOneTask($id: UUID!) {
       taskId
       type
       usd
-      user {
-        personal {
-          email
-          id
-          name
-        }
-        settings {
-          currency
-        }
-      }
     }
   }
 }

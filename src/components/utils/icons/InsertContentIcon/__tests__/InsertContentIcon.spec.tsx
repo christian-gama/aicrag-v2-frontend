@@ -7,8 +7,8 @@ describe('InsertContentIcon', () => {
     cleanup()
   })
 
-  it('renders correctly', () => {
-    renderWithProviders(<InsertContentIcon />)
+  it('renders correctly', async () => {
+    await renderWithProviders(<InsertContentIcon />)
     const insertContentIcon = screen.getByTestId('insert-content-icon')
 
     expect(insertContentIcon).toBeInTheDocument()

@@ -1,10 +1,9 @@
-import { render, cleanup, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import { setupTests } from '@/tests/helpers'
 import { Card } from '../Card'
 
 describe('Card', () => {
-  afterEach(() => {
-    cleanup()
-  })
+  setupTests()
 
   it('renders correctly', () => {
     render(<Card />)

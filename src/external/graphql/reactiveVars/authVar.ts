@@ -13,12 +13,13 @@ const initialValue = {
   isPartiallyAuthenticated: !!accessToken.get() && !refreshToken.get(),
   user: {
     personal: {
-      email: getUserByToken('email') as string,
-      id: getUserByToken('userId') as string,
-      name: getUserByToken('name') as string
+      email: getUserByToken('email')!,
+      id: getUserByToken('userId')!,
+      name: getUserByToken('name')!
     },
     settings: {
-      currency: getUserByToken('currency') as string
+      role: +getUserByToken('role')!,
+      currency: getUserByToken('currency')!
     }
   }
 }

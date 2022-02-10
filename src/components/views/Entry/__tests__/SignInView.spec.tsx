@@ -1,14 +1,12 @@
-import { renderWithProviders } from '@/tests/helpers'
-import { cleanup, screen } from '@testing-library/react'
+import { renderWithProviders, setupTests } from '@/tests/helpers'
+import { screen } from '@testing-library/react'
 import { SignInView } from '..'
 
 describe('SignInView', () => {
-  afterEach(() => {
-    cleanup()
-  })
+  setupTests()
 
-  it('renders correctly', () => {
-    renderWithProviders(<SignInView />)
+  it('renders correctly', async () => {
+    await renderWithProviders(<SignInView />)
     const button = screen.getByRole('button', {
       name: /acessar/i
     })

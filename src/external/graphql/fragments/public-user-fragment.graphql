@@ -1,0 +1,11 @@
+fragment PublicUserFragment on PublicUser {
+  personal {
+    email
+    id
+    name
+  }
+  settings {
+    currency
+    role
+  }
+}

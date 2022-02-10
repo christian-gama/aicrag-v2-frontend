@@ -13,14 +13,7 @@ mutation SignUp(
     }
   ) {
     user {
-      personal {
-        email
-        id
-        name
-      }
-      settings {
-        currency
-      }
+      ...PublicUserFragment
     }
   }
 }

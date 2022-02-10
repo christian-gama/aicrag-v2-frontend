@@ -17,7 +17,7 @@ export const menuButtonRecipe = recipe({
     justifyContent: 'center',
     transition: 'background-color 0.1s ease-in-out, color 0.1s ease-in-out',
     border: 'none',
-    borderBottom: `1px solid ${vars.colors['navy-500']}`,
+    borderBottom: `1px solid ${vars.colors['cyan-900']}`,
     textDecoration: 'none',
     fontFamily: vars.font.button.fontFamily,
     fontSize: vars.font.button.fontSize,
@@ -30,7 +30,7 @@ export const menuButtonRecipe = recipe({
   variants: {
     active: {
       true: {
-        backgroundColor: vars.colors['navy-500'],
+        backgroundColor: vars.colors['cyan-900'],
         color: vars.colors.white,
 
         ':active': {
@@ -44,18 +44,19 @@ export const menuButtonRecipe = recipe({
 
       false: {
         backgroundColor: vars.colors.white,
-        color: vars.colors['navy-500'],
+
+        color: vars.colors['cyan-900'],
 
         ':hover': {
-          backgroundColor: vars.colors['navy-50']
+          backgroundColor: vars.colors['gray-50']
         },
 
         ':active': {
-          color: vars.colors['navy-500']
+          color: vars.colors['cyan-900']
         },
 
         ':visited': {
-          color: vars.colors['navy-500']
+          color: vars.colors['cyan-900']
         }
       }
     }

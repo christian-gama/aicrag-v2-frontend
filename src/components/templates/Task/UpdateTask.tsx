@@ -65,7 +65,7 @@ export const UpdateTask: React.FC = () => {
           input,
           input === 'date'
             ? DateTime.fromFormat(
-              task[input].full?.replace(/(T|Z)/gi, ' ').trim() ?? '',
+              task[input].full?.replace(/(T|Z)/gi, ' ').trim(),
               'yyyy-MM-dd HH:mm:ss.SSS'
             ).toFormat('dd/MM/yyyy HH:mm')
             : task[input].toString()

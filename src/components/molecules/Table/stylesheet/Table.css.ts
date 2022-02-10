@@ -18,7 +18,7 @@ export const tableCellVar = createGlobalTheme(':root', {
 
 export const tableContent = style({
   position: 'relative',
-  margin: '0 0.4rem',
+  margin: '0 0.7rem',
   width: '90rem',
   fontFamily: vars.font.p.fontFamily,
   fontSize: vars.font.p.fontSize,

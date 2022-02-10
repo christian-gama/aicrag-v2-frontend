@@ -53,6 +53,12 @@ export const useForm = <
           payload: { isSubmitting }
         }),
 
+      setFormIsDirty: (isDirty: boolean) =>
+        dispatch({
+          type: 'FORM/SET_IS_DIRTY',
+          payload: { isDirty }
+        }),
+
       setFormIsSubmitted: (isSubmitted: boolean) =>
         dispatch({
           type: 'FORM/SET_IS_SUBMITTED',

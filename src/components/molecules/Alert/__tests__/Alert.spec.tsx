@@ -1,7 +1,7 @@
-import { render, cleanup, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { useWindowDimensions } from '@/components/_hooks'
-import { OverlayRoot } from '@/tests/helpers'
+import { setupTests } from '@/tests/helpers'
 import { Alert } from '..'
 
 const mockFunction = jest.fn()
@@ -17,15 +17,9 @@ jest.mock('../../../_hooks/useWindowDimensions')
 const useWindowDimensionsMock = useWindowDimensions as jest.Mock
 
 describe('Alert', () => {
-  const overlayRoot = new OverlayRoot()
-
-  afterEach(() => {
-    cleanup()
-    overlayRoot.removeOverlayRoot()
-  })
+  setupTests()
 
   beforeEach(() => {
-    overlayRoot.addOverlayRoot()
     useWindowDimensionsMock.mockReturnValue({ width: 1920, height: 1080 })
   })
 

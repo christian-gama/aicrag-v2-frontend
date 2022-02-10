@@ -75,6 +75,16 @@ export const Popover: React.FC<PopoverProps> = ({
 
   const overlayRoot = document.getElementById('overlay-root') as HTMLElement
 
+  const formatMessage = (message: string | null) => {
+    if (message) {
+      const lastCharacter = message.length - 1
+
+      return message.charAt(lastCharacter).match(/(\.|\?|!)$/gi)
+        ? message
+        : `${message}.`
+    }
+  }
+
   return ReactDOM.createPortal(
     <div
       style={assignInlineVars(classes.popoverVars, {
@@ -91,7 +101,7 @@ export const Popover: React.FC<PopoverProps> = ({
             <PopoverMessageList messages={message} />
               )
             : (
-            <P color="white">{message}</P>
+            <P color="white">{formatMessage(message)}</P>
               )}
         </div>
 

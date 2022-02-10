@@ -10,6 +10,20 @@ export const validators = {
 
   email: ValidatorBuilder.field('email').required().isEmail().build(),
 
+  currentPassword: ValidatorBuilder.field('currentPassword')
+    .required()
+    .minLength(6)
+    .maxLength(32)
+    .test((field, input) => {
+      if (input.currentPassword === input.password) {
+        return new InvalidFieldError(
+          field,
+          'precisa ser diferente da nova senha'
+        )
+      }
+    })
+    .build(),
+
   password: ValidatorBuilder.field('password')
     .required()
     .minLength(6)

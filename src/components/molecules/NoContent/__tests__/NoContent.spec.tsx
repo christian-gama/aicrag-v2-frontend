@@ -1,5 +1,5 @@
-import { renderWithProviders } from '@/tests/helpers'
-import { cleanup, screen } from '@testing-library/react'
+import { renderWithProviders, setupTests } from '@/tests/helpers'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { NoContent } from '..'
 
@@ -10,19 +10,17 @@ jest.mock('react-router-dom', () => ({
 }))
 
 describe('NoContent', () => {
-  afterEach(() => {
-    cleanup()
-  })
+  setupTests()
 
-  it('renders correctly', () => {
-    renderWithProviders(<NoContent />)
+  it('renders correctly', async () => {
+    await renderWithProviders(<NoContent />)
     const noContent = screen.getByTestId('no-content')
 
     expect(noContent).toBeInTheDocument()
   })
 
-  it('renders correctly', () => {
-    renderWithProviders(<NoContent />)
+  it('renders correctly', async () => {
+    await renderWithProviders(<NoContent />)
     const button = screen.getByRole('button', {
       name: /adicionar nova tarefa/i
     })

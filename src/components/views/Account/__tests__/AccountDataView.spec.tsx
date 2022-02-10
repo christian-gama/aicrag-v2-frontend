@@ -1,21 +1,12 @@
-import { OverlayRoot, renderWithProviders } from '@/tests/helpers'
-import { cleanup, screen } from '@testing-library/react'
+import { renderWithProviders, setupTests } from '@/tests/helpers'
+import { screen } from '@testing-library/react'
 import { AccountDataView } from '..'
 
 describe('AccountDataView', () => {
-  const overlayRoot = new OverlayRoot()
+  setupTests()
 
-  afterEach(() => {
-    overlayRoot.removeOverlayRoot()
-    cleanup()
-  })
-
-  beforeEach(() => {
-    overlayRoot.addOverlayRoot()
-  })
-
-  it('renders correctly', () => {
-    renderWithProviders(<AccountDataView />)
+  it('renders correctly', async () => {
+    await renderWithProviders(<AccountDataView />)
     const accountDataView = screen.getByTestId('account-data-view')
 
     expect(accountDataView).toBeInTheDocument()
