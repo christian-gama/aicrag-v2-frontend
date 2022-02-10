@@ -162,10 +162,22 @@ enum GetAllInvoicesType {
   both
 }
 
-type GetAuthentication {
-  accessToken: JWT
+union GetAuthentication = GetAuthenticationNone | GetAuthenticationPartial | GetAuthenticationProtected
+
+type GetAuthenticationNone {
   authentication: String!
-  refreshToken: JWT
+}
+
+type GetAuthenticationPartial {
+  accessToken: JWT!
+  authentication: String!
+}
+
+type GetAuthenticationProtected {
+  accessToken: JWT!
+  authentication: String!
+  refreshToken: JWT!
+  user: PublicUser!
 }
 
 type GetInvoiceByMonth {

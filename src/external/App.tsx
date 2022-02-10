@@ -1,47 +1,34 @@
 import { useEffect } from 'react'
-import { getUserByToken } from '@/services/token/getUserByToken'
-import { useMailerCountdown } from '@/components/_hooks'
 import { Popover } from '@/components/molecules/Popover'
 import { Center } from '@/components/utils/Center'
 import { LoadingSpinnerIcon } from '@/components/utils/icons'
-import { useGetAuthenticationQuery, useGetMeQuery } from './graphql/generated'
+import { useGetAuthenticationQuery } from './graphql/generated'
 import { usePopoverVar, popoverVar, authVar } from './graphql/reactiveVars'
 import { Router } from './routes'
 
 export const App = () => {
   const { isOpen, message, type } = usePopoverVar()
   const { loading, data } = useGetAuthenticationQuery()
-  const { data: getMeData, loading: loadingGetMe } = useGetMeQuery()
-  useMailerCountdown()
 
   useEffect(() => {
-    if (data?.getAuthentication.authentication === 'none') {
-      authVar.logout()
-    }
+    if (data) {
+      const typeName = data.getAuthentication.__typename
 
-    if (data?.getAuthentication.authentication === 'partial') {
-      authVar.partialLogin()
-    }
+      if (typeName === 'GetAuthenticationNone') {
+        authVar.logout()
+      }
 
-    if (data?.getAuthentication.authentication === 'protected') {
-      authVar.login({
-        personal: {
-          email:
-            getMeData?.getMe.user.personal.email ?? getUserByToken('email')!,
-          id: getMeData?.getMe.user.personal.id ?? getUserByToken('userId')!,
-          name: getMeData?.getMe.user.personal.name ?? getUserByToken('name')!
-        },
-        settings: {
-          role: getMeData?.getMe.user.settings.role ?? +getUserByToken('role')!,
-          currency:
-            getMeData?.getMe.user.settings.currency ??
-            getUserByToken('currency')!
-        }
-      })
-    }
-  }, [data, getMeData])
+      if (typeName === 'GetAuthenticationPartial') {
+        authVar.partialLogin()
+      }
 
-  if (loading || loadingGetMe) {
+      if (typeName === 'GetAuthenticationProtected') {
+        authVar.login(data.getAuthentication.user)
+      }
+    }
+  }, [data])
+
+  if (loading) {
     return (
       <Center>
         <LoadingSpinnerIcon style={{ size: 'lg' }} />

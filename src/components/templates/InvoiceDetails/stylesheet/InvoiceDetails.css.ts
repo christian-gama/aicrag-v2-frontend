@@ -11,9 +11,9 @@ export const invoiceDetailsType = recipe({
     borderRadius: '50%',
     width: '3.2rem',
     height: '3.2rem',
+    color: vars.colors.white,
     fontFamily: vars.font.hint.fontFamily,
     fontSize: vars.font.hint.fontSize,
-    color: vars.colors.white,
     fontWeight: 'bold',
 
     ':hover': {
@@ -43,27 +43,32 @@ export const invoiceDetailsActionCell = style({
 })
 
 export const invoiceDetailsTypeModal = style({
-  display: 'none',
+  display: 'flex',
+  position: 'absolute',
+  top: '-2.2rem',
+  left: '1.6rem',
+  alignItems: 'center',
+  justifyContent: 'center',
+  transform: 'scale(0)',
+  transition: 'all 0.08s ease-in-out',
+  opacity: '0',
+  zIndex: '2',
+  backgroundColor: vars.colors.black,
+  padding: '0rem 0.6rem 1rem 0.6rem',
+  width: '12rem',
+  height: '4rem',
+  overflow: 'hidden',
+  color: vars.colors.white,
+  clipPath:
+    'polygon(0% 0%, 100% 0%, 100% 75%, 25% 75%, 8% 100%, 9% 75%, 0% 75%)',
 
   '@media': {
     '(hover: hover)': {
       selectors: {
         [`${invoiceDetailsType()}:hover &`]: {
-          display: 'flex',
-          position: 'absolute',
-          top: '-2.2rem',
-          left: '1.6rem',
-          alignItems: 'center',
-          justifyContent: 'center',
-          opacity: '0.85',
-          zIndex: '2',
-          backgroundColor: vars.colors.black,
-          padding: '0rem 0.6rem 1rem 0.6rem',
-          width: '12rem',
-          height: '4rem',
-          color: vars.colors.white,
-          clipPath:
-            'polygon(0% 0%, 100% 0%, 100% 75%, 25% 75%, 8% 100%, 9% 75%, 0% 75%)'
+          transform: 'scale(1)',
+          opacity: '0.82',
+          overflow: 'visible'
         }
       }
     }
