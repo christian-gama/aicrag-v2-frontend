@@ -7,7 +7,7 @@ export const header = style({
   alignItems: 'center',
   justifyContent: 'space-between',
   boxShadow: vars.shadow.sm,
-  backgroundColor: vars.colors['navy-500'],
+  backgroundColor: vars.colors['cyan-900'],
   height: '12rem',
 
   '@media': {

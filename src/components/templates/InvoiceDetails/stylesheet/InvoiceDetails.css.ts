@@ -20,7 +20,7 @@ export const invoiceDetailsType = recipe({
   variants: {
     type: {
       TX: {
-        backgroundColor: '#13C8A0'
+        backgroundColor: '#34a2eb'
       },
 
       QA: {

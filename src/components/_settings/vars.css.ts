@@ -72,7 +72,7 @@ const colors = {
   'cyan-600': '#1e9aa4',
   'cyan-700': '#19909a',
   'cyan-800': '#148691',
-  'cyan-900': '#0c7580',
+  'cyan-900': '#095b63',
 
   'snow-50': '#fefefe',
   'snow-100': '#fefefc',
@@ -141,8 +141,9 @@ const colors = {
   'warning-900': '#FF6A00',
 
   gradient: {
-    primary: 'linear-gradient(to bottom right, #0c7580 0%, #03112a 100%)',
-    gray: 'linear-gradient(to bottom right, #f5f6f6 0%, #e6e8e9 100%)'
+    primary: 'linear-gradient(to bottom right, #095b63 0%, #03112a 100%)',
+    gray: 'linear-gradient(to bottom right, #f5f6f6 0%, #e6e8e9 100%)',
+    secondary: 'linear-gradient(to right, #095b63 0%, #0a284e 50%)'
   }
 }
 

@@ -20,7 +20,7 @@ export const logoutIconWrapper = recipe({
       },
 
       secondary: {
-        backgroundColor: vars.colors['navy-500']
+        backgroundColor: vars.colors['cyan-900']
       }
     }
   }
@@ -34,8 +34,8 @@ export const logoutIconRecipe = recipe({
   variants: {
     color: {
       primary: {
-        color: vars.colors['navy-500'],
-        fill: vars.colors['navy-500'],
+        color: vars.colors['cyan-900'],
+        fill: vars.colors['cyan-900'],
 
         ':hover': {
           filter: 'brightness(130%)'
