@@ -89,8 +89,8 @@ export const Task: React.FC<TaskProps> = ({
                 label="Tipo"
                 name="type"
                 options={[
-                  { label: 'Transcrição', value: 'TX' },
-                  { label: 'Correção', value: 'QA' }
+                  { label: 'Transcrição (TX)', value: 'TX' },
+                  { label: 'Correção (QA)', value: 'QA' }
                 ]}
               />
             </div>
