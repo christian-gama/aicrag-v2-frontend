@@ -11,7 +11,10 @@ import { ResetPassword } from '..'
 const mockNavigate = jest.fn()
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockNavigate
+  useNavigate: () => mockNavigate,
+  useParams: () => ({
+    token: mockVariables.token
+  })
 }))
 
 describe('ResetPassword', () => {
@@ -51,6 +54,24 @@ describe('ResetPassword', () => {
   it('calls navigate on error', async () => {
     await renderWithProviders(<ResetPassword />, {
       apolloMocks: [verifyResetPasswordTokenMock(new Error())]
+    })
+
+    expect(mockNavigate).toHaveBeenCalled()
+  })
+
+  it('calls navigate if token is invalid', async () => {
+    mockVariables.token = 'invalid-token'
+    await renderWithProviders(<ResetPassword />, {
+      apolloMocks: [verifyResetPasswordTokenMock()]
+    })
+
+    expect(mockNavigate).toHaveBeenCalled()
+  })
+
+  it('calls navigate if token is invalid', async () => {
+    mockVariables.token = 'invalid-token'
+    await renderWithProviders(<ResetPassword />, {
+      apolloMocks: [verifyResetPasswordTokenMock()]
     })
 
     expect(mockNavigate).toHaveBeenCalled()

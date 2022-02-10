@@ -1,7 +1,17 @@
 import { renderWithProviders, setupTests } from '@/tests/helpers'
+import { mockVariables } from '@/tests/mocks'
 import { verifyResetPasswordTokenMock } from '@/tests/mocks/queries'
 import { screen } from '@testing-library/react'
 import { ResetPasswordView } from '..'
+
+const mockNavigate = jest.fn()
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockNavigate,
+  useParams: () => ({
+    token: mockVariables.token
+  })
+}))
 
 describe('ResetPasswordView', () => {
   setupTests()

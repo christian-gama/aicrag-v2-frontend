@@ -1,3 +1,5 @@
+import jwtDecode from 'jwt-decode'
+import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useForm } from '@/context/models/form'
 import { Button } from '@/components/atoms/Button'
@@ -8,7 +10,7 @@ import { LoadingSpinnerIcon } from '@/components/utils/icons'
 import { makeResetPasswordValidation } from '@/external/factories/validation'
 import {
   useResetPasswordMutation,
-  useVerifyResetPasswordTokenQuery
+  useVerifyResetPasswordTokenLazyQuery
 } from '@/external/graphql/generated'
 import { authVar } from '@/external/graphql/reactiveVars'
 import * as classes from './stylesheet'
@@ -16,22 +18,25 @@ import * as classes from './stylesheet'
 export const ResetPassword: React.FC = () => {
   const { token } = useParams()
   const navigate = useNavigate()
+
   const { state } =
     useForm<{ password: string, passwordConfirmation: string }>()
   const [resetPassword] = useResetPasswordMutation()
-  const { error, loading } = useVerifyResetPasswordTokenQuery({
-    variables: {
-      token
+  const [verifyResetPasswordToken, { data, loading }] =
+    useVerifyResetPasswordTokenLazyQuery()
+
+  useEffect(() => {
+    try {
+      jwtDecode(token!)
+      verifyResetPasswordToken({ variables: { token } }).catch(() => {
+        navigate('/404', { replace: true })
+      })
+    } catch (err) {
+      navigate('/404', { replace: true })
     }
-  })
+  }, [token])
 
-  if (error) {
-    navigate('/404')
-
-    return null
-  }
-
-  if (loading) {
+  if (!data || loading) {
     return (
       <Center>
         <LoadingSpinnerIcon style={{ size: 'lg' }} />
