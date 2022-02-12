@@ -62,6 +62,17 @@ const sizeVariants = styleVariants({
         height: '4.4rem'
       }
     }
+  },
+
+  max: {
+    width: '100%',
+    height: '4.8rem',
+
+    '@media': {
+      [breakpoints.mobile]: {
+        height: '4.4rem'
+      }
+    }
   }
 })
 
