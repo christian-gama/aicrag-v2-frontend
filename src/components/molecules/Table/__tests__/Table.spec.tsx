@@ -1,13 +1,45 @@
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { ComponentPropsWithRef } from 'react'
-import { setupTests } from '@/tests/helpers'
+import { ControlInput } from '@/components/organisms/Control'
+import { formUtils, renderWithProviders, setupTests } from '@/tests/helpers'
 import { DateData } from '../DateData'
+import { useTFilter } from '../hooks'
 import { Table } from '../Table'
 import { Tbody } from '../Tbody'
 import { Td } from '../Td'
+import { Filter } from '../TFilter'
 import { Th } from '../Th'
 import { Thead } from '../Thead'
 import { Tr } from '../Tr'
+
+const mockFunction = jest.fn()
+jest.mock('../../../utils/icons', () => ({
+  ChevronIcon: (props: any) => {
+    mockFunction(props)
+
+    return null
+  }
+}))
+
+const MockTable = () => {
+  const { sortHandler, printFieldWithArrow } = useTFilter()
+
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th
+            data-testid="header"
+            onClick={() => sortHandler('header', 'header')}
+          >
+            {printFieldWithArrow('header', 'header')}
+          </th>
+        </tr>
+      </thead>
+    </table>
+  )
+}
 
 const renderTable = (props?: ComponentPropsWithRef<typeof Table>) => {
   return render(
@@ -66,5 +98,57 @@ describe('Table', () => {
     const pagination = screen.queryByTestId('pagination')
 
     expect(pagination).not.toBeInTheDocument()
+  })
+
+  describe('TFilter', () => {
+    it('resets the form when clicks on "Limpar filtro"', async () => {
+      await renderWithProviders(
+        <Filter height={{ mobile: '', tablet: '', widescreen: '' }}>
+          <ControlInput label="" name="" />
+        </Filter>
+      )
+      const input = screen.getByTestId('base-input')
+
+      userEvent.type(input, 'test')
+      await formUtils.submitForm()
+
+      expect(input).toHaveValue('')
+    })
+  })
+
+  it('opens the filter card', async () => {
+    await renderWithProviders(
+      <Filter height={{ mobile: '', tablet: '', widescreen: '' }} />
+    )
+    const filterHeader = screen.getByTestId('filter-header')
+
+    userEvent.click(filterHeader)
+
+    expect(screen.getByTestId('filter')).toBeInTheDocument()
+  })
+
+  it('has the correct Chevron based on the asc order', async () => {
+    await renderWithProviders(
+      <>
+        <Filter height={{ mobile: '', tablet: '', widescreen: '' }} />
+
+        <MockTable />
+      </>
+    )
+    const header = screen.getByTestId('header')
+
+    userEvent.click(header)
+
+    expect(mockFunction).toHaveBeenCalledWith({
+      direction: 'down',
+      size: expect.anything()
+    })
+
+    userEvent.click(header)
+
+    expect(mockFunction).toHaveBeenCalledWith({
+      direction: 'up',
+      size: expect.anything()
+    })
   })
 })
