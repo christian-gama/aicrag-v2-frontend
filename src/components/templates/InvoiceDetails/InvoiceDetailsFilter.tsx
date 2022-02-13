@@ -1,4 +1,4 @@
-import { Filter } from '@/components/molecules/Table/TFilter'
+import { Filter } from '@/components/molecules/Table/Filter'
 import {
   ControlInput,
   ControlSelectInput
@@ -52,6 +52,9 @@ export const InvoiceDetailsFilter: React.FC = () => {
             label="Duração"
             name="duration"
             type="number"
+            step={1}
+            max={30}
+            min={1}
           />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { Filter } from '@/components/molecules/Table/TFilter'
+import { Filter } from '@/components/molecules/Table/Filter'
 import { ControlSelectInput } from '@/components/organisms/Control'
 import { GetAllInvoicesType } from '@/external/graphql/generated'
 

@@ -21,8 +21,7 @@ export const filter = recipe({
     boxShadow: vars.shadow.xsm,
     backgroundColor: vars.colors.white,
     padding: '0 2rem 2rem 2rem',
-    width: '100vw',
-    maxWidth: '91.2rem',
+    width: '100%',
     minHeight: '4rem',
     overflow: 'hidden',
     gap: '2.4rem'
