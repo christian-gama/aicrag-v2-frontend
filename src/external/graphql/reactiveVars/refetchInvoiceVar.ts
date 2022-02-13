@@ -28,6 +28,10 @@ export const refetchInvoiceVar = {
         invoice: true
       }
     })
+  },
+
+  get: () => {
+    return _refetchInvoiceVar()
   }
 }
 

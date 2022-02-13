@@ -14,6 +14,7 @@ export const useControlForm = (
       setInputIsTouched,
       setFormValidator,
       setInputIsValid,
+      setFormIsFilled,
       setFormIsValid,
       setInputError,
       setFormError,
@@ -119,6 +120,20 @@ export const useControlForm = (
       }
     }
   }, [isDirty, data])
+
+  useEffect(() => {
+    const checkForm = () => {
+      for (const name in data) {
+        if (data[name] === undefined) {
+          return false
+        }
+      }
+
+      return Object.keys(data).length > 0
+    }
+
+    setFormIsFilled(checkForm())
+  }, [data])
 
   return {
     onSubmitHandler,

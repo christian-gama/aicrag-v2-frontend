@@ -9,19 +9,18 @@ import { Alert } from '@/components/molecules/Alert'
 import { NoContent } from '@/components/molecules/NoContent'
 import Table from '@/components/molecules/Table'
 import { DateData } from '@/components/molecules/Table/DateData'
+import { useTFilter } from '@/components/molecules/Table/hooks'
 import { PenIcon } from '@/components/utils/icons/PenIcon'
 import { TrashIcon } from '@/components/utils/icons/TrashIcon'
 import { Link } from '@/components/utils/texts/Link'
 import {
+  GetInvoiceByMonthOperator,
+  GetInvoiceByMonthPeriod,
   GetInvoiceByMonthType,
   useDeleteTaskMutation,
-  useGetInvoiceByMonthQuery
+  useGetInvoiceByMonthLazyQuery
 } from '@/external/graphql/generated'
-import {
-  popoverVar,
-  refetchInvoiceVar,
-  useRefetchInvoice
-} from '@/external/graphql/reactiveVars'
+import { popoverVar, refetchInvoiceVar } from '@/external/graphql/reactiveVars'
 import * as classes from './stylesheet'
 
 export const InvoiceDetails: React.FC = () => {
@@ -38,16 +37,48 @@ export const InvoiceDetails: React.FC = () => {
     currentPage,
     totalPages
   } = usePagination()
-  const { data, refetch, loading } = useGetInvoiceByMonthQuery({
-    variables: {
-      sort: '-date.month,-date.day,-logs.createdAt',
-      type: GetInvoiceByMonthType.Both,
-      page: currentPage.toString(),
-      month: month!,
-      year: year!
+
+  const [getInvoiceByMonth, { data, loading }] = useGetInvoiceByMonthLazyQuery()
+
+  const { filters, sortHandler, printFieldWithArrow } = useTFilter<{
+    type: GetInvoiceByMonthType
+    sort: string
+    duration: string
+    operator: GetInvoiceByMonthOperator
+    period: GetInvoiceByMonthPeriod
+    taskId: string
+  }>()
+
+  useEffect(() => {
+    if (filters) {
+      const { duration, operator, period, sort, taskId, type } = filters
+
+      if (
+        duration !== undefined &&
+        operator !== undefined &&
+        period !== undefined &&
+        taskId !== undefined &&
+        type !== undefined
+      ) {
+        getInvoiceByMonth({
+          variables: {
+            type,
+            duration: +duration,
+            operator,
+            period: period || undefined,
+            taskId,
+            sort: sort ?? '-date.day,-logs.createdAt',
+            month: month!,
+            year: year!
+          }
+        }).catch(() => {})
+      }
     }
-  })
-  useRefetchInvoice('invoice', refetch)
+
+    if (refetchInvoiceVar.get().shouldRefetch.invoice) {
+      refetchInvoiceVar.reset('invoice')
+    }
+  }, [filters, refetchInvoiceVar.get().shouldRefetch.invoice])
 
   useEffect(() => {
     if (data) {
@@ -55,22 +86,92 @@ export const InvoiceDetails: React.FC = () => {
     }
   }, [data])
 
-  if (loading) {
+  const renderTable = (children: React.ReactNode) => {
     return (
-      <LoadingSkeleton
-        marginTop="5rem"
-        gap="2.4rem"
-        columns={4}
-        width="70%"
-        amount={7}
-      />
+      <>
+        <Table.Main
+          showingUp={
+            data?.getInvoiceByMonth.count
+              ? {
+                  current: data.getInvoiceByMonth.displaying,
+                  total: data.getInvoiceByMonth.count
+                }
+              : undefined
+          }
+          pagination={
+            data?.getInvoiceByMonth.count
+              ? (
+              <Pagination
+                previousPageHandler={previousPageHandler}
+                nextPageHandler={nextPageHandler}
+                currentPage={currentPage}
+                totalPages={totalPages}
+              />
+                )
+              : undefined
+          }
+        >
+          <Table.Thead>
+            <Table.Tr>
+              <Table.Th
+                onClick={() => sortHandler('date', 'date.day,-logs.createdAt')}
+              >
+                {printFieldWithArrow('Data', 'date')}
+              </Table.Th>
+
+              <Table.Th
+                onClick={() => sortHandler('duration', 'duration,-date.day')}
+              >
+                {printFieldWithArrow('Duração', 'duration')}
+              </Table.Th>
+              <Table.Th onClick={() => sortHandler('usd', 'usd,-date.day')}>
+                {printFieldWithArrow('Valor', 'usd')}
+              </Table.Th>
+              <Table.Th>Identificação</Table.Th>
+              <Table.Th></Table.Th>
+            </Table.Tr>
+          </Table.Thead>
+
+          <Table.Tbody>{children}</Table.Tbody>
+        </Table.Main>
+      </>
     )
   }
 
-  if (!data || !data.getInvoiceByMonth.count) return <NoContent />
+  if (!data || loading) {
+    return renderTable(
+      <tr>
+        <td style={{ width: '100%', display: 'flex' }}>
+          <LoadingSkeleton
+            marginTop="5rem"
+            gap="2.4rem"
+            columns={4}
+            width="100%"
+            amount={7}
+          />
+        </td>
+      </tr>
+    )
+  }
+
+  if (!data.getInvoiceByMonth.count) {
+    return renderTable(
+      <tr
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '1.6rem'
+        }}
+      >
+        <td>
+          <NoContent />
+        </td>
+      </tr>
+    )
+  }
 
   const {
-    getInvoiceByMonth: { count, displaying, documents }
+    getInvoiceByMonth: { documents }
   } = data
 
   const onDeleteTaskHandler = async (id: string) => {
@@ -87,28 +188,8 @@ export const InvoiceDetails: React.FC = () => {
 
   return (
     <div data-testid="invoice-details">
-      <Table.Main
-        showingUp={{ current: displaying, total: count }}
-        pagination={
-          <Pagination
-            previousPageHandler={previousPageHandler}
-            nextPageHandler={nextPageHandler}
-            currentPage={currentPage}
-            totalPages={totalPages}
-          />
-        }
-      >
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th>Data</Table.Th>
-            <Table.Th>Duração</Table.Th>
-            <Table.Th>Valor</Table.Th>
-            <Table.Th>Identificação</Table.Th>
-            <Table.Th></Table.Th>
-          </Table.Tr>
-        </Table.Thead>
-
-        <Table.Tbody>
+      {renderTable(
+        <>
           {documents.map((invoice, index) => (
             <Table.Tr key={index}>
               <DateData
@@ -158,8 +239,8 @@ export const InvoiceDetails: React.FC = () => {
               </Table.Td>
             </Table.Tr>
           ))}
-        </Table.Tbody>
-      </Table.Main>
+        </>
+      )}
 
       <Alert
         message="Você está prestes a deletar uma tarefa e essa ação é irreversível. Você tem certeza de que quer continuar?"

@@ -7,12 +7,13 @@ import { Pagination } from '@/components/atoms/Pagination'
 import { NoContent } from '@/components/molecules/NoContent'
 import Table from '@/components/molecules/Table'
 import { DateData } from '@/components/molecules/Table/DateData'
+import { useTFilter } from '@/components/molecules/Table/hooks'
 import { Link } from '@/components/utils/texts/Link'
 import {
   GetAllInvoicesType,
-  useGetAllInvoicesQuery
+  useGetAllInvoicesLazyQuery
 } from '@/external/graphql/generated'
-import { useRefetchInvoice } from '@/external/graphql/reactiveVars'
+import { refetchInvoiceVar } from '@/external/graphql/reactiveVars'
 
 export const Invoice: React.FC = () => {
   const { currency, getTaskValue } = useGetTaskValue(0)
@@ -23,15 +24,35 @@ export const Invoice: React.FC = () => {
     currentPage,
     totalPages
   } = usePagination()
-  const { data, refetch, loading } = useGetAllInvoicesQuery({
-    variables: {
-      sort: '-date.year,-date.month,-logs.createdAt',
-      type: GetAllInvoicesType.Both,
-      page: currentPage.toString(),
-      limit: '12'
+  const [getAllInvoices, { data, loading }] = useGetAllInvoicesLazyQuery()
+
+  const { filters, printFieldWithArrow, sortHandler, setAsc } = useTFilter<{
+    type: GetAllInvoicesType
+    sort: string
+  }>()
+
+  useEffect(() => {
+    setAsc({ date: true })
+  }, [])
+
+  useEffect(() => {
+    if (filters?.type) {
+      const { sort, type } = filters
+
+      getAllInvoices({
+        variables: {
+          sort: sort ?? '-date.year,-date.month,-totalUsd',
+          type: type,
+          page: currentPage.toString(),
+          limit: '12'
+        }
+      }).catch(() => {})
     }
-  })
-  useRefetchInvoice('allInvoices', refetch)
+
+    if (refetchInvoiceVar.get().shouldRefetch.allInvoices) {
+      refetchInvoiceVar.reset('allInvoices')
+    }
+  }, [filters, refetchInvoiceVar.get().shouldRefetch.allInvoices])
 
   useEffect(() => {
     if (data) {
@@ -39,49 +60,98 @@ export const Invoice: React.FC = () => {
     }
   }, [data])
 
-  if (loading) {
+  const renderTable = (children: React.ReactNode) => {
     return (
-      <LoadingSkeleton
-        marginTop="5rem"
-        gap="2.4rem"
-        columns={4}
-        width="70%"
-        amount={7}
-      />
+      <>
+        <Table.Main
+          showingUp={
+            data?.getAllInvoices.count
+              ? {
+                  current: data.getAllInvoices.displaying,
+                  total: data.getAllInvoices.count
+                }
+              : undefined
+          }
+          pagination={
+            data?.getAllInvoices.count
+              ? (
+              <Pagination
+                previousPageHandler={previousPageHandler}
+                nextPageHandler={nextPageHandler}
+                currentPage={currentPage}
+                totalPages={totalPages}
+              />
+                )
+              : undefined
+          }
+        >
+          <Table.Thead>
+            <Table.Tr>
+              <Table.Th
+                onClick={() =>
+                  sortHandler('date', 'date.year,-date.month,-logs.createdAt')
+                }
+              >
+                {printFieldWithArrow('Período', 'date')}
+              </Table.Th>
+              <Table.Th
+                onClick={() =>
+                  sortHandler('tasks', 'tasks,date.year,-date.month')
+                }
+              >
+                {printFieldWithArrow('Quantidade', 'tasks')}
+              </Table.Th>
+              <Table.Th
+                onClick={() =>
+                  sortHandler('totalUsd', 'totalUsd,-date.year,-date.month')
+                }
+              >
+                {printFieldWithArrow('Valor', 'totalUsd')}
+              </Table.Th>
+              <Table.Th></Table.Th>
+            </Table.Tr>
+          </Table.Thead>
+
+          <Table.Tbody>{children}</Table.Tbody>
+        </Table.Main>
+      </>
     )
   }
 
-  if (!data || data.getAllInvoices.count === 0) {
-    return <NoContent />
+  if (!data || loading) {
+    return renderTable(
+      <tr>
+        <td style={{ width: '100%', display: 'flex' }}>
+          <LoadingSkeleton
+            marginTop="5rem"
+            gap="2.4rem"
+            columns={4}
+            width="100%"
+            amount={7}
+          />
+        </td>
+      </tr>
+    )
+  }
+
+  if (!data.getAllInvoices.count) {
+    return renderTable(
+      <tr>
+        <td>
+          <NoContent />
+        </td>
+      </tr>
+    )
   }
 
   const {
-    getAllInvoices: { count, displaying, documents }
+    getAllInvoices: { documents }
   } = data
 
   return (
     <div data-testid="invoice">
-      <Table.Main
-        showingUp={{ current: displaying, total: count }}
-        pagination={
-          <Pagination
-            previousPageHandler={previousPageHandler}
-            nextPageHandler={nextPageHandler}
-            currentPage={currentPage}
-            totalPages={totalPages}
-          />
-        }
-      >
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th>Período</Table.Th>
-            <Table.Th>Quantidade</Table.Th>
-            <Table.Th>Valor</Table.Th>
-            <Table.Th></Table.Th>
-          </Table.Tr>
-        </Table.Thead>
-
-        <Table.Tbody>
+      {renderTable(
+        <>
           {documents.map((invoice, index) => (
             <Table.Tr key={index}>
               <DateData
@@ -104,8 +174,8 @@ export const Invoice: React.FC = () => {
               </Table.Td>
             </Table.Tr>
           ))}
-        </Table.Tbody>
-      </Table.Main>
+        </>
+      )}
     </div>
   )
 }

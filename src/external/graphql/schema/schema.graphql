@@ -201,7 +201,7 @@ enum GetInvoiceByMonthPeriod {
 }
 
 input GetInvoiceByMonthQueries {
-  duration: Int
+  duration: Float
   limit: String
   month: String!
   operator: GetInvoiceByMonthOperator

@@ -23,7 +23,10 @@ export const App = () => {
       }
 
       if (typeName === 'GetAuthenticationProtected') {
-        authVar.login(data.getAuthentication.user)
+        authVar.login({
+          personal: data.getAuthentication.user.personal,
+          settings: data.getAuthentication.user.settings
+        })
       }
     }
   }, [data])

@@ -119,7 +119,8 @@ export const inputIcon = style({
   top: '50%',
   right: '0',
   transform: 'translate(-50%, -50%)',
-  backgroundColor: vars.colors.white
+  backgroundColor: vars.colors.white,
+  cursor: 'pointer'
 })
 
 export const inputRecipe = recipe({

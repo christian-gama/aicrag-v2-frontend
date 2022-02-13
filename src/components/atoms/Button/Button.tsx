@@ -1,4 +1,3 @@
-
 import { LoadingSpinnerIcon } from '@/components/utils/icons'
 import { ButtonVariants } from './stylesheet'
 import * as classes from './stylesheet'
@@ -64,11 +63,11 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
-      className={buttonStyle}
-      data-testid={testid ?? 'button'}
       disabled={!!disabled || !!loading}
-      onClick={onClick}
+      data-testid={testid ?? 'button'}
+      className={buttonStyle}
       type={type ?? 'button'}
+      onClick={onClick}
     >
       {renderChildren()}
     </button>

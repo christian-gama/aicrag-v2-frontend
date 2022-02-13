@@ -79,11 +79,14 @@ export const useControlDateInput = ({
 
   const onFocusHandler = () => {
     setInputIsFocused(name, true)
+  }
 
+  const onClickHandler = () => {
     reduxDispatch(openCalendar())
   }
 
   return {
+    onClickHandler,
     onFocusHandler,
     onBlurHandler,
     currentDate,

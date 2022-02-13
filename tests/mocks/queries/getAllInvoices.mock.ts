@@ -11,7 +11,7 @@ export const getAllInvoicesMock = (
   request: {
     query: GetAllInvoicesDocument,
     variables: {
-      sort: '-date.year,-date.month,-logs.createdAt',
+      sort: '-date.year,-date.month,-totalUsd',
       type: GetAllInvoicesType.Both,
       limit: '12',
       page: '1'

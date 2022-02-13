@@ -1,9 +1,9 @@
 import { Table } from './Table'
-import { TPagination } from './TablePagination'
 import { Tbody } from './Tbody'
 import { Td } from './Td'
 import { Th } from './Th'
 import { Thead } from './Thead'
+import { TPagination } from './TPagination'
 import { Tr } from './Tr'
 
 export default {

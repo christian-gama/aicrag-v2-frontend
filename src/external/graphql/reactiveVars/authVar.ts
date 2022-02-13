@@ -18,7 +18,7 @@ const initialValue = {
       name: getUserByToken('name')!
     },
     settings: {
-      role: +getUserByToken('role')!,
+      role: 2,
       currency: getUserByToken('currency')!
     }
   }

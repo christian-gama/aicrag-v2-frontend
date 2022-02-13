@@ -1,9 +1,15 @@
 import * as classes from './stylesheet'
 
-export const Th: React.FC = ({ children }) => {
+type ThProps = {
+  onClick?: () => void
+}
+
+export const Th: React.FC<ThProps> = ({ children, onClick }) => {
   return (
     <th className={classes.tableCell} data-testid="table-th">
-      {children}
+      <span className={classes.tableHeading} onClick={onClick}>
+        {children}
+      </span>
     </th>
   )
 }

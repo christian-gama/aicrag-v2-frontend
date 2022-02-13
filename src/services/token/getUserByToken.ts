@@ -2,7 +2,7 @@ import jwtDecode from 'jwt-decode'
 import { makeAccessTokenStorage } from '@/external/factories/storage/auth'
 
 export const getUserByToken = <
-  T extends 'userId' | 'email' | 'name' | 'currency' | 'role'
+  T extends 'userId' | 'email' | 'name' | 'currency'
 >(
     property: T
   ) => {
@@ -14,7 +14,6 @@ export const getUserByToken = <
         userId: string
         email: string
         name: string
-        role: string
       }>(accessToken)[property] as T extends 'currency'
         ? 'BRL' | 'USD'
         : string)

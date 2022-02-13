@@ -9,14 +9,15 @@ export type FormStates<
 > = {
   form: {
     validator?: IValidation
+    isFormFilled: boolean
     isSubmitting: boolean
     isValidating: boolean
     error: Maybe<string>
     isSubmitted: boolean
     isResetting: boolean
     isDirty: boolean
-    data: T
     isValid: boolean
+    data: T
   }
   input: {
     currentType: Object<React.ComponentPropsWithRef<typeof BaseInput>['type']>
@@ -50,6 +51,7 @@ export type FormInputActions = {
 
 export type FormActionPayload = {
   type:
+  | 'FORM/SET_IS_FORM_FILLED'
   | 'FORM/SET_IS_SUBMITTING'
   | 'FORM/SET_IS_VALIDATING'
   | 'FORM/SET_IS_RESETTING'

@@ -13,6 +13,7 @@ export const formReducer = (
       return {
         form: {
           validator: undefined,
+          isFormFilled: false,
           isSubmitting: false,
           isValidating: false,
           isSubmitted: false,
@@ -83,6 +84,15 @@ export const formReducer = (
             ...state.form.data,
             ...action.payload.data
           }
+        }
+      }
+
+    case 'FORM/SET_IS_FORM_FILLED':
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          isFormFilled: action.payload.isFormFilled!
         }
       }
 
