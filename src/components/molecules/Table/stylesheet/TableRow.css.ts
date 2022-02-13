@@ -48,6 +48,13 @@ export const tableRow = style({
       maxWidth: '80rem'
     },
 
+    [breakpoints.desktop]: {
+      gap: '1.2rem',
+      maxWidth: '98vw',
+      minWidth: '80rem',
+      width: '98vw'
+    },
+
     [breakpoints.mobile]: {
       marginTop: '1rem',
       padding: '0 2.4rem',

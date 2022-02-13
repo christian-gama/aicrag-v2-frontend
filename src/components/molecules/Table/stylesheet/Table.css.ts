@@ -5,7 +5,13 @@ export const tableWrapper = style({
   display: 'grid',
   position: 'relative',
   gridTemplateColumns: '1fr 1fr 1fr',
-  marginTop: '3.2rem'
+  marginTop: '1.6rem'
+})
+
+export const tableFilter = style({
+  width: '100%',
+  gridColumn: '2 / 3',
+  marginBottom: '0.8rem'
 })
 
 export const tableContentWrapper = style({
@@ -17,8 +23,8 @@ export const tableCellVar = createGlobalTheme(':root', {
 })
 
 export const tableContent = style({
+  margin: '0 0.6rem',
   position: 'relative',
-  margin: '0 0.7rem',
   width: '90rem',
   fontFamily: vars.font.p.fontFamily,
   fontSize: vars.font.p.fontSize,
@@ -26,6 +32,10 @@ export const tableContent = style({
   '@media': {
     [breakpoints.widescreen]: {
       width: '80rem'
+    },
+
+    [breakpoints.desktop]: {
+      width: '98vw'
     }
   }
 })
@@ -47,9 +57,11 @@ export const tableCellSpan = style({
 })
 
 export const tableSpanShowingup = style({
-  top: '-2rem',
-  position: 'absolute',
   display: 'block',
   fontFamily: vars.font.hint.fontFamily,
   fontSize: vars.font.hint.fontSize
+})
+
+export const tableHeading = style({
+  cursor: 'pointer'
 })

@@ -1,5 +1,8 @@
 import { useNavigate } from 'react-router-dom'
-import { InvoiceDetails } from '@/components/templates/InvoiceDetails'
+import {
+  InvoiceDetails,
+  InvoiceDetailsFilter
+} from '@/components/templates/InvoiceDetails'
 import { Layout } from '@/components/templates/Layout'
 
 export const InvoiceDetailsView: React.FC = () => {
@@ -11,7 +14,11 @@ export const InvoiceDetailsView: React.FC = () => {
         pageName="Faturas/Detalhe"
         backHandler={() => navigate('/invoice')}
       >
-        <InvoiceDetails />
+        <div style={{ width: 'min-content', margin: '0 auto' }}>
+          <InvoiceDetailsFilter />
+
+          <InvoiceDetails />
+        </div>
       </Layout>
     </div>
   )

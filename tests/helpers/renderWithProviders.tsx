@@ -7,6 +7,7 @@ import { FormProvider } from '@/context/models/form'
 import { useMailerCountdown } from '@/components/_hooks'
 import { waitFetch } from '.'
 import { calendarStoreMock, mailerCountdownMock } from '../mocks'
+import { filterStoreMock } from '../mocks/filterStore.mock'
 import { getPath } from './getPath'
 
 type AllProvidersProps = {
@@ -18,10 +19,15 @@ export const AllProviders: React.FC<AllProvidersProps> = ({
   children
 }) => {
   const testStore = configureStore({
-    reducer: { ...calendarStoreMock.reducer, ...mailerCountdownMock.reducer },
+    reducer: {
+      ...calendarStoreMock.reducer,
+      ...mailerCountdownMock.reducer,
+      ...filterStoreMock.reducer
+    },
     preloadedState: {
       ...calendarStoreMock.preloadedState,
-      ...mailerCountdownMock.preloadedState
+      ...mailerCountdownMock.preloadedState,
+      ...filterStoreMock.preloadedState
     }
   })
 

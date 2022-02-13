@@ -1,6 +1,6 @@
 import { HorizontalScrollBar } from '@/components/utils/HorizontalScrollBar'
 import * as classes from './stylesheet'
-import { TPagination } from './TablePagination'
+import { TPagination } from './TPagination'
 
 type TableProps = {
   showingUp?: {
@@ -11,24 +11,17 @@ type TableProps = {
 }
 
 export const Table: React.FC<TableProps> = ({
-  children,
+  pagination,
   showingUp,
-  pagination
+  children
 }) => {
   return (
     <div className={classes.tableWrapper}>
       <div className={classes.tableContentWrapper}>
-        {showingUp && (
-          <span
-            className={classes.tableSpanShowingup}
-            data-testid="table-showing-up"
-          >{`Mostrando ${showingUp?.current} de ${showingUp.total}`}</span>
-        )}
-
         <HorizontalScrollBar
           breakpoints={{
             default: '100%',
-            desktop: '79.8vw',
+            desktop: '92vw',
             widescreen: '59.6vw'
           }}
         >
@@ -38,7 +31,18 @@ export const Table: React.FC<TableProps> = ({
         </HorizontalScrollBar>
       </div>
 
-      {pagination && <TPagination>{pagination}</TPagination>}
+      {
+        <TPagination>
+          {showingUp && (
+            <span
+              className={classes.tableSpanShowingup}
+              data-testid="table-showing-up"
+            >{`Mostrando ${showingUp?.current} de ${showingUp.total}`}</span>
+          )}
+
+          {pagination}
+        </TPagination>
+      }
     </div>
   )
 }
