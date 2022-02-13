@@ -134,10 +134,11 @@ describe('InvoiceDetails', () => {
       apolloMocks: [getInvoiceByMonthMock()]
     })
     const nextPage = screen.getByTestId('pagination-action-next')
+    const invoiceDetails = () => screen.queryByTestId('invoice-details')
 
     userEvent.click(nextPage)
     await waitFetch()
 
-    expect(nextPage).not.toBeInTheDocument()
+    expect(invoiceDetails()).toBeInTheDocument()
   })
 })
