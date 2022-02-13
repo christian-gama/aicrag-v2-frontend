@@ -29,7 +29,9 @@ const FilterComponent: React.FC<FilterProps> = ({ height, children }) => {
   const { setFilter, resetFilter } = filterActions
 
   useEffect(() => {
-    dispatch(setFilter(state.form.data))
+    if (state.form.isFormFilled) {
+      dispatch(setFilter(state.form.data))
+    }
   }, [state.form.data])
 
   return (

@@ -1,8 +1,5 @@
 import { MockedResponse } from '@apollo/client/testing'
-import {
-  GetInvoiceByMonthDocument,
-  GetInvoiceByMonthType
-} from '@/external/graphql/generated'
+import { GetInvoiceByMonthDocument } from '@/external/graphql/generated'
 import { arrayFrom } from '@/tests/helpers'
 import { taskFragmentMock } from '../fragments'
 
@@ -12,7 +9,11 @@ export const getInvoiceByMonthMock = (
   request: {
     query: GetInvoiceByMonthDocument,
     variables: {
-      type: GetInvoiceByMonthType.Both,
+      type: 'both',
+      duration: 30,
+      operator: 'lte',
+      period: undefined,
+      taskId: '',
       sort: '-date.day,-logs.createdAt',
       month: 1,
       year: 2022

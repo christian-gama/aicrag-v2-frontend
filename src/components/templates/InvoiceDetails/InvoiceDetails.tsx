@@ -50,19 +50,35 @@ export const InvoiceDetails: React.FC = () => {
   }>()
 
   useEffect(() => {
-    getInvoiceByMonth({
-      variables: {
-        type: filters?.type ?? GetInvoiceByMonthType.Both,
-        duration: filters?.duration ? +filters?.duration : undefined,
-        operator: filters?.operator,
-        period: filters?.period ? filters.period : undefined,
-        taskId: filters?.taskId,
-        sort: filters?.sort ?? '-date.day,-logs.createdAt',
-        month: month!,
-        year: year!
+    if (filters) {
+      const { duration, operator, period, sort, taskId, type } = filters
+
+      if (
+        duration !== undefined &&
+        operator !== undefined &&
+        period !== undefined &&
+        taskId !== undefined &&
+        type !== undefined
+      ) {
+        getInvoiceByMonth({
+          variables: {
+            type,
+            duration: +duration,
+            operator,
+            period: period || undefined,
+            taskId,
+            sort: sort ?? '-date.day,-logs.createdAt',
+            month: month!,
+            year: year!
+          }
+        }).catch(() => {})
       }
-    }).catch(() => {})
-  }, [filters])
+    }
+
+    if (refetchInvoiceVar.get().shouldRefetch.invoice) {
+      refetchInvoiceVar.reset('invoice')
+    }
+  }, [filters, refetchInvoiceVar.get().shouldRefetch.invoice])
 
   useEffect(() => {
     if (data) {

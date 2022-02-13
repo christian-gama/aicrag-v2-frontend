@@ -41,6 +41,14 @@ export const useForm = <
           }
         }),
 
+      setFormIsFilled: (isFormFilled: boolean) =>
+        dispatch({
+          type: 'FORM/SET_IS_FORM_FILLED',
+          payload: {
+            isFormFilled
+          }
+        }),
+
       setFormIsValid: (isValid: boolean) =>
         dispatch({
           type: 'FORM/SET_IS_VALID',

@@ -2,7 +2,16 @@ import { authVar } from '@/external/graphql/reactiveVars'
 import { renderWithProviders, setupTests, setUser } from '@/tests/helpers'
 import { getAllInvoicesMock } from '@/tests/mocks/queries'
 import { screen } from '@testing-library/react'
-import { Invoice } from '..'
+import { Invoice, InvoiceFilter } from '..'
+
+const renderInvoice = () => {
+  return (
+    <>
+      <InvoiceFilter />
+      <Invoice />
+    </>
+  )
+}
 
 describe('Invoice', () => {
   setupTests()
@@ -16,7 +25,7 @@ describe('Invoice', () => {
   })
 
   it('renders correctly', async () => {
-    await renderWithProviders(<Invoice />, {
+    await renderWithProviders(renderInvoice(), {
       apolloMocks: [getAllInvoicesMock()]
     })
     const invoice = screen.getByTestId('invoice')
@@ -25,7 +34,7 @@ describe('Invoice', () => {
   })
 
   it('returns null if there is no data', async () => {
-    await renderWithProviders(<Invoice />, {
+    await renderWithProviders(renderInvoice(), {
       apolloMocks: [getAllInvoicesMock(new Error())]
     })
     const invoice = screen.queryByTestId('invoice')
@@ -35,7 +44,7 @@ describe('Invoice', () => {
 
   it('renders a table with the correct currency symbol', async () => {
     setUser({ currency: 'USD' })
-    await renderWithProviders(<Invoice />, {
+    await renderWithProviders(renderInvoice(), {
       apolloMocks: [getAllInvoicesMock()]
     })
     const currency = screen.getAllByText(/^\$ 10$/i)[0]

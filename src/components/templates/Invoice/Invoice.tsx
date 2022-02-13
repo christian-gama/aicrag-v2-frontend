@@ -13,6 +13,7 @@ import {
   GetAllInvoicesType,
   useGetAllInvoicesLazyQuery
 } from '@/external/graphql/generated'
+import { refetchInvoiceVar } from '@/external/graphql/reactiveVars'
 
 export const Invoice: React.FC = () => {
   const { currency, getTaskValue } = useGetTaskValue(0)
@@ -35,15 +36,23 @@ export const Invoice: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    getAllInvoices({
-      variables: {
-        sort: filters.sort ?? '-date.year,-date.month,-totalUsd',
-        type: filters.type ?? GetAllInvoicesType.Both,
-        page: currentPage.toString(),
-        limit: '12'
-      }
-    }).catch(() => {})
-  }, [filters])
+    if (filters?.type) {
+      const { sort, type } = filters
+
+      getAllInvoices({
+        variables: {
+          sort: sort ?? '-date.year,-date.month,-totalUsd',
+          type: type,
+          page: currentPage.toString(),
+          limit: '12'
+        }
+      }).catch(() => {})
+    }
+
+    if (refetchInvoiceVar.get().shouldRefetch.allInvoices) {
+      refetchInvoiceVar.reset('allInvoices')
+    }
+  }, [filters, refetchInvoiceVar.get().shouldRefetch.allInvoices])
 
   useEffect(() => {
     if (data) {

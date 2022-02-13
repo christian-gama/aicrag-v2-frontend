@@ -6,7 +6,7 @@ import { AppDispatch, RootState } from '@/context/store'
 import { ChevronIcon } from '@/components/utils/icons'
 
 export const useTFilter = <T extends { [key: string]: unknown }>() => {
-  const [asc, setAsc] = useState<{ [key: string]: Boolean }>({})
+  const [sortByAsc, setSortByAsc] = useState<{ [key: string]: Boolean }>({})
 
   const dispatch = useDispatch<AppDispatch>()
   const { filters } = useSelector<RootState, FilterStates<Optional<T>>>(
@@ -15,7 +15,7 @@ export const useTFilter = <T extends { [key: string]: unknown }>() => {
   const { setFilter } = filterActions
 
   const sortHandler = (field: string, ascSort: string) => {
-    setAsc((asc) => {
+    setSortByAsc((asc) => {
       dispatch(
         setFilter({
           sort: asc[field] ? ascSort.replace(/-/g, '') : `-${ascSort}`
@@ -31,10 +31,10 @@ export const useTFilter = <T extends { [key: string]: unknown }>() => {
       <div style={{ display: 'flex', gap: '1.2rem' }}>
         {description}
 
-        {asc[field] !== undefined
+        {sortByAsc[field] !== undefined
           ? (
           <ChevronIcon
-            direction={asc[field] ? 'down' : 'up'}
+            direction={sortByAsc[field] ? 'down' : 'up'}
             size="xxsm"
             color="white"
           />
@@ -50,7 +50,7 @@ export const useTFilter = <T extends { [key: string]: unknown }>() => {
     printFieldWithArrow,
     sortHandler,
     filters,
-    setAsc,
-    asc
+    setAsc: setSortByAsc,
+    asc: sortByAsc
   }
 }

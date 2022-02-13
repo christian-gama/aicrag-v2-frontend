@@ -7,6 +7,7 @@ import {
 
 export const initialFormState: FormStates<any> = {
   form: {
+    isFormFilled: false,
     isSubmitting: false,
     isValidating: false,
     isSubmitted: false,
