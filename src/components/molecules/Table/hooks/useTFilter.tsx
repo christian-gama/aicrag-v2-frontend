@@ -35,8 +35,8 @@ export const useTFilter = <T extends { [key: string]: unknown }>() => {
           ? (
           <ChevronIcon
             direction={sortByAsc[field] ? 'down' : 'up'}
-            size="xxsm"
             color="white"
+            size="xxsm"
           />
             )
           : null}
@@ -48,9 +48,8 @@ export const useTFilter = <T extends { [key: string]: unknown }>() => {
 
   return {
     printFieldWithArrow,
+    setSortByAsc,
     sortHandler,
-    filters,
-    setAsc: setSortByAsc,
-    asc: sortByAsc
+    filters
   }
 }

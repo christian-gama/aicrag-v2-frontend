@@ -40,14 +40,19 @@ export const InvoiceDetails: React.FC = () => {
 
   const [getInvoiceByMonth, { data, loading }] = useGetInvoiceByMonthLazyQuery()
 
-  const { filters, sortHandler, printFieldWithArrow } = useTFilter<{
-    type: GetInvoiceByMonthType
-    sort: string
-    duration: string
-    operator: GetInvoiceByMonthOperator
-    period: GetInvoiceByMonthPeriod
-    taskId: string
-  }>()
+  const { filters, sortHandler, printFieldWithArrow, setSortByAsc } =
+    useTFilter<{
+      operator: GetInvoiceByMonthOperator
+      period: GetInvoiceByMonthPeriod
+      type: GetInvoiceByMonthType
+      duration: string
+      taskId: string
+      sort: string
+    }>()
+
+  useEffect(() => {
+    setSortByAsc({ date: true })
+  }, [])
 
   useEffect(() => {
     if (filters) {
@@ -62,14 +67,14 @@ export const InvoiceDetails: React.FC = () => {
       ) {
         getInvoiceByMonth({
           variables: {
-            type,
-            duration: +duration,
-            operator,
-            period: period || undefined,
-            taskId,
             sort: sort ?? '-date.day,-logs.createdAt',
+            period: period || undefined,
+            duration: +duration,
             month: month!,
-            year: year!
+            year: year!,
+            operator,
+            taskId,
+            type
           }
         }).catch(() => {})
       }
@@ -145,8 +150,8 @@ export const InvoiceDetails: React.FC = () => {
           <LoadingSkeleton
             marginTop="5rem"
             gap="2.4rem"
-            columns={4}
             width="100%"
+            columns={4}
             amount={7}
           />
         </td>
@@ -158,9 +163,9 @@ export const InvoiceDetails: React.FC = () => {
     return renderTable(
       <tr
         style={{
-          display: 'flex',
           justifyContent: 'center',
-          marginTop: '1.6rem'
+          marginTop: '1.6rem',
+          display: 'flex'
         }}
       >
         <td>

@@ -90,7 +90,7 @@ export const headerPageName = style({
 
     [breakpoints.smallestMobile]: {
       transform: 'scale(0.75)',
-      maxWidth: '18rem'
+      maxWidth: '17rem'
     }
   }
 })
