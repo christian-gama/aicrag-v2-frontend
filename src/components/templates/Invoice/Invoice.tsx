@@ -26,13 +26,14 @@ export const Invoice: React.FC = () => {
   } = usePagination()
   const [getAllInvoices, { data, loading }] = useGetAllInvoicesLazyQuery()
 
-  const { filters, printFieldWithArrow, sortHandler, setAsc } = useTFilter<{
-    type: GetAllInvoicesType
-    sort: string
-  }>()
+  const { filters, printFieldWithArrow, sortHandler, setSortByAsc } =
+    useTFilter<{
+      type: GetAllInvoicesType
+      sort: string
+    }>()
 
   useEffect(() => {
-    setAsc({ date: true })
+    setSortByAsc({ date: true })
   }, [])
 
   useEffect(() => {
@@ -42,8 +43,8 @@ export const Invoice: React.FC = () => {
       getAllInvoices({
         variables: {
           sort: sort ?? '-date.year,-date.month,-totalUsd',
-          type: type,
           page: currentPage.toString(),
+          type: type,
           limit: '12'
         }
       }).catch(() => {})
@@ -136,7 +137,13 @@ export const Invoice: React.FC = () => {
 
   if (!data.getAllInvoices.count) {
     return renderTable(
-      <tr>
+      <tr
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '1.6rem'
+        }}
+      >
         <td>
           <NoContent />
         </td>

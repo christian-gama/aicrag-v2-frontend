@@ -11,7 +11,7 @@ import {
 
 export const InvoiceDetailsFilter: React.FC = () => {
   return (
-    <Filter height={{ mobile: '37rem', tablet: '37rem', widescreen: '26rem' }}>
+    <Filter height={{ mobile: '38rem', tablet: '38rem', widescreen: '26rem' }}>
       <div style={{ gridColumn: '1/-1' }}>
         <ControlInput label="Identificação" name="taskId" />
       </div>

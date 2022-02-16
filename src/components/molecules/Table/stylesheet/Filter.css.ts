@@ -24,7 +24,7 @@ export const filter = recipe({
     width: '100%',
     minHeight: '4rem',
     overflow: 'hidden',
-    gap: '2.4rem'
+    gap: '1.2rem'
   },
 
   variants: {
@@ -81,7 +81,7 @@ export const filterHeadingIcon = style({
 export const filterBody = style({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',
-  gridGap: '1.6rem',
+  gridGap: '2.4rem',
 
   '@media': {
     [breakpoints.tablet]: {
