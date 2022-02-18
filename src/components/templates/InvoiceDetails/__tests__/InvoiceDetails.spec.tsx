@@ -148,6 +148,6 @@ describe('InvoiceDetails', () => {
     userEvent.click(nextPage)
     await waitFetch()
 
-    expect(invoiceDetails()).toBeInTheDocument()
+    expect(invoiceDetails()).not.toBeInTheDocument()
   })
 })

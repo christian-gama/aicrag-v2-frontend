@@ -53,7 +53,7 @@ export const Invoice: React.FC = () => {
     if (refetchInvoiceVar.get().shouldRefetch.allInvoices) {
       refetchInvoiceVar.reset('allInvoices')
     }
-  }, [filters, refetchInvoiceVar.get().shouldRefetch.allInvoices])
+  }, [filters, refetchInvoiceVar.get().shouldRefetch.allInvoices, currentPage])
 
   useEffect(() => {
     if (data) {

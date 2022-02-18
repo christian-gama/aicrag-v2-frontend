@@ -16,7 +16,8 @@ export const getInvoiceByMonthMock = (
       taskId: '',
       sort: '-date.day,-logs.createdAt',
       month: 1,
-      year: 2022
+      year: 2022,
+      page: '1'
     }
   },
   result: {
