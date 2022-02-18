@@ -67,6 +67,7 @@ export const InvoiceDetails: React.FC = () => {
       ) {
         getInvoiceByMonth({
           variables: {
+            page: currentPage.toString(),
             sort: sort ?? '-date.day,-logs.createdAt',
             period: period || undefined,
             duration: +duration,
@@ -83,7 +84,7 @@ export const InvoiceDetails: React.FC = () => {
     if (refetchInvoiceVar.get().shouldRefetch.invoice) {
       refetchInvoiceVar.reset('invoice')
     }
-  }, [filters, refetchInvoiceVar.get().shouldRefetch.invoice])
+  }, [filters, refetchInvoiceVar.get().shouldRefetch.invoice, currentPage])
 
   useEffect(() => {
     if (data) {
