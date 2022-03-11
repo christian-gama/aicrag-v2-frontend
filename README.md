@@ -1,4 +1,4 @@
-# Welcome to my first personal project: Aicrag (frontend)
+# Welcome to my first personal React project: Aicrag (frontend)
 
 ![Github Actions](https://github.com/christian-gama/aicrag-v2-frontend/actions/workflows/main.yml/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/christian-gama/aicrag-v2-frontend/badge.svg?branch=main)](https://coveralls.io/github/christian-gama/aicrag-v2-frontend?branch=main)
 
