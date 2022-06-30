@@ -50,6 +50,7 @@ const spelling = {
   '\\binstagram\\b': 'Instagram',
   '\\btwitter\\b': 'Twitter',
   '\\bR\\$([0-9]+)\\b': 'R$ $1',
+  '\\bUS\\$([0-9]+)\\b': 'US$ $1',
   '\\bU\\$([0-9]+)\\b': 'U$ $1'
 } as any
 
