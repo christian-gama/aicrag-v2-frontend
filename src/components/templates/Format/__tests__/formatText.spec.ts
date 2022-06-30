@@ -81,4 +81,8 @@ describe('format', () => {
   it('remove travessão caso comece a frase com ele', () => {
     expect(formatText('—Esse texto-aqui está errado.')).toBe('Esse texto-aqui está errado.')
   })
+
+  it('remove espaço em branco do começo de um texto', () => {
+    expect(formatText('  Esse texto está errado.')).toBe('Esse texto está errado.')
+  })
 })

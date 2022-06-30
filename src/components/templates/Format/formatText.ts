@@ -20,7 +20,8 @@ const specials = {
   '…': '.',
   '\\s{2,}': ' ',
   '\\w+\\-\\s': '',
-  '\\w+\\-$': ''
+  '\\w+\\-$': '',
+  '^\\s': ''
 } as any
 
 const punctuation = {
