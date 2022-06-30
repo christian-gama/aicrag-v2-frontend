@@ -8,6 +8,9 @@ const specials = {
   '\\s\\-': '',
   '\\s\\—': '',
   '\\s\\–': '',
+  '^\\-': '',
+  '^\\—': '',
+  '^\\–': '',
   '\\-\\s': '',
   '\\s\\—\\s': '',
   '\\s\\–\\s': '',
@@ -16,7 +19,8 @@ const specials = {
   '\\.\\.\\.': '.',
   '…': '.',
   '\\s{2,}': ' ',
-  '\\w+\\-': ''
+  '\\w+\\-\\s': '',
+  '\\w+\\-$': ''
 } as any
 
 const punctuation = {
@@ -69,6 +73,13 @@ export const formatText = (text: string) => {
 
   // match numbers that does not include comma or dot then format with dots
   preparedText = preparedText.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+
+  preparedText = preparedText.replace(
+    /([.!?]\s+)([a-z])/g,
+    (_, p1: string, p2: string) => {
+      return `${p1}${p2.toUpperCase()}`
+    }
+  )
 
   return preparedText
 }

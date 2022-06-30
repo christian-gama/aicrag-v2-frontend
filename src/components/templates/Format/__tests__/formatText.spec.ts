@@ -73,4 +73,12 @@ describe('format', () => {
       'O WhatsApp é do Facebook, assim como o Instagram {ponto de exclamação} Já o YouTube é do Google."'
     )
   })
+
+  it('capitaliza palavra depois de pontuação', () => {
+    expect(formatText('Esse texto está errado. aqui? deveria estar capitalizado.')).toBe('Esse texto está errado. Aqui? Deveria estar capitalizado.')
+  })
+
+  it('remove travessão caso comece a frase com ele', () => {
+    expect(formatText('—Esse texto-aqui está errado.')).toBe('Esse texto-aqui está errado.')
+  })
 })
