@@ -4,6 +4,7 @@ import { Button } from '@/components/atoms/Button'
 import { CharCounter } from '@/components/atoms/CharCounter'
 import { ControlForm, ControlInput } from '@/components/organisms/Control'
 import { P } from '@/components/utils/texts/P'
+import { popoverVar } from '@/external/graphql/reactiveVars'
 import { formatText } from './formatText'
 import * as styles from './stylesheet'
 
@@ -14,6 +15,13 @@ export const Format: React.FC = () => {
   const submitHandler = async () => {
     const formattedText = formatText(state.form.data.text)
     formActions.setInputValue('formattedText', formattedText)
+
+    try {
+      await navigator.clipboard.writeText(formattedText)
+      popoverVar.setPopover('Texto copiado para a área de transferência.', 'success')
+    } catch (error) {
+      popoverVar.setPopover('Não foi possível copiar para a área de transferência', 'error')
+    }
   }
 
   return (
