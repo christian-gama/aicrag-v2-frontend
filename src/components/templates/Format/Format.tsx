@@ -28,12 +28,12 @@ export const Format: React.FC = () => {
         <div className={styles.textInput}>
           <div className={styles.textInputField}>
             <ControlInput
-              maxLength={5000}
+              maxLength={10_000}
               type="textArea"
               label="Texto"
               name="text"
             />
-            <CharCounter maxLength={5000} value={state.form.data.text || ''} />
+            <CharCounter maxLength={10_000} value={state.form.data.text || ''} />
           </div>
 
           <div className={styles.textInputButton}>
