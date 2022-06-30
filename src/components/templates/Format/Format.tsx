@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from '@/context/models/form'
 import { Button } from '@/components/atoms/Button'
 import { CharCounter } from '@/components/atoms/CharCounter'
@@ -9,6 +9,8 @@ import { formatText } from './formatText'
 import * as styles from './stylesheet'
 
 export const Format: React.FC = () => {
+  const [hasChanges, setHasChanges] = useState(true)
+
   const { formActions, state } =
     useForm<{ text: string, formattedText: string }>()
 
@@ -18,11 +20,21 @@ export const Format: React.FC = () => {
 
     try {
       await navigator.clipboard.writeText(formattedText)
-      popoverVar.setPopover('Texto copiado para a área de transferência.', 'success')
+      popoverVar.setPopover(
+        'Texto copiado para a área de transferência.',
+        'success'
+      )
+
+      setHasChanges(state.form.data.text !== formattedText)
     } catch (error) {
-      popoverVar.setPopover('Não foi possível copiar para a área de transferência', 'error')
+      popoverVar.setPopover(
+        'Não foi possível copiar para a área de transferência',
+        'error'
+      )
     }
   }
+
+  console.log(hasChanges)
 
   return (
     <div data-testid="format">
@@ -41,7 +53,10 @@ export const Format: React.FC = () => {
               label="Texto"
               name="text"
             />
-            <CharCounter maxLength={10_000} value={state.form.data.text || ''} />
+            <CharCounter
+              maxLength={10_000}
+              value={state.form.data.text || ''}
+            />
           </div>
 
           <div className={styles.textInputButton}>
@@ -49,8 +64,11 @@ export const Format: React.FC = () => {
               style={{
                 mode: 'outlined'
               }}
-              onClick={formActions.resetForm}
-              type="submit"
+              onClick={() => {
+                formActions.resetForm()
+                setHasChanges(true)
+              }}
+              type="reset"
             >
               Resetar
             </Button>
@@ -58,13 +76,19 @@ export const Format: React.FC = () => {
           </div>
         </div>
 
-        <ControlInput
-          type="textArea"
-          label="Texto formatado"
-          name="formattedText"
-          defaultValue={state.form.data.formattedText}
-          readOnly
-        />
+        <div>
+          <ControlInput
+            type="textArea"
+            label="Texto formatado"
+            name="formattedText"
+            defaultValue={state.form.data.formattedText}
+            readOnly
+          />
+
+          {!hasChanges && (
+            <P>Não houveram alterações.</P>
+          )}
+        </div>
       </ControlForm>
     </div>
   )
