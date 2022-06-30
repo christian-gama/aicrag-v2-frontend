@@ -51,6 +51,19 @@ describe('format', () => {
   it('formata moedas', () => {
     expect(formatText('R$1.000,00')).toBe('R$ 1.000,00')
     expect(formatText('u$2.000,00')).toBe('U$ 2.000,00')
+    expect(formatText('$2.000,00')).toBe('$ 2.000,00')
+    expect(formatText('eu tenho $2.000,00')).toBe('eu tenho $ 2.000,00')
+    expect(formatText('eu tenho R$2.000,00')).toBe('eu tenho R$ 2.000,00')
+  })
+
+  it('formata unidades de medida', () => {
+    expect(formatText('1 quilograma')).toBe('1 kg')
+    expect(formatText('tenho 1 quilograma de açúcar')).toBe('tenho 1 kg de açúcar')
+    expect(formatText('tenho 10 quilogramas de açúcar')).toBe('tenho 10 kg de açúcar')
+  })
+
+  it('capitaliza abreviações', () => {
+    expect(formatText('a srta. Maria e o dr. João')).toBe('a Srta. Maria e o Dr. João')
   })
 
   it('formata números corretamente', () => {
@@ -84,5 +97,12 @@ describe('format', () => {
 
   it('remove espaço em branco do começo de um texto', () => {
     expect(formatText('  Esse texto está errado.')).toBe('Esse texto está errado.')
+  })
+
+  it('remove vírgula de números em sequência', () => {
+    expect(formatText('1, 2, 3, 10')).toBe('1 2 3 10')
+    expect(formatText('1, 2, 3, 10, agora é texto')).toBe('1 2 3 10 agora é texto')
+    expect(formatText('1, 2')).toBe('1 2')
+    expect(formatText('1, teste')).toBe('1 teste')
   })
 })
