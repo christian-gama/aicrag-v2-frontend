@@ -142,10 +142,10 @@ export const formatText = (text: string) => {
   })
 
   preparedText = preparedText.replace(
-    /(\d+\s*)(\w+)/gi,
+    /(\d+)\s+(\w+)/gi,
     (_, number: string, word: string) => {
       if (word in unitMeasure) {
-        return `${number}${unitMeasure[word] as string}`
+        return `${number} ${unitMeasure[word] as string}`
       }
 
       return `${number} ${word}`
@@ -170,9 +170,6 @@ export const formatText = (text: string) => {
       return `${p1}${p2.toUpperCase()}`
     }
   )
-
-  // remove comma from numbers in sequence as: "1, 2, 3, 10, 100" => "1 2 3 10 100"
-  preparedText = preparedText.replace(/(\d+)(,)\s{1,}/g, '$1 ')
 
   return preparedText
 }

@@ -28,8 +28,7 @@ describe('format', () => {
 
   it('troca “ ou ” por "', () => {
     expect(formatText('“This is a text with wrong quotes.”')).toBe(
-      '"This is a text with wrong quotes."'
-    )
+      '"This is a text with wrong quotes."')
   })
 
   it('substitui variantes do OK', () => {
@@ -58,12 +57,18 @@ describe('format', () => {
 
   it('formata unidades de medida', () => {
     expect(formatText('1 quilograma')).toBe('1 kg')
-    expect(formatText('tenho 1 quilograma de açúcar')).toBe('tenho 1 kg de açúcar')
-    expect(formatText('tenho 10 quilogramas de açúcar')).toBe('tenho 10 kg de açúcar')
+    expect(formatText('tenho 1  quilograma de açúcar')).toBe(
+      'tenho 1 kg de açúcar'
+    )
+    expect(formatText('tenho 10 quilogramas de açúcar')).toBe(
+      'tenho 10 kg de açúcar'
+    )
   })
 
   it('capitaliza abreviações', () => {
-    expect(formatText('a srta. Maria e o dr. João')).toBe('a Srta. Maria e o Dr. João')
+    expect(formatText('a srta. Maria e o dr. João')).toBe(
+      'a Srta. Maria e o Dr. João'
+    )
   })
 
   it('formata números corretamente', () => {
@@ -85,24 +90,41 @@ describe('format', () => {
     expect(formatText(text2)).toBe(
       'O WhatsApp é do Facebook, assim como o Instagram {ponto de exclamação} Já o YouTube é do Google."'
     )
+
+    const text3 = `– Srta. Quinn… – eu a cumprimento, com a voz cansada.
+– Ava, como vai?
+Ela sempre me pergunta como estou, o que é bom, penso eu. Não vou dizer a verdade a ela.
+– Estou bem. E você?
+– Sim, sim, bem – ela diz, animada. – Eu só queria checar se nosso encontro está de pé.
+– Às quatro e meia, srta. Quinn – confirmo, pelo terceiro dia consecutivo. Acho que vou aumentar o
+valor a ser cobrado por esse trabalho.
+– Ótimo! Não vejo a hora.
+Desligo e respiro fundo para me acalmar. Onde eu estava com a cabeça quando marquei de terminar a
+sexta-feira me reunindo com uma cliente nova e complicada?
+Victoria entra no escritório com os longos cabelos loiros esvoaçando sobre os ombros. Ela parece
+diferente… Ela está laranja pra caramba!
+– O que foi que você fez? – pergunto, chocada. Sei que não estou no meu melhor ultimamente, mas não
+há como negar o tom da pele dela. `
+    expect(formatText(text3)).toBe(
+      'Srta. Quinn. Eu a cumprimento, com a voz cansada. Ava, como vai? Ela sempre me pergunta como estou, o que é bom, penso eu. Não vou dizer a verdade a ela. Estou bem. E você? Sim, sim, bem ela diz, animada. Eu só queria checar se nosso encontro está de pé. Às quatro e meia, Srta. Quinn confirmo, pelo terceiro dia consecutivo. Acho que vou aumentar o valor a ser cobrado por esse trabalho. Ótimo! Não vejo a hora. Desligo e respiro fundo para me acalmar. Onde eu estava com a cabeça quando marquei de terminar a sexta-feira me reunindo com uma cliente nova e complicada? Victoria entra no escritório com os longos cabelos loiros esvoaçando sobre os ombros. Ela parece diferente. Ela está laranja para caramba! O que foi que você fez? Pergunto, chocada. Sei que não estou no meu melhor ultimamente, mas não há como negar o tom da pele dela. '
+    )
   })
 
   it('capitaliza palavra depois de pontuação', () => {
-    expect(formatText('Esse texto está errado. aqui? deveria estar capitalizado.')).toBe('Esse texto está errado. Aqui? Deveria estar capitalizado.')
+    expect(
+      formatText('Esse texto está errado. aqui? deveria estar capitalizado.')
+    ).toBe('Esse texto está errado. Aqui? Deveria estar capitalizado.')
   })
 
   it('remove travessão caso comece a frase com ele', () => {
-    expect(formatText('—Esse texto-aqui está errado.')).toBe('Esse texto-aqui está errado.')
+    expect(formatText('—Esse texto-aqui está errado.')).toBe(
+      'Esse texto-aqui está errado.'
+    )
   })
 
   it('remove espaço em branco do começo de um texto', () => {
-    expect(formatText('  Esse texto está errado.')).toBe('Esse texto está errado.')
-  })
-
-  it('remove vírgula de números em sequência', () => {
-    expect(formatText('1, 2, 3, 10')).toBe('1 2 3 10')
-    expect(formatText('1, 2, 3, 10, agora é texto')).toBe('1 2 3 10 agora é texto')
-    expect(formatText('1, 2')).toBe('1 2')
-    expect(formatText('1, teste')).toBe('1 teste')
+    expect(formatText('  Esse texto está errado.')).toBe(
+      'Esse texto está errado.'
+    )
   })
 })
