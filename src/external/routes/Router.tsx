@@ -10,6 +10,7 @@ import {
   ResetPasswordView,
   ConfirmEmailView
 } from '@/components/views/Entry'
+import { FormatView } from '@/components/views/Format'
 import { InvoiceView } from '@/components/views/Invoice'
 import { InvoiceDetailsView } from '@/components/views/InvoiceDetails'
 import { NewTaskView } from '@/components/views/NewTask'
@@ -38,6 +39,8 @@ export const Router = () => {
           <Route path=":year/:month" element={<InvoiceDetailsView />} />
           <Route path="task/:id" element={<UpdateTaskView />} />
         </Route>
+
+        <Route path="/format-text" element={<FormatView />} />
       </Route>
 
       <Route path="/entry" element={<MustLogoutRoute />}>

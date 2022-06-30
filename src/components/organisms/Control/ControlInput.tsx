@@ -14,6 +14,7 @@ React.InputHTMLAttributes<HTMLInputElement>,
 | 'autoComplete'
 | 'autoFocus'
 | 'maxLength'
+| 'readOnly'
 | 'minLength'
 | 'onChange'
 | 'onFocus'
@@ -33,6 +34,7 @@ Omit<ControlInputProps, 'uniqueFormName' | 'validation'>
   defaultValue,
   maxLength,
   minLength,
+  readOnly,
   autoFocus,
   required,
   onChange,
@@ -62,6 +64,7 @@ Omit<ControlInputProps, 'uniqueFormName' | 'validation'>
   } = useControlInput({
     defaultValue,
     autoFocus,
+    readOnly,
     onChange,
     onFocus,
     onBlur,

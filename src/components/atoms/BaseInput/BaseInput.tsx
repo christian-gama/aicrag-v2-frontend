@@ -67,6 +67,7 @@ export const BaseInput: React.FC<BaseInputProps> = ({
     if (type === 'textArea') {
       return (
         <textarea
+          readOnly={rest.readOnly}
           data-testid={'base-textarea-input'}
           onChange={rest.onChange as any}
           onFocus={rest.onFocus as any}

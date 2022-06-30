@@ -3,7 +3,7 @@ import * as classes from './stylesheet'
 import { sideBarIconWidthVars } from './stylesheet'
 
 type SideBarIconProps = {
-  name: 'newTask' | 'account' | 'invoice'
+  name: 'newTask' | 'account' | 'invoice' | 'format-text'
 }
 
 export const SideBarIcon: React.FC<SideBarIconProps> = ({ name }) => {
@@ -29,6 +29,13 @@ export const SideBarIcon: React.FC<SideBarIconProps> = ({ name }) => {
     case 'account':
       path = (
         <path d="M24,27A13.5,13.5,0,1,0,10.5,13.5,13.5,13.5,0,0,0,24,27Zm12,3H30.834a16.32,16.32,0,0,1-13.669,0H12A12,12,0,0,0,0,42v1.5A4.5,4.5,0,0,0,4.5,48h39A4.5,4.5,0,0,0,48,43.5V42A12,12,0,0,0,36,30Z" />
+      )
+      break
+
+    case 'format-text':
+      viewBox = '0 0 16 16'
+      path = (
+        <path d="M 12.03125 2.023438 C 11.535156 2.023438 11.066406 2.269531 10.675781 2.65625 L 2.5625 10.726563 L 1.207031 14.785156 L 5.265625 13.433594 L 5.351563 13.351563 L 13.386719 5.367188 C 13.773438 4.976563 14.015625 4.507813 14.015625 4.011719 C 14.015625 3.515625 13.773438 3.046875 13.386719 2.65625 C 12.996094 2.269531 12.527344 2.023438 12.03125 2.023438 Z M 10.027344 4.710938 L 11.320313 6.007813 L 4.726563 12.5625 L 2.789063 13.207031 L 3.4375 11.265625 Z"/>
       )
       break
   }

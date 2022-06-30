@@ -11,6 +11,7 @@ type UseControlInput = {
   onChange: ControlInputProps['onChange']
   onFocus: ControlInputProps['onFocus']
   onBlur: ControlInputProps['onBlur']
+  readOnly: ControlInputProps['readOnly']
   name: ControlInputProps['name']
   type: ControlInputProps['type']
 }
@@ -18,6 +19,7 @@ type UseControlInput = {
 export const useControlInput = ({
   defaultValue,
   autoFocus,
+  readOnly,
   onChange,
   onFocus,
   onBlur,
@@ -93,7 +95,7 @@ export const useControlInput = ({
   }
 
   const onFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
-    setIsReadOnly(false)
+    if (!readOnly) setIsReadOnly(false)
 
     setInputIsFocused(name, true)
 
