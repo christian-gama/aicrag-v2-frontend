@@ -18,8 +18,10 @@ const specials = {
   '\\n': ' ',
   '\\.\\.\\.': '.',
   '…': '.',
-  '\\s{2,}': ' ',
-  '^\\s': ''
+  '\\?\\!': '?',
+  '\\?\\?': '?',
+  '\\!\\!': '!',
+  '\\!\\?': '?'
 } as any
 
 const punctuation = {
@@ -53,7 +55,25 @@ const spelling = {
   '\\bgoogle\\b': 'Google',
   '\\bfacebook\\b': 'Facebook',
   '\\binstagram\\b': 'Instagram',
-  '\\btwitter\\b': 'Twitter'
+  '\\btwitter\\b': 'Twitter',
+  '\\bon-line\\b': 'online',
+  '\\bave\\s+maria\\b': 'Ave Maria',
+  '\\b(b)em\\s+vind(o|a)(s?)\\b': '$1em-vind$2$3'
+} as any
+
+const units = {
+  um: '1',
+  uma: '1',
+  dois: '2',
+  duas: '2',
+  três: '3',
+  quatro: '4',
+  cinco: '5',
+  seis: '6',
+  sete: '7',
+  oito: '8',
+  nove: '9',
+  dez: '10'
 } as any
 
 const unitMeasure = {
@@ -105,43 +125,128 @@ const unitMeasure = {
 export const formatText = (text: string) => {
   let preparedText = text
 
-  preparedText = preparedText.replace(/\w+-$/g, '')
+  preparedText = clearSpaces(preparedText)
+  preparedText = removeTruncatedWord(preparedText)
+  preparedText = formatQuotes(preparedText)
+  preparedText = formatSpecials(preparedText)
+  preparedText = formatSpelling(preparedText)
+  preparedText = formatCurrency(preparedText)
+  preparedText = formatAbbreviations(preparedText)
+  preparedText = formatPunctuation(preparedText)
+  preparedText = formatTime(preparedText)
+  preparedText = formatUnitMeasure(preparedText)
+  preparedText = formatNumbers(preparedText)
+  preparedText = insertDotInNumbers(preparedText)
+  preparedText = capitalizeNextWordAfterPunctuation(preparedText)
+  preparedText = capitalizeNextWordAfterTruncation(preparedText)
+  preparedText = clearSpaces(preparedText)
+  preparedText = trimText(preparedText)
+
+  return preparedText
+}
+
+const trimText = (text: string) => {
+  return text.trimStart().trimEnd()
+}
+
+const capitalizeNextWordAfterTruncation = (text: string) => {
+  return text.replace(
+    /(\w+-\s)([a-z])/g,
+    (_, p1: string, p2: string) => {
+      return `${p1}${p2.toUpperCase()}`
+    }
+  )
+}
+
+const clearSpaces = (text: string) => {
+  return text.replace(/\s{2,}/g, ' ')
+}
+
+const removeTruncatedWord = (text: string) => {
+  return text.replace(/\b\w+-($|\s+)\b/g, '')
+}
+
+const formatQuotes = (text: string) => {
+  let result = text
 
   Object.keys(quotesFormat).forEach((key) => {
-    preparedText = preparedText.replace(new RegExp(key, 'g'), quotesFormat[key])
+    result = result.replace(new RegExp(key, 'g'), quotesFormat[key])
   })
+
+  return result
+}
+
+const formatSpecials = (text: string) => {
+  let result = text
 
   Object.keys(specials).forEach((key) => {
-    preparedText = preparedText.replace(new RegExp(key, 'ig'), specials[key])
+    result = result.replace(new RegExp(key, 'ig'), specials[key])
   })
+
+  return result
+}
+
+const formatSpelling = (text: string) => {
+  let result = text
 
   Object.keys(spelling).forEach((key) => {
-    preparedText = preparedText.replace(new RegExp(key, 'ig'), spelling[key])
+    result = result.replace(new RegExp(key, 'ig'), spelling[key])
   })
 
-  preparedText = preparedText.replace(
+  return result
+}
+
+const formatCurrency = (text: string) => {
+  let result = text
+
+  result = result.replace(
     /\b(\w+)\$([0-9]+)\b/g,
     (_, currency: string, number: string) => {
       return `${currency.toUpperCase()}$ ${number}`
     }
   )
 
-  preparedText = preparedText.replace(/\$([0-9]+)/g, (_, number: string) => {
+  result = result.replace(/\$([0-9]+)/g, (_, number: string) => {
     return `$ ${number}`
   })
 
-  Object.keys(punctuation).forEach((key) => {
-    preparedText = preparedText.replace(new RegExp(key, 'ig'), punctuation[key])
-  })
+  return result
+}
+
+const formatAbbreviations = (text: string) => {
+  let result = text
 
   Object.keys(abbreviations).forEach((key) => {
-    preparedText = preparedText.replace(
+    result = result.replace(
       new RegExp(key, 'g'),
       abbreviations[key]
     )
   })
 
-  preparedText = preparedText.replace(
+  return result
+}
+
+const formatPunctuation = (text: string) => {
+  let result = text
+
+  Object.keys(punctuation).forEach((key) => {
+    result = result.replace(new RegExp(key, 'ig'), punctuation[key])
+  })
+
+  return result
+}
+
+const formatTime = (text: string) => {
+  return text.replace(
+    /\b(dois|duas|três|quatro|cinco|seis|sete|oito|nove)\s+(segundos?|minutos?|horas?)\b/gi,
+    (_, number: string, unit: string) => {
+      return `${units[number] as string} ${unit}`
+    }
+  )
+}
+
+const formatUnitMeasure = (text: string) => {
+  return text.replace(
     /(\d+)\s+(\w+)/gi,
     (_, number: string, word: string) => {
       if (word in unitMeasure) {
@@ -151,25 +256,25 @@ export const formatText = (text: string) => {
       return `${number} ${word}`
     }
   )
+}
 
-  // match numbers that does not include comma or dot then format with dots
-  preparedText = preparedText.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+const formatNumbers = (text: string) => {
+  return text.replace(
+    /\b(uma?|dois|duas|três|quatro|cinco|seis|sete|oito|nove|dez)\s+(mil|milhão|milhões|bilhão|bilhões|trilhão|trilhões)\s?(e meio|)\b/ig,
+    (_, number: string, word: string, meio: string) => {
+      return `${units[number] as string} ${word}${!meio ? '' : ' e 1/2'}`
+    })
+}
 
-  // capitalize next word after punctuation
-  preparedText = preparedText.replace(
+const insertDotInNumbers = (text: string) => {
+  return text.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+}
+
+const capitalizeNextWordAfterPunctuation = (text: string) => {
+  return text.replace(
     /([.!?]\s+)([a-z])/g,
     (_, p1: string, p2: string) => {
       return `${p1}${p2.toUpperCase()}`
     }
   )
-
-  // capitalize next word after truncation
-  preparedText = preparedText.replace(
-    /(\w+-\s)([a-z])/g,
-    (_, p1: string, p2: string) => {
-      return `${p1}${p2.toUpperCase()}`
-    }
-  )
-
-  return preparedText
 }

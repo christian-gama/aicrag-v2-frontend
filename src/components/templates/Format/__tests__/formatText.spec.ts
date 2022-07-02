@@ -44,7 +44,7 @@ describe('format', () => {
   })
 
   it('remove palavras truncadas', () => {
-    expect(formatText('caramba, por-')).toBe('caramba, ')
+    expect(formatText('caramba, por- ah, deixa')).toBe('caramba, ah, deixa')
   })
 
   it('formata moedas', () => {
@@ -106,7 +106,7 @@ diferente… Ela está laranja pra caramba!
 – O que foi que você fez? – pergunto, chocada. Sei que não estou no meu melhor ultimamente, mas não
 há como negar o tom da pele dela. `
     expect(formatText(text3)).toBe(
-      'Srta. Quinn. Eu a cumprimento, com a voz cansada. Ava, como vai? Ela sempre me pergunta como estou, o que é bom, penso eu. Não vou dizer a verdade a ela. Estou bem. E você? Sim, sim, bem ela diz, animada. Eu só queria checar se nosso encontro está de pé. Às quatro e meia, Srta. Quinn confirmo, pelo terceiro dia consecutivo. Acho que vou aumentar o valor a ser cobrado por esse trabalho. Ótimo! Não vejo a hora. Desligo e respiro fundo para me acalmar. Onde eu estava com a cabeça quando marquei de terminar a sexta-feira me reunindo com uma cliente nova e complicada? Victoria entra no escritório com os longos cabelos loiros esvoaçando sobre os ombros. Ela parece diferente. Ela está laranja para caramba! O que foi que você fez? Pergunto, chocada. Sei que não estou no meu melhor ultimamente, mas não há como negar o tom da pele dela. '
+      'Srta. Quinn. Eu a cumprimento, com a voz cansada. Ava, como vai? Ela sempre me pergunta como estou, o que é bom, penso eu. Não vou dizer a verdade a ela. Estou bem. E você? Sim, sim, bem ela diz, animada. Eu só queria checar se nosso encontro está de pé. Às quatro e meia, Srta. Quinn confirmo, pelo terceiro dia consecutivo. Acho que vou aumentar o valor a ser cobrado por esse trabalho. Ótimo! Não vejo a hora. Desligo e respiro fundo para me acalmar. Onde eu estava com a cabeça quando marquei de terminar a sexta-feira me reunindo com uma cliente nova e complicada? Victoria entra no escritório com os longos cabelos loiros esvoaçando sobre os ombros. Ela parece diferente. Ela está laranja para caramba! O que foi que você fez? Pergunto, chocada. Sei que não estou no meu melhor ultimamente, mas não há como negar o tom da pele dela.'
     )
   })
 
@@ -126,5 +126,20 @@ há como negar o tom da pele dela. `
     expect(formatText('  Esse texto está errado.')).toBe(
       'Esse texto está errado.'
     )
+  })
+
+  it('substitui corretamente', () => {
+    expect(formatText('on-line')).toBe('online')
+    expect(formatText('bem vindo')).toBe('bem-vindo')
+    expect(formatText('Bem vinda, fulano')).toBe('Bem-vinda, fulano')
+    expect(formatText('Bem vindos, fulano')).toBe('Bem-vindos, fulano')
+    expect(formatText('me dê três  segundos, meu amigo')).toBe('me dê 3 segundos, meu amigo')
+    expect(formatText('duas horas')).toBe('2 horas')
+    expect(formatText('duas horas e meio')).toBe('2 horas e meio')
+    expect(formatText('dois bilhões  e  meio')).toBe('2 bilhões e 1/2')
+    expect(formatText('um milhão')).toBe('1 milhão')
+    expect(formatText('um!?')).toBe('um?')
+    expect(formatText('um?!')).toBe('um?')
+    expect(formatText('um!!')).toBe('um!')
   })
 })
