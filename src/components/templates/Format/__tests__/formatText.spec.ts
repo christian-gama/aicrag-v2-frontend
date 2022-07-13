@@ -116,6 +116,14 @@ há como negar o tom da pele dela. `
     ).toBe('Esse texto está errado. Aqui? Deveria estar capitalizado.')
   })
 
+  it('formata milhares', () => {
+    expect(formatText('1 mil')).toBe('1.000')
+    expect(formatText('1 milhão')).toBe('1 milhão')
+    expect(formatText('20 mil')).toBe('20.000')
+    expect(formatText('200 mil')).toBe('200.000')
+    expect(formatText('200 mil.')).toBe('200.000.')
+  })
+
   it('remove travessão caso comece a frase com ele', () => {
     expect(formatText('—Esse texto-aqui está errado.')).toBe(
       'Esse texto-aqui está errado.'

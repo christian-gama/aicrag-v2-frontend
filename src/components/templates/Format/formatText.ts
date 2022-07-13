@@ -136,6 +136,7 @@ export const formatText = (text: string) => {
   preparedText = formatTime(preparedText)
   preparedText = formatUnitMeasure(preparedText)
   preparedText = formatNumbers(preparedText)
+  preparedText = formatThousands(preparedText)
   preparedText = insertDotInNumbers(preparedText)
   preparedText = capitalizeNextWordAfterPunctuation(preparedText)
   preparedText = capitalizeNextWordAfterTruncation(preparedText)
@@ -275,6 +276,14 @@ const capitalizeNextWordAfterPunctuation = (text: string) => {
     /([.!?]\s+)([a-z])/g,
     (_, p1: string, p2: string) => {
       return `${p1}${p2.toUpperCase()}`
+    }
+  )
+}
+
+const formatThousands = (text: string) => {
+  return text.replace(
+    /\b(\d+)\smil(\.|,|\?|!|:|;)?\b/g, (_, number: string, trailing: string) => {
+      return `${number}.000${trailing || ''}`
     }
   )
 }
